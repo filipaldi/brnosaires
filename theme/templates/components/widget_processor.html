@@ -1,0 +1,60 @@
+{% macro process_widgets(content) %}
+  {% set widget_pattern = '<div data-widget="' %}
+  
+  {% if widget_pattern in content %}
+    {% set parts = content.split(widget_pattern) %}
+    {{ parts[0] }}
+    
+    {% for part in parts[1:] %}
+      {% if '"></div>' in part %}
+        {% set widget_end = part.split('"></div>', 1) %}
+        {% set widget_attrs = widget_end[0] %}
+        {% set after_widget = widget_end[1] %}
+        
+        {% set widget_type = '' %}
+        {% set filter_type = none %}
+        {% set span_type = none %}
+        {% set span_days = none %}
+        {% set span_start_date = none %}
+        {% set span_end_date = none %}
+        {% set year = none %}
+        {% set month = none %}
+        
+        {% set attrs = widget_attrs.split('" ') %}
+        {% for attr in attrs %}
+          {% if 'data-widget="' in attr %}
+            {% set widget_type = attr.split('data-widget="')[1] %}
+          {% elif 'data-filter="' in attr %}
+            {% set filter_type = attr.split('data-filter="')[1] %}
+          {% elif 'data-span-type="' in attr %}
+            {% set span_type = attr.split('data-span-type="')[1] | lower %}
+          {% elif 'data-span-days="' in attr %}
+            {% set span_days = attr.split('data-span-days="')[1] | int %}
+          {% elif 'data-span-start="' in attr %}
+            {% set span_start_date = attr.split('data-span-start="')[1] %}
+          {% elif 'data-span-end="' in attr %}
+            {% set span_end_date = attr.split('data-span-end="')[1] %}
+          {% elif 'data-year="' in attr %}
+            {% set year = attr.split('data-year="')[1] | int %}
+          {% elif 'data-month="' in attr %}
+            {% set month = attr.split('data-month="')[1] | int %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if widget_type == 'filtered_events' %}
+          {% set filter_type = filter_type | lower if filter_type else none %}
+          
+          {% include 'components/filtered_events_widget.html' with context %}
+        {% elif widget_type == 'calendar_month' %}
+          {% include 'components/calendar_month_widget.html' with context %}
+        {% endif %}
+        
+        {{ process_widgets(after_widget) }}
+      {% else %}
+        {{ part }}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {{ content }}
+  {% endif %}
+{% endmacro %}
