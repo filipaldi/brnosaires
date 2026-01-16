@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} | {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="group--main-container">
+  <article class="stack gap-m">
+    <header>
+      <h1 class="text-3xl">{{ article.title }}</h1>
+      {% if article.date %}
+      <time class="text-s color-neutral-3" datetime="{{ article.date.isoformat() }}">
+        {{ article.date.strftime('%d. %m. %Y') }}
+      </time>
+      {% endif %}
+    </header>
+
+    <div class="stack gap-m">
+      {{ article.content }}
+    </div>
+  </article>
+</div>
+{% endblock %}

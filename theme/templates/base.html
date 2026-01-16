@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  
+  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/variables.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typography.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/core.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/layout.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/spacing.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/aesthetic.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/components.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/page.css">
+  {% if (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/marathon.css">
+  {% endif %}
+  
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="padding-all-m" role="banner">
+    <div class="cluster justify-between align-center">
+      <a href="{{ SITEURL }}/" class="logo">
+        <span class="text-xl">{{ SITENAME }}</span>
+      </a>
+      {% include 'components/navigation.html' %}
+      <div class="cluster gap-s">
+        <button class="nav__icon" aria-label="Theme toggle" id="theme-toggle">
+        </button>
+        <button class="nav__icon" aria-label="Search" id="search-toggle">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'components/footer.html' %}
+
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

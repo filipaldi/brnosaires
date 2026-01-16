@@ -1,0 +1,6 @@
+pelican[markdown]
+notion-client
+python-dotenv
+requests
+pytz
+unidecode

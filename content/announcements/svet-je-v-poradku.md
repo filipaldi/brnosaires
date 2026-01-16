@@ -1,0 +1,14 @@
+---
+title: "Svět je v pořádku"
+date: 2024-05-20 02:00:00
+slug: svet-je-v-poradku
+category: announcement
+---
+
+Svět je zase v pořádku ✌️. Minulý čtvrtek bez tanga vystřídá nový čtvrtek s tangem 🫶🥳
+Takto na konci dne a na sklonku týdne máš ten nejlepší program 👉 ověřeno hromadou tangových tanečníků🕤.
+Brněnská tango planeta se zase vrací na svou oběžnou dráhu 🌏 a ty se vracíš do Adrinely 🏃‍♂️🏃‍♀️
+DJ Zsofie ❤️
+Kamarádi, co tě rádi obejmou 🤗
+
+![]({static}/images/zsofia.jpg)

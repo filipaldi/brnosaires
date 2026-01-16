@@ -1,0 +1,155 @@
+{% set event_pages = [] %}
+{% for article in articles %}
+  {% if article.source_path and 'events/' in article.source_path %}
+    {% set _ = event_pages.append(article) %}
+  {% endif %}
+{% endfor %}
+
+{% set filtered_events = [] %}
+{% set type_filtered = [] %}
+
+{% if filter_type == 'milonga' %}
+  {% for page in event_pages %}
+    {% set title_lower = page.title | lower %}
+    {% if 'milonga' in title_lower %}
+      {% set _ = type_filtered.append(page) %}
+    {% endif %}
+  {% endfor %}
+{% elif filter_type == 'workshop' %}
+  {% for page in event_pages %}
+    {% set title_lower = page.title | lower %}
+    {% if 'workshop' in title_lower or 'lekce' in title_lower or 'lekci' in title_lower %}
+      {% set _ = type_filtered.append(page) %}
+    {% endif %}
+  {% endfor %}
+{% elif filter_type == 'class' %}
+  {% for page in event_pages %}
+    {% set title_lower = page.title | lower %}
+    {% if 'class' in title_lower or 'lekce' in title_lower %}
+      {% set _ = type_filtered.append(page) %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% for page in event_pages %}
+    {% set _ = type_filtered.append(page) %}
+  {% endfor %}
+{% endif %}
+
+{% set events_to_check = type_filtered %}
+
+{% if span_type %}
+  {% if span_type == 'next' %}
+    {% if span_days >= 365 %}
+      {% for page in events_to_check %}
+        {% set _ = filtered_events.append(page) %}
+      {% endfor %}
+    {% else %}
+      {% for page in events_to_check %}
+        {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+        {% if page_start %}
+          {% set _ = filtered_events.append(page) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% elif span_type == 'last' %}
+    {% if span_days >= 365 %}
+      {% for page in events_to_check %}
+        {% set _ = filtered_events.append(page) %}
+      {% endfor %}
+    {% else %}
+      {% for page in events_to_check %}
+        {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+        {% if page_start %}
+          {% set _ = filtered_events.append(page) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% elif span_type == 'range' %}
+    {% set start_str = span_start_date %}
+    {% set end_str = span_end_date %}
+    
+    {% for page in events_to_check %}
+      {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+      {% if page_start %}
+        {% if page_start is string %}
+          {% set page_date_str = page_start[:10] %}
+        {% else %}
+          {% set page_date_str = page_start.strftime('%Y-%m-%d') %}
+        {% endif %}
+        {% if page_date_str >= start_str and page_date_str <= end_str %}
+          {% set _ = filtered_events.append(page) %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% else %}
+  {% for page in events_to_check %}
+    {% set _ = filtered_events.append(page) %}
+  {% endfor %}
+{% endif %}
+
+{% if not filtered_events and events_to_check %}
+  {% for page in events_to_check %}
+    {% set _ = filtered_events.append(page) %}
+  {% endfor %}
+{% endif %}
+
+{% if filtered_events %}
+<div class="filtered-events-widget">
+  {% if filter_type == 'milonga' %}
+    <h3 class="filtered-events-widget__title">Milongy</h3>
+  {% elif filter_type == 'workshop' %}
+    <h3 class="filtered-events-widget__title">Lekce</h3>
+  {% elif filter_type == 'class' %}
+    <h3 class="filtered-events-widget__title">Lekce</h3>
+  {% elif filtered_events %}
+    <h3 class="filtered-events-widget__title">Události</h3>
+  {% endif %}
+  
+  <div class="group--event-cards">
+    {% for event in filtered_events %}
+    <article class="event-card">
+      <div class="event-card__content stack gap-xs">
+        <h3 class="event-card__title">
+          <a href="{{ SITEURL }}/{{ event.url }}">{{ event.title }}</a>
+        </h3>
+        <div class="event-card__meta stack gap-2xs">
+          {% set event_start = event.start | default(event.event_start) | default(event['event-start']) | default(event.metadata.get('event-start') if event.metadata else none) %}
+          {% set event_end = event.end | default(event.event_end) | default(event['event-end']) | default(event.metadata.get('event-end') if event.metadata else none) %}
+          {% if event_start %}
+            {% if event_start is string %}
+              {% set event_date_str = event_start[:10] %}
+              {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
+              {% set day = event_date_str[8:10] %}
+              {% set month = event_date_str[5:7] %}
+              {% set year = event_date_str[:4] %}
+            {% else %}
+              {% set event_date_str = event_start.strftime('%Y-%m-%d') %}
+              {% set event_time_str = event_start.strftime('%H:%M') %}
+              {% set day = event_start.strftime('%d') %}
+              {% set month = event_start.strftime('%m') %}
+              {% set year = event_start.strftime('%Y') %}
+            {% endif %}
+          <div class="event-card__meta-item">
+            <span>{{ day }}. {{ month }}. {{ year }}</span>
+          </div>
+          {% endif %}
+          {% if event_start %}
+            {% if event_start is string %}
+              {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
+              {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
+            {% else %}
+              {% set event_time_str = event_start.strftime('%H:%M') %}
+              {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
+            {% endif %}
+          <div class="event-card__meta-item">
+            <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

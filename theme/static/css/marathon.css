@@ -1,0 +1,240 @@
+/* ============================================
+   MARATHON SECTION STYLES
+   Migrated from marathon/_styles.css
+   ============================================ */
+
+.marathon-page {
+  --base-font-size: 4.1vw;
+  --base-line-height: 6vw;
+  --small-font-size: 3.2vw;
+  --aside-margin: 6vw;
+  --gap-space: 2.4vw;
+}
+
+.marathon-page body {
+  color: var(--color-neutral-5);
+  background: var(--color-gray-light-1);
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  font-style: normal;
+  font-weight: 400;
+  font-feature-settings: "liga" 1, "calt" 1;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+.marathon-page .marathon-content {
+  margin-bottom: 10vw;
+  margin-top: 8vw;
+  margin-left: 7vw;
+  margin-right: 7vw;
+}
+
+.marathon-navigation {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: var(--gap-space);
+  top: auto;
+  left: auto;
+  right: 1vw;
+  bottom: 4vw;
+  z-index: var(--z-index-high);
+}
+
+.marathon-navigation a {
+  font-size: var(--small-font-size);
+  color: var(--color-neutral-5);
+  background: var(--color-gray-light-1);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1vw 3vw 0.8vw;
+  border-radius: 15vw;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-neutral-5);
+}
+
+.marathon-navigation a:hover {
+  background: var(--color-gray-light-2);
+}
+
+.marathon-page h1 {
+  font-size: 12vw;
+  line-height: 13vw;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+.marathon-page h2 {
+  font-size: 8.6vw;
+  line-height: 11vw;
+  margin: 0;
+  padding: 0;
+  margin-bottom: calc(0.5 * var(--base-line-height));
+  margin-top: calc(1 * var(--base-line-height));
+}
+
+.marathon-page h2:first-of-type {
+  margin-top: 0;
+  margin-bottom: calc(2 * var(--base-line-height));
+}
+
+.marathon-page p,
+.marathon-page ul {
+  max-width: 76vw;
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  margin-bottom: var(--base-line-height);
+  margin-top: 0;
+  padding: 0;
+}
+
+.marathon-page .marathon-image img {
+  filter: saturate(1%) contrast(110%) sepia(10%);
+}
+
+.marathon-page .marathon-image img:hover {
+  filter: none;
+}
+
+.marathon-page .marathon-caption {
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  color: var(--color-neutral-5);
+  width: 100%;
+  text-align: center;
+}
+
+.marathon-page .marathon-image.page-width > figcaption {
+  padding: 6vw 0;
+}
+
+.marathon-sign-up-button {
+  position: fixed;
+  padding: 5vw 7vw;
+  border-radius: 15vw;
+  top: auto;
+  bottom: 2vw;
+  right: 2vw;
+  color: var(--color-neutral-5);
+  background: var(--color-gray-light-1);
+  z-index: var(--z-index-high);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-neutral-5);
+  text-decoration: none;
+}
+
+.marathon-sign-up-button:hover {
+  background: var(--color-gray-light-2);
+  text-decoration: none;
+}
+
+.marathon-page .notion-table {
+  min-width: 100%;
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .marathon-page {
+    --base-font-size: 2.7vw;
+    --base-line-height: 4vw;
+    --small-font-size: 2vw;
+    --gap-space: 1.25vw;
+  }
+
+  .marathon-navigation {
+    top: 9vw;
+    right: 2vw;
+    bottom: auto;
+  }
+
+  .marathon-navigation a {
+    padding: 0.5vw 1vw 0.4vw;
+  }
+
+  .marathon-page .marathon-content {
+    margin-bottom: 12vw;
+    margin-top: 9vw;
+    margin-left: 4vw;
+    margin-right: 4vw;
+  }
+
+  .marathon-page .marathon-column-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 6vw;
+    align-items: start;
+    justify-items: start;
+  }
+
+  .marathon-page .marathon-column {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .marathon-page .marathon-image.page-width > figcaption {
+    padding: 3vw 0;
+  }
+}
+
+@media (min-width: 900px) {
+  .marathon-page {
+    --base-font-size: 1.65vw;
+    --small-font-size: 1.5vw;
+    --base-line-height: 2.5vw;
+    --aside-margin: 12vw;
+    --gap-space: 1.25vw;
+  }
+
+  .marathon-page .marathon-content {
+    margin-bottom: 6vw;
+    margin-top: 4vw;
+    margin-left: 5vw;
+    margin-right: 29vw;
+  }
+
+  .marathon-navigation {
+    top: 4vw;
+    right: 4vw;
+    bottom: auto;
+  }
+
+  .marathon-navigation a {
+    padding: 0.2vw 1vw 0.11vw;
+  }
+
+  .marathon-page h1 {
+    font-size: 11vw;
+    line-height: 11vw;
+  }
+
+  .marathon-page h2 {
+    font-size: 4.5vw;
+    font-weight: 400;
+    line-height: 5vw;
+  }
+
+  .marathon-sign-up-button {
+    padding: 1.3vw 2.2vw;
+    border-radius: 5vw;
+    top: 4vw;
+    right: 4vw;
+    bottom: auto;
+  }
+
+  .marathon-page .marathon-column-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .marathon-page .marathon-image.page-width > figcaption {
+    padding: 1vw 0;
+  }
+}

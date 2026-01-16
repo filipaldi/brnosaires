@@ -1,0 +1,17 @@
+---
+title: "Přej si a kombinuj"
+date: 2024-06-10 02:00:00
+slug: prej-si-a-kombinuj
+category: announcement
+---
+
+Přej si čtvrtek bez deště 🙏
+Když si ho budeš přát 👉ty, 👉ty 👉aj ty, je poměrně vysoká šance, že se dešťové kapky stočí k Vysočině, kde už jsou na to zvyklí 🌧️😇
+První letošní open air milonga ve Stehlík coffee baru tak bude za svitu podvečerního slunce 🌅
+Kde jinde můžeš kombinovat kvalitní kafe☕ + víno🥂 + tango a čerstvý vánek? V dobré společnosti je to hotové tango nebe🥰
+DJ Richard tohle všecko má - kavárnu s kafem, vínem, playlist i taneční parket. Dobrou společnost uděláš ty, já, oni a ony❤️
+Dojdi a tvůj podíl na tangovém nebi tě bude hřát ještě letos v zimě🤗
+V případě deště nechoď😭 Ideální když zůstaneš ve spojení třeba tu.
+👆Pozor - už od 18h jen do 22h!
+
+![]({static}/images/stehlk.jpg)

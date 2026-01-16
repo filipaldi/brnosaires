@@ -1,0 +1,242 @@
+/* ============================================
+   COMPONENTS CLASSES
+   Styles that are better to group 
+   in components rather than utilities
+   ============================================ */
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+button {
+  padding: var(--button-padding);
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  border-radius: var(--interactions-border-radius);
+  cursor: pointer;
+  font-family: inherit;
+  border: var(--border-style-m);
+  background-color: var(--color-gray-light-1);
+  color: var(--color-neutral-5);
+}
+
+button:focus {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
+}
+
+button:hover {
+  background-color: var(--color-gray-light-2);
+}
+
+.button-yellow {
+  font-size: var(--text-l);
+  line-height: var(--size-l);
+  font-weight: var(--font-weight-bold);
+  padding: var(--size-xs) var(--size-m);
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg width='356' height='62' viewBox='0 0 356 62' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 49H264.5L282.143 62H17.6429L0 49Z' fill='%23D1B71A'/%3E%3Cpath d='M45.3891 0H339L311.611 62H18L45.3891 0Z' fill='%23FEDC43'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: var(--color-neutral-5);
+  border: none;
+  width: 100%;
+  z-index: 1;
+}
+
+/* ============================================
+   INPUTS
+   ============================================ */
+
+.input {
+  background-color: var(--color-gray-light-1);
+  color: var(--color-neutral-5);
+  border-radius: var(--interactions-border-radius);
+}
+
+.input::placeholder {
+  color: var(--color-neutral-3);
+}
+
+.input-with-action {
+  display: flex;
+  position: relative;
+}
+
+.input-with-action input {
+  flex: 1;
+}
+
+.input-with-action button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 0 var(--size-xs);
+}
+
+.input-with-action button:focus {
+  outline: none;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  padding: var(--size-xs);
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+}
+
+input[type="checkbox"] + span {
+  display: inline-block;
+  width: var(--size-s);
+  height: var(--size-s);
+  margin-right: var(--size-2xs);
+  background-color: var(--color-gray-light-1);
+  border-radius: var(--interactions-border-radius);
+  flex-shrink: 0;
+  cursor: pointer;
+  border: var(--border-style-m);
+}
+
+input[type="checkbox"]:checked + span {
+  background-color: var(--color-neutral-5);
+}
+
+/* ============================================
+   MESSAGES & STATES
+   ============================================ */
+
+.error-message {
+  display: none;
+}
+
+.error-message:not(:empty) {
+  display: block;
+  color: var(--color-neutral-4);
+  font-size: var(--text-xs);
+  line-height: var(--size-m);
+  margin-top: var(--size-2xs);
+}
+
+/* ============================================
+   FRAME
+   ============================================ */
+
+.frame {
+  aspect-ratio: var(--frame-ratio, 16 / 9);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame > img,
+.frame > video {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   EVENT CARD
+   ============================================ */
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-gray-light-1);
+  border: var(--border-style-m);
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+}
+
+.event-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.event-card .event-card__content {
+  padding: var(--size-m);
+}
+
+.event-card .event-card__title {
+  font-size: var(--text-l);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--size-xs);
+}
+
+.event-card .event-card__meta {
+  font-size: var(--text-s);
+  color: var(--color-neutral-3);
+}
+
+.event-card .event-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2xs);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--size-m);
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2xs);
+  text-decoration: none;
+  color: var(--color-neutral-5);
+}
+
+.nav__item:hover {
+  color: var(--color-accent-3);
+  text-decoration: underline;
+}
+
+.nav__item--active {
+  color: var(--color-accent-3);
+  font-weight: var(--font-weight-bold);
+}
+
+.nav__icon {
+  width: var(--size-m);
+  height: var(--size-m);
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav--open {
+    display: flex;
+  }
+  
+  header .cluster {
+    flex-wrap: wrap;
+  }
+}

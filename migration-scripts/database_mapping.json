@@ -1,0 +1,522 @@
+{
+  "databases": {
+    "15e51b78-e737-8073-a55c-e649f0bde69c": {
+      "title": "Tango kalend\u00e1\u0159",
+      "type": "events"
+    },
+    "26a51b78-e737-8078-aff1-fe0c99311dca": {
+      "title": "Rozvrh pravideln\u00fdch lekc\u00ed",
+      "type": "classes"
+    },
+    "15e51b78-e737-807a-a58c-fe9d3dc96ab9": {
+      "title": "New database",
+      "type": "curiosity"
+    },
+    "1d151b78-e737-80d6-82df-fb435ce86283": {
+      "title": "Organizace Milong",
+      "type": null
+    },
+    "1d551b78-e737-80e5-9029-d065cc9a7f4e": {
+      "title": "Lenkine Tango Oznamy",
+      "type": "announcements"
+    },
+    "19651b78-e737-808b-b51f-d40c1d7943f0": {
+      "title": "Vyzb\u00edran\u00e9 pen\u00edze",
+      "type": null
+    },
+    "1c151b78-e737-8058-98f2-d566a7c84cd8": {
+      "title": "M\u00f4\u017eme robi\u0165 milongy v t\u00fd\u017edni sk\u00f4r",
+      "type": null
+    },
+    "7fb41ee2-0789-48a8-a19e-b94406689ed5": {
+      "title": "Team Members",
+      "type": null
+    },
+    "8ed18b8d-6ff0-450c-9828-d670439af226": {
+      "title": "OKRs",
+      "type": null
+    },
+    "19551b78-e737-8128-8137-f711ca3d3ec8": {
+      "title": "Recent Decisions",
+      "type": null
+    },
+    "19551b78-e737-81d6-b8b2-f193921af7b0": {
+      "title": "OKRs",
+      "type": null
+    },
+    "19551b78-e737-8143-afcc-e833f12ff060": {
+      "title": "Team Members",
+      "type": null
+    }
+  },
+  "standalone_pages": [
+    "1ac51b78-e737-8002-83ac-e05ea90fdfb8",
+    "28c51b78-e737-80ac-9423-cd75cdaa8304",
+    "20d51b78-e737-802d-8e8e-c43dd6948f47",
+    "1b351b78-e737-80b9-ade6-dcbda203fa87",
+    "2b051b78-e737-8060-a95d-c45add664074",
+    "22951b78-e737-8002-a516-f7ce4892c2e7",
+    "28c51b78-e737-806b-9aa3-e9197222c17a",
+    "28c51b78-e737-809d-b1eb-da7520f215d6",
+    "28c51b78-e737-8054-93f7-db8eaf08d9d9",
+    "28c51b78-e737-80bc-89ef-ff48af63d340",
+    "25051b78-e737-80ea-b36a-f322ba4c32b8",
+    "15e51b78-e737-80f0-a823-ede0eb3df7eb",
+    "20d51b78-e737-80e9-ab39-ff6df1aef604",
+    "1fb51b78-e737-80d0-b3c5-e340fd47b86f",
+    "1bb51b78-e737-801b-a0bd-f7454ebf9106",
+    "19951b78-e737-80c9-b01f-f586eb58052c",
+    "21a51b78-e737-8028-8442-caccfa549de7",
+    "1d551b78-e737-803e-8cfd-faaa6da70a5b",
+    "1c151b78-e737-802a-914f-e3a50e0673b8",
+    "15e51b78-e737-806b-a83d-d1ba586d2b53",
+    "1c151b78-e737-80cf-b072-f5b8dbd6e957",
+    "19651b78-e737-8075-bac6-cf352a8107b2",
+    "15e51b78-e737-80b1-a1f6-d827f3088863",
+    "15e51b78-e737-808b-bc5d-cf4a1ed78684",
+    "19551b78-e737-8018-be73-f87d45125cfe",
+    "19551b78-e737-81bc-a099-f56278f1f319",
+    "19551b78-e737-8115-926d-fcd5a1212faf",
+    "19551b78-e737-811c-8e2c-f8f5b5e940fc",
+    "19551b78-e737-81a1-9d83-db89e15f4783",
+    "19551b78-e737-81bd-bae8-ea4336b86ccf",
+    "19551b78-e737-8102-a753-ee95a390d2dd",
+    "19551b78-e737-8148-a755-c0b67c24ac09",
+    "19551b78-e737-8165-b52d-f2436bec387a",
+    "19551b78-e737-81ab-a19c-d8183155bef5"
+  ],
+  "database_structures": {
+    "15e51b78-e737-8073-a55c-e649f0bde69c": {
+      "id": "15e51b78-e737-8073-a55c-e649f0bde69c",
+      "title": "Tango kalend\u00e1\u0159",
+      "properties": {
+        "Druh": {
+          "type": "select",
+          "id": "%3D%7BBQ"
+        },
+        "Organizuje": {
+          "type": "multi_select",
+          "id": "KfDW"
+        },
+        "P\u0159\u00edsp\u011bvek": {
+          "type": "rich_text",
+          "id": "Xow%5D"
+        },
+        "Website": {
+          "type": "url",
+          "id": "Yo%3CU"
+        },
+        "Date": {
+          "type": "date",
+          "id": "l%3ETu"
+        },
+        "M\u00edsto": {
+          "type": "rich_text",
+          "id": "xx_%40"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "edf898b0-556e-41c5-99f4-3817d4ed6f7d",
+          "name": "Tango kalend\u00e1\u0159"
+        }
+      ],
+      "total_count": 191,
+      "sample_count": 5
+    },
+    "26a51b78-e737-8078-aff1-fe0c99311dca": {
+      "id": "26a51b78-e737-8078-aff1-fe0c99311dca",
+      "title": "Rozvrh pravideln\u00fdch lekc\u00ed",
+      "properties": {
+        "Den": {
+          "type": "select",
+          "id": "K%3FIv"
+        },
+        "Registrace": {
+          "type": "url",
+          "id": "LLai"
+        },
+        "Studio": {
+          "type": "select",
+          "id": "Mko%3C"
+        },
+        "Instructor": {
+          "type": "multi_select",
+          "id": "eMzU"
+        },
+        "\u010cas": {
+          "type": "rich_text",
+          "id": "~dOL"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "26a51b78-e737-80d4-bfdb-000bd8ef00b6",
+          "name": "Rozvrh pravideln\u00fdch lekc\u00ed"
+        }
+      ],
+      "total_count": 16,
+      "sample_count": 5
+    },
+    "15e51b78-e737-807a-a58c-fe9d3dc96ab9": {
+      "id": "15e51b78-e737-807a-a58c-fe9d3dc96ab9",
+      "title": "New database",
+      "properties": {
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "65edaa9e-d55c-4a8a-bd49-aa89b7d806af",
+          "name": "New database"
+        }
+      ],
+      "total_count": 4,
+      "sample_count": 4
+    },
+    "1d151b78-e737-80d6-82df-fb435ce86283": {
+      "id": "1d151b78-e737-80d6-82df-fb435ce86283",
+      "title": "Organizace Milong",
+      "properties": {
+        "pozn\u00e1mky": {
+          "type": "rich_text",
+          "id": "Acxm"
+        },
+        "Date": {
+          "type": "rollup",
+          "id": "FPMk"
+        },
+        "DJ Status": {
+          "type": "select",
+          "id": "TJZb"
+        },
+        "Open Class": {
+          "type": "select",
+          "id": "Vb%7Dg"
+        },
+        "Rei\u0161i": {
+          "type": "select",
+          "id": "%5BAcJ"
+        },
+        "Technika": {
+          "type": "select",
+          "id": "efV%3D"
+        },
+        "Event": {
+          "type": "relation",
+          "id": "yVCp"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "1d151b78-e737-80ca-b355-000ba43b5df1",
+          "name": "Organizace Milong"
+        }
+      ],
+      "total_count": 5,
+      "sample_count": 5
+    },
+    "1d551b78-e737-80e5-9029-d065cc9a7f4e": {
+      "id": "1d551b78-e737-80e5-9029-d065cc9a7f4e",
+      "title": "Lenkine Tango Oznamy",
+      "properties": {
+        "Datum": {
+          "type": "date",
+          "id": "%3Dx%3D%7B"
+        },
+        "Nadpis": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "1d551b78-e737-801e-9f2c-000bd26d7ac8",
+          "name": "Lenkine Tango Oznamy"
+        }
+      ],
+      "total_count": 73,
+      "sample_count": 5
+    },
+    "19651b78-e737-808b-b51f-d40c1d7943f0": {
+      "id": "19651b78-e737-808b-b51f-d40c1d7943f0",
+      "title": "Vyzb\u00edran\u00e9 pen\u00edze",
+      "properties": {
+        "Jin\u00e9 V\u00fddaje": {
+          "type": "number",
+          "id": "DGAp"
+        },
+        "Vybralo se": {
+          "type": "number",
+          "id": "JPsV"
+        },
+        "Kav\u00e1rna": {
+          "type": "number",
+          "id": "ZiJP"
+        },
+        "Z\u00fastatek": {
+          "type": "formula",
+          "id": "b%40pp"
+        },
+        "Vstupn\u00e9": {
+          "type": "number",
+          "id": "gwNM"
+        },
+        "Datum": {
+          "type": "date",
+          "id": "hvoV"
+        },
+        "Vybral QR": {
+          "type": "number",
+          "id": "lh%5DE"
+        },
+        "DJ": {
+          "type": "number",
+          "id": "s%60bl"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19651b78-e737-807e-a0de-000b4fba6477",
+          "name": "Vyzb\u00edran\u00e9 pen\u00edze"
+        }
+      ],
+      "total_count": 12,
+      "sample_count": 5
+    },
+    "1c151b78-e737-8058-98f2-d566a7c84cd8": {
+      "id": "1c151b78-e737-8058-98f2-d566a7c84cd8",
+      "title": "M\u00f4\u017eme robi\u0165 milongy v t\u00fd\u017edni sk\u00f4r",
+      "properties": {
+        "Odpove\u010f": {
+          "type": "rich_text",
+          "id": "_J%7De"
+        },
+        "Verdikt": {
+          "type": "select",
+          "id": "kK%5BU"
+        },
+        "Doptat se": {
+          "type": "rich_text",
+          "id": "m%3EfS"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "1c151b78-e737-80bb-be1a-000b593a4352",
+          "name": "M\u00f4\u017eme robi\u0165 milongy v t\u00fd\u017edni sk\u00f4r"
+        }
+      ],
+      "total_count": 20,
+      "sample_count": 5
+    },
+    "7fb41ee2-0789-48a8-a19e-b94406689ed5": {
+      "id": "7fb41ee2-0789-48a8-a19e-b94406689ed5",
+      "title": "Team Members",
+      "properties": {
+        "Job Title": {
+          "type": "rich_text",
+          "id": "9rMz"
+        },
+        "Phone": {
+          "type": "phone_number",
+          "id": "Mj%24g"
+        },
+        "LinkedIn": {
+          "type": "url",
+          "id": "Vv%5C%3A"
+        },
+        "Favorite Dessert": {
+          "type": "rich_text",
+          "id": "%5DI%3Ci"
+        },
+        "Joined": {
+          "type": "created_time",
+          "id": "k%2C%5BP"
+        },
+        "Location": {
+          "type": "select",
+          "id": "khG%60"
+        },
+        "Department": {
+          "type": "select",
+          "id": "qeOI"
+        },
+        "Email": {
+          "type": "email",
+          "id": "y%2FXJ"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19551b78-e737-813b-b64e-000baac1ef84",
+          "name": "Team Members"
+        }
+      ],
+      "total_count": 8,
+      "sample_count": 5
+    },
+    "8ed18b8d-6ff0-450c-9828-d670439af226": {
+      "id": "8ed18b8d-6ff0-450c-9828-d670439af226",
+      "title": "OKRs",
+      "properties": {
+        "Status": {
+          "type": "select",
+          "id": "0Z%7C!"
+        },
+        "Added By": {
+          "type": "people",
+          "id": "%3AT4W"
+        },
+        "Quarter": {
+          "type": "select",
+          "id": "%3C5uS"
+        },
+        "Objective + Key Results": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19551b78-e737-816c-ac2d-000b659ddc7c",
+          "name": "OKRs"
+        }
+      ],
+      "total_count": 3,
+      "sample_count": 3
+    },
+    "19551b78-e737-8128-8137-f711ca3d3ec8": {
+      "id": "19551b78-e737-8128-8137-f711ca3d3ec8",
+      "title": "Recent Decisions",
+      "properties": {
+        "Created": {
+          "type": "created_time",
+          "id": "db%3Fg"
+        },
+        "Status": {
+          "type": "select",
+          "id": "xZiR"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19551b78-e737-81ce-a234-000b5dbe1e24",
+          "name": "Recent Decisions"
+        }
+      ],
+      "total_count": 3,
+      "sample_count": 3
+    },
+    "19551b78-e737-81d6-b8b2-f193921af7b0": {
+      "id": "19551b78-e737-81d6-b8b2-f193921af7b0",
+      "title": "OKRs",
+      "properties": {
+        "Status": {
+          "type": "select",
+          "id": "0Z%7C!"
+        },
+        "Added By": {
+          "type": "people",
+          "id": "%3AT4W"
+        },
+        "Quarter": {
+          "type": "select",
+          "id": "%3C5uS"
+        },
+        "Objective + Key Results": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19551b78-e737-81b0-8cff-000bb0bc7fc6",
+          "name": "OKRs"
+        }
+      ],
+      "total_count": 3,
+      "sample_count": 3
+    },
+    "19551b78-e737-8143-afcc-e833f12ff060": {
+      "id": "19551b78-e737-8143-afcc-e833f12ff060",
+      "title": "Team Members",
+      "properties": {
+        "Job Title": {
+          "type": "rich_text",
+          "id": "9rMz"
+        },
+        "Phone": {
+          "type": "phone_number",
+          "id": "Mj%24g"
+        },
+        "LinkedIn": {
+          "type": "url",
+          "id": "Vv%5C%3A"
+        },
+        "Favorite Dessert": {
+          "type": "rich_text",
+          "id": "%5DI%3Ci"
+        },
+        "Joined": {
+          "type": "created_time",
+          "id": "k%2C%5BP"
+        },
+        "Location": {
+          "type": "select",
+          "id": "khG%60"
+        },
+        "Department": {
+          "type": "select",
+          "id": "qeOI"
+        },
+        "Email": {
+          "type": "email",
+          "id": "y%2FXJ"
+        },
+        "Name": {
+          "type": "title",
+          "id": "title"
+        }
+      },
+      "data_sources": [
+        {
+          "id": "19551b78-e737-81e9-91ab-000ba63c3bd1",
+          "name": "Team Members"
+        }
+      ],
+      "total_count": 8,
+      "sample_count": 5
+    }
+  }
+}

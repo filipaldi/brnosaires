@@ -1,0 +1,115 @@
+/* ============================================
+   LAYOUT CLASSES
+   Arrangement of elements only
+   Properties: display, align-items, justify-content, flex-wrap, grid-template-columns, overflow
+   DO NOT include: colors, backgrounds, spacing
+   ============================================ */
+
+/* ============================================
+   LAYOUT PATTERNS (Semantic, Every Layout inspired)
+   ============================================ */
+
+.box {
+  display: block;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-m);
+}
+
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((30rem - 100%) * 999);
+}
+
+.switcher > :nth-last-child(n+5),
+.switcher > :nth-last-child(n+5) ~ * {
+  flex-basis: 100%;
+}
+
+.cover {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100dvh;
+  align-items: center;
+  justify-items: center;
+}
+
+/* ============================================
+   JUSTIFY CONTENT UTILITIES
+   ============================================ */
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* ============================================
+   ALIGN ITEMS UTILITIES
+   ============================================ */
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+/* ============================================
+   Z-INDEX UTILITIES
+   ============================================ */
+
+.z-index-inferior {
+  z-index: var(--z-index-inferior);
+}
+
+.z-index-low {
+  z-index: var(--z-index-low);
+}
+
+.z-index-mid {
+  z-index: var(--z-index-mid);
+}
+
+.z-index-high {
+  z-index: var(--z-index-high);
+}
+
+.z-index-superior {
+  z-index: var(--z-index-superior);
+}

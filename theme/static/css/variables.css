@@ -1,0 +1,159 @@
+:root {
+   /* ============================================
+      VIEWPORT-BASED SCALING SYSTEM
+      ============================================ */
+
+   --unit: 1vw;
+   --const: 0.2; 
+   --size: calc(var(--unit) * var(--const));
+
+   /* ============================================
+      SIZE SCALE
+      ============================================ */
+
+   --size-2xs: calc(var(--size) * 5);  
+   --size-xs: calc(var(--size) * 10);
+   --size-s: calc(var(--size) * 20);
+   --size-m: calc(var(--size) * 30);
+   --size-l: calc(var(--size) * 40);
+   --size-xl: calc(var(--size) * 60);
+   --size-2xl: calc(var(--size) * 80);
+   --size-3xl: calc(var(--size) * 100);
+   --size-4xl: calc(var(--size) * 120);
+   --size-5xl: calc(var(--size) * 140);
+
+   /* ============================================
+      TYPOGRAPHY SCALE
+      ============================================ */
+
+   --text-2xs: calc(var(--size) * 12);
+   --text-xs: calc(var(--size) * 14);
+   --text-s: calc(var(--size) * 16);
+   --text-m: calc(var(--size) * 20);
+   --text-l: calc(var(--size) * 21.5);
+   --text-xl: calc(var(--size) * 23);
+   --text-2xl: calc(var(--size) * 25);
+   --text-3xl: calc(var(--size) * 32);
+   --text-4xl: calc(var(--size) * 54);
+   --text-5xl: calc(var(--size) * 72);
+
+   /* ============================================
+      COLOR SCALES - NEUTRAL (PRIMARY)
+      ============================================ */
+
+   --color-neutral-1: #BDBABA;
+   --color-neutral-2: #9B9898;
+   --color-neutral-3: #6F6D6D;
+   --color-neutral-4: #4A4949;
+   --color-neutral-5: #212121;
+
+   /* ============================================
+      COLOR SCALES - LIGHT GRAY (BACKGROUNDS)
+      ============================================ */
+
+   --color-gray-light-1: #FFFFFF;
+   --color-gray-light-2: #F1F1F1;
+   --color-gray-light-3: #E3E3E3;
+   --color-gray-light-4: #D9D9D9;
+   --color-gray-light-5: #C9C9C9;
+
+   /* ============================================
+      COLOR SCALES - ACCENT (LINKS)
+      ============================================ */
+
+   --color-accent-1: #6F6D6D;
+   --color-accent-2: #4A4949;
+   --color-accent-3: #212121;
+
+   /* ============================================
+      FONT VARIABLES
+      ============================================ */
+
+   --font-base: "Nunito", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+   --font-display: "Brnos-Aires", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+   --font-weight-regular: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+   --font-weight-bold: 700;
+   --font-style-normal: normal;
+   --font-style-italic: italic;
+
+   /* ============================================
+      BORDERS
+      ============================================ */
+
+   --border-width-s: calc(var(--size) * 2); 
+   --border-width-m: calc(var(--size) * 4);
+   --border-width-l: calc(var(--size) * 7);
+
+   --border-style-s: var(--border-width-s) solid var(--color-neutral-5);
+   --border-style-m: var(--border-width-m) solid var(--color-neutral-5);
+   --border-style-l: var(--border-width-l) solid var(--color-neutral-5);
+
+   --interactions-border-radius: none;
+   --card-border-radius: var(--size-m);
+
+   /* ============================================
+      Z-INDEX
+      ============================================ */
+
+   --z-index-inferior: -1;
+   --z-index-low: 1;
+   --z-index-mid: 100;
+   --z-index-high: 1000;
+   --z-index-superior: 10000;
+
+   /* ============================================
+      BUTTONS
+      ============================================ */
+
+   --button-padding: 0 calc(var(--size) * 8);
+}
+
+/* ============================================
+   RESPONSIVE --const VALUES
+   ============================================ */
+
+/* Mobile */
+@media screen and (orientation: portrait) and (min-width: 481px) and (max-width: 812px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (max-width: 812px) and (max-height: 812px),
+       screen and (orientation: landscape) and (max-width: 812px) {
+  :root {
+    --const: 0.15;
+  }
+}
+
+/* Tablet */
+@media screen and (orientation: portrait) and (min-width: 769px) and (max-width: 1400px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 813px) and (max-width: 1024px),
+       screen and (orientation: landscape) and (min-width: 813px) and (max-width: 1024px) {
+  :root {
+    --const: 0.12;
+  }
+}
+
+/* Desktop */
+@media screen and (orientation: portrait) and (min-width: 1401px) and (max-width: 1800px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1025px) and (max-width: 1400px),
+       screen and (orientation: landscape) and (min-width: 1025px) and (max-width: 1400px) {
+  :root {
+    --const: 0.08;
+  }
+}
+
+/* Large Desktop */
+@media screen and (orientation: portrait) and (min-width: 1801px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1401px) and (max-width: 1800px),
+       screen and (orientation: landscape) and (min-width: 1401px) and (max-width: 1800px) {
+  :root {
+    --const: 0.06;
+  }
+}
+
+/* Extra Large Desktop */
+@media screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1801px),
+       screen and (orientation: landscape) and (min-width: 1801px) {
+  :root {
+    --const: 0.05;
+  }
+}

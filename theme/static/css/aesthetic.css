@@ -1,0 +1,87 @@
+/* ============================================
+   AESTHETIC CLASSES
+   Visual appearance and branding only
+   Properties: color, background, border, box-shadow
+   DO NOT include: padding, display, margin
+   ============================================ */
+
+/* ============================================
+   COMPONENT AESTHETICS (Semantic, brand-specific)
+   ============================================ */
+
+.card {
+  border: var(--border-style-l);
+  border-radius: var(--card-border-radius);
+  background-color: var(--color-gray-light-1);
+}
+
+.input-border {
+  border: var(--border-style-m);
+  box-shadow: 
+    inset var(--border-width-s) 0 0 0 var(--color-neutral-1),
+    inset 0 calc(var(--border-width-s) * -1) 0 0 var(--color-neutral-1);
+}
+
+.input-border:hover {
+  box-shadow: 
+    inset var(--border-width-s) 0 0 0 var(--color-neutral-2),
+    inset 0 calc(var(--border-width-s) * -1) 0 0 var(--color-neutral-2);
+}
+
+.input-border:focus {
+  box-shadow: 
+    inset var(--border-width-s) 0 0 0 var(--color-neutral-2),
+    inset 0 calc(var(--border-width-s) * -1) 0 0 var(--color-neutral-2),
+    inset 0 var(--border-width-s) 0 0 var(--color-accent-2),
+    inset calc(var(--border-width-s) * -1) 0 0 0 var(--color-accent-2);
+  outline: none;
+}
+
+.input-border:disabled {
+  border-color: var(--color-neutral-1);
+  box-shadow: none;
+}
+
+/* ============================================
+   COLOR UTILITIES
+   ============================================ */
+
+.color-neutral-1 {
+  color: var(--color-neutral-1);
+}
+
+.color-neutral-2 {
+  color: var(--color-neutral-2);
+}
+
+.color-neutral-3 {
+  color: var(--color-neutral-3);
+}
+
+.color-neutral-4 {
+  color: var(--color-neutral-4);
+}
+
+.color-neutral-5 {
+  color: var(--color-neutral-5);
+}
+
+.bg-neutral-1 {
+  background-color: var(--color-neutral-1);
+}
+
+.bg-neutral-2 {
+  background-color: var(--color-neutral-2);
+}
+
+.bg-gray-light-1 {
+  background-color: var(--color-gray-light-1);
+}
+
+.bg-gray-light-2 {
+  background-color: var(--color-gray-light-2);
+}
+
+.bg-gray-light-3 {
+  background-color: var(--color-gray-light-3);
+}

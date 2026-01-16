@@ -1,0 +1,230 @@
+/* ============================================
+   SPACING CLASSES
+   Space between elements only
+   Properties: gap, margin, padding (and variations)
+   DO NOT include: layout or aesthetic properties
+   ============================================ */
+
+/* ============================================
+   GAP (Space between flex/grid children)
+   ============================================ */
+
+.gap-2xs {
+  gap: var(--size-2xs);
+}
+
+.gap-xs {
+  gap: var(--size-xs);
+}
+
+.gap-s {
+  gap: var(--size-s);
+}
+
+.gap-m {
+  gap: var(--size-m);
+}
+
+.gap-l {
+  gap: var(--size-l);
+}
+
+/* ============================================
+   GUTTER (Horizontal spacing - semantic pattern)
+   ============================================ */
+
+.gutter-s {
+  padding-inline: var(--size-s);
+}
+
+.gutter-m {
+  padding-inline: var(--size-m);
+}
+
+.gutter-l {
+  padding-inline: var(--size-l);
+}
+
+/* ============================================
+   PADDING (Padding for elements)
+   ============================================ */
+
+.padding-all-s {
+  padding: var(--size-s);
+}
+
+.padding-all-m {
+  padding: var(--size-m);
+}
+
+.padding-all-l {
+  padding: var(--size-l);
+}
+
+.padding-all-xl {
+  padding: var(--size-xl);
+}
+
+.padding-top-s {
+  padding-top: var(--size-s);
+}
+
+.padding-top-m {
+  padding-top: var(--size-m);
+}
+
+.padding-top-l {
+  padding-top: var(--size-l);
+}
+
+.padding-top-xl {
+  padding-top: var(--size-xl);
+}
+
+.padding-bottom-s {
+  padding-bottom: var(--size-s);
+}
+
+.padding-bottom-m {
+  padding-bottom: var(--size-m);
+}
+
+.padding-bottom-l {
+  padding-bottom: var(--size-l);
+}
+
+.padding-bottom-xl {
+  padding-bottom: var(--size-xl);
+}
+
+.padding-right-s {
+  padding-right: var(--size-s);
+}
+
+.padding-right-m {
+  padding-right: var(--size-m);
+}
+
+.padding-right-l {
+  padding-right: var(--size-l);
+}
+
+.padding-right-xl {
+  padding-right: var(--size-xl);
+}
+
+.padding-left-s {
+  padding-left: var(--size-s);
+}
+
+.padding-left-m {
+  padding-left: var(--size-m);
+}
+
+.padding-left-l {
+  padding-left: var(--size-l);
+}
+
+.padding-left-xl {
+  padding-left: var(--size-xl);
+}
+
+/* ============================================
+   MARGIN (Margin for elements)
+   ============================================ */
+
+.margin-all-s {
+  margin: var(--size-s);
+}
+
+.margin-all-m {
+  margin: var(--size-m);
+}
+
+.margin-all-l {
+  margin: var(--size-l);
+}
+
+.margin-all-xl {
+  margin: var(--size-xl);
+}
+
+.margin-top-s {
+  margin-top: var(--size-s);
+}
+
+.margin-top-m {
+  margin-top: var(--size-m);
+}
+
+.margin-top-l {
+  margin-top: var(--size-l);
+}
+
+.margin-top-xl {
+  margin-top: var(--size-xl);
+}
+
+.margin-bottom-s {
+  margin-bottom: var(--size-s);
+}
+
+.margin-bottom-m {
+  margin-bottom: var(--size-m);
+}
+
+.margin-bottom-l {
+  margin-bottom: var(--size-l);
+}
+
+.margin-bottom-xl {
+  margin-bottom: var(--size-xl);
+}
+
+.margin-right-s {
+  margin-right: var(--size-s);
+}
+
+.margin-right-m {
+  margin-right: var(--size-m);
+}
+
+.margin-right-l {
+  margin-right: var(--size-l);
+}
+
+.margin-right-xl {
+  margin-right: var(--size-xl);
+}
+
+.margin-left-s {
+  margin-left: var(--size-s);
+}
+
+.margin-left-m {
+  margin-left: var(--size-m);
+}
+
+.margin-left-l {
+  margin-left: var(--size-l);
+}
+
+.margin-left-xl {
+  margin-left: var(--size-xl);
+}
+
+/* ============================================
+   STACK SPACING (Vertical spacing in stacks)
+   ============================================ */
+
+.stack-s > * + * {
+  margin-top: var(--size-s);
+}
+
+.stack-m > * + * {
+  margin-top: var(--size-m);
+}
+
+.stack-l > * + * {
+  margin-top: var(--size-l);
+}
