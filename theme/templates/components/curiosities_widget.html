@@ -55,7 +55,7 @@
   <div class="grid">
     {% for item in display_curiosities %}
     {% set first_image = none %}
-    {% if '<img' in item.content %}
+    {% if not item.preview_image and '<img' in item.content %}
       {% set img_parts = item.content.split('<img', 1) %}
       {% if img_parts | length > 1 %}
         {% set img_section = img_parts[1][:500] %}
@@ -72,7 +72,11 @@
       {% endif %}
     {% endif %}
     <article class="stack gap-s card">
-      {% if first_image %}
+      {% if item.preview_image %}
+      <div class="card__image">
+        <img src="{{ SITEURL }}/{{ item.preview_image.lstrip('/') }}" alt="{{ item.title }}" />
+      </div>
+      {% elif first_image %}
       <div class="card__image">
         <img src="{{ first_image }}" alt="{{ item.title }}" />
       </div>
