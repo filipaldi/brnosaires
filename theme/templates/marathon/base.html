@@ -6,17 +6,17 @@
   <meta name="description" content="{{ SITENAME }} - Tango Marathon">
   <title>{% block title %}Tango Marathon | {{ SITENAME }}{% endblock %}</title>
   
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
+  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
   
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/variables.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typography.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/core.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/layout.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/spacing.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/aesthetic.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/components.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/marathon.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/variables.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/typography.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/core.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/layout.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/spacing.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/aesthetic.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/components.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/marathon.css">
   
   {% block head %}{% endblock %}
 </head>
@@ -36,7 +36,7 @@
     {% block content %}{% endblock %}
   </main>
 
-  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
+  <script src="../{{ THEME_STATIC_DIR }}/js/main.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

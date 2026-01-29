@@ -54,10 +54,10 @@
   {% if display_announcements %}
   <div class="grid">
     {% for item in display_announcements %}
-    <a href="{{ SITEURL }}/{{ item.url }}" class="stack card">
+    <a href="{{ item.url }}" class="stack card">
       {% if item.preview_image %}
       <div class="card__image">
-        <img src="{{ SITEURL }}/{{ item.preview_image.lstrip('/') }}" alt="{{ item.title }}" />
+        <img src="{{ item.preview_image.lstrip('/') }}" alt="{{ item.title }}" />
       </div>
       {% endif %}
       <div class="card__content">

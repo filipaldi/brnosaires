@@ -6,8 +6,8 @@
   <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
+  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
   
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/variables.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typography.css">
@@ -26,7 +26,7 @@
 <body>
   <header class="padding-all-m" role="banner">
     <div class="cluster justify-between align-center">
-      <a href="{{ SITEURL }}/" class="logo">
+      <a href="index.html" class="logo">
         <span class="text-xl">{{ SITENAME }}</span>
       </a>
       {% include 'components/navigation.html' %}
@@ -45,7 +45,7 @@
 
   {% include 'components/footer.html' %}
 
-  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
+  <script src="{{ THEME_STATIC_DIR }}/js/main.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
