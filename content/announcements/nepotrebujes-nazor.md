@@ -3,6 +3,7 @@ title: "Nepotřebuješ názor"
 date: 2025-04-07 02:00:00
 slug: nepotrebujes-nazor
 category: announcement
+preview_image: images/7._4..jpg
 ---
 
 Výzva tohoto týdne: Vykašli se na názor 😎
@@ -17,4 +18,3 @@ V tento vzácný dubnový týden chytni příležitost za pačesy a zkus:
 👉 Sobota 12. 4. nuevo workshopy a neolongu na Stolárně 🫶. Workshopy od 15h, neolonga od 20:00. DJ Filip 🎼 🩵
 Podrobnosti čti na svém oblíbeném webu, kde vědí o všem, co se kde šustne: [www.brnosaires.com](http://www.brnosaires.com/).
 
-![]({static}/images/7._4..jpg)

@@ -4,9 +4,8 @@ date: 2025-11-21 18:00:00
 event-start: 2025-11-21 18:00:00
 event-end: 2025-11-23 14:00:00
 slug: sharing-dreams-through-our-feet-musicality-in-motion-through-contact-tango
+preview_image: images/Javier_2024-19.jpg
 ---
-
-![]({static}/images/Javier_2024-19.jpg)
 
 Zažili jste někdy pocit, že vás při tanci svazuje strnulost? Hlava se snaží vzpomenout na všechny kroky, ale tělo se nemůže uvolnit? Cítíte někdy nervozitu? Tango není jen o krocích, ale o propojení, vnímání partnera a dynamice pohybu. Tento workshop vám pomůže:
 

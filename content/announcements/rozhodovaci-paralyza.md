@@ -3,6 +3,7 @@ title: "Rozhodovací paralýza?"
 date: 2024-10-22 02:00:00
 slug: rozhodovaci-paralyza
 category: announcement
+preview_image: images/tango_is_waiting.jpg
 ---
 
 Tento týden ti odpadá rozhodovací paralýza, kterou milongu si vybrat, pokud náhodou nemůžeš být všude 🙆‍♂️
@@ -13,4 +14,3 @@ Tvůj dárek jsi ty a tvoje přítomnost 🎁
 Případnou čtvrteční absenci přítomností na nedělních praktikách na Stolárně trošku napravíš, ale nedoženeš...🤔 takže budiž, polehčující okolnost to je 🫶 🥇
 Vyhrává ten, kdo bude tam aj tam 🏃
 
-![]({static}/images/tango_is_waiting.jpg)

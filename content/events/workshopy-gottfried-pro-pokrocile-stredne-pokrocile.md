@@ -4,6 +4,7 @@ date: 2026-01-10 13:00:00
 event-start: 2026-01-10 13:00:00
 event-end: 2026-01-10 17:45:00
 slug: workshopy-gottfried-pro-pokrocile-stredne-pokrocile
+preview_image: images/image.png
 ---
 
 (***ENGLISH - below keep reading***)
@@ -92,5 +93,3 @@ We need to know:
 - first name, last name - the same for a partner, if you have one
 
 - name of the workshops you are applying for
-
-![]({static}/images/image.png)

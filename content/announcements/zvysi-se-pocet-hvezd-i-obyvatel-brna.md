@@ -3,6 +3,7 @@ title: "Zvýší se počet hvězd i obyvatel Brna"
 date: 2024-10-26 02:00:00
 slug: zvysi-se-pocet-hvezd-i-obyvatel-brna
 category: announcement
+preview_image: images/brno_tango_vkend2.jpg
 ---
 
 Víš kolik má Brno tango obyvatel? 👀  Já taky ne🤔
@@ -17,4 +18,3 @@ Už máš svůj lístek?🙋🙋‍♀️ Kupuj, dokud jsou na skladě 💳
 Hvězdy neboli lektoři:
 ⭐Sven Elze & ⭐Dilara Ogretmen ⭐Jorg Palm & ⭐Zuzka Kleinová
 
-![]({static}/images/brno_tango_vkend2.jpg)

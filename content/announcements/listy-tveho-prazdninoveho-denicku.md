@@ -3,6 +3,7 @@ title: "Listy tvého prázdninového deníčku"
 date: 2024-06-19 02:00:00
 slug: listy-tveho-prazdninoveho-denicku
 category: announcement
+preview_image: images/przdniny.jpg
 ---
 
 Má tvůj prázdninový deníček dost listů?🫢
@@ -22,4 +23,3 @@ Udělej si pořádek a piš si✍️ (změny a bonusové milongy jsou pravděpod
 Až si to dopíšeš, sleduj všechny možné kanály, ať ti nic neutečeš👀
 Potkáme se!❤️
 
-![]({static}/images/przdniny.jpg)

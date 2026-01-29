@@ -3,6 +3,7 @@ title: "Jarní tango menu v letním čase"
 date: 2025-03-24 01:00:00
 slug: jarni-tango-menu-v-letnim-case
 category: announcement
+preview_image: images/485834845_10235550085552298_3633676179550573019_n.jpg
 ---
 
 Přišlo jarní tání a přijde letní čas ☀️🕛
@@ -19,4 +20,3 @@ Podrobnosti už víš, kde najdeš, těm méně orientovaným prosím poraď �
 👉 Praktika: Každou neděli včetně openclass na Stolárně, každou středu v TangoLab Štěky.
 Zahřeje tě jarní slunko i tangová objetí 🤗
 
-![]({static}/images/485834845_10235550085552298_3633676179550573019_n.jpg)

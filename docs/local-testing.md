@@ -93,9 +93,6 @@ slug: test-widgets
 
 <div data-widget="filtered_events" data-filter="milonga"></div>
 
-## Calendar Month
-
-<div data-widget="calendar_month" data-year="2025" data-month="1"></div>
 ```
 
 ### 2. View Test Page
@@ -105,7 +102,6 @@ Navigate to: `http://localhost:8000/test-widgets.html`
 ### 3. Verify Widgets
 
 - Check filtered events appear
-- Verify calendar displays correctly
 - Test different widget attributes
 
 ## Testing Event Metadata
@@ -130,7 +126,6 @@ This is a test event.
 
 - Check event appears in filtered lists
 - Verify dates display correctly
-- Test calendar month widget shows event
 
 ### 3. Test Metadata Access
 

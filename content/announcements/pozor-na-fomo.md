@@ -3,6 +3,7 @@ title: "Pozor na FOMO!"
 date: 2025-06-10 02:00:00
 slug: pozor-na-fomo
 category: announcement
+preview_image: images/505292133_10236634054530845_1585801778437558195_n.jpg
 ---
 
 Než ti začne čerstvý letní vánek romanticky cuchat vlasy 🌬️, naber si do zásoby inspirativní tandy a řekni ahoj všem pošetilým tango kamarádům, kteří se chystají být v létě v trapu 🏃‍♂️
@@ -18,4 +19,3 @@ Tvůj plán na konec školního roku (kromě vysvědčení):
 📣 Nezapomeň, že informace je potřeba distribuovat mezi všechny tango kamarády s dojezdem do Brna pod 7 hodin.
 Podrobnosti ve tvém oblíbeném kalendáři na [www.brnosaires.com](http://www.brnosaires.com/)
 
-![]({static}/images/505292133_10236634054530845_1585801778437558195_n.jpg)

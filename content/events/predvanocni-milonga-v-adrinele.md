@@ -4,9 +4,8 @@ date: 2025-12-18 20:30:00
 event-start: 2025-12-18 20:30:00
 event-end: 2025-12-18 23:15:00
 slug: predvanocni-milonga-v-adrinele
+preview_image: images/20250220_223216.jpg
 ---
-
-![]({static}/images/20250220_223216.jpg)
 
 Milonga, která trvá už víc než 9 let. 
 Tančíš kolem dortíkové vitrínky, které peče paní Lada. 

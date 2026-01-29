@@ -8,4 +8,4 @@ Zjisti, kde se tančí tango v Brně tento týden. Dozvíš se o všech milongá
 
 Užívej a tancuj!
 
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="8"></div>
+<widget-events type="milonga" days="8"></widget-events>

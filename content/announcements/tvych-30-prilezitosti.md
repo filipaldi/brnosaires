@@ -3,6 +3,7 @@ title: "Tvých 30 příležitostí "
 date: 2024-07-30 02:00:00
 slug: tvych-30-prilezitosti
 category: announcement
+preview_image: images/srpen_tango.jpg
 ---
 
 Přelomové tango tandy nejpravděpodobněji zažiješ v přelomovém týdnu 🌠(červenec/srpen, chápeš)
@@ -12,4 +13,3 @@ Tento má zhruba 30 příležitostí ✌️Využij je všecky. Nikdy totiž nev�
 🥳Hned v úterý 6. 8. máš příležitost ukázat v práci své tango střevíčky👠👞 Vem je radši s sebou 👆 Odpolední milonga v Alfa pasáži u čokoládovny Minach začíná v 17:00 🍫. Do 20:30.
 Jak lehké a sladké je s takovým plánem žít 😋, že? 🫶
 
-![]({static}/images/srpen_tango.jpg)

@@ -3,6 +3,7 @@ title: "Díkyčau a nevypadni z obrazu"
 date: 2024-06-24 02:00:00
 slug: dikycau-a-nevypadni-z-obrazu
 category: announcement
+preview_image: images/dikycau.jpg
 ---
 
 Je čas říct: Díky a čau Adrinelo a ahoj léto!🙋‍♀️🙋
@@ -13,4 +14,3 @@ Těš se na čerstvý vánek letních tango večerů🌠
 Tango se bude proplétat tvým létem jak červená nitka🪡 spolehni se.
 Zůstaň ale v obraze, ať z něj nevypadneš 🖼️
 
-![]({static}/images/dikycau.jpg)

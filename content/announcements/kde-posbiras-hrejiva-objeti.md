@@ -3,6 +3,7 @@ title: "Kde posbíráš hřejivá objetí?"
 date: 2024-10-01 02:00:00
 slug: kde-posbiras-hrejiva-objeti
 category: announcement
+preview_image: images/jen.jpg
 ---
 
 S poměrně vysokou pravděpodobností převyšující jistotu se říjnová Skleněnka odehraje na Skleněnce🫶. Ta zářijová open-air už nemá vzhledem k předpovědi počasí šanci 🌨️
@@ -13,4 +14,3 @@ Zdroje máš tady:
 👉neděle 6. 10., 20:00 - 23:00 praktika na Stolárně 👋
 Čím víc hřejivých objetí nasbíráš, tím víc ušetříš za topení, žeano👩‍❤️‍👨
 
-![]({static}/images/jen.jpg)

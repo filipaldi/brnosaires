@@ -3,6 +3,7 @@ title: "Den, kdy Skleněnka dostala občanku"
 date: 2024-10-29 01:00:00
 slug: den-kdy-sklenenka-dostala-obcanku
 category: announcement
+preview_image: images/Sklenenka.jpg
 ---
 
 Pamatuješ si den, kdy ti dali občanku? 🫢
@@ -17,4 +18,3 @@ Pro pořádek:
 👉 sobota 2. 11., 18:00 - 22:00?? Výroční milonga na Skleněnce.
 Potkáme se tam aj tam😘
 
-![]({static}/images/Sklenenka.jpg)

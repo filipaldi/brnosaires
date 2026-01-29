@@ -3,6 +3,7 @@ title: "Udržuj balanc a zachovej poměr "
 date: 2024-09-17 02:00:00
 slug: udrzuj-balanc-a-zachovej-pomer
 category: announcement
+preview_image: images/balanc.jpg
 ---
 
 Tento týden padá tvoje šťastná hvězda🌠
@@ -18,4 +19,3 @@ Daniel Vinklar
 👉Neděle 22. 9., 20:00 - 23:00 Praktika na Stolárně aneb povíkendová afterparty 🥳
 👆Nezmeškej žádnou, ať se poměr neobrátí. Balanc je balanc🫶
 
-![]({static}/images/balanc.jpg)

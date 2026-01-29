@@ -3,6 +3,7 @@ title: "Pozvánka, co ztratila kreativitu"
 date: 2025-03-11 01:00:00
 slug: pozvanka-co-ztratila-kreativitu
 category: announcement
+preview_image: images/Milonga_v_CPN.jpg
 ---
 
 Promiňte, minimalistická pozvánka😇
@@ -14,4 +15,3 @@ Jak uslyšíš závěrečnou La cumparsitu, tak víš, že zhruba od půlnoci sp
 DJ Richard 🩵🎼
 Uvidíme se 🥰
 
-![]({static}/images/Milonga_v_CPN.jpg)

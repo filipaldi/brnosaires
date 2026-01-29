@@ -3,6 +3,7 @@ title: "Přej si a kombinuj"
 date: 2024-06-10 02:00:00
 slug: prej-si-a-kombinuj
 category: announcement
+preview_image: images/stehlk.jpg
 ---
 
 Přej si čtvrtek bez deště 🙏
@@ -14,4 +15,3 @@ Dojdi a tvůj podíl na tangovém nebi tě bude hřát ještě letos v zimě🤗
 V případě deště nechoď😭 Ideální když zůstaneš ve spojení třeba tu.
 👆Pozor - už od 18h jen do 22h!
 
-![]({static}/images/stehlk.jpg)

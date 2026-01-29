@@ -4,6 +4,7 @@ date: 2026-02-27 01:00:00
 event-start: 2026-02-27 01:00:00
 event-end: 2026-03-01 01:00:00
 slug: energy-flow-resistance-transformation-kontaktango-workshop-s-javierem-curou-arg
+preview_image: images/Javier_2024-19.jpg
 ---
 
 V tangu neustále balancujeme mezi vedením a následováním, mezi napětím a uvolněním, mezi energií, která proudí, a odporem, který ji formuje. Cítíte někdy, že se váš tanec stává příliš řízeným, příliš kontrolovaným – že energie stagnuje a flow se ztrácí? V každém okamžiku tance však dřímá možnost proměny – odpor se může stát impulsem, který otevře cestu k plynutí, komunikaci a svobodě v pohybu.
@@ -45,5 +46,3 @@ Standardní cena: 4100 Kč (záloha 1500 Kč)
 🎯 JAM pro veřejnost: Sobota 17:30–19:00, poplatek 100–300 Kč (účastníci workshopu zdarma).
 
 🔗 Přihlášky: Kapacita je omezená! Rezervujte si místo přes formulář: [https://forms.gle/xKecoPAeSkGiRghi6](https://forms.gle/xKecoPAeSkGiRghi6) (vyplněním formuláře je přihláška závazná)
-
-![]({static}/images/Javier_2024-19.jpg)

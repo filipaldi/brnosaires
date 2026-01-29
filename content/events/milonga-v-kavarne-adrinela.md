@@ -3,9 +3,8 @@ title: "Milonga v kavárně Adrinela "
 date: 2026-01-22 01:00:00
 event-start: 2026-01-22 01:00:00
 slug: milonga-v-kavarne-adrinela
+preview_image: images/20250220_223216.jpg
 ---
-
-![]({static}/images/20250220_223216.jpg)
 
 Milonga, která trvá už víc než 9 let. 
 Tančíš kolem dortíkové vitrínky, které peče paní Lada. 

@@ -6,4 +6,4 @@ slug: tango-milongy-brno
 
 Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="365"></div>
+<widget-events type="milonga" days="365"></widget-events>

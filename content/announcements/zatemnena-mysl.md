@@ -3,6 +3,7 @@ title: "Zatemněná mysl"
 date: 2024-07-18 02:00:00
 slug: zatemnena-mysl
 category: announcement
+preview_image: images/but_first_coffee.jpg
 ---
 
 Nepodceň to! 🫢
@@ -14,4 +15,3 @@ Tak si piš:
 Mezitím - nedělní praktikotančírna na Stolárně 👉21. 7. od 18:45 lekce David Lang + Jana Habalová❤️od 20:00 tančíš, procvičuješ, ale hlavně tančíš💃
 Potkáme se venku! 🌠🤗
 
-![]({static}/images/but_first_coffee.jpg)

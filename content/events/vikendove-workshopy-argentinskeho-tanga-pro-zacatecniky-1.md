@@ -4,9 +4,8 @@ date: 2026-01-17 12:30:00
 event-start: 2026-01-17 12:30:00
 event-end: 2026-01-17 16:45:00
 slug: vikendove-workshopy-argentinskeho-tanga-pro-zacatecniky-1
+preview_image: images/dsa07433-kopie-%281%29_optimized.jpg
 ---
-
-![]({static}/images/dsa07433-kopie-%281%29_optimized.jpg)
 
 Argentinské tango 💃
 Tanec, ve kterém nepotřebuješ složité figury 🫶

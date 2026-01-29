@@ -14,4 +14,3 @@ Surikati bere nohy na ramena, ty se vrháš do náruče svého tanečníka/své 
 👉 Neděle 26. 1. 2025, 20:00 - 23:00: Praktika na Stolárně, DJ Filip
 Utíkej tam aj tam 🏃🏃‍♀️
 
-![]({static}/images/surikati.jpg)

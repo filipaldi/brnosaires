@@ -3,6 +3,7 @@ title: "Vrátila se rovnováha"
 date: 2024-06-17 02:00:00
 slug: vratila-se-rovnovaha
 category: announcement
+preview_image: images/417514070_10232180110105018_1259441569760239763_n.jpg
 ---
 
 Tvoje čtvrteční jistota je zpátky ✌️ Rozhozený tango-bio-rytmus 🥴 najde ztracenou rovnováhu během prvních dvou tří tand ⚖️a dál se povezeš na staré známé vlně 🌊
@@ -14,4 +15,3 @@ Malý rozcestník 👀:
 Tvá oblíbená milonga na předposledy! 😲(čti: už jen dvakrát 😢)
 Toto nemůžeš minout 🤗
 
-![]({static}/images/417514070_10232180110105018_1259441569760239763_n.jpg)

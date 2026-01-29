@@ -17,4 +17,4 @@ Co zažiješ ve 3 dnech:
 ## Program
 
 
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="range" data-span-start="2026-04-25" data-span-end="2026-04-27"></div>
+<widget-events type="milonga" start="2026-04-25" end="2026-04-27"></widget-events>

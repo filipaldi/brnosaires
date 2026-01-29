@@ -3,6 +3,7 @@ title: "4 dny v tango metropoli na 4 písmenka"
 date: 2024-11-05 01:00:00
 slug: 4-dny-v-tango-metropoli-na-4-pismenka
 category: announcement
+preview_image: /images/brno_tango_vkend.jpg
 ---
 
 Země se zachvěla, svět se pootočil 🌍směr Brno a všechny navigace, směrovky a ukazatele s ním.↗️🔀
@@ -15,4 +16,3 @@ Zapiš si do všech kalendářů ✍️ Tango na 4 dny ovládlo tuto metropoli n
 🥳Afterpárty milonga/praktika, neděle 10. 11., 20:00 - 23:00, TS Stolárna, DJ Filip
 Potkáme se všude ❤️
 
-![]({static}/images/brno_tango_vkend.jpg)

@@ -13,17 +13,17 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 ## Tango milongy tento týden
 
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="7"></div>
+<widget-events type="milonga" days="7"></widget-events>
 
 ## Kde se učit tango v Brně
 
-<div data-widget="filtered_events" data-filter="workshop" data-span-type="next" data-span-days="365"></div>
+<widget-events type="workshop" days="365"></widget-events>
 
 
 ## Oznamy
 
-<div data-widget="announcements" data-filter="last 3 items"></div>
+<widget-announcements limit="3"></widget-announcements>
 
 ## Pikošky
 
-<div data-widget="curiosities" data-filter="last 3 items"></div>
+<widget-curiosities limit="3"></widget-curiosities>

@@ -3,6 +3,7 @@ title: "Pořadí ramínek ve skříni"
 date: 2025-04-23 02:00:00
 slug: poradi-raminek-ve-skrini
 category: announcement
+preview_image: images/Brno.jpg
 ---
 
 Přichází víkend, co změní pořadí ramínek ve tvé skříni. Na přední místa totiž zavěsíš tangové oblečky 👗👖
@@ -20,4 +21,3 @@ Popořádku workshopy:
 13:00 -17:30 - Workshopy se Štěky a Gottfriedem, Josefská 1
 ❗POZOR 👆 Nedělní praktika NEBUDOU, protože všichni (takže i ty) jdeme na milongu 💃🕺
 
-![]({static}/images/Brno.jpg)

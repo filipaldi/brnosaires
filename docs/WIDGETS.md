@@ -2,18 +2,20 @@
 
 ## Overview
 
-The widget system allows embedding dynamic calendar components in markdown content using HTML `div` elements with `data-widget` attributes. Widgets are processed server-side during Pelican's template rendering phase.
+The widget system allows embedding dynamic components in markdown content using custom HTML tags. Widgets are processed server-side during Pelican's template rendering phase.
 
 ## Architecture
 
 ### Processing Flow
 
-1. **Content Input**: Markdown files contain HTML `div` elements with `data-widget` attributes
+1. **Content Input**: Markdown files contain custom HTML tags (`<widget-events>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`)
 2. **Markdown Processing**: Pelican's markdown processor preserves HTML elements
 3. **Template Processing**: `page.html` template calls `process_widgets()` macro
-4. **Widget Parsing**: Macro extracts widget type and attributes from HTML
-5. **Component Rendering**: Appropriate widget component template is included
-6. **Output**: Rendered HTML replaces the original widget `div`
+4. **Widget Detection**: Macro detects widget tags and extracts tag name + raw attributes string
+5. **Routing**: Macro routes to appropriate component template based on tag name
+6. **Attribute Parsing**: Each component parses its own attributes from the raw tag content
+7. **Component Rendering**: Component filters, sorts, limits, and renders content
+8. **Output**: Rendered HTML replaces the original widget tag
 
 ### File Structure
 
@@ -21,9 +23,11 @@ The widget system allows embedding dynamic calendar components in markdown conte
 theme/templates/
 ├── page.html                          # Uses widget processor
 └── components/
-    ├── widget_processor.html          # Main processing macro
-    ├── filtered_events_widget.html    # Filtered events component
-    └── calendar_month_widget.html     # Calendar month component
+    ├── widget_processor.html          # Simplified: detection + routing only
+    ├── filtered_events_widget.html    # Events: parses type, days, start, end, limit, sort
+    ├── announcements_widget.html      # Announcements: parses limit, sort
+    ├── curiosities_widget.html         # Curiosities: parses limit, sort
+    └── classes_widget.html             # Classes: parses limit, sort
 ```
 
 ## Widget Processor
@@ -34,7 +38,7 @@ theme/templates/
 
 ### Macro: `process_widgets(content)`
 
-Recursively processes page content to find and replace widget `div` elements.
+Recursively processes page content to find and replace widget tags.
 
 **Parameters:**
 - `content` (string): The page content HTML/markdown
@@ -42,66 +46,193 @@ Recursively processes page content to find and replace widget `div` elements.
 **Returns:**
 - Rendered HTML with widgets replaced by components
 
+**Responsibilities:**
+- Detects widget tags (`<widget-events />`, `<widget-announcements />`, etc.)
+- Extracts tag name and raw tag content (attributes string)
+- Routes to appropriate component template
+- Passes `tag_content` variable to component (contains raw attributes string)
+- Handles recursive processing for nested widgets
+
 **Algorithm:**
-1. Split content by widget pattern `<div data-widget="`
+1. Split content by widget pattern `<widget-`
 2. For each widget found:
-   - Extract attributes from HTML
-   - Parse `data-widget`, `data-filter`, `data-span-type`, `data-span-days`, `data-span-start`, `data-span-end`, `data-year`, `data-month`
-   - Include appropriate component template
+   - Extract tag name from tag content
+   - Extract raw tag content (includes all attributes as string)
+   - Route to component based on tag name (`events`, `announcements`, `curiosities`, `classes`)
+   - Pass `tag_content` variable to component
+   - Component handles its own attribute parsing
    - Recursively process remaining content
 
-### Supported Widget Types
+**Key Design:**
+- Processor does NOT parse attributes (components handle their own parsing)
+- Processor only detects and routes widgets
+- Each component is self-contained and independent
 
-#### 1. `filtered_events`
+## Standardization Rules
+
+### Widget Type Naming
+
+- All widget tags use **kebab-case** (lowercase with hyphens)
+- Tag names: `widget-events`, `widget-announcements`, `widget-curiosities`
+- Internal widget types: `filtered-events`, `announcements`, `curiosities`
+
+### Attribute Naming
+
+- **All attributes use standard HTML format (no `data-` prefix)**
+- **All attributes use kebab-case**
+- Examples: `type="milonga"`, `days="365"`, `limit="3"`
+
+### Tag to Component Mapping
+
+- `<widget-events>` → `filtered_events_widget.html`
+- `<widget-announcements>` → `announcements_widget.html`
+- `<widget-curiosities>` → `curiosities_widget.html`
+- `<widget-classes>` → `classes_widget.html`
+
+## Supported Widget Types
+
+### 1. Events Widget (`<widget-events>`)
 
 Displays filtered lists of events from `content/events/`.
 
 **Attributes:**
-- `data-widget="filtered_events"` (required)
-- `data-filter="milonga|workshop|class"` (optional)
-- `data-span-type="next"` (optional) - Show events in the future, requires `data-span-days`
-- `data-span-type="last"` (optional) - Show events from the past, requires `data-span-days`
-- `data-span-type="range"` (optional) - Show events in a date range, requires `data-span-start` and `data-span-end`
-- `data-span-days="7"` (optional) - Number of days, used with `data-span-type="next"` or `data-span-type="last"`
-- `data-span-start="2026-06-01"` (optional) - Start date for range, used with `data-span-type="range"`
-- `data-span-end="2026-08-31"` (optional) - End date for range, used with `data-span-type="range"`
+- `type="milonga|workshop|class"` (optional) - Event type filter
+- `days="7"` (optional) - Days from today (positive = future, negative = past)
+- `start="2026-06-01"` (optional) - Start date for range (YYYY-MM-DD, requires `end`)
+- `end="2026-08-31"` (optional) - End date for range (YYYY-MM-DD, requires `start`)
+- `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+
+**Date Filtering:**
+- `days="7"` = next 7 days from today
+- `days="-7"` = last 7 days from today
+- `days="365"` or `days="-365"` = all events (no date filtering)
+- `start` + `end` = date range (both required, mutually exclusive with `days`)
+
+**Examples:**
+```html
+<!-- Next 7 days of milongas -->
+<widget-events type="milonga" days="7"></widget-events>
+
+<!-- All workshops in next year -->
+<widget-events type="workshop" days="365"></widget-events>
+
+<!-- Milongas in date range -->
+<widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
+
+<!-- Last 3 milongas -->
+<widget-events type="milonga" days="-7" limit="3"></widget-events>
+
+<!-- Milongas sorted oldest first -->
+<widget-events type="milonga" days="365" sort="oldest"></widget-events>
+```
 
 **Implementation:**
 - Component: `theme/templates/components/filtered_events_widget.html`
+- Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'events/'`
 - Filtering logic:
   - `milonga`: Title contains "milonga"
   - `workshop`: Title contains "workshop", "lekce", or "lekci"
   - `class`: Title contains "class" or "lekce"
-  - Date filtering: Filters events by date span (next/last N days or date range)
-  - Filter type and date span can be combined
+  - Date filtering: Filters events by days from today or date range
+  - Filter type and date filtering can be combined
+- Sorting: By `date` attribute (newest/oldest)
+- Limit: Applied after filtering and sorting
 
-**Event Access Pattern:**
-```jinja2
-{% set event_start = event.start | default(event.metadata.get('event-start')) %}
-{% set event_end = event.end | default(event.metadata.get('event-end')) %}
-```
+### 2. Announcements Widget (`<widget-announcements>`)
 
-#### 2. `calendar_month`
-
-Displays a calendar grid for a specific month with events marked.
+Displays announcements from `content/announcements/` as cards with images.
 
 **Attributes:**
-- `data-widget="calendar_month"` (required)
-- `data-year="2025"` (optional, default: 2025)
-- `data-month="1"` (optional, default: 1, range: 1-12)
+- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+
+**Examples:**
+```html
+<!-- Last 3 announcements -->
+<widget-announcements limit="3"></widget-announcements>
+
+<!-- All announcements sorted oldest first -->
+<widget-announcements limit="all" sort="oldest"></widget-announcements>
+```
 
 **Implementation:**
-- Component: `theme/templates/components/calendar_month_widget.html`
-- Filters events by year and month using `event-start` metadata
-- Generates calendar grid with day numbers
-- Displays events on their respective days
+- Component: `theme/templates/components/announcements_widget.html`
+- Parses attributes: `limit`, `sort` from `tag_content`
+- Filters articles from `articles` context where `source_path` contains `'announcements/'`
+- Extracts first image from article content
+- Renders cards with title and image
+- Widget title: "Oznámení"
 
-**Event Filtering:**
-```jinja2
-{% set page_start = page.start | default(page.metadata.get('event-start')) %}
-{% if page_start and page_start.year == current_year and page_start.month == current_month %}
+### 3. Curiosities Widget (`<widget-curiosities>`)
+
+Displays curiosities from `content/curiosities/` as cards with images.
+
+**Attributes:**
+- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+
+**Examples:**
+```html
+<!-- Last 3 curiosities -->
+<widget-curiosities limit="3"></widget-curiosities>
+
+<!-- All curiosities sorted oldest first -->
+<widget-curiosities limit="all" sort="oldest"></widget-curiosities>
 ```
+
+**Implementation:**
+- Component: `theme/templates/components/curiosities_widget.html`
+- Parses attributes: `limit`, `sort` from `tag_content`
+- Filters articles from `articles` context where `source_path` contains `'curiosities/'`
+- Extracts first image from article content
+- Renders cards with title and image
+- Widget title: "Pikošky"
+
+### 4. Classes Widget (`<widget-classes>`)
+
+Displays classes from `content/classes/` as cards with images.
+
+**Attributes:**
+- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest|title"` (optional) - Sort order (default: newest first)
+
+**Examples:**
+```html
+<!-- Last 3 classes -->
+<widget-classes limit="3"></widget-classes>
+
+<!-- All classes sorted alphabetically by title -->
+<widget-classes limit="all" sort="title"></widget-classes>
+```
+
+**Implementation:**
+- Component: `theme/templates/components/classes_widget.html`
+- Parses attributes: `limit`, `sort` from `tag_content`
+- Filters articles from `articles` context where `source_path` contains `'classes/'`
+- Extracts first image from article content
+- Renders cards with title and image
+- Widget title: "Lekce"
+- Sorting: By `date` (newest/oldest) or `title` (alphabetical)
+
+## Attribute Reference
+
+| Attribute | Type | Required | Values | Description |
+|-----------|------|----------|--------|-------------|
+| `type` | string | No | `milonga`, `workshop`, `class` | Event type filter (for `widget-events` only) |
+| `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
+| `start` | date | No* | `YYYY-MM-DD` | Start date for range (*required if `end` present) |
+| `end` | date | No* | `YYYY-MM-DD` | End date for range (*required if `start` present) |
+| `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
+| `sort` | string | No | `newest`, `oldest`, `title` | Sort order (`title` only for `widget-classes`) |
+
+**Rules:**
+- If `start` is present, `end` is required (and vice versa)
+- `days` and `start`/`end` are mutually exclusive
+- `type` only applies to `widget-events` widget
+- `sort="title"` only applies to `widget-classes` widget
+- Default sort: `newest` (newest first)
 
 ## Event Metadata Standard
 
@@ -137,67 +268,99 @@ Templates use hybrid access pattern for compatibility:
 
 ### Step 1: Create Component Template
 
-Create `theme/templates/components/your_widget.html`:
+Create `theme/templates/components/your-widget.html`:
 
 ```jinja2
-{% set your_data = data_param | default('default_value') %}
+{% set your_param = none %}
+
+{% if tag_content %}
+  {% set tag_name_parts = tag_content.split(' ') %}
+  {% set tag_name = tag_name_parts[0] %}
+  {% if tag_name_parts | length > 1 %}
+    {% set attrs_str = tag_content[tag_name | length:] | trim %}
+    {% if attrs_str %}
+      {% set attrs_list = attrs_str.split('" ') %}
+      {% for attr in attrs_list %}
+        {% if 'your-attr="' in attr %}
+          {% set your_param = attr.split('your-attr="')[1] %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endif %}
 
 <div class="your-widget">
   <!-- Your widget HTML -->
 </div>
 ```
 
+**Key points:**
+- Component receives `tag_content` variable from processor
+- Component parses its own attributes from `tag_content`
+- Use standard attribute parsing pattern (split by `" `)
+
 ### Step 2: Update Widget Processor
 
-Add widget type handling in `widget_processor.html`:
+Add routing in `widget_processor.html`:
 
 ```jinja2
-{% elif widget_type == 'your_widget' %}
-  {% set data_param = widget_attrs.get('data-param') %}
+{% elif tag_name == 'your-widget' %}
   {% include 'components/your_widget.html' with context %}
 ```
 
-### Step 3: Parse Attributes
+**Key points:**
+- Processor only routes based on `tag_name`
+- Passes `tag_content` variable automatically
+- No attribute parsing in processor
 
-Extract attributes in the processor loop:
+### Step 3: Document Usage
 
-```jinja2
-{% elif 'data-param="' in attr %}
-  {% set data_param = attr.split('data-param="')[1] %}
-```
-
-### Step 4: Document Usage
-
-Update README.md with widget syntax and examples.
+Update this documentation with widget syntax and examples.
 
 ## Technical Details
 
-### HTML Parsing
+### Widget Tag Detection
 
-The processor uses string splitting to parse HTML attributes:
+The processor uses string splitting to detect widget tags:
 
 ```jinja2
-{% set attrs = widget_attrs.split('" ') %}
-{% for attr in attrs %}
-  {% if 'data-widget="' in attr %}
-    {% set widget_type = attr.split('data-widget="')[1] %}
-  {% elif 'data-span-type="' in attr %}
-    {% set span_type = attr.split('data-span-type="')[1] | lower %}
-  {% elif 'data-span-days="' in attr %}
-    {% set span_days = attr.split('data-span-days="')[1] | int %}
-  {% elif 'data-span-start="' in attr %}
-    {% set span_start_date = attr.split('data-span-start="')[1] %}
-  {% elif 'data-span-end="' in attr %}
-    {% set span_end_date = attr.split('data-span-end="')[1] %}
-  {% endif %}
+{% set parts = content.split('<widget-') %}
+{% for part in parts[1:] %}
+  {% set tag_parts = part.split('>', 1) %}
+  {% set tag_content = tag_parts[0] %}
+  {% set tag_name_parts = tag_content.split(' ') %}
+  {% set tag_name = tag_name_parts[0] %}
+  <!-- Route to component, pass tag_content -->
 {% endfor %}
 ```
 
-**Limitations:**
+### Attribute Parsing (in Components)
+
+Each component parses its own attributes from `tag_content`:
+
+```jinja2
+{% set tag_name_parts = tag_content.split(' ') %}
+{% set tag_name = tag_name_parts[0] %}
+{% if tag_name_parts | length > 1 %}
+  {% set attrs_str = tag_content[tag_name | length:] | trim %}
+  {% if attrs_str %}
+    {% set attrs_list = attrs_str.split('" ') %}
+    {% for attr in attrs_list %}
+      {% if 'your-attr="' in attr %}
+        {% set your_param = attr.split('your-attr="')[1] %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+```
+
+**Features:**
+- Supports both self-closing (`<widget-events />`) and paired tags (`<widget-events></widget-events>`)
+- Handles whitespace and newlines in tags
 - Attributes must be separated by `" ` (quote + space)
 - Attribute values must not contain spaces (use separate attributes instead)
-- Self-closing tags not supported
 - Nested widgets supported via recursion
+- Each component is self-contained and handles its own parsing
 
 ### Context Variables
 
@@ -207,12 +370,14 @@ Widgets have access to full Pelican template context:
 - `pages`: All pages
 - `SITEURL`: Site base URL
 - `SITENAME`: Site name
+- `NOW`: Current datetime object (automatically exposed from `pelicanconf.py`)
 - All other Pelican context variables
 
-### Event Filtering
+### Content Filtering
 
-Events are identified by checking `article.source_path`:
+Widgets identify content by checking `article.source_path`:
 
+**Events:**
 ```jinja2
 {% for article in articles %}
   {% if article.source_path and 'events/' in article.source_path %}
@@ -221,7 +386,34 @@ Events are identified by checking `article.source_path`:
 {% endfor %}
 ```
 
-This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes"]` configuration.
+**Announcements:**
+```jinja2
+{% for article in articles %}
+  {% if article.source_path and 'announcements/' in article.source_path %}
+    {% set _ = announcement_pages.append(article) %}
+  {% endif %}
+{% endfor %}
+```
+
+**Curiosities:**
+```jinja2
+{% for article in articles %}
+  {% if article.source_path and 'curiosities/' in article.source_path %}
+    {% set _ = curiosity_pages.append(article) %}
+  {% endif %}
+{% endfor %}
+```
+
+**Classes:**
+```jinja2
+{% for article in articles %}
+  {% if article.source_path and 'classes/' in article.source_path %}
+    {% set _ = class_pages.append(article) %}
+  {% endif %}
+{% endfor %}
+```
+
+This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities"]` configuration.
 
 ### Date Handling
 
@@ -242,26 +434,28 @@ Widgets use standardized date access pattern:
 ### Widget Not Rendering
 
 **Check:**
-1. Widget syntax matches exactly (copy from README.md)
-2. Page uses `page.html` template (not custom template)
-3. `process_widgets()` macro is called in template
-4. No syntax errors in widget HTML
+1. Widget syntax matches exactly (copy from examples above)
+2. Widget tag name uses correct format (`widget-events`, not `widget_events`)
+3. All attributes use standard HTML format (no `data-` prefix)
+4. Page uses `page.html` template (not custom template)
+5. `process_widgets()` macro is called in template
+6. No syntax errors in widget HTML
 
 **Debug:**
 - Check Pelican build output for template errors
-- Verify widget `div` is in page content (not stripped by markdown)
+- Verify widget tag is in page content (not stripped by markdown)
 - Test with simple widget first
 
 ### Events Not Appearing
 
 **Check:**
-1. Events exist in `content/events/` directory
+1. Events exist in correct directory (`content/events/`, `content/announcements/`, etc.)
 2. Events have valid `event-start` metadata
 3. Filter criteria match event titles (case-insensitive)
-4. Events are within date range (if `data-span-type` is specified)
+4. Events are within date range (if `days` or `start`/`end` specified)
 
 **Debug:**
-- Check `article.source_path` contains `'events/'`
+- Check `article.source_path` contains expected path
 - Verify event metadata format matches standard
 - Test event access: `{{ event.metadata.get('event-start') }}`
 
@@ -276,6 +470,50 @@ Widgets use standardized date access pattern:
 - Check metadata: `{{ event.metadata }}`
 - Verify datetime object: `{{ event_start }}`
 - Test strftime: `{{ event_start.strftime('%d. %m. %Y') }}`
+
+## Migration Guide
+
+### Architecture Changes
+
+**Old Architecture:**
+- Widget processor parsed all attributes centrally
+- Components received pre-parsed variables
+- Widget type mapping required
+
+**New Architecture:**
+- Widget processor only detects and routes widgets
+- Components parse their own attributes from `tag_content`
+- Direct routing based on tag name
+- Each component is self-contained
+
+### From Old to New Syntax
+
+**Widget Tags:**
+- `<div data-widget="filtered-events">` → `<widget-events>`
+- `<div data-widget="announcements">` → `<widget-announcements>`
+- `<div data-widget="curiosities">` → `<widget-curiosities>`
+- `<div data-widget="classes">` → `<widget-classes>`
+
+**Attributes:**
+- `data-type="milonga"` → `type="milonga"`
+- `data-days="7"` → `days="7"`
+- `data-start="2026-06-01"` → `start="2026-06-01"`
+- `data-end="2026-08-31"` → `end="2026-08-31"`
+- `data-limit="3"` → `limit="3"`
+- `data-pagination="12"` → removed (not supported)
+- New: `sort="newest|oldest|title"` (available for all widgets)
+
+**Examples:**
+```html
+<!-- Old -->
+<div data-widget="filtered-events" data-type="milonga" data-days="7"></div>
+
+<!-- New -->
+<widget-events type="milonga" days="7"></widget-events>
+
+<!-- New with sorting -->
+<widget-events type="milonga" days="365" sort="oldest"></widget-events>
+```
 
 ## Performance Considerations
 
@@ -292,24 +530,6 @@ Widgets use standardized date access pattern:
 - All articles loaded into memory
 - Filtering is O(n) where n = number of articles
 - Consider pagination for large event lists
-
-## Future Enhancements
-
-### Potential Improvements
-
-1. **Widget Caching**: Cache filtered event lists
-2. **More Filters**: Add date range, location, organizer filters
-3. **Widget Configuration**: YAML frontmatter for widget settings
-4. **Client-side Rendering**: Optional JavaScript for dynamic updates
-5. **Widget Validation**: Pre-build validation of widget syntax
-
-### pelican-events Integration
-
-When pelican-events plugin is fully configured:
-- `event.start` and `event.end` will be datetime objects
-- Recurrence via `event-rrule` will be processed
-- ICS calendar generation will use widget events
-- Template access pattern already supports this
 
 ## Related Documentation
 

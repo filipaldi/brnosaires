@@ -3,6 +3,7 @@ title: "Listy prázdninového deníčku"
 date: 2024-08-26 02:00:00
 slug: listy-prazdninoveho-denicku
 category: announcement
+preview_image: images/przdniny.jpg
 ---
 
 Jak je na tom tvůj prázdninový deníček? 🤔Ještě pár listů vyčítavě zejí prázdnotou?🫢
@@ -14,4 +15,3 @@ Někteří tanečníci se pod vlivem tanga začnou na svůj pokoj dívat optikou
 👉Do prázdnin a tvého deníčku se počítá i neděle 1. 9. ✌️ Od 18:45 lekce David a Irena (vals), od 20h praktika.
 Potkáme se ještě třikrát❤️
 
-![]({static}/images/przdniny.jpg)

@@ -3,6 +3,7 @@ title: "Tango je fér"
 date: 2024-10-14 02:00:00
 slug: tango-je-fer
 category: announcement
+preview_image: images/tango_je_fr.jpg
 ---
 
 Všimni si, jak je tangový svět fér✌️.
@@ -14,4 +15,3 @@ Zbytek znáš jako své tango boty:👞👠
 🌟čtvrtek 17. 10., 20:30 - 23:15 se opět rozsvítí světla Adrinely. Stará dobrá milonga je zpět. Oslav to 🤗
 🕺V neděli 20. 10. od 20:00 do 23:00 praktika na Stolárně 👉Posdílej zážitky a potrénuj věci💪
 
-![]({static}/images/tango_je_fr.jpg)

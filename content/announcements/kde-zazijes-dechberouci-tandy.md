@@ -3,6 +3,7 @@ title: "Kde zažiješ dechberoucí tandy?"
 date: 2024-09-23 02:00:00
 slug: kde-zazijes-dechberouci-tandy
 category: announcement
+preview_image: images/dechberouc_tandy.jpg
 ---
 
 Zdá se ti, že minulý týden bylo těch milong jaksi moc? 🥴Možná tě tento týden napadne: Není těch milong jaksi málo? 🤔
@@ -17,4 +18,3 @@ A do toho potřebuješ začít plánovat outfit na 19. října.... 👔👗
 🫵 Každou neděli, takže i 28. 9., praktika na Stolárně, 20:00 - 23:00
 📣 19. října Milonga ve foyer, 18:00 - 22:00- pojeď tmelit tango komunitu do Pohořelic do foyer jedné milé malé ZUŠky ❤️
 
-![]({static}/images/dechberouc_tandy.jpg)

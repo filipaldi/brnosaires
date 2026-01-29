@@ -6,4 +6,4 @@ slug: tango-kalendar-brno
 
 Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce na jednom místě.
 
-<div data-widget="calendar_month"></div>
+<widget-events days="365"></widget-events>

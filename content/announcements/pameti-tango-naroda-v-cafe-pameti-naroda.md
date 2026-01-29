@@ -3,6 +3,7 @@ title: "Paměti tango národa v Café Paměti národa"
 date: 2025-02-11 01:00:00
 slug: pameti-tango-naroda-v-cafe-pameti-naroda
 category: announcement
+preview_image: images/CPN_1.jpg
 ---
 
 Až budou sepisovat tvoje paměti, patrně tam toho nebude tolik jak v paměti národa✍️
@@ -14,4 +15,3 @@ Místo, kde si lidi hodně pamatují. Hlavně tu vitrínku sladkých věciček �
 Do toho středeční praktika v TangoLab Štěky a nedělní praktika na Stolárně s openclass 💪
 Tvůj prémiový týden 🤩
 
-![]({static}/images/CPN_1.jpg)

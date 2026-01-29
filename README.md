@@ -130,85 +130,62 @@ Openclass od 18:00 (není nutné přijít s partnerem)
 
 ## Widget System
 
-Widgets are special components that automatically display lists of events or calendars on your pages. You can add them anywhere in your markdown content.
+Widgets are special components that automatically display lists of events on your pages. You can add them anywhere in your markdown content.
 
 ### How Widgets Work
 
-Widgets are embedded using simple HTML code that you paste into your markdown file. The website automatically replaces this code with the actual event list or calendar.
+Widgets are embedded using custom HTML tags that you paste into your markdown file. The website automatically replaces these tags with the actual event list.
 
 ### Available Widgets
 
-#### 1. Filtered Events Widget
+#### 1. Events Widget
 
-Shows a list of events filtered by type (milongas, workshops, etc.) or time period.
+Shows a list of events filtered by type (milongas, workshops, etc.) or time period. Displays event cards with dates and times.
 
 **Basic Syntax:**
 ```html
-<div data-widget="filtered_events" data-filter="milonga"></div>
+<widget-events type="milonga"></widget-events>
 ```
 
 **Options:**
 
 - **Show all milongas:**
   ```html
-  <div data-widget="filtered_events" data-filter="milonga"></div>
+  <widget-events type="milonga" days="365"></widget-events>
   ```
 
 - **Show all workshops/lessons:**
   ```html
-  <div data-widget="filtered_events" data-filter="workshop"></div>
+  <widget-events type="workshop" days="365"></widget-events>
   ```
 
 - **Show events in the next 7 days:**
   ```html
-  <div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="7"></div>
+  <widget-events type="milonga" days="7"></widget-events>
   ```
 
 - **Show events from the last 30 days:**
   ```html
-  <div data-widget="filtered_events" data-filter="milonga" data-span-type="last" data-span-days="30"></div>
+  <widget-events type="milonga" days="-30"></widget-events>
   ```
 
 - **Show events in a date range:**
   ```html
-  <div data-widget="filtered_events" data-filter="milonga" data-span-type="range" data-span-start="2026-06-01" data-span-end="2026-08-31"></div>
+  <widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
+  ```
+
+- **Show events sorted oldest first:**
+  ```html
+  <widget-events type="milonga" days="365" sort="oldest"></widget-events>
   ```
 
 **Attributes:**
-- `data-widget="filtered_events"` - Always required
-- `data-filter="milonga"`, `data-filter="workshop"`, or `data-filter="class"` - What type of events to show (optional)
-- `data-span-type="next"` - Show events in the future (requires `data-span-days`)
-- `data-span-type="last"` - Show events from the past (requires `data-span-days`)
-- `data-span-type="range"` - Show events in a date range (requires `data-span-start` and `data-span-end`)
-- `data-span-days="7"` - Number of days (used with `data-span-type="next"` or `data-span-type="last"`)
-- `data-span-start="2026-06-01"` - Start date for range (used with `data-span-type="range"`)
-- `data-span-end="2026-08-31"` - End date for range (used with `data-span-type="range"`)
-
-#### 2. Calendar Month Widget
-
-Shows a calendar grid for a specific month with events marked on their dates.
-
-**Basic Syntax:**
-```html
-<div data-widget="calendar_month" data-year="2025" data-month="1"></div>
-```
-
-**Examples:**
-
-- **Show current month (defaults to 2025, January):**
-  ```html
-  <div data-widget="calendar_month"></div>
-  ```
-
-- **Show specific month:**
-  ```html
-  <div data-widget="calendar_month" data-year="2025" data-month="3"></div>
-  ```
-
-**Attributes:**
-- `data-widget="calendar_month"` - Always required
-- `data-year="2025"` - Which year to show (optional, defaults to 2025)
-- `data-month="1"` - Which month to show, 1-12 (optional, defaults to 1)
+- `type="milonga"`, `type="workshop"`, or `type="class"` - What type of events to show (optional)
+- `days="7"` - Days from today (positive = future, negative = past). Use `365` or `-365` for all events
+- `start="2026-06-01"` - Start date for range (YYYY-MM-DD, requires `end`)
+- `end="2026-08-31"` - End date for range (YYYY-MM-DD, requires `start`)
+- `limit="3"` - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
 
 ### Using Widgets in Pages
 
@@ -222,19 +199,96 @@ slug: tango-milongy-brno
 
 Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
 
-<div data-widget="filtered_events" data-filter="milonga"></div>
+<widget-events type="milonga" days="365"></widget-events>
 
 ## Upcoming Events
 
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="7"></div>
+<widget-events type="milonga" days="7"></widget-events>
+
+## Announcements
+
+<widget-announcements limit="3"></widget-announcements>
 ```
+
+#### 2. Announcements Widget
+
+Shows a list of announcements from `content/announcements/` as cards with images.
+
+**Basic Syntax:**
+```html
+<widget-announcements limit="3"></widget-announcements>
+```
+
+**Options:**
+- **Show last 3 announcements:**
+  ```html
+  <widget-announcements limit="3"></widget-announcements>
+  ```
+
+- **Show all announcements sorted oldest first:**
+  ```html
+  <widget-announcements limit="all" sort="oldest"></widget-announcements>
+  ```
+
+**Attributes:**
+- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
+
+#### 3. Curiosities Widget
+
+Shows a list of curiosities from `content/curiosities/` as cards with images. Widget title: "Pikošky".
+
+**Basic Syntax:**
+```html
+<widget-curiosities limit="3"></widget-curiosities>
+```
+
+**Options:**
+- **Show last 3 curiosities:**
+  ```html
+  <widget-curiosities limit="3"></widget-curiosities>
+  ```
+
+- **Show all curiosities sorted oldest first:**
+  ```html
+  <widget-curiosities limit="all" sort="oldest"></widget-curiosities>
+  ```
+
+**Attributes:**
+- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
+
+#### 4. Classes Widget
+
+Shows a list of classes from `content/classes/` as cards with images. Widget title: "Lekce".
+
+**Basic Syntax:**
+```html
+<widget-classes limit="3"></widget-classes>
+```
+
+**Options:**
+- **Show last 3 classes:**
+  ```html
+  <widget-classes limit="3"></widget-classes>
+  ```
+
+- **Show all classes sorted alphabetically:**
+  ```html
+  <widget-classes limit="all" sort="title"></widget-classes>
+  ```
+
+**Attributes:**
+- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest"`, `sort="oldest"`, or `sort="title"` - Sort order (optional, default: newest first)
 
 ### Widget Best Practices
 
 1. **Add headings before widgets** - Help readers understand what they're looking at
 2. **Place widgets where they make sense** - Put event lists near relevant content
 3. **Test after adding** - Make sure events are showing up correctly
-4. **Widgets only show if events exist** - If no matching events are found, the widget won't appear
+4. **Widgets only show if content exists** - If no matching content is found, the widget won't appear
+5. **Use sorting for better organisation** - Sort by oldest for historical content, newest for recent updates
 
 ### Troubleshooting Widgets
 
@@ -247,6 +301,11 @@ Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
 - Verify events are in the `content/events/` folder
 - Check that event titles contain the right keywords (milonga, workshop, etc.) for filtering
 - Ensure events have valid `event-start` dates
+
+**Announcements/Curiosities/Classes not appearing:**
+- Verify content is in the correct folder (`content/announcements/`, `content/curiosities/`, or `content/classes/`)
+- Check that the widget syntax is correct
+- Ensure content files have valid dates
 
 ## Working with Images
 
@@ -360,7 +419,7 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 ```markdown
 ## Upcoming Milongas
 
-<div data-widget="filtered_events" data-filter="milonga"></div>
+<widget-events type="milonga" days="365"></widget-events>
 ```
 
 ### Finding and Editing Existing Content
@@ -400,18 +459,32 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 
 ### Widget Quick Syntax
 
-**Filtered events:**
+**Events:**
 ```html
-<div data-widget="filtered_events" data-filter="milonga"></div>
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="next" data-span-days="7"></div>
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="last" data-span-days="30"></div>
-<div data-widget="filtered_events" data-filter="milonga" data-span-type="range" data-span-start="2026-06-01" data-span-end="2026-08-31"></div>
+<widget-events type="milonga" days="365"></widget-events>
+<widget-events type="milonga" days="7"></widget-events>
+<widget-events type="milonga" days="-30"></widget-events>
+<widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
 ```
 
-**Calendar month:**
+**Announcements:**
 ```html
-<div data-widget="calendar_month" data-year="2025" data-month="1"></div>
+<widget-announcements limit="3"></widget-announcements>
+<widget-announcements limit="all" sort="oldest"></widget-announcements>
 ```
+
+**Curiosities:**
+```html
+<widget-curiosities limit="3"></widget-curiosities>
+<widget-curiosities limit="all" sort="oldest"></widget-curiosities>
+```
+
+**Classes:**
+```html
+<widget-classes limit="3"></widget-classes>
+<widget-classes limit="all" sort="title"></widget-classes>
+```
+
 
 ### Image Syntax
 

@@ -3,6 +3,7 @@ title: "Tango není medvěd"
 date: 2024-11-26 01:00:00
 slug: tango-neni-medved
 category: announcement
+preview_image: images/tango_nen_medvd.jpg
 ---
 
 Zdá se ti, že se brněnské tango ukládá k zimnímu spánku?😴 Neboj, není to medvěd 🐻
@@ -18,4 +19,3 @@ Konkrétní zdroje, kde se topí tangovým objetím:
 👉 Pátek 6. 12., 20:30 - 01:30 Monastery milonga. Pořádá TangoLab Štěky v rámci workshopů s Gottfriedem z Vídně.
 👉Neděle 8. 12., 20:00 - 23:00 Vedená praktika na Stolárně 💞
 
-![]({static}/images/tango_nen_medvd.jpg)

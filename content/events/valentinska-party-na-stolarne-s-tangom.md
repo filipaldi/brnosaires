@@ -4,6 +4,7 @@ date: 2026-02-14 20:00:00
 event-start: 2026-02-14 20:00:00
 event-end: 2026-02-14 23:00:00
 slug: valentinska-party-na-stolarne-s-tangom
+preview_image: images/photo_2026-01-08_20.54.24.jpeg
 ---
 
 Po krásné Novoroční párty bychom Vás rádi pozvali na Valentýnskou párty ve stejném duchu
@@ -28,8 +29,4 @@ PROGRAM:
 
 21:00 - 0:00: Neolonga - Tango (DJ Filip)
 
-![]({static}/images/photo_2026-01-08_20.54.20.jpeg)
-
 VSTUPNÉ: 150 Kč
-
-![]({static}/images/photo_2026-01-08_20.54.24.jpeg)

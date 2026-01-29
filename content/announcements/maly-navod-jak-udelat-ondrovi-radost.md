@@ -3,6 +3,7 @@ title: "Malý návod, jak udělat Ondrovi radost"
 date: 2024-06-03 02:00:00
 slug: maly-navod-jak-udelat-ondrovi-radost
 category: announcement
+preview_image: images/ondra.jpg
 ---
 
 Na úvod týdne si vzpomeň, že čtvrtek tě nenechá na holičkách🤲.
@@ -16,4 +17,3 @@ Jak uděláš radost DJovi? Pár tipů pro zájemce:
 Paní Lada (ta za barem) je skromnější - udělá jí radost nákup dortíku🍰
 Dojdi, nikde nemáš tolik možností za pouhých 80 Kč! 🤩
 
-![]({static}/images/ondra.jpg)

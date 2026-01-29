@@ -3,6 +3,7 @@ title: "Buď jako oni!"
 date: 2024-11-12 01:00:00
 slug: bud-jako-oni
 category: announcement
+preview_image: images/image.png
 ---
 
 20 let a budeš jako oni! 😮
@@ -17,4 +18,3 @@ Na akci Brno tango weekend tančí:
 ❤️ Sven Elze & Dilara Ogretmen
 ❤️ Jorg Palm & Zuzka Kleinová
 
-![]({static}/images/image.png)

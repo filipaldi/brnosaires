@@ -3,6 +3,7 @@ title: "2160 objetí"
 date: 2023-11-28 01:00:00
 slug: 2160-objeti
 category: announcement
+preview_image: images/406052028_10231086857454385_5611693952212668786_n.jpg
 ---
 
 👉 Ke zlepšení zdraví stačí jedno 10 vteřinové objetí 🫂.
@@ -16,4 +17,3 @@ Sobota - milonga na Skleněnce 🍷❤.
 Furt málo? 🤔 Potrénuj na nedělních praktikách na Stolárně 💪
 A pozor! ☝️ "Objetím se nelze předávkovat, nejde ho vyčerpat a je zcela bez nežádoucích účinků"
 
-![]({static}/images/406052028_10231086857454385_5611693952212668786_n.jpg)

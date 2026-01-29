@@ -3,6 +3,7 @@ title: "Pohořelický kinosál ve spárech tango tanečníků"
 date: 2025-02-05 01:00:00
 slug: pohorelicky-kinosal-ve-sparech-tango-tanecniku
 category: announcement
+preview_image: images/Milonga_Pohoelice.jpg
 ---
 
 Když stavěli kinosál v Pohořelicích, netušili, že se dostane do spárů tango tanečníků 😲
@@ -13,4 +14,3 @@ Za to, že nezůstalo jen u sedaček, děkujeme Zdeňka Jandásková Šichová a
 Pozor👆 hned v neděli další praktika na Stolárně + openclass pod taktovkou Petra a Irči 🫶
 Tvůj tangový víkend už za několik desítek hodin ⏳
 
-![]({static}/images/Milonga_Pohoelice.jpg)
