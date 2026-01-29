@@ -36,7 +36,7 @@ jobs:
 
       - name: Build with Pelican
         run: |
-          pelican content -s publishconf.py
+          PYTHONPATH=. pelican content -s publishconf.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
