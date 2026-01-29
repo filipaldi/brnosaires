@@ -1,5 +1,5 @@
 ---
-title: "Vrátila se rovnováha"
+title: Vrátila se rovnováha
 date: 2024-06-17 02:00:00
 slug: vratila-se-rovnovaha
 category: announcement

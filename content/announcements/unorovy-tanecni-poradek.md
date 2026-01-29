@@ -1,5 +1,5 @@
 ---
-title: "Únorový taneční pořádek"
+title: Únorový taneční pořádek
 date: 2025-01-28 01:00:00
 slug: unorovy-tanecni-poradek
 category: announcement

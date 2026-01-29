@@ -1,5 +1,5 @@
 ---
-title: "Tvých 30 příležitostí "
+title: Tvých 30 příležitostí 
 date: 2024-07-30 02:00:00
 slug: tvych-30-prilezitosti
 category: announcement

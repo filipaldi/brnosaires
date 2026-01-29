@@ -1,5 +1,5 @@
 ---
-title: "Neolonga na Stolárně"
+title: Neolonga na Stolárně
 date: 2026-01-10 19:00:00
 event-start: 2026-01-10 19:00:00
 event-end: 2026-01-10 23:30:00

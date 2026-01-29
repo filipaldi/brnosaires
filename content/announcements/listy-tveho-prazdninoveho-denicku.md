@@ -1,5 +1,5 @@
 ---
-title: "Listy tvého prázdninového deníčku"
+title: Listy tvého prázdninového deníčku
 date: 2024-06-19 02:00:00
 slug: listy-tveho-prazdninoveho-denicku
 category: announcement

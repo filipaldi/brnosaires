@@ -1,5 +1,5 @@
 ---
-title: "Tvůj tango-bio-rytmus je zpět!"
+title: Tvůj tango-bio-rytmus je zpět!
 date: 2024-06-17 02:00:00
 slug: tvuj-tango-bio-rytmus-je-zpet
 category: announcement

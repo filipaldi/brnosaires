@@ -1,5 +1,5 @@
 ---
-title: "Open class a praktika Stolárna"
+title: Open class a praktika Stolárna
 date: 2025-05-06 19:36:00
 event-start: 2025-05-06 19:36:00
 slug: open-class-a-praktika-stolarna

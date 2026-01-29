@@ -1,5 +1,5 @@
 ---
-title: "Zvýší se počet hvězd i obyvatel Brna"
+title: Zvýší se počet hvězd i obyvatel Brna
 date: 2024-10-26 02:00:00
 slug: zvysi-se-pocet-hvezd-i-obyvatel-brna
 category: announcement

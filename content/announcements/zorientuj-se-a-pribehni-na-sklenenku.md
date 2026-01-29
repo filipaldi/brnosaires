@@ -1,5 +1,5 @@
 ---
-title: "Zorientuj se a přiběhni na Skleněnku"
+title: Zorientuj se a přiběhni na Skleněnku
 date: 2025-03-31 02:00:00
 slug: zorientuj-se-a-pribehni-na-sklenenku
 category: announcement

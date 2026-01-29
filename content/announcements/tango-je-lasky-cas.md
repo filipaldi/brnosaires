@@ -1,5 +1,5 @@
 ---
-title: "Tango je lásky čas "
+title: Tango je lásky čas 
 date: 2024-04-29 02:00:00
 slug: tango-je-lasky-cas
 category: announcement

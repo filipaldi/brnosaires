@@ -1,5 +1,5 @@
 ---
-title: "Vrtkavé lásky"
+title: Vrtkavé lásky
 date: 2025-05-13 02:00:00
 slug: vrtkave-lasky
 category: announcement

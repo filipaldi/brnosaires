@@ -1,5 +1,5 @@
 ---
-title: "Víkendové workshopy argentinského tanga pro začátečníky (1)"
+title: Víkendové workshopy argentinského tanga pro začátečníky (1)
 date: 2026-01-17 12:30:00
 event-start: 2026-01-17 12:30:00
 event-end: 2026-01-17 16:45:00

@@ -1,5 +1,5 @@
 ---
-title: "Vánoční narozeninová milonga - HEX Gallery"
+title: Vánoční narozeninová milonga - HEX Gallery
 date: 2025-12-17 18:00:00
 event-start: 2025-12-17 18:00:00
 slug: vanocni-narozeninova-milonga-hex-gallery

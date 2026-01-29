@@ -1,5 +1,5 @@
 ---
-title: "Filip rozsekne tango dilema"
+title: Filip rozsekne tango dilema
 date: 2024-05-27 02:00:00
 slug: filip-rozsekne-tango-dilema
 category: announcement

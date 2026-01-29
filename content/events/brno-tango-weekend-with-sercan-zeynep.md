@@ -1,5 +1,5 @@
 ---
-title: "BRNO TANGO WEEKEND with Sercan & Zeynep "
+title: BRNO TANGO WEEKEND with Sercan & Zeynep 
 date: 2026-03-07 12:00:00
 event-start: 2026-03-07 12:00:00
 event-end: 2026-03-08 17:00:00

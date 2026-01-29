@@ -1,5 +1,5 @@
 ---
-title: "Sharing Dreams through our Feet – Musicality in motion through contact-tango"
+title: Sharing Dreams through our Feet – Musicality in motion through contact-tango
 date: 2025-11-21 18:00:00
 event-start: 2025-11-21 18:00:00
 event-end: 2025-11-23 14:00:00

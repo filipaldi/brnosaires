@@ -1,5 +1,5 @@
 ---
-title: "Milonga na Skleněnce "
+title: Milonga na Skleněnce 
 date: 2026-02-07 18:00:00
 event-start: 2026-02-07 18:00:00
 event-end: 2026-02-07 22:00:00

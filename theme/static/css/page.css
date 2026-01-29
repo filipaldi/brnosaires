@@ -14,24 +14,6 @@
   margin: 0 auto;
 }
 
-.group--event-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--size-m);
-}
-
-@media (min-width: 600px) {
-  .group--event-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .group--event-cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .button--calendar-subscribe {
   position: fixed;
   bottom: var(--size-m);

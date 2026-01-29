@@ -1,5 +1,5 @@
 ---
-title: "Tvůj tangový rejstřík"
+title: Tvůj tangový rejstřík
 date: 2025-04-10 02:00:00
 slug: tvuj-tangovy-rejstrik
 category: announcement

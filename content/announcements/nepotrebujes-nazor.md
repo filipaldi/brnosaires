@@ -1,5 +1,5 @@
 ---
-title: "Nepotřebuješ názor"
+title: Nepotřebuješ názor
 date: 2025-04-07 02:00:00
 slug: nepotrebujes-nazor
 category: announcement

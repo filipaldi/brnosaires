@@ -1,5 +1,5 @@
 ---
-title: "Tango je fér"
+title: Tango je fér
 date: 2024-10-14 02:00:00
 slug: tango-je-fer
 category: announcement

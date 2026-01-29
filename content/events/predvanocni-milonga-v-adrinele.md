@@ -1,5 +1,5 @@
 ---
-title: "Předvánoční milonga v Adrinele"
+title: Předvánoční milonga v Adrinele
 date: 2025-12-18 20:30:00
 event-start: 2025-12-18 20:30:00
 event-end: 2025-12-18 23:15:00

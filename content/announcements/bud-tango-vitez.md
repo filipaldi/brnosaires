@@ -1,5 +1,5 @@
 ---
-title: "Buď tango vítěz!"
+title: Buď tango vítěz!
 date: 2024-08-05 02:00:00
 slug: bud-tango-vitez
 category: announcement

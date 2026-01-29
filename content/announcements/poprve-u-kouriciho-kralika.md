@@ -1,5 +1,5 @@
 ---
-title: "Poprvé U kouřícího králíka"
+title: Poprvé U kouřícího králíka
 date: 2025-01-14 01:00:00
 slug: poprve-u-kouriciho-kralika
 category: announcement

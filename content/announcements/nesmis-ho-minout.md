@@ -1,5 +1,5 @@
 ---
-title: "Nesmíš ho minout!"
+title: Nesmíš ho minout!
 date: 2024-12-12 01:00:00
 slug: nesmis-ho-minout
 category: announcement

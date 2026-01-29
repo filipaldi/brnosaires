@@ -1,5 +1,5 @@
 ---
-title: "Promítání o Argentině + milonga v Galerii Hex"
+title: Promítání o Argentině + milonga v Galerii Hex
 date: 2025-12-04 18:00:00
 event-start: 2025-12-04 18:00:00
 event-end: 2025-12-04 23:00:00

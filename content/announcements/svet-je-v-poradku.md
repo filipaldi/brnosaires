@@ -1,5 +1,5 @@
 ---
-title: "Svět je v pořádku"
+title: Svět je v pořádku
 date: 2024-05-20 02:00:00
 slug: svet-je-v-poradku
 category: announcement

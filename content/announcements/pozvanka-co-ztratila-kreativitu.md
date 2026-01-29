@@ -1,5 +1,5 @@
 ---
-title: "Pozvánka, co ztratila kreativitu"
+title: Pozvánka, co ztratila kreativitu
 date: 2025-03-11 01:00:00
 slug: pozvanka-co-ztratila-kreativitu
 category: announcement

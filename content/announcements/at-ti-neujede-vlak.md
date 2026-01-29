@@ -1,5 +1,5 @@
 ---
-title: "Ať ti neujede vlak!"
+title: Ať ti neujede vlak!
 date: 2025-05-01 16:49:00
 slug: at-ti-neujede-vlak
 category: announcement

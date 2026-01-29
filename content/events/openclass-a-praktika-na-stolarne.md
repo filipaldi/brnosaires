@@ -1,5 +1,5 @@
 ---
-title: "Openclass a praktika na Stolárně"
+title: Openclass a praktika na Stolárně
 date: 2025-06-25 11:12:00
 event-start: 2025-06-25 11:12:00
 slug: openclass-a-praktika-na-stolarne

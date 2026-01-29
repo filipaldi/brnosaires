@@ -1,5 +1,5 @@
 ---
-title: "Workshop - Sabine & Thomas Mayr, Rakousko"
+title: Workshop - Sabine & Thomas Mayr, Rakousko
 date: 2025-12-13 09:00:00
 event-start: 2025-12-13 09:00:00
 event-end: 2025-12-14 14:00:00

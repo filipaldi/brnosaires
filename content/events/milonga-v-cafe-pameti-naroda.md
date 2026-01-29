@@ -1,5 +1,5 @@
 ---
-title: "Milonga v Café Paměti národa"
+title: Milonga v Café Paměti národa
 date: 2025-05-06 19:51:00
 event-start: 2025-05-06 19:51:00
 slug: milonga-v-cafe-pameti-naroda

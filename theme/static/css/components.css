@@ -152,44 +152,21 @@ input[type="checkbox"]:checked + span {
   object-fit: cover;
 }
 
+a.card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.grid .stack .card__content {
+  margin-top: auto;
+}
+
 /* ============================================
-   EVENT CARD
+    CARD STYLES
    ============================================ */
 
-.event-card {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-gray-light-1);
-  border: var(--border-style-m);
-  border-radius: var(--card-border-radius);
-  overflow: hidden;
-}
-
-.event-card img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.event-card .event-card__content {
-  padding: var(--size-m);
-}
-
-.event-card .event-card__title {
-  font-size: var(--text-l);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--size-xs);
-}
-
-.event-card .event-card__meta {
-  font-size: var(--text-s);
-  color: var(--color-neutral-3);
-}
-
-.event-card .event-card__meta-item {
-  display: flex;
-  align-items: center;
-  gap: var(--size-2xs);
+.grid .stack .card__meta {
+  margin-top: auto;
 }
 
 /* ============================================

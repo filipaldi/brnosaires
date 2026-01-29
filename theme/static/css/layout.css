@@ -54,6 +54,18 @@
   justify-items: center;
 }
 
+.grid {
+  display: grid;
+  gap: var(--size-m);
+  --grid-min: 250px;
+}
+
+@supports (width: min(250px, 100%)) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
+  }
+}
+
 /* ============================================
    JUSTIFY CONTENT UTILITIES
    ============================================ */

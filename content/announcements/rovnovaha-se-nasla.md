@@ -1,5 +1,5 @@
 ---
-title: "Rovnováha se našla!"
+title: Rovnováha se našla!
 date: 2024-06-17 02:00:00
 slug: rovnovaha-se-nasla
 category: announcement

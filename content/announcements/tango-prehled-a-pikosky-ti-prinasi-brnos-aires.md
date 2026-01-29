@@ -1,5 +1,5 @@
 ---
-title: "Tango přehled a pikošky ti přináší Brnos Aires"
+title: Tango přehled a pikošky ti přináší Brnos Aires
 date: 2025-02-17 01:00:00
 slug: tango-prehled-a-pikosky-ti-prinasi-brnos-aires
 category: announcement

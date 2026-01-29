@@ -1,5 +1,5 @@
 ---
-title: "Nikdy tě neopustí "
+title: Nikdy tě neopustí 
 date: 2025-04-28 02:00:00
 slug: nikdy-te-neopusti
 category: announcement

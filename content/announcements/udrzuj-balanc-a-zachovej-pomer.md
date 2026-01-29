@@ -1,5 +1,5 @@
 ---
-title: "Udržuj balanc a zachovej poměr "
+title: Udržuj balanc a zachovej poměr 
 date: 2024-09-17 02:00:00
 slug: udrzuj-balanc-a-zachovej-pomer
 category: announcement

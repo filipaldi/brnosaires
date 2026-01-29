@@ -1,5 +1,5 @@
 ---
-title: "Předvánoční milonga u Brněnského draka + openclass"
+title: Předvánoční milonga u Brněnského draka + openclass
 date: 2025-12-20 19:00:00
 event-start: 2025-12-20 19:00:00
 event-end: 2025-12-20 22:30:00

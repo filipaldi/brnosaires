@@ -1,5 +1,5 @@
 ---
-title: "Kde posbíráš hřejivá objetí?"
+title: Kde posbíráš hřejivá objetí?
 date: 2024-10-01 02:00:00
 slug: kde-posbiras-hrejiva-objeti
 category: announcement

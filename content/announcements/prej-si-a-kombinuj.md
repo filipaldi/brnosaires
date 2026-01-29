@@ -1,5 +1,5 @@
 ---
-title: "Přej si a kombinuj"
+title: Přej si a kombinuj
 date: 2024-06-10 02:00:00
 slug: prej-si-a-kombinuj
 category: announcement

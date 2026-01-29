@@ -1,5 +1,5 @@
 ---
-title: "Malena, Homér a co mají společného s MDŽ"
+title: Malena, Homér a co mají společného s MDŽ
 date: 2025-02-28 01:00:00
 slug: malena-homer-a-co-maji-spolecneho-s-mdz
 category: announcement

@@ -1,5 +1,5 @@
 ---
-title: "Pořadí ramínek ve skříni"
+title: Pořadí ramínek ve skříni
 date: 2025-04-23 02:00:00
 slug: poradi-raminek-ve-skrini
 category: announcement

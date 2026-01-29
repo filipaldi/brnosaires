@@ -1,5 +1,5 @@
 ---
-title: "2160 objetí"
+title: 2160 objetí
 date: 2023-11-28 01:00:00
 slug: 2160-objeti
 category: announcement

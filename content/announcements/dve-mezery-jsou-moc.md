@@ -1,5 +1,5 @@
 ---
-title: "Dvě mezery jsou moc"
+title: Dvě mezery jsou moc
 date: 2024-06-12 02:00:00
 slug: dve-mezery-jsou-moc
 category: announcement

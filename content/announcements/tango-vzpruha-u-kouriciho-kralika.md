@@ -1,5 +1,5 @@
 ---
-title: "Tango vzpruha U kouřícího králíka"
+title: Tango vzpruha U kouřícího králíka
 date: 2025-04-02 02:00:00
 slug: tango-vzpruha-u-kouriciho-kralika
 category: announcement

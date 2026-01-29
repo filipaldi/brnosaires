@@ -1,5 +1,5 @@
 ---
-title: "Praktika a openclass na Stolárně "
+title: Praktika a openclass na Stolárně 
 date: 2026-02-01 20:00:00
 event-start: 2026-02-01 20:00:00
 event-end: 2026-02-01 23:00:00

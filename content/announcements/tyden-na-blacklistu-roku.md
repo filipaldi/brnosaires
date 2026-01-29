@@ -1,5 +1,5 @@
 ---
-title: "Týden na blacklistu roku!"
+title: Týden na blacklistu roku!
 date: 2024-10-07 02:00:00
 slug: tyden-na-blacklistu-roku
 category: announcement

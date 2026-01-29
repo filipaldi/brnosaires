@@ -1,5 +1,5 @@
 ---
-title: "Tango není medvěd"
+title: Tango není medvěd
 date: 2024-11-26 01:00:00
 slug: tango-neni-medved
 category: announcement

@@ -1,5 +1,5 @@
 ---
-title: "Tři oříšky pro tango"
+title: Tři oříšky pro tango
 date: 2024-12-03 01:00:00
 slug: tri-orisky-pro-tango
 category: announcement

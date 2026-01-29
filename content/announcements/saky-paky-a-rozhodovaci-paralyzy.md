@@ -1,5 +1,5 @@
 ---
-title: "Saky paky a rozhodovací paralýzy"
+title: Saky paky a rozhodovací paralýzy
 date: 2025-05-13 02:00:00
 slug: saky-paky-a-rozhodovaci-paralyzy
 category: announcement

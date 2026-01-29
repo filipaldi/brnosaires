@@ -1,5 +1,5 @@
 ---
-title: "Záruka kvalitního úsměvu"
+title: Záruka kvalitního úsměvu
 date: 2024-05-06 02:00:00
 slug: zaruka-kvalitniho-usmevu
 category: announcement

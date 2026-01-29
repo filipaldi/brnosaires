@@ -1,5 +1,5 @@
 ---
-title: "Milonga Fuera del Nido"
+title: Milonga Fuera del Nido
 date: 2026-01-17 18:00:00
 event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00

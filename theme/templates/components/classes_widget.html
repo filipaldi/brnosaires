@@ -54,9 +54,7 @@
 
 {% if display_classes %}
 <div class="classes-widget">
-  <h3 class="classes-widget__title">Lekce</h3>
-  
-  <div class="group--cards">
+  <div class="grid">
     {% for item in display_classes %}
     {% set first_image = none %}
     {% if '<img' in item.content %}
@@ -75,7 +73,7 @@
         {% endif %}
       {% endif %}
     {% endif %}
-    <article class="card">
+    <article class="stack gap-s card">
       {% if first_image %}
       <div class="card__image">
         <img src="{{ first_image }}" alt="{{ item.title }}" />

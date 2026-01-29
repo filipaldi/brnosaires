@@ -1,5 +1,5 @@
 ---
-title: "Milonga v kavárně Hned vedle (dříve Paměti národa) "
+title: Milonga v kavárně Hned vedle (dříve Paměti národa) 
 date: 2025-12-11 20:00:00
 event-start: 2025-12-11 20:00:00
 event-end: 2025-12-11 23:00:00

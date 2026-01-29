@@ -1,5 +1,5 @@
 ---
-title: "Adrinela - tvoje jistota v brněnské metropoli"
+title: Adrinela - tvoje jistota v brněnské metropoli
 date: 2024-04-26 02:00:00
 slug: adrinela-tvoje-jistota-v-brnenske-metropoli
 category: announcement

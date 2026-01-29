@@ -1,5 +1,5 @@
 ---
-title: "Milonga Sesamo"
+title: Milonga Sesamo
 date: 2026-03-21 20:00:00
 event-start: 2026-03-21 20:00:00
 event-end: 2026-03-22 01:00:00

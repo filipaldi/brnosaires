@@ -1,5 +1,5 @@
 ---
-title: "Paměti tango národa v Café Paměti národa"
+title: Paměti tango národa v Café Paměti národa
 date: 2025-02-11 01:00:00
 slug: pameti-tango-naroda-v-cafe-pameti-naroda
 category: announcement

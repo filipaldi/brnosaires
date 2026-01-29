@@ -1,5 +1,5 @@
 ---
-title: "Moudré obrázky"
+title: Moudré obrázky
 date: 2023-12-21 01:00:00
 slug: moudre-obrazky
 category: announcement

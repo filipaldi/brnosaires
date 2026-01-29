@@ -10,9 +10,21 @@
    ============================================ */
 
 .card {
-  border: var(--border-style-l);
-  border-radius: var(--card-border-radius);
+  border: var(--border-style-s);
+  border-radius: var(--border-radius-xs);
   background-color: var(--color-gray-light-1);
+  overflow: hidden;
+}
+
+.card__image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.card__image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .input-border {

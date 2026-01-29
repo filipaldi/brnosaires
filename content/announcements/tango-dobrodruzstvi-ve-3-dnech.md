@@ -1,5 +1,5 @@
 ---
-title: "Tango dobrodružství ve 3 dnech"
+title: Tango dobrodružství ve 3 dnech
 date: 2024-08-19 02:00:00
 slug: tango-dobrodruzstvi-ve-3-dnech
 category: announcement

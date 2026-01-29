@@ -1,5 +1,5 @@
 ---
-title: "Speciální milonga v Rockwine s hostujícím DJ Jose Iglesias"
+title: Speciální milonga v Rockwine s hostujícím DJ Jose Iglesias
 date: 2025-11-27 20:00:00
 event-start: 2025-11-27 20:00:00
 event-end: 2025-11-27 23:00:00

@@ -1,5 +1,5 @@
 ---
-title: "Co organizují tajemné Z.L.H.M.?"
+title: Co organizují tajemné Z.L.H.M.?
 date: 2024-09-09 02:00:00
 slug: co-organizuji-tajemne-z-l-h-m
 category: announcement

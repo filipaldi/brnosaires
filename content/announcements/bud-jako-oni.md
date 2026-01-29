@@ -1,5 +1,5 @@
 ---
-title: "Buď jako oni!"
+title: Buď jako oni!
 date: 2024-11-12 01:00:00
 slug: bud-jako-oni
 category: announcement

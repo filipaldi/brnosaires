@@ -1,5 +1,5 @@
 ---
-title: "Buď jako surikati"
+title: Buď jako surikati
 date: 2025-01-21 01:00:00
 slug: bud-jako-surikati
 category: announcement

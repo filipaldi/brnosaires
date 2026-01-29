@@ -1,5 +1,5 @@
 ---
-title: "Zaplň prostor svojí VIP osobností"
+title: Zaplň prostor svojí VIP osobností
 date: 2024-11-16 01:00:00
 slug: zapln-prostor-svoji-vip-osobnosti
 category: announcement

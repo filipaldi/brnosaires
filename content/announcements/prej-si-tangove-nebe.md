@@ -1,5 +1,5 @@
 ---
-title: "Přej si tangové nebe!"
+title: Přej si tangové nebe!
 date: 2024-06-10 02:00:00
 slug: prej-si-tangove-nebe
 category: announcement

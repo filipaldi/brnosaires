@@ -1,5 +1,5 @@
 ---
-title: "Rozhodovací paralýza?"
+title: Rozhodovací paralýza?
 date: 2024-10-22 02:00:00
 slug: rozhodovaci-paralyza
 category: announcement

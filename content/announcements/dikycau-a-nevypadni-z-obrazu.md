@@ -1,5 +1,5 @@
 ---
-title: "Díkyčau a nevypadni z obrazu"
+title: Díkyčau a nevypadni z obrazu
 date: 2024-06-24 02:00:00
 slug: dikycau-a-nevypadni-z-obrazu
 category: announcement

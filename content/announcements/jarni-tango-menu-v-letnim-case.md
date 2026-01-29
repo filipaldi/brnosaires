@@ -1,5 +1,5 @@
 ---
-title: "Jarní tango menu v letním čase"
+title: Jarní tango menu v letním čase
 date: 2025-03-24 01:00:00
 slug: jarni-tango-menu-v-letnim-case
 category: announcement

@@ -1,5 +1,5 @@
 ---
-title: "Rock, tango a víno v Rockwine"
+title: Rock, tango a víno v Rockwine
 date: 2025-03-24 01:00:00
 slug: rock-tango-a-vino-v-rockwine
 category: announcement

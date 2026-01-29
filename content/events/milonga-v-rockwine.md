@@ -1,5 +1,5 @@
 ---
-title: "Milonga v Rockwine"
+title: Milonga v Rockwine
 date: 2026-01-29 01:00:00
 event-start: 2026-01-29 01:00:00
 slug: milonga-v-rockwine

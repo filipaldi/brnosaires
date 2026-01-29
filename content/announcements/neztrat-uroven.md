@@ -1,5 +1,5 @@
 ---
-title: "Neztrať úroveň!"
+title: Neztrať úroveň!
 date: 2024-07-06 02:00:00
 slug: neztrat-uroven
 category: announcement

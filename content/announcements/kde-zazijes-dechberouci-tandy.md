@@ -1,5 +1,5 @@
 ---
-title: "Kde zažiješ dechberoucí tandy?"
+title: Kde zažiješ dechberoucí tandy?
 date: 2024-09-23 02:00:00
 slug: kde-zazijes-dechberouci-tandy
 category: announcement

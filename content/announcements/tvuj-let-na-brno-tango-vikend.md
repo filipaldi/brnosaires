@@ -1,5 +1,5 @@
 ---
-title: "Tvůj let na Brno tango víkend"
+title: Tvůj let na Brno tango víkend
 date: 2025-04-14 02:00:00
 slug: tvuj-let-na-brno-tango-vikend
 category: announcement

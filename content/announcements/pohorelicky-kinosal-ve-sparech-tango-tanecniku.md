@@ -1,5 +1,5 @@
 ---
-title: "Pohořelický kinosál ve spárech tango tanečníků"
+title: Pohořelický kinosál ve spárech tango tanečníků
 date: 2025-02-05 01:00:00
 slug: pohorelicky-kinosal-ve-sparech-tango-tanecniku
 category: announcement

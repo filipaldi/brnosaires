@@ -1,5 +1,5 @@
 ---
-title: "Tvoje sbírka tango objetí"
+title: Tvoje sbírka tango objetí
 date: 2024-12-16 01:00:00
 slug: tvoje-sbirka-tango-objeti
 category: announcement

@@ -1,5 +1,5 @@
 ---
-title: "Praktika Stolárna"
+title: Praktika Stolárna
 date: 2025-05-06 19:41:00
 event-start: 2025-05-06 19:41:00
 slug: praktika-stolarna

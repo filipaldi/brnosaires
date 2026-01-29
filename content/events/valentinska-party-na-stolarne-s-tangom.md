@@ -1,5 +1,5 @@
 ---
-title: "Valentínska párty na stolárne s tangom"
+title: Valentínska párty na stolárne s tangom
 date: 2026-02-14 20:00:00
 event-start: 2026-02-14 20:00:00
 event-end: 2026-02-14 23:00:00

@@ -1,5 +1,5 @@
 ---
-title: "Svět se pootočil aneb zářijové highlighty"
+title: Svět se pootočil aneb zářijové highlighty
 date: 2024-09-02 02:00:00
 slug: svet-se-pootocil-aneb-zarijove-highlighty
 category: announcement

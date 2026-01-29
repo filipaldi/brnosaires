@@ -1,5 +1,5 @@
 ---
-title: "Milonga v Adrinele "
+title: Milonga v Adrinele 
 date: 2025-11-20 20:30:00
 event-start: 2025-11-20 20:30:00
 event-end: 2025-11-20 23:15:00

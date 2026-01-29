@@ -1,5 +1,5 @@
 ---
-title: "Na co mít čerstvé nožky?"
+title: Na co mít čerstvé nožky?
 date: 2024-09-04 02:00:00
 slug: na-co-mit-cerstve-nozky
 category: announcement

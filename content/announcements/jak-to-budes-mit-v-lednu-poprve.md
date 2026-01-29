@@ -1,5 +1,5 @@
 ---
-title: "Jak to budeš mít v lednu poprvé"
+title: Jak to budeš mít v lednu poprvé
 date: 2025-01-02 01:00:00
 slug: jak-to-budes-mit-v-lednu-poprve
 category: announcement
