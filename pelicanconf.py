@@ -31,8 +31,10 @@ DEFAULT_PAGINATION = 10
 from datetime import datetime
 import pytz
 
-def get_now():
-    return datetime.now(pytz.timezone(TIMEZONE))
+NOW = datetime.now(pytz.timezone(TIMEZONE))
 
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
-JINJA_GLOBALS = {"now": get_now}
+JINJA_GLOBALS = {"NOW": NOW}
+
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["inject_articles"]

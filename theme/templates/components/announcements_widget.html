@@ -1,0 +1,91 @@
+{% set limit = none %}
+{% set sort = none %}
+
+{% if tag_content %}
+  {% set tag_name_parts = tag_content.split(' ') %}
+  {% set tag_name = tag_name_parts[0] %}
+  {% if tag_name_parts | length > 1 %}
+    {% set attrs_str = tag_content[tag_name | length:] | trim %}
+    {% if attrs_str %}
+      {% set attrs_list = attrs_str.split('" ') %}
+      {% for attr in attrs_list %}
+        {% if 'limit="' in attr %}
+          {% set limit_raw = attr.split('limit="')[1] %}
+          {% set limit = limit_raw.split('"', 1)[0] %}
+        {% elif 'sort="' in attr %}
+          {% set sort_raw = attr.split('sort="')[1] %}
+          {% set sort = sort_raw.split('"', 1)[0] | lower %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% set announcement_pages = [] %}
+{% for article in all_articles %}
+  {% if article.category and article.category.name == 'announcement' %}
+    {% set _ = announcement_pages.append(article) %}
+  {% endif %}
+{% endfor %}
+
+{% if sort == 'oldest' %}
+  {% set sorted_announcements = announcement_pages | sort(attribute='date') %}
+{% else %}
+  {% set sorted_announcements = announcement_pages | sort(attribute='date', reverse=true) %}
+{% endif %}
+
+{% if limit %}
+  {% if limit == 'all' %}
+    {% set display_announcements = sorted_announcements %}
+  {% elif limit is number %}
+    {% set display_announcements = sorted_announcements[:limit|int] %}
+  {% elif 'last' in limit|lower %}
+    {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
+    {% set display_announcements = sorted_announcements[-limit_num:] %}
+  {% else %}
+    {% set limit_num = limit|int %}
+    {% set display_announcements = sorted_announcements[:limit_num] %}
+  {% endif %}
+{% else %}
+  {% set display_announcements = sorted_announcements %}
+{% endif %}
+
+<div class="announcements-widget">
+  <h3 class="announcements-widget__title">Oznámení</h3>
+  
+  {% if display_announcements %}
+  <div class="group--cards">
+    {% for item in display_announcements %}
+    {% set first_image = none %}
+    {% if '<img' in item.content %}
+      {% set img_parts = item.content.split('<img', 1) %}
+      {% if img_parts | length > 1 %}
+        {% set img_section = img_parts[1][:500] %}
+        {% if 'src="' in img_section %}
+          {% set src_parts = img_section.split('src="', 1) %}
+          {% if src_parts | length > 1 %}
+            {% set src_after = src_parts[1] %}
+            {% set src_end_parts = src_after.split('"', 1) %}
+            {% if src_end_parts | length > 1 %}
+              {% set first_image = src_end_parts[0] %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    <article class="card">
+      {% if first_image %}
+      <div class="card__image">
+        <img src="{{ first_image }}" alt="{{ item.title }}" />
+      </div>
+      {% endif %}
+      <div class="card__content">
+        <h3 class="card__title">
+          <a href="{{ SITEURL }}/{{ item.url }}">{{ item.title }}</a>
+        </h3>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>

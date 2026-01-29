@@ -1,6 +1,45 @@
+{% set event_type = none %}
+{% set days = none %}
+{% set start_date = none %}
+{% set end_date = none %}
+{% set limit = none %}
+{% set sort = none %}
+
+{% if tag_content %}
+  {% set tag_name_parts = tag_content.split(' ') %}
+  {% set tag_name = tag_name_parts[0] %}
+  {% if tag_name_parts | length > 1 %}
+    {% set attrs_str = tag_content[tag_name | length:] | trim %}
+    {% if attrs_str %}
+      {% set attrs_list = attrs_str.split('" ') %}
+      {% for attr in attrs_list %}
+        {% if 'type="' in attr %}
+          {% set type_raw = attr.split('type="')[1] %}
+          {% set event_type = type_raw.split('"', 1)[0] | lower %}
+        {% elif 'days="' in attr %}
+          {% set days_raw = attr.split('days="')[1] %}
+          {% set days = days_raw.split('"', 1)[0] | int %}
+        {% elif 'start="' in attr %}
+          {% set start_raw = attr.split('start="')[1] %}
+          {% set start_date = start_raw.split('"', 1)[0] %}
+        {% elif 'end="' in attr %}
+          {% set end_raw = attr.split('end="')[1] %}
+          {% set end_date = end_raw.split('"', 1)[0] %}
+        {% elif 'limit="' in attr %}
+          {% set limit_raw = attr.split('limit="')[1] %}
+          {% set limit = limit_raw.split('"', 1)[0] %}
+        {% elif 'sort="' in attr %}
+          {% set sort_raw = attr.split('sort="')[1] %}
+          {% set sort = sort_raw.split('"', 1)[0] | lower %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
 {% set event_pages = [] %}
-{% for article in articles %}
-  {% if article.source_path and 'events/' in article.source_path %}
+{% for article in all_articles %}
+  {% if not article.category or (article.category and article.category.name not in ['announcement', 'curiosity', 'class']) %}
     {% set _ = event_pages.append(article) %}
   {% endif %}
 {% endfor %}
@@ -8,21 +47,21 @@
 {% set filtered_events = [] %}
 {% set type_filtered = [] %}
 
-{% if filter_type == 'milonga' %}
+{% if event_type == 'milonga' %}
   {% for page in event_pages %}
     {% set title_lower = page.title | lower %}
     {% if 'milonga' in title_lower %}
       {% set _ = type_filtered.append(page) %}
     {% endif %}
   {% endfor %}
-{% elif filter_type == 'workshop' %}
+{% elif event_type == 'workshop' %}
   {% for page in event_pages %}
     {% set title_lower = page.title | lower %}
     {% if 'workshop' in title_lower or 'lekce' in title_lower or 'lekci' in title_lower %}
       {% set _ = type_filtered.append(page) %}
     {% endif %}
   {% endfor %}
-{% elif filter_type == 'class' %}
+{% elif event_type == 'class' %}
   {% for page in event_pages %}
     {% set title_lower = page.title | lower %}
     {% if 'class' in title_lower or 'lekce' in title_lower %}
@@ -37,51 +76,49 @@
 
 {% set events_to_check = type_filtered %}
 
-{% if span_type %}
-  {% if span_type == 'next' %}
-    {% if span_days >= 365 %}
-      {% for page in events_to_check %}
-        {% set _ = filtered_events.append(page) %}
-      {% endfor %}
-    {% else %}
-      {% for page in events_to_check %}
-        {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
-        {% if page_start %}
-          {% set _ = filtered_events.append(page) %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  {% elif span_type == 'last' %}
-    {% if span_days >= 365 %}
-      {% for page in events_to_check %}
-        {% set _ = filtered_events.append(page) %}
-      {% endfor %}
-    {% else %}
-      {% for page in events_to_check %}
-        {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
-        {% if page_start %}
-          {% set _ = filtered_events.append(page) %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  {% elif span_type == 'range' %}
-    {% set start_str = span_start_date %}
-    {% set end_str = span_end_date %}
-    
+{% if days %}
+  {% if days >= 365 or days <= -365 %}
+    {% for page in events_to_check %}
+      {% set _ = filtered_events.append(page) %}
+    {% endfor %}
+  {% else %}
+    {% set today = NOW %}
     {% for page in events_to_check %}
       {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
       {% if page_start %}
         {% if page_start is string %}
           {% set page_date_str = page_start[:10] %}
+          {% set page_year = page_date_str[:4] | int %}
+          {% set page_month = page_date_str[5:7] | int %}
+          {% set page_day = page_date_str[8:10] | int %}
+          {% set page_date = NOW.replace(year=page_year, month=page_month, day=page_day, hour=0, minute=0, second=0, microsecond=0) %}
         {% else %}
-          {% set page_date_str = page_start.strftime('%Y-%m-%d') %}
+          {% set page_date = page_start.replace(hour=0, minute=0, second=0, microsecond=0) %}
         {% endif %}
-        {% if page_date_str >= start_str and page_date_str <= end_str %}
+        {% set today_date = today.replace(hour=0, minute=0, second=0, microsecond=0) %}
+        {% set days_diff = (page_date - today_date).days %}
+        {% if days > 0 and days_diff >= 0 and days_diff <= days %}
+          {% set _ = filtered_events.append(page) %}
+        {% elif days < 0 and days_diff <= 0 and days_diff >= days %}
           {% set _ = filtered_events.append(page) %}
         {% endif %}
       {% endif %}
     {% endfor %}
   {% endif %}
+{% elif start_date and end_date %}
+  {% for page in events_to_check %}
+    {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+    {% if page_start %}
+      {% if page_start is string %}
+        {% set page_date_str = page_start[:10] %}
+      {% else %}
+        {% set page_date_str = page_start.strftime('%Y-%m-%d') %}
+      {% endif %}
+      {% if page_date_str >= start_date and page_date_str <= end_date %}
+        {% set _ = filtered_events.append(page) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
 {% else %}
   {% for page in events_to_check %}
     {% set _ = filtered_events.append(page) %}
@@ -94,20 +131,42 @@
   {% endfor %}
 {% endif %}
 
-{% if filtered_events %}
+{% if sort == 'oldest' %}
+  {% set filtered_events = filtered_events | sort(attribute='date') %}
+{% else %}
+  {% set filtered_events = filtered_events | sort(attribute='date', reverse=true) %}
+{% endif %}
+
+{% if limit %}
+  {% if limit == 'all' %}
+    {% set display_events = filtered_events %}
+  {% elif limit is number %}
+    {% set display_events = filtered_events[:limit|int] %}
+  {% elif 'last' in limit|lower %}
+    {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
+    {% set display_events = filtered_events[-limit_num:] %}
+  {% else %}
+    {% set limit_num = limit|int %}
+    {% set display_events = filtered_events[:limit_num] %}
+  {% endif %}
+{% else %}
+  {% set display_events = filtered_events %}
+{% endif %}
+
+{% if display_events %}
 <div class="filtered-events-widget">
-  {% if filter_type == 'milonga' %}
+  {% if event_type == 'milonga' %}
     <h3 class="filtered-events-widget__title">Milongy</h3>
-  {% elif filter_type == 'workshop' %}
+  {% elif event_type == 'workshop' %}
     <h3 class="filtered-events-widget__title">Lekce</h3>
-  {% elif filter_type == 'class' %}
+  {% elif event_type == 'class' %}
     <h3 class="filtered-events-widget__title">Lekce</h3>
-  {% elif filtered_events %}
+  {% else %}
     <h3 class="filtered-events-widget__title">Události</h3>
   {% endif %}
   
   <div class="group--event-cards">
-    {% for event in filtered_events %}
+    {% for event in display_events %}
     <article class="event-card">
       <div class="event-card__content stack gap-xs">
         <h3 class="event-card__title">
