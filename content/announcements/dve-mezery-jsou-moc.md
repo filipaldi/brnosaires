@@ -1,9 +1,8 @@
 ---
 title: Dvě mezery jsou moc
 date: 2024-06-12 02:00:00
-slug: dve-mezery-jsou-moc
 category: announcement
-preview_image: images/sesamo.jpg
+preview_image: /images/sesamo.jpg
 ---
 
 Hlášení tangového rozhlasu 📣: ve čtvrtek bude ve tvém diáři mezera 😲Milonga v Cafe Stehlík nebude 😭

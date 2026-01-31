@@ -1,9 +1,8 @@
 ---
 title: Únorový taneční pořádek
 date: 2025-01-28 01:00:00
-slug: unorovy-tanecni-poradek
 category: announcement
-preview_image: images/norov_milongy.jpg
+preview_image: /images/norov_milongy.jpg
 ---
 
 Kolik cabeceí ulovíš, tolikrát jsi člověkem...anebo Kolik cabeceo ulovíš, tolikrát...?🙃 Nevím 🫢Ty víš?

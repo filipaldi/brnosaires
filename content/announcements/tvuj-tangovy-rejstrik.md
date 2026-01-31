@@ -1,9 +1,8 @@
 ---
 title: Tvůj tangový rejstřík
 date: 2025-04-10 02:00:00
-slug: tvuj-tangovy-rejstrik
 category: announcement
-preview_image: images/488969756_10235698832630882_5330678575040131931_n.jpg
+preview_image: /images/488969756_10235698832630882_5330678575040131931_n.jpg
 ---
 
 Tvoje přítomnost DNES, znamená, že si tě budou pamatovat i ZÍTRA 😎

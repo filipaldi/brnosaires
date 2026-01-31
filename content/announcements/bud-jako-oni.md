@@ -1,9 +1,8 @@
 ---
 title: Buď jako oni!
 date: 2024-11-12 01:00:00
-slug: bud-jako-oni
 category: announcement
-preview_image: images/image.png
+preview_image: /images/image.png
 ---
 
 20 let a budeš jako oni! 😮

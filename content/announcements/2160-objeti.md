@@ -1,9 +1,8 @@
 ---
 title: 2160 objetí
 date: 2023-11-28 01:00:00
-slug: 2160-objeti
 category: announcement
-preview_image: images/406052028_10231086857454385_5611693952212668786_n.jpg
+preview_image: /images/406052028_10231086857454385_5611693952212668786_n.jpg
 ---
 
 👉 Ke zlepšení zdraví stačí jedno 10 vteřinové objetí 🫂.

@@ -2,6 +2,8 @@
 title: Venue
 date: 2025-10-14T14:26:00+00:00
 slug: venue
+navigation: Marathon
+nav_order_marathon: 3
 ---
 
 ![](images/250808_8787_1.jpg_compressed.jpeg)

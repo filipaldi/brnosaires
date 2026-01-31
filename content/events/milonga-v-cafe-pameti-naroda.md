@@ -2,8 +2,7 @@
 title: Milonga v Café Paměti národa
 date: 2025-05-06 19:51:00
 event-start: 2025-05-06 19:51:00
-slug: milonga-v-cafe-pameti-naroda
-preview_image: images/image.png
+preview_image: /images/image.png
 ---
 
 Paměť jednoho národa (českého) a paměť druhého národa (argentinského) se protnou. Přesně v horním patře této líbezné kavárny.

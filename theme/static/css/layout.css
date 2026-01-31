@@ -1,52 +1,92 @@
 /* ============================================
-   LAYOUT UTILITIES CLASSES 
+   LAYOUT UTILITIES CLASSES   
    Arrangement of elements only
    Properties: display, align-items, justify-content, flex-wrap, grid-template-columns, overflow
    DO NOT include: colors, backgrounds, spacing
+   DO NOT include page specific styles or component specific styles
    ============================================ */
 
 /* ============================================
-   LAYOUT PATTERNS (Semantic, "Every Layout" inspired) by Andy Bell https://every-layout.dev
+   SEMANTIC LAYOUT UTILITIES  (inspired by, "Every Layout" by Andy Bell https://every-layout.dev)
    ============================================ */
 
-.box {
-  display: block;
-}
 
-.stack {
+.el-stack {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.el-stack > * {
+  margin-block: 0;
+} 
+
+.el-stack > * + * {
+  margin-block-start: var(--size-m);
 }
 
-.cluster {
+.el-box {
+  padding: var(--size-s);
+  border: var(--border-thin) solid;
+  color: var(--color-neutral-10);
+  background-color: var(--color-neutral-0);
+}
+
+.el-box * {
+  color: inherit;
+}
+
+.el-box.invert {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+}
+
+.el-center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--measure); /* var(--measure) is not currently defined in @variables.css what should we do here? */
+}
+
+.el-cluster {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.switcher {
+.el-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-s);
+}
+
+.el-sidebar > :last-child {
+  flex-basis: var(--size-5xl); 
+  flex-grow: 1;
+}
+
+.el-sidebar > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 50%;
+}
+
+.el-switcher {
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-m);
 }
 
-.switcher > * {
+.el-switcher > * {
   flex-grow: 1;
   flex-basis: calc((30rem - 100%) * 999);
 }
 
-.switcher > :nth-last-child(n+5),
-.switcher > :nth-last-child(n+5) ~ * {
+.el-switcher > :nth-last-child(n+5),
+.el-switcher > :nth-last-child(n+5) ~ * {
   flex-basis: 100%;
 }
 
-.cover {
+.el-cover {
   display: grid;
   grid-template-rows: 1fr auto;
   min-height: 100dvh;
@@ -54,7 +94,7 @@
   justify-items: center;
 }
 
-.grid {
+.el-grid {
   display: grid;
   gap: var(--size-m);
   --grid-min: 250px;

@@ -1,9 +1,8 @@
 ---
 title: Tvých 30 příležitostí 
 date: 2024-07-30 02:00:00
-slug: tvych-30-prilezitosti
 category: announcement
-preview_image: images/srpen_tango.jpg
+preview_image: /images/srpen_tango.jpg
 ---
 
 Přelomové tango tandy nejpravděpodobněji zažiješ v přelomovém týdnu 🌠(červenec/srpen, chápeš)

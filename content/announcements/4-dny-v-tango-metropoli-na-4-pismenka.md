@@ -1,7 +1,6 @@
 ---
 title: 4 dny v tango metropoli na 4 písmenka
 date: 2024-11-05 01:00:00
-slug: 4-dny-v-tango-metropoli-na-4-pismenka
 category: announcement
 preview_image: /images/brno_tango_vkend.jpg
 ---

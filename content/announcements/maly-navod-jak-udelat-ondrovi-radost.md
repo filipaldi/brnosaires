@@ -1,9 +1,8 @@
 ---
 title: Malý návod, jak udělat Ondrovi radost
 date: 2024-06-03 02:00:00
-slug: maly-navod-jak-udelat-ondrovi-radost
 category: announcement
-preview_image: images/ondra.jpg
+preview_image: /images/ondra.jpg
 ---
 
 Na úvod týdne si vzpomeň, že čtvrtek tě nenechá na holičkách🤲.

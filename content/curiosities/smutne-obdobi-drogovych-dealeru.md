@@ -1,7 +1,6 @@
 ---
 title: Smutné období drogových dealerů 
 date: 2025-05-06 12:17:00
-slug: smutne-obdobi-drogovych-dealeru
 category: curiosity
 ---
 

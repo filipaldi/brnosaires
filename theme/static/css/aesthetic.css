@@ -9,22 +9,38 @@
    COMPONENT AESTHETICS (Semantic, brand-specific)
    ============================================ */
 
-.card {
+
+
+.aesthetic-card,
+a.aesthetic-card {
   border: var(--border-style-s);
   border-radius: var(--border-radius-xs);
+  color: var(--color-neutral-5);
   background-color: var(--color-gray-light-1);
   overflow: hidden;
+  text-decoration: none;
 }
 
-.card__image {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-}
-
-.card__image img {
+.aesthetic-card img {
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+
+.aesthetic-chip,
+a.aesthetic-chip {
+  border: var(--border-style-s);
+  border-radius: var(--border-radius-s);
+  background-color: var(--color-gray-light-1);
+  color: var(--color-neutral-5);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.aesthetic-chip:hover {
+  color: var(--color-gray-light-1);
+  background-color: var(--color-neutral-5);
 }
 
 .input-border {

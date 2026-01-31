@@ -2,6 +2,8 @@
 title: Lenka píše oznamy
 date: 2026-01-17 18:00:00
 slug: lenka-pise-oznamy
+navigation: Main
+nav_order_main: 5
 ---
 
 # Lenka píše oznamy

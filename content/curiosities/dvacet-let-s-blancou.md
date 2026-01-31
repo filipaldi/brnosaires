@@ -1,7 +1,6 @@
 ---
 title: Dvacet let s Blancou
 date: 2025-03-16 13:39:00
-slug: dvacet-let-s-blancou
 category: curiosity
 ---
 

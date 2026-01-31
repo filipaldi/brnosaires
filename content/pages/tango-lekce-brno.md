@@ -2,6 +2,8 @@
 title: Tango Lekce Brno
 date: 2026-01-17 18:00:00
 slug: tango-lekce-brno
+navigation: Main
+nav_order_main: 2
 ---
 
 Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidelných lekcí všech škol, které učí v Brně argentinské tango. 

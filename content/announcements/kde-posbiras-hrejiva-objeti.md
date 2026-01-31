@@ -1,9 +1,8 @@
 ---
 title: Kde posbíráš hřejivá objetí?
 date: 2024-10-01 02:00:00
-slug: kde-posbiras-hrejiva-objeti
 category: announcement
-preview_image: images/jen.jpg
+preview_image: /images/jen.jpg
 ---
 
 S poměrně vysokou pravděpodobností převyšující jistotu se říjnová Skleněnka odehraje na Skleněnce🫶. Ta zářijová open-air už nemá vzhledem k předpovědi počasí šanci 🌨️

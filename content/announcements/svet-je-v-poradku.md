@@ -1,9 +1,8 @@
 ---
 title: Svět je v pořádku
 date: 2024-05-20 02:00:00
-slug: svet-je-v-poradku
 category: announcement
-preview_image: images/zsofia.jpg
+preview_image: /images/zsofia.jpg
 ---
 
 Svět je zase v pořádku ✌️. Minulý čtvrtek bez tanga vystřídá nový čtvrtek s tangem 🫶🥳

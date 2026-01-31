@@ -1,7 +1,6 @@
 ---
 title: Jak to budeš mít v lednu podruhé
 date: 2025-01-09 01:00:00
-slug: jak-to-budes-mit-v-lednu-podruhe
 category: announcement
 ---
 

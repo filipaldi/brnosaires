@@ -1,9 +1,8 @@
 ---
 title: Filip rozsekne tango dilema
 date: 2024-05-27 02:00:00
-slug: filip-rozsekne-tango-dilema
 category: announcement
-preview_image: images/filip.jpg
+preview_image: /images/filip.jpg
 ---
 
 Tento čtvrtek buď u toho! 👀

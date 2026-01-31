@@ -2,6 +2,8 @@
 title: Gallery
 date: 2025-11-19T14:18:00+00:00
 slug: gallery
+navigation: Marathon
+nav_order_marathon: 4
 ---
 
 Moments from the 2025 edition. The embraces, the music, the floor that made it all happen.

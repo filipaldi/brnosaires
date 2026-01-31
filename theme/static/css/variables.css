@@ -19,8 +19,8 @@
    --size-xl: calc(var(--size) * 60);
    --size-2xl: calc(var(--size) * 80);
    --size-3xl: calc(var(--size) * 100);
-   --size-4xl: calc(var(--size) * 120);
-   --size-5xl: calc(var(--size) * 140);
+   --size-4xl: calc(var(--size) * 160);
+   --size-5xl: calc(var(--size) * 240);
 
    /* ============================================
       TYPOGRAPHY SCALE
@@ -101,6 +101,10 @@
    --border-radius-3xl: var(--size-3xl);
    --border-radius-4xl: var(--size-4xl);
    --border-radius-5xl: var(--size-5xl);
+
+   --interactions-border-radius: var(--border-radius-s);
+   --card-border-radius: var(--border-radius-xs);
+   --frame-ratio: 16 / 9;
 
    /* ============================================
       Z-INDEX

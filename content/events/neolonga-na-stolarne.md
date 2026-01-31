@@ -3,8 +3,7 @@ title: Neolonga na Stolárně
 date: 2026-01-10 19:00:00
 event-start: 2026-01-10 19:00:00
 event-end: 2026-01-10 23:30:00
-slug: neolonga-na-stolarne
-preview_image: images/image.png
+preview_image: /images/image.png
 ---
 
 Jestliže ses 1. ledna probudil(a) do nového roku, je poměrně vysoká pravděpodobnost, že v něm potkáš nějaké ty nové výzvy 👀

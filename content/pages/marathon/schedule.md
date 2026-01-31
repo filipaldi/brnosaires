@@ -2,6 +2,8 @@
 title: Schedule
 date: 2025-10-14T12:25:00+00:00
 slug: schedule
+navigation: Marathon
+nav_order_marathon: 5
 ---
 
 **More than 30 hours of dancing.** Your feet might complain, but your heart won't.

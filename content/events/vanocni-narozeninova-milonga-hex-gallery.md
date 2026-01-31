@@ -2,8 +2,7 @@
 title: Vánoční narozeninová milonga - HEX Gallery
 date: 2025-12-17 18:00:00
 event-start: 2025-12-17 18:00:00
-slug: vanocni-narozeninova-milonga-hex-gallery
-preview_image: images/IMAGE_2025-12-06_163958.jpg
+preview_image: /images/IMAGE_2025-12-06_163958.jpg
 ---
 
 Jak je naším zvykem, ve středu před vánoci (17. 12. 2025) se sejdeme společně oslavit vánoce, obejmout naše tango přátele, popřát případně do Nového roku a zatančit…

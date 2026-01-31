@@ -3,8 +3,7 @@ title: Energy, flow, resistance & transformation - KONTAKTANGO WORKSHOP s JAVIER
 date: 2026-02-27 01:00:00
 event-start: 2026-02-27 01:00:00
 event-end: 2026-03-01 01:00:00
-slug: energy-flow-resistance-transformation-kontaktango-workshop-s-javierem-curou
-preview_image: images/Javier_2024-19.jpg
+preview_image: /images/Javier_2024-19.jpg
 ---
 
 V tangu neustále balancujeme mezi vedením a následováním, mezi napětím a uvolněním, mezi energií, která proudí, a odporem, který ji formuje. Cítíte někdy, že se váš tanec stává příliš řízeným, příliš kontrolovaným – že energie stagnuje a flow se ztrácí? V každém okamžiku tance však dřímá možnost proměny – odpor se může stát impulsem, který otevře cestu k plynutí, komunikaci a svobodě v pohybu.

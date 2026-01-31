@@ -1,9 +1,8 @@
 ---
 title: Rozhodovací paralýza?
 date: 2024-10-22 02:00:00
-slug: rozhodovaci-paralyza
 category: announcement
-preview_image: images/tango_is_waiting.jpg
+preview_image: /images/tango_is_waiting.jpg
 ---
 
 Tento týden ti odpadá rozhodovací paralýza, kterou milongu si vybrat, pokud náhodou nemůžeš být všude 🙆‍♂️

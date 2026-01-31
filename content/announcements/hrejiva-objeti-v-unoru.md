@@ -1,7 +1,6 @@
 ---
 title: Hřejivá objetí v únoru
 date: 2025-02-21 01:00:00
-slug: hrejiva-objeti-v-unoru
 category: announcement
 ---
 

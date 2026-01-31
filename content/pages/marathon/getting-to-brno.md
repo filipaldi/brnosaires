@@ -2,6 +2,8 @@
 title: Getting to Brno
 date: 2025-10-14T12:26:00+00:00
 slug: getting-to-brno
+navigation: Marathon
+nav_order_marathon: 6
 ---
 
 Brno sits in the sweet spot between Prague and Vienna. Getting here? Easier than a good ocho.

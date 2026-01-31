@@ -15,10 +15,10 @@ THEME = "theme"
 OUTPUT_PATH = "output"
 DELETE_OUTPUT_DIRECTORY = True
 
-ARTICLE_URL = "{slug}.html"
-ARTICLE_SAVE_AS = "{slug}.html"
-PAGE_URL = "{slug}.html"
-PAGE_SAVE_AS = "{slug}.html"
+ARTICLE_URL = "{slug}/"
+ARTICLE_SAVE_AS = "{slug}/index.html"
+PAGE_URL = "{slug}/"
+PAGE_SAVE_AS = "{slug}/index.html"
 
 DEFAULT_DATE_FORMAT = "%d. %m. %Y"
 TIMEZONE = "Europe/Prague"
@@ -38,3 +38,7 @@ JINJA_GLOBALS = {"NOW": NOW}
 
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["inject_articles"]
+
+EXTRA_PATH_METADATA = {
+    "pages/marathon": {"section": "marathon"},
+}

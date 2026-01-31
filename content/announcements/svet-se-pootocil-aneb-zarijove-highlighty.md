@@ -1,9 +1,8 @@
 ---
 title: Svět se pootočil aneb zářijové highlighty
 date: 2024-09-02 02:00:00
-slug: svet-se-pootocil-aneb-zarijove-highlighty
 category: announcement
-preview_image: images/z_tango.jpg
+preview_image: /images/z_tango.jpg
 ---
 
 🌏Svět se pootočil z prázdninového režimu na ten, který znáš z těch zbývajících 10 měsíců✌️ Tvůj tango režim bude zas mít svůj pravidelný rytmus:

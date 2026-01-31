@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
-  
+
   <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
   <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
-  
+
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/variables.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typography.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/core.css">
@@ -16,36 +16,37 @@
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/spacing.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/aesthetic.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/components.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/page.css">
-  {% if (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/marathon.css">
-  {% endif %}
-  
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pages.css">
+
   {% block head %}{% endblock %}
 </head>
 <body>
-  <header class="padding-all-m" role="banner">
-    <div class="cluster justify-between align-center">
-      <a href="index.html" class="logo">
-        <span class="text-xl">{{ SITENAME }}</span>
-      </a>
+  <div class="el-sidebar gap-m">
+    <div class="el-stack">
+      <main role="main" class="padding-all-m padding-top-l">
+        {% block content %}{% endblock %}
+      </main>
+      {% include 'components/footer.html' %}
+    </div>
+    <aside class="layout-aside padding-all-m el-stack gap-m align-end sticky-aside" role="complementary">
+      {% if (page is defined and page.section == 'marathon') or (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
+      {% set nav_slot = 'Marathon' %}
+      {% set nav_aria = 'Marathon navigation' %}
+      {% include 'components/navigation.html' %}
+      {% else %}
+      <a href="{{ SITEURL }}/" class="logo text-xl">{{ SITENAME }}</a>
+      {% set nav_slot = 'Main' %}
+      {% set nav_aria = 'Main navigation' %}
       {% include 'components/navigation.html' %}
       <div class="cluster gap-s">
-        <button class="nav__icon" aria-label="Theme toggle" id="theme-toggle">
-        </button>
-        <button class="nav__icon" aria-label="Search" id="search-toggle">
-        </button>
+        <button class="nav__icon" aria-label="Theme toggle" id="theme-toggle"></button>
+        <button class="nav__icon" aria-label="Search" id="search-toggle"></button>
       </div>
-    </div>
-  </header>
+      {% endif %}
+    </aside>
+  </div>
 
-  <main role="main">
-    {% block content %}{% endblock %}
-  </main>
-
-  {% include 'components/footer.html' %}
-
-  <script src="{{ THEME_STATIC_DIR }}/js/main.js"></script>
+  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,9 +1,8 @@
 ---
 title: Zvýší se počet hvězd i obyvatel Brna
 date: 2024-10-26 02:00:00
-slug: zvysi-se-pocet-hvezd-i-obyvatel-brna
 category: announcement
-preview_image: images/brno_tango_vkend2.jpg
+preview_image: /images/brno_tango_vkend2.jpg
 ---
 
 Víš kolik má Brno tango obyvatel? 👀  Já taky ne🤔

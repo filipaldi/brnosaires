@@ -3,8 +3,7 @@ title: BRNO TANGO WEEKEND with Sercan & Zeynep
 date: 2026-03-07 12:00:00
 event-start: 2026-03-07 12:00:00
 event-end: 2026-03-08 17:00:00
-slug: brno-tango-weekend-with-sercan-zeynep
-preview_image: images/IMAGE_2026-01-08_210918.jpg
+preview_image: /images/IMAGE_2026-01-08_210918.jpg
 ---
 
 (ENGLISH below)

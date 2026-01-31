@@ -1,9 +1,8 @@
 ---
 title: Adrinela - tvoje jistota v brněnské metropoli
 date: 2024-04-26 02:00:00
-slug: adrinela-tvoje-jistota-v-brnenske-metropoli
 category: announcement
-preview_image: images/438058658_10231860831283247_2507602906048346279_n.jpg
+preview_image: /images/438058658_10231860831283247_2507602906048346279_n.jpg
 ---
 
 ☀️Čas na jaře vždycky běží jaksi rychleji...🏃

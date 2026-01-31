@@ -1,0 +1,11 @@
+/* ============================================
+   PAGE-SPECIFIC STYLES
+   Styles that are defining page layout and template specific styles
+   not suitable for components or utilities
+   ============================================ */
+
+.sticky-aside {
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+}

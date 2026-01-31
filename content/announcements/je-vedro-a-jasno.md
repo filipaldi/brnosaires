@@ -1,7 +1,6 @@
 ---
 title: Je vedro a jasno
 date: 2024-09-05 02:00:00
-slug: je-vedro-a-jasno
 category: announcement
 ---
 

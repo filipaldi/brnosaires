@@ -1,7 +1,6 @@
 ---
 title: 8 let v Adrinele 
 date: 2023-11-21 01:00:00
-slug: 8-let-v-adrinele
 category: announcement
 preview_image: /images/adrinela_people.jpg
 ---

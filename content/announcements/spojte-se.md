@@ -1,7 +1,6 @@
 ---
 title: Spojte se!
 date: 2024-03-18 01:00:00
-slug: spojte-se
 category: announcement
 ---
 

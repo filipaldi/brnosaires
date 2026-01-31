@@ -3,8 +3,7 @@ title: Milonga v Adrinele
 date: 2025-11-20 20:30:00
 event-start: 2025-11-20 20:30:00
 event-end: 2025-11-20 23:15:00
-slug: milonga-v-adrinele
-preview_image: images/20250220_223216.jpg
+preview_image: /images/20250220_223216.jpg
 ---
 
 Milonga, která trvá už víc než 9 let. 

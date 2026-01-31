@@ -1,9 +1,8 @@
 ---
 title: Přej si tangové nebe!
 date: 2024-06-10 02:00:00
-slug: prej-si-tangove-nebe
 category: announcement
-preview_image: images/448025858_10232135736595708_3333189860846473013_n.jpg
+preview_image: /images/448025858_10232135736595708_3333189860846473013_n.jpg
 ---
 
 Přej si čtvrtek bez deště 🙏

@@ -1,9 +1,8 @@
 ---
 title: Tango není medvěd
 date: 2024-11-26 01:00:00
-slug: tango-neni-medved
 category: announcement
-preview_image: images/tango_nen_medvd.jpg
+preview_image: /images/tango_nen_medvd.jpg
 ---
 
 Zdá se ti, že se brněnské tango ukládá k zimnímu spánku?😴 Neboj, není to medvěd 🐻

@@ -1,9 +1,8 @@
 ---
 title: Listy prázdninového deníčku
 date: 2024-08-26 02:00:00
-slug: listy-prazdninoveho-denicku
 category: announcement
-preview_image: images/przdniny.jpg
+preview_image: /images/przdniny.jpg
 ---
 
 Jak je na tom tvůj prázdninový deníček? 🤔Ještě pár listů vyčítavě zejí prázdnotou?🫢

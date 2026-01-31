@@ -2,6 +2,8 @@
 title: Brnos Aires
 date: 2025-06-09T10:59:00+00:00
 slug: marathon
+navigation: Marathon
+nav_order_marathon: 1
 ---
 
 ## Tango Maraton

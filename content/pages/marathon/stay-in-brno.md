@@ -2,6 +2,8 @@
 title: Stay in Brno
 date: 2025-10-14T14:26:00+00:00
 slug: stay-in-brno
+navigation: Marathon
+nav_order_marathon: 7
 ---
 
 ## Book Your Spot

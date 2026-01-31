@@ -52,12 +52,12 @@
 
 <div class="announcements-widget">
   {% if display_announcements %}
-  <div class="grid">
+  <div class="el-grid">
     {% for item in display_announcements %}
-    <a href="{{ item.url }}" class="stack card">
+    <a href="/{{ item.slug }}/" class="el-stack aesthetic-card">
       {% if item.preview_image %}
       <div class="card__image">
-        <img src="{{ item.preview_image.lstrip('/') }}" alt="{{ item.title }}" />
+        <img src="{{ item.preview_image }}" alt="{{ item.title }}" />
       </div>
       {% endif %}
       <div class="card__content">

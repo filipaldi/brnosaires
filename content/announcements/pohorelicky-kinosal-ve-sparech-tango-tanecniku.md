@@ -1,9 +1,8 @@
 ---
 title: Pohořelický kinosál ve spárech tango tanečníků
 date: 2025-02-05 01:00:00
-slug: pohorelicky-kinosal-ve-sparech-tango-tanecniku
 category: announcement
-preview_image: images/Milonga_Pohoelice.jpg
+preview_image: /images/Milonga_Pohoelice.jpg
 ---
 
 Když stavěli kinosál v Pohořelicích, netušili, že se dostane do spárů tango tanečníků 😲

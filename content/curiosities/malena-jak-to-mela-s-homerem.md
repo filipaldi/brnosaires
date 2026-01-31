@@ -1,7 +1,6 @@
 ---
 title: Malena – Jak to měla s Homérem?
 date: 2024-12-16 15:27:00
-slug: malena-jak-to-mela-s-homerem
 category: curiosity
 ---
 

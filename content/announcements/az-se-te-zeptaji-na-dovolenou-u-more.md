@@ -1,7 +1,6 @@
 ---
 title: Až se tě zeptají na dovolenou u moře…
 date: 2024-08-08 02:00:00
-slug: az-se-te-zeptaji-na-dovolenou-u-more
 category: announcement
 ---
 

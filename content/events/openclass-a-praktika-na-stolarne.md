@@ -2,8 +2,7 @@
 title: Openclass a praktika na Stolárně
 date: 2025-06-25 11:12:00
 event-start: 2025-06-25 11:12:00
-slug: openclass-a-praktika-na-stolarne
-preview_image: images/20250216_203549.jpg
+preview_image: /images/20250216_203549.jpg
 ---
 
 Pravidelná nedělní praktika s openclass na začátku pod vedením lektorů z tanečního studia Stolárna. 

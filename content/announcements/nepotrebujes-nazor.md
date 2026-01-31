@@ -1,9 +1,8 @@
 ---
 title: Nepotřebuješ názor
 date: 2025-04-07 02:00:00
-slug: nepotrebujes-nazor
 category: announcement
-preview_image: images/7._4..jpg
+preview_image: /images/7._4..jpg
 ---
 
 Výzva tohoto týdne: Vykašli se na názor 😎

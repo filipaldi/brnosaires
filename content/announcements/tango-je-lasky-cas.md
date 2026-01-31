@@ -1,9 +1,8 @@
 ---
 title: Tango je lásky čas 
 date: 2024-04-29 02:00:00
-slug: tango-je-lasky-cas
 category: announcement
-preview_image: images/lsky_asy.jpg
+preview_image: /images/lsky_asy.jpg
 ---
 
 🌸Až se probudíš z prvomájového opojení👀 , bude ten pravý čas pro tango. Samozřejmě 👉 tango a lásky čas se totiž doplňují 💞

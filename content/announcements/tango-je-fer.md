@@ -1,9 +1,8 @@
 ---
 title: Tango je fér
 date: 2024-10-14 02:00:00
-slug: tango-je-fer
 category: announcement
-preview_image: images/tango_je_fr.jpg
+preview_image: /images/tango_je_fr.jpg
 ---
 
 Všimni si, jak je tangový svět fér✌️.

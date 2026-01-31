@@ -1,7 +1,6 @@
 ---
 title: Naplň si svůj tango hrníček 2024
 date: 2024-12-10 01:00:00
-slug: napln-si-svuj-tango-hrnicek-2024
 category: announcement
 ---
 

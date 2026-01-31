@@ -1,7 +1,6 @@
 ---
 title: Na velikosti parketu (ne)záleží
 date: 2025-03-04 01:00:00
-slug: na-velikosti-parketu-ne-zalezi
 category: announcement
 ---
 

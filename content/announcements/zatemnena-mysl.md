@@ -1,9 +1,8 @@
 ---
 title: Zatemněná mysl
 date: 2024-07-18 02:00:00
-slug: zatemnena-mysl
 category: announcement
-preview_image: images/but_first_coffee.jpg
+preview_image: /images/but_first_coffee.jpg
 ---
 
 Nepodceň to! 🫢

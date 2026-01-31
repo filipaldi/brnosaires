@@ -3,8 +3,7 @@ title: Předvánoční milonga u Brněnského draka + openclass
 date: 2025-12-20 19:00:00
 event-start: 2025-12-20 19:00:00
 event-end: 2025-12-20 22:30:00
-slug: predvanocni-milonga-u-brnenskeho-draka-openclass
-preview_image: images/571118869_10240208165132292_7276733406663436891_n.jpg
+preview_image: /images/571118869_10240208165132292_7276733406663436891_n.jpg
 ---
 
 DJ Ferry Nielsen - DJ, fotograf a audiovizuální vypravěč příběhů z Vídně.

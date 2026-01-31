@@ -1,9 +1,8 @@
 ---
 title: Tvůj let na Brno tango víkend
 date: 2025-04-14 02:00:00
-slug: tvuj-let-na-brno-tango-vikend
 category: announcement
-preview_image: images/ELE814be5_P202002100432901.jpg
+preview_image: /images/ELE814be5_P202002100432901.jpg
 ---
 
 V kuloárech lidí, kteří rozumí počasí se říká, že následující období bude festival větru. Hlavně z jihu 💨

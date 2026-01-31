@@ -2,6 +2,8 @@
 title: O nás
 date: 2026-01-17 18:00:00
 slug: o-nas
+navigation: Main
+nav_order_main: 6
 ---
 
 Brnos Aires je iniciativa lidí z Brna, které potkalo argentinské tango. Dostalo se jim do hlavy, do srdce a s různou mírou úspěšnosti ho dostávají do těla. 

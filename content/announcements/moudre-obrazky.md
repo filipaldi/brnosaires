@@ -1,9 +1,8 @@
 ---
 title: Moudré obrázky
 date: 2023-12-21 01:00:00
-slug: moudre-obrazky
 category: announcement
-preview_image: images/411498430_10231193259354366_6081063288572400316_n.jpg
+preview_image: /images/411498430_10231193259354366_6081063288572400316_n.jpg
 ---
 
 Milí zlatí, nemůžu teď mezi vás 🥲, tak tu máte ode mě aspoň moudré obrázky 👉 můžete si je přes vánoce nastudovat 😉.

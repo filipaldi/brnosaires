@@ -1,9 +1,8 @@
 ---
 title: Rock, tango a víno v Rockwine
 date: 2025-03-24 01:00:00
-slug: rock-tango-a-vino-v-rockwine
 category: announcement
-preview_image: images/Rockwine.jpg
+preview_image: /images/Rockwine.jpg
 ---
 
 Těžko odhadnout, jestli "rock" v názvu vinárny Rockwine odkazuje na styl hudby nebo základní kámen té starobylé rotundy pod ní 🤷‍♀️ Každopádně rotunda pevně stojí už tisíce let a ani rockové skladby ji neohrozily 💪

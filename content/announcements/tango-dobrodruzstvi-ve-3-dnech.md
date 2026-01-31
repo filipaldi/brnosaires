@@ -1,9 +1,8 @@
 ---
 title: Tango dobrodružství ve 3 dnech
 date: 2024-08-19 02:00:00
-slug: tango-dobrodruzstvi-ve-3-dnech
 category: announcement
-preview_image: images/tango_dobrodruzstvi.jpg
+preview_image: /images/tango_dobrodruzstvi.jpg
 ---
 
 🎉Malý brněnský maraton aneb prázdninové finále🕺:

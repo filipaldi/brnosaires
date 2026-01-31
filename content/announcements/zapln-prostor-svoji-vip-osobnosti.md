@@ -1,9 +1,8 @@
 ---
 title: Zaplň prostor svojí VIP osobností
 date: 2024-11-16 01:00:00
-slug: zapln-prostor-svoji-vip-osobnosti
 category: announcement
-preview_image: images/praktika.jpg
+preview_image: /images/praktika.jpg
 ---
 
 📣 V neděli 17. 11. VIP praktika ve velkém sále Stolárny!

@@ -1,9 +1,8 @@
 ---
 title: Den, kdy Skleněnka dostala občanku
 date: 2024-10-29 01:00:00
-slug: den-kdy-sklenenka-dostala-obcanku
 category: announcement
-preview_image: images/Sklenenka.jpg
+preview_image: /images/Sklenenka.jpg
 ---
 
 Pamatuješ si den, kdy ti dali občanku? 🫢

@@ -1,9 +1,8 @@
 ---
 title: Paměti tango národa v Café Paměti národa
 date: 2025-02-11 01:00:00
-slug: pameti-tango-naroda-v-cafe-pameti-naroda
 category: announcement
-preview_image: images/CPN_1.jpg
+preview_image: /images/CPN_1.jpg
 ---
 
 Až budou sepisovat tvoje paměti, patrně tam toho nebude tolik jak v paměti národa✍️

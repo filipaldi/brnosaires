@@ -1,9 +1,8 @@
 ---
 title: Zorientuj se a přiběhni na Skleněnku
 date: 2025-03-31 02:00:00
-slug: zorientuj-se-a-pribehni-na-sklenenku
 category: announcement
-preview_image: images/487955531_1179369970649245_5677506380867245445_n.jpg
+preview_image: /images/487955531_1179369970649245_5677506380867245445_n.jpg
 ---
 
 V tyto dny je to s orientací v čase trochu náročné 🤔 Jestli ti pořád není jasný, jestli je teď o hodinu víc nebo míň, zamotám ti hlavu ještě trošku 🙃

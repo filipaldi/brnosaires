@@ -1,9 +1,8 @@
 ---
 title: Tři oříšky pro tango
 date: 2024-12-03 01:00:00
-slug: tri-orisky-pro-tango
 category: announcement
-preview_image: images/Ti_oky.jpg
+preview_image: /images/Ti_oky.jpg
 ---
 
 Padá ti štěstí do klína 🌟👀

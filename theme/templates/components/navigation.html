@@ -1,20 +1,7 @@
-<nav class="cluster gap-m" role="navigation" aria-label="Main navigation">
-  <a href="tango-kalendar-brno.html" class="nav__item {% if (page is defined and 'tango-kalendar-brno' in page.url) or 'tango-kalendar-brno' in output_file %}nav__item--active{% endif %}">
-    Kalendář
-  </a>
-  <a href="tango-lekce-brno.html" class="nav__item {% if (page is defined and 'tango-lekce-brno' in page.url) or 'tango-lekce-brno' in output_file %}nav__item--active{% endif %}">
-    Lekce
-  </a>
-  <a href="tango-milongy-brno.html" class="nav__item {% if (page is defined and 'tango-milongy-brno' in page.url) or 'tango-milongy-brno' in output_file %}nav__item--active{% endif %}">
-    Milongy
-  </a>
-  <a href="tango-pikosky.html" class="nav__item {% if (page is defined and 'tango-pikosky' in page.url) or 'tango-pikosky' in output_file %}nav__item--active{% endif %}">
-    Pikošky
-  </a>
-  <a href="lenka-pise-oznamy.html" class="nav__item {% if (page is defined and 'lenka-pise-oznamy' in page.url) or 'lenka-pise-oznamy' in output_file %}nav__item--active{% endif %}">
-    Oznamy
-  </a>
-  <a href="o-nas.html" class="nav__item {% if (page is defined and 'o-nas' in page.url) or 'o-nas' in output_file %}nav__item--active{% endif %}">
-    O nás
-  </a>
+{% set nav_order_attr = 'nav_order_' ~ nav_slot|lower %}
+<nav class="el-stack gap-m align-end{% if nav_slot == 'Marathon' %} nav{% endif %}" role="navigation" aria-label="{{ nav_aria }}">
+  {% for nav_page in pages | selectattr('navigation', 'equalto', nav_slot) | sort(attribute=nav_order_attr) %}
+  {% set is_active = (page is defined and page.slug == nav_page.slug) or (article is defined and article.slug == nav_page.slug) or (output_file is defined and nav_page.slug in output_file) %}
+  <a href="{{ nav_page.url if (nav_page.url is defined and nav_page.url.startswith('http')) else '/' + nav_page.slug + '/' }}" class="aesthetic-chip{% if nav_slot == 'Marathon' %} nav__item text-s{% endif %}{% if is_active %} nav__item--active{% endif %}"{% if nav_page.external or (nav_page.url is defined and nav_page.url.startswith('http')) %} target="_blank" rel="noopener"{% endif %}>{{ nav_page.title }}</a>
+  {% endfor %}
 </nav>

@@ -3,8 +3,7 @@ title: Valentínska párty na stolárne s tangom
 date: 2026-02-14 20:00:00
 event-start: 2026-02-14 20:00:00
 event-end: 2026-02-14 23:00:00
-slug: valentinska-party-na-stolarne-s-tangom
-preview_image: images/photo_2026-01-08_20.54.24.jpeg
+preview_image: /images/photo_2026-01-08_20.54.24.jpeg
 ---
 
 Po krásné Novoroční párty bychom Vás rádi pozvali na Valentýnskou párty ve stejném duchu
