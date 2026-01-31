@@ -6,3 +6,6 @@ __pycache__/
 *.swp
 *~
 .DS_Store
+*.mdc
+/.cursor/rules/styles.mdc
+/.cursor/plans/standardise_breakpoint_structure.plan.md
