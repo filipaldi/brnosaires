@@ -1,12 +1,12 @@
 /* ============================================
-   LAYOUT CLASSES
+   LAYOUT UTILITIES CLASSES 
    Arrangement of elements only
    Properties: display, align-items, justify-content, flex-wrap, grid-template-columns, overflow
    DO NOT include: colors, backgrounds, spacing
    ============================================ */
 
 /* ============================================
-   LAYOUT PATTERNS (Semantic, Every Layout inspired)
+   LAYOUT PATTERNS (Semantic, "Every Layout" inspired) by Andy Bell https://every-layout.dev
    ============================================ */
 
 .box {
