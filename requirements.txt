@@ -1,5 +1,6 @@
 pelican[markdown]
 notion-client
+python-dateutil
 python-dotenv
 requests
 pytz

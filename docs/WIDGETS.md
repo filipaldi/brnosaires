@@ -261,7 +261,7 @@ Widgets expect events to use standardized metadata format:
 ### Optional Fields
 
 - `event-end`: Event end date/time (format: `YYYY-MM-DD HH:MM:SS`)
-- `event-rrule`: Recurrence rule (pelican-events format)
+- `recurrence`: Recurring events are expanded into multiple occurrences in the calendar widget. Use a simple phrase: `recurrence: weekly sunday` (every Sunday), `recurrence: monthly 1 saturday` (first Saturday of month). Raw RRULE is also supported via optional `event-rrule` for advanced use.
 
 ### Template Access Pattern
 

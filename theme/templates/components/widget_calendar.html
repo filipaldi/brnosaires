@@ -1,9 +1,9 @@
 {% set event_type = none %}
-{% set days = none %}
-{% set start_date = none %}
-{% set end_date = none %}
-{% set limit = none %}
-{% set sort = none %}
+{% set days_ref = [none] %}
+{% set start_date_ref = [none] %}
+{% set end_date_ref = [none] %}
+{% set limit_ref = [none] %}
+{% set sort_ref = [none] %}
 {% set group_by_ref = [none] %}
 
 {% if tag_content %}
@@ -19,19 +19,19 @@
           {% set event_type = type_raw.split('"', 1)[0] | lower %}
         {% elif 'days="' in attr %}
           {% set days_raw = attr.split('days="')[1] %}
-          {% set days = days_raw.split('"', 1)[0] | int %}
+          {% do days_ref.__setitem__(0, days_raw.split('"', 1)[0] | int) %}
         {% elif 'start="' in attr %}
           {% set start_raw = attr.split('start="')[1] %}
-          {% set start_date = start_raw.split('"', 1)[0] %}
+          {% do start_date_ref.__setitem__(0, start_raw.split('"', 1)[0]) %}
         {% elif 'end="' in attr %}
           {% set end_raw = attr.split('end="')[1] %}
-          {% set end_date = end_raw.split('"', 1)[0] %}
+          {% do end_date_ref.__setitem__(0, end_raw.split('"', 1)[0]) %}
         {% elif 'limit="' in attr %}
           {% set limit_raw = attr.split('limit="')[1] %}
-          {% set limit = limit_raw.split('"', 1)[0] %}
+          {% do limit_ref.__setitem__(0, limit_raw.split('"', 1)[0]) %}
         {% elif 'sort="' in attr %}
           {% set sort_raw = attr.split('sort="')[1] %}
-          {% set sort = sort_raw.split('"', 1)[0] | lower %}
+          {% do sort_ref.__setitem__(0, sort_raw.split('"', 1)[0] | lower) %}
         {% elif 'group_by="' in attr %}
           {% set group_by_raw = attr.split('group_by="')[1] %}
           {% set group_by_val = group_by_raw.split('"', 1)[0] | lower %}
@@ -44,6 +44,11 @@
   {% endif %}
 {% endif %}
 
+{% set days = days_ref[0] %}
+{% set start_date = start_date_ref[0] %}
+{% set end_date = end_date_ref[0] %}
+{% set limit = limit_ref[0] %}
+{% set sort = sort_ref[0] %}
 {% set group_by = group_by_ref[0] %}
 
 {% set event_pages = [] %}
@@ -84,50 +89,23 @@
 {% endif %}
 
 {% set events_to_check = type_filtered %}
-
 {% if days %}
-  {% if days >= 365 or days <= -365 %}
-    {% for page in events_to_check %}
-      {% set _ = calendar_events.append(page) %}
-    {% endfor %}
+  {% if days >= 365 %}
+    {% set window_start_str = NOW.strftime('%Y-%m-%d') %}
+    {% set window_end_str = (NOW | date_add(365)).strftime('%Y-%m-%d') %}
+  {% elif days <= -365 %}
+    {% set window_start_str = (NOW | date_add(-365)).strftime('%Y-%m-%d') %}
+    {% set window_end_str = NOW.strftime('%Y-%m-%d') %}
+  {% elif days > 0 %}
+    {% set window_start_str = NOW.strftime('%Y-%m-%d') %}
+    {% set window_end_str = (NOW | date_add(days)).strftime('%Y-%m-%d') %}
   {% else %}
-    {% set today = NOW %}
-    {% for page in events_to_check %}
-      {% set page_start = page.metadata.get('event-start') if page.metadata else none %}
-      {% if page_start %}
-        {% if page_start is string %}
-          {% set page_date_str = page_start[:10] %}
-          {% set page_year = page_date_str[:4] | int %}
-          {% set page_month = page_date_str[5:7] | int %}
-          {% set page_day = page_date_str[8:10] | int %}
-          {% set page_date = NOW.replace(year=page_year, month=page_month, day=page_day, hour=0, minute=0, second=0, microsecond=0) %}
-        {% else %}
-          {% set page_date = page_start.replace(hour=0, minute=0, second=0, microsecond=0) %}
-        {% endif %}
-        {% set today_date = today.replace(hour=0, minute=0, second=0, microsecond=0) %}
-        {% set days_diff = (page_date - today_date).days %}
-        {% if days > 0 and days_diff >= 0 and days_diff <= days %}
-          {% set _ = calendar_events.append(page) %}
-        {% elif days < 0 and days_diff <= 0 and days_diff >= days %}
-          {% set _ = calendar_events.append(page) %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+    {% set window_start_str = (NOW | date_add(days)).strftime('%Y-%m-%d') %}
+    {% set window_end_str = NOW.strftime('%Y-%m-%d') %}
   {% endif %}
+  {% set calendar_events = events_to_check | expand_recurring(window_start_str, window_end_str) %}
 {% elif start_date and end_date %}
-  {% for page in events_to_check %}
-    {% set page_start = page.metadata.get('event-start') if page.metadata else none %}
-    {% if page_start %}
-      {% if page_start is string %}
-        {% set page_date_str = page_start[:10] %}
-      {% else %}
-        {% set page_date_str = page_start.strftime('%Y-%m-%d') %}
-      {% endif %}
-      {% if page_date_str >= start_date and page_date_str <= end_date %}
-        {% set _ = calendar_events.append(page) %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+  {% set calendar_events = events_to_check | expand_recurring(start_date, end_date) %}
 {% else %}
   {% for page in events_to_check %}
     {% set _ = calendar_events.append(page) %}

@@ -83,7 +83,7 @@ event-end: 2026-03-15 23:00:00
 - Must be on the same day or later than `event-start`
 - Use the same format as `event-start`
 
-### 4. `event-rrule` - Recurring Events (Advanced, Optional)
+### 4. `recurrence` - Recurring Events (Optional)
 
 This field is for events that repeat regularly (like weekly classes). Most events don't need this. If you're not sure, skip it.
 
@@ -92,7 +92,14 @@ This field is for events that repeat regularly (like weekly classes). Most event
 - Monthly events that repeat
 - Other regular recurring events
 
-**Format:** Uses pelican-events format (advanced - contact technical support if needed)
+**Format:** Simple phrase. `event-start` is the first occurrence; the rule repeats from that date.
+
+**Examples:**
+- Every Sunday: `recurrence: weekly sunday`
+- First Saturday of month: `recurrence: monthly 1 saturday`
+- Every Monday: `recurrence: weekly monday`
+
+For advanced use, raw iCalendar RRULE is still supported via `event-rrule` (e.g. `event-rrule: "FREQ=WEEKLY;BYDAY=SU"`).
 
 ### Complete Event Example
 
