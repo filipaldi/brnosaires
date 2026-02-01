@@ -96,13 +96,12 @@
 
 .el-grid {
   display: grid;
-  gap: var(--size-m);
-  --grid-min: 250px;
+  grid-gap: var(--size-s);
 }
 
-@supports (width: min(250px, 100%)) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
+@supports (width: min(var(--size-6xl), 100%)) {
+  .el-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--size-6xl), 100%), 1fr));
   }
 }
 

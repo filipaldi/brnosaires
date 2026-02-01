@@ -21,6 +21,7 @@
    --size-3xl: calc(var(--size) * 100);
    --size-4xl: calc(var(--size) * 160);
    --size-5xl: calc(var(--size) * 240);
+   --size-6xl: calc(var(--size) * 320);
 
    /* ============================================
       TYPOGRAPHY SCALE
