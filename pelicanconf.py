@@ -30,14 +30,20 @@ DEFAULT_PAGINATION = 10
 
 from datetime import datetime
 import pytz
+import sys
+import os
 
 NOW = datetime.now(pytz.timezone(TIMEZONE))
 
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
 JINJA_GLOBALS = {"NOW": NOW}
 
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
+from calendar_group import group_events
+JINJA_FILTERS = {"group_events": group_events}
+
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["inject_articles"]
+PLUGINS = ["inject_articles", "calendar_group"]
 
 EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},

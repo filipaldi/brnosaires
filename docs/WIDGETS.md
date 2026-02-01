@@ -24,7 +24,7 @@ theme/templates/
 ├── page.html                          # Uses widget processor
 └── components/
     ├── widget_processor.html          # Simplified: detection + routing only
-    ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort
+    ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort, group_by
     ├── widget_announcements.html     # Announcements: parses limit, sort
     ├── widget_curiosities.html       # Curiosities: parses limit, sort
     └── widget_classes.html           # Classes: parses limit, sort
@@ -102,6 +102,7 @@ Displays filtered lists of events from `content/events/`.
 - `end="2026-08-31"` (optional) - End date for range (YYYY-MM-DD, requires `start`)
 - `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
 - `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+- `group_by="day|week|month"` (optional) - Group events into rows with a headline per group (day, week, or month). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
 
 **Date Filtering:**
 - `days="7"` = next 7 days from today
@@ -125,11 +126,21 @@ Displays filtered lists of events from `content/events/`.
 
 <!-- Milongas sorted oldest first -->
 <widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
+
+<!-- Events grouped by week (rows per week with headline) -->
+<widget-calendar days="365" group_by="week"></widget-calendar>
 ```
+
+**Grouping (`group_by`):**
+- **Values:** `day`, `week`, `month`. When set, events are shown in rows by group; each row has a headline (day date, week of Monday, or month name + year).
+- **Week:** Monday–Sunday; headline = "week of" + Monday's date (e.g. "Týden 3. 2. 2026" in Czech, "Week of 3 Feb 2026" in English).
+- **Empty groups:** Rows with zero events are not rendered.
+- **Sort:** Chronological (earliest first) between groups and within each group. The widget's `sort` attribute does not apply when `group_by` is set.
+- **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
 
 **Implementation:**
 - Component: `theme/templates/components/widget_calendar.html`
-- Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort` from `tag_content`
+- Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort`, `group_by` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'events/'`
 - Filtering logic:
   - `milonga`: Title contains "milonga"
@@ -137,7 +148,8 @@ Displays filtered lists of events from `content/events/`.
   - `class`: Title contains "class" or "lekce"
   - Date filtering: Filters events by days from today or date range
   - Filter type and date filtering can be combined
-- Sorting: By `date` attribute (newest/oldest)
+- Sorting: By `date` attribute (newest/oldest) when `group_by` is not set; when `group_by` is set, the `group_events` Jinja filter sorts groups and events chronologically.
+- Grouping: When `group_by` is set, the calendar_group plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
 - Limit: Applied after filtering and sorting
 
 ### 2. Announcements Widget (`<widget-announcements>`)
@@ -226,12 +238,14 @@ Displays classes from `content/classes/` as cards with images.
 | `end` | date | No* | `YYYY-MM-DD` | End date for range (*required if `start` present) |
 | `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
 | `sort` | string | No | `newest`, `oldest`, `title` | Sort order (`title` only for `widget-classes`) |
+| `group_by` | string | No | `day`, `week`, `month` | Group events into rows with headline per group (`widget-calendar` only) |
 
 **Rules:**
 - If `start` is present, `end` is required (and vice versa)
 - `days` and `start`/`end` are mutually exclusive
 - `type` only applies to `widget-calendar` widget
 - `sort="title"` only applies to `widget-classes` widget
+- `group_by` only applies to `widget-calendar` widget; when set, sort is always chronological (earliest first)
 - Default sort: `newest` (newest first)
 
 ## Event Metadata Standard

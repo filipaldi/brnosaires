@@ -48,6 +48,25 @@
 }
 
 /* ============================================
+   WIDGET CALENDAR (grouped)
+   ============================================ */
+
+.widget-calendar__group {
+  margin-bottom: var(--size-l);
+}
+
+.widget-calendar__group:last-child {
+  margin-bottom: 0;
+}
+
+.widget-calendar__group-title {
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--size-s);
+}
+
+/* ============================================
    INPUTS
    ============================================ */
 

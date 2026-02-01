@@ -10,4 +10,4 @@ nav_order_main: 1
 
 Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce na jednom místě.
 
-<widget-calendar days="365"></widget-calendar>
+<widget-calendar days="365" group_by="week"></widget-calendar>
