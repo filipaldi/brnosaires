@@ -92,9 +92,9 @@ body {
 
 h1 {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  line-height: var(--size-l);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--text-5xl);
+  line-height: var(--size-2xl);
+  font-weight: var(--font-weight-regular);
   margin: 0;
 }
 
@@ -108,7 +108,7 @@ h2 {
 h3 {
   font-size: var(--text-m);
   line-height: var(--size-m);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-regular);
   margin: 0;
 }
 
