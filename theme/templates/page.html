@@ -5,12 +5,8 @@
 
 {% block content %}
 <div class="group--main-container">
-  <article class="stack gap-m">
-    <header>
-      <h1 class="text-3xl">{{ page.title }}</h1>
-    </header>
-
-    <div class="stack gap-m">
+  <article class="el-stack stack-l">
+    <div class="el-stack stack-xs">
       {{ process_widgets(page.content) }}
     </div>
   </article>

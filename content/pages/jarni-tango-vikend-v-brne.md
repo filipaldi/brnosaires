@@ -1,8 +1,12 @@
 ---
-title: Jarní tango víkend v Brně
+title: Brnos Aires Tango víkend 2026 - Brnenský víkend argentinského tanga
 date: 2026-01-17 18:00:00
 slug: jarni-tango-vikend-v-brne
 ---
+
+# Brnos Aires Tango víkend 2026
+## 22.5. - 24.5. 2026
+
 
 Víkend, ve kterém žádný rozumný tango tanečník/tanečnice Brno neopustí.
 

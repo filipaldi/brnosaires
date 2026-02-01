@@ -6,6 +6,8 @@ navigation: Main
 nav_order_main: 6
 ---
 
+# Iniciativa Brnos Aires
+
 Brnos Aires je iniciativa lidí z Brna, které potkalo argentinské tango. Dostalo se jim do hlavy, do srdce a s různou mírou úspěšnosti ho dostávají do těla. 
 
 Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp, než si myslíš.

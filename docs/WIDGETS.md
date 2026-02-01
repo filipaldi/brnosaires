@@ -24,10 +24,10 @@ theme/templates/
 ├── page.html                          # Uses widget processor
 └── components/
     ├── widget_processor.html          # Simplified: detection + routing only
-    ├── filtered_events_widget.html    # Events: parses type, days, start, end, limit, sort
-    ├── announcements_widget.html      # Announcements: parses limit, sort
-    ├── curiosities_widget.html         # Curiosities: parses limit, sort
-    └── classes_widget.html             # Classes: parses limit, sort
+    ├── widget_filtered_events.html   # Events: parses type, days, start, end, limit, sort
+    ├── widget_announcements.html     # Announcements: parses limit, sort
+    ├── widget_curiosities.html       # Curiosities: parses limit, sort
+    └── widget_classes.html           # Classes: parses limit, sort
 ```
 
 ## Widget Processor
@@ -84,10 +84,10 @@ Recursively processes page content to find and replace widget tags.
 
 ### Tag to Component Mapping
 
-- `<widget-events>` → `filtered_events_widget.html`
-- `<widget-announcements>` → `announcements_widget.html`
-- `<widget-curiosities>` → `curiosities_widget.html`
-- `<widget-classes>` → `classes_widget.html`
+- `<widget-events>` → `widget_filtered_events.html`
+- `<widget-announcements>` → `widget_announcements.html`
+- `<widget-curiosities>` → `widget_curiosities.html`
+- `<widget-classes>` → `widget_classes.html`
 
 ## Supported Widget Types
 
@@ -128,7 +128,7 @@ Displays filtered lists of events from `content/events/`.
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/filtered_events_widget.html`
+- Component: `theme/templates/components/widget_filtered_events.html`
 - Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'events/'`
 - Filtering logic:
@@ -158,7 +158,7 @@ Displays announcements from `content/announcements/` as cards with images.
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/announcements_widget.html`
+- Component: `theme/templates/components/widget_announcements.html`
 - Parses attributes: `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'announcements/'`
 - Extracts first image from article content
@@ -183,7 +183,7 @@ Displays curiosities from `content/curiosities/` as cards with images.
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/curiosities_widget.html`
+- Component: `theme/templates/components/widget_curiosities.html`
 - Parses attributes: `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'curiosities/'`
 - Extracts first image from article content
@@ -208,7 +208,7 @@ Displays classes from `content/classes/` as cards with images.
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/classes_widget.html`
+- Component: `theme/templates/components/widget_classes.html`
 - Parses attributes: `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'classes/'`
 - Extracts first image from article content

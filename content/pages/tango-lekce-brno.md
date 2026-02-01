@@ -6,6 +6,8 @@ navigation: Main
 nav_order_main: 2
 ---
 
+# Lekce argentinského tanga v Brně
+
 Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidelných lekcí všech škol, které učí v Brně argentinské tango. 
 
 ## Pravidelné lekce argentinského tanga

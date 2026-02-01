@@ -6,6 +6,8 @@ navigation: Main
 nav_order_main: 1
 ---
 
+# Tango kalendář Brno
+
 Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce na jednom místě.
 
 <widget-events days="365"></widget-events>

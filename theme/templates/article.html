@@ -4,9 +4,8 @@
 
 {% block content %}
 <div class="group--main-container">
-  <article class="stack gap-m">
+  <article class="el-stack stack-m">
     <header>
-      <h1 class="text-3xl">{{ article.title }}</h1>
       {% if article.date %}
       <time class="text-s color-neutral-3" datetime="{{ article.date.isoformat() }}">
         {{ article.date.strftime('%d. %m. %Y') }}
@@ -14,7 +13,7 @@
       {% endif %}
     </header>
 
-    <div class="stack gap-m">
+    <div class="el-stack stack-xs">
       {{ article.content }}
     </div>
   </article>

@@ -28,7 +28,7 @@
       </main>
       {% include 'components/footer.html' %}
     </div>
-    <aside class="layout-aside padding-all-m el-stack gap-m align-end sticky-aside" role="complementary">
+    <aside class="layout-aside padding-all-m el-stack stack-l align-end sticky-aside" role="complementary">
       {% if (page is defined and page.section == 'marathon') or (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
       {% set nav_slot = 'Marathon' %}
       {% set nav_aria = 'Marathon navigation' %}

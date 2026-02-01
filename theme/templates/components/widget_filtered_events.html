@@ -157,16 +157,14 @@
 <div class="filtered-events-widget">
   <div class="el-grid">
     {% for event in display_events %}
-    <a href="/{{ event.slug }}/" class="aesthetic-card">
+    <a href="/{{ event.slug }}/" class="aesthetic-card card-m">
       {% if event.preview_image %}
       <div class="el-frame-16x9">
         <img src="{{ event.preview_image }}" alt="{{ event.title }}" />
       </div>
       {% endif %}
-      <div>
+      <div class="event-card-info">
         <h3>{{ event.title }}</h3>
-      </div>
-      <div>
         {% set event_start = event.start | default(event.event_start) | default(event['event-start']) | default(event.metadata.get('event-start') if event.metadata else none) %}
         {% set event_end = event.end | default(event.event_end) | default(event['event-end']) | default(event.metadata.get('event-end') if event.metadata else none) %}
         {% if event_start %}
@@ -198,6 +196,14 @@
         <div>
           <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
         </div>
+        {% endif %}
+        {% set event_organiser = event.organiser | default(event.event_organiser) | default(event['event-organiser']) | default(event.metadata.get('event-organiser') if event.metadata else none) %}
+        {% if event_organiser %}
+        <div>{{ event_organiser }}</div>
+        {% endif %}
+        {% set event_location = event.location | default(event.venue) | default(event.event_location) | default(event['event-location']) | default(event.metadata.get('venue') if event.metadata else none) | default(event.metadata.get('location') if event.metadata else none) %}
+        {% if event_location %}
+        <div>{{ event_location }}</div>
         {% endif %}
       </div>
     </a>

@@ -4,6 +4,8 @@ date: 2026-01-17 18:00:00
 slug: skoly-a-lektorstvi
 ---
 
+# Školy a lektorství Argentinského tango v Brně
+
 Pavla Lužna
 
 Šteky

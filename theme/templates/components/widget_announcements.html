@@ -21,40 +21,40 @@
   {% endif %}
 {% endif %}
 
-{% set curiosity_pages = [] %}
+{% set announcement_pages = [] %}
 {% for article in all_articles %}
-  {% if article.category and article.category.name == 'curiosity' %}
-    {% set _ = curiosity_pages.append(article) %}
+  {% if article.category and article.category.name == 'announcement' %}
+    {% set _ = announcement_pages.append(article) %}
   {% endif %}
 {% endfor %}
 
 {% if sort == 'oldest' %}
-  {% set sorted_curiosities = curiosity_pages | sort(attribute='date') %}
+  {% set sorted_announcements = announcement_pages | sort(attribute='date') %}
 {% else %}
-  {% set sorted_curiosities = curiosity_pages | sort(attribute='date', reverse=true) %}
+  {% set sorted_announcements = announcement_pages | sort(attribute='date', reverse=true) %}
 {% endif %}
 
 {% if limit %}
   {% if limit == 'all' %}
-    {% set display_curiosities = sorted_curiosities %}
+    {% set display_announcements = sorted_announcements %}
   {% elif limit is number %}
-    {% set display_curiosities = sorted_curiosities[:limit|int] %}
+    {% set display_announcements = sorted_announcements[:limit|int] %}
   {% elif 'last' in limit|lower %}
     {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
-    {% set display_curiosities = sorted_curiosities[-limit_num:] %}
+    {% set display_announcements = sorted_announcements[-limit_num:] %}
   {% else %}
     {% set limit_num = limit|int %}
-    {% set display_curiosities = sorted_curiosities[:limit_num] %}
+    {% set display_announcements = sorted_announcements[:limit_num] %}
   {% endif %}
 {% else %}
-  {% set display_curiosities = sorted_curiosities %}
+  {% set display_announcements = sorted_announcements %}
 {% endif %}
 
-{% if display_curiosities %}
-<div class="curiosities-widget">
+<div class="announcements-widget">
+  {% if display_announcements %}
   <div class="el-grid">
-    {% for item in display_curiosities %}
-    <a href="/{{ item.slug }}/" class="aesthetic-card">
+    {% for item in display_announcements %}
+    <a href="/{{ item.slug }}/" class="aesthetic-card card-m">
       {% if item.preview_image %}
       <div class="el-frame-16x9">
         <img src="{{ item.preview_image }}" alt="{{ item.title }}" />
@@ -66,5 +66,5 @@
     </a>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
-{% endif %}
