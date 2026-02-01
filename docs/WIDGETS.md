@@ -8,7 +8,7 @@ The widget system allows embedding dynamic components in markdown content using 
 
 ### Processing Flow
 
-1. **Content Input**: Markdown files contain custom HTML tags (`<widget-events>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`)
+1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`)
 2. **Markdown Processing**: Pelican's markdown processor preserves HTML elements
 3. **Template Processing**: `page.html` template calls `process_widgets()` macro
 4. **Widget Detection**: Macro detects widget tags and extracts tag name + raw attributes string
@@ -24,7 +24,7 @@ theme/templates/
 ├── page.html                          # Uses widget processor
 └── components/
     ├── widget_processor.html          # Simplified: detection + routing only
-    ├── widget_filtered_events.html   # Events: parses type, days, start, end, limit, sort
+    ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort
     ├── widget_announcements.html     # Announcements: parses limit, sort
     ├── widget_curiosities.html       # Curiosities: parses limit, sort
     └── widget_classes.html           # Classes: parses limit, sort
@@ -47,7 +47,7 @@ Recursively processes page content to find and replace widget tags.
 - Rendered HTML with widgets replaced by components
 
 **Responsibilities:**
-- Detects widget tags (`<widget-events />`, `<widget-announcements />`, etc.)
+- Detects widget tags (`<widget-calendar />`, `<widget-announcements />`, etc.)
 - Extracts tag name and raw tag content (attributes string)
 - Routes to appropriate component template
 - Passes `tag_content` variable to component (contains raw attributes string)
@@ -58,7 +58,7 @@ Recursively processes page content to find and replace widget tags.
 2. For each widget found:
    - Extract tag name from tag content
    - Extract raw tag content (includes all attributes as string)
-   - Route to component based on tag name (`events`, `announcements`, `curiosities`, `classes`)
+   - Route to component based on tag name (`calendar`, `announcements`, `curiosities`, `classes`)
    - Pass `tag_content` variable to component
    - Component handles its own attribute parsing
    - Recursively process remaining content
@@ -73,8 +73,8 @@ Recursively processes page content to find and replace widget tags.
 ### Widget Type Naming
 
 - All widget tags use **kebab-case** (lowercase with hyphens)
-- Tag names: `widget-events`, `widget-announcements`, `widget-curiosities`
-- Internal widget types: `filtered-events`, `announcements`, `curiosities`
+- Tag names: `widget-calendar`, `widget-announcements`, `widget-curiosities`
+- Internal widget types: `calendar` (widget_calendar.html), `announcements`, `curiosities`
 
 ### Attribute Naming
 
@@ -84,14 +84,14 @@ Recursively processes page content to find and replace widget tags.
 
 ### Tag to Component Mapping
 
-- `<widget-events>` → `widget_filtered_events.html`
+- `<widget-calendar>` → `widget_calendar.html`
 - `<widget-announcements>` → `widget_announcements.html`
 - `<widget-curiosities>` → `widget_curiosities.html`
 - `<widget-classes>` → `widget_classes.html`
 
 ## Supported Widget Types
 
-### 1. Events Widget (`<widget-events>`)
+### 1. Events Widget (`<widget-calendar>`)
 
 Displays filtered lists of events from `content/events/`.
 
@@ -112,23 +112,23 @@ Displays filtered lists of events from `content/events/`.
 **Examples:**
 ```html
 <!-- Next 7 days of milongas -->
-<widget-events type="milonga" days="7"></widget-events>
+<widget-calendar type="milonga" days="7"></widget-calendar>
 
 <!-- All workshops in next year -->
-<widget-events type="workshop" days="365"></widget-events>
+<widget-calendar type="workshop" days="365"></widget-calendar>
 
 <!-- Milongas in date range -->
-<widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
+<widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 
 <!-- Last 3 milongas -->
-<widget-events type="milonga" days="-7" limit="3"></widget-events>
+<widget-calendar type="milonga" days="-7" limit="3"></widget-calendar>
 
 <!-- Milongas sorted oldest first -->
-<widget-events type="milonga" days="365" sort="oldest"></widget-events>
+<widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/widget_filtered_events.html`
+- Component: `theme/templates/components/widget_calendar.html`
 - Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort` from `tag_content`
 - Filters articles from `articles` context where `source_path` contains `'events/'`
 - Filtering logic:
@@ -220,7 +220,7 @@ Displays classes from `content/classes/` as cards with images.
 
 | Attribute | Type | Required | Values | Description |
 |-----------|------|----------|--------|-------------|
-| `type` | string | No | `milonga`, `workshop`, `class` | Event type filter (for `widget-events` only) |
+| `type` | string | No | `milonga`, `workshop`, `class` | Event type filter (for `widget-calendar` only) |
 | `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
 | `start` | date | No* | `YYYY-MM-DD` | Start date for range (*required if `end` present) |
 | `end` | date | No* | `YYYY-MM-DD` | End date for range (*required if `start` present) |
@@ -230,7 +230,7 @@ Displays classes from `content/classes/` as cards with images.
 **Rules:**
 - If `start` is present, `end` is required (and vice versa)
 - `days` and `start`/`end` are mutually exclusive
-- `type` only applies to `widget-events` widget
+- `type` only applies to `widget-calendar` widget
 - `sort="title"` only applies to `widget-classes` widget
 - Default sort: `newest` (newest first)
 
@@ -351,7 +351,7 @@ Each component parses its own attributes from `tag_content`:
 ```
 
 **Features:**
-- Supports both self-closing (`<widget-events />`) and paired tags (`<widget-events></widget-events>`)
+- Supports both self-closing (`<widget-calendar />`) and paired tags (`<widget-calendar></widget-calendar>`)
 - Handles whitespace and newlines in tags
 - Attributes must be separated by `" ` (quote + space)
 - Attribute values must not contain spaces (use separate attributes instead)
@@ -430,7 +430,7 @@ Widgets use metadata for event dates:
 
 **Check:**
 1. Widget syntax matches exactly (copy from examples above)
-2. Widget tag name uses correct format (`widget-events`, not `widget_events`)
+2. Widget tag name uses correct format (`widget-calendar`, not `widget_calendar`)
 3. All attributes use standard HTML format (no `data-` prefix)
 4. Page uses `page.html` template (not custom template)
 5. `process_widgets()` macro is called in template
@@ -483,7 +483,7 @@ Widgets use metadata for event dates:
 ### From Old to New Syntax
 
 **Widget Tags:**
-- `<div data-widget="filtered-events">` → `<widget-events>`
+- `<div data-widget="calendar">` → `<widget-calendar>` (widget_calendar.html)
 - `<div data-widget="announcements">` → `<widget-announcements>`
 - `<div data-widget="curiosities">` → `<widget-curiosities>`
 - `<div data-widget="classes">` → `<widget-classes>`
@@ -500,13 +500,13 @@ Widgets use metadata for event dates:
 **Examples:**
 ```html
 <!-- Old -->
-<div data-widget="filtered-events" data-type="milonga" data-days="7"></div>
+<div data-widget="calendar" data-type="milonga" data-days="7"></div>
 
 <!-- New -->
-<widget-events type="milonga" days="7"></widget-events>
+<widget-calendar type="milonga" days="7"></widget-calendar>
 
 <!-- New with sorting -->
-<widget-events type="milonga" days="365" sort="oldest"></widget-events>
+<widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
 ```
 
 ## Performance Considerations

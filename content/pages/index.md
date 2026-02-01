@@ -15,11 +15,11 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 ## Tango milongy tento týden
 
-<widget-events type="milonga" days="7"></widget-events>
+<widget-calendar type="milonga" days="7"></widget-calendar>
 
 ## Kde se učit tango v Brně
 
-<widget-events type="workshop" days="365"></widget-events>
+<widget-calendar type="workshop" days="365"></widget-calendar>
 
 
 ## Oznamy

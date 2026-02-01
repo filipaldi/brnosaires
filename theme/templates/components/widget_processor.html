@@ -24,8 +24,8 @@
           {% set after_widget = after_tag %}
         {% endif %}
         
-        {% if tag_name == 'events' %}
-          {% include 'components/widget_filtered_events.html' with context %}
+        {% if tag_name == 'calendar' %}
+          {% include 'components/widget_calendar.html' with context %}
         {% elif tag_name == 'announcements' %}
           {% include 'components/widget_announcements.html' with context %}
         {% elif tag_name == 'curiosities' %}

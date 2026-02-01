@@ -44,7 +44,7 @@
   {% endif %}
 {% endfor %}
 
-{% set filtered_events = [] %}
+{% set calendar_events = [] %}
 {% set type_filtered = [] %}
 
 {% if event_type == 'milonga' %}
@@ -79,7 +79,7 @@
 {% if days %}
   {% if days >= 365 or days <= -365 %}
     {% for page in events_to_check %}
-      {% set _ = filtered_events.append(page) %}
+      {% set _ = calendar_events.append(page) %}
     {% endfor %}
   {% else %}
     {% set today = NOW %}
@@ -98,9 +98,9 @@
         {% set today_date = today.replace(hour=0, minute=0, second=0, microsecond=0) %}
         {% set days_diff = (page_date - today_date).days %}
         {% if days > 0 and days_diff >= 0 and days_diff <= days %}
-          {% set _ = filtered_events.append(page) %}
+          {% set _ = calendar_events.append(page) %}
         {% elif days < 0 and days_diff <= 0 and days_diff >= days %}
-          {% set _ = filtered_events.append(page) %}
+          {% set _ = calendar_events.append(page) %}
         {% endif %}
       {% endif %}
     {% endfor %}
@@ -115,46 +115,46 @@
         {% set page_date_str = page_start.strftime('%Y-%m-%d') %}
       {% endif %}
       {% if page_date_str >= start_date and page_date_str <= end_date %}
-        {% set _ = filtered_events.append(page) %}
+        {% set _ = calendar_events.append(page) %}
       {% endif %}
     {% endif %}
   {% endfor %}
 {% else %}
   {% for page in events_to_check %}
-    {% set _ = filtered_events.append(page) %}
+    {% set _ = calendar_events.append(page) %}
   {% endfor %}
 {% endif %}
 
-{% if not filtered_events and events_to_check %}
+{% if not calendar_events and events_to_check %}
   {% for page in events_to_check %}
-    {% set _ = filtered_events.append(page) %}
+    {% set _ = calendar_events.append(page) %}
   {% endfor %}
 {% endif %}
 
 {% if sort == 'oldest' %}
-  {% set filtered_events = filtered_events | sort(attribute='date') %}
+  {% set calendar_events = calendar_events | sort(attribute='date') %}
 {% else %}
-  {% set filtered_events = filtered_events | sort(attribute='date', reverse=true) %}
+  {% set calendar_events = calendar_events | sort(attribute='date', reverse=true) %}
 {% endif %}
 
 {% if limit %}
   {% if limit == 'all' %}
-    {% set display_events = filtered_events %}
+    {% set display_events = calendar_events %}
   {% elif limit is number %}
-    {% set display_events = filtered_events[:limit|int] %}
+    {% set display_events = calendar_events[:limit|int] %}
   {% elif 'last' in limit|lower %}
     {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
-    {% set display_events = filtered_events[-limit_num:] %}
+    {% set display_events = calendar_events[-limit_num:] %}
   {% else %}
     {% set limit_num = limit|int %}
-    {% set display_events = filtered_events[:limit_num] %}
+    {% set display_events = calendar_events[:limit_num] %}
   {% endif %}
 {% else %}
-  {% set display_events = filtered_events %}
+  {% set display_events = calendar_events %}
 {% endif %}
 
 {% if display_events %}
-<div class="filtered-events-widget">
+<div class="widget-calendar">
   <div class="el-grid">
     {% for event in display_events %}
     <a href="/{{ event.slug }}/" class="aesthetic-card card-m">

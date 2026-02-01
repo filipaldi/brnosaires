@@ -89,9 +89,9 @@ title: Widget Test
 slug: test-widgets
 ---
 
-## Filtered Events
+## Calendar (events)
 
-<div data-widget="filtered_events" data-filter="milonga"></div>
+<div data-widget="calendar" data-filter="milonga"></div>
 
 ```
 

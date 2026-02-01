@@ -144,39 +144,39 @@ Shows a list of events filtered by type (milongas, workshops, etc.) or time peri
 
 **Basic Syntax:**
 ```html
-<widget-events type="milonga"></widget-events>
+<widget-calendar type="milonga"></widget-calendar>
 ```
 
 **Options:**
 
 - **Show all milongas:**
   ```html
-  <widget-events type="milonga" days="365"></widget-events>
+  <widget-calendar type="milonga" days="365"></widget-calendar>
   ```
 
 - **Show all workshops/lessons:**
   ```html
-  <widget-events type="workshop" days="365"></widget-events>
+  <widget-calendar type="workshop" days="365"></widget-calendar>
   ```
 
 - **Show events in the next 7 days:**
   ```html
-  <widget-events type="milonga" days="7"></widget-events>
+  <widget-calendar type="milonga" days="7"></widget-calendar>
   ```
 
 - **Show events from the last 30 days:**
   ```html
-  <widget-events type="milonga" days="-30"></widget-events>
+  <widget-calendar type="milonga" days="-30"></widget-calendar>
   ```
 
 - **Show events in a date range:**
   ```html
-  <widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
+  <widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
   ```
 
 - **Show events sorted oldest first:**
   ```html
-  <widget-events type="milonga" days="365" sort="oldest"></widget-events>
+  <widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
   ```
 
 **Attributes:**
@@ -199,11 +199,11 @@ slug: tango-milongy-brno
 
 Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
 
-<widget-events type="milonga" days="365"></widget-events>
+<widget-calendar type="milonga" days="365"></widget-calendar>
 
 ## Upcoming Events
 
-<widget-events type="milonga" days="7"></widget-events>
+<widget-calendar type="milonga" days="7"></widget-calendar>
 
 ## Announcements
 
@@ -419,7 +419,7 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 ```markdown
 ## Upcoming Milongas
 
-<widget-events type="milonga" days="365"></widget-events>
+<widget-calendar type="milonga" days="365"></widget-calendar>
 ```
 
 ### Finding and Editing Existing Content
@@ -461,10 +461,10 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 
 **Events:**
 ```html
-<widget-events type="milonga" days="365"></widget-events>
-<widget-events type="milonga" days="7"></widget-events>
-<widget-events type="milonga" days="-30"></widget-events>
-<widget-events type="milonga" start="2026-06-01" end="2026-08-31"></widget-events>
+<widget-calendar type="milonga" days="365"></widget-calendar>
+<widget-calendar type="milonga" days="7"></widget-calendar>
+<widget-calendar type="milonga" days="-30"></widget-calendar>
+<widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 ```
 
 **Announcements:**

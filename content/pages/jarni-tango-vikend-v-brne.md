@@ -21,4 +21,4 @@ Co zažiješ ve 3 dnech:
 ## Program
 
 
-<widget-events type="milonga" start="2026-04-25" end="2026-04-27"></widget-events>
+<widget-calendar type="milonga" start="2026-04-25" end="2026-04-27"></widget-calendar>
