@@ -251,18 +251,14 @@ Widgets expect events to use standardized metadata format:
 
 ### Template Access Pattern
 
-Templates use hybrid access pattern for compatibility:
+Templates use metadata only for event start/end:
 
 ```jinja2
-{% set event_start = event.start | default(event.metadata.get('event-start')) %}
-{% set event_end = event.end | default(event.metadata.get('event-end')) %}
+{% set event_start = event.metadata.get('event-start') if event.metadata else none %}
+{% set event_end = event.metadata.get('event-end') if event.metadata else none %}
 ```
 
-**Priority:**
-1. `event.start` / `event.end` (from pelican-events plugin if active)
-2. `event.metadata.get('event-start')` / `event.metadata.get('event-end')` (from frontmatter)
-
-**No backward compatibility:** Templates do not use `event.date` or `event.metadata.get('end_date')`.
+Templates do not use `event.date` or `event.metadata.get('end_date')`.
 
 ## Adding New Widgets
 
@@ -417,17 +413,16 @@ This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes", "
 
 ### Date Handling
 
-Widgets use standardized date access pattern:
+Widgets use metadata for event dates:
 
 ```jinja2
-{% set event_start = event.start | default(event.metadata.get('event-start')) %}
+{% set event_start = event.metadata.get('event-start') if event.metadata else none %}
 ```
 
 **Important:**
-- `event.start` is a datetime object (from pelican-events plugin)
-- `event.metadata.get('event-start')` may be a string (needs parsing if used for calculations)
-- For display: `event_start.strftime('%d. %m. %Y')`
-- For filtering: Use datetime attributes (`.year`, `.month`, `.day`)
+- The value may be a string (needs parsing if used for calculations)
+- For display: branch on `event_start is string` and slice or use `strftime` accordingly
+- For filtering: normalise to date/datetime before comparing
 
 ## Troubleshooting
 
@@ -464,7 +459,6 @@ Widgets use standardized date access pattern:
 **Check:**
 1. Event has `event-start` in frontmatter
 2. Format is `YYYY-MM-DD HH:MM:SS`
-3. pelican-events plugin active (if using `event.start`)
 
 **Debug:**
 - Check metadata: `{{ event.metadata }}`

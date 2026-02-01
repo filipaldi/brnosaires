@@ -84,7 +84,7 @@
   {% else %}
     {% set today = NOW %}
     {% for page in events_to_check %}
-      {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+      {% set page_start = page.metadata.get('event-start') if page.metadata else none %}
       {% if page_start %}
         {% if page_start is string %}
           {% set page_date_str = page_start[:10] %}
@@ -107,7 +107,7 @@
   {% endif %}
 {% elif start_date and end_date %}
   {% for page in events_to_check %}
-    {% set page_start = page.start | default(page.event_start) | default(page['event-start']) | default(page.metadata.get('event-start') if page.metadata else none) %}
+    {% set page_start = page.metadata.get('event-start') if page.metadata else none %}
     {% if page_start %}
       {% if page_start is string %}
         {% set page_date_str = page_start[:10] %}
@@ -165,8 +165,8 @@
       {% endif %}
       <div class="event-card-info">
         <h3>{{ event.title }}</h3>
-        {% set event_start = event.start | default(event.event_start) | default(event['event-start']) | default(event.metadata.get('event-start') if event.metadata else none) %}
-        {% set event_end = event.end | default(event.event_end) | default(event['event-end']) | default(event.metadata.get('event-end') if event.metadata else none) %}
+        {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
+        {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
         {% if event_start %}
           {% if event_start is string %}
             {% set event_date_str = event_start[:10] %}
@@ -197,11 +197,11 @@
           <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
         </div>
         {% endif %}
-        {% set event_organiser = event.organiser | default(event.event_organiser) | default(event['event-organiser']) | default(event.metadata.get('event-organiser') if event.metadata else none) %}
+        {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
         {% if event_organiser %}
         <div>{{ event_organiser }}</div>
         {% endif %}
-        {% set event_location = event.location | default(event.venue) | default(event.event_location) | default(event['event-location']) | default(event.metadata.get('venue') if event.metadata else none) | default(event.metadata.get('location') if event.metadata else none) %}
+        {% set event_location = event.metadata.get('location') if event.metadata else none %}
         {% if event_location %}
         <div>{{ event_location }}</div>
         {% endif %}
