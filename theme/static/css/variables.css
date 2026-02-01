@@ -83,9 +83,9 @@
       BORDERS
       ============================================ */
 
-   --border-width-s: calc(var(--size) * 2); 
-   --border-width-m: calc(var(--size) * 4);
-   --border-width-l: calc(var(--size) * 7);
+   --border-width-s: calc(var(--size) * 1.5); 
+   --border-width-m: calc(var(--size) * 3);
+   --border-width-l: calc(var(--size) * 5);
 
    --border-style-s: var(--border-width-s) solid var(--color-neutral-5);
    --border-style-m: var(--border-width-m) solid var(--color-neutral-5);
@@ -102,10 +102,6 @@
    --border-radius-3xl: var(--size-3xl);
    --border-radius-4xl: var(--size-4xl);
    --border-radius-5xl: var(--size-5xl);
-
-   --interactions-border-radius: var(--border-radius-s);
-   --card-border-radius: var(--border-radius-xs);
-   --frame-ratio: 16 / 9;
 
    /* ============================================
       Z-INDEX

@@ -2,13 +2,12 @@
    AESTHETIC CLASSES
    Visual appearance and branding only
    Properties: color, background, border, box-shadow
-   DO NOT include: padding, display, margin
+   DO NOT include: padding, margin, display, position,..
    ============================================ */
 
 /* ============================================
    COMPONENT AESTHETICS (Semantic, brand-specific)
    ============================================ */
-
 
 
 .aesthetic-card,
@@ -24,7 +23,7 @@ a.aesthetic-card {
 .aesthetic-chip,
 a.aesthetic-chip {
   border: var(--border-style-s);
-  border-radius: var(--border-radius-s);
+  border-radius: var(--border-radius-m);
   background-color: var(--color-gray-light-1);
   color: var(--color-neutral-5);
   overflow: hidden;

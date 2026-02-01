@@ -15,19 +15,39 @@
    STACK
    ============================================ */
 
-   
 .el-stack {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.el-stack > * {
+.el-stack * {
   margin-block: 0;
 } 
 
-.el-stack > * + * {
-  margin-block-start: var(--size-m);
+.el-stack * + * {
+  --space: var(--size-s);
+  margin-block-start: var(--space);
+}
+
+.el-stack:only-child {
+  block-size: 100%;
+}
+
+.el-stack > :nth-child(var(--space)) {
+  margin-block-end: auto;
+}
+
+.el-stack.stack-s {
+  --space: var(--size-s);
+}
+
+.el-stack.stack-m {
+  --space: var(--size-m);
+}
+
+.el-stack.stack-l {
+  --space: var(--size-l);
 }
 
 

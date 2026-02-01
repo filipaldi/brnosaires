@@ -8,7 +8,23 @@
    BUTTONS
    ============================================ */
 
+.chip-s {
+  font-size: var(--text-s);
+  line-height: var(--size-s);
+  padding: var(--size-2xs) var(--size-xs);
+}
 
+.chip-m {
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  padding: var(--size-xs) var(--size-s);
+}
+
+.chip-l {
+  font-size: var(--text-l); 
+  line-height: var(--size-l);
+  padding: var(--size-s) var(--size-m);
+}
 
 /* ============================================
    INPUTS
@@ -97,3 +113,4 @@ input[type="checkbox"]:checked + span {
   line-height: var(--size-m);
   margin-top: var(--size-2xs);
 }
+

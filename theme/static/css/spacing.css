@@ -49,6 +49,14 @@
    PADDING (Padding for elements)
    ============================================ */
 
+.padding-all-2xs {
+  padding: var(--size-2xs);
+}
+
+.padding-all-xs {
+  padding: var(--size-xs);
+}
+
 .padding-all-s {
   padding: var(--size-s);
 }
