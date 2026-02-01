@@ -1,8 +1,9 @@
 ---
 title: Neolonga na Stolárně
-date: 2026-01-10 19:00:00
-event-start: 2026-01-10 19:00:00
-event-end: 2026-01-10 23:30:00
+date: 2026-02-07 18:00:00
+event-start: 2026-02-07 18:00:00
+event-end: 2026-02-07 22:00:00
+recurrence: monthly 4 saturday
 preview_image: /images/image.png
 ---
 

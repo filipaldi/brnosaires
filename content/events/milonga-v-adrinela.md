@@ -1,8 +1,9 @@
 ---
 title: Milonga v Adrinele 
-date: 2025-11-20 20:30:00
-event-start: 2025-11-20 20:30:00
-event-end: 2025-11-20 23:15:00
+date: 2026-02-07 18:00:00
+event-start: 2026-02-07 18:00:00
+event-end: 2026-02-07 22:00:00
+recurrence: monthly 3 thursday
 preview_image: /images/20250220_223216.jpg
 ---
 

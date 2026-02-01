@@ -101,7 +101,7 @@ def group_events(events, group_by, lang):
         return []
     for key in buckets:
         buckets[key].sort(key=lambda e: _parse_event_start(e.metadata) or datetime.min)
-    sorted_keys = sorted(buckets.keys(), reverse=True)
+    sorted_keys = sorted(buckets.keys())
     if group_by == "day":
         headline_fn = _headline_day
     elif group_by == "week":
