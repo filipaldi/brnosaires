@@ -58,7 +58,7 @@
     {% for item in display_classes %}
     <a href="/{{ item.slug }}/" class="el-stack aesthetic-card">
       {% if item.preview_image %}
-      <div class="card__image">
+      <div class="card__image el-frame-16x9">
         <img src="{{ item.preview_image }}" alt="{{ item.title }}" />
       </div>
       {% endif %}

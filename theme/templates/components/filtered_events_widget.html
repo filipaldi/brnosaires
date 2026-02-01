@@ -159,7 +159,7 @@
     {% for event in display_events %}
     <a href="/{{ event.slug }}/" class="el-stack aesthetic-card">
       {% if event.preview_image %}
-      <div class="card__image frame">
+      <div class="card__image el-frame-16x9">
         <img src="{{ event.preview_image }}" alt="{{ event.title }}" />
       </div>
       {% endif %}

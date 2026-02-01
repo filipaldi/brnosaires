@@ -97,22 +97,3 @@ input[type="checkbox"]:checked + span {
   line-height: var(--size-m);
   margin-top: var(--size-2xs);
 }
-
-/* ============================================
-   FRAME
-   ============================================ */
-
-.frame {
-  aspect-ratio: var(--frame-ratio, 16 / 9);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.frame > img,
-.frame > video {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-}

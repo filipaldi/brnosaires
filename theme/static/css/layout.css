@@ -11,6 +11,11 @@
    ============================================ */
 
 
+/* ============================================
+   STACK
+   ============================================ */
+
+   
 .el-stack {
   display: flex;
   flex-direction: column;
@@ -24,6 +29,11 @@
 .el-stack > * + * {
   margin-block-start: var(--size-m);
 }
+
+
+/* ============================================
+   BOX
+   ============================================ */
 
 .el-box {
   padding: var(--size-s);
@@ -41,17 +51,29 @@
   background-color: var(--color-dark);
 }
 
+/* ============================================
+   CENTER
+   ============================================ */
+
 .el-center {
   box-sizing: content-box;
   margin-inline: auto;
   max-inline-size: var(--measure); /* var(--measure) is not currently defined in @variables.css what should we do here? */
 }
 
+/* ============================================
+   CLUSTER
+   ============================================ */
+
 .el-cluster {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
 
 .el-sidebar {
   display: flex;
@@ -70,6 +92,10 @@
   min-inline-size: 50%;
 }
 
+/* ============================================
+   SWITCHER
+   ============================================ */
+
 .el-switcher {
   display: flex;
   flex-wrap: wrap;
@@ -86,6 +112,10 @@
   flex-basis: 100%;
 }
 
+/* ============================================
+   COVER
+   ============================================ */
+
 .el-cover {
   display: grid;
   grid-template-rows: 1fr auto;
@@ -93,6 +123,11 @@
   align-items: center;
   justify-items: center;
 }
+
+
+/* ============================================
+   GRID
+   ============================================ */
 
 .el-grid {
   display: grid;
@@ -104,6 +139,38 @@
     grid-template-columns: repeat(auto-fit, minmax(min(var(--size-6xl), 100%), 1fr));
   }
 }
+
+/* ============================================
+   FRAME
+   ============================================ */
+
+   .el-frame-16x9 {
+    --n: 16;
+    --d: 9;
+    aspect-ratio: var(--n) / var(--d);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .el-frame-16x9 > img,
+  .el-frame-16x9 > video {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .el-frame-4x3 {
+    --n: 4;
+    --d: 3;
+  }
+
+  .el-frame-1x1 {
+    --n: 1;
+    --d: 1;
+  }
+  
 
 /* ============================================
    JUSTIFY CONTENT UTILITIES

@@ -21,13 +21,6 @@ a.aesthetic-card {
   text-decoration: none;
 }
 
-.aesthetic-card img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-
 .aesthetic-chip,
 a.aesthetic-chip {
   border: var(--border-style-s);
