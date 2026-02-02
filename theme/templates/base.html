@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
-  <base href="{{ SITEURL }}/"
+  {% if SITEURL %}<base href="{{ SITEURL }}/">{% endif %}
 
   <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
   <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
