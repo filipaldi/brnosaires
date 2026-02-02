@@ -1,7 +1,7 @@
 ---
 title: Milonga v Adrinele 
-slug: milonga-v-adrinele
-date: 2026-02-07 18:00:00
+slug: milonga-v-adrinele-2026-02-19
+date: 2026-02-02 20:00:00
 event-type: milonga
 event-start: 2026-02-19 20:30:00
 event-end: 2026-02-19 23:15:00

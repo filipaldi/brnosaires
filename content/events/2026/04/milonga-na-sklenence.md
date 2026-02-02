@@ -1,6 +1,6 @@
 ---
 title: Milonga na Skleněnce 
-slug: milonga-na-sklenence
+slug: milonga-na-sklenence-2026-04-04
 date: 2026-04-04 18:00:00
 event-type: milonga
 event-start: 2026-04-04 18:00:00
