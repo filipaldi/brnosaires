@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  <base href="{{ SITEURL }}/"
 
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
-  <link rel="preload" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
+  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
+  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
 
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/variables.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/typography.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/core.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/layout.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/spacing.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/aesthetic.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/components.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pages.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/variables.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/typography.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/core.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/layout.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/spacing.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/aesthetic.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/components.css">
+  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/pages.css">
 
   {% block head %}{% endblock %}
 </head>
@@ -34,7 +35,7 @@
       {% set nav_aria = 'Marathon navigation' %}
       {% include 'components/navigation.html' %}
       {% else %}
-      <a href="{{ SITEURL }}/" class="logo text-xl">{{ SITENAME }}</a>
+      <a href="" class="logo text-xl">{{ SITENAME }}</a>
       {% set nav_slot = 'Main' %}
       {% set nav_aria = 'Main navigation' %}
       {% include 'components/navigation.html' %}
@@ -46,7 +47,7 @@
     </aside>
   </div>
 
-  <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/main.js"></script>
+  <script src="{{ THEME_STATIC_DIR }}/js/main.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

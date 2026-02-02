@@ -137,10 +137,10 @@
     <h2 class="widget-calendar__group-title">{{ headline }}</h2>
     <div class="el-grid">
     {% for event in group_events %}
-    <a href="/{{ event.slug }}/" class="aesthetic-card card-m">
+    <a href="{{ event.slug }}/" class="aesthetic-card card-m">
       {% if event.preview_image %}
       <div class="el-frame-16x9">
-        <img src="{{ event.preview_image }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
+        <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
       </div>
       {% endif %}
       <div class="event-card-info">
@@ -194,10 +194,10 @@
 {% else %}
   <div class="el-grid">
     {% for event in display_events %}
-    <a href="/{{ event.slug }}/" class="aesthetic-card card-m">
+    <a href="{{ event.slug }}/" class="aesthetic-card card-m">
       {% if event.preview_image %}
       <div class="el-frame-16x9">
-        <img src="{{ event.preview_image }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
+        <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
       </div>
       {% endif %}
       <div class="event-card-info">

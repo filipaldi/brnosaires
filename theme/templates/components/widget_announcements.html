@@ -54,10 +54,10 @@
   {% if display_announcements %}
   <div class="el-grid">
     {% for item in display_announcements %}
-    <a href="/{{ item.slug }}/" class="aesthetic-card card-m">
+    <a href="{{ item.slug }}/" class="aesthetic-card card-m">
       {% if item.preview_image %}
       <div class="el-frame-16x9">
-        <img src="{{ item.preview_image }}" alt="{{ item.preview_image_alt|default(item.title) }}" />
+        <img src="{{ item.preview_image.lstrip('/') }}" alt="{{ item.preview_image_alt|default(item.title) }}" />
       </div>
       {% endif %}
       <div>
