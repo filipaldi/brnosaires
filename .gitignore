@@ -8,7 +8,8 @@ __pycache__/
 *~
 .DS_Store
 *.mdc
-/.cursor/rules/styles.mdc
-/.cursor/plans/standardise_breakpoint_structure.plan.md
-/.cursor/commands/build.md
-/.cursor/rules/voice-n-tone.mdc
+.cursor/
+.vscode/
+copy/
+marathon/
+migration-scripts/
