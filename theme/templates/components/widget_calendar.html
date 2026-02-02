@@ -1,4 +1,5 @@
 {% set event_type = none %}
+{% set event_type_ref = [none] %}
 {% set days_ref = [none] %}
 {% set start_date_ref = [none] %}
 {% set end_date_ref = [none] %}
@@ -16,7 +17,7 @@
       {% for attr in attrs_list %}
         {% if 'type="' in attr %}
           {% set type_raw = attr.split('type="')[1] %}
-          {% set event_type = type_raw.split('"', 1)[0] | lower %}
+          {% do event_type_ref.__setitem__(0, type_raw.split('"', 1)[0] | lower) %}
         {% elif 'days="' in attr %}
           {% set days_raw = attr.split('days="')[1] %}
           {% do days_ref.__setitem__(0, days_raw.split('"', 1)[0] | int) %}
@@ -44,6 +45,7 @@
   {% endif %}
 {% endif %}
 
+{% set event_type = event_type_ref[0] %}
 {% set days = days_ref[0] %}
 {% set start_date = start_date_ref[0] %}
 {% set end_date = end_date_ref[0] %}
