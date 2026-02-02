@@ -3,8 +3,8 @@ title: Začátečníci
 slug: necasovy-zacatecnici-sunday
 date: 2026-01-16 01:00:00
 instructor: "['Gabriela a Petr Nečasovi']"
-event-start: 2026-02-08 18:00:00
-event-end: 2026-02-08 19:30:00
+event-start: 2026-01-08 18:00:00
+event-end: 2026-01-08 19:30:00
 recurrence: weekly sunday
 preview_image: /images/class-necasovy.png
 event-organiser: Gabriela a Petr Nečasovi
