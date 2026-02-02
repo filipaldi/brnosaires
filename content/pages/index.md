@@ -19,7 +19,10 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 ## Kde se učit tango v Brně
 
-<widget-calendar type="workshop" days="365"></widget-calendar>
+<widget-calendar type="class" days="7"></widget-calendar>
+
+<widget-calendar type="workshop" days="30"></widget-calendar>
+
 
 
 ## Oznamy

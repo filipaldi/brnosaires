@@ -1,6 +1,8 @@
 ---
 title: Předvánoční milonga u Brněnského draka + openclass
+slug: predvanocni-milonga-u-brnenskeho-draka-openclass
 date: 2025-12-20 19:00:00
+event-type: milonga
 event-start: 2025-12-20 19:00:00
 event-end: 2025-12-20 22:30:00
 preview_image: /images/571118869_10240208165132292_7276733406663436891_n.jpg

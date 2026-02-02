@@ -1,6 +1,8 @@
 ---
 title: Vánoční narozeninová milonga - HEX Gallery
+slug: vanocni-narozeninova-milonga-hex-gallery
 date: 2025-12-17 18:00:00
+event-type: milonga
 event-start: 2025-12-17 18:00:00
 preview_image: /images/IMAGE_2025-12-06_163958.jpg
 ---

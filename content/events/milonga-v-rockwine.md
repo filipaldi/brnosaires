@@ -1,6 +1,8 @@
 ---
 title: Milonga v Rockwine
+slug: milonga-v-rockwine
 date: 2026-01-29 01:00:00
+event-type: milonga
 event-start: 2026-01-29 01:00:00
 preview_image: /images/Rockwine_kvten_2025_%286%29.jpg
 ---

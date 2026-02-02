@@ -1,6 +1,6 @@
 ---
-title: TangoLaboratorium III. a výše
-slug: tangolaboratorium-iii-a-vyse
+title: "Tango I. - II. (základy a technika)"
+slug: tangolab-steky-tango-i-ii-zaklady-a-technika
 date: 2026-01-16 01:00:00
 instructor: "['Štěky Yaku', 'Filip Šterc', 'Albert Mikó', 'Jana Popelková']"
 event-start: 2026-02-08 18:00:00
@@ -11,5 +11,9 @@ event-organiser: TangoLab Štěky
 event-location: i.D Yoga na Poštovská 3, Brno - ve 2. patře (zvoňte na zvonek)
 event-type: class
 ---
+
+# TangoLab Štěky - Tango I. - II. (základy a technika)
+
+TangoLab Štěky je pravidelná taneční skupina, která se koná každý úterý ve 18:00.
 
 

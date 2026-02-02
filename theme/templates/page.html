@@ -6,6 +6,11 @@
 {% block content %}
 <div class="group--main-container">
   <article class="el-stack stack-l">
+    {% if page.preview_image %}
+    <div class="el-frame-16x9">
+      <img src="{{ page.preview_image }}" alt="{{ page.title }}" />
+    </div>
+    {% endif %}
     <div class="el-stack stack-xs">
       {{ process_widgets(page.content) }}
     </div>

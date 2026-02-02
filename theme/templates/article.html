@@ -5,6 +5,11 @@
 {% block content %}
 <div class="group--main-container">
   <article class="el-stack stack-m">
+    {% if article.preview_image %}
+    <div class="el-frame-16x9">
+      <img src="{{ article.preview_image }}" alt="{{ article.title }}" />
+    </div>
+    {% endif %}
     <header>
       {% if article.date %}
       <time class="text-s color-neutral-3" datetime="{{ article.date.isoformat() }}">

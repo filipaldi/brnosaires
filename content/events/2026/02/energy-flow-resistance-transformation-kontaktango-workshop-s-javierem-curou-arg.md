@@ -1,6 +1,8 @@
 ---
 title: Energy, flow, resistance & transformation - KONTAKTANGO WORKSHOP s JAVIEREM CUROU (ARG)
+slug: energy-flow-resistance-transformation-kontaktango-workshop-s-javierem-curou-arg
 date: 2026-02-27 01:00:00
+event-type: workshop
 event-start: 2026-02-27 01:00:00
 event-end: 2026-03-01 01:00:00
 preview_image: /images/Javier_2024-19.jpg

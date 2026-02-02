@@ -1,6 +1,6 @@
 ---
-title: TangoLaboratorium III. a výše
-slug: tangolaboratorium-iii-a-vyse
+title: "Tango II.-III. (sekvence)"
+slug: tangolab-steky-tango-ii-iii-sekvence
 date: 2026-01-16 01:00:00
 instructor: "['Štěky Yaku', 'Filip Šterc', 'Albert Mikó', 'Jana Popelková']"
 event-start: 2026-02-08 18:00:00

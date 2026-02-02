@@ -1,6 +1,8 @@
 ---
 title: Předvánoční milonga v Adrinele
+slug: predvanocni-milonga-v-adrinele
 date: 2025-12-18 20:30:00
+event-type: milonga
 event-start: 2025-12-18 20:30:00
 event-end: 2025-12-18 23:15:00
 preview_image: /images/20250220_223216.jpg

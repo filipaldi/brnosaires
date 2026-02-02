@@ -1,6 +1,8 @@
 ---
 title: Neolonga na Stolárně
+slug: neolonga-na-stolarne
 date: 2026-02-07 18:00:00
+event-type: milonga
 event-start: 2026-02-07 18:00:00
 event-end: 2026-02-07 22:00:00
 recurrence: monthly 4 saturday

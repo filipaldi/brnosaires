@@ -1,6 +1,8 @@
 ---
 title: Praktika a openclass na Stolárně 
+slug: praktika-a-openclass-na-stolarne
 date: 2026-02-01 20:00:00
+event-type: workshop
 event-start: 2026-02-01 20:00:00
 event-end: 2026-02-01 23:00:00
 recurrence: weekly sunday

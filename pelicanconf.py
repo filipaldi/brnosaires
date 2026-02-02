@@ -20,6 +20,8 @@ ARTICLE_SAVE_AS = "{slug}/index.html"
 PAGE_URL = "{slug}/"
 PAGE_SAVE_AS = "{slug}/index.html"
 
+SLUGIFY_SOURCE = "basename"
+
 DEFAULT_DATE_FORMAT = "%d. %m. %Y"
 TIMEZONE = "Europe/Prague"
 

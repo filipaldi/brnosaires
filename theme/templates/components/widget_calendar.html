@@ -53,7 +53,7 @@
 
 {% set event_pages = [] %}
 {% for article in all_articles %}
-  {% if not article.category or (article.category and article.category.name not in ['announcement', 'curiosity', 'class']) %}
+  {% if not article.category or (article.category and article.category.name not in ['announcement', 'curiosity']) %}
     {% set _ = event_pages.append(article) %}
   {% endif %}
 {% endfor %}
@@ -61,24 +61,10 @@
 {% set calendar_events = [] %}
 {% set type_filtered = [] %}
 
-{% if event_type == 'milonga' %}
+{% if event_type %}
   {% for page in event_pages %}
-    {% set title_lower = page.title | lower %}
-    {% if 'milonga' in title_lower %}
-      {% set _ = type_filtered.append(page) %}
-    {% endif %}
-  {% endfor %}
-{% elif event_type == 'workshop' %}
-  {% for page in event_pages %}
-    {% set title_lower = page.title | lower %}
-    {% if 'workshop' in title_lower or 'lekce' in title_lower or 'lekci' in title_lower %}
-      {% set _ = type_filtered.append(page) %}
-    {% endif %}
-  {% endfor %}
-{% elif event_type == 'class' %}
-  {% for page in event_pages %}
-    {% set title_lower = page.title | lower %}
-    {% if 'class' in title_lower or 'lekce' in title_lower %}
+    {% set page_event_type = page.metadata.get('event-type') if page.metadata else none %}
+    {% if page_event_type and (page_event_type | lower) == event_type %}
       {% set _ = type_filtered.append(page) %}
     {% endif %}
   {% endfor %}

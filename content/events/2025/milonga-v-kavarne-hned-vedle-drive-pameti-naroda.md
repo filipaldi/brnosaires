@@ -1,6 +1,8 @@
 ---
 title: Milonga v kavárně Hned vedle (dříve Paměti národa) 
+slug: milonga-v-kavarne-hned-vedle-drive-pameti-naroda
 date: 2025-12-11 20:00:00
+event-type: milonga
 event-start: 2025-12-11 20:00:00
 event-end: 2025-12-11 23:00:00
 preview_image: /images/IBA_5960.jpg_compressed.jpeg

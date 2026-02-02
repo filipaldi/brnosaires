@@ -1,6 +1,6 @@
 ---
-title: TangoLaboratorium III. a výše
-slug: tangolaboratorium-iii-a-vyse
+title: "Flexi - Power dance"
+slug: tangolab-steky-flexi-power-dance
 date: 2026-01-16 01:00:00
 instructor: "['Štěky Yaku', 'Filip Šterc', 'Albert Mikó', 'Jana Popelková']"
 event-start: 2026-02-08 18:00:00
@@ -12,4 +12,4 @@ event-location: i.D Yoga na Poštovská 3, Brno - ve 2. patře (zvoňte na zvone
 event-type: class
 ---
 
-
+# Flexi - Power dance
