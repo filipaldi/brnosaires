@@ -9,3 +9,7 @@ preview_image: /images/514552801_10161174149020059_7363131728175184334_n.jpg
 description: Milonga Sesamo. Březen 2026, Brno. 20:00–01:00.
 author: Filip Paldia
 ---
+
+Přijď na přátelskou tango párty pro začátečníky, pokročilé a všechny, kdo se pořád trochu na milonze stydí!
+Naučit se kroky je super, ale milongy jsou to pravé kouzlo a Milonga Sesamo je přátelská, bezpečně si tu můžeš projít a uplatnit všechno, co ses naučil na lekcích. Získáš ale mnohem víc - potkáš nové lidi, nasaješ tango atmosféru skutečné milongy a objevíš pravou podstatu tanga. Bezpochyby tě uchvátí!...  
+Pozvi své tango přátele.
