@@ -1,7 +1,7 @@
 ---
-title: Smutné období drogových dealerů 
+title: Smutné období drogových dealerů
 date: 2025-05-06 12:17:00
-preview_image: /images/Smutne obdobi drogovych dealeru.webp
+preview_image: /images/smutne-obdobi-drogovych-dealeru.webp
 category: curiosity
 description: 20. léta, kokain v lékárnách, Donato a Lenzi. Ztlumte světla. Původ oblíbených tangových skladeb z Montevidea.
 author: Lenka Platenikova
