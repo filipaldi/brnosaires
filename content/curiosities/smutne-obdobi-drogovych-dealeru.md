@@ -11,8 +11,7 @@ Kokain se tehdy zabydlel v každé lékárně jako údajný prostředek proti bo
 S vysokou pravděpodobností z tohoto temného období 20. let 20. století pochází několik tvých oblíbených tangových skladeb.
 
 
-V době, kdy večírky byly bujaré, tango se tančilo na každém rohu a jeho erotický nádech dokresloval lehce dekadentní atmosféru tehdejšího života v Buenos Aires 💃💋, došlo k náhodnému setkání dvou pánů na jednom večírku v Montevideu 🏙️ 
-Byl to Donato (argentinský skladatel a houslista) a Carlos Lenzi (uruquayský básník).
+V době, kdy večírky byly bujaré, tango se tančilo na každém rohu a jeho erotický nádech dokresloval lehce dekadentní atmosféru tehdejšího života v Buenos Aires 💃💋, došlo k náhodnému setkání dvou pánů na jednom večírku v Montevideu 🏙️  Byl to Donato (argentinský skladatel a houslista) a Carlos Lenzi (uruquayský básník).
 Společnými silami stvořili jednu z nejpopulárnějších tangových skladeb.
 
 **Jak to tehdy proběhlo?**
