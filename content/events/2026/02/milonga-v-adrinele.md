@@ -7,7 +7,7 @@ event-start: 2026-02-19 20:30:00
 event-end: 2026-02-19 23:15:00
 preview_image: /images/adrinela_people.jpg
 description: Milonga v Café Adrinela. Dortíky, paní Lada, rybičky a tango. Třetí čtvrtek v měsíci.
-author: Filip Paldia
+author: Lenka Pláteníková
 ---
 
 Milonga, která trvá už víc než 9 let. 
