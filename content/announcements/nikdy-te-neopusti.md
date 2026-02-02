@@ -2,6 +2,8 @@
 title: Nikdy tě neopustí 
 date: 2025-04-28 02:00:00
 category: announcement
+description: Nikdy tě neopustí. Oznamy z Brnos Aires. Kalendář milong a praktik v Brně na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Ani nemrkneš a je tu Máj 👀. Lásky čas je v podstatě synonymum pro tango čas ❤️, jestli to náhodou nevíš.

@@ -2,6 +2,8 @@
 title: Buď tango vítěz!
 date: 2024-08-05 02:00:00
 category: announcement
+description: Buď tango vítěz. Kalendář milong a workshopů v Brně, abys nic nepropásl.
+author: Lenka Platenikova
 ---
 
 V úterý ráno popadni tangové boty 👠👞a odpoledne to vem rovnou na Odpolední milonga v Alfa pasáži.

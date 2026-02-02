@@ -7,6 +7,8 @@ event-start: 2026-02-07 18:00:00
 event-end: 2026-02-07 22:00:00
 recurrence: monthly 4 saturday
 preview_image: /images/image.png
+description: Milonga na moderní hudbu na Stolárně. Čtvrtá sobota v měsíci. DJ Filip. To, co tango spojuje.
+author: Filip Paldia
 ---
 
 Jestliže ses 1. ledna probudil(a) do nového roku, je poměrně vysoká pravděpodobnost, že v něm potkáš nějaké ty nové výzvy 👀

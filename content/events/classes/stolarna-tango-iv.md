@@ -10,6 +10,8 @@ preview_image: /images/class-stolarna.png
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class
+description: Pravidelná lekce Tango IV. Jana Habalová a Petr Truhlař, Stolárna. Úterý 18:00, Olomoucká 14.
+author: Filip Paldia
 ---
 
 # Stolárna - Tango IV.

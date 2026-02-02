@@ -3,6 +3,8 @@ title: Paměti tango národa v Café Paměti národa
 date: 2025-02-11 01:00:00
 category: announcement
 preview_image: /images/CPN_1.jpg
+description: Paměti tango národa v Café Paměti národa. Milonga v Brně. Sladká i slaná nabídka, tango.
+author: Lenka Platenikova
 ---
 
 Až budou sepisovat tvoje paměti, patrně tam toho nebude tolik jak v paměti národa✍️

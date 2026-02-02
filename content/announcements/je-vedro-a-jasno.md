@@ -2,6 +2,8 @@
 title: Je vedro a jasno
 date: 2024-09-05 02:00:00
 category: announcement
+description: Je vedro a jasno. Adrinela od 12. 9., Milonga v Stehlík coffe baru na Křenové. Přesun kvůli vedru.
+author: Lenka Platenikova
 ---
 
 Tak aby bylo jasno🙃:

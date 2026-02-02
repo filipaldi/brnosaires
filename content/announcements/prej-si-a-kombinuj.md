@@ -3,6 +3,8 @@ title: Přej si a kombinuj
 date: 2024-06-10 02:00:00
 category: announcement
 preview_image: /images/stehlk.jpg
+description: Přej si a kombinuj. Milongy v Brně, Stehlík a další. Přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Přej si čtvrtek bez deště 🙏

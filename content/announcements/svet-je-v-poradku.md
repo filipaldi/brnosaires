@@ -3,6 +3,8 @@ title: Svět je v pořádku
 date: 2024-05-20 02:00:00
 category: announcement
 preview_image: /images/zsofia.jpg
+description: Brněnská tango planeta se vrací na oběžnou dráhu. Čtvrtek s tangem v Adrinele, DJ Zsofie.
+author: Lenka Platenikova
 ---
 
 Svět je zase v pořádku ✌️. Minulý čtvrtek bez tanga vystřídá nový čtvrtek s tangem 🫶🥳

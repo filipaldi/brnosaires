@@ -3,6 +3,8 @@ title: Tři oříšky pro tango
 date: 2024-12-03 01:00:00
 category: announcement
 preview_image: /images/Ti_oky.jpg
+description: Tři oříšky pro tango. Oznamy z Brnos Aires. Milongy, praktiky a přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Padá ti štěstí do klína 🌟👀

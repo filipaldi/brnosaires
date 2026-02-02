@@ -2,6 +2,8 @@
 title: Buď jako surikati
 date: 2025-01-21 01:00:00
 category: announcement
+description: Buď jako surikati. Přehled tangových akcí, abys měl přehled jako ostříž.
+author: Lenka Platenikova
 ---
 
 Když chceš ulovit cabeceo, potřebuješ být jako toto zvířátko ❤

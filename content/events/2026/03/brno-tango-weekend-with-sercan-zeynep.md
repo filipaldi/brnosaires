@@ -6,6 +6,8 @@ event-type: workshop
 event-start: 2026-03-07 12:00:00
 event-end: 2026-03-08 17:00:00
 preview_image: /images/IMAGE_2026-01-08_210918.jpg
+description: Brno Tango Weekend se Sercanem a Zeynep z Istanbulu. Workshopy, muzikalita, komunikace v páru. 7.–8. 3. 2026, Stolárna.
+author: Filip Paldia
 ---
 
 (ENGLISH below)

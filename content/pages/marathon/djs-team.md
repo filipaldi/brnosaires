@@ -4,6 +4,8 @@ date: 2025-10-14T12:24:00+00:00
 slug: djs-team
 navigation: Marathon
 nav_order_marathon: 2
+description: Marathon DJs. Handpicked friends who read the room and keep your feet moving. They know when you need that vals.
+author: Filip Paldia
 ---
 
 Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that heart to just anyone. Neither do we.

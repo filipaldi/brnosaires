@@ -3,6 +3,8 @@ title: Svět se pootočil aneb zářijové highlighty
 date: 2024-09-02 02:00:00
 category: announcement
 preview_image: /images/z_tango.jpg
+description: Svět se pootočil aneb zářijové highlighty. Tango v Brně, milongy a praktiky. Přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 🌏Svět se pootočil z prázdninového režimu na ten, který znáš z těch zbývajících 10 měsíců✌️ Tvůj tango režim bude zas mít svůj pravidelný rytmus:

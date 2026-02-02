@@ -3,6 +3,8 @@ title: Kde zažiješ dechberoucí tandy?
 date: 2024-09-23 02:00:00
 category: announcement
 preview_image: /images/dechberouc_tandy.jpg
+description: Kde zažiješ dechberoucí tandy. Minulý týden moc milong, tento málo. Hlavu vzhůru, přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Zdá se ti, že minulý týden bylo těch milong jaksi moc? 🥴Možná tě tento týden napadne: Není těch milong jaksi málo? 🤔

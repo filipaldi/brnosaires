@@ -10,6 +10,8 @@ preview_image: /images/class-necasovy.png
 event-organiser: Gabriela a Petr Nečasovi
 event-location: Tango Studio, Koliště 23, 602 00, Brno
 event-type: class
+description: Pravidelná lekce pro pokročilé. Gabriela a Petr Nečasovi, principy pohybu a variace. Každý čtvrtek, Koliště 23.
+author: Filip Paldia
 ---
 
 # Pokročilí

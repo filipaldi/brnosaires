@@ -5,6 +5,8 @@ date: 2026-01-29 01:00:00
 event-type: milonga
 event-start: 2026-01-29 01:00:00
 preview_image: /images/Rockwine_kvten_2025_%286%29.jpg
+description: Tango nad starobylou rotundou. Kvalitní víno, pevná zem pod nohama. Ani Pugliese ji neohrozil.
+author: Filip Paldia
 ---
 
 Tango nad starobylou rotundou, jejíž základní kámen uvidíš mezi tangovými krůčky v prostoru, který je ideální pro tango.

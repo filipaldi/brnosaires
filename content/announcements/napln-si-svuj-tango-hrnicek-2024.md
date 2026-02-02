@@ -2,6 +2,8 @@
 title: Naplň si svůj tango hrníček 2024
 date: 2024-12-10 01:00:00
 category: announcement
+description: Naplň si svůj tango hrníček 2024. Přehled milong a workshopů v Brně na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Řekněme si to na rovinu: Do začátku posledního roku prvního čtvrtstoletí 21. století 🙃 máš už jenom 2 šance vyhrát svoji převratnou brněnskou tandu ✌️

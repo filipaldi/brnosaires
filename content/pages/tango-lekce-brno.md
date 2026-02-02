@@ -4,6 +4,8 @@ date: 2026-01-17 18:00:00
 slug: tango-lekce-brno
 navigation: Main
 nav_order_main: 2
+description: Kde se učit tango v Brně. Rozvrh pravidelných lekcí všech škol a nejbližší workshopy na jednom místě.
+author: Filip Paldia
 ---
 
 # Lekce argentinského tanga v Brně

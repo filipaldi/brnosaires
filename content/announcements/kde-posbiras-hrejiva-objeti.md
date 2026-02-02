@@ -3,6 +3,8 @@ title: Kde posbíráš hřejivá objetí?
 date: 2024-10-01 02:00:00
 category: announcement
 preview_image: /images/jen.jpg
+description: Kde posbíráš hřejivá objetí. Říjnová Skleněnka, zdroje objetí na brnosaires.com. Do foroty.
+author: Lenka Platenikova
 ---
 
 S poměrně vysokou pravděpodobností převyšující jistotu se říjnová Skleněnka odehraje na Skleněnce🫶. Ta zářijová open-air už nemá vzhledem k předpovědi počasí šanci 🌨️

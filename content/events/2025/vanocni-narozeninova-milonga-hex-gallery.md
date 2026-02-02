@@ -5,6 +5,8 @@ date: 2025-12-17 18:00:00
 event-type: milonga
 event-start: 2025-12-17 18:00:00
 preview_image: /images/IMAGE_2025-12-06_163958.jpg
+description: Vánoční narozeninová milonga v HEX Gallery. Prosinec 2025, Brno.
+author: Filip Paldia
 ---
 
 Jak je naším zvykem, ve středu před vánoci (17. 12. 2025) se sejdeme společně oslavit vánoce, obejmout naše tango přátele, popřát případně do Nového roku a zatančit…

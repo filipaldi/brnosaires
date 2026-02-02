@@ -6,6 +6,8 @@ event-type: workshop
 event-start: 2026-01-10 13:00:00
 event-end: 2026-01-10 17:45:00
 preview_image: /images/image.png
+description: Workshopy Gottfried pro pokročilé a středně pokročilé. Leden 2026, Brno.
+author: Filip Paldia
 ---
 
 (***ENGLISH - below keep reading***)

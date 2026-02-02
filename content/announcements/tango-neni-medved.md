@@ -3,6 +3,8 @@ title: Tango není medvěd
 date: 2024-11-26 01:00:00
 category: announcement
 preview_image: /images/tango_nen_medvd.jpg
+description: Tango není medvěd. Oznamy z tangového Brna. Milongy a praktiky na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Zdá se ti, že se brněnské tango ukládá k zimnímu spánku?😴 Neboj, není to medvěd 🐻

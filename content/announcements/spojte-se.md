@@ -2,6 +2,8 @@
 title: Spojte se!
 date: 2024-03-18 01:00:00
 category: announcement
+description: Spojte se. Oznamy z Brnos Aires. Milongy, praktiky a tango v Brně na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Tango tanečníci všech úrovní, škol a vyznání spojte se! 💃🕺

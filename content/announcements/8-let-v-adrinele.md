@@ -3,6 +3,8 @@ title: 8 let v Adrinele
 date: 2023-11-21 01:00:00
 category: announcement
 preview_image: /images/adrinela_people.jpg
+description: Osm let tanga v Adrinele. Dortíky, Milan Malý, Sirael von Silesia. Čtvrteční jistota v Brně.
+author: Lenka Platenikova
 ---
 
 Cafe Adrinela má několik předností:

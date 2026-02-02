@@ -3,6 +3,8 @@ title: Jak to budeš mít v lednu poprvé
 date: 2025-01-02 01:00:00
 category: announcement
 preview_image: /images/Brno_leden_milongy.jpg
+description: Jak to budeš mít v lednu poprvé. Pohádky skončily, dobro zvítězilo, tančilo se. Leden v Brně, milongy a praktiky.
+author: Lenka Platenikova
 ---
 
 Všimni si, že všechny pohádky skončily jako obvykle :

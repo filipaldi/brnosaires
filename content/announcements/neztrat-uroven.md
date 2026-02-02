@@ -2,6 +2,8 @@
 title: Neztrať úroveň!
 date: 2024-07-06 02:00:00
 category: announcement
+description: Neztrať úroveň. Přehled tangových akcí v Brně. Milongy a praktiky na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Dej pozor, ať neztratíš úroveň! 👀

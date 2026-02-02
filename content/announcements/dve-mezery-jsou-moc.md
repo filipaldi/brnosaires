@@ -3,6 +3,8 @@ title: Dvě mezery jsou moc
 date: 2024-06-12 02:00:00
 category: announcement
 preview_image: /images/sesamo.jpg
+description: Ve čtvrtek mezera v diáři, milonga v Stehlíku nebude. V sobotu Milonga Sesamo. Dvě mezery by byly moc.
+author: Lenka Platenikova
 ---
 
 Hlášení tangového rozhlasu 📣: ve čtvrtek bude ve tvém diáři mezera 😲Milonga v Cafe Stehlík nebude 😭

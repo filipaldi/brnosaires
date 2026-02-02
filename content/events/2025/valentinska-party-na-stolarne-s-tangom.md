@@ -6,6 +6,8 @@ event-type: milonga
 event-start: 2026-02-14 20:00:00
 event-end: 2026-02-14 23:00:00
 preview_image: /images/photo_2026-01-08_20.54.24.jpeg
+description: Valentýnská párty na Stolárně s tangem. Únor 2026, Olomoucká 14.
+author: Filip Paldia
 ---
 
 Po krásné Novoroční párty bychom Vás rádi pozvali na Valentýnskou párty ve stejném duchu

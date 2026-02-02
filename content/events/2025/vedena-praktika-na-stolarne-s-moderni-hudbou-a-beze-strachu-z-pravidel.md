@@ -6,6 +6,8 @@ event-type: workshop
 event-start: 2025-12-07 20:00:00
 event-end: 2025-12-07 23:00:00
 preview_image: /images/1f642.png
+description: Vedená praktika na Stolárně s moderní hudbou. Beze strachu z pravidel. Prosinec 2025.
+author: Filip Paldia
 ---
 
 Začínáte tančit argentinské tango nebo již delší dobu tančíte, ale...

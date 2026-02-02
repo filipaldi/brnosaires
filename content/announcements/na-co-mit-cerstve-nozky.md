@@ -2,6 +2,8 @@
 title: Na co mít čerstvé nožky?
 date: 2024-09-04 02:00:00
 category: announcement
+description: Na co mít čerstvé nožky. Přehled tangových akcí v Brně. Kalendář na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 👆Tento čtvrtek ještě do Adrinely nechoď! 😭

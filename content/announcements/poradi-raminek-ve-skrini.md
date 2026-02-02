@@ -3,6 +3,8 @@ title: Pořadí ramínek ve skříni
 date: 2025-04-23 02:00:00
 category: announcement
 preview_image: /images/Brno.jpg
+description: Pořadí ramínek ve skříni. Oznamy z Brnos Aires. Milongy a praktiky v Brně na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Přichází víkend, co změní pořadí ramínek ve tvé skříni. Na přední místa totiž zavěsíš tangové oblečky 👗👖

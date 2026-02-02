@@ -3,6 +3,8 @@ title: Tango dobrodružství ve 3 dnech
 date: 2024-08-19 02:00:00
 category: announcement
 preview_image: /images/tango_dobrodruzstvi.jpg
+description: Tango dobrodružství ve 3 dnech. Brno tango víkend, workshopy a milongy. Přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 🎉Malý brněnský maraton aneb prázdninové finále🕺:

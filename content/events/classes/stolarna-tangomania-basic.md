@@ -10,6 +10,8 @@ preview_image: /images/class-stolarna.png
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class
+description: Tangomania Basic. Pavla Lužná a Ondra Martinák, Stolárna. Úterý 18:00, Olomoucká 14.
+author: Filip Paldia
 ---
 
 

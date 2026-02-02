@@ -3,6 +3,8 @@ title: Brnos Aires
 date: 2026-01-17 18:00:00
 url: 
 save_as: index.html
+description: Brněnská tango iniciativa pod jednou střechou. Kalendář milong, lekcí a workshopů, pikošky a oznamy. Přehledně a s láskou.
+author: Filip Paldia
 ---
 
 # Brnos Aires

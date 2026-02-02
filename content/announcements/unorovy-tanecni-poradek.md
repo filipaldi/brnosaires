@@ -3,6 +3,8 @@ title: Únorový taneční pořádek
 date: 2025-01-28 01:00:00
 category: announcement
 preview_image: /images/norov_milongy.jpg
+description: Únorový taneční pořádek. Milongy v Brně na únor. Přehled na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Kolik cabeceí ulovíš, tolikrát jsi člověkem...anebo Kolik cabeceo ulovíš, tolikrát...?🙃 Nevím 🫢Ty víš?

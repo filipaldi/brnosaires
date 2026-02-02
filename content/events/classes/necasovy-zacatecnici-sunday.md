@@ -10,6 +10,8 @@ preview_image: /images/class-necasovy.png
 event-organiser: Gabriela a Petr Nečasovi
 event-location: Tango Studio, Koliště 23, 602 00, Brno
 event-type: class
+description: Lekce pro začátečníky. Gabriela a Petr Nečasovi, Tango Studio. Každá neděle 18:00, Koliště 23.
+author: Filip Paldia
 ---
 
 

@@ -4,6 +4,8 @@ date: 2025-10-14T14:26:00+00:00
 slug: stay-in-brno
 navigation: Marathon
 nav_order_marathon: 7
+description: Where to stay for the marathon. Hotels, Airbnb, or tango friends hosting. Centre or tram 9 route, you're set.
+author: Filip Paldia
 ---
 
 ## Book Your Spot

@@ -10,6 +10,8 @@ preview_image: /images/class-stolarna.png
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class
+description: Pravidelná lekce Tango II. Stolárna, Olomoucká 14. Každé úterý 18:00. Pokračování základů.
+author: Filip Paldia
 ---
 
 

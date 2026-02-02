@@ -6,6 +6,8 @@ event-type: milonga
 event-start: 2025-12-18 20:30:00
 event-end: 2025-12-18 23:15:00
 preview_image: /images/20250220_223216.jpg
+description: Milonga v Café Adrinela. Dortíková vitrína, paní Lada, rybičky v akváriu a Pugliese. Devět let jistoty.
+author: Filip Paldia
 ---
 
 Milonga, která trvá už víc než 9 let. 

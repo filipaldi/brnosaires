@@ -3,6 +3,8 @@ title: Týden na blacklistu roku!
 date: 2024-10-07 02:00:00
 category: announcement
 preview_image: /images/image.png
+description: Týden na blacklistu roku. Oznamy z tangového Brna. Přehled, abys nic nepropásl.
+author: Lenka Platenikova
 ---
 
 Je to tak - tento týden aspiruje na blacklist tohoto roku 😲 Rozhlížím se kolem a milonga v Brně se N E K O N Á. Cože?👀

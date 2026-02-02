@@ -10,6 +10,8 @@ preview_image: /images/praktika-tangolab-steky.png
 event-organiser: TangoLab Štěky
 event-location: i.D Yoga na Poštovská 3, Brno - ve 2. patře (zvoňte na zvonek)
 event-type: class
+description: Pravidelná lekce tanga TangoLab Štěky. Základy a technika, každé úterý v 18:00, Poštovská 3.
+author: Filip Paldia
 ---
 
 # TangoLab Štěky - Tango I. - II. (základy a technika)

@@ -3,6 +3,8 @@ title: Listy tvého prázdninového deníčku
 date: 2024-06-19 02:00:00
 category: announcement
 preview_image: /images/przdniny.jpg
+description: Listy tvého prázdninového deníčku. Letní tango v Brně. Milongy a praktiky na brnosaires.com.
+author: Lenka Platenikova
 ---
 
 Má tvůj prázdninový deníček dost listů?🫢

@@ -3,6 +3,8 @@ title: Saky paky a rozhodovací paralýzy
 date: 2025-05-13 02:00:00
 category: announcement
 preview_image: /images/499791495_10236329127107850_9154289037668767094_n.jpg
+description: Saky paky a rozhodovací paralýzy. Oznamy z Brnos Aires. Kalendář milong v Brně.
+author: Lenka Platenikova
 ---
 
 ✍️ V zápisníčku tangového zpravodaje evidujeme tento týden jenom jednu milongu do konce května 😲

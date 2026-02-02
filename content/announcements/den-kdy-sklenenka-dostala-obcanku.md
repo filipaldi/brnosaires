@@ -3,6 +3,8 @@ title: Den, kdy Skleněnka dostala občanku
 date: 2024-10-29 01:00:00
 category: announcement
 preview_image: /images/Sklenenka.jpg
+description: Milonga na Skleněnce má patnáct. Nejkrásnější milonga ve střední Evropě slaví. Objetí, cabeceo, tandy.
+author: Lenka Platenikova
 ---
 
 Pamatuješ si den, kdy ti dali občanku? 🫢

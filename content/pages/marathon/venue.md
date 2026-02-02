@@ -4,6 +4,8 @@ date: 2025-10-14T14:26:00+00:00
 slug: venue
 navigation: Marathon
 nav_order_marathon: 3
+description: Marathon venue. 200 m² wooden floor, space for cabeceo, on-site restaurant. Stylish hall, tango atmosphere.
+author: Filip Paldia
 ---
 
 ![](images/250808_8787_1.jpg_compressed.jpeg)

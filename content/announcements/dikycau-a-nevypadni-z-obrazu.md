@@ -3,6 +3,8 @@ title: Díkyčau a nevypadni z obrazu
 date: 2024-06-24 02:00:00
 category: announcement
 preview_image: /images/dikycau.jpg
+description: Díky a čau Adrinelo, ahoj léto. Rozloučení s dortíky a rybičkami, přípitek a objetí zdarma.
+author: Lenka Platenikova
 ---
 
 Je čas říct: Díky a čau Adrinelo a ahoj léto!🙋‍♀️🙋

@@ -2,6 +2,8 @@
 title: Skalní jistoty
 date: 2025-06-02 02:00:00
 category: announcement
+description: Skalní jistoty. Adrinela, Skleněnka, Stolárna. Přehled tangových akcí v Brně.
+author: Lenka Platenikova
 ---
 
 Týden bez milong je za tebou a před tebou samá pozitiva a tangové jistoty ✌️

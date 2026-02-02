@@ -59,7 +59,7 @@
     <a href="/{{ item.slug }}/" class="aesthetic-card card-m">
       {% if item.preview_image %}
       <div class="el-frame-16x9">
-        <img src="{{ item.preview_image }}" alt="{{ item.title }}" />
+        <img src="{{ item.preview_image }}" alt="{{ item.preview_image_alt|default(item.title) }}" />
       </div>
       {% endif %}
       <div>

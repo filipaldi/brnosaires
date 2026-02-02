@@ -6,6 +6,8 @@ event-type: milonga
 event-start: 2025-11-27 20:00:00
 event-end: 2025-11-27 23:00:00
 preview_image: /images/Rockwine_kvten_2025_%2810%29.jpg
+description: Speciální milonga v Rockwine s hostujícím DJ Jose Iglesias. Buenos Aires a Varšava našly Brno.
+author: Filip Paldia
 ---
 
 **Hraje: DJ Jose Iglesias jako speciální host**🎼

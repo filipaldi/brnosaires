@@ -5,6 +5,8 @@ date: 2025-05-06 19:51:00
 event-start: 2025-05-06 19:51:00
 preview_image: /images/image.png
 event-type: milonga
+description: Milonga v Café Paměti národa. Brno.
+author: Filip Paldia
 ---
 
 Paměť jednoho národa (českého) a paměť druhého národa (argentinského) se protnou. Přesně v horním patře této líbezné kavárny.

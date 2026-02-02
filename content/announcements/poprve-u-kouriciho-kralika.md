@@ -3,6 +3,8 @@ title: Poprvé U kouřícího králíka
 date: 2025-01-14 01:00:00
 category: announcement
 preview_image: /images/Kouc_krlk.jpg
+description: Poprvé U kouřícího králíka. Historicky první milonga v jazz baru, Brno. Tango a atmosféra.
+author: Lenka Platenikova
 ---
 
 Ve středu je "Den tangojazzového přátelství" 💃+🎷=❤️
