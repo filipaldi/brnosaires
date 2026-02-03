@@ -3,6 +3,9 @@ title: Brnos Aires
 date: 2026-01-17 18:00:00
 url: 
 save_as: index.html
+description: Přehledně a aktuálně o argentinském tangu v Brně. Kalendář milong, lekcí a workshopů.
+author: Filip Paldia
+preview_image: /images/brno_tango_vkend.jpg
 ---
 
 # Brnos Aires

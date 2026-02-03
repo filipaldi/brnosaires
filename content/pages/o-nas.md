@@ -1,11 +1,13 @@
 ---
-title: O nás
+title: O lidech za Brnos Aires
 date: 2026-01-17 18:00:00
 slug: o-nas
 navigation: Main
+nav_label: O nás
 nav_order_main: 6
 description: Kdo stojí za Brnos Aires. Iniciativa z Brna, které potkalo tango a chce ho dostat i k tobě, zblízka.
 author: Filip Paldia
+preview_image: /images/milonga-hned-vedle.jpeg
 ---
 
 # Iniciativa Brnos Aires

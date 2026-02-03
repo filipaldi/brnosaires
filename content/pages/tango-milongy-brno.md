@@ -1,11 +1,13 @@
 ---
-title: Tango milongy Brno
+title: Milongy a praktiká v Brně - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-milongy-brno
 navigation: Main
+nav_label: Milongy
 nav_order_main: 3
 description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny, naplánuj si kalendář.
 author: Filip Paldia
+preview_image: /images/Milonga_v_CPN.jpg
 ---
 
 # Milongy v Brně na nejbližší období

@@ -1,9 +1,10 @@
 ---
-title: Školy a lektorství
+title: Školy a lektorství argentinského tanga v Brně - Tango Brno
 date: 2026-01-17 18:00:00
 slug: skoly-a-lektorstvi
 description: Školy a lektoři argentinského tanga v Brně. Kdo učí, kde a s jakým přístupem.
 author: Filip Paldia
+preview_image: /images//images/milonga-hned-vedle.jpeg
 ---
 
 # Školy a lektorství Argentinského tango v Brně
