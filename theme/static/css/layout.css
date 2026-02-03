@@ -164,6 +164,20 @@
   }
 }
 
+/* 7-day grid for week-day calendar layout */
+.el-grid-7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--size-xs);
+}
+
+/* Responsive: stack on narrow viewports */
+@media (max-width: 48rem) {
+  .el-grid-7 {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ============================================
    FRAME
    ============================================ */

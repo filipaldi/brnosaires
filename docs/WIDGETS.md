@@ -102,7 +102,9 @@ Displays filtered lists of events from `content/events/`.
 - `end="2026-08-31"` (optional) - End of date window. Same format as `start`. If only `start` is set, end defaults to start + 365 days.
 - `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
 - `sort="newest|oldest"` (optional) - Sort order (default: **oldest first**, i.e. chronological)
-- `group_by="day|week|month"` (optional) - Group events into rows with a headline per group (day, week, or month). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
+- `group_by="day|week|month|week day"` (optional) - Group events into rows with a headline per group. Single value (e.g. `"week"`) = flat grouping. Space-separated tokens (e.g. `"week day"`) = nested grouping with 7-column grid layout (first token = outer/rows, second token = inner/columns). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
+- `headers="week|day|week day"` (optional) - Show group headers. Default: headers hidden. Values: `"week"` (show week headers only), `"day"` (show day headers only), `"week day"` (show both). Only applies when `group_by` is set.
+- `hide_empty_days="true"` (optional) - Hide empty day columns in week-day grid layout. Default: false (all 7 days rendered). Only applies when `group_by="week day"` is set.
 
 **Date Filtering:**
 - `days="7"` = next 7 days from today
@@ -133,13 +135,29 @@ Displays filtered lists of events from `content/events/`.
 
 <!-- Events grouped by week (rows per week with headline) -->
 <widget-calendar days="365" group_by="week"></widget-calendar>
+
+<!-- Events in week-day grid (7 columns, no headers) -->
+<widget-calendar start="this-week" group_by="week day" days="14"></widget-calendar>
+
+<!-- Events in week-day grid with week headers only -->
+<widget-calendar start="this-week" group_by="week day" days="14" headers="week"></widget-calendar>
+
+<!-- Events in week-day grid with both headers -->
+<widget-calendar start="this-week" group_by="week day" days="14" headers="week day"></widget-calendar>
+
+<!-- Events in week-day grid, hiding empty days -->
+<widget-calendar start="this-week" group_by="week day" days="14" headers="day" hide_empty_days="true"></widget-calendar>
 ```
 
 **Grouping (`group_by`):**
-- **Values:** `day`, `week`, `month`. When set, events are shown in rows by group; each row has a headline (day date, week of Monday, or month name + year).
-- **Week:** Monday–Sunday; headline = "week of" + Monday's date (e.g. "Týden 3. 2. 2026" in Czech, "Week of 3 Feb 2026" in English).
-- **Empty groups:** Rows with zero events are not rendered.
+- **Flat grouping:** Single value (`day`, `week`, `month`). Events shown in rows by group; each row has a headline (day date, week date range, or month name + year).
+- **Nested grouping:** Space-separated tokens (e.g. `"week day"`). First token = outer grouping (rows), second token = inner grouping (columns). Creates a 7-column grid layout when using `"week day"`.
+- **Week:** Monday–Sunday; headline = date range "Týden od 3.2. do 9.2. 2026" in Czech, "Week from 3 Feb to 9 Feb 2026" in English.
+- **Day (nested):** Short format with weekday abbreviation: "Po 3.2." (Czech), "Mon 3 Feb" (English).
+- **Empty groups:** Rows with zero events are not rendered (flat grouping). In nested grouping with `"week day"`, all 7 day columns are rendered by default (even if empty) to maintain grid structure. Use `hide_empty_days="true"` to hide empty columns.
 - **Sort:** Chronological (earliest first) between groups and within each group. The widget's `sort` attribute does not apply when `group_by` is set.
+- **Headers:** By default, group headers are hidden. Use `headers` attribute to show them (e.g. `headers="week"`, `headers="day"`, `headers="week day"`).
+- **Layout:** Nested grouping uses a responsive 7-column grid (`.el-grid-7`) that stacks to single column on narrow viewports (< 48rem). Events within each day stack vertically using `.el-stack`.
 - **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
 
 **Implementation:**
@@ -234,13 +252,18 @@ Displays classes from `content/classes/` as cards with images.
 | `end` | date/token | No | Same as `start` | End of date window (optional if `start` set) |
 | `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
 | `sort` | string | No | `newest`, `oldest`, `title` | Sort order (`title` only for `widget-classes`) |
-| `group_by` | string | No | `day`, `week`, `month` | Group events into rows with headline per group (`widget-calendar` only) |
+| `group_by` | string | No | `day`, `week`, `month`, `week day`, etc. | Group events. Single = flat grouping; space-separated = nested grouping with grid (`widget-calendar` only) |
+| `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden). Only applies when `group_by` is set (`widget-calendar` only) |
+| `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid (default: false). Only applies when `group_by="week day"` (`widget-calendar` only) |
 
 **Rules:**
 - `days` and `start`/`end` are mutually exclusive. `start` can be used alone (window = start to start+365 days).
 - `type` only applies to `widget-calendar` widget
 - `sort="title"` only applies to `widget-classes` widget
 - `group_by` only applies to `widget-calendar` widget; when set, sort is always chronological (earliest first)
+- `headers` only applies to `widget-calendar` widget when `group_by` is set; default is hidden
+- `hide_empty_days` only applies to `widget-calendar` widget when `group_by="week day"`; default is false (all 7 days shown)
+- Nested grouping (e.g. `group_by="week day"`) creates a responsive 7-column grid layout
 - Default sort: `oldest` (chronological) for `widget-calendar`; `newest` for other widgets
 
 ## Event Metadata Standard

@@ -6,6 +6,8 @@
 {% set limit_ref = [none] %}
 {% set sort_ref = [none] %}
 {% set group_by_ref = [none] %}
+{% set headers_ref = [none] %}
+{% set hide_empty_days_ref = [none] %}
 
 {% if tag_content %}
   {% set tag_name_parts = tag_content.split(' ') %}
@@ -36,8 +38,15 @@
         {% elif 'group_by="' in attr %}
           {% set group_by_raw = attr.split('group_by="')[1] %}
           {% set group_by_val = group_by_raw.split('"', 1)[0] | lower %}
-          {% if group_by_val in ['day', 'week', 'month'] %}
-            {% do group_by_ref.__setitem__(0, group_by_val) %}
+          {% do group_by_ref.__setitem__(0, group_by_val) %}
+        {% elif 'headers="' in attr %}
+          {% set headers_raw = attr.split('headers="')[1] %}
+          {% do headers_ref.__setitem__(0, headers_raw.split('"', 1)[0] | lower) %}
+        {% elif 'hide_empty_days="' in attr %}
+          {% set hide_raw = attr.split('hide_empty_days="')[1] %}
+          {% set hide_val = hide_raw.split('"', 1)[0] | lower %}
+          {% if hide_val in ['true', 'yes', '1'] %}
+            {% do hide_empty_days_ref.__setitem__(0, 'true') %}
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -52,125 +61,131 @@
 {% set limit = limit_ref[0] %}
 {% set sort = sort_ref[0] %}
 {% set group_by = group_by_ref[0] %}
+{% set headers = headers_ref[0] %}
+{% set hide_empty_days = hide_empty_days_ref[0] %}
+
+{% macro event_card(event) %}
+<a href="{{ event.slug }}/" class="aesthetic-card card-m">
+  {% if event.preview_image %}
+  <div class="el-frame-16x9">
+    <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
+  </div>
+  {% endif %}
+  <div class="event-card-info">
+    <h3>{{ event.title }}</h3>
+    {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
+    {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
+    {% if event_start %}
+      {% if event_start is string %}
+        {% set event_date_str = event_start[:10] %}
+        {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
+        {% set day = event_date_str[8:10] %}
+        {% set month = event_date_str[5:7] %}
+        {% set year = event_date_str[:4] %}
+      {% else %}
+        {% set event_date_str = event_start.strftime('%Y-%m-%d') %}
+        {% set event_time_str = event_start.strftime('%H:%M') %}
+        {% set day = event_start.strftime('%d') %}
+        {% set month = event_start.strftime('%m') %}
+        {% set year = event_start.strftime('%Y') %}
+      {% endif %}
+    <div>
+      <span>{{ day }}. {{ month }}. {{ year }}</span>
+    </div>
+    {% endif %}
+    {% if event_start %}
+      {% if event_start is string %}
+        {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
+        {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
+      {% else %}
+        {% set event_time_str = event_start.strftime('%H:%M') %}
+        {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
+      {% endif %}
+    <div>
+      <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
+    </div>
+    {% endif %}
+    {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
+    {% if event_organiser %}
+    <div>{{ event_organiser }}</div>
+    {% endif %}
+    {% set event_location = event.metadata.get('location') if event.metadata else none %}
+    {% if event_location %}
+    <div>{{ event_location }}</div>
+    {% endif %}
+  </div>
+</a>
+{% endmacro %}
 
 {% set display_events = all_articles | calendarium(type=event_type, days=days, start=start_date, end=end_date, sort=sort, limit=limit) %}
 
 {% if display_events %}
 <div class="widget-calendar">
 {% if group_by %}
+  {% set is_nested_layout = ' ' in group_by %}
   {% set grouped = display_events | group_events(group_by, DEFAULT_LANG) %}
+  
+  {% if is_nested_layout %}
+  {% for week_headline, week_days in grouped %}
+  <section class="widget-calendar__week">
+    {% if headers and 'week' in headers %}
+    <h2 class="widget-calendar__week-title">{{ week_headline }}</h2>
+    {% endif %}
+    
+    <div class="el-grid-7">
+      {% for day_headline, day_events in week_days %}
+      {% if hide_empty_days == 'true' %}
+        {% if day_events | length > 0 %}
+      <div class="day-column">
+        {% if headers and 'day' in headers %}
+        <h3 class="day-header">{{ day_headline }}</h3>
+        {% endif %}
+        
+        {% if day_events %}
+        <div class="el-stack stack-xs">
+          {% for event in day_events %}
+          {{ event_card(event) }}
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="day-column">
+        {% if headers and 'day' in headers %}
+        <h3 class="day-header">{{ day_headline }}</h3>
+        {% endif %}
+        
+        {% if day_events %}
+        <div class="el-stack stack-xs">
+          {% for event in day_events %}
+          {{ event_card(event) }}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  
+  {% else %}
   {% for headline, group_events in grouped %}
   <section class="widget-calendar__group">
     <h2 class="widget-calendar__group-title">{{ headline }}</h2>
     <div class="el-grid">
     {% for event in group_events %}
-    <a href="{{ event.slug }}/" class="aesthetic-card card-m">
-      {% if event.preview_image %}
-      <div class="el-frame-16x9">
-        <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
-      </div>
-      {% endif %}
-      <div class="event-card-info">
-        <h3>{{ event.title }}</h3>
-        {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
-        {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
-        {% if event_start %}
-          {% if event_start is string %}
-            {% set event_date_str = event_start[:10] %}
-            {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-            {% set day = event_date_str[8:10] %}
-            {% set month = event_date_str[5:7] %}
-            {% set year = event_date_str[:4] %}
-          {% else %}
-            {% set event_date_str = event_start.strftime('%Y-%m-%d') %}
-            {% set event_time_str = event_start.strftime('%H:%M') %}
-            {% set day = event_start.strftime('%d') %}
-            {% set month = event_start.strftime('%m') %}
-            {% set year = event_start.strftime('%Y') %}
-          {% endif %}
-        <div>
-          <span>{{ day }}. {{ month }}. {{ year }}</span>
-        </div>
-        {% endif %}
-        {% if event_start %}
-          {% if event_start is string %}
-            {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-            {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
-          {% else %}
-            {% set event_time_str = event_start.strftime('%H:%M') %}
-            {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
-          {% endif %}
-        <div>
-          <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
-        </div>
-        {% endif %}
-        {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-        {% if event_organiser %}
-        <div>{{ event_organiser }}</div>
-        {% endif %}
-        {% set event_location = event.metadata.get('location') if event.metadata else none %}
-        {% if event_location %}
-        <div>{{ event_location }}</div>
-        {% endif %}
-      </div>
-    </a>
+    {{ event_card(event) }}
     {% endfor %}
     </div>
   </section>
   {% endfor %}
+  {% endif %}
 {% else %}
   <div class="el-grid">
     {% for event in display_events %}
-    <a href="{{ event.slug }}/" class="aesthetic-card card-m">
-      {% if event.preview_image %}
-      <div class="el-frame-16x9">
-        <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
-      </div>
-      {% endif %}
-      <div class="event-card-info">
-        <h3>{{ event.title }}</h3>
-        {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
-        {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
-        {% if event_start %}
-          {% if event_start is string %}
-            {% set event_date_str = event_start[:10] %}
-            {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-            {% set day = event_date_str[8:10] %}
-            {% set month = event_date_str[5:7] %}
-            {% set year = event_date_str[:4] %}
-          {% else %}
-            {% set event_date_str = event_start.strftime('%Y-%m-%d') %}
-            {% set event_time_str = event_start.strftime('%H:%M') %}
-            {% set day = event_start.strftime('%d') %}
-            {% set month = event_start.strftime('%m') %}
-            {% set year = event_start.strftime('%Y') %}
-          {% endif %}
-        <div>
-          <span>{{ day }}. {{ month }}. {{ year }}</span>
-        </div>
-        {% endif %}
-        {% if event_start %}
-          {% if event_start is string %}
-            {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-            {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
-          {% else %}
-            {% set event_time_str = event_start.strftime('%H:%M') %}
-            {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
-          {% endif %}
-        <div>
-          <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
-        </div>
-        {% endif %}
-        {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-        {% if event_organiser %}
-        <div>{{ event_organiser }}</div>
-        {% endif %}
-        {% set event_location = event.metadata.get('location') if event.metadata else none %}
-        {% if event_location %}
-        <div>{{ event_location }}</div>
-        {% endif %}
-      </div>
-    </a>
+    {{ event_card(event) }}
     {% endfor %}
   </div>
 {% endif %}

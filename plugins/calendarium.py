@@ -194,6 +194,10 @@ def _week_start(dt):
     return dt.date() - timedelta(days=dt.weekday())
 
 
+def _week_end(dt):
+    return dt.date() + timedelta(days=6 - dt.weekday())
+
+
 def _format_date_day(dt, lang):
     if lang == "cs":
         return f"{dt.day}. {dt.month}. {dt.year}"
@@ -209,16 +213,33 @@ def _headline_day(key_ymd, lang):
     return _format_date_day(dt, lang)
 
 
-def _headline_week(key_monday_ymd, lang):
+def _headline_day_short(key_ymd, lang):
+    parts = key_ymd.split("-")
+    if len(parts) != 3:
+        return key_ymd
+    y, m, d = int(parts[0]), int(parts[1]), int(parts[2])
+    dt = datetime(y, m, d)
+    weekday_cs = ["Po", "Út", "St", "Čt", "Pá", "So", "Ne"]
+    weekday_en = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    if lang == "cs":
+        return f"{weekday_cs[dt.weekday()]} {dt.day}.{dt.month}."
+    return f"{weekday_en[dt.weekday()]} {dt.day} {dt.strftime('%b')}"
+
+
+def _headline_week_range(key_monday_ymd, lang):
     parts = key_monday_ymd.split("-")
     if len(parts) != 3:
         return key_monday_ymd
     y, m, d = int(parts[0]), int(parts[1]), int(parts[2])
-    dt = datetime(y, m, d)
-    date_str = _format_date_day(dt, lang)
+    monday = datetime(y, m, d)
+    sunday = monday + timedelta(days=6)
     if lang == "cs":
-        return f"Týden {date_str}"
-    return f"Week of {date_str}"
+        return f"Týden od {monday.day}.{monday.month}. do {sunday.day}.{sunday.month}. {sunday.year}"
+    return f"Week from {monday.day} {monday.strftime('%b')} to {sunday.day} {sunday.strftime('%b')} {sunday.year}"
+
+
+def _headline_week(key_monday_ymd, lang):
+    return _headline_week_range(key_monday_ymd, lang)
 
 
 def _headline_month(key_ym, lang):
@@ -233,8 +254,83 @@ def _headline_month(key_ym, lang):
     return f"{name} {y}"
 
 
+def group_events_nested(events, group_by_tokens, lang):
+    if not events or len(group_by_tokens) != 2:
+        return []
+    lang = (lang or "cs").lower()[:2]
+    if lang not in ("cs", "en"):
+        lang = "cs"
+    outer_by, inner_by = group_by_tokens[0], group_by_tokens[1]
+    if outer_by not in ("day", "week", "month") or inner_by not in ("day", "week", "month"):
+        return []
+    outer_buckets = {}
+    for event in events:
+        start = _parse_event_start(event.metadata if hasattr(event, "metadata") else None)
+        if start is None:
+            continue
+        if outer_by == "day":
+            outer_key = start.strftime("%Y-%m-%d")
+        elif outer_by == "week":
+            outer_key = _week_start(start).strftime("%Y-%m-%d")
+        else:
+            outer_key = start.strftime("%Y-%m")
+        if outer_key not in outer_buckets:
+            outer_buckets[outer_key] = []
+        outer_buckets[outer_key].append(event)
+    if not outer_buckets:
+        return []
+    result = []
+    for outer_key in sorted(outer_buckets.keys()):
+        outer_events = outer_buckets[outer_key]
+        if outer_by == "day":
+            outer_headline = _headline_day(outer_key, lang)
+        elif outer_by == "week":
+            outer_headline = _headline_week(outer_key, lang)
+        else:
+            outer_headline = _headline_month(outer_key, lang)
+        inner_buckets = {}
+        if outer_by == "week" and inner_by == "day":
+            week_start_dt = datetime.strptime(outer_key, "%Y-%m-%d")
+            for i in range(7):
+                day_dt = week_start_dt + timedelta(days=i)
+                day_key = day_dt.strftime("%Y-%m-%d")
+                inner_buckets[day_key] = []
+        for event in outer_events:
+            start = _parse_event_start(event.metadata if hasattr(event, "metadata") else None)
+            if start is None:
+                continue
+            if inner_by == "day":
+                inner_key = start.strftime("%Y-%m-%d")
+            elif inner_by == "week":
+                inner_key = _week_start(start).strftime("%Y-%m-%d")
+            else:
+                inner_key = start.strftime("%Y-%m")
+            if inner_key not in inner_buckets:
+                inner_buckets[inner_key] = []
+            inner_buckets[inner_key].append(event)
+        for inner_key in inner_buckets:
+            inner_buckets[inner_key].sort(key=lambda e: _parse_event_start(e.metadata) or datetime.min)
+        sorted_inner_keys = sorted(inner_buckets.keys())
+        inner_groups = []
+        for inner_key in sorted_inner_keys:
+            if inner_by == "day":
+                inner_headline = _headline_day_short(inner_key, lang)
+            elif inner_by == "week":
+                inner_headline = _headline_week(inner_key, lang)
+            else:
+                inner_headline = _headline_month(inner_key, lang)
+            inner_groups.append((inner_headline, inner_buckets[inner_key]))
+        result.append((outer_headline, inner_groups))
+    return result
+
+
 def group_events(events, group_by, lang):
-    if not events or group_by not in ("day", "week", "month"):
+    if not events:
+        return []
+    tokens = str(group_by).lower().split()
+    if len(tokens) == 2:
+        return group_events_nested(events, tokens, lang)
+    if group_by not in ("day", "week", "month"):
         return []
     lang = (lang or "cs").lower()[:2]
     if lang not in ("cs", "en"):

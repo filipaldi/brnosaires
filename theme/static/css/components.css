@@ -66,6 +66,34 @@
   margin-bottom: var(--size-s);
 }
 
+/* Week-day grid layout */
+.widget-calendar__week {
+  margin-bottom: var(--size-l);
+}
+
+.widget-calendar__week:last-child {
+  margin-bottom: 0;
+}
+
+.widget-calendar__week-title {
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--size-s);
+}
+
+.day-column {
+  min-width: 0;
+}
+
+.day-header {
+  font-size: var(--text-s);
+  line-height: var(--size-s);
+  text-align: center;
+  padding-block: var(--size-xs);
+  margin-bottom: var(--size-xs);
+}
+
 /* ============================================
    INPUTS
    ============================================ */
