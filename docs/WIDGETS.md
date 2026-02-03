@@ -191,6 +191,8 @@ Displays announcements from `content/announcements/` as cards with images.
 - Renders cards with title and image
 - Widget title: "Oznámení"
 
+**Paginated archive (two-tier pattern):** For a preview page with limited announcements plus a link to full archive, use `limit="12"` and add a link to the category page: `[Všechny oznamy →](/category/announcement/)`. The full paginated list is at `/category/announcement/` via Pelican's category template (`theme/templates/category.html`) with 12 items per page. Configure with `PAGINATED_TEMPLATES = {"category": 12}` in `pelicanconf.py`.
+
 ### 3. Curiosities Widget (`<widget-curiosities>`)
 
 Displays curiosities from `content/curiosities/` as cards with images.

@@ -25,3 +25,8 @@ V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní 
 Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
 <widget-calendar type="workshop" group_by="month" headers="week" days="60"></widget-calendar>
+
+
+## Oznamy o tango událostech v Brně
+
+<widget-announcements limit="3"></widget-announcements>

@@ -7,16 +7,14 @@
   {% if tag_name_parts | length > 1 %}
     {% set attrs_str = tag_content[tag_name | length:] | trim %}
     {% if attrs_str %}
-      {% set attrs_list = attrs_str.split('" ') %}
-      {% for attr in attrs_list %}
-        {% if 'limit="' in attr %}
-          {% set limit_raw = attr.split('limit="')[1] %}
-          {% set limit = limit_raw.split('"', 1)[0] %}
-        {% elif 'sort="' in attr %}
-          {% set sort_raw = attr.split('sort="')[1] %}
-          {% set sort = sort_raw.split('"', 1)[0] | lower %}
-        {% endif %}
-      {% endfor %}
+      {% if 'limit="' in attrs_str %}
+        {% set limit_raw = attrs_str.split('limit="')[1] %}
+        {% set limit = limit_raw.split('"', 1)[0] %}
+      {% endif %}
+      {% if 'sort="' in attrs_str %}
+        {% set sort_raw = attrs_str.split('sort="')[1] %}
+        {% set sort = sort_raw.split('"', 1)[0] | lower %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endif %}

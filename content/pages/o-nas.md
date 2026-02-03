@@ -22,32 +22,32 @@ Děláme to pro radost a když z něčeho radost nemáme, tak to dělat nebudeme
 
 ### Co pod tou střechou najdeš?
 
-    Už nikdy nebudeš tápat, kdy, kde a v kolik. Milongy, worskhopy, praktika a akce různých organizátorů najdeš přehledně v jednom kalendáři.
-    Hudba, na kterou tančíš, má za sebou kopec příběhů. Tady ti je budeme postupně přinášet, – pikošky, které způsobí, že na ty skladby už nikdy nebudeš tančit stejně.
-    Budeme psát o tangu a těch, kteří (nejen brněnské) tango tvoří. To jsi i ty. Každá tvoje přítomnost totiž způsobí, že brněnská tango komunita žije a táhne za jeden provaz.
+Už nikdy nebudeš tápat, kdy, kde a v kolik. Milongy, worskhopy, praktika a akce různých organizátorů najdeš přehledně v jednom kalendáři.  
+Hudba, na kterou tančíš, má za sebou kopec příběhů. Tady ti je budeme postupně přinášet, – pikošky, které způsobí, že na ty skladby už nikdy nebudeš tančit stejně.  
+Budeme psát o tangu a těch, kteří (nejen brněnské) tango tvoří. To jsi i ty. Každá tvoje přítomnost totiž způsobí, že brněnská tango komunita žije a táhne za jeden provaz.  
 
 Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 
 ## Lidé za Brnos Aires
 
 Lenka Platenikova
-![Lenka Platenikova](/images/profile-lenka-platenikova.jpeg)
+![Lenka Platenikova](/images/profile-lenka-platenikova.png)
 
 Filip Paldia
-![Filip Paldia](/images/profile-filip-paldia.jpeg)
+![Filip Paldia](/images/profile-filip-paldia.png)
 
 Pavla Lužná
-![Pavla Lužná](/images/profile-pavla-luzna.jpeg)
+![Pavla Lužná](/images/profile-pavla-luzna.png)
 
 Martin Černy
-![Martin Černy](/images/profile-martin-cerny.jpeg)
+![Martin Černy](/images/profile-martin-cerny.png)
 
 Míša Lukavská
-![Míša Lukavská](/images/profile-misa-lukavska.jpeg)
+![Míša Lukavská](/images/profile-misa-lukavska.png)
 
 Ireana Babylonová
-![Ireana Babylonová](/images/profile-ireana-babylonova.jpeg)
+![Ireana Babylonová](/images/profile-ireana-babylonova.png)
 
 Šteky Yaku
-![Šteky Yaku](/images/profile-steky-yaku.jpeg)
+![Šteky Yaku](/images/profile-steky-yaku.png)
 

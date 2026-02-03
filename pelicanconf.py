@@ -19,6 +19,12 @@ ARTICLE_URL = "{slug}/"
 ARTICLE_SAVE_AS = "{slug}/index.html"
 PAGE_URL = "{slug}/"
 PAGE_SAVE_AS = "{slug}/index.html"
+CATEGORY_URL = "category/{slug}/"
+CATEGORY_SAVE_AS = "category/{slug}/index.html"
+PAGINATION_PATTERNS = (
+    (1, '{url}', '{save_as}'),
+    (2, '{base_name}/{number}/', '{base_name}/{number}/index.html'),
+)
 
 SLUGIFY_SOURCE = "basename"
 
@@ -28,7 +34,10 @@ TIMEZONE = "Europe/Prague"
 FEED_ALL_ATOM = None
 FEED_ALL_RSS = None
 
-DEFAULT_PAGINATION = 10
+DEFAULT_PAGINATION = False
+PAGINATED_TEMPLATES = {"index": None, "tag": None, "author": None, "category": 12}
+INDEX_SAVE_AS = ''
+ARTICLE_ORDER_BY = 'reversed-date'
 
 from datetime import datetime
 import pytz

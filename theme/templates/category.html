@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{% if category.name == 'announcement' %}Oznámení{% else %}{{ category.name|capitalize }}{% endif %} | {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="group--main-container">
+  <article class="el-stack stack-l">
+    <header class="el-stack stack-xs">
+      <h1>{% if category.name == 'announcement' %}Oznámení{% else %}{{ category.name|capitalize }}{% endif %}</h1>
+    </header>
+
+    <div class="widget-announcements">
+      <div class="el-grid">
+        {% for article in (articles_page.object_list if articles_page is defined else articles) %}
+        <a href="{{ article.slug }}/" class="aesthetic-card card-m">
+          {% if article.preview_image %}
+          <div class="el-frame-16x9">
+            <img src="{{ article.preview_image.lstrip('/') }}" alt="{{ article.preview_image_alt|default(article.title) }}" />
+          </div>
+          {% endif %}
+          <div>
+            <h3>{{ article.title }}</h3>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if articles_paginator is defined and articles_page is defined and articles_paginator.num_pages > 1 %}
+    <nav class="el-stack stack-m" aria-label="Stránkování">
+      <div class="cluster gap-s">
+        {% if articles_page.has_previous() %}
+          {% if articles_page.previous_page_number() == 1 %}
+        <a href="{{ category.url }}" class="aesthetic-chip chip-m">← Předchozí</a>
+          {% else %}
+        <a href="{{ category.url }}{{ articles_page.previous_page_number() }}/" class="aesthetic-chip chip-m">← Předchozí</a>
+          {% endif %}
+        {% endif %}
+        <span class="aesthetic-chip chip-m">Strana {{ articles_page.number }} / {{ articles_paginator.num_pages }}</span>
+        {% if articles_page.has_next() %}
+        <a href="{{ category.url }}{{ articles_page.next_page_number() }}/" class="aesthetic-chip chip-m">Další →</a>
+        {% endif %}
+      </div>
+    </nav>
+    {% endif %}
+  </article>
+</div>
+{% endblock %}

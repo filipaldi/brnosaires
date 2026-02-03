@@ -19,4 +19,6 @@ Lenčiny oznamy se staly legendárni a proto je přinášíme v tomhle archívu.
 Pokud máte RSS čtečku, můžete je odebírat.
 
 
-<widget-announcements limit="all"></widget-announcements>
+<widget-announcements limit="12"></widget-announcements>
+
+[Všechny oznamy →](/category/announcement/)
