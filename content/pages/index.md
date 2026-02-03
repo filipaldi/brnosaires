@@ -5,7 +5,7 @@ url:
 save_as: index.html
 description: Přehledně a aktuálně o argentinském tangu v Brně. Kalendář milong, lekcí a workshopů.
 author: Filip Paldia
-preview_image: /images/brno_tango_vkend.jpg
+preview_image: /images/milonga-hned-vedle.jpeg
 ---
 
 # Brnos Aires

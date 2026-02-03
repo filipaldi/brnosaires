@@ -7,7 +7,7 @@ nav_label: Lekce
 nav_order_main: 2
 description: Kde se učit tango v Brně. Rozvrh pravidelných lekcí všech škol a nejbližší workshopy na jednom místě.
 author: Filip Paldia
-preview_image: /images/class-necasovy.png
+preview_image: /images/milonga-hned-vedle.jpeg
 ---
 
 # Lekce argentinského tanga v Brně
@@ -18,7 +18,7 @@ Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidel
 
 V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní přístup: Taneční studio Stolárna, TangoLab Štěky, Gabriela a Petr Nečasovi.
 
-<widget-calendar start="this-week" type="class" days="7" sort="oldest" group_by="week day" headers="day"></widget-calendar>
+<widget-calendar start="this-week" type="class" days="6" sort="oldest" group_by="week day" headers="day"></widget-calendar>
 
 ## Workshopy
 

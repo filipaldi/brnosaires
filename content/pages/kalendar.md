@@ -7,7 +7,7 @@ nav_label: Kalendář
 nav_order_main: 1
 description: Kalendář brněnských tango událostí. Milongy, praktiky a lekce na jednom místě, přehledně po měsících.
 author: Filip Paldia
-preview_image: /images/Brno_leden_milongy.jpg
+preview_image: /images/milonga-hned-vedle.jpeg
 ---
 
 # Tango kalendář Brno

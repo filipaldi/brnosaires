@@ -7,7 +7,7 @@ nav_label: Pikošky
 nav_order_main: 4
 description: Kuriózní perličky z tanga. Krátké příběhy a zajímavosti, které postupně sbíráme a doplňujeme.
 author: Lenka Platenikova
-preview_image: /images/tango_dobrodruzstvi.jpg
+preview_image: /images/smutne-obdobi-drogovych-dealeru.webp
 ---
 
 # Pikošky z prostředí argentinského tanga

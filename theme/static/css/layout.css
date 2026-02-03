@@ -182,33 +182,47 @@
    FRAME
    ============================================ */
 
-   .el-frame-16x9 {
-    --n: 16;
-    --d: 9;
-    aspect-ratio: var(--n) / var(--d);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .el-frame-16x9 > img,
-  .el-frame-16x9 > video {
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-  }
+[class*="el-frame-"] {
+  --n: 16;
+  --d: 9;
+  aspect-ratio: var(--n) / var(--d);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .el-frame-4x3 {
-    --n: 4;
-    --d: 3;
-  }
+[class*="el-frame-"] > img,
+[class*="el-frame-"] > video {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
 
-  .el-frame-1x1 {
-    --n: 1;
-    --d: 1;
-  }
-  
+.el-frame-16x9 {
+  --n: 16;
+  --d: 9;
+}
+
+.el-frame-2x1 {
+  --n: 2;
+  --d: 1;
+}
+
+.el-frame-3x1 {
+  --n: 3;
+  --d: 1;
+}
+
+.el-frame-4x3 {
+  --n: 4;
+  --d: 3;
+}
+
+.el-frame-1x1 {
+  --n: 1;
+  --d: 1;
+}
 
 /* ============================================
    JUSTIFY CONTENT UTILITIES
