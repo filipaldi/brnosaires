@@ -14,4 +14,7 @@ description: Tangomania Basic. Pavla Lužná a Ondra Martinák, Stolárna. Úter
 author: Filip Paldia
 ---
 
+Po absolvování 5 úrovní (kurzů) tance TANGO v tanečním studiu Stolárna máte možnost stát se členem klubu pokročilých tanečníků.​
 
+Co je cílem a náplní tréninků?
+Jsou určeny pro ty, kteří na sobě chtějí dlouhodobě intenzivně pracovat a zlepšovat se spolu s ostatními. Náplní tréninků je pokročilá technika základních i pokročilých prvků tance s důrazem na správné vedení a následování, rozvíjení muzikálních schopností a hlavně neustále opakování a procvičování :-)
