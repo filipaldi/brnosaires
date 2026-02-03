@@ -2,6 +2,13 @@
 
 {% block title %}{{ article.title }} | {{ SITENAME }}{% endblock %}
 
+{% block head %}
+{% set article_desc = article.description or (article.metadata.get('description') if article.metadata else none) %}
+{% if article_desc %}
+  <meta name="description" content="{{ article_desc|e }}">
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="group--main-container">
   <article class="el-stack stack-m">
@@ -19,7 +26,12 @@
     </header>
 
     <div class="el-stack stack-xs">
+      {% set article_desc = article.description or (article.metadata.get('description') if article.metadata else none) %}
+      {% if article_desc %}
+      <p>{{ article_desc }}</p>
+      {% else %}
       {{ article.content }}
+      {% endif %}
     </div>
   </article>
 </div>

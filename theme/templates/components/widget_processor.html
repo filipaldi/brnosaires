@@ -32,6 +32,8 @@
           {% include 'components/widget_curiosities.html' with context %}
         {% elif tag_name == 'classes' %}
           {% include 'components/widget_classes.html' with context %}
+        {% elif tag_name == 'people' %}
+          {% include 'components/widget_people.html' with context %}
         {% endif %}
         
         {{ process_widgets(after_widget) }}

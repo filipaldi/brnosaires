@@ -30,21 +30,50 @@
    CARDS
    ============================================ */
 
-.card-m > *:not(:first-child) {
-  font-size: var(--text-s);
-  line-height: var(--size-s);
-  margin: var(--size-s);
+[class*="card-"] {
+  --card-font-size: var(--text-m);
+  --card-line-height: var(--size-m);
+  --card-margin: var(--size-m);
+  --card-inner-margin: var(--size-xs);
 }
 
-.card-m > * > * {
-  margin: var(--size-2xs) 0;
+[class*="card-"] > *:not(:first-child) {
+  font-size: var(--card-font-size);
+  line-height: var(--card-line-height);
+  margin: var(--card-margin);
 }
 
-.card-m > * > h3 {
-  font-size: var(--text-s);
-  line-height: var(--size-s);
+[class*="card-"] > * > * {
+  margin: var(--card-inner-margin) 0;
+}
+
+[class*="card-"] h3,
+[class*="card-"] p {
+  font-size: var(--card-font-size);
+  line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
-  margin-bottom: var(--size-xs);
+  margin-bottom: var(--card-inner-margin);
+}
+
+.card-s {
+  --card-font-size: var(--text-s);
+  --card-line-height: var(--size-s);
+  --card-margin: var(--size-s);
+  --card-inner-margin: var(--size-2xs);
+}
+
+.card-m {
+  --card-font-size: var(--text-m);
+  --card-line-height: var(--size-m);
+  --card-margin: var(--size-m);
+  --card-inner-margin: var(--size-xs);
+}
+
+.card-l {
+  --card-font-size: var(--text-l);
+  --card-line-height: var(--size-l);
+  --card-margin: var(--size-l);
+  --card-inner-margin: var(--size-s);
 }
 
 /* ============================================

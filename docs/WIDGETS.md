@@ -8,7 +8,7 @@ The widget system allows embedding dynamic components in markdown content using 
 
 ### Processing Flow
 
-1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`)
+1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`, `<widget-people>`)
 2. **Markdown Processing**: Pelican's markdown processor preserves HTML elements
 3. **Template Processing**: `page.html` template calls `process_widgets()` macro
 4. **Widget Detection**: Macro detects widget tags and extracts tag name + raw attributes string
@@ -27,7 +27,8 @@ theme/templates/
     ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort, group_by
     ├── widget_announcements.html     # Announcements: parses limit, sort
     ├── widget_curiosities.html       # Curiosities: parses limit, sort
-    └── widget_classes.html           # Classes: parses limit, sort
+    ├── widget_classes.html           # Classes: parses limit, sort
+    └── widget_people.html            # People: parses columns, limit, sort
 ```
 
 ## Widget Processor
@@ -58,7 +59,7 @@ Recursively processes page content to find and replace widget tags.
 2. For each widget found:
    - Extract tag name from tag content
    - Extract raw tag content (includes all attributes as string)
-   - Route to component based on tag name (`calendar`, `announcements`, `curiosities`, `classes`)
+   - Route to component based on tag name (`calendar`, `announcements`, `curiosities`, `classes`, `people`)
    - Pass `tag_content` variable to component
    - Component handles its own attribute parsing
    - Recursively process remaining content
@@ -73,8 +74,8 @@ Recursively processes page content to find and replace widget tags.
 ### Widget Type Naming
 
 - All widget tags use **kebab-case** (lowercase with hyphens)
-- Tag names: `widget-calendar`, `widget-announcements`, `widget-curiosities`
-- Internal widget types: `calendar` (widget_calendar.html), `announcements`, `curiosities`
+- Tag names: `widget-calendar`, `widget-announcements`, `widget-curiosities`, `widget-classes`, `widget-people`
+- Internal widget types: `calendar` (widget_calendar.html), `announcements`, `curiosities`, `classes`, `people`
 
 ### Attribute Naming
 
@@ -88,6 +89,7 @@ Recursively processes page content to find and replace widget tags.
 - `<widget-announcements>` → `widget_announcements.html`
 - `<widget-curiosities>` → `widget_curiosities.html`
 - `<widget-classes>` → `widget_classes.html`
+- `<widget-people>` → `widget_people.html`
 
 ## Supported Widget Types
 
@@ -244,6 +246,33 @@ Displays classes from `content/classes/` as cards with images.
 - Widget title: "Lekce"
 - Sorting: By `date` (newest/oldest) or `title` (alphabetical)
 
+### 5. People Widget (`<widget-people>`)
+
+Displays people from `content/people/` as cards in a 3-column grid (name + image). Each person is one Markdown file with required metadata; display order is controlled by article `date` (oldest first by default).
+
+**Attributes:**
+- `columns="3"` (optional) - Number of grid columns (default: 3). Layout uses `.el-grid-3`; responsive stack on narrow viewports.
+- `limit="6"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest|title"` (optional) - Sort order (default: oldest first, so date order in files is respected)
+
+**Content structure:** Add `"people"` to `ARTICLE_PATHS`. Each person is an article in `content/people/<slug>.md` with:
+- **Required:** `title` (display name), `date` (Pelican + display order), `preview_image` (e.g. `/images/profile-lenka-platenikova.png`)
+- **Optional:** `preview_image_alt`, `slug`. Body can be empty or a short bio.
+
+**Examples:**
+```html
+<!-- All people in default 3-column grid, order by date in files -->
+<widget-people></widget-people>
+
+<!-- First 6 people, sorted by title -->
+<widget-people limit="6" sort="title"></widget-people>
+```
+
+**Implementation:**
+- Component: `theme/templates/components/widget_people.html`
+- Filters articles where `article.category.name == 'people'`
+- Renders cards with image + name; each card links to the person's article URL (`/slug/`)
+
 ## Attribute Reference
 
 | Attribute | Type | Required | Values | Description |
@@ -257,6 +286,7 @@ Displays classes from `content/classes/` as cards with images.
 | `group_by` | string | No | `day`, `week`, `month`, `week day`, etc. | Group events. Single = flat grouping; space-separated = nested grouping with grid (`widget-calendar` only) |
 | `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden). Only applies when `group_by` is set (`widget-calendar` only) |
 | `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid (default: false). Only applies when `group_by="week day"` (`widget-calendar` only) |
+| `columns` | string/integer | No | `"3"` (default) | Grid columns for people layout (`widget-people` only; layout uses fixed 3-column grid) |
 
 **Rules:**
 - `days` and `start`/`end` are mutually exclusive. `start` can be used alone (window = start to start+365 days).
@@ -266,7 +296,7 @@ Displays classes from `content/classes/` as cards with images.
 - `headers` only applies to `widget-calendar` widget when `group_by` is set; default is hidden
 - `hide_empty_days` only applies to `widget-calendar` widget when `group_by="week day"`; default is false (all 7 days shown)
 - Nested grouping (e.g. `group_by="week day"`) creates a responsive 7-column grid layout
-- Default sort: `oldest` (chronological) for `widget-calendar`; `newest` for other widgets
+- Default sort: `oldest` (chronological) for `widget-calendar` and `widget-people`; `newest` for other widgets
 
 ## Event Metadata Standard
 

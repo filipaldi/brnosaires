@@ -6,7 +6,7 @@ DEFAULT_LANG = "cs"
 
 PATH = "content"
 PAGE_PATHS = ["pages"]
-ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities"]
+ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]
 STATIC_PATHS = ["images"]
 THEME_STATIC_PATHS = ["static"]
 

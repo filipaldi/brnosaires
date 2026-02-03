@@ -1,5 +1,6 @@
 {% set limit = none %}
 {% set sort = none %}
+{% set columns = '3' %}
 
 {% if tag_content %}
   {% set tag_name_parts = tag_content.split(' ') %}
@@ -15,46 +16,48 @@
         {% set sort_raw = attrs_str.split('sort="')[1] %}
         {% set sort = sort_raw.split('"', 1)[0] | lower %}
       {% endif %}
+      {% if 'columns="' in attrs_str %}
+        {% set columns_raw = attrs_str.split('columns="')[1] %}
+        {% set columns = columns_raw.split('"', 1)[0] %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endif %}
 
-{% set class_pages = [] %}
+{% set people_pages = [] %}
 {% for article in all_articles %}
-  {% if article.category and article.category.name == 'class' %}
-    {% set _ = class_pages.append(article) %}
+  {% if article.category and article.category.name == 'people' %}
+    {% set _ = people_pages.append(article) %}
   {% endif %}
 {% endfor %}
 
-{% if sort == 'oldest' %}
-  {% set sorted_classes = class_pages | sort(attribute='date') %}
+{% if sort == 'newest' %}
+  {% set sorted_people = people_pages | sort(attribute='date', reverse=true) %}
 {% elif sort == 'title' %}
-  {% set sorted_classes = class_pages | sort(attribute='title') %}
+  {% set sorted_people = people_pages | sort(attribute='title') %}
 {% else %}
-  {% set sorted_classes = class_pages | sort(attribute='date', reverse=true) %}
+  {% set sorted_people = people_pages | sort(attribute='date') %}
 {% endif %}
 
 {% if limit %}
   {% if limit == 'all' %}
-    {% set display_classes = sorted_classes %}
-  {% elif limit is number %}
-    {% set display_classes = sorted_classes[:limit|int] %}
+    {% set display_people = sorted_people %}
   {% elif 'last' in limit|lower %}
     {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
-    {% set display_classes = sorted_classes[-limit_num:] %}
+    {% set display_people = sorted_people[-limit_num:] %}
   {% else %}
     {% set limit_num = limit|int %}
-    {% set display_classes = sorted_classes[:limit_num] %}
+    {% set display_people = sorted_people[:limit_num] %}
   {% endif %}
 {% else %}
-  {% set display_classes = sorted_classes %}
+  {% set display_people = sorted_people %}
 {% endif %}
 
-{% if display_classes %}
-<div class="widget-classes">
-  <div class="el-grid">
-    {% for item in display_classes %}
-    <a href="{{ item.slug }}/" class="aesthetic-card card-s">
+{% if display_people %}
+<div class="widget-people">
+  <div class="el-grid-3">
+    {% for item in display_people %}
+    <a href="{{ item.slug }}/" class="aesthetic-card card-m">
       {% if item.preview_image %}
       <div class="el-frame-16x9">
         <img src="{{ item.preview_image.lstrip('/') }}" alt="{{ item.preview_image_alt|default(item.title) }}" />
@@ -62,6 +65,10 @@
       {% endif %}
       <div>
         <h3>{{ item.title }}</h3>
+        {% set desc = item.description or (item.metadata.get('description') if item.metadata else none) or item.content %}
+        {% if desc %}
+        <div class="widget-people__description">{{ desc }}</div>
+        {% endif %}
       </div>
     </a>
     {% endfor %}

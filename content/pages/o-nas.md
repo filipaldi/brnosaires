@@ -30,24 +30,5 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 
 ## Lidé za Brnos Aires
 
-Lenka Platenikova
-![Lenka Platenikova](/images/profile-lenka-platenikova.png)
-
-Filip Paldia
-![Filip Paldia](/images/profile-filip-paldia.png)
-
-Pavla Lužná
-![Pavla Lužná](/images/profile-pavla-luzna.png)
-
-Martin Černy
-![Martin Černy](/images/profile-martin-cerny.png)
-
-Míša Lukavská
-![Míša Lukavská](/images/profile-misa-lukavska.png)
-
-Ireana Babylonová
-![Ireana Babylonová](/images/profile-ireana-babylonova.png)
-
-Šteky Yaku
-![Šteky Yaku](/images/profile-steky-yaku.png)
+<widget-people></widget-people>
 

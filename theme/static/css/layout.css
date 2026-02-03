@@ -171,9 +171,18 @@
   gap: var(--size-xs);
 }
 
+.el-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--size-s);
+}
+
 /* Responsive: stack on narrow viewports */
 @media (max-width: 48rem) {
   .el-grid-7 {
+    grid-template-columns: 1fr;
+  }
+  .el-grid-3 {
     grid-template-columns: 1fr;
   }
 }

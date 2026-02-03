@@ -65,16 +65,18 @@
 {% set hide_empty_days = hide_empty_days_ref[0] %}
 
 {% macro event_card(event) %}
-<a href="{{ event.slug }}/" class="aesthetic-card card-m">
+<a href="{{ event.slug }}/" class="aesthetic-card card-s">
   {% if event.preview_image %}
   <div class="el-frame-16x9">
     <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
   </div>
   {% endif %}
-  <div class="event-card-info">
+  <div>
     <h3>{{ event.title }}</h3>
     {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
     {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
+    {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
+    {% set event_location = event.metadata.get('location') if event.metadata else none %}
     {% if event_start %}
       {% if event_start is string %}
         {% set event_date_str = event_start[:10] %}
@@ -82,37 +84,19 @@
         {% set day = event_date_str[8:10] %}
         {% set month = event_date_str[5:7] %}
         {% set year = event_date_str[:4] %}
+        {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
       {% else %}
-        {% set event_date_str = event_start.strftime('%Y-%m-%d') %}
-        {% set event_time_str = event_start.strftime('%H:%M') %}
         {% set day = event_start.strftime('%d') %}
         {% set month = event_start.strftime('%m') %}
         {% set year = event_start.strftime('%Y') %}
-      {% endif %}
-    <div>
-      <span>{{ day }}. {{ month }}. {{ year }}</span>
-    </div>
-    {% endif %}
-    {% if event_start %}
-      {% if event_start is string %}
-        {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-        {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
-      {% else %}
         {% set event_time_str = event_start.strftime('%H:%M') %}
         {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
       {% endif %}
-    <div>
-      <span>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</span>
-    </div>
+      <p>{{ day }}. {{ month }}. {{ year }}</p>
+      {% if event_time_str %}<p>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
     {% endif %}
-    {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-    {% if event_organiser %}
-    <div>{{ event_organiser }}</div>
-    {% endif %}
-    {% set event_location = event.metadata.get('location') if event.metadata else none %}
-    {% if event_location %}
-    <div>{{ event_location }}</div>
-    {% endif %}
+    {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
+    {% if event_location %}<p>{{ event_location }}</p>{% endif %}
   </div>
 </a>
 {% endmacro %}
