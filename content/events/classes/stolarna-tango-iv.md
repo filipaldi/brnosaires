@@ -16,4 +16,4 @@ author: Filip Paldia
 
 # Stolárna - Tango IV.
 
-Tango IV. je pravidelná taneční skupina, která se koná každý úterý ve 18:00.
+Tango pro pokročilé tanečníky, kteří se chtějí zdokonalit ve figurách i technice pohybu. 
