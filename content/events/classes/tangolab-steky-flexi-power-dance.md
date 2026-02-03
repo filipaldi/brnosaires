@@ -15,3 +15,6 @@ author: Filip Paldia
 ---
 
 # Flexi - Power dance
+
+Trénink a rozvíjení taneční techniky, rovnováhy, síly, flexibility nejen pro argentinské tango. 
+V úvodu trénujeme hlavně rozvoj flexibility, v druhém bloku se zaměřujeme na vnitřní sílu tanečníka/tanečnice, tj. správné použití centrálního svalového systému. Ve třetím bloku na taneční techniku. 
