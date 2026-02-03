@@ -12,4 +12,4 @@ author: Filip Paldia
 
 Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce na jednom místě.
 
-<widget-calendar days="365" group_by="month"></widget-calendar>
+<widget-calendar start="this-month" group_by="month" days="365" type="milonga neolonga pocoloco praktika"></widget-calendar>

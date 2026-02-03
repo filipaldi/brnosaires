@@ -96,19 +96,20 @@ Recursively processes page content to find and replace widget tags.
 Displays filtered lists of events from `content/events/`.
 
 **Attributes:**
-- `type="milonga|workshop|class"` (optional) - Event type filter
+- `type="milonga|workshop|class|..."` (optional) - Event type filter. Single type or space-separated list for OR logic (e.g. `type="milonga neolonga pocoloco"`).
 - `days="7"` (optional) - Days from today (positive = future, negative = past)
-- `start="2026-06-01"` (optional) - Start date for range (YYYY-MM-DD, requires `end`)
-- `end="2026-08-31"` (optional) - End date for range (YYYY-MM-DD, requires `start`)
+- `start="2026-06-01"` (optional) - Start of date window. Can be used alone (forward from start) or with `end`. Values: `YYYY-MM-DD`, or tokens `today`, `this-week` (Monday of current week), `this-month` (1st of month), `this-year` (1st Jan).
+- `end="2026-08-31"` (optional) - End of date window. Same format as `start`. If only `start` is set, end defaults to start + 365 days.
 - `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+- `sort="newest|oldest"` (optional) - Sort order (default: **oldest first**, i.e. chronological)
 - `group_by="day|week|month"` (optional) - Group events into rows with a headline per group (day, week, or month). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
 
 **Date Filtering:**
 - `days="7"` = next 7 days from today
 - `days="-7"` = last 7 days from today
-- `days="365"` or `days="-365"` = all events (no date filtering)
-- `start` + `end` = date range (both required, mutually exclusive with `days`)
+- `days="365"` or `days="-365"` = one-year window from today
+- `start` (optional) = start of window; use with or without `end`. With `end` = date range; without `end` = from start to start+365 days. Mutually exclusive with `days`.
+- `start` and `end` accept tokens `today`, `this-week`, `this-month`, `this-year` or `YYYY-MM-DD`
 
 **Examples:**
 ```html
@@ -124,8 +125,11 @@ Displays filtered lists of events from `content/events/`.
 <!-- Last 3 milongas -->
 <widget-calendar type="milonga" days="-7" limit="3"></widget-calendar>
 
-<!-- Milongas sorted oldest first -->
-<widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
+<!-- Milongas from today (default sort is oldest first) -->
+<widget-calendar type="milonga" start="today"></widget-calendar>
+
+<!-- Multiple event types (OR): milonga or neolonga or pocoloco -->
+<widget-calendar type="milonga neolonga pocoloco" days="7"></widget-calendar>
 
 <!-- Events grouped by week (rows per week with headline) -->
 <widget-calendar days="365" group_by="week"></widget-calendar>
@@ -139,18 +143,10 @@ Displays filtered lists of events from `content/events/`.
 - **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
 
 **Implementation:**
-- Component: `theme/templates/components/widget_calendar.html`
-- Parses attributes: `type`, `days`, `start`, `end`, `limit`, `sort`, `group_by` from `tag_content`
-- Filters articles from `articles` context where `source_path` contains `'events/'`
-- Filtering logic:
-  - `milonga`: Title contains "milonga"
-  - `workshop`: Title contains "workshop", "lekce", or "lekci"
-  - `class`: Title contains "class" or "lekce"
-  - Date filtering: Filters events by days from today or date range
-  - Filter type and date filtering can be combined
-- Sorting: By `date` attribute (newest/oldest) when `group_by` is not set; when `group_by` is set, the `group_events` Jinja filter sorts groups and events chronologically.
-- Grouping: When `group_by` is set, the calendar_group plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
-- Limit: Applied after filtering and sorting
+- Component: `theme/templates/components/widget_calendar.html` parses attributes from `tag_content` and calls the `calendarium` Jinja filter (from plugin `plugins/calendarium.py`) for all filtering, date window, sort, and limit.
+- Filtering (type, date window, sort, limit) is implemented in the calendarium plugin; the template only parses attributes and renders the result. Event type uses metadata `event-type`; multiple types in `type="a b c"` are OR. Categories `announcement` and `curiosity` are excluded.
+- Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
+- Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
 
 ### 2. Announcements Widget (`<widget-announcements>`)
 
@@ -232,21 +228,20 @@ Displays classes from `content/classes/` as cards with images.
 
 | Attribute | Type | Required | Values | Description |
 |-----------|------|----------|--------|-------------|
-| `type` | string | No | `milonga`, `workshop`, `class` | Event type filter (for `widget-calendar` only) |
+| `type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter (`widget-calendar` only) |
 | `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
-| `start` | date | No* | `YYYY-MM-DD` | Start date for range (*required if `end` present) |
-| `end` | date | No* | `YYYY-MM-DD` | End date for range (*required if `start` present) |
+| `start` | date/token | No | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Start of date window; can be used without `end` |
+| `end` | date/token | No | Same as `start` | End of date window (optional if `start` set) |
 | `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
 | `sort` | string | No | `newest`, `oldest`, `title` | Sort order (`title` only for `widget-classes`) |
 | `group_by` | string | No | `day`, `week`, `month` | Group events into rows with headline per group (`widget-calendar` only) |
 
 **Rules:**
-- If `start` is present, `end` is required (and vice versa)
-- `days` and `start`/`end` are mutually exclusive
+- `days` and `start`/`end` are mutually exclusive. `start` can be used alone (window = start to start+365 days).
 - `type` only applies to `widget-calendar` widget
 - `sort="title"` only applies to `widget-classes` widget
 - `group_by` only applies to `widget-calendar` widget; when set, sort is always chronological (earliest first)
-- Default sort: `newest` (newest first)
+- Default sort: `oldest` (chronological) for `widget-calendar`; `newest` for other widgets
 
 ## Event Metadata Standard
 
