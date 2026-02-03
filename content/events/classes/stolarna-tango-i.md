@@ -16,4 +16,4 @@ author: Filip Paldia
 
 # Stolárna - Tango I.
 
-Tango I. je pravidelná taneční skupina, která se koná každý čtvrtek ve 19:15.
+Kurz argentinského tanga pro začátečníky. Ondra a Pavla se zaměřují hlavně na správnou techniku pohybu 
