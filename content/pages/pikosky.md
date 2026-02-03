@@ -3,6 +3,7 @@ title: Pikošky z prostředí argentinského tanga - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-pikosky
 navigation: Main
+nav_label: Pikošky
 nav_order_main: 4
 description: Kuriózní perličky z tanga. Krátké příběhy a zajímavosti, které postupně sbíráme a doplňujeme.
 author: Lenka Platenikova

@@ -1,6 +1,6 @@
 ---
 title: Tango milongy tento týden - Tango Brno
-date: 2026-01-17 18:00:00
+date: 2026-02-03 18:00:00
 slug: tango-milongy-tenhle-tyden
 description: Kde se tančí tango v Brně tento týden. Všechny milongy a tančírny na nejbližší dny.
 author: Filip Paldia
