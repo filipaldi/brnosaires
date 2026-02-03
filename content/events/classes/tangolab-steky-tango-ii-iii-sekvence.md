@@ -14,4 +14,4 @@ description: Tango II.–III., sekvence. TangoLab Štěky, každé úterý 18:00
 author: Filip Paldia
 ---
 
-
+Pravidelné lekce pro mírně pokročilé, ve kterých se zaměřuje na plynulý pohyb, radost z tance a propracovanější techniku pro společenské tančení.
