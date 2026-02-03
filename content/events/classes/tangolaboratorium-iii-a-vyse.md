@@ -14,4 +14,5 @@ description: TangoLaboratorium III. a výše. TangoLab Štěky, každé úterý 
 author: Filip Paldia
 ---
 
-
+Tangolaboratorium je prostor, kde se zkoumá tango do hloubky. Různá objetí, stabilita, komplexní technika i hudební interpretace.
+Pracuje se na výrazu, kreativitě i pohodlí v páru.
