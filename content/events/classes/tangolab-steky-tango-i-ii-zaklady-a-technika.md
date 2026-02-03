@@ -16,6 +16,6 @@ author: Filip Paldia
 
 # TangoLab Štěky - Tango I. - II. (základy a technika)
 
-TangoLab Štěky je pravidelná taneční skupina, která se koná každý úterý ve 18:00.
+Pravidelné lekce, ve kterých se zaměřuje na přirozený pohyb a napojení v páru.
 
 
