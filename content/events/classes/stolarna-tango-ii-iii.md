@@ -16,3 +16,4 @@ author: Filip Paldia
 
 # Stolárna - Tango II. - III.
 
+Tango pro mírně pokročilé. Nebojte se složitých figur a kroků, naučíme vás, jak si v páru porozumět a tanečně improvizovat, jak vnímat pohyb těla a využít to do tance.
