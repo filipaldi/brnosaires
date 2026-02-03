@@ -13,4 +13,4 @@ __pycache__/
 copy/
 marathon/
 migration-scripts/
-content/.obsidian/workspace.json
+.obsidian/
