@@ -254,6 +254,7 @@ Displays people from `content/people/` as cards in a 3-column grid (name + image
 - `columns="3"` (optional) - Number of grid columns (default: 3). Layout uses `.el-grid-3`; responsive stack on narrow viewports.
 - `limit="6"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
 - `sort="newest|oldest|title"` (optional) - Sort order (default: oldest first, so date order in files is respected)
+- `slugs="slug1 slug2 slug3"` (optional) - Space-separated list of person slugs to display. When set, only these people are shown, in the specified order. Overrides `sort` and `limit`.
 
 **Content structure:** Add `"people"` to `ARTICLE_PATHS`. Each person is an article in `content/people/<slug>.md` with:
 - **Required:** `title` (display name), `date` (Pelican + display order), `preview_image` (e.g. `/images/profile-lenka-platenikova.png`)
@@ -266,6 +267,9 @@ Displays people from `content/people/` as cards in a 3-column grid (name + image
 
 <!-- First 6 people, sorted by title -->
 <widget-people limit="6" sort="title"></widget-people>
+
+<!-- Show specific people in specific order (e.g., organizers) -->
+<widget-people slugs="filip-paldia lenka-platenikova misa-lukavska steky-yaku"></widget-people>
 ```
 
 **Implementation:**
@@ -287,6 +291,7 @@ Displays people from `content/people/` as cards in a 3-column grid (name + image
 | `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden). Only applies when `group_by` is set (`widget-calendar` only) |
 | `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid (default: false). Only applies when `group_by="week day"` (`widget-calendar` only) |
 | `columns` | string/integer | No | `"3"` (default) | Grid columns for people layout (`widget-people` only; layout uses fixed 3-column grid) |
+| `slugs` | string | No | `"slug1 slug2 slug3"` | Space-separated list of person slugs to show in order (`widget-people` only; overrides `sort` and `limit`) |
 
 **Rules:**
 - `days` and `start`/`end` are mutually exclusive. `start` can be used alone (window = start to start+365 days).

@@ -1,6 +1,7 @@
 {% set limit = none %}
 {% set sort = none %}
 {% set columns = '3' %}
+{% set slugs = none %}
 
 {% if tag_content %}
   {% set tag_name_parts = tag_content.split(' ') %}
@@ -20,6 +21,10 @@
         {% set columns_raw = attrs_str.split('columns="')[1] %}
         {% set columns = columns_raw.split('"', 1)[0] %}
       {% endif %}
+      {% if 'slugs="' in attrs_str %}
+        {% set slugs_raw = attrs_str.split('slugs="')[1] %}
+        {% set slugs = slugs_raw.split('"', 1)[0] %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endif %}
@@ -31,26 +36,38 @@
   {% endif %}
 {% endfor %}
 
-{% if sort == 'newest' %}
-  {% set sorted_people = people_pages | sort(attribute='date', reverse=true) %}
-{% elif sort == 'title' %}
-  {% set sorted_people = people_pages | sort(attribute='title') %}
+{% if slugs %}
+  {% set slug_list = slugs.split(' ') %}
+  {% set display_people = [] %}
+  {% for target_slug in slug_list %}
+    {% for person in people_pages %}
+      {% if person.slug == target_slug %}
+        {% set _ = display_people.append(person) %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
 {% else %}
-  {% set sorted_people = people_pages | sort(attribute='date') %}
-{% endif %}
-
-{% if limit %}
-  {% if limit == 'all' %}
-    {% set display_people = sorted_people %}
-  {% elif 'last' in limit|lower %}
-    {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
-    {% set display_people = sorted_people[-limit_num:] %}
+  {% if sort == 'newest' %}
+    {% set sorted_people = people_pages | sort(attribute='date', reverse=true) %}
+  {% elif sort == 'title' %}
+    {% set sorted_people = people_pages | sort(attribute='title') %}
   {% else %}
-    {% set limit_num = limit|int %}
-    {% set display_people = sorted_people[:limit_num] %}
+    {% set sorted_people = people_pages | sort(attribute='date') %}
   {% endif %}
-{% else %}
-  {% set display_people = sorted_people %}
+
+  {% if limit %}
+    {% if limit == 'all' %}
+      {% set display_people = sorted_people %}
+    {% elif 'last' in limit|lower %}
+      {% set limit_num = limit|replace('last', '')|replace(' ', '')|int %}
+      {% set display_people = sorted_people[-limit_num:] %}
+    {% else %}
+      {% set limit_num = limit|int %}
+      {% set display_people = sorted_people[:limit_num] %}
+    {% endif %}
+  {% else %}
+    {% set display_people = sorted_people %}
+  {% endif %}
 {% endif %}
 
 {% if display_people %}

@@ -20,6 +20,12 @@
         {% if 'type="' in attr %}
           {% set type_raw = attr.split('type="')[1] %}
           {% do event_type_ref.__setitem__(0, type_raw.split('"', 1)[0] | lower) %}
+        {% elif 'hide_empty_days="' in attr %}
+          {% set hide_raw = attr.split('hide_empty_days="')[1] %}
+          {% set hide_val = hide_raw.split('"')[0] | lower %}
+          {% if hide_val in ['true', 'yes', '1'] %}
+            {% do hide_empty_days_ref.__setitem__(0, 'true') %}
+          {% endif %}
         {% elif 'days="' in attr %}
           {% set days_raw = attr.split('days="')[1] %}
           {% do days_ref.__setitem__(0, days_raw.split('"', 1)[0] | int) %}
@@ -42,12 +48,6 @@
         {% elif 'headers="' in attr %}
           {% set headers_raw = attr.split('headers="')[1] %}
           {% do headers_ref.__setitem__(0, headers_raw.split('"', 1)[0] | lower) %}
-        {% elif 'hide_empty_days="' in attr %}
-          {% set hide_raw = attr.split('hide_empty_days="')[1] %}
-          {% set hide_val = hide_raw.split('"', 1)[0] | lower %}
-          {% if hide_val in ['true', 'yes', '1'] %}
-            {% do hide_empty_days_ref.__setitem__(0, 'true') %}
-          {% endif %}
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -120,20 +120,20 @@
       {% for day_headline, day_events in week_days %}
       {% if hide_empty_days == 'true' %}
         {% if day_events | length > 0 %}
-      <div class="day-column">
-        {% if headers and 'day' in headers %}
-        <h3 class="day-header">{{ day_headline }}</h3>
-        {% endif %}
-        
-        {% if day_events %}
-        <div class="el-stack stack-xs">
-          {% for event in day_events %}
-          {{ event_card(event) }}
-          {% endfor %}
+        <div class="day-column">
+          {% if headers and 'day' in headers %}
+          <h3 class="day-header">{{ day_headline }}</h3>
+          {% endif %}
+          
+          {% if day_events %}
+          <div class="el-stack stack-xs">
+            {% for event in day_events %}
+            {{ event_card(event) }}
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
         {% endif %}
-        {% endif %}
-      </div>
       {% else %}
       <div class="day-column">
         {% if headers and 'day' in headers %}
