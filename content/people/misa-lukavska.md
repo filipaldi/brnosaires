@@ -2,5 +2,5 @@
 title: Míša Lukavská
 date: 2026-01-05 12:00:00
 preview_image: /images/profile-misa-lukavska.png
-description: Za název „Brnos Aires“ vděčíme Michaele. Nedávno začala učit a organizuje workshopy a milongy U Draka.
+description: Vděčíme jí za název „Brnos Aires“. Míša miluje Buenos Aires i Brnos Aires. Do toho prvního často jezdí a přináší to, co se tam naučila i brněnské komunitě v rámci vlastních lekcí. Organizuje milongy U Draka.
 ---
