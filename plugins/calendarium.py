@@ -2,11 +2,49 @@
 Pelican plugin: calendarium filter (type, days, start, end, sort, limit) and group_events for calendar widget.
 Input: articles + options. Output: filtered/sorted event list. group_events(events, group_by, lang) for grouping.
 """
+import re
 from datetime import datetime, timedelta
 
 from recurring_events import expand_recurring
 
 EXCLUDED_CATEGORIES = ["announcement", "curiosity"]
+
+CALENDAR_DEFAULTS = {
+    'type': None,
+    'days': None,
+    'start': None,
+    'end': None,
+    'limit': None,
+    'sort': None,
+    'group_by': None,
+    'headers': None,
+    'hide_empty_days': False,
+}
+
+ATTR_PATTERN = re.compile(r'(\w+)="([^"]*)"')
+
+
+def parse_widget_attrs(tag_content, defaults=None):
+    if defaults is None:
+        defaults = CALENDAR_DEFAULTS
+    result = dict(defaults)
+    if not tag_content:
+        return result
+    for match in ATTR_PATTERN.finditer(tag_content):
+        key = match.group(1).lower().replace('-', '_')
+        value = match.group(2)
+        if key not in result:
+            continue
+        if key == 'hide_empty_days':
+            result[key] = value.lower() in ('true', 'yes', '1')
+        elif key == 'days':
+            try:
+                result[key] = int(value)
+            except (ValueError, TypeError):
+                pass
+        else:
+            result[key] = value if value else None
+    return result
 
 MONTH_NAMES_CS = [
     "leden", "únor", "březen", "duben", "květen", "červen",
@@ -155,10 +193,7 @@ def calendar_filter(articles, now, type=None, days=None, start=None, end=None, s
             event_pages.append(a)
     type_filtered = _filter_by_type(event_pages, type)
     start_str, end_str = _resolve_start_end(now, days, start, end)
-    if start_str is not None and end_str is not None:
-        calendar_events = expand_recurring(type_filtered, start_str, end_str)
-    else:
-        calendar_events = list(type_filtered)
+    calendar_events = expand_recurring(type_filtered, start_str, end_str)
     reverse = str(sort).strip().lower() == "newest"
     calendar_events.sort(key=lambda e: getattr(e, "date", None) or datetime.min, reverse=reverse)
     display_events = _apply_limit(calendar_events, limit)
@@ -254,7 +289,7 @@ def _headline_month(key_ym, lang):
     return f"{name} {y}"
 
 
-def group_events_nested(events, group_by_tokens, lang):
+def group_events_nested(events, group_by_tokens, lang, hide_empty=False):
     if not events or len(group_by_tokens) != 2:
         return []
     lang = (lang or "cs").lower()[:2]
@@ -313,23 +348,26 @@ def group_events_nested(events, group_by_tokens, lang):
         sorted_inner_keys = sorted(inner_buckets.keys())
         inner_groups = []
         for inner_key in sorted_inner_keys:
+            events_list = inner_buckets[inner_key]
+            if hide_empty and len(events_list) == 0:
+                continue
             if inner_by == "day":
                 inner_headline = _headline_day_short(inner_key, lang)
             elif inner_by == "week":
                 inner_headline = _headline_week(inner_key, lang)
             else:
                 inner_headline = _headline_month(inner_key, lang)
-            inner_groups.append((inner_headline, inner_buckets[inner_key]))
+            inner_groups.append((inner_headline, events_list))
         result.append((outer_headline, inner_groups))
     return result
 
 
-def group_events(events, group_by, lang):
+def group_events(events, group_by, lang, hide_empty=False):
     if not events:
         return []
     tokens = str(group_by).lower().split()
     if len(tokens) == 2:
-        return group_events_nested(events, tokens, lang)
+        return group_events_nested(events, tokens, lang, hide_empty)
     if group_by not in ("day", "week", "month"):
         return []
     lang = (lang or "cs").lower()[:2]

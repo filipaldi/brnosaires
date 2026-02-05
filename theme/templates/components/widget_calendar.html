@@ -1,68 +1,13 @@
-{% set event_type = none %}
-{% set event_type_ref = [none] %}
-{% set days_ref = [none] %}
-{% set start_date_ref = [none] %}
-{% set end_date_ref = [none] %}
-{% set limit_ref = [none] %}
-{% set sort_ref = [none] %}
-{% set group_by_ref = [none] %}
-{% set headers_ref = [none] %}
-{% set hide_empty_days_ref = [none] %}
-
-{% if tag_content %}
-  {% set tag_name_parts = tag_content.split(' ') %}
-  {% set tag_name = tag_name_parts[0] %}
-  {% if tag_name_parts | length > 1 %}
-    {% set attrs_str = tag_content[tag_name | length:] | trim %}
-    {% if attrs_str %}
-      {% set attrs_list = attrs_str.split('" ') %}
-      {% for attr in attrs_list %}
-        {% if 'type="' in attr %}
-          {% set type_raw = attr.split('type="')[1] %}
-          {% do event_type_ref.__setitem__(0, type_raw.split('"', 1)[0] | lower) %}
-        {% elif 'hide_empty_days="' in attr %}
-          {% set hide_raw = attr.split('hide_empty_days="')[1] %}
-          {% set hide_val = hide_raw.split('"')[0] | lower %}
-          {% if hide_val in ['true', 'yes', '1'] %}
-            {% do hide_empty_days_ref.__setitem__(0, 'true') %}
-          {% endif %}
-        {% elif 'days="' in attr %}
-          {% set days_raw = attr.split('days="')[1] %}
-          {% do days_ref.__setitem__(0, days_raw.split('"', 1)[0] | int) %}
-        {% elif 'start="' in attr %}
-          {% set start_raw = attr.split('start="')[1] %}
-          {% do start_date_ref.__setitem__(0, start_raw.split('"', 1)[0]) %}
-        {% elif 'end="' in attr %}
-          {% set end_raw = attr.split('end="')[1] %}
-          {% do end_date_ref.__setitem__(0, end_raw.split('"', 1)[0]) %}
-        {% elif 'limit="' in attr %}
-          {% set limit_raw = attr.split('limit="')[1] %}
-          {% do limit_ref.__setitem__(0, limit_raw.split('"', 1)[0]) %}
-        {% elif 'sort="' in attr %}
-          {% set sort_raw = attr.split('sort="')[1] %}
-          {% do sort_ref.__setitem__(0, sort_raw.split('"', 1)[0] | lower) %}
-        {% elif 'group_by="' in attr %}
-          {% set group_by_raw = attr.split('group_by="')[1] %}
-          {% set group_by_val = group_by_raw.split('"', 1)[0] | lower %}
-          {% do group_by_ref.__setitem__(0, group_by_val) %}
-        {% elif 'headers="' in attr %}
-          {% set headers_raw = attr.split('headers="')[1] %}
-          {% do headers_ref.__setitem__(0, headers_raw.split('"', 1)[0] | lower) %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  {% endif %}
-{% endif %}
-
-{% set event_type = event_type_ref[0] %}
-{% set days = days_ref[0] %}
-{% set start_date = start_date_ref[0] %}
-{% set end_date = end_date_ref[0] %}
-{% set limit = limit_ref[0] %}
-{% set sort = sort_ref[0] %}
-{% set group_by = group_by_ref[0] %}
-{% set headers = headers_ref[0] %}
-{% set hide_empty_days = hide_empty_days_ref[0] %}
+{% set cfg = tag_content | parse_widget_attrs %}
+{% set event_type = cfg.type %}
+{% set days = cfg.days %}
+{% set start_date = cfg.start %}
+{% set end_date = cfg.end %}
+{% set limit = cfg.limit %}
+{% set sort = cfg.sort %}
+{% set group_by = cfg.group_by %}
+{% set headers = cfg.headers %}
+{% set hide_empty_days = cfg.hide_empty_days %}
 
 {% macro event_card(event) %}
 <a href="{{ event.slug }}/" class="aesthetic-card card-s">
@@ -78,20 +23,11 @@
     {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
     {% set event_location = event.metadata.get('location') if event.metadata else none %}
     {% if event_start %}
-      {% if event_start is string %}
-        {% set event_date_str = event_start[:10] %}
-        {% set event_time_str = event_start[11:16] if event_start | length > 10 else '' %}
-        {% set day = event_date_str[8:10] %}
-        {% set month = event_date_str[5:7] %}
-        {% set year = event_date_str[:4] %}
-        {% set event_end_time_str = event_end[11:16] if event_end and event_end is string and event_end | length > 10 else '' %}
-      {% else %}
-        {% set day = event_start.strftime('%d') %}
-        {% set month = event_start.strftime('%m') %}
-        {% set year = event_start.strftime('%Y') %}
-        {% set event_time_str = event_start.strftime('%H:%M') %}
-        {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
-      {% endif %}
+      {% set day = event_start.strftime('%d') %}
+      {% set month = event_start.strftime('%m') %}
+      {% set year = event_start.strftime('%Y') %}
+      {% set event_time_str = event_start.strftime('%H:%M') %}
+      {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
       <p>{{ day }}. {{ month }}. {{ year }}</p>
       {% if event_time_str %}<p>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
     {% endif %}
@@ -107,7 +43,7 @@
 <div class="widget-calendar">
 {% if group_by %}
   {% set is_nested_layout = ' ' in group_by %}
-  {% set grouped = display_events | group_events(group_by, DEFAULT_LANG) %}
+  {% set grouped = display_events | group_events(group_by, DEFAULT_LANG, hide_empty_days) %}
   
   {% if is_nested_layout %}
   {% for week_headline, week_days in grouped %}
@@ -118,23 +54,6 @@
     
     <div class="el-grid-7">
       {% for day_headline, day_events in week_days %}
-      {% if hide_empty_days == 'true' %}
-        {% if day_events | length > 0 %}
-        <div class="day-column">
-          {% if headers and 'day' in headers %}
-          <h3 class="day-header">{{ day_headline }}</h3>
-          {% endif %}
-          
-          {% if day_events %}
-          <div class="el-stack stack-xs">
-            {% for event in day_events %}
-            {{ event_card(event) }}
-            {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-        {% endif %}
-      {% else %}
       <div class="day-column">
         {% if headers and 'day' in headers %}
         <h3 class="day-header">{{ day_headline }}</h3>
@@ -148,7 +67,6 @@
         </div>
         {% endif %}
       </div>
-      {% endif %}
       {% endfor %}
     </div>
   </section>

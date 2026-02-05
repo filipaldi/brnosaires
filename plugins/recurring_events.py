@@ -128,11 +128,22 @@ def _expand_event(event, window_start_dt, window_end_dt):
     return out
 
 
+def _normalize_event(event):
+    meta = getattr(event, "metadata", None) or {}
+    start_dt = _parse_event_datetime(meta, "event-start")
+    if start_dt is None:
+        return event
+    end_dt = _parse_event_datetime(meta, "event-end")
+    if end_dt is None:
+        end_dt = start_dt
+    return Occurrence(event, _naive(start_dt), _naive(end_dt))
+
+
 def expand_recurring(events, start_date_str, end_date_str):
     window_start_dt = _parse_date_str(start_date_str)
     window_end_dt = _parse_date_str(end_date_str)
     if window_start_dt is None or window_end_dt is None:
-        return list(events) if events else []
+        return [_normalize_event(e) for e in (events or [])]
     if window_start_dt > window_end_dt:
         window_start_dt, window_end_dt = window_end_dt, window_start_dt
     window_end_dt = window_end_dt.replace(hour=23, minute=59, second=59, microsecond=999999)
