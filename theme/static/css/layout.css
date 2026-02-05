@@ -164,27 +164,36 @@
   }
 }
 
-/* 7-day grid for week-day calendar layout */
-.el-grid-7 {
+[class*="el-grid-"] {
+  --cols: 1;
+  --grid-gap: var(--size-s);
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: var(--size-xs);
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(var(--cols), 1fr);
+}
+
+.el-grid-2 {
+  --cols: 2;
 }
 
 .el-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--size-s);
+  --cols: 3;
 }
 
-/* Responsive: stack on narrow viewports */
-@media (max-width: 48rem) {
-  .el-grid-7 {
-    grid-template-columns: 1fr;
-  }
-  .el-grid-3 {
-    grid-template-columns: 1fr;
-  }
+.el-grid-4 {
+  --cols: 4;
+}
+
+.el-grid-5 {
+  --cols: 5;
+}
+
+.el-grid-6 {
+  --cols: 6;
+}
+
+.el-grid-7 {
+  --cols: 7;
 }
 
 /* ============================================
