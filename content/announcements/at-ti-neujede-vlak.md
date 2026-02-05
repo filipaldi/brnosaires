@@ -2,7 +2,7 @@
 title: Ať ti neujede vlak!
 date: 2025-05-01 16:49:00
 category: announcement
-preview_image: /images/vlak.jpg
+preview_image: /images/vlak.avif
 description: Ať ti neujede vlak. Stolárna startuje kurzy, Adrinela a Skleněnka čekají. Tango nečeká, tango jede.
 author: Lenka Platenikova
 ---

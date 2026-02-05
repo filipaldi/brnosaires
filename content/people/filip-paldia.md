@@ -1,6 +1,6 @@
 ---
 title: Filip Paldia
 date: 2026-01-02 12:00:00
-preview_image: /images/profile-filip-paldia.png
+preview_image: /images/profile-filip-paldia.avif
 description: Sdílí Lenčinu snahu, dal jí podobu těchto webových stránek a nových nápadů. Organizačně a technicky podporuje a čím dál víc taky DJuje.
 ---

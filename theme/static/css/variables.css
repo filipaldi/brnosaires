@@ -18,10 +18,10 @@
    --size-l: calc(var(--size) * 40);
    --size-xl: calc(var(--size) * 60);
    --size-2xl: calc(var(--size) * 80);
-   --size-3xl: calc(var(--size) * 100);
-   --size-4xl: calc(var(--size) * 160);
-   --size-5xl: calc(var(--size) * 240);
-   --size-6xl: calc(var(--size) * 320);
+   --size-3xl: calc(var(--size) * 180);
+   --size-4xl: calc(var(--size) * 240);
+   --size-5xl: calc(var(--size) * 320);
+   --size-6xl: calc(var(--size) * 400);
 
    /* ============================================
       TYPOGRAPHY SCALE
@@ -34,9 +34,9 @@
    --text-l: calc(var(--size) * 21.5);
    --text-xl: calc(var(--size) * 23);
    --text-2xl: calc(var(--size) * 25);
-   --text-3xl: calc(var(--size) * 32);
-   --text-4xl: calc(var(--size) * 54);
-   --text-5xl: calc(var(--size) * 72);
+   --text-3xl: calc(var(--size) * 56);
+   --text-4xl: calc(var(--size) * 71);
+   --text-5xl: calc(var(--size) * 184);
 
    /* ============================================
       COLOR SCALES - NEUTRAL (PRIMARY)
@@ -147,7 +147,7 @@
        screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1025px) and (max-width: 1400px),
        screen and (orientation: landscape) and (min-width: 1025px) and (max-width: 1400px) {
   :root {
-    --const: 0.08;
+    --const: 0.1;
   }
 }
 
@@ -156,7 +156,7 @@
        screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1401px) and (max-width: 1800px),
        screen and (orientation: landscape) and (min-width: 1401px) and (max-width: 1800px) {
   :root {
-    --const: 0.06;
+    --const: 0.08;
   }
 }
 
@@ -164,6 +164,6 @@
 @media screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1801px),
        screen and (orientation: landscape) and (min-width: 1801px) {
   :root {
-    --const: 0.05;
+    --const: 0.06;
   }
 }

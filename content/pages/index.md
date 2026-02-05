@@ -5,7 +5,7 @@ url:
 save_as: index.html
 description: Přehledně a aktuálně o argentinském tangu v Brně. Kalendář milong, lekcí a workshopů.
 author: Filip Paldia
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Brnos Aires
@@ -16,7 +16,7 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
-<widget-announcements limit="3"></widget-announcements>
+<widget-articles category="announcement" limit="3"></widget-articles>
 
 
 ## Kde tančit tango tento týden
@@ -30,5 +30,5 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 <widget-calendar start="today" type="workshop" days="30" group_by="month"></widget-calendar>
 
 ## Pikošky z prostředí argentinského tanga
-<widget-curiosities limit="3"></widget-curiosities>
+<widget-articles category="curiosity" limit="3"></widget-articles>
 

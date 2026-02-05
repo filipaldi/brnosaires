@@ -2,7 +2,7 @@
 title: Nesmíš ho minout!
 date: 2024-12-12 01:00:00
 category: announcement
-preview_image: /images/DJ_Ondra.jpg
+preview_image: /images/DJ_Ondra.avif
 description: Nesmíš ho minout. DJ Ondra a milongy v Brně. Přehled na brnosaires.com.
 author: Lenka Platenikova
 ---

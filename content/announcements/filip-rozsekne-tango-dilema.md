@@ -2,7 +2,7 @@
 title: Filip rozsekne tango dilema
 date: 2024-05-27 02:00:00
 category: announcement
-preview_image: /images/filip.jpg
+preview_image: /images/filip.avif
 description: DJ Filip rozsekne tango dilema. Čtvrteční milonga v Adrinele, tradiční hudba a ostrý jas názoru.
 author: Lenka Platenikova
 ---

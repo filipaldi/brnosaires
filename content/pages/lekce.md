@@ -7,7 +7,7 @@ nav_label: Lekce
 nav_order_main: 2
 description: Kde se učit tango v Brně. Rozvrh pravidelných lekcí všech škol a nejbližší workshopy na jednom místě.
 author: Filip Paldia
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Lekce argentinského tanga v Brně
@@ -29,4 +29,4 @@ Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
 ## Oznamy o tango událostech v Brně
 
-<widget-announcements limit="3"></widget-announcements>
+<widget-articles category="announcement" limit="3"></widget-articles>

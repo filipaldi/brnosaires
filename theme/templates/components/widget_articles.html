@@ -1,0 +1,35 @@
+{% set cfg = tag_content | parse_article_attrs %}
+{% set items = all_articles | article_filter(
+    category=cfg.category,
+    slugs=cfg.slugs,
+    sort=cfg.sort,
+    limit=cfg.limit,
+    metadata=cfg.metadata
+) %}
+
+{% if items %}
+<div class="widget-articles">
+  <div class="el-grid{% if cfg.columns %}-{{ cfg.columns }}{% endif %}">
+    {% for item in items %}
+    <a href="{{ item.article.slug }}/" class="aesthetic-card card-m">
+      {% if item.article.preview_image %}
+      <div class="el-frame-16x9">
+        <img src="{{ item.article.preview_image.lstrip('/') }}" alt="{{ item.article.preview_image_alt|default(item.article.title) }}" />
+      </div>
+      {% endif %}
+      <div>
+        <h3>{{ item.article.title }}</h3>
+        {% if item.article.description %}
+        <p class="widget-articles__description">{{ item.article.description }}</p>
+        {% endif %}
+        {% for key, value in item.extra_metadata.items() %}
+        {% if key != 'description' %}
+        <p class="widget-articles__meta">{{ value }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

@@ -2,7 +2,7 @@
 title: Tvých 30 příležitostí 
 date: 2024-07-30 02:00:00
 category: announcement
-preview_image: /images/srpen_tango.jpg
+preview_image: /images/srpen_tango.avif
 description: Tvých 30 příležitostí. Srpnové tango v Brně. Milongy, praktiky, léto. Přehled na brnosaires.com.
 author: Lenka Platenikova
 ---

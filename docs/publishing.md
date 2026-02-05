@@ -245,7 +245,7 @@ pelican content -s publishconf.py --debug
 ### Images Not Loading
 
 **Check:**
-- Image paths: `{static}/images/filename.jpg`
+- Image paths: `{static}/images/filename.avif`
 - Images in `content/images/`
 - `STATIC_PATHS` includes `"images"`
 

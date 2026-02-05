@@ -5,7 +5,7 @@ date: 2026-01-17 12:30:00
 event-type: workshop
 event-start: 2026-01-17 12:30:00
 event-end: 2026-01-17 16:45:00
-preview_image: /images/dsa07433-kopie-%281%29_optimized.jpg
+preview_image: /images/dsa07433-kopie-%281%29_optimized.avif
 description: Víkendový workshop argentinského tanga pro začátečníky, první část. Leden 2026, Brno.
 author: Filip Paldia
 ---

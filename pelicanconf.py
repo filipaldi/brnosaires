@@ -52,10 +52,11 @@ JINJA_GLOBALS = {"NOW": NOW}
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
 from calendarium import group_events, make_calendar_filter, parse_widget_attrs
 from recurring_events import expand_recurring, date_add
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs}
+from article_filter import parse_article_attrs, article_filter
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter}
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["inject_articles", "calendarium", "recurring_events"]
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor"]
 
 EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% from "components/widget_processor.html" import process_widgets %}
 
 {% block title %}{{ page.title }} | {{ SITENAME }}{% endblock %}
 
@@ -12,7 +11,7 @@
     </div>
     {% endif %}
     <div class="el-stack stack-xs">
-      {{ process_widgets(page.content) }}
+      {{ page.content }}
     </div>
   </article>
 </div>

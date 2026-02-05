@@ -2,7 +2,7 @@
 title: Pořadí ramínek ve skříni
 date: 2025-04-23 02:00:00
 category: announcement
-preview_image: /images/Brno.jpg
+preview_image: /images/Brno.avif
 description: Pořadí ramínek ve skříni. Oznamy z Brnos Aires. Milongy a praktiky v Brně na brnosaires.com.
 author: Lenka Platenikova
 ---

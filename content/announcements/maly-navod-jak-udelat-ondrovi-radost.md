@@ -2,7 +2,7 @@
 title: Malý návod, jak udělat Ondrovi radost
 date: 2024-06-03 02:00:00
 category: announcement
-preview_image: /images/ondra.jpg
+preview_image: /images/ondra.avif
 description: Malý návod, jak udělat Ondrovi radost. Oznamy z Brnos Aires. Milongy a praktiky v Brně.
 author: Lenka Platenikova
 ---

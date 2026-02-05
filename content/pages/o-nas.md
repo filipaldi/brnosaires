@@ -7,7 +7,7 @@ nav_label: O nás
 nav_order_main: 6
 description: Kdo stojí za Brnos Aires. Iniciativa z Brna, které potkalo tango a chce ho dostat i k tobě, zblízka.
 author: Filip Paldia
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Iniciativa Brnos Aires
@@ -30,5 +30,5 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 
 ## Lidé za Brnos Aires
 
-<widget-people></widget-people>
+<widget-articles category="people" metadata="description"></widget-articles>
 

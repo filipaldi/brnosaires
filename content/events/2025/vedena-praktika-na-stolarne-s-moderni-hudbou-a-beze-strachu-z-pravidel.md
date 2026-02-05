@@ -5,7 +5,7 @@ date: 2025-12-07 20:00:00
 event-type: workshop
 event-start: 2025-12-07 20:00:00
 event-end: 2025-12-07 23:00:00
-preview_image: /images/1f642.png
+preview_image: /images/1f642.avif
 description: Vedená praktika na Stolárně s moderní hudbou. Beze strachu z pravidel. Prosinec 2025.
 author: Filip Paldia
 ---

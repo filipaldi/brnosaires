@@ -4,7 +4,7 @@ slug: vanocni-narozeninova-milonga-hex-gallery
 date: 2025-12-17 18:00:00
 event-type: milonga
 event-start: 2025-12-17 18:00:00
-preview_image: /images/IMAGE_2025-12-06_163958.jpg
+preview_image: /images/IMAGE_2025-12-06_163958.avif
 description: Vánoční narozeninová milonga v HEX Gallery. Prosinec 2025, Brno.
 author: Filip Paldia
 ---

@@ -2,7 +2,7 @@
 title: Rock, tango a víno v Rockwine
 date: 2025-03-24 01:00:00
 category: announcement
-preview_image: /images/Rockwine.jpg
+preview_image: /images/Rockwine.avif
 description: Rock, tango a víno v Rockwine. Milonga v Brně. Rotunda, kvalitní víno, tango.
 author: Lenka Platenikova
 ---

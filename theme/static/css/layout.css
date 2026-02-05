@@ -15,42 +15,42 @@
    STACK
    ============================================ */
 
-.el-stack {
+[class*="el-stack"] {
+  --space: var(--size-s);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.el-stack * {
+[class*="el-stack"] * {
   margin-block: 0;
 } 
 
-.el-stack > * + * {
-  --space: var(--size-s);
+[class*="el-stack"] > * + * {
   margin-block-start: var(--space);
 }
 
-.el-stack:only-child {
+[class*="el-stack"]:only-child {
   block-size: 100%;
 }
 
-.el-stack > :nth-child(var(--space)) {
+[class*="el-stack"] > :nth-child(var(--space)) {
   margin-block-end: auto;
 }
 
-.el-stack.stack-xs {
+.el-stack-xs {
   --space: var(--size-xs);
 }
 
-.el-stack.stack-s {
+.el-stack-s {
   --space: var(--size-s);
 }
 
-.el-stack.stack-m {
+.el-stack-m {
   --space: var(--size-m);
 }
 
-.el-stack.stack-l {
+.el-stack-l {
   --space: var(--size-l);
 }
 

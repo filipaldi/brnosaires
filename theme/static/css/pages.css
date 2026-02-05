@@ -9,3 +9,11 @@
   position: sticky;
   top: 0;
 }
+
+p {
+  max-width: 43vw;
+}
+
+p img {
+  width: 100%;
+}

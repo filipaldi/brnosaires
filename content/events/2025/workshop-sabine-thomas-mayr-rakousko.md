@@ -5,7 +5,7 @@ date: 2025-12-13 09:00:00
 event-type: workshop
 event-start: 2025-12-13 09:00:00
 event-end: 2025-12-14 14:00:00
-preview_image: /images/ic_large_w900h600q100_satho.jpg
+preview_image: /images/ic_large_w900h600q100_satho.avif
 description: Workshop Sabine a Thomas Mayr z Rakouska. Prosinec 2025, Brno.
 author: Filip Paldia
 ---

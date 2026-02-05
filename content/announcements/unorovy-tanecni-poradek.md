@@ -2,7 +2,7 @@
 title: Únorový taneční pořádek
 date: 2025-01-28 01:00:00
 category: announcement
-preview_image: /images/norov_milongy.jpg
+preview_image: /images/norov_milongy.avif
 description: Únorový taneční pořádek. Milongy v Brně na únor. Přehled na brnosaires.com.
 author: Lenka Platenikova
 ---

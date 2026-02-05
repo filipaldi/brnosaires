@@ -3,17 +3,19 @@ title: Stay in Brno
 date: 2025-10-14T14:26:00+00:00
 slug: stay-in-brno
 navigation: Marathon
+nav_label: City
 nav_order_marathon: 7
 description: Where to stay for the marathon. Hotels, Airbnb, or tango friends hosting. Centre or tram 9 route, you're set.
 author: Filip Paldia
 ---
+
+# Stay in Brno
 
 ## Book Your Spot
 
 The usual suspects work just fine here:
 
 - [**Booking.com**](https://www.booking.com/) – Most options are in the city centre
-
 - [**Airbnb**](https://www.airbnb.com/) – Same story, centre is your best bet
 
 Pro tip: There aren't many places right by Dělnický dům, but that's fine. The venue is **7 stops (15 minutes) from the main train station** by **tram 9**. Stay in the **city centre** or **along the tram 9 route, **you'll have easy access and won't miss a single tanda.
@@ -39,25 +41,17 @@ The [**European Coffee Trip**](https://europeancoffeetrip.com/brno/) app was bui
 Our picks to get you started:
 
 - [**Coffee Industra**](https://maps.app.goo.gl/poB8MovVpLEKJrxF6?g_st=it) – Buenos Aires café vibes, Brno address
-
 - [**SKOG**](https://maps.app.goo.gl/PRYWQi7QSjAEETCi9?g_st=ic) – Brunch that cures milonga hangovers
-
 - [**Milady Kaffee**](https://maps.app.goo.gl/EeQmPEEuQfzRsYKH7) – Near the centre, delicious beans, zero pretension
-
 - [**Monogram Espresso Bar**](https://maps.app.goo.gl/HV6fAMrzNQ4X3ysN6) – City centre, near the main train station
 
 ### Eat
 
 - [**Sesamo**](https://maps.app.goo.gl/3tpGuutc726NtoAs7) ([Instagram](https://www.instagram.com/sesamo.brno/)) – Italian bakery run by Rosario, one of our Brno dancers. This is the place that catered the marathon and got rave reviews. Support his kitchen, taste why everyone kept coming back for more
-
 - [**Best pizza in Brno**](https://maps.app.goo.gl/3pAqazTAZzotbuLJ8) – We said what we said
-
 - [**Second-best pizza**](https://maps.app.goo.gl/VamEtvW6PXdvS8Cc9?g_st=ic) – Still excellent, 10 minutes from the venue
-
 - [**Traditional Czech food**](https://maps.app.goo.gl/WAXB69mqiAuXecxw7?g_st=it) – When you need svíčková in your life
-
 - [**Vegan heaven**](https://maps.app.goo.gl/BYPqehpyZ3Dx9g6C6?g_st=it) – Best plant-based spot. Highly recommended even for carnivores
-
 - [**Ramen Brno**](https://maps.app.goo.gl/bPPWn7qRfpzRim7a7) – On tram 9 if you fancy eating really good ramen
 
 ### Wine
@@ -67,7 +61,6 @@ Brno sits in South Moravia, one of Europe's most underrated wine regions. Rollin
 In Brno itself:
 
 - [**Kaple**](https://kaplebrno.cz/) – Focused on local small producers with authentic taste, impressive interior
-
 - [**Terapie**](https://www.wineterapie.cz/en/) – Wine bar & shop. Because everyone needs therapy sometimes. Great wine, quality spirits, beautiful environment
 
 Picturesque wine towns like Mikulov (historic chateau, vibrant wine scene) and Znojmo (medieval architecture, modern cellars) are easy day trips. The Moravian Wine Trails connect vineyards and cellars via cycling routes and walking paths. Wine festivals run throughout the year.
@@ -77,19 +70,8 @@ Skip Buenos Aires. The wine's better here.
 ### Sights
 
 - [**Water tanks on the hill**](https://maps.app.goo.gl/qRwptEn9FVabqpHr7?g_st=ic) – Weird, beautiful, very Brno
-
 - [**Planetarium**](https://maps.app.goo.gl/2rwxrHuMLm8EpgGm8?g_st=ic) – Stare at stars, contemplate your boleos
-
 - [**Design Museum**](https://maps.app.goo.gl/W35BJ8UFhBDaP4YL9?g_st=it) – For the aesthetically inclined
-
 - [**Villa Tugendhat**](https://maps.app.goo.gl/AndQmN7S95d1rcEL9?g_st=ic) – Legendary Mies van der Rohe masterpiece. Book ahead
-
 - [**Caffe ERA**](https://maps.app.goo.gl/riLariAYFPTucic97?g_st=ic) – Functionalist building near Villa Tugendhat. Eat, admire, repeat
-
 - [**More architecture routes**](https://www.bam.brno.cz/en/clanek/405) – For serious architecture nerds
-
----
-
-[DJs TEAM](/28c51b78e73780bc89efff48af63d340) | [VENUE](/28c51b78e737805493f7db8eaf08d9d9) | [GALLERY](/2b051b78e7378060a95dc45add664074) | [CITY](/28c51b78e737806b9aa3e9197222c17a) | [TRAVEL](/28c51b78e737809db1ebda7520f215d6) | [SCHEDULE](/28c51b78e73780ac9423cd75cdaa8304) 
-
-[ČESKY](/20d51b78e73780e9ab39ff6df1aef604) | [SIGN UP](https://form.jotform.com/251493503464356) | [CONDITIONS](/22951b78e7378002a516f7ce4892c2e7)

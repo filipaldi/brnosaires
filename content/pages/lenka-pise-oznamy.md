@@ -7,7 +7,7 @@ nav_label: Oznamy
 nav_order_main: 5
 description: Legendární Lenčiny oznamy. Kronika tangového Brna, aby všichni věděli, co se kde šustne.
 author: Lenka Platenikova
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Lenka píše oznamy
@@ -19,6 +19,6 @@ Lenčiny oznamy se staly legendárni a proto je přinášíme v tomhle archívu.
 Pokud máte RSS čtečku, můžete je odebírat.
 
 
-<widget-announcements limit="12"></widget-announcements>
+<widget-articles category="announcement" limit="12"></widget-articles>
 
 [Všechny oznamy →](/category/announcement/)

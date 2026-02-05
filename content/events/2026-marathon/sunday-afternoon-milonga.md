@@ -1,0 +1,20 @@
+---
+title: Sunday Afternoon Milonga
+slug: marathon-2026-sunday-afternoon-milonga
+date: 2026-10-18 13:00:00
+event-type: milonga
+event-start: 2026-10-18 13:00:00
+event-end: 2026-10-18 21:00:00
+event-organiser: Brnos Aires
+location: Dělnický dům, Jamborova 3323/65, Brno
+description: Closing milonga at Brnos Aires Tango Marathon 2026. The final embrace before we say goodbye.
+author: Filip Paldia
+---
+
+# Sunday Afternoon Milonga
+
+The final embrace before we say goodbye. Until next time.
+
+**When:** Sunday 18 October 2026, 13:00–21:00  
+**Where:** Dělnický dům, Jamborova 3323/65, Brno  
+**Organisers:** Brnos Aires

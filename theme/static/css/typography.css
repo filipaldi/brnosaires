@@ -35,6 +35,9 @@ body {
   text-rendering: optimizeLegibility;
   color: var(--color-neutral-5);
   background-color: var(--color-gray-light-1);
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  margin: 0;
 }
 
 /* ============================================
@@ -93,21 +96,23 @@ body {
 h1 {
   font-family: var(--font-display);
   font-size: var(--text-5xl);
-  line-height: var(--size-2xl);
+  line-height: var(--size-3xl);
   font-weight: var(--font-weight-regular);
   margin: 0;
 }
 
 h2 {
-  font-size: var(--text-l);
-  line-height: var(--size-m);
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: var(--size-2xl);
   font-weight: var(--font-weight-regular);
   margin: 0;
 }
 
 h3 {
-  font-size: var(--text-m);
-  line-height: var(--size-m);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: var(--size-2xl);
   font-weight: var(--font-weight-regular);
   margin: 0;
 }

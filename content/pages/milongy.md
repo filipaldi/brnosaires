@@ -7,7 +7,7 @@ nav_label: Milongy
 nav_order_main: 3
 description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny, naplánuj si kalendář.
 author: Filip Paldia
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Milongy v Brně na nejbližší období

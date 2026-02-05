@@ -8,7 +8,7 @@ The widget system allows embedding dynamic components in markdown content using 
 
 ### Processing Flow
 
-1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-announcements>`, `<widget-curiosities>`, `<widget-classes>`, `<widget-people>`)
+1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-articles>`)
 2. **Markdown Processing**: Pelican's markdown processor preserves HTML elements
 3. **Template Processing**: `page.html` template calls `process_widgets()` macro
 4. **Widget Detection**: Macro detects widget tags and extracts tag name + raw attributes string
@@ -25,10 +25,11 @@ theme/templates/
 └── components/
     ├── widget_processor.html          # Simplified: detection + routing only
     ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort, group_by
-    ├── widget_announcements.html     # Announcements: parses limit, sort
-    ├── widget_curiosities.html       # Curiosities: parses limit, sort
-    ├── widget_classes.html           # Classes: parses limit, sort
-    └── widget_people.html            # People: parses columns, limit, sort
+    └── widget_articles.html           # Articles: unified widget for announcements, curiosities, people
+
+plugins/
+├── calendarium.py                     # Calendar filtering and grouping
+└── article_filter.py                  # Article filtering by category, slugs, sort, limit
 ```
 
 ## Widget Processor
@@ -48,7 +49,7 @@ Recursively processes page content to find and replace widget tags.
 - Rendered HTML with widgets replaced by components
 
 **Responsibilities:**
-- Detects widget tags (`<widget-calendar />`, `<widget-announcements />`, etc.)
+- Detects widget tags (`<widget-calendar />`, `<widget-articles />`, etc.)
 - Extracts tag name and raw tag content (attributes string)
 - Routes to appropriate component template
 - Passes `tag_content` variable to component (contains raw attributes string)
@@ -59,7 +60,7 @@ Recursively processes page content to find and replace widget tags.
 2. For each widget found:
    - Extract tag name from tag content
    - Extract raw tag content (includes all attributes as string)
-   - Route to component based on tag name (`calendar`, `announcements`, `curiosities`, `classes`, `people`)
+   - Route to component based on tag name (`calendar`, `articles`)
    - Pass `tag_content` variable to component
    - Component handles its own attribute parsing
    - Recursively process remaining content
@@ -74,22 +75,19 @@ Recursively processes page content to find and replace widget tags.
 ### Widget Type Naming
 
 - All widget tags use **kebab-case** (lowercase with hyphens)
-- Tag names: `widget-calendar`, `widget-announcements`, `widget-curiosities`, `widget-classes`, `widget-people`
-- Internal widget types: `calendar` (widget_calendar.html), `announcements`, `curiosities`, `classes`, `people`
+- Tag names: `widget-calendar`, `widget-articles`
+- Internal widget types: `calendar` (widget_calendar.html), `articles` (widget_articles.html)
 
 ### Attribute Naming
 
 - **All attributes use standard HTML format (no `data-` prefix)**
 - **All attributes use kebab-case**
-- Examples: `type="milonga"`, `days="365"`, `limit="3"`
+- Examples: `type="milonga"`, `days="365"`, `limit="3"`, `category="announcement"`
 
 ### Tag to Component Mapping
 
 - `<widget-calendar>` → `widget_calendar.html`
-- `<widget-announcements>` → `widget_announcements.html`
-- `<widget-curiosities>` → `widget_curiosities.html`
-- `<widget-classes>` → `widget_classes.html`
-- `<widget-people>` → `widget_people.html`
+- `<widget-articles>` → `widget_articles.html`
 
 ## Supported Widget Types
 
@@ -168,140 +166,77 @@ Displays filtered lists of events from `content/events/`.
 - Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
 - Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
 
-### 2. Announcements Widget (`<widget-announcements>`)
+### 2. Articles Widget (`<widget-articles>`)
 
-Displays announcements from `content/announcements/` as cards with images.
+Unified widget for displaying articles filtered by category. Replaces the old `widget-announcements`, `widget-curiosities`, `widget-classes`, and `widget-people` widgets.
 
 **Attributes:**
+- `category="announcement|curiosity|people"` (required) - Category to filter by
+- `slugs="slug1 slug2"` (optional) - Space-separated list of article slugs to display in order. Overrides `sort` and `limit`.
+- `sort="newest|oldest|title"` (optional) - Sort order (default: oldest first)
 - `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
+- `columns="3"` (optional) - Grid columns for layout (uses `.el-grid-N`)
+- `metadata="description location"` (optional) - Space-separated list of extra metadata fields to display
 
 **Examples:**
 ```html
 <!-- Last 3 announcements -->
-<widget-announcements limit="3"></widget-announcements>
+<widget-articles category="announcement" limit="3"></widget-articles>
 
-<!-- All announcements sorted oldest first -->
-<widget-announcements limit="all" sort="oldest"></widget-announcements>
+<!-- All curiosities -->
+<widget-articles category="curiosity" limit="all"></widget-articles>
+
+<!-- People with descriptions -->
+<widget-articles category="people" metadata="description"></widget-articles>
+
+<!-- Specific people in specific order -->
+<widget-articles category="people" slugs="filip-paldia lenka-platenikova" metadata="description"></widget-articles>
+
+<!-- Announcements sorted newest first -->
+<widget-articles category="announcement" limit="12" sort="newest"></widget-articles>
 ```
 
 **Implementation:**
-- Component: `theme/templates/components/widget_announcements.html`
-- Parses attributes: `limit`, `sort` from `tag_content`
-- Filters articles from `articles` context where `source_path` contains `'announcements/'`
-- Extracts first image from article content
-- Renders cards with title and image
-- Widget title: "Oznámení"
+- Component: `theme/templates/components/widget_articles.html`
+- Plugin: `plugins/article_filter.py` provides `parse_article_attrs` and `article_filter` Jinja filters
+- Filters articles by `article.category.name`
+- Returns list of `{article, extra_metadata}` dicts
+- Template renders cards with title, description (if present), preview image, and any extra metadata fields
 
-**Paginated archive (two-tier pattern):** For a preview page with limited announcements plus a link to full archive, use `limit="12"` and add a link to the category page: `[Všechny oznamy →](/category/announcement/)`. The full paginated list is at `/category/announcement/` via Pelican's category template (`theme/templates/category.html`) with 12 items per page. Configure with `PAGINATED_TEMPLATES = {"category": 12}` in `pelicanconf.py`.
-
-### 3. Curiosities Widget (`<widget-curiosities>`)
-
-Displays curiosities from `content/curiosities/` as cards with images.
-
-**Attributes:**
-- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest"` (optional) - Sort order (default: newest first)
-
-**Examples:**
-```html
-<!-- Last 3 curiosities -->
-<widget-curiosities limit="3"></widget-curiosities>
-
-<!-- All curiosities sorted oldest first -->
-<widget-curiosities limit="all" sort="oldest"></widget-curiosities>
-```
-
-**Implementation:**
-- Component: `theme/templates/components/widget_curiosities.html`
-- Parses attributes: `limit`, `sort` from `tag_content`
-- Filters articles from `articles` context where `source_path` contains `'curiosities/'`
-- Extracts first image from article content
-- Renders cards with title and image
-- Widget title: "Pikošky"
-
-### 4. Classes Widget (`<widget-classes>`)
-
-Displays classes from `content/classes/` as cards with images.
-
-**Attributes:**
-- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest|title"` (optional) - Sort order (default: newest first)
-
-**Examples:**
-```html
-<!-- Last 3 classes -->
-<widget-classes limit="3"></widget-classes>
-
-<!-- All classes sorted alphabetically by title -->
-<widget-classes limit="all" sort="title"></widget-classes>
-```
-
-**Implementation:**
-- Component: `theme/templates/components/widget_classes.html`
-- Parses attributes: `limit`, `sort` from `tag_content`
-- Filters articles from `articles` context where `source_path` contains `'classes/'`
-- Extracts first image from article content
-- Renders cards with title and image
-- Widget title: "Lekce"
-- Sorting: By `date` (newest/oldest) or `title` (alphabetical)
-
-### 5. People Widget (`<widget-people>`)
-
-Displays people from `content/people/` as cards in a 3-column grid (name + image). Each person is one Markdown file with required metadata; display order is controlled by article `date` (oldest first by default).
-
-**Attributes:**
-- `columns="3"` (optional) - Number of grid columns (default: 3). Layout uses `.el-grid-3`; responsive stack on narrow viewports.
-- `limit="6"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest|title"` (optional) - Sort order (default: oldest first, so date order in files is respected)
-- `slugs="slug1 slug2 slug3"` (optional) - Space-separated list of person slugs to display. When set, only these people are shown, in the specified order. Overrides `sort` and `limit`.
-
-**Content structure:** Add `"people"` to `ARTICLE_PATHS`. Each person is an article in `content/people/<slug>.md` with:
-- **Required:** `title` (display name), `date` (Pelican + display order), `preview_image` (e.g. `/images/profile-lenka-platenikova.png`)
-- **Optional:** `preview_image_alt`, `slug`. Body can be empty or a short bio.
-
-**Examples:**
-```html
-<!-- All people in default 3-column grid, order by date in files -->
-<widget-people></widget-people>
-
-<!-- First 6 people, sorted by title -->
-<widget-people limit="6" sort="title"></widget-people>
-
-<!-- Show specific people in specific order (e.g., organizers) -->
-<widget-people slugs="filip-paldia lenka-platenikova misa-lukavska steky-yaku"></widget-people>
-```
-
-**Implementation:**
-- Component: `theme/templates/components/widget_people.html`
-- Filters articles where `article.category.name == 'people'`
-- Renders cards with image + name; each card links to the person's article URL (`/slug/`)
+**Paginated archive (two-tier pattern):** For a preview page with limited items plus a link to full archive, use `limit="12"` and add a link to the category page: `[Všechny oznamy →](/category/announcement/)`. The full paginated list is at `/category/announcement/` via Pelican's category template with 12 items per page.
 
 ## Attribute Reference
 
+### widget-calendar Attributes
+
 | Attribute | Type | Required | Values | Description |
 |-----------|------|----------|--------|-------------|
-| `type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter (`widget-calendar` only) |
+| `type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter |
 | `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
-| `start` | date/token | No | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Start of date window; can be used without `end` |
+| `start` | date/token | No | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Start of date window |
 | `end` | date/token | No | Same as `start` | End of date window (optional if `start` set) |
 | `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
-| `sort` | string | No | `newest`, `oldest`, `title` | Sort order (`title` only for `widget-classes`) |
-| `group_by` | string | No | `day`, `week`, `month`, `week day`, etc. | Group events. Single = flat grouping; space-separated = nested grouping with grid (`widget-calendar` only) |
-| `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden). Only applies when `group_by` is set (`widget-calendar` only) |
-| `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid (default: false). Only applies when `group_by="week day"` (`widget-calendar` only) |
-| `columns` | string/integer | No | `"3"` (default) | Grid columns for people layout (`widget-people` only; layout uses fixed 3-column grid) |
-| `slugs` | string | No | `"slug1 slug2 slug3"` | Space-separated list of person slugs to show in order (`widget-people` only; overrides `sort` and `limit`) |
+| `sort` | string | No | `newest`, `oldest` | Sort order (default: oldest) |
+| `group_by` | string | No | `day`, `week`, `month`, `week day` | Group events into rows |
+| `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden) |
+| `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid |
+
+### widget-articles Attributes
+
+| Attribute | Type | Required | Values | Description |
+|-----------|------|----------|--------|-------------|
+| `category` | string | Yes | `announcement`, `curiosity`, `people`, etc. | Category to filter by |
+| `slugs` | string | No | `"slug1 slug2 slug3"` | Space-separated slugs to show in order (overrides sort/limit) |
+| `sort` | string | No | `newest`, `oldest`, `title` | Sort order (default: oldest) |
+| `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
+| `columns` | string/integer | No | `"3"` | Grid columns for layout |
+| `metadata` | string | No | `"description location"` | Space-separated metadata fields to display |
 
 **Rules:**
-- `days` and `start`/`end` are mutually exclusive. `start` can be used alone (window = start to start+365 days).
-- `type` only applies to `widget-calendar` widget
-- `sort="title"` only applies to `widget-classes` widget
-- `group_by` only applies to `widget-calendar` widget; when set, sort is always chronological (earliest first)
-- `headers` only applies to `widget-calendar` widget when `group_by` is set; default is hidden
-- `hide_empty_days` only applies to `widget-calendar` widget when `group_by="week day"`; default is false (all 7 days shown)
-- Nested grouping (e.g. `group_by="week day"`) creates a responsive 7-column grid layout
-- Default sort: `oldest` (chronological) for `widget-calendar` and `widget-people`; `newest` for other widgets
+- `days` and `start`/`end` are mutually exclusive for `widget-calendar`
+- `group_by` only applies to `widget-calendar`; when set, sort is always chronological
+- `slugs` overrides `sort` and `limit` for `widget-articles`
+- Default sort: `oldest` (chronological)
 
 ## Event Metadata Standard
 
@@ -440,45 +375,22 @@ Widgets have access to full Pelican template context:
 
 ### Content Filtering
 
-Widgets identify content by checking `article.source_path`:
+**widget-calendar:** Uses the `calendarium` plugin which filters by event metadata and excludes categories `announcement` and `curiosity`.
 
-**Events:**
-```jinja2
-{% for article in articles %}
-  {% if article.source_path and 'events/' in article.source_path %}
-    {% set _ = event_pages.append(article) %}
-  {% endif %}
-{% endfor %}
+**widget-articles:** Uses the `article_filter` plugin which filters by `article.category.name`:
+
+```python
+def _filter_by_category(articles, category):
+    category_lower = category.strip().lower()
+    out = []
+    for a in articles or []:
+        cat = getattr(a, "category", None)
+        if cat and getattr(cat, "name", "").lower() == category_lower:
+            out.append(a)
+    return out
 ```
 
-**Announcements:**
-```jinja2
-{% for article in articles %}
-  {% if article.source_path and 'announcements/' in article.source_path %}
-    {% set _ = announcement_pages.append(article) %}
-  {% endif %}
-{% endfor %}
-```
-
-**Curiosities:**
-```jinja2
-{% for article in articles %}
-  {% if article.source_path and 'curiosities/' in article.source_path %}
-    {% set _ = curiosity_pages.append(article) %}
-  {% endif %}
-{% endfor %}
-```
-
-**Classes:**
-```jinja2
-{% for article in articles %}
-  {% if article.source_path and 'classes/' in article.source_path %}
-    {% set _ = class_pages.append(article) %}
-  {% endif %}
-{% endfor %}
-```
-
-This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities"]` configuration.
+This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]` configuration where each subdirectory becomes a category.
 
 ### Date Handling
 
@@ -536,47 +448,23 @@ Widgets use metadata for event dates:
 
 ## Migration Guide
 
-### Architecture Changes
+### From Legacy Widgets to widget-articles
 
-**Old Architecture:**
-- Widget processor parsed all attributes centrally
-- Components received pre-parsed variables
-- Widget type mapping required
+The following widgets have been replaced by the unified `widget-articles`:
 
-**New Architecture:**
-- Widget processor only detects and routes widgets
-- Components parse their own attributes from `tag_content`
-- Direct routing based on tag name
-- Each component is self-contained
+| Old Widget | New Widget |
+|------------|------------|
+| `<widget-announcements limit="3">` | `<widget-articles category="announcement" limit="3">` |
+| `<widget-curiosities limit="3">` | `<widget-articles category="curiosity" limit="3">` |
+| `<widget-classes limit="3">` | `<widget-articles category="class" limit="3">` |
+| `<widget-people>` | `<widget-articles category="people" metadata="description">` |
+| `<widget-people slugs="...">` | `<widget-articles category="people" slugs="..." metadata="description">` |
 
-### From Old to New Syntax
-
-**Widget Tags:**
-- `<div data-widget="calendar">` → `<widget-calendar>` (widget_calendar.html)
-- `<div data-widget="announcements">` → `<widget-announcements>`
-- `<div data-widget="curiosities">` → `<widget-curiosities>`
-- `<div data-widget="classes">` → `<widget-classes>`
-
-**Attributes:**
-- `data-type="milonga"` → `type="milonga"`
-- `data-days="7"` → `days="7"`
-- `data-start="2026-06-01"` → `start="2026-06-01"`
-- `data-end="2026-08-31"` → `end="2026-08-31"`
-- `data-limit="3"` → `limit="3"`
-- `data-pagination="12"` → removed (not supported)
-- New: `sort="newest|oldest|title"` (available for all widgets)
-
-**Examples:**
-```html
-<!-- Old -->
-<div data-widget="calendar" data-type="milonga" data-days="7"></div>
-
-<!-- New -->
-<widget-calendar type="milonga" days="7"></widget-calendar>
-
-<!-- New with sorting -->
-<widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
-```
+**Key changes:**
+- All article-based widgets now use `<widget-articles>` with a `category` attribute
+- The `metadata` attribute allows specifying which extra fields to display (e.g., `description`)
+- The `slugs` attribute works the same way for selecting specific articles in order
+- `pagination` attribute was never implemented and is removed
 
 ## Performance Considerations
 

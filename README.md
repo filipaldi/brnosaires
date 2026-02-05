@@ -214,80 +214,45 @@ Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
 
 ## Announcements
 
-<widget-announcements limit="3"></widget-announcements>
+<widget-articles category="announcement" limit="3"></widget-articles>
 ```
 
-#### 2. Announcements Widget
+#### 2. Articles Widget
 
-Shows a list of announcements from `content/announcements/` as cards with images.
+Shows a list of articles filtered by category (announcements, curiosities, people, etc.) as cards with images.
 
 **Basic Syntax:**
 ```html
-<widget-announcements limit="3"></widget-announcements>
+<widget-articles category="announcement" limit="3"></widget-articles>
 ```
 
 **Options:**
 - **Show last 3 announcements:**
   ```html
-  <widget-announcements limit="3"></widget-announcements>
+  <widget-articles category="announcement" limit="3"></widget-articles>
   ```
 
-- **Show all announcements sorted oldest first:**
+- **Show all curiosities:**
   ```html
-  <widget-announcements limit="all" sort="oldest"></widget-announcements>
+  <widget-articles category="curiosity" limit="all"></widget-articles>
+  ```
+
+- **Show people with descriptions:**
+  ```html
+  <widget-articles category="people" metadata="description"></widget-articles>
+  ```
+
+- **Show specific people in order:**
+  ```html
+  <widget-articles category="people" slugs="filip-paldia lenka-platenikova" metadata="description"></widget-articles>
   ```
 
 **Attributes:**
+- `category="announcement"` - Category to filter by (required): `announcement`, `curiosity`, `people`, etc.
 - `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
-
-#### 3. Curiosities Widget
-
-Shows a list of curiosities from `content/curiosities/` as cards with images. Widget title: "Pikošky".
-
-**Basic Syntax:**
-```html
-<widget-curiosities limit="3"></widget-curiosities>
-```
-
-**Options:**
-- **Show last 3 curiosities:**
-  ```html
-  <widget-curiosities limit="3"></widget-curiosities>
-  ```
-
-- **Show all curiosities sorted oldest first:**
-  ```html
-  <widget-curiosities limit="all" sort="oldest"></widget-curiosities>
-  ```
-
-**Attributes:**
-- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
-
-#### 4. Classes Widget
-
-Shows a list of classes from `content/classes/` as cards with images. Widget title: "Lekce".
-
-**Basic Syntax:**
-```html
-<widget-classes limit="3"></widget-classes>
-```
-
-**Options:**
-- **Show last 3 classes:**
-  ```html
-  <widget-classes limit="3"></widget-classes>
-  ```
-
-- **Show all classes sorted alphabetically:**
-  ```html
-  <widget-classes limit="all" sort="title"></widget-classes>
-  ```
-
-**Attributes:**
-- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest"`, `sort="oldest"`, or `sort="title"` - Sort order (optional, default: newest first)
+- `sort="newest"`, `sort="oldest"`, or `sort="title"` - Sort order (optional, default: oldest first)
+- `slugs="slug1 slug2"` - Show specific articles in order (overrides sort/limit)
+- `metadata="description"` - Extra metadata fields to display
 
 ### Widget Best Practices
 
@@ -309,9 +274,9 @@ Shows a list of classes from `content/classes/` as cards with images. Widget tit
 - Check that event titles contain the right keywords (milonga, workshop, etc.) for filtering
 - Ensure events have valid `event-start` dates
 
-**Announcements/Curiosities/Classes not appearing:**
-- Verify content is in the correct folder (`content/announcements/`, `content/curiosities/`, or `content/classes/`)
-- Check that the widget syntax is correct
+**Articles not appearing:**
+- Verify content is in the correct folder (`content/announcements/`, `content/curiosities/`, `content/people/`, etc.)
+- Check that the `category` attribute matches the folder name
 - Ensure content files have valid dates
 
 ## Working with Images
@@ -325,7 +290,7 @@ All images are in the `content/images/` folder. You can use JPG, JPEG, or PNG fi
 To add an image to an event, use this format in your event content:
 
 ```markdown
-![]({static}/images/your-image-name.jpg)
+![]({static}/images/your-image-name.avif)
 ```
 
 **Example:**
@@ -336,7 +301,7 @@ event-start: 2026-01-17 18:00:00
 slug: milonga-fuera-del-nido
 ---
 
-![]({static}/images/605635436_10241120531540882_4611790588703681234_n.jpg)
+![]({static}/images/605635436_10241120531540882_4611790588703681234_n.avif)
 
 Your event description here...
 ```
@@ -447,8 +412,8 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 ### Adding Images to Content
 
 1. Place your image file in `content/images/` folder
-2. In your content, add: `![]({static}/images/your-filename.jpg)`
-3. Replace `your-filename.jpg` with your actual filename
+2. In your content, add: `![]({static}/images/your-filename.avif)`
+3. Replace `your-filename.avif` with your actual filename
 
 ## Quick Reference
 
@@ -474,29 +439,19 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 <widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 ```
 
-**Announcements:**
+**Articles (announcements, curiosities, people):**
 ```html
-<widget-announcements limit="3"></widget-announcements>
-<widget-announcements limit="all" sort="oldest"></widget-announcements>
-```
-
-**Curiosities:**
-```html
-<widget-curiosities limit="3"></widget-curiosities>
-<widget-curiosities limit="all" sort="oldest"></widget-curiosities>
-```
-
-**Classes:**
-```html
-<widget-classes limit="3"></widget-classes>
-<widget-classes limit="all" sort="title"></widget-classes>
+<widget-articles category="announcement" limit="3"></widget-articles>
+<widget-articles category="curiosity" limit="all"></widget-articles>
+<widget-articles category="people" metadata="description"></widget-articles>
+<widget-articles category="people" slugs="filip-paldia lenka-platenikova" metadata="description"></widget-articles>
 ```
 
 
 ### Image Syntax
 
 ```markdown
-![]({static}/images/filename.jpg)
+![]({static}/images/filename.avif)
 ```
 
 ## Need Help?

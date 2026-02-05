@@ -7,7 +7,7 @@ nav_label: Tango víkend 2026
 nav_order_main: 1.5
 description: Třídenní tango víkend v Brně. Živá hudba z Argentiny, workshopy s lektory z Vídně, milongy na nejlepších místech. 22.–24. 5. 2026.
 author: Lenka Pláteniková, Filip Paldia, Šteky Yaku, Míša Lukavská, 
-preview_image: /images/milonga-hned-vedle.jpeg
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Brnos Aires Tango víkend 2026
@@ -18,8 +18,7 @@ Brnos Aires Tango víkend se vrací!
 Celý víkend plný workshopů, živé hudby a milongy, které se ponesou nocí.  
 Brněnská tango komunita se spojila, aby ti přinesla víkend, na který nezapomeneš.  
 
-Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny úrovně.  
-Společenský sál na Staré radnici bude tři dny patřit tangu.
+Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny úrovně.
 
 ## Program
 
@@ -27,5 +26,5 @@ Společenský sál na Staré radnici bude tři dny patřit tangu.
 
 ## Organizátoři
 
-<widget-people slugs="filip-paldia lenka-platenikova misa-lukavska steky-yaku"></widget-people>
+<widget-articles category="people" slugs="filip-paldia lenka-platenikova misa-lukavska steky-yaku" metadata="description"></widget-articles>
 

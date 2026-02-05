@@ -2,7 +2,7 @@
 title: Kde posbíráš hřejivá objetí?
 date: 2024-10-01 02:00:00
 category: announcement
-preview_image: /images/jen.jpg
+preview_image: /images/jen.avif
 description: Kde posbíráš hřejivá objetí. Říjnová Skleněnka, zdroje objetí na brnosaires.com. Do foroty.
 author: Lenka Platenikova
 ---

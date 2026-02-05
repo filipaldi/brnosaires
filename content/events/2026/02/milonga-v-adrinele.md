@@ -5,7 +5,7 @@ date: 2026-02-07 18:00:00
 event-type: milonga
 event-start: 2026-02-19 20:30:00
 event-end: 2026-02-19 23:15:00
-preview_image: /images/adrinela_people.jpg
+preview_image: /images/adrinela_people.avif
 description: Únorová milonga v Café Adrinela. Dortíky, paní Lada, rybičky a tango.
 author: Lenka Pláteníková
 ---

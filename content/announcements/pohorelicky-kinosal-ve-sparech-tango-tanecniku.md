@@ -2,7 +2,7 @@
 title: Pohořelický kinosál ve spárech tango tanečníků
 date: 2025-02-05 01:00:00
 category: announcement
-preview_image: /images/Milonga_Pohoelice.jpg
+preview_image: /images/Milonga_Pohoelice.avif
 description: Pohořelický kinosál ve spárech tango tanečníků. Milonga v Pohořelicích. Přehled na brnosaires.com.
 author: Lenka Platenikova
 ---

@@ -14,3 +14,4 @@ copy/
 marathon/
 migration-scripts/
 .obsidian/
+.cursorignore

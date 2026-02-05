@@ -6,7 +6,7 @@ instructor: "['Pavla Lužná', 'Ondra Martinák']"
 event-start: 2026-01-08 19:15:00
 event-end: 2026-01-08 20:30:00
 recurrence: weekly thursday
-preview_image: /images/class-stolarna.png
+preview_image: /images/class-stolarna.avif
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class

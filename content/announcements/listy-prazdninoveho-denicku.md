@@ -2,7 +2,7 @@
 title: Listy prázdninového deníčku
 date: 2024-08-26 02:00:00
 category: announcement
-preview_image: /images/przdniny.jpg
+preview_image: /images/przdniny.avif
 description: Listy prázdninového deníčku. Oznamy z Brnos Aires. Letní milongy v Brně na brnosaires.com.
 author: Lenka Platenikova
 ---
