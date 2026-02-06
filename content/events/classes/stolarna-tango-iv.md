@@ -6,7 +6,7 @@ instructor: "['Jana Habalová', 'Petr Truhlař']"
 event-start: 2026-01-08 19:00:00
 event-end: 2026-01-08 20:15:00
 recurrence: weekly tuesday
-preview_image: /images/class-stolarna.avif
+preview_image: /images/classes/class-stolarna.avif
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class

@@ -16,7 +16,7 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
-<widget-articles category="announcement" limit="3"></widget-articles>
+<widget-articles category="announcement" limit="3" metadata="image title"></widget-articles>
 
 
 ## Kde tančit tango tento týden
@@ -30,5 +30,5 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 <widget-calendar start="today" type="workshop" days="30" group_by="month"></widget-calendar>
 
 ## Pikošky z prostředí argentinského tanga
-<widget-articles category="curiosity" limit="3"></widget-articles>
+<widget-articles category="curiosity" limit="3" metadata="image title"></widget-articles>
 

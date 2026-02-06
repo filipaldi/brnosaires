@@ -1,7 +1,7 @@
 ---
 title: DJs Team
 date: 2025-10-14T12:24:00+00:00
-slug: djs-team
+slug: marathon-djs-team
 navigation: Marathon
 nav_label: DJs
 nav_order_marathon: 2
@@ -13,7 +13,7 @@ author: Filip Paldia
 
 Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that heart to just anyone. Neither do we.
 
-<widget-articles category="marathon-djs" metadata="description" columns="3"></widget-articles> 
+<widget-articles category="marathon-djs" metadata="image title description" columns="3" card_size="s"></widget-articles>
 
 We handpicked these DJs. Not just for their technical skill, though they've got plenty, but because they're friends. People we trust, admire, and genuinely want to share a dance floor with.
 

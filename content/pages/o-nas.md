@@ -30,5 +30,5 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 
 ## Lidé za Brnos Aires
 
-<widget-articles category="people" metadata="description"></widget-articles>
+<widget-articles category="people" metadata="description" metadata="image title description"></widget-articles>
 

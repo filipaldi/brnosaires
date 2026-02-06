@@ -1,7 +1,7 @@
 ---
 title: Healthy Schedule of Marathon Brnos Aires
 date: 2025-10-14T12:25:00+00:00
-slug: schedule
+slug: marathon-schedule
 navigation: Marathon
 nav_label: Schedule
 nav_order_marathon: 5

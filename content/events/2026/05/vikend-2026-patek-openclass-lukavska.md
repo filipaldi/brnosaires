@@ -9,6 +9,7 @@ event-organiser: Michaela Lukavská
 location: Společenský sál na Staré radnici
 description: Open class s Michaelou Lukavskou v rámci Brnos Aires Tango víkendu 2026.
 author: Filip Paldia
+preview_image: /images/events/2026/milonga-hned-vedle.avif
 ---
 
 # Open class / Michaela Lukavská

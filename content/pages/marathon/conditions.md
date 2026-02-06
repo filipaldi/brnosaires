@@ -1,7 +1,7 @@
 ---
 title: Conditions
 date: 2025-07-07T14:30:00+00:00
-slug: conditions
+slug: marathon-conditions
 description: Marathon conditions. Fullpass rules, venue conduct, photos and cancellations. Read before you register.
 author: Filip Paldia
 ---

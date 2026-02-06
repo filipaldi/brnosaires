@@ -15,289 +15,290 @@
    STACK
    ============================================ */
 
-[class*="el-stack"] {
-  --space: var(--size-s);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-[class*="el-stack"] * {
-  margin-block: 0;
-} 
-
-[class*="el-stack"] > * + * {
-  margin-block-start: var(--space);
-}
-
-[class*="el-stack"]:only-child {
-  block-size: 100%;
-}
-
-[class*="el-stack"] > :nth-child(var(--space)) {
-  margin-block-end: auto;
-}
-
-.el-stack-xs {
-  --space: var(--size-xs);
-}
-
-.el-stack-s {
-  --space: var(--size-s);
-}
-
-.el-stack-m {
-  --space: var(--size-m);
-}
-
-.el-stack-l {
-  --space: var(--size-l);
-}
-
-
-/* ============================================
-   BOX
-   ============================================ */
-
-.el-box {
-  padding: var(--size-s);
-  border: var(--border-thin) solid;
-  color: var(--color-neutral-10);
-  background-color: var(--color-neutral-0);
-}
-
-.el-box * {
-  color: inherit;
-}
-
-.el-box.invert {
-  color: var(--color-light);
-  background-color: var(--color-dark);
-}
-
-/* ============================================
-   CENTER
-   ============================================ */
-
-.el-center {
-  box-sizing: content-box;
-  margin-inline: auto;
-  max-inline-size: var(--measure); /* var(--measure) is not currently defined in @variables.css what should we do here? */
-}
-
-/* ============================================
-   CLUSTER
-   ============================================ */
-
-.el-cluster {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-/* ============================================
-   SIDEBAR
-   ============================================ */
-
-.el-sidebar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--size-s);
-}
-
-.el-sidebar > :last-child {
-  flex-basis: var(--size-5xl); 
-  flex-grow: 1;
-}
-
-.el-sidebar > :first-child {
-  flex-basis: 0;
-  flex-grow: 999;
-  min-inline-size: 50%;
-}
-
-/* ============================================
-   SWITCHER
-   ============================================ */
-
-.el-switcher {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--size-m);
-}
-
-.el-switcher > * {
-  flex-grow: 1;
-  flex-basis: calc((30rem - 100%) * 999);
-}
-
-.el-switcher > :nth-last-child(n+5),
-.el-switcher > :nth-last-child(n+5) ~ * {
-  flex-basis: 100%;
-}
-
-/* ============================================
-   COVER
-   ============================================ */
-
-.el-cover {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  min-height: 100dvh;
-  align-items: center;
-  justify-items: center;
-}
-
-
-/* ============================================
-   GRID
-   ============================================ */
-
-.el-grid {
-  display: grid;
-  grid-gap: var(--size-s);
-}
-
-@supports (width: min(var(--size-6xl), 100%)) {
-  .el-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--size-6xl), 100%), 1fr));
+   [class*="el-stack"] {
+    --space: var(--size-s);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-}
-
-[class*="el-grid-"] {
-  --cols: 1;
-  --grid-gap: var(--size-s);
-  display: grid;
-  gap: var(--grid-gap);
-  grid-template-columns: repeat(var(--cols), 1fr);
-}
-
-.el-grid-2 {
-  --cols: 2;
-}
-
-.el-grid-3 {
-  --cols: 3;
-}
-
-.el-grid-4 {
-  --cols: 4;
-}
-
-.el-grid-5 {
-  --cols: 5;
-}
-
-.el-grid-6 {
-  --cols: 6;
-}
-
-.el-grid-7 {
-  --cols: 7;
-}
-
-/* ============================================
-   FRAME
-   ============================================ */
-
-[class*="el-frame-"] {
-  --n: 16;
-  --d: 9;
-  aspect-ratio: var(--n) / var(--d);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-[class*="el-frame-"] > img,
-[class*="el-frame-"] > video {
-  inline-size: 100%;
-  block-size: 100%;
-  object-fit: cover;
-}
-
-.el-frame-16x9 {
-  --n: 16;
-  --d: 9;
-}
-
-.el-frame-2x1 {
-  --n: 2;
-  --d: 1;
-}
-
-.el-frame-3x1 {
-  --n: 3;
-  --d: 1;
-}
-
-.el-frame-4x3 {
-  --n: 4;
-  --d: 3;
-}
-
-.el-frame-1x1 {
-  --n: 1;
-  --d: 1;
-}
-
-/* ============================================
-   JUSTIFY CONTENT UTILITIES
-   ============================================ */
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.justify-start {
-  justify-content: flex-start;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-/* ============================================
-   ALIGN ITEMS UTILITIES
-   ============================================ */
-
-.align-start {
-  align-items: flex-start;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.align-end {
-  align-items: flex-end;
-}
-
-/* ============================================
-   Z-INDEX UTILITIES
-   ============================================ */
-
-.z-index-inferior {
-  z-index: var(--z-index-inferior);
-}
-
-.z-index-low {
-  z-index: var(--z-index-low);
-}
-
-.z-index-mid {
-  z-index: var(--z-index-mid);
-}
-
-.z-index-high {
-  z-index: var(--z-index-high);
-}
-
-.z-index-superior {
-  z-index: var(--z-index-superior);
-}
+  
+  [class*="el-stack"] * {
+    margin-block: 0;
+  } 
+  
+  [class*="el-stack"] > * + * {
+    margin-block-start: var(--space);
+  }
+  
+  [class*="el-stack"]:only-child {
+    block-size: 100%;
+  }
+  
+  [class*="el-stack"] > :nth-child(var(--space)) {
+    margin-block-end: auto;
+  }
+  
+  .el-stack-xs {
+    --space: var(--size-xs);
+  }
+  
+  .el-stack-s {
+    --space: var(--size-s);
+  }
+  
+  .el-stack-m {
+    --space: var(--size-m);
+  }
+  
+  .el-stack-l {
+    --space: var(--size-l);
+  }
+  
+  
+  /* ============================================
+     BOX
+     ============================================ */
+  
+  .el-box {
+    padding: var(--size-s);
+    border: var(--border-thin) solid;
+    color: var(--color-neutral-10);
+    background-color: var(--color-neutral-0);
+  }
+  
+  .el-box * {
+    color: inherit;
+  }
+  
+  .el-box.invert {
+    color: var(--color-light);
+    background-color: var(--color-dark);
+  }
+  
+  /* ============================================
+     CENTER
+     ============================================ */
+  
+  .el-center {
+    box-sizing: content-box;
+    margin-inline: auto;
+    max-inline-size: var(--measure); /* var(--measure) is not currently defined in @variables.css what should we do here? */
+  }
+  
+  /* ============================================
+     CLUSTER
+     ============================================ */
+  
+  .el-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  /* ============================================
+     SIDEBAR
+     ============================================ */
+  
+  .el-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-s);
+  }
+  
+  .el-sidebar > :last-child {
+    flex-basis: var(--size-3xl); 
+    flex-grow: 1;
+  }
+  
+  .el-sidebar > :first-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
+  }
+  
+  /* ============================================
+     SWITCHER
+     ============================================ */
+  
+  .el-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-m);
+  }
+  
+  .el-switcher > * {
+    flex-grow: 1;
+    flex-basis: calc((30rem - 100%) * 999);
+  }
+  
+  .el-switcher > :nth-last-child(n+5),
+  .el-switcher > :nth-last-child(n+5) ~ * {
+    flex-basis: 100%;
+  }
+  
+  /* ============================================
+     COVER
+     ============================================ */
+  
+  .el-cover {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 100dvh;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  
+  /* ============================================
+     GRID
+     ============================================ */
+  
+  .el-grid {
+    display: grid;
+    grid-gap: var(--size-s);
+  }
+  
+  @supports (width: min(var(--size-6xl), 100%)) {
+    .el-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(var(--size-6xl), 100%), 1fr));
+    }
+  }
+  
+  [class*="el-grid-"] {
+    --cols: 1;
+    --grid-gap: var(--size-s);
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(var(--cols), 1fr);
+  }
+  
+  .el-grid-2 {
+    --cols: 2;
+  }
+  
+  .el-grid-3 {
+    --cols: 3;
+  }
+  
+  .el-grid-4 {
+    --cols: 4;
+  }
+  
+  .el-grid-5 {
+    --cols: 5;
+  }
+  
+  .el-grid-6 {
+    --cols: 6;
+  }
+  
+  .el-grid-7 {
+    --cols: 7;
+  }
+  
+  /* ============================================
+     FRAME
+     ============================================ */
+  
+  [class*="el-frame-"] {
+    --n: 16;
+    --d: 9;
+    aspect-ratio: var(--n) / var(--d);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  [class*="el-frame-"] > img,
+  [class*="el-frame-"] > video {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+  
+  .el-frame-16x9 {
+    --n: 16;
+    --d: 9;
+  }
+  
+  .el-frame-2x1 {
+    --n: 2;
+    --d: 1;
+  }
+  
+  .el-frame-3x1 {
+    --n: 3;
+    --d: 1;
+  }
+  
+  .el-frame-4x3 {
+    --n: 4;
+    --d: 3;
+  }
+  
+  .el-frame-1x1 {
+    --n: 1;
+    --d: 1;
+  }
+  
+  /* ============================================
+     JUSTIFY CONTENT UTILITIES
+     ============================================ */
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .justify-start {
+    justify-content: flex-start;
+  }
+  
+  .justify-end {
+    justify-content: flex-end;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  /* ============================================
+     ALIGN ITEMS UTILITIES
+     ============================================ */
+  
+  .align-start {
+    align-items: flex-start;
+  }
+  
+  .align-center {
+    align-items: center;
+  }
+  
+  .align-end {
+    align-items: flex-end;
+  }
+  
+  /* ============================================
+     Z-INDEX UTILITIES
+     ============================================ */
+  
+  .z-index-inferior {
+    z-index: var(--z-index-inferior);
+  }
+  
+  .z-index-low {
+    z-index: var(--z-index-low);
+  }
+  
+  .z-index-mid {
+    z-index: var(--z-index-mid);
+  }
+  
+  .z-index-high {
+    z-index: var(--z-index-high);
+  }
+  
+  .z-index-superior {
+    z-index: var(--z-index-superior);
+  }
+  

@@ -21,7 +21,7 @@
 
   {% block head %}{% endblock %}
 </head>
-<body>
+<body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}marathon{% endif %}">
   <div class="el-sidebar gap-m">
     <div class="el-stack stack-l">
       <main role="main" class="padding-all-m padding-top-l">
@@ -39,15 +39,10 @@
       {% set nav_slot = 'Main' %}
       {% set nav_aria = 'Main navigation' %}
       {% include 'components/navigation.html' %}
-      <div class="cluster gap-s">
-        <button class="nav__icon" aria-label="Theme toggle" id="theme-toggle"></button>
-        <button class="nav__icon" aria-label="Search" id="search-toggle"></button>
-      </div>
       {% endif %}
     </aside>
   </div>
 
-  <script src="{{ THEME_STATIC_DIR }}/js/main.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

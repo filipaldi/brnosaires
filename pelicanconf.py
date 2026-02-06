@@ -53,7 +53,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
 from calendarium import group_events, make_calendar_filter, parse_widget_attrs
 from recurring_events import expand_recurring, date_add
 from article_filter import parse_article_attrs, article_filter
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter}
+from gallery_widget import get_gallery_images
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images}
 
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor"]

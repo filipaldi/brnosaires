@@ -9,6 +9,7 @@ event-organiser: Helmuth a Miloš
 location: Společenský sál na Staré radnici
 description: Milonga s živou hudbou. Hudba: Helmuth a Miloš. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
+preview_image: /images/events/2026/milonga-hned-vedle.avif
 ---
 
 # Milonga s živou hudbou (Helmuth a Miloš)

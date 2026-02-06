@@ -1,0 +1,37 @@
+{% set defaults = {
+  'folder': none,
+  'columns': '4',
+  'layout': 'grid',
+  'frame': '4x3',
+  'card_size': none
+} %}
+
+{% set cfg = tag_content | parse_widget_attrs(defaults) %}
+{% set folder = cfg.folder %}
+{% set columns = cfg.columns %}
+{% set layout = cfg.layout %}
+{% set frame = cfg.frame %}
+{% set card_size = cfg.card_size %}
+
+{% if folder %}
+  {% set content_path = PATH if PATH is defined else 'content' %}
+  {% set images = folder | gallery_images(content_path) %}
+  
+  {% if images %}
+  <div class="widget-gallery">
+    {% if layout == "row" %}
+    <div style="display: flex; overflow-x: auto; gap: var(--size-s);">
+    {% else %}
+    <div class="el-grid-{{ columns }}">
+    {% endif %}
+      {% for img in images %}
+      <a class="glightbox aesthetic-card{% if card_size %} card-{{ card_size }}{% endif %}" href="{{ SITEURL }}/{{ img.path }}" data-gallery="gallery-{{ folder | replace('/', '-') }}" data-glightbox="title: {{ img.alt }}">
+        <div class="el-frame-{{ frame }}">
+          <img src="{{ SITEURL }}/{{ img.path }}" alt="{{ img.alt }}" loading="lazy" />
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+{% endif %}

@@ -147,7 +147,7 @@
        screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1025px) and (max-width: 1400px),
        screen and (orientation: landscape) and (min-width: 1025px) and (max-width: 1400px) {
   :root {
-    --const: 0.1;
+    --const: 0.09;
   }
 }
 
@@ -156,7 +156,7 @@
        screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1401px) and (max-width: 1800px),
        screen and (orientation: landscape) and (min-width: 1401px) and (max-width: 1800px) {
   :root {
-    --const: 0.08;
+    --const: 0.075;
   }
 }
 

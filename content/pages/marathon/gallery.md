@@ -1,7 +1,7 @@
 ---
 title: Gallery
 date: 2025-11-19T14:18:00+00:00
-slug: gallery
+slug: marathon-gallery
 navigation: Marathon
 nav_label: Gallery
 nav_order_marathon: 4
@@ -13,5 +13,5 @@ author: Filip Paldia
 
 Moments from the 2025 edition. The embraces, the music, the floor that made it all happen.
 
-gallery::{photo}marathon-photos/2025-mina-mijanovic
+<widget-gallery folder="marathon-photos/2025-mina-mijanovic" columns="4" frame="4x3"></widget-gallery>
 

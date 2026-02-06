@@ -10,10 +10,42 @@
   top: 0;
 }
 
-p {
+
+h1, h2, h3, p {
   max-width: 43vw;
+  min-width: 20rem;
 }
 
 p img {
   width: 100%;
+}
+
+/* ============================================
+   MARATHON SECTION
+   ============================================ */
+
+@media screen and (min-width: 1025px) {
+  :where(body[data-section="marathon"]) h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    line-height: var(--size-3xl);
+    font-weight: var(--font-weight-regular);
+    margin: 0;
+  }
+    
+  :where(body[data-section="marathon"]) h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    line-height: var(--size-2xl);
+    font-weight: var(--font-weight-regular);
+    margin: 0;
+  }
+
+  :where(body[data-section="marathon"]) h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    line-height: var(--size-2xl);
+    font-weight: var(--font-weight-regular);
+    margin: 0;
+  }
 }

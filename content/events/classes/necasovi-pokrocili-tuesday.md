@@ -6,7 +6,7 @@ instructor: "['Gabriela a Petr Nečasovi']"
 event-start: 2026-01-08 19:45:00
 event-end: 2026-01-08 21:00:00
 recurrence: weekly thursday
-preview_image: /images/class-necasovy.avif
+preview_image: /images/classes/class-necasovy.avif
 event-organiser: Gabriela a Petr Nečasovi
 event-location: Tango Studio, Koliště 23, 602 00, Brno
 event-type: class

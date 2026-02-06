@@ -1,13 +1,13 @@
 ---
 title: Brnos Aires Marathon Venue
 date: 2025-10-14T14:26:00+00:00
-slug: venue
+slug: marathon-venue
 navigation: Marathon
 nav_label: Venue
 nav_order_marathon: 3
 description: Marathon venue. 200 m² wooden floor, space for cabeceo, on-site restaurant. Stylish hall, tango atmosphere.
 author: Filip Paldia
-preview_image: /images/marathon-venue/marathon-venue-10.png
+preview_image: /images/marathon-photos/venue-floor/marathon-venue-10.avif
 ---
 
 ## Two hundred<br>square metres
@@ -17,7 +17,7 @@ In Brnos Aires, you won’t be missing a thing. Our stylish hall, filled with a 
 
 There will be space around the dance floor for walking and comfortable cabeceo.
 
-gallery::{photo}marathon-venue
+<widget-gallery folder="marathon-photos/venue-floor" columns="3" frame="4x3"></widget-gallery>
 
 ## Venue and Restaurant
 
@@ -25,8 +25,7 @@ Nestled in our charming venue, you'll find more than just a dance floor, a sanct
 
 The on-site restaurant serves delicious homemade specialities at prices that will make your wallet dance with joy. Pure comfort between tandas.
 
-gallery::{photo}marathon-venue-restaurant
-
+<widget-gallery folder="marathon-photos/venue-restaurant" columns="2" frame="4x3"></widget-gallery>
 
 [**See the restaurant menu in Czech**](https://delnickydumbrno.cz/restaurace.html)**.**
 

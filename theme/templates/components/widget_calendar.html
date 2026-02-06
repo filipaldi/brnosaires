@@ -8,9 +8,10 @@
 {% set group_by = cfg.group_by %}
 {% set headers = cfg.headers %}
 {% set hide_empty_days = cfg.hide_empty_days %}
+{% set card_size = cfg.card_size or 's' %}
 
 {% macro event_card(event) %}
-<a href="{{ event.slug }}/" class="aesthetic-card card-s">
+<a href="{{ event.slug }}/" class="aesthetic-card card-{{ card_size }}">
   {% if event.preview_image %}
   <div class="el-frame-16x9">
     <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
@@ -47,12 +48,16 @@
   
   {% if is_nested_layout %}
   {% for week_headline, week_days in grouped %}
-  <section class="widget-calendar__week">
+  <section class="widget-calendar__week el-stack-l">
     {% if headers and 'week' in headers %}
     <h2 class="widget-calendar__week-title">{{ week_headline }}</h2>
     {% endif %}
     
-    <div class="el-grid-7">
+    {% if week_days|length == 7 %}
+    <div class="calendar-days-grid-7" data-card-size="{{ card_size }}">
+    {% else %}
+    <div class="calendar-days-flex" data-card-size="{{ card_size }}">
+    {% endif %}
       {% for day_headline, day_events in week_days %}
       <div class="day-column">
         {% if headers and 'day' in headers %}
@@ -74,7 +79,7 @@
   
   {% else %}
   {% for headline, group_events in grouped %}
-  <section class="widget-calendar__group">
+  <section class="widget-calendar__group el-stack-l">
     <h2 class="widget-calendar__group-title">{{ headline }}</h2>
     <div class="el-grid">
     {% for event in group_events %}

@@ -12,6 +12,7 @@ ARTICLE_DEFAULTS = {
     'limit': None,
     'columns': None,
     'metadata': None,
+    'card_size': None,
 }
 
 ATTR_PATTERN = re.compile(r'(\w+)="([^"]*)"')

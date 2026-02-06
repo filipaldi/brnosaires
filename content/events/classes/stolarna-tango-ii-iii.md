@@ -6,7 +6,7 @@ instructor: "['Filip Paldia', 'Lenka Pláteníková']"
 event-start: 2026-01-08 18:45:00
 event-end: 2026-01-08 20:00:00
 recurrence: weekly sunday
-preview_image: /images/class-stolarna.avif
+preview_image: /images/classes/class-lenka-filip.avif
 event-organiser: Taneční studio Stolárna
 event-location: Olomoucká 14, Brno 61800
 event-type: class

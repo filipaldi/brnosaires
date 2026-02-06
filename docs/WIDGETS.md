@@ -105,6 +105,7 @@ Displays filtered lists of events from `content/events/`.
 - `group_by="day|week|month|week day"` (optional) - Group events into rows with a headline per group. Single value (e.g. `"week"`) = flat grouping. Space-separated tokens (e.g. `"week day"`) = nested grouping with 7-column grid layout (first token = outer/rows, second token = inner/columns). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
 - `headers="week|day|week day"` (optional) - Show group headers. Default: headers hidden. Values: `"week"` (show week headers only), `"day"` (show day headers only), `"week day"` (show both). Only applies when `group_by` is set.
 - `hide_empty_days="true"` (optional) - Hide empty day columns in week-day grid layout. Default: false (all 7 days rendered). Only applies when `group_by="week day"` is set.
+- `card_size="xs|s|m|l"` (optional) - Card size for event cards. Default: `s` (small). Values: `xs` (extra small), `s` (small), `m` (medium), `l` (large).
 
 **Date Filtering:**
 - `days="7"` = next 7 days from today
@@ -147,6 +148,12 @@ Displays filtered lists of events from `content/events/`.
 
 <!-- Events in week-day grid, hiding empty days -->
 <widget-calendar start="this-week" group_by="week day" days="14" headers="day" hide_empty_days="true"></widget-calendar>
+
+<!-- Events with medium-sized cards -->
+<widget-calendar type="milonga" days="7" card_size="m"></widget-calendar>
+
+<!-- Events with large-sized cards -->
+<widget-calendar type="workshop" days="30" card_size="l"></widget-calendar>
 ```
 
 **Grouping (`group_by`):**
@@ -157,7 +164,7 @@ Displays filtered lists of events from `content/events/`.
 - **Empty groups:** Rows with zero events are not rendered (flat grouping). In nested grouping with `"week day"`, all 7 day columns are rendered by default (even if empty) to maintain grid structure. Use `hide_empty_days="true"` to hide empty columns.
 - **Sort:** Chronological (earliest first) between groups and within each group. The widget's `sort` attribute does not apply when `group_by` is set.
 - **Headers:** By default, group headers are hidden. Use `headers` attribute to show them (e.g. `headers="week"`, `headers="day"`, `headers="week day"`).
-- **Layout:** Nested grouping uses a responsive 7-column grid (`.el-grid-7`) that stacks to single column on narrow viewports (< 48rem). Events within each day stack vertically using `.el-stack`.
+- **Layout:** Nested grouping uses a responsive day-column grid (`.calendar-days-grid`) that keeps all visible days in a single row. Columns automatically expand to fill available width based on the number of visible days. When `hide_empty_days="true"`, only days with events are shown and each takes equal width. Events within each day stack vertically using `.el-stack`.
 - **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
 
 **Implementation:**
@@ -220,6 +227,7 @@ Unified widget for displaying articles filtered by category. Replaces the old `w
 | `group_by` | string | No | `day`, `week`, `month`, `week day` | Group events into rows |
 | `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden) |
 | `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid |
+| `card_size` | string | No | `xs`, `s`, `m`, `l` | Card size (default: `s`) |
 
 ### widget-articles Attributes
 
@@ -230,7 +238,8 @@ Unified widget for displaying articles filtered by category. Replaces the old `w
 | `sort` | string | No | `newest`, `oldest`, `title` | Sort order (default: oldest) |
 | `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
 | `columns` | string/integer | No | `"3"` | Grid columns for layout |
-| `metadata` | string | No | `"description location"` | Space-separated metadata fields to display |
+| `metadata` | string | No | `"title description image location"` | Space-separated fields to display (default: `title description`) |
+| `card_size` | string | No | `s`, `m`, `l` | Card size: small, medium (default), or large |
 
 **Rules:**
 - `days` and `start`/`end` are mutually exclusive for `widget-calendar`

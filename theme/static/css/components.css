@@ -47,12 +47,25 @@
   margin: var(--card-inner-margin) 0;
 }
 
-[class*="card-"] h3,
-[class*="card-"] p {
+[class*="card-"] > * > h3,
+[class*="card-"] > * > p {
+  font-family: var(--font-body);
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
   margin-bottom: var(--card-inner-margin);
+}
+
+[class*="card-"] > * > h3 {
+  font-weight: var(--font-weight-bold);
+}
+
+.card-xs {
+  --card-font-size: var(--text-xs);
+  --card-line-height: var(--size-s);
+  --card-margin: var(--size-xs);
+  --card-inner-margin: var(--size-2xs);
+  --card-min-width: 12rem;
 }
 
 .card-s {
@@ -60,6 +73,7 @@
   --card-line-height: var(--size-s);
   --card-margin: var(--size-s);
   --card-inner-margin: var(--size-2xs);
+  --card-min-width: 15rem;
 }
 
 .card-m {
@@ -67,6 +81,7 @@
   --card-line-height: var(--size-m);
   --card-margin: var(--size-m);
   --card-inner-margin: var(--size-xs);
+  --card-min-width: 18rem;
 }
 
 .card-l {
@@ -74,41 +89,106 @@
   --card-line-height: var(--size-l);
   --card-margin: var(--size-l);
   --card-inner-margin: var(--size-s);
+  --card-min-width: 22rem;
 }
 
 /* ============================================
    WIDGET CALENDAR (grouped)
    ============================================ */
 
-.widget-calendar__group {
-  margin-bottom: var(--size-l);
+.widget-calendar {
+  container-type: inline-size;
 }
 
-.widget-calendar__group:last-child {
-  margin-bottom: 0;
-}
+
 
 .widget-calendar__group-title {
   font-size: var(--text-m);
   line-height: var(--size-m);
   font-weight: var(--font-weight-regular);
-  margin-bottom: var(--size-s);
-}
-
-/* Week-day grid layout */
-.widget-calendar__week {
-  margin-bottom: var(--size-l);
-}
-
-.widget-calendar__week:last-child {
-  margin-bottom: 0;
+  margin-top: var(--size-l);
 }
 
 .widget-calendar__week-title {
+  font-family: var(--font-body);
   font-size: var(--text-m);
   line-height: var(--size-m);
   font-weight: var(--font-weight-regular);
-  margin-bottom: var(--size-s);
+  margin-top: var(--size-l);
+}
+
+/* 7-day grid: CSS Grid with fixed 7 columns when wide enough */
+.calendar-days-grid-7 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--size-xs);
+}
+
+@container (min-width: 40rem) {
+  .calendar-days-grid-7[data-card-size="xs"] {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@container (min-width: 50rem) {
+  .calendar-days-grid-7[data-card-size="s"] {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@container (min-width: 60rem) {
+  .calendar-days-grid-7[data-card-size="m"] {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@container (min-width: 70rem) {
+  .calendar-days-grid-7[data-card-size="l"] {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+/* Flex layout: for hidden days, columns expand automatically */
+.calendar-days-flex {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-xs);
+}
+
+@container (min-width: 30rem) {
+  .calendar-days-flex[data-card-size="xs"] {
+    flex-direction: row;
+  }
+  .calendar-days-flex[data-card-size="xs"] > .day-column {
+    flex: 1 1 0;
+  }
+}
+
+@container (min-width: 40rem) {
+  .calendar-days-flex[data-card-size="s"] {
+    flex-direction: row;
+  }
+  .calendar-days-flex[data-card-size="s"] > .day-column {
+    flex: 1 1 0;
+  }
+}
+
+@container (min-width: 50rem) {
+  .calendar-days-flex[data-card-size="m"] {
+    flex-direction: row;
+  }
+  .calendar-days-flex[data-card-size="m"] > .day-column {
+    flex: 1 1 0;
+  }
+}
+
+@container (min-width: 60rem) {
+  .calendar-days-flex[data-card-size="l"] {
+    flex-direction: row;
+  }
+  .calendar-days-flex[data-card-size="l"] > .day-column {
+    flex: 1 1 0;
+  }
 }
 
 .day-column {
@@ -121,6 +201,7 @@
   text-align: center;
   padding-block: var(--size-xs);
   margin-bottom: var(--size-xs);
+  font: var(--font-body);
 }
 
 /* ============================================

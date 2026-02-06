@@ -9,6 +9,7 @@ event-organiser: Gottfried a Štěky
 location: Společenský sál na Staré radnici
 description: Workshop pro středně pokročilé s Gottfriedem a Štěky. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
+preview_image: /images/events/2026/milonga-hned-vedle.avif
 ---
 
 # Workshop 2 / Gottfried a Štěky (středně pokročilí)

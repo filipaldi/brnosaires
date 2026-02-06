@@ -10,6 +10,7 @@ WIDGET_PATTERN = re.compile(r'<widget-(\w+)([^>]*)>(?:</widget-\1>)?', re.DOTALL
 WIDGET_TEMPLATES = {
     'calendar': 'components/widget_calendar.html',
     'articles': 'components/widget_articles.html',
+    'gallery': 'components/widget_gallery.html',
 }
 
 
