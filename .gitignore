@@ -11,7 +11,6 @@ __pycache__/
 .cursor/
 .vscode/
 copy/
-marathon/
 migration-scripts/
 .obsidian/
 .cursorignore
