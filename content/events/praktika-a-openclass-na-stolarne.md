@@ -11,6 +11,6 @@ description: Praktikomilonga a openclass na Stolárně každou neděli. Začáte
 author: Filip Paldia
 ---
 
-Praktikomilonga pro všechny - ty, co jsi na začátku, ty co jsi uprostřed i pokročilí tango tanečníci - pojďte spolu potrénovat a užít si tango v pohodové atmosféře. 
+Praktikomilonga pro všechny - ať už jsi na začátku, uprostřed nebo máš za sebou dlouhou tango cestu, přijď potrénovat v atmosféře, kde se nemusíš bát dělat chyby. 
 
-Openclass od 20h: Filip &Lenka
+Openclass v případě zájmu od 20h: Filip &Lenka
