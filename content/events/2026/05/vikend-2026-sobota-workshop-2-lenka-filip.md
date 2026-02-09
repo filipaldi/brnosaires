@@ -1,6 +1,6 @@
 ---
-title: Workshop 1 / Lenka a Filip (začátečníci)
-slug: vikend-2026-sobota-workshop-1-lenka-filip
+title: Workshop 2 / Lenka a Filip (začátečníci)
+slug: vikend-2026-sobota-workshop-2-lenka-filip
 date: 2026-05-23 14:30:00
 event-type: workshop
 event-start: 2026-05-23 14:30:00
@@ -12,7 +12,7 @@ author: Lenka Pláteníková
 preview_image: /images/class-lenka-filip.avif
 ---
 
-# Workshop 1 / Lenka a Filip (začátečníci)
+# Workshop 2 / Lenka a Filip (začátečníci)
 
 Workshop pro začátečníky s Lenkou a Filipem, studenti zdarma.
 
