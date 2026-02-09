@@ -12,7 +12,7 @@ author: Lenka Pláteníková
 preview_image: /images/class-lenka-filip.avif
 ---
 
-# Workshop 1 / Lenka a Filip (začátečníci)
+# Workshop 3 / Lenka a Filip (začátečníci)
 
 Workshop pro začátečníky s Lenkou a Filipem, studenti zdarma.
 
