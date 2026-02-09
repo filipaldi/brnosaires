@@ -17,6 +17,6 @@ preview_image: /images/class-lenka-filip.avif
 Workshop pro začátečníky s Lenkou a Filipem, studenti zdarma.
 
 **Kdy:** Sobota 23. května 2026, 13:00–14:15  
-**Kde:** Společenský sál na Staré radnici  
+**Kde:** Taneční studio Stolárna
 **Lektoři:** Lenka a Filip
 **Úroveň:** Začátečníci
