@@ -7,11 +7,13 @@
     metadata=cfg.metadata
 ) %}
 {% set fields = (cfg.metadata or 'title description').split() %}
+{% set link_enabled = cfg.link is none or (cfg.link | lower) not in ['false', 'no', '0'] %}
 
 {% if items %}
 <div class="widget-articles">
   <div class="el-grid{% if cfg.columns %}-{{ cfg.columns }}{% endif %}">
     {% for item in items %}
+    {% if link_enabled %}
     <a href="{{ item.article.slug }}/" class="aesthetic-card card-{{ cfg.card_size | default('m') }}">
       {% if 'image' in fields and item.article.preview_image %}
       <div class="el-frame-16x9">
@@ -32,6 +34,28 @@
         {% endfor %}
       </div>
     </a>
+    {% else %}
+    <div class="aesthetic-card card-{{ cfg.card_size | default('m') }}">
+      {% if 'image' in fields and item.article.preview_image %}
+      <div class="el-frame-16x9">
+        <img src="{{ item.article.preview_image.lstrip('/') }}" alt="{{ item.article.preview_image_alt|default(item.article.title) }}" />
+      </div>
+      {% endif %}
+      <div>
+        {% if 'title' in fields %}
+        <h3>{{ item.article.title }}</h3>
+        {% endif %}
+        {% if 'description' in fields and item.article.description %}
+        <p class="widget-articles__description">{{ item.article.description }}</p>
+        {% endif %}
+        {% for key, value in item.extra_metadata.items() %}
+        {% if key not in ['title', 'description', 'image'] %}
+        <p class="widget-articles__meta">{{ value }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
     {% endfor %}
   </div>
 </div>

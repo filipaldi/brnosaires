@@ -10,7 +10,14 @@ author: Filip Paldia
 
 Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that heart to just anyone. Neither do we.
 
-<widget-articles category="marathon-djs" metadata="image title description" columns="3" card_size="s"></widget-articles>
+<widget-articles
+    link="false" 
+    category="marathon-djs" 
+    metadata="image title 
+    description" 
+    columns="3" 
+    card_size="s">
+</widget-articles>
 
 We handpicked these DJs. Not just for their technical skill, though they've got plenty, but because they're friends. People we trust, admire, and genuinely want to share a dance floor with.
 

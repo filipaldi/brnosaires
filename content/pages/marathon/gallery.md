@@ -10,5 +10,9 @@ author: Filip Paldia
 
 Moments from the 2025 edition. The embraces, the music, the floor that made it all happen.
 
-<widget-gallery folder="marathon-photos/2025-mina-mijanovic" columns="4" frame="4x3"></widget-gallery>
+<widget-gallery 
+    folder="marathon-photos/2025-mina-mijanovic" 
+    columns="4" 
+    frame="4x3">
+</widget-gallery>
 

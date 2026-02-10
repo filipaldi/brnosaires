@@ -240,6 +240,7 @@ Unified widget for displaying articles filtered by category. Replaces the old `w
 | `columns` | string/integer | No | `"3"` | Grid columns for layout |
 | `metadata` | string | No | `"title description image location"` | Space-separated fields to display (default: `title description`) |
 | `card_size` | string | No | `s`, `m`, `l` | Card size: small, medium (default), or large |
+| `link` | string | No | `true`, `false`, `yes`, `no`, `0` | Whether each card links to the article; default is link. `false`/`no`/`0` render non-clickable cards. |
 
 **Rules:**
 - `days` and `start`/`end` are mutually exclusive for `widget-calendar`

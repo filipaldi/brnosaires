@@ -5,4 +5,4 @@ Gallery, marathon-gallery
 Schedule, marathon-schedule
 Travel, marathon-getting-to-brno
 City, marathon-stay-in-brno
-Registration, https://form.jotform.com/260266376011047
+⭐️ Registration, https://form.jotform.com/260266376011047

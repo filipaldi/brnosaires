@@ -22,7 +22,14 @@ We're not just booking someone behind the decks. We're selecting DJs we've dance
 
 **Confirmed TDJs**
 
-<widget-articles category="marathon-djs" metadata="image title description" columns="3" card_size="s"></widget-articles> 
+<widget-articles
+    link="false" 
+    category="marathon-djs" 
+    metadata="image title 
+    description" 
+    columns="3" 
+    card_size="s">
+</widget-articles>
 
 ### Two hundred<br>square metres
 
@@ -102,4 +109,11 @@ This marathon exists because we love this community, our local dancers, and the 
 
 We're looking forward to your embrace.
 
-<widget-articles category="people" slugs="pavla-luzna lenka-platenikova filip-paldia" metadata="image title" columns="3" card_size="s"></widget-articles> 
+<widget-articles
+    link="false" 
+    category="people" 
+    slugs="pavla-luzna lenka-platenikova filip-paldia" 
+    metadata="image title" 
+    columns="3" 
+    card_size="s">
+</widget-articles> 
