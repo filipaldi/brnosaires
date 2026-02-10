@@ -2,7 +2,7 @@
 title: Pozor na FOMO!
 date: 2025-06-10 02:00:00
 category: announcement
-preview_image: /images/unnamed/505292133_10236634054530845_1585801778437558195_n.avif
+preview_image: /images/announcements/pozor_na_fomo.avif
 description: Pozor na FOMO. Přehled tangových akcí v Brně. Kalendář na brnosaires.com, ať nic nepropásneš.
 author: Lenka Platenikova
 ---
