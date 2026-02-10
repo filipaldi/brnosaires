@@ -35,6 +35,9 @@ jobs:
         run: |
           PYTHONPATH=. pelican content -s publishconf.py
 
+      - name: Add CNAME for custom domain
+        run: echo "brnosaires.com" > output/CNAME
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
