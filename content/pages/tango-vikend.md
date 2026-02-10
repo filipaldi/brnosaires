@@ -34,6 +34,6 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
     category="people" 
     slugs="steky-yaku lenka-platenikova filip-paldia misa-lukavska" 
     metadata="image title"
+    columns="4"
     card_size="s">
 </widget-articles>
-
