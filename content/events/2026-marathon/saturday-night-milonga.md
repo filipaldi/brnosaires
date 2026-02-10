@@ -9,7 +9,7 @@ event-organiser: Brnos Aires
 location: Dělnický dům, Jamborova 3323/65, Brno
 description: Saturday night milonga at Brnos Aires Tango Marathon 2026. The heart of the marathon.
 author: Filip Paldia
-preview_image: /images/marathon-photos/2025-mina-mijanovic/mina-mijanovic-89.avif
+preview_image: /images/marathon-photos/details/dancers-03.avif
 ---
 
 # Saturday Night Milonga

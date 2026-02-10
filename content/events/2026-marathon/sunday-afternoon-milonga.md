@@ -9,7 +9,7 @@ event-organiser: Brnos Aires
 location: Dělnický dům, Jamborova 3323/65, Brno
 description: Closing milonga at Brnos Aires Tango Marathon 2026. The final embrace before we say goodbye.
 author: Filip Paldia
-preview_image: /images/marathon-photos/2025-mina-mijanovic/mina-mijanovic-40.avif
+preview_image: /images/marathon-photos/details/dancers-04.avif
 
 ---
 
