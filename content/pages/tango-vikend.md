@@ -10,7 +10,7 @@ author: Lenka Pláteniková, Filip Paldia, Šteky Yaku, Míša Lukavská,
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Brnos Aires<br>Tango víkend<br>22.–24. května 2026
+# Brnos Aires<br>Tango víkend<br>22.–24. května&nbsp;2026
 
 ## Brnos Aires Tango víkend se vrací!
 
@@ -21,9 +21,22 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
 
 ## Program
 
-<widget-calendar type="milonga workshop" start="2026-05-22" end="2026-05-24" group_by="week day" headers="day" hide_empty_days="true"></widget-calendar>
+<widget-calendar 
+    type="milonga workshop" 
+    start="2026-05-22" 
+    end="2026-05-24" 
+    group_by="day" 
+    headers="day" 
+    hide_empty_days="true"
+    card_size="s">
+</widget-calendar>
 
 ## Organizátoři
 
-<widget-articles category="people" slugs="filip-paldia lenka-platenikova misa-lukavska steky-yaku" metadata="image title"></widget-articles>
+<widget-articles 
+    category="people" 
+    slugs="steky-yaku lenka-platenikova filip-paldia misa-lukavska" 
+    metadata="image title"
+    card_size="s">
+</widget-articles>
 
