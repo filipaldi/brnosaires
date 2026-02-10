@@ -2,7 +2,7 @@
 title: Informuj se u vrabčích kruhů
 date: 2025-08-05 01:00:00
 category: announcement
-preview_image: /images/spravne_vrabci_kruhy.jpg
+preview_image: /images/unnamed/spravne_vrabci_kruhy.jpg
 description: Dvakrát Moravské náměstí, vrabci ti to vyštěbetají. Pozvi kamarády. 
 author: Lenka Platenikova
 ---
