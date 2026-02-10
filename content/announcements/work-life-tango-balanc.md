@@ -2,7 +2,7 @@
 title: work-life-tango-balanc
 date: 2026-01-27 01:00:00
 category: announcement
-preview_image: /images/Rockwine.avif
+preview_image: /images/announcements/milonga_rockwine.jpg
 description: Dvě milongy tento týden, 2 160 objetí. Objetím se nejde předávkovat, zlepšíš zdraví na těle i duši.
 author: Lenka Platenikova
 
