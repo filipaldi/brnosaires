@@ -2,9 +2,6 @@
 title: DJs Team
 date: 2025-10-14T12:24:00+00:00
 slug: marathon-djs-team
-navigation: Marathon
-nav_label: DJs
-nav_order_marathon: 2
 description: Marathon DJs. Handpicked friends who read the room and keep your feet moving. They know when you need that vals.
 author: Filip Paldia
 ---

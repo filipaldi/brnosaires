@@ -2,9 +2,6 @@
 title: Brnos Aires Marathon Venue
 date: 2025-10-14T14:26:00+00:00
 slug: marathon-venue
-navigation: Marathon
-nav_label: Venue
-nav_order_marathon: 3
 description: Marathon venue. 200 m² wooden floor, space for cabeceo, on-site restaurant. Stylish hall, tango atmosphere.
 author: Filip Paldia
 preview_image: /images/marathon-photos/venue-floor/marathon-venue-10.avif

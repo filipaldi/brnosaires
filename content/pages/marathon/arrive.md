@@ -2,9 +2,6 @@
 title: Getting to Brno
 date: 2025-10-14T12:26:00+00:00
 slug: marathon-getting-to-brno
-navigation: Marathon
-nav_label: Travel
-nav_order_marathon: 6
 description: How to get to Brno. Flights, trains and buses from Vienna, Prague and Bratislava. Easier than a good ocho.
 author: Filip Paldia
 ---

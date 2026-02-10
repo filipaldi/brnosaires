@@ -57,7 +57,7 @@ from gallery_widget import get_gallery_images
 JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images}
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor"]
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs"]
 
 EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},

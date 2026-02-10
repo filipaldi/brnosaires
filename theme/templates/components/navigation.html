@@ -1,7 +1,7 @@
-{% set nav_order_attr = 'nav_order_' ~ nav_slot|lower %}
+{% set nav_list = nav_items.get(nav_slot|lower, []) %}
 <nav class="el-stack stack-s align-end{% if nav_slot == 'Marathon' %} nav{% endif %}" role="navigation" aria-label="{{ nav_aria }}">
-  {% for nav_page in pages | selectattr('navigation', 'equalto', nav_slot) | sort(attribute=nav_order_attr) %}
-  {% set is_active = (page is defined and page.slug == nav_page.slug) or (article is defined and article.slug == nav_page.slug) or (output_file is defined and nav_page.slug in output_file) %}
-  <a href="{{ nav_page.url if (nav_page.url is defined and nav_page.url.startswith('http')) else nav_page.slug + '/' }}" class="aesthetic-chip chip-m{% if nav_slot == 'Marathon' %} nav__item text-s{% endif %}{% if is_active %} nav__item--active{% endif %}"{% if nav_page.external or (nav_page.url is defined and nav_page.url.startswith('http')) %} target="_blank" rel="noopener"{% endif %}>{{ nav_page.nav_label | default(nav_page.title) }}</a>
+  {% for nav_page in nav_list %}
+  {% set is_active = (page is defined and nav_page.slug and page.slug == nav_page.slug) or (article is defined and nav_page.slug and article.slug == nav_page.slug) or (output_file is defined and nav_page.slug and nav_page.slug in output_file) %}
+  <a href="{{ nav_page.url }}" class="aesthetic-chip chip-m{% if nav_slot == 'Marathon' %} nav__item text-s{% endif %}{% if is_active %} nav__item--active{% endif %}"{% if nav_page.external %} target="_blank" rel="noopener"{% endif %}>{{ nav_page.label }}</a>
   {% endfor %}
 </nav>

@@ -2,9 +2,6 @@
 title: Brnos Aires
 date: 2026-06-09T10:59:00+00:00
 slug: marathon
-navigation: Marathon
-nav_label: Home
-nav_order_marathon: 1
 description: První tango maraton v Brně. 31. 10.–2. 11. 2025. Zdravý a útulný, 200 m² dřevěné podlahy. Nekupuj letenky do Buenos Aires.
 author: Filip Paldia
 ---
