@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/aesthetic.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/components.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/pages.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css">
 
   {% block head %}{% endblock %}
 </head>
@@ -43,6 +44,14 @@
     </aside>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.querySelector('.glightbox')) {
+        GLightbox({ selector: '.glightbox' });
+      }
+    });
+  </script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

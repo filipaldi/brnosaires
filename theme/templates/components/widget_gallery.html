@@ -25,7 +25,7 @@
     <div class="el-grid-{{ columns }}">
     {% endif %}
       {% for img in images %}
-      <a class="glightbox aesthetic-card{% if card_size %} card-{{ card_size }}{% endif %}" href="{{ SITEURL }}/{{ img.path }}" data-gallery="gallery-{{ folder | replace('/', '-') }}" data-glightbox="title: {{ img.alt }}">
+      <a class="glightbox aesthetic-card{% if card_size %} card-{{ card_size }}{% endif %}" href="{{ SITEURL }}/{{ img.path }}" data-gallery="gallery-{{ folder | replace('/', '-') }}" data-glightbox="title: {{ img.alt | e }}">
         <div class="el-frame-{{ frame }}">
           <img src="{{ SITEURL }}/{{ img.path }}" alt="{{ img.alt }}" loading="lazy" />
         </div>
