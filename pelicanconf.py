@@ -62,3 +62,6 @@ PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processo
 EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},
 }
+
+CALENDAR_ICS_OUTPUT_DIR = "calendars"
+CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]

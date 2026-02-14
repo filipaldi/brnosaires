@@ -5,10 +5,11 @@ Input: page/article content with widget tags. Output: content with widgets rende
 import re
 from pelican import signals
 
-WIDGET_PATTERN = re.compile(r'<widget-(\w+)([^>]*)>(?:</widget-\1>)?', re.DOTALL)
+WIDGET_PATTERN = re.compile(r'<widget-([\w-]+)([^>]*)>(?:</widget-\1>)?', re.DOTALL)
 
 WIDGET_TEMPLATES = {
     'calendar': 'components/widget_calendar.html',
+    'calendar-link': 'components/widget_calendar_link.html',
     'articles': 'components/widget_articles.html',
     'gallery': 'components/widget_gallery.html',
 }
@@ -37,6 +38,15 @@ def process_widgets(generator, content_object):
 
         render_context = context.copy()
         render_context['tag_content'] = tag_content
+
+        if widget_name == 'calendar-link':
+            from calendarium import get_feed_id_for_tag_content, get_calendar_subscribe_url
+            feed_map = context.get('calendar_feed_id_map') or {}
+            feed_id, label = get_feed_id_for_tag_content(tag_content, feed_map)
+            siteurl = context.get('SITEURL', '') or ''
+            subscribe_url = get_calendar_subscribe_url(feed_id, siteurl)
+            render_context['subscribe_url'] = subscribe_url
+            render_context['label'] = label
 
         try:
             template = env.get_template(template_path)

@@ -1,13 +1,33 @@
 """
 Pelican plugin: calendarium filter (type, days, start, end, sort, limit) and group_events for calendar widget.
 Input: articles + options. Output: filtered/sorted event list. group_events(events, group_by, lang) for grouping.
+Also: iCal feed discovery from widget-calendar-link, .ics generation, feed_id map for subscribe link.
 """
+import hashlib
 import re
 from datetime import datetime, timedelta
 
+from pelican import signals
 from recurring_events import expand_recurring
+from recurring_events import _recurrence_to_rrule as recurrence_to_rrule
 
 EXCLUDED_CATEGORIES = ["announcement", "curiosity"]
+
+CALENDAR_LINK_DEFAULTS = {
+    'feed_id': None,
+    'type': None,
+    'days': None,
+    'start': None,
+    'end': None,
+    'path': None,
+    'category': None,
+    'tags': None,
+    'label': None,
+}
+
+CALENDAR_LINK_PATTERN = re.compile(r'<widget-calendar-link([^>]*)>(?:</widget-calendar-link>)?', re.DOTALL)
+
+_GENERATOR_CACHE = {}
 
 CALENDAR_DEFAULTS = {
     'type': None,
@@ -402,5 +422,315 @@ def group_events(events, group_by, lang, hide_empty=False):
     return [(headline_fn(k, lang), buckets[k]) for k in sorted_keys]
 
 
+def parse_calendar_link_attrs(tag_content, defaults=None):
+    if defaults is None:
+        defaults = CALENDAR_LINK_DEFAULTS
+    result = dict(defaults)
+    if not tag_content:
+        return result
+    for match in ATTR_PATTERN.finditer(tag_content):
+        key = match.group(1).lower().replace('-', '_')
+        value = match.group(2)
+        if key not in result:
+            continue
+        if key == 'days':
+            try:
+                result[key] = int(value)
+            except (ValueError, TypeError):
+                pass
+        else:
+            result[key] = value if value else None
+    return result
+
+
+def _slugify_feed_id(s):
+    if not s:
+        return ""
+    s = str(s).strip().lower()
+    s = re.sub(r'[^a-z0-9\-]+', '-', s)
+    s = re.sub(r'-+', '-', s).strip('-')
+    return s or "all"
+
+
+def _feed_fingerprint(attrs):
+    filter_keys = ('type', 'days', 'start', 'end', 'path', 'category', 'tags')
+    parts = []
+    for k in sorted(filter_keys):
+        v = attrs.get(k)
+        if v is not None and str(v).strip():
+            parts.append(f"{k}={str(v).strip()}")
+    return " ".join(parts)
+
+
+def _derive_feed_id(attrs, fingerprint):
+    feed_id_attr = (attrs.get('feed_id') or "").strip()
+    if feed_id_attr:
+        return _slugify_feed_id(feed_id_attr)
+    if not fingerprint:
+        return "all"
+    h = hashlib.md5(fingerprint.encode("utf-8")).hexdigest()[:8]
+    return f"feed_{h}"
+
+
+def discover_calendar_link_feeds(generator):
+    feed_specs = {}
+    feed_id_map = {}
+
+    def scan_content(content):
+        if not content or "<widget-calendar-link" not in content:
+            return
+        for match in CALENDAR_LINK_PATTERN.finditer(content):
+            attrs_str = match.group(1)
+            tag_content = f"calendar-link{attrs_str}"
+            attrs = parse_calendar_link_attrs(tag_content)
+            fp = _feed_fingerprint(attrs)
+            feed_id = _derive_feed_id(attrs, fp)
+            if fp not in feed_specs:
+                feed_specs[fp] = {"feed_id": feed_id, "filter": attrs}
+            feed_id_map[fp] = feed_id
+
+    for page in getattr(generator, "pages", []):
+        if hasattr(page, "_content") and page._content:
+            scan_content(page._content)
+    for article in getattr(generator, "articles", []):
+        if hasattr(article, "_content") and article._content:
+            scan_content(article._content)
+
+    feeds = list(feed_specs.values())
+    seen_feed_id = set()
+    unique_feeds = []
+    for item in feeds:
+        fid = item["feed_id"]
+        if fid in seen_feed_id:
+            continue
+        seen_feed_id.add(fid)
+        unique_feeds.append(item)
+
+    generator.context["calendar_feeds"] = unique_feeds
+    generator.context["calendar_feed_id_map"] = feed_id_map
+    
+    _GENERATOR_CACHE["generator"] = generator
+    _GENERATOR_CACHE["feeds"] = unique_feeds
+
+
+def get_feed_id_for_tag_content(tag_content, feed_map):
+    attrs = parse_calendar_link_attrs(tag_content)
+    fp = _feed_fingerprint(attrs)
+    feed_id = feed_map.get(fp, "all")
+    label = attrs.get("label")
+    return feed_id, label
+
+
+def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
+    calendar_path = f"/{output_dir}/{feed_id}.ics"
+    if not siteurl or not str(siteurl).strip():
+        return calendar_path
+    full_url = str(siteurl).rstrip("/") + calendar_path
+    if full_url.startswith("https://"):
+        return "webcal://" + full_url[8:]
+    if full_url.startswith("http://"):
+        return "webcal://" + full_url[7:]
+    return full_url
+
+
+def _filter_by_path(articles, path):
+    if not path or not str(path).strip():
+        return list(articles) if articles else []
+    needle = str(path).strip().replace("\\", "/")
+    out = []
+    for a in articles or []:
+        src = getattr(a, "source_path", None) or ""
+        src = src.replace("\\", "/")
+        if needle in src:
+            out.append(a)
+    return out
+
+
+def _filter_by_category_name(articles, category_name):
+    if not category_name or not str(category_name).strip():
+        return list(articles) if articles else []
+    want = str(category_name).strip().lower()
+    out = []
+    for a in articles or []:
+        cat = getattr(a, "category", None)
+        if cat and getattr(cat, "name", "").lower() == want:
+            out.append(a)
+    return out
+
+
+def _filter_by_tags(articles, tags_str):
+    if not tags_str or not str(tags_str).strip():
+        return list(articles) if articles else []
+    want = set(s.strip().lower() for s in str(tags_str).split() if s.strip())
+    if not want:
+        return list(articles) if articles else []
+    out = []
+    for a in articles or []:
+        tag_list = getattr(a, "tags", []) or []
+        for t in tag_list:
+            name = getattr(t, "name", None) or str(t)
+            if name and name.lower() in want:
+                out.append(a)
+                break
+    return out
+
+
+def _event_start_in_range(metadata, start_str, end_str):
+    start_dt = _parse_event_start(metadata)
+    if start_dt is None:
+        return False
+    d = start_dt.date() if hasattr(start_dt, "date") else start_dt
+    if start_str:
+        try:
+            low = datetime.strptime(start_str[:10], "%Y-%m-%d").date()
+            if d < low:
+                return False
+        except (ValueError, TypeError):
+            pass
+    if end_str:
+        try:
+            high = datetime.strptime(end_str[:10], "%Y-%m-%d").date()
+            if d > high:
+                return False
+        except (ValueError, TypeError):
+            pass
+    return True
+
+
+def filter_events_for_ics(articles, filter_attrs, now, excluded_categories=None):
+    if excluded_categories is None:
+        excluded_categories = EXCLUDED_CATEGORIES
+    out = []
+    for a in articles or []:
+        if not getattr(a, "category", None):
+            out.append(a)
+        elif getattr(a.category, "name", None) not in excluded_categories:
+            out.append(a)
+    f = filter_attrs or {}
+    out = _filter_by_type(out, f.get("type"))
+    out = _filter_by_path(out, f.get("path"))
+    out = _filter_by_category_name(out, f.get("category"))
+    out = _filter_by_tags(out, f.get("tags"))
+    start_str, end_str = _resolve_start_end(now, f.get("days"), f.get("start"), f.get("end"))
+    if start_str is not None or end_str is not None:
+        out = [a for a in out if _event_start_in_range(getattr(a, "metadata", None) or {}, start_str, end_str)]
+    return out
+
+
+def _ics_escape(s):
+    if s is None:
+        return ""
+    s = str(s).replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+    return s
+
+
+def _format_ics_datetime(dt):
+    if dt is None:
+        return ""
+    if hasattr(dt, "strftime"):
+        return dt.strftime("%Y%m%dT%H%M%S")
+    return ""
+
+
+def _event_rrule(metadata):
+    if not metadata:
+        return None
+    r = recurrence_to_rrule(metadata)
+    if r:
+        return r
+    return (metadata.get("event-rrule") or "").strip() or None
+
+
+def build_ics(events, siteurl, timezone_name=None):
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Calendarium//EN"]
+    for event in events or []:
+        meta = getattr(event, "metadata", None) or {}
+        start_dt = _parse_event_start(meta)
+        if start_dt is None:
+            continue
+        end_raw = meta.get("event-end")
+        if isinstance(end_raw, datetime):
+            end_dt = end_raw
+        elif end_raw:
+            try:
+                end_dt = datetime.strptime(str(end_raw)[:19], "%Y-%m-%d %H:%M:%S")
+            except (ValueError, TypeError):
+                try:
+                    end_dt = datetime.strptime(str(end_raw)[:10], "%Y-%m-%d")
+                except (ValueError, TypeError):
+                    end_dt = start_dt
+        else:
+            end_dt = start_dt
+        uid = getattr(event, "slug", None) or "event"
+        if siteurl:
+            from urllib.parse import urlparse
+            try:
+                netloc = urlparse(siteurl).netloc or "site"
+            except Exception:
+                netloc = "site"
+            uid = f"{uid}@{netloc}"
+        summary = _ics_escape(getattr(event, "title", "") or "Event")
+        desc = _ics_escape(meta.get("description") or getattr(event, "summary", "") or "")
+        location = _ics_escape(meta.get("location") or "")
+        url = (siteurl or "").rstrip("/") + "/" + (getattr(event, "slug", "") or "").strip("/") + "/"
+        if url and url != "/":
+            url = _ics_escape(url)
+        lines.append("BEGIN:VEVENT")
+        lines.append(f"UID:{uid}")
+        lines.append(f"DTSTART:{_format_ics_datetime(start_dt)}")
+        lines.append(f"DTEND:{_format_ics_datetime(end_dt)}")
+        lines.append(f"SUMMARY:{summary}")
+        if desc:
+            lines.append(f"DESCRIPTION:{desc}")
+        if location:
+            lines.append(f"LOCATION:{location}")
+        if url:
+            lines.append(f"URL:{url}")
+        rrule = _event_rrule(meta)
+        if rrule:
+            lines.append(f"RRULE:{rrule}")
+        lines.append("END:VEVENT")
+    lines.append("END:VCALENDAR")
+    return "\r\n".join(lines)
+
+
+def write_ics_feeds(pelican, **kwargs):
+    generator = _GENERATOR_CACHE.get("generator")
+    if generator is None:
+        return
+    
+    feeds = _GENERATOR_CACHE.get("feeds") or []
+    if not feeds:
+        return
+    
+    articles = generator.context.get("articles", []) or []
+    settings = pelican.settings
+    output_path = settings.get("OUTPUT_PATH", "output")
+    ics_dir = settings.get("CALENDAR_ICS_OUTPUT_DIR", "calendars")
+    excluded = settings.get("CALENDAR_ICS_EXCLUDED_CATEGORIES", EXCLUDED_CATEGORIES)
+    now = settings.get("NOW")
+    if now is None:
+        now = datetime.now()
+    siteurl = settings.get("SITEURL", "") or ""
+    import os
+    out_dir = os.path.join(output_path, ics_dir)
+    try:
+        os.makedirs(out_dir, exist_ok=True)
+    except OSError:
+        return
+    for feed in feeds:
+        feed_id = feed.get("feed_id", "all")
+        filter_spec = feed.get("filter", {})
+        events = filter_events_for_ics(articles, filter_spec, now, excluded)
+        ics_content = build_ics(events, siteurl)
+        path = os.path.join(out_dir, f"{feed_id}.ics")
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(ics_content)
+        except OSError:
+            pass
+
+
 def register():
-    pass
+    signals.page_generator_finalized.connect(discover_calendar_link_feeds)
+    signals.finalized.connect(write_ics_feeds)

@@ -173,7 +173,55 @@ Displays filtered lists of events from `content/events/`.
 - Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
 - Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
 
-### 2. Articles Widget (`<widget-articles>`)
+### 2. Calendar Subscribe Link (`<widget-calendar-link>`)
+
+Generates a subscribe link for an iCal (.ics) feed. The plugin discovers these widgets, creates one `.ics` file per unique feed configuration, and renders the link.
+
+**Attributes:**
+- `feed_id="all|marathon|..."` (optional) - Unique identifier for the feed. If omitted, a stable ID is derived from the filter (hash). Use explicit `feed_id` for readable URLs (e.g. `/calendars/marathon.ics`).
+- `type="milonga|workshop|..."` (optional) - Event type filter (same as `widget-calendar`)
+- `days="7"` (optional) - Days from today (positive = future, negative = past)
+- `start="2026-06-01"` (optional) - Start of date window (same as `widget-calendar`)
+- `end="2026-08-31"` (optional) - End of date window
+- `path="events/2026-marathon"` (optional) - Filter by article source path containing this substring
+- `category="events"` (optional) - Filter by Pelican category name (e.g. `events`, `classes`)
+- `tags="tango workshop"` (optional) - Space-separated tags (OR logic)
+- `label="Subscribe"` (optional) - Link text (default: "Subscribe to calendar")
+
+**Feed Generation:**
+- The plugin scans all pages and articles for `<widget-calendar-link>` tags at build time
+- For each unique feed configuration (same `feed_id` or same filter), one `.ics` file is generated in `output/calendars/`
+- Events with recurrence metadata emit RRULE in the iCal feed
+- The widget renders as: `<a href="/calendars/{feed_id}.ics">{label}</a>`
+
+**Examples:**
+```html
+<!-- All events (no filter) -->
+<widget-calendar-link feed_id="all" label="Přidat do kalendáře"></widget-calendar-link>
+
+<!-- Only events from content/events/ -->
+<widget-calendar-link feed_id="events" category="events" label="Subscribe to events"></widget-calendar-link>
+
+<!-- Marathon events only -->
+<widget-calendar-link feed_id="marathon" path="events/2026-marathon" label="Marathon 2026"></widget-calendar-link>
+
+<!-- Milongas in next 30 days -->
+<widget-calendar-link feed_id="milongas" type="milonga" days="30" label="Upcoming milongas"></widget-calendar-link>
+```
+
+**Configuration (optional):**
+In `pelicanconf.py`:
+```python
+CALENDAR_ICS_OUTPUT_DIR = "calendars"  # Default: "calendars"
+CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]  # Default: same as EXCLUDED_CATEGORIES
+```
+
+**Implementation:**
+- Plugin: `plugins/calendarium.py` discovers widgets at `page_generator_finalized`, generates `.ics` files at `finalized`
+- Component: `theme/templates/components/widget_calendar_link.html` renders the subscribe link
+- Feed URL: `{SITEURL}/calendars/{feed_id}.ics`
+
+### 3. Articles Widget (`<widget-articles>`)
 
 Unified widget for displaying articles filtered by category. Replaces the old `widget-announcements`, `widget-curiosities`, `widget-classes`, and `widget-people` widgets.
 
