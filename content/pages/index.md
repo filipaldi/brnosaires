@@ -24,7 +24,12 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 ## Kde tančit tango tento týden
 
-<widget-calendar start="this-week" type="milonga neolonga pocoloco praktika" days="7"></widget-calendar>
+<widget-calendar 
+    start="this-week" 
+    type="milonga neolonga pocoloco praktika"
+    days="7"
+    card_size="s">
+</widget-calendar>
 
 ## Nejbližší lekce
 <widget-calendar start="today" type="class" group_by="day" headers="day" days="1"></widget-calendar>

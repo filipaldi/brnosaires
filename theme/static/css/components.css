@@ -92,6 +92,18 @@
   --card-min-width: var(--size-6xl);
 }
 
+/* Cards in Cluster: flexible, grow and shrink */
+.el-cluster [class*="card-"] {
+  flex: 1 1 var(--card-min-width);
+  min-width: 0;
+}
+
+/* Cards in Reel day columns: fill the column width */
+.week.el-reel .day [class*="card-"] {
+  width: 100%;
+  flex: none;
+}
+
 /* ============================================
    WIDGET CALENDAR (grouped)
    ============================================ */
@@ -101,33 +113,7 @@
   container-type: inline-size;
 }
 
-.week {
-  position: relative;
-  padding-top: 2.5rem;
-  display: flex;
-  overflow-x: auto;
-  flex-wrap: nowrap;
-  gap: var(--size-xs);
-  scrollbar-color: var(--color-light, #fff) var(--color-dark, #000);
-}
-
-.week::-webkit-scrollbar {
-  block-size: 1rem;
-}
-
-.week::-webkit-scrollbar-track {
-  background-color: var(--color-dark, #000);
-}
-
-.week::-webkit-scrollbar-thumb {
-  background-color: var(--color-dark, #000);
-  background-image: linear-gradient(var(--color-dark, #000) 0, var(--color-dark, #000) 0.25rem, var(--color-light, #fff) 0.25rem, var(--color-light, #fff) 0.75rem, var(--color-dark, #000) 0.75rem);
-}
-
 .week-name {
-  position: absolute;
-  top: 0;
-  left: 0;
   font-size: var(--text-m);
   line-height: var(--size-m);
   font-weight: var(--font-weight-regular);
@@ -145,19 +131,19 @@
   margin-bottom: var(--size-s);
 }
 
-.calendar[data-card-size="xs"] .week .day {
+.calendar[data-card-size="xs"] .week.el-reel .day {
   inline-size: var(--size-3xl);
 }
 
-.calendar[data-card-size="s"] .week .day {
+.calendar[data-card-size="s"] .week.el-reel .day {
   inline-size: var(--size-4xl);
 }
 
-.calendar[data-card-size="m"] .week .day {
+.calendar[data-card-size="m"] .week.el-reel .day {
   inline-size: var(--size-5xl);
 }
 
-.calendar[data-card-size="l"] .week .day {
+.calendar[data-card-size="l"] .week.el-reel .day {
   inline-size: var(--size-6xl);
 }
 
@@ -178,15 +164,60 @@
   display: block;
 }
 
-/* Hide empty days on mobile, show on desktop */
-.week .day:not(:has(.event)) {
+/* Hide empty days on mobile, show on desktop (Reel layout only) */
+.week.el-reel .day:not(:has(.event)) {
   display: none;
 }
 
 @container (min-width: 40rem) {
-  .week .day:not(:has(.event)) {
+  .week.el-reel .day:not(:has(.event)) {
     display: flex;
   }
+}
+
+/* Single-level groupings with Cluster */
+.day.el-cluster,
+.week.el-cluster,
+.month.el-cluster,
+.calendar > .el-cluster {
+  align-items: stretch;
+}
+
+.day.el-cluster .day-name,
+.week.el-cluster .week-name,
+.month.el-cluster .month-name {
+  flex-basis: 100%;
+  margin-bottom: var(--size-xs);
+}
+
+/* Reel-specific styles (scoped to avoid affecting Cluster) */
+.week.el-reel {
+  position: relative;
+  padding-top: 2.5rem;
+  display: flex;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  gap: var(--size-xs);
+  scrollbar-color: var(--color-light, #fff) var(--color-dark, #000);
+}
+
+.week.el-reel::-webkit-scrollbar {
+  block-size: 1rem;
+}
+
+.week.el-reel::-webkit-scrollbar-track {
+  background-color: var(--color-dark, #000);
+}
+
+.week.el-reel::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark, #000);
+  background-image: linear-gradient(var(--color-dark, #000) 0, var(--color-dark, #000) 0.25rem, var(--color-light, #fff) 0.25rem, var(--color-light, #fff) 0.75rem, var(--color-dark, #000) 0.75rem);
+}
+
+.week.el-reel .week-name {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* ============================================

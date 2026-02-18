@@ -19,12 +19,13 @@
   {% if grouped %}
     {% set first_group = grouped[0] %}
     {% set group_metadata = first_group[2] if first_group|length > 2 else {} %}
-    {% set is_nested = group_metadata.get('is_nested', false) %}
+    {% set group_levels = group_metadata.get('group_levels', []) %}
   {% else %}
-    {% set is_nested = false %}
+    {% set group_levels = [] %}
   {% endif %}
   
-  {% if is_nested %}
+  {% if group_levels == ['week', 'day'] %}
+  {# Reel layout: week → day → event #}
   {% for week_headline, week_days, metadata in grouped %}
   <section class="week el-reel">
     {% if headers and 'week' in headers %}
@@ -47,20 +48,87 @@
   </section>
   {% endfor %}
   
-  {% else %}
+  {% elif group_levels|length == 1 %}
+  {# Single-level grouping: day/week/month → events in Cluster #}
+  {% set group_type = group_levels[0] %}
   {% for headline, group_events, metadata in grouped %}
-  <section class="month el-stack-xs">
-    <div class="month-name">{{ headline }}</div>
+  <section class="{{ group_type }} el-cluster" role="region" aria-label="{{ headline }}">
+    <div class="{{ group_type }}-name">{{ headline }}</div>
     {% for event in group_events %}
     {% include "components/event_card.html" %}
     {% endfor %}
   </section>
   {% endfor %}
+  
+  {% elif group_levels == ['month', 'week'] %}
+  {# month → week sections #}
+  {% for month_headline, month_weeks, metadata in grouped %}
+  <section class="month el-stack-xs">
+    <div class="month-name">{{ month_headline }}</div>
+    {% for week_headline, week_events in month_weeks %}
+    <section class="week el-cluster">
+      <div class="week-name">{{ week_headline }}</div>
+      {% for event in week_events %}
+      {% include "components/event_card.html" %}
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </section>
+  {% endfor %}
+  
+  {% elif group_levels == ['month', 'day'] %}
+  {# month → day sections with Cluster #}
+  {% for month_headline, month_days, metadata in grouped %}
+  <section class="month el-stack-xs">
+    <div class="month-name">{{ month_headline }}</div>
+    {% for day_headline, day_events in month_days %}
+    <section class="day el-cluster">
+      <div class="day-name">{{ day_headline }}</div>
+      {% for event in day_events %}
+      {% include "components/event_card.html" %}
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </section>
+  {% endfor %}
+  
+  {% elif group_levels == ['month', 'week', 'day'] %}
+  {# month → week (Reel) → day → event #}
+  {% for month_headline, month_weeks, metadata in grouped %}
+  <section class="month el-stack-m">
+    <div class="month-name">{{ month_headline }}</div>
+    {% for week_headline, week_days in month_weeks %}
+    <section class="week el-reel">
+      {% if headers and 'week' in headers %}
+      <div class="week-name">{{ week_headline }}</div>
+      {% endif %}
+      
+      {% for day_headline, day_events in week_days %}
+      <div class="day el-stack-xs"{% if day_events %} role="list"{% endif %}>
+        {% if headers and 'day' in headers %}
+        <div class="day-name">{{ day_headline }}</div>
+        {% endif %}
+        
+        {% if day_events %}
+        {% for event in day_events %}
+        {% include "components/event_card.html" %}
+        {% endfor %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </section>
+  {% endfor %}
+  
   {% endif %}
 {% else %}
+  {# No grouping: events in Cluster #}
+  <div class="el-cluster">
   {% for event in display_events %}
   {% include "components/event_card.html" %}
   {% endfor %}
+  </div>
 {% endif %}
 </div>
 {% endif %}
