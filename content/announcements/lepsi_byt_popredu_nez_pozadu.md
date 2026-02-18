@@ -7,6 +7,8 @@ description: Konec června to nemá lehký. Budou se dít věci. Vítat i louči
 author: Lenka Platenikova
 ---
 
+# Lepší být popředu než pozadu
+
 Konec června to nemá lehký 🙄 Všichni se vidí na dovolené, až je z toho jeden nervózní, jestli by neměl být třeba víc pryč 🤔
 Neměl.  
 Věci se budou dít i v Brnos Aires 👀  

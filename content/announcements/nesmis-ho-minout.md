@@ -7,6 +7,8 @@ description: Nesmíš ho minout. DJ Ondra a milongy v Brně. Přehled na brnosai
 author: Lenka Platenikova
 ---
 
+# Nesmíš ho minout!
+
 DJ Ondra nesedí za DJ pultem zas tak často, aby si člověk mohl dovolit ho minout 👀 Nedovol si to 🫵
 Tvoje dávka zhruba 12 objetí 🤗už dnes večer ❤️
 Čili magické datum 🌟 12. 12.

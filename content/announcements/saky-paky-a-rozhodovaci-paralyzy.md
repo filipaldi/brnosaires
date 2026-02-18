@@ -7,6 +7,8 @@ description: Saky paky a rozhodovací paralýzy. Oznamy z Brnos Aires. Kalendá�
 author: Lenka Platenikova
 ---
 
+# Saky paky a rozhodovací paralýzy
+
 ✍️ V zápisníčku tangového zpravodaje evidujeme tento týden jenom jednu milongu do konce května 😲
 Čili zachraň si svůj přísun májové tango lásky 💗a popadni saky paky. Nástup je ve čtvrtek v kavárně Paměti národa 🏃‍♂️
 Kromě saků paků s sebou vezmi kamarády a známé, kteří se tě furt dokolečka ptají, co na tom tangu vidíš🙃.

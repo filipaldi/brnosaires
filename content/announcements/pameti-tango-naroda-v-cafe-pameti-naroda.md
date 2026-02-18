@@ -7,6 +7,8 @@ description: Paměti tango národa v Café Paměti národa. Milonga v Brně. Sla
 author: Lenka Platenikova
 ---
 
+# Paměti tango národa v Café Paměti národa
+
 Až budou sepisovat tvoje paměti, patrně tam toho nebude tolik jak v paměti národa✍️
 Je tu ovšem jistá šance, jak se stát nezapomenutelným. Buď součástí paměti tango národa brněnského ✌️ Čili  Brnos Aires ❤️
 První kapitoly se píšou tu 📖

@@ -7,6 +7,8 @@ description: Zorientuj se a přiběhni na Skleněnku. Milonga na Skleněnce, Brn
 author: Lenka Platenikova
 ---
 
+# Zorientuj se a přiběhni na Skleněnku
+
 V tyto dny je to s orientací v čase trochu náročné 🤔 Jestli ti pořád není jasný, jestli je teď o hodinu víc nebo míň, zamotám ti hlavu ještě trošku 🙃
 Milonga není tento týden ve čtvrtek, ale ve středu, čili o den dřív ☝️
 Kouřící králík má totiž středy rád 🐰

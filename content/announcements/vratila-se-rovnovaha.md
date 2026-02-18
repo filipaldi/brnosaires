@@ -7,6 +7,8 @@ description: Vrátila se rovnováha. Čtvrteční milongy v Adrinele, tango v Br
 author: Lenka Platenikova
 ---
 
+# Vrátila se rovnováha
+
 Tvoje čtvrteční jistota je zpátky ✌️ Rozhozený tango-bio-rytmus 🥴 najde ztracenou rovnováhu během prvních dvou tří tand ⚖️a dál se povezeš na staré známé vlně 🌊
 Malý rozcestník 👀:
 👉🍰 Energie, čili dortíky: vitrína vlevo u baru

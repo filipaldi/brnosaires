@@ -7,6 +7,8 @@ description: Tango je fér. Oznamy z tangového Brna. Milongy a praktiky na brno
 author: Lenka Platenikova
 ---
 
+# Tango je fér
+
 Všimni si, jak je tangový svět fér✌️.
 Jeden týden deficitu bleskurychle dorovná další týden ⚖️.
 Takže ti aktuálně padá do klína několik možností, jak se dostat do rovnováhy. Specialitky tohoto týdne 🫶:

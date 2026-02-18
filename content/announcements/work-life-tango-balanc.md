@@ -6,6 +6,8 @@ preview_image: /images/announcements/milonga_rockwine.jpg
 description: Dvě milongy tento týden, 2 160 objetí. Objetím se nejde předávkovat, zlepšíš zdraví na těle i duši.
 author: Lenka Platenikova
 
+# work-life-tango-balanc
+
 # Tvůj plán na work-life-tango balanc  
 Konečně týden, kdy se tvůj svět dostává do rovnováhy ⚖️  
 Čtvrteční milonga v Rockwine přitom nehodlá narušit ani tvoji work-life-tango-sleeping rovnováhu. 

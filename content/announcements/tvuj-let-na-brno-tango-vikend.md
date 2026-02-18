@@ -7,6 +7,8 @@ description: Tvůj let na Brno tango víkend. Workshopy, milongy, hvězdy. Přeh
 author: Lenka Platenikova
 ---
 
+# Tvůj let na Brno tango víkend
+
 V kuloárech lidí, kteří rozumí počasí se říká, že následující období bude festival větru. Hlavně z jihu 💨
 Ti, kteří rozumí tangu usoudili, že v souvislosti s blížícím se JARNÍM TANGO VÍKENDEM v Brně vítr přifoukne tanečníky ze všech světových stran 👀
 

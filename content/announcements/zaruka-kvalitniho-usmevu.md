@@ -7,6 +7,8 @@ description: Záruka kvalitního úsměvu. Milongy a praktiky v Brně. Tango, kt
 author: Lenka Platenikova
 ---
 
+# Záruka kvalitního úsměvu
+
 Samozřejmě, že ideální čtvrtek je ten, který skončí tangem na milonze 💃. Ale... 👆když vám bude hrát DJ Zsofie, máte ještě minimálně dva bonusy:
 👉budete se divit, že se vám chce hodně tančit
 👉zjistíte, že se pořád jakoby mimoděk usmíváte 😊

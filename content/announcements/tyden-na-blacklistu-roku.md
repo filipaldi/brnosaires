@@ -7,6 +7,8 @@ description: Týden na blacklistu roku. Oznamy z tangového Brna. Přehled, abys
 author: Lenka Platenikova
 ---
 
+# Týden na blacklistu roku!
+
 Je to tak - tento týden aspiruje na blacklist tohoto roku 😲 Rozhlížím se kolem a milonga v Brně se N E K O N Á. Cože?👀
 Tentokrát i v Adrinele bude ve čtvrtek zhasnuto a zamknuto🗝️. Tak nechoď🤔
 Neboj ✌️ TangoBrnoStudioKamarád ❤️do nepohody má pár tipů:

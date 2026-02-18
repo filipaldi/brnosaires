@@ -6,6 +6,8 @@ description: Tvoje sbírka tango objetí. Milongy a praktiky v Brně. Posbírej 
 author: Lenka Platenikova
 ---
 
+# Tvoje sbírka tango objetí
+
 Nasbírej si tango objetí do foroty🤗. TangoBrnoStudioKamarád ❤️hlásí, že stav tohoto týdne je ještě lepší než jsme doufali ✌️
 Celkem třikrát si můžeš zvednout hladinu oxytocinu🌊 Čili hormon lásky a štěstí zdarma do každé domácnosti🫶
 Je pravděpodobné, že povinné konverzace s vánoční tématikou budou pak o něco jednodušší 😎 🌲

@@ -7,6 +7,8 @@ description: Jarní tání a letní čas. Kalendář na brnosaires.com a reminde
 author: Lenka Platenikova
 ---
 
+# Jarní tango menu v letním čase
+
 Přišlo jarní tání a přijde letní čas ☀️🕛
 A pak se v tom vyznej 🙃
 Tvoje vyznání (se) v tango akcích ovšem umožňuje existence kalendáře na [www.brnosaires.com](http://www.brnosaires.com/) a něžných reminderů od tvých tango přátel 🫶.

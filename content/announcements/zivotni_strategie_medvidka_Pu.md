@@ -7,7 +7,7 @@ description: Inspirující životní strategie Medvídka Pů. Zásobárna tangov
 author: Lenka Platenikova
 ---
 
-# Zásobárna tangového objetí  
+# Životní strategie Medvídka Pů  
 Než si začneš sytit bříško vánočním cukrovím 😋, nasyť si ho tangovým objetím 🤗
 Inspirovat se můžeš životní strategii medvídka Pů: Furt měl po ruce dostatečnou zásobu medu, aby měl kam sáhnout, až nebude k dostání 🍯
 Místo medu použij tango, je to zdravější 💃

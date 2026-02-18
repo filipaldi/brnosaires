@@ -6,6 +6,8 @@ description: Hřejivá objetí v únoru. Monastery milonga, praktika na Stolárn
 author: Lenka Platenikova
 ---
 
+# Hřejivá objetí v únoru
+
 Kdyby náhodou mělo jarní tání zpoždění ❄️, nasbírej si do foroty hřejivá objetí🤗
 Přehledně tu, přehledněji a s detaily na [www.brnosaires.com](http://www.brnosaires.com/)
 👉 Sobota 22. 2. Monastery milonga

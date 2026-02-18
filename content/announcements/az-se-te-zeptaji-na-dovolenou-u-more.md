@@ -6,6 +6,8 @@ description: Až se tě zeptají na dovolenou u moře, řekni Brno. Tango, milon
 author: Lenka Platenikova
 ---
 
+# Až se tě zeptají na dovolenou u moře…
+
 👆Až se tě zeptají, jestli jsi byl(a) v létě u moře, můžeš říct ANO 🌊 A tančil(a) jsem tango🕺 Moře bylo brněnské, čili takové nikde jinde nenajdeš 👀
 Dojdi už za týden na 2.edici Tančírna argentinského tanga u brněnského moře. Letos speciální "taneční fóliový parket"💃
 Voda bude šplouchat o tvé kotníky💧 v atmosféře tangové hudby🎶, objetí tangových kamarádů 🤗, míchaných drinků v PARQ café 🍹 a hvězdného nebe 🌠

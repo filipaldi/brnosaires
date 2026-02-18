@@ -6,6 +6,8 @@ description: Naplň si svůj tango hrníček 2024. Přehled milong a workshopů 
 author: Lenka Platenikova
 ---
 
+# Naplň si svůj tango hrníček 2024
+
 Řekněme si to na rovinu: Do začátku posledního roku prvního čtvrtstoletí 21. století 🙃 máš už jenom 2 šance vyhrát svoji převratnou brněnskou tandu ✌️
 🔥Malinký plamínek naděje ti ještě plápolá při nedělních praktikách na Stolárně.
 Čili je toho jak šafránu 🤫

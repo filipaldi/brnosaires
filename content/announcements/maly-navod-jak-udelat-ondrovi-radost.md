@@ -7,6 +7,8 @@ description: Malý návod, jak udělat Ondrovi radost. Oznamy z Brnos Aires. Mil
 author: Lenka Platenikova
 ---
 
+# Malý návod, jak udělat Ondrovi radost
+
 Na úvod týdne si vzpomeň, že čtvrtek tě nenechá na holičkách🤲.
 Udělej (si) radost a doběhni do Adrinely🏃‍♀️🏃‍♂️ - tanec, objetí, hudba tě dostane z nejhoršího a připraví na víkend!🤗
 DJ Ondra zajistí, že radost bude kvalitní 🥳

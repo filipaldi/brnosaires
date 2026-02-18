@@ -6,6 +6,8 @@ description: Je vedro a jasno. Adrinela od 12. 9., Milonga v Stehlík coffe baru
 author: Lenka Platenikova
 ---
 
+# Je vedro a jasno
+
 Tak aby bylo jasno🙃:
 👉 Dnes (čtvrtek) ještě na milongu do Adrinely nechoď. To až od 12. 9. Pak už zase furt 🐠🍰
 👉 V sobotu 7. 9., 18 - 22h, dojdi do Stehlík coffe baru 🐦 na Křenovou, nikoli na Skleněnku. Milonga se přesouvá. Je vedro, takže proto 🥴

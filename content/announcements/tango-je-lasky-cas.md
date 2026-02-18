@@ -7,6 +7,8 @@ description: Tango je lásky čas. Milongy a praktiky v Brně. Přehled na brnos
 author: Lenka Platenikova
 ---
 
+# Tango je lásky čas
+
 🌸Až se probudíš z prvomájového opojení👀 , bude ten pravý čas pro tango. Samozřejmě 👉 tango a lásky čas se totiž doplňují 💞
 Dojdi, protože premiérově bude hrát v Adrinele DJ Richard 🙋‍♂️
 A kam se poděl DJ Milan? 🤔

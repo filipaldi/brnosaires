@@ -7,6 +7,8 @@ description: Čtyři dny tanga v Brně. Adrinela, milongy, praktiky. Metropole n
 author: Lenka Platenikova
 ---
 
+# 4 dny v tango metropoli na 4 písmenka
+
 Země se zachvěla, svět se pootočil 🌍směr Brno a všechny navigace, směrovky a ukazatele s ním.↗️🔀
 
 Tento týden máš celkem plusmínus 57 šancí zažít tandu, která bude mít místo ve tvém tango deníčku📕 nejlepších letošních tango zážitků 🫶

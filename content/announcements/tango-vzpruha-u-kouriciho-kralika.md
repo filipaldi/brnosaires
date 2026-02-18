@@ -7,6 +7,8 @@ description: Tango vzpruha U kouřícího králíka. Milonga v jazz baru, Brno. 
 author: Lenka Platenikova
 ---
 
+# Tango vzpruha U kouřícího králíka
+
 Uprostřed týdne přichází tvoje tangová vzpruha🚀
 🤗Dnes 👉 ve středu 2. 4. nová dávka tangových zážitků v útulném atmosférickém baru U kouřícího králíka 🐰
 👉 DJ Luboš 🎼🩵

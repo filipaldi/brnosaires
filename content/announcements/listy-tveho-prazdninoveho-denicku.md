@@ -7,6 +7,8 @@ description: Listy tvého prázdninového deníčku. Letní tango v Brně. Milon
 author: Lenka Platenikova
 ---
 
+# Listy tvého prázdninového deníčku
+
 Má tvůj prázdninový deníček dost listů?🫢
 Intenzita letních tango zážitků se oproti těm běžným totiž násobí 🚀
 Ale neboj, dneska už papír a tužku nepotřebuješ, online deníček jen tak nezaplníš 📝

@@ -7,6 +7,8 @@ description: Přej si tangové nebe. Oznamy z Brnos Aires. Milongy a workshopy v
 author: Lenka Platenikova
 ---
 
+# Přej si tangové nebe!
+
 Přej si čtvrtek bez deště 🙏
 Když si ho budeš přát 👉ty, 👉ty 👉aj ty, je poměrně vysoká šance, že se dešťové kapky stočí k Vysočině, kde už jsou na to zvyklí 🌧️😇
 První letošní open air milonga ve Stehlík coffee baru tak bude za svitu podvečerního slunce 🌅

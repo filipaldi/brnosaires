@@ -6,6 +6,8 @@ description: Neztrať úroveň. Přehled tangových akcí v Brně. Milongy a pra
 author: Lenka Platenikova
 ---
 
+# Neztrať úroveň!
+
 Dej pozor, ať neztratíš úroveň! 👀
 Až se tě na konci léta zeptají, jak je na tom tvoje tango, buď připraven 💪 Když budeš zahálet, snadno pak zapomeneš zareagovat i na cabeceo 🫢 Pár letních milong zkrátka nestačí...🤔
 Neboj🫶 Záchranné lano je tu - tak se ho chyť️ ✊

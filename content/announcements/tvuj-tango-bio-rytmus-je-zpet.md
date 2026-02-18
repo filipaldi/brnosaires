@@ -6,6 +6,8 @@ description: Tvůj tango-bio-rytmus je zpět. Přehled akcí v Brně. Kalendář
 author: Lenka Platenikova
 ---
 
+# Tvůj tango-bio-rytmus je zpět!
+
 Tvoje čtvrteční jistota je zpátky ✌️ Rozhozený tango-bio-rytmus 🥴 najde ztracenou rovnováhu během prvních dvou tří tand ⚖️a dál se povezeš na staré známé vlně 🌊
 Malý rozcestník 👀:
 👉🍰 Energie, čili dortíky: vitrína vlevo u baru

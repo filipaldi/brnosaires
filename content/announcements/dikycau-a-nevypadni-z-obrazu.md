@@ -7,6 +7,8 @@ description: Díky a čau Adrinelo, ahoj léto. Rozloučení s dortíky a rybič
 author: Lenka Platenikova
 ---
 
+# Díkyčau a nevypadni z obrazu
+
 Je čas říct: Díky a čau Adrinelo a ahoj léto!🙋‍♀️🙋
 Dva měsíce teď neuvidíš vitrínku s dortíkama, co tě tak přitahovala 👀, akvárko s rybičkama, co tě tak uklidňovalo 🐠 a paní Ladu, která tě kasírovala💰
 Obejmi na rozloučenou Aničku🤗 Ať už ji znáš nebo ne, uvidíš ji každopádně až v zimě 😭

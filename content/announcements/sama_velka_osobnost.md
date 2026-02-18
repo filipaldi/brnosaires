@@ -6,7 +6,7 @@ preview_image: /images/announcements/praktika_velky_sal.jpg
 description: Praktika s openclass v sále č. 1. Habaděj místa. Velké osobnosti
 author: Lenka Platenikova
 ---
-# Praktika a openclass na Stolárně
+# Sama velka osobnost
 
 Nedělní praktika s openclass na Stolárně se rozhodly tě neopustit ani v létě 🤗
 Tuto neděli 6. 7. speciálně v sále číslo jedna 🔝 , čili místa habaděj 🫶. 

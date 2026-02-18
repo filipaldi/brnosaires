@@ -7,6 +7,8 @@ description: Listy prázdninového deníčku. Oznamy z Brnos Aires. Letní milon
 author: Lenka Platenikova
 ---
 
+# Listy prázdninového deníčku
+
 Jak je na tom tvůj prázdninový deníček? 🤔Ještě pár listů vyčítavě zejí prázdnotou?🫢
 Tvůj zachránce TangoBrnoStudioKamarád má pro tebe řešení na poslední prázdninovou chvíli ✌️
 Můžeš mít 3 přání 🫶. Jedno ve čtvrtek, druhé v sobotu, třetí v neděli 🤩 Všechna se ti splní 🌠 Takže tudy:

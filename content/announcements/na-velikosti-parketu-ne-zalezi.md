@@ -6,6 +6,8 @@ description: Na velikosti parketu (ne)záleží. Oznamy z Brnos Aires. Milongy v
 author: Lenka Platenikova
 ---
 
+# Na velikosti parketu (ne)záleží
+
 Malý parket versus velký parket 🙃 To je tvoje bilance tohoto týdne ⚖️. Teda může být. Je potřeba pro to udělat následující:
 👉 Dojdi ve středu 5. 3. na milongu do jazzového baru U kouřícího králíka v Brně (Pozor: fakt, že je to středa a ne čtvrtek je zkouška tvojí bdělosti 👆).
 👉 Dojeď v sobotu 8. 3. na milongu k Mezinárodnímu dni žen do Fantovy haly v Praze.

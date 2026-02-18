@@ -6,6 +6,8 @@ description: Kalendář, pikošky a La cumparsita na jednom místě. Měj přehl
 author: Lenka Platenikova
 ---
 
+# Tango přehled a pikošky ti přináší Brnos Aires
+
 Máš všech 5 pohromadě?🫢 🖐️
 Kdyby náhodou ne, posbíráme ti je na [www.brnosaires.com](http://www.brnosaires.com/). Fungujeme i preventivně 👆
 🫶 Od chvíle, kdy se stane nejoblíbenější záložkou na tvém webovém prohlížeči, ani o půlnoci neztratíš přehled a vysypeš z rukávu aspoň pět nejbližších tango akcí v Brně. Před očima ti totiž poběží kalendář 📅, kterému neunikne nic, co má v názvu milonga, praktika nebo tango 👀

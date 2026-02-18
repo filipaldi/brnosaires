@@ -7,6 +7,8 @@ description: Tango dobrodružství ve 3 dnech. Brno tango víkend, workshopy a m
 author: Lenka Platenikova
 ---
 
+# Tango dobrodružství ve 3 dnech
+
 🎉Malý brněnský maraton aneb prázdninové finále🕺:
 Udržuj si svůj tango hrníček plný ☕a výhled optimistický 🪟
 👠Prošoupej své boty ve 3 dnech na 3 milongách a 9 workshopech. Hotové tangové dobrodružství!🫢

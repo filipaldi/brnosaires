@@ -6,6 +6,8 @@ description: Buď jako surikati. Přehled tangových akcí, abys měl přehled j
 author: Lenka Platenikova
 ---
 
+# Buď jako surikati
+
 Když chceš ulovit cabeceo, potřebuješ být jako toto zvířátko ❤
 Surikati sice vyhlíží nebezpečí, ty vyhlížíš životní nutnost 👀
 Surikati bere nohy na ramena, ty se vrháš do náruče svého tanečníka/své tanečnice 🤗

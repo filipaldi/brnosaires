@@ -7,6 +7,8 @@ description: Nikdy tě neopustí. Oznamy z Brnos Aires. Kalendář milong a prak
 author: Lenka Platenikova
 ---
 
+# Nikdy tě neopustí
+
 Ani nemrkneš a je tu Máj 👀. Lásky čas je v podstatě synonymum pro tango čas ❤️, jestli to náhodou nevíš.
 Na rozdíl od některých lásek je ale tango čas furt a neupíná se jenom na květen 🌸
 Navíc tě nikdy neopustí, dokonce ani na státní svátek☝️

@@ -7,6 +7,8 @@ description: Svět se pootočil aneb zářijové highlighty. Tango v Brně, milo
 author: Lenka Platenikova
 ---
 
+# Svět se pootočil aneb zářijové highlighty
+
 🌏Svět se pootočil z prázdninového režimu na ten, který znáš z těch zbývajících 10 měsíců✌️ Tvůj tango režim bude zas mít svůj pravidelný rytmus:
 👉Čtvrtky zakončuješ tangem v Adrinele. 💃
 👉 Každou první sobotu v měsíci se roztomile mačkáš na nejútulnější milonze ve střední Evropě 🤗na Skleněnce.

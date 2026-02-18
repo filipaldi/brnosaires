@@ -6,6 +6,8 @@ description: Spojte se. Oznamy z Brnos Aires. Milongy, praktiky a tango v Brně 
 author: Lenka Platenikova
 ---
 
+# Spojte se!
+
 Tango tanečníci všech úrovní, škol a vyznání spojte se! 💃🕺
 Speciální milonga:
 👉pro tebe, kdo začínáš, aby ses nestyděl, že začínáš 🫣

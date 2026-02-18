@@ -6,6 +6,8 @@ description: Buď tango vítěz. Kalendář milong a workshopů v Brně, abys ni
 author: Lenka Platenikova
 ---
 
+# Buď tango vítěz!
+
 V úterý ráno popadni tangové boty 👠👞a odpoledne to vem rovnou na Odpolední milonga v Alfa pasáži.
 Kancelářskou židli vyměň za tanec a formální pracovní vztahy za vřelé tangové objetí🤗
 Energii na 3,5 hodiny tance ti zaručí kvalitní čokoláda z čokoládovny Minach🍫

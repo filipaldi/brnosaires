@@ -7,6 +7,8 @@ description: Nepotřebuješ názor. Oznamy z Brnos Aires. Milongy a praktiky v B
 author: Lenka Platenikova
 ---
 
+# Nepotřebuješ názor
+
 Výzva tohoto týdne: Vykašli se na názor 😎
 Klasické tango, nuevo, neotango, nemáš jasno? Ani já, neboj 🤷‍♀️
 Diskuse na téma, co je lepší, jsou past 🫢.

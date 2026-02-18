@@ -7,6 +7,8 @@ description: Únorový taneční pořádek. Milongy v Brně na únor. Přehled n
 author: Lenka Platenikova
 ---
 
+# Únorový taneční pořádek
+
 Kolik cabeceí ulovíš, tolikrát jsi člověkem...anebo Kolik cabeceo ulovíš, tolikrát...?🙃 Nevím 🫢Ty víš?
 Ať už to trefíš nebo ne, v únoru můžeš lovit poměrně často👀 Hustota milong je na počet dnů v tomto nejkratším měsíci v roce vcelku vysoká. Únor je totiž hustý měsíc! 💪
 Tvůj únorový taneční pořádek tu:

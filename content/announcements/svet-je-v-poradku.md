@@ -7,6 +7,8 @@ description: Brněnská tango planeta se vrací na oběžnou dráhu. Čtvrtek s 
 author: Lenka Platenikova
 ---
 
+# Svět je v pořádku
+
 Svět je zase v pořádku ✌️. Minulý čtvrtek bez tanga vystřídá nový čtvrtek s tangem 🫶🥳
 Takto na konci dne a na sklonku týdne máš ten nejlepší program 👉 ověřeno hromadou tangových tanečníků🕤.
 Brněnská tango planeta se zase vrací na svou oběžnou dráhu 🌏 a ty se vracíš do Adrinely 🏃‍♂️🏃‍♀️

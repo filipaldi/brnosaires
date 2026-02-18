@@ -7,6 +7,8 @@ description: Pozor na FOMO. Přehled tangových akcí v Brně. Kalendář na brn
 author: Lenka Platenikova
 ---
 
+# Pozor na FOMO!
+
 Než ti začne čerstvý letní vánek romanticky cuchat vlasy 🌬️, naber si do zásoby inspirativní tandy a řekni ahoj všem pošetilým tango kamarádům, kteří se chystají být v létě v trapu 🏃‍♂️
 
 Jako poučený tangový tanečník víš, že být v trapu ti může způsobit tzv. FOMO efekt😯

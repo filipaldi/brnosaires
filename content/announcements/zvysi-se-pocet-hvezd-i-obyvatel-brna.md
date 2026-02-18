@@ -7,6 +7,8 @@ description: Brno tango weekend 8.–10. 11. Hvězdy tangového nebe, hvězdárn
 author: Lenka Platenikova
 ---
 
+# Zvýší se počet hvězd i obyvatel Brna
+
 Víš kolik má Brno tango obyvatel? 👀  Já taky ne🤔
 Každopádně všichni, plus ti, co mají dojezd do Brna pod 7 hodin🚗, se potkají na Brno tango weekend 8. - 10. 11.🤗
 Na brněnskou scénu nastoupí hvězdy tangového nebe⭐⭐⭐⭐ Na sobotní večer si je půjčuje dokonce brněnská hvězdárna 👉 je potřeba být u toho🌠

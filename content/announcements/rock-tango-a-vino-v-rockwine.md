@@ -7,6 +7,8 @@ description: Rock, tango a víno v Rockwine. Milonga v Brně. Rotunda, kvalitní
 author: Lenka Platenikova
 ---
 
+# Rock, tango a víno v Rockwine
+
 Těžko odhadnout, jestli "rock" v názvu vinárny Rockwine odkazuje na styl hudby nebo základní kámen té starobylé rotundy pod ní 🤷‍♀️ Každopádně rotunda pevně stojí už tisíce let a ani rockové skladby ji neohrozily 💪
 Otázka je, co s ní udělá tangový orchestr s pěti bandoneony, klavírem, několika houslemi, flétnami a kontrabasem? 🫢
 Zjistíš to už ve čtvrtek 27. 2. 👉 na Milonze v Rockwine 🍷

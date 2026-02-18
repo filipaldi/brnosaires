@@ -7,6 +7,8 @@ description: Kde posbíráš hřejivá objetí. Říjnová Skleněnka, zdroje ob
 author: Lenka Platenikova
 ---
 
+# Kde posbíráš hřejivá objetí?
+
 S poměrně vysokou pravděpodobností převyšující jistotu se říjnová Skleněnka odehraje na Skleněnce🫶. Ta zářijová open-air už nemá vzhledem k předpovědi počasí šanci 🌨️
 Je potřeba nasbírat hřejivá objetí 🤗. Do foroty✌️
 Zdroje máš tady:

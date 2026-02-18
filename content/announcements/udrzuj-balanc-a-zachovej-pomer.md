@@ -7,6 +7,8 @@ description: Udržuj balanc a zachovej poměr. Praktiky, milongy a tango v Brně
 author: Lenka Platenikova
 ---
 
+# Udržuj balanc a zachovej poměr
+
 Tento týden padá tvoje šťastná hvězda🌠
 Milongy od čtvrtka do neděle znamenají, že počet dnů s tangem je vyšší než bez něj↗️
 Ideální poměr pro udržení optimální hladiny stresové odolnosti ⚖️(čti: i kdyby přišla bouřka⛈️, všecko bude fajn s první tandou večera✌️).

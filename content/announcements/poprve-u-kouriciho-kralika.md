@@ -7,6 +7,8 @@ description: Poprvé U kouřícího králíka. Historicky první milonga v jazz 
 author: Lenka Platenikova
 ---
 
+# Poprvé U kouřícího králíka
+
 Ve středu je "Den tangojazzového přátelství" 💃+🎷=❤️
 Kouřící králík 🐇 už nejspíš zažil leccos, ale argentinským tangem je myslím dosud nepolíbený 😘
 Až budou sepisovat novodobé dějiny tanga 21. století ✍️, možná bude tato událost jedna položka v seznamu milníků👀

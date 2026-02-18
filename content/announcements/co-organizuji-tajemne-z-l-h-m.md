@@ -6,6 +6,8 @@ description: Co organizují tajemné z L. H. M. Oznamy a tipy na tango v Brně.
 author: Lenka Platenikova
 ---
 
+# Co organizují tajemné Z.L.H.M.?
+
 Tento týden vyhráváš celkem jednu milongu navíc 🥳
 Opakuj si 15krát za sebou: úterý, čtvrtek, neděle, úterý, čtvrtek, neděle....🤩
 ÚTERÝ 👉 udělej z Alfa pasáže Tango pasáž! 💃🕺

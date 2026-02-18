@@ -7,6 +7,8 @@ description: Rovnováha se našla. Čtvrteční milongy v Adrinele. Tango v Brn�
 author: Lenka Platenikova
 ---
 
+# Rovnováha se našla!
+
 Tvoje čtvrteční jistota je zpátky ✌️ Rozhozený tango-bio-rytmus 🥴 najde ztracenou rovnováhu během prvních dvou tří tand ⚖️a dál se povezeš na staré známé vlně 🌊
 Malý rozcestník 👀:
 👉🍰 Energie, čili dortíky: vitrína vlevo u baru

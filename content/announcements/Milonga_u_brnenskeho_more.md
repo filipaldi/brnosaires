@@ -6,7 +6,7 @@ preview_image: /images/announcements/milonga_u_brnenskeho_more.jpg
 description: Léto končí milongou u brněnského moře. Brnos Aires je nejlepší. Zintenzivni objetí. Coby kamenem dohodil. 
 author: Lenka Platenikova
 ---
-# Nejlepší místo k životu
+# Letní finále u brněnského moře
 
 Všímavému tango tanečníkovi neunikne, že je to tu zas 👀
 Milonga u brněnského moře, bez které by žádné letní finále za moc nestálo 🥳

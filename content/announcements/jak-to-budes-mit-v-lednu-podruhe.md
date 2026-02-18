@@ -6,6 +6,8 @@ description: Adrinela zamčeno, tangový deficit vytancuj na Stolárně. Středa
 author: Lenka Platenikova
 ---
 
+# Jak to budeš mít v lednu podruhé
+
 Jestli cítíš vnitřní neklid, protože tvůj čtvrtek chce skončit tangem nebo chce minimálně tu příležitost, tak dnes to neklapne - Adrinela má zamčeno a zhasnuto 😭
 Dnes si pusť doma svůj oblíbený tango orchestr 🪗a piš si nejbližší příležitosti, který chytneš za pačesy 🏃‍♀️🏃
 👉 Tangový deficit vytancuj v neděli 12. 1. od 20 do 23h na praktikách na Stolárně.

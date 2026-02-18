@@ -7,6 +7,8 @@ description: Moudré obrázky. Oznamy z Brnos Aires. Milongy a praktiky v Brně 
 author: Lenka Platenikova
 ---
 
+# Moudré obrázky
+
 Milí zlatí, nemůžu teď mezi vás 🥲, tak tu máte ode mě aspoň moudré obrázky 👉 můžete si je přes vánoce nastudovat 😉.
 Běžte dnes do Adrinely 🏃‍♀️🏃na poslední milongu v tomto roce, připijte si na zdraví (!) 🍾a na tangové objetí 🤗, ať nám vydrží další léta!
 Těším se na všechny další tandy! 🥰

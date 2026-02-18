@@ -7,6 +7,8 @@ description: Zatemněná mysl. Kafe první, tango potom. Oznamy z Brnos Aires, a
 author: Lenka Platenikova
 ---
 
+# Zatemněná mysl
+
 Nepodceň to! 🫢
 Přibývající léto, mysl zatemněná vedrem 😴 duše okouzlená letními večery 🥰
 Lehce se stane, že se ti tangové události popletou a na sobotní milongu dojdeš v pátek nebo na nedělní praktika v úterý🙃 🙋‍♀️Naštěstí je tu informační služba 📣TangoBrnoTvůjKamarád🫶.

@@ -7,6 +7,8 @@ description: Ať ti neujede vlak. Stolárna startuje kurzy, Adrinela a Skleněnk
 author: Lenka Platenikova
 ---
 
+# Ať ti neujede vlak!
+
 V novém roce je nutný rychle naskočit, aby ti neujel vlak! 🏃‍♂️🏃‍♀️ Tango totiž nečeká, tango jede 🚄
 👉Taneční studio Stolárna startuje nové kurzy už 15. 1. - hlas se , ať jsi začátečník, málo nebo víc pokročilý, najdeš si tu svoje  🙋‍♀️🙋
 👉 Brněnská jistota jsou milongy v Adrinele každý čtvrtek od 20:30 (18.1. bude DJ

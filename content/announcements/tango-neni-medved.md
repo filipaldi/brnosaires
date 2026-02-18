@@ -7,6 +7,8 @@ description: Tango není medvěd. Oznamy z tangového Brna. Milongy a praktiky n
 author: Lenka Platenikova
 ---
 
+# Tango není medvěd
+
 Zdá se ti, že se brněnské tango ukládá k zimnímu spánku?😴 Neboj, není to medvěd 🐻
 Nicméně každý medvěd Ti potvrdí, že když se venku teploty snižují❄️, potřebuješ kultivovat vnitřní teplo 👀
 Lepší zdroj než radiátor je objetí 🤗

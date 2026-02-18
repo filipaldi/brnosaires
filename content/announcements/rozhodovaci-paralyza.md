@@ -7,6 +7,8 @@ description: Rozhodovací paralýza. Tango čeká. Přehled milong a praktik v B
 author: Lenka Platenikova
 ---
 
+# Rozhodovací paralýza?
+
 Tento týden ti odpadá rozhodovací paralýza, kterou milongu si vybrat, pokud náhodou nemůžeš být všude 🙆‍♂️
 Široko daleko je totiž jenom jedna 👀
 Potkáme se všichni ve stejný čas na stejném místě - čtvrtek 20:30 - 23:15 Adrinela 🍰🥂

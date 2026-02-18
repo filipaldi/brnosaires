@@ -7,6 +7,8 @@ description: Tvých 30 příležitostí. Srpnové tango v Brně. Milongy, prakti
 author: Lenka Platenikova
 ---
 
+# Tvých 30 příležitostí
+
 Přelomové tango tandy nejpravděpodobněji zažiješ v přelomovém týdnu 🌠(červenec/srpen, chápeš)
 Tento má zhruba 30 příležitostí ✌️Využij je všecky. Nikdy totiž nevíš, která tanda to bude 💓
 👉čtvrtek 1. 8. Tango na Spielberku (Holandská 12), 17:45 lekce, 19:15 - 22:00 milonga. 

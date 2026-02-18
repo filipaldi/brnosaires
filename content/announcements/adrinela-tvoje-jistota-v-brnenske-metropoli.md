@@ -7,6 +7,8 @@ description: Čtvrteční milongy v Adrinele. Akvárko, dortíky, meruňkové v�
 author: Lenka Platenikova
 ---
 
+# Adrinela - tvoje jistota v brněnské metropoli
+
 ☀️Čas na jaře vždycky běží jaksi rychleji...🏃
 ...jediná tvoje jistota tak budou čtvrteční milongy v kavárně Adrinela 💃✌️
 Protože čtvrtek bez tanga je jako...🤔 akvárko bez rybiček 🐠

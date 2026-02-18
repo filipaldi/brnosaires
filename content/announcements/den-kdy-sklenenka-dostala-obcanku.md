@@ -7,6 +7,8 @@ description: Milonga na Skleněnce má patnáct. Nejkrásnější milonga ve st�
 author: Lenka Platenikova
 ---
 
+# Den, kdy Skleněnka dostala občanku
+
 Pamatuješ si den, kdy ti dali občanku? 🫢
 Tangové zkušenosti byly před tebou, dětství za tebou🥰
 Milonga na Skleněnce má patnáct!😮

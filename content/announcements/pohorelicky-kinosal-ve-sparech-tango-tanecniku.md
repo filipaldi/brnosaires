@@ -7,6 +7,8 @@ description: Pohořelický kinosál ve spárech tango tanečníků. Milonga v Po
 author: Lenka Platenikova
 ---
 
+# Pohořelický kinosál ve spárech tango tanečníků
+
 Když stavěli kinosál v Pohořelicích, netušili, že se dostane do spárů tango tanečníků 😲
 📽️Tehdy nejspíš řešili hlavně pohodlí sedaček v sále.
 Tango tanečníci jsou ale dost neposední a víc než sedačky je zajímá vhodný taneční parket💃🕺

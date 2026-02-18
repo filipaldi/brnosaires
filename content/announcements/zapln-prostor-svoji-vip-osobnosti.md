@@ -7,6 +7,8 @@ description: Zaplň prostor svojí VIP osobností. Praktiky a milongy v Brně. P
 author: Lenka Platenikova
 ---
 
+# Zaplň prostor svojí VIP osobností
+
 📣 V neděli 17. 11. VIP praktika ve velkém sále Stolárny!
 Dojdi, ať ho zaplníš i svojí osobností 🏃🏃‍♀️
 Kdos doteď váhal(a), tohle je tvoje neděle ✌️

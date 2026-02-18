@@ -7,6 +7,8 @@ description: Osm let tanga v Adrinele. Dortíky, Milan Malý, Sirael von Silesia
 author: Lenka Platenikova
 ---
 
+# 8 let v Adrinele
+
 Cafe Adrinela má několik předností:
 👉už skoro 8 let se tam ve čtvrtky tančí tango! Díky hlavně
 Milan Maly a taky těm, kteří stáli u zrodu Sirael von Silesia,

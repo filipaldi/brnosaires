@@ -7,6 +7,8 @@ description: DJ Filip rozsekne tango dilema. Čtvrteční milonga v Adrinele, tr
 author: Lenka Platenikova
 ---
 
+# Filip rozsekne tango dilema
+
 Tento čtvrtek buď u toho! 👀
 Největší dilema všech tango dob rozsekne DJ Filip🫶
 Nezáleží na tom, jestli tradiční hudbu miluješ, nesnášíš, nevíš, co si o ní myslet nebo ti je jedno ❤️✌️. Ostrý jas tvého názoru ztlumí čtvrteční milonga v Adrinele ☀️

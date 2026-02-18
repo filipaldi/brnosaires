@@ -7,6 +7,8 @@ description: Přej si a kombinuj. Milongy v Brně, Stehlík a další. Přehled 
 author: Lenka Platenikova
 ---
 
+# Přej si a kombinuj
+
 Přej si čtvrtek bez deště 🙏
 Když si ho budeš přát 👉ty, 👉ty 👉aj ty, je poměrně vysoká šance, že se dešťové kapky stočí k Vysočině, kde už jsou na to zvyklí 🌧️😇
 První letošní open air milonga ve Stehlík coffee baru tak bude za svitu podvečerního slunce 🌅

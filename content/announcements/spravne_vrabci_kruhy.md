@@ -6,7 +6,7 @@ preview_image: /images/announcements/spravne_vrabci_kruhy.jpg
 description: Dvakrát Moravské náměstí, vrabci ti to vyštěbetají. Pozvi kamarády. 
 author: Lenka Platenikova
 ---
-# Informuj se u správných vrabčích kruhů
+# Informuj se u vrabčích kruhů
 
 Jestli ti to ještě vrabci nevyštěbetali, pravděpodobně ses nedostal do těch správných vrabčích kruhů 🐦
 Ti nejinformovanější krouží kolem Moravského náměstí a radostně rozhlašují, že: 

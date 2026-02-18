@@ -6,6 +6,8 @@ description: Je přece léto. Vlněna venkovní milonga, Stolárna milonga a pra
 author: Lenka Platenikova
 ---
 
+# Je přece léto!
+
 Tento týden ve tvém tango deníčku:
 🎉Středa 24. 7. unikátní šance vstoupit tangovým krokem do míst, kde se nejspíš ještě žádné ocho, giro ani pivota doposud neodehrály👠👞
 👉Vlněna (venkovní plac) - milonga cca od 19 do 22h (od 18h ukázková lekce pro začátečníky). Organizuje Tangolab Štěky.

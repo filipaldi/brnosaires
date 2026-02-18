@@ -6,6 +6,8 @@ description: Malena, Homér a co mají společného s MDŽ. Oznamy z Brnos Aires
 author: Lenka Platenikova
 ---
 
+# Malena, Homér a co mají společného s MDŽ
+
 Jak to měla Malena s Homérem? 🤭 Jeden by řekl, že v tom bude nějaká milostná avantýra, nešťastná láska, zlomené srdce a podobné záležitosti, jak je v tangu zvykem 💘
 Tajemství nejkrásnějšího tanga všech dob čti na [https://brnosaires.com/tango.../malena-jak-to-mela-s-homerem](https://brnosaires.com/tango.../malena-jak-to-mela-s-homerem)
 Až dočteš, nejspíš ti bude podezřelé, že "Den Maleny" je 2 dny před Mezinárodním dnem žen 🙃

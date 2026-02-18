@@ -7,6 +7,8 @@ description: Pořadí ramínek ve skříni. Oznamy z Brnos Aires. Milongy a prak
 author: Lenka Platenikova
 ---
 
+# Pořadí ramínek ve skříni
+
 Přichází víkend, co změní pořadí ramínek ve tvé skříni. Na přední místa totiž zavěsíš tangové oblečky 👗👖
 Orientace ve vlastní skříni se ti bude hodit stejně jako orientace v Brně ⬆️➡️⬇️⬅️
 3 milongy + 3 workshopy ve 3 dnech 🫢 Buď připraven s harmonogramem v ruce 👀 📝

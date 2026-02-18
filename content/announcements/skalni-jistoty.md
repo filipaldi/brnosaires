@@ -7,6 +7,8 @@ description: Skalní jistoty. Adrinela, Skleněnka, Stolárna. Přehled tangový
 author: Lenka Platenikova
 ---
 
+# Skalní jistoty
+
 Týden bez milong je za tebou a před tebou samá pozitiva a tangové jistoty ✌️
 Předejdi případnému traumatu z nedostatku tangových objetí a dojdi radši aj ve čtvrtek aj v sobotu 🤗 🤗
 👉 Čtvrtek 5. 6. milonga v Rockwine, čili ve vinárně, která má v základech kus kamene 💪. Stojí teda pevně jako skála a na té skále můžeš tančit...💃 naštěstí je nad ní ještě parket.

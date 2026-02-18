@@ -7,6 +7,8 @@ description: Pozvánka, co ztratila kreativitu. Milonga v Café Paměti národa,
 author: Lenka Platenikova
 ---
 
+# Pozvánka, co ztratila kreativitu
+
 Promiňte, minimalistická pozvánka😇
 Produkce kreativních textů klesla na minimum - může za to spánkový deficit obětovaný tango festivalu v Budapešti 💃🥱 Brnos Aires reprezentovalo, na spaní nebylo kdy 🤷‍♀️
 Neboj, v Brně máme milongy do 23:30 🫶
