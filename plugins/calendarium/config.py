@@ -15,6 +15,9 @@ CALENDAR_LINK_DEFAULTS = {
     'category': None,
     'tags': None,
     'label': None,
+    'label_webcal': None,
+    'label_google': None,
+    'label_outlook': None,
 }
 
 CALENDAR_LINK_PATTERN = re.compile(r'<widget-calendar-link([^>]*)>(?:</widget-calendar-link>)?', re.DOTALL)

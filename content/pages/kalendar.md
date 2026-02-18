@@ -11,7 +11,14 @@ preview_image: /images/milonga-hned-vedle.avif
 
 Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce na jednom místě.
 
-<widget-calendar-link feed_id="events" path="events" label="📆 Odebírej akce do svého kalendáře"></widget-calendar-link>
+<widget-calendar-link 
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Ostatní">
+</widget-calendar-link>
 
 
 <widget-calendar start="this-week" group_by="week day" headers="week day" type="milonga neolonga pocoloco praktika workshop" card_size="xs" days="120"></widget-calendar>

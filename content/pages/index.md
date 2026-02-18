@@ -16,7 +16,14 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
-<widget-calendar-link feed_id="events" path="events" label="📆 Odebírej akce do svého kalendáře"></widget-calendar-link>
+<widget-calendar-link 
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Ostatní">
+</widget-calendar-link>
 
 
 <widget-articles category="announcement" limit="3" metadata="image title"></widget-articles>
