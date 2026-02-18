@@ -9,7 +9,7 @@ event-organiser: Lenka a Filip
 event-location: Taneční studio Stolárna
 description: Workshop pro začátečníky s Lenkou a Filipem. Brnos Aires Tango víkend 2026.
 author: Lenka Pláteníková
-preview_image: /images/class-lenka-filip.avif
+preview_image: /images/classes/class-lenka-filip.avif
 ---
 
 # Workshop 2 / Lenka a Filip (začátečníci)
