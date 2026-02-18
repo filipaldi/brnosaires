@@ -75,7 +75,12 @@ def group_events_nested(events, group_by_tokens, lang, hide_empty=False):
             else:
                 inner_headline = dates._headline_month(inner_key, lang)
             inner_groups.append((inner_headline, events_list))
-        result.append((outer_headline, inner_groups))
+        if outer_by == "week" and inner_by == "day":
+            is_full_week = (len(inner_buckets) == 7) and not hide_empty
+            metadata = {"is_nested": True, "is_full_week": is_full_week}
+        else:
+            metadata = {"is_nested": True}
+        result.append((outer_headline, inner_groups, metadata))
     return result
 
 
@@ -115,4 +120,4 @@ def group_events(events, group_by, lang, hide_empty=False):
         headline_fn = dates._headline_week
     else:
         headline_fn = dates._headline_month
-    return [(headline_fn(k, lang), buckets[k]) for k in sorted_keys]
+    return [(headline_fn(k, lang), buckets[k], {"is_nested": False}) for k in sorted_keys]

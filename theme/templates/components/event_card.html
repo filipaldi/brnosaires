@@ -1,0 +1,26 @@
+{% set card_size = card_size or 's' %}
+<a href="{{ event.slug }}/" class="event aesthetic-card card-{{ card_size }}" role="listitem">
+  {% if event.preview_image %}
+  <div class="el-frame-16x9">
+    <img src="{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
+  </div>
+  {% endif %}
+  <div>
+    <h3>{{ event.title }}</h3>
+    {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
+    {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
+    {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
+    {% set event_location = event.metadata.get('event-location') if event.metadata else none %}
+    {% if event_start %}
+      {% set day = event_start.strftime('%d') %}
+      {% set month = event_start.strftime('%m') %}
+      {% set year = event_start.strftime('%Y') %}
+      {% set event_time_str = event_start.strftime('%H:%M') %}
+      {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
+      <p>{{ day }}. {{ month }}. {{ year }}</p>
+      {% if event_time_str %}<p>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
+    {% endif %}
+    {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
+    {% if event_location %}<p>{{ event_location }}</p>{% endif %}
+  </div>
+</a>

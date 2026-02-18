@@ -65,7 +65,7 @@
   --card-line-height: var(--size-s);
   --card-margin: var(--size-xs);
   --card-inner-margin: var(--size-2xs);
-  --card-min-width: 12rem;
+  --card-min-width: var(--size-3xl);
 }
 
 .card-s {
@@ -73,7 +73,7 @@
   --card-line-height: var(--size-s);
   --card-margin: var(--size-s);
   --card-inner-margin: var(--size-2xs);
-  --card-min-width: 15rem;
+  --card-min-width: var(--size-4xl);
 }
 
 .card-m {
@@ -81,7 +81,7 @@
   --card-line-height: var(--size-m);
   --card-margin: var(--size-m);
   --card-inner-margin: var(--size-xs);
-  --card-min-width: 18rem;
+  --card-min-width: var(--size-5xl);
 }
 
 .card-l {
@@ -89,119 +89,104 @@
   --card-line-height: var(--size-l);
   --card-margin: var(--size-l);
   --card-inner-margin: var(--size-s);
-  --card-min-width: 22rem;
+  --card-min-width: var(--size-6xl);
 }
 
 /* ============================================
    WIDGET CALENDAR (grouped)
    ============================================ */
 
-.widget-calendar {
+.calendar {
+  display: block;
   container-type: inline-size;
 }
 
-
-
-.widget-calendar__group-title {
-  font-size: var(--text-m);
-  line-height: var(--size-m);
-  font-weight: var(--font-weight-regular);
-  margin-top: var(--size-l);
-}
-
-.widget-calendar__week-title {
-  font-family: var(--font-body);
-  font-size: var(--text-m);
-  line-height: var(--size-m);
-  font-weight: var(--font-weight-regular);
-  margin-top: var(--size-l);
-}
-
-/* 7-day grid: CSS Grid with fixed 7 columns when wide enough */
-.calendar-days-grid-7 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--size-xs);
-}
-
-@container (min-width: 40rem) {
-  .calendar-days-grid-7[data-card-size="xs"] {
-    grid-template-columns: repeat(7, 1fr);
-  }
-}
-
-@container (min-width: 50rem) {
-  .calendar-days-grid-7[data-card-size="s"] {
-    grid-template-columns: repeat(7, 1fr);
-  }
-}
-
-@container (min-width: 60rem) {
-  .calendar-days-grid-7[data-card-size="m"] {
-    grid-template-columns: repeat(7, 1fr);
-  }
-}
-
-@container (min-width: 70rem) {
-  .calendar-days-grid-7[data-card-size="l"] {
-    grid-template-columns: repeat(7, 1fr);
-  }
-}
-
-/* Flex layout: for hidden days, columns expand automatically */
-.calendar-days-flex {
+.week {
+  position: relative;
+  padding-top: 2.5rem;
   display: flex;
-  flex-direction: column;
+  overflow-x: auto;
+  flex-wrap: nowrap;
   gap: var(--size-xs);
+  scrollbar-color: var(--color-light, #fff) var(--color-dark, #000);
 }
 
-@container (min-width: 30rem) {
-  .calendar-days-flex[data-card-size="xs"] {
-    flex-direction: row;
-  }
-  .calendar-days-flex[data-card-size="xs"] > .day-column {
-    flex: 1 1 0;
-  }
+.week::-webkit-scrollbar {
+  block-size: 1rem;
 }
 
-@container (min-width: 40rem) {
-  .calendar-days-flex[data-card-size="s"] {
-    flex-direction: row;
-  }
-  .calendar-days-flex[data-card-size="s"] > .day-column {
-    flex: 1 1 0;
-  }
+.week::-webkit-scrollbar-track {
+  background-color: var(--color-dark, #000);
 }
 
-@container (min-width: 50rem) {
-  .calendar-days-flex[data-card-size="m"] {
-    flex-direction: row;
-  }
-  .calendar-days-flex[data-card-size="m"] > .day-column {
-    flex: 1 1 0;
-  }
+.week::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark, #000);
+  background-image: linear-gradient(var(--color-dark, #000) 0, var(--color-dark, #000) 0.25rem, var(--color-light, #fff) 0.25rem, var(--color-light, #fff) 0.75rem, var(--color-dark, #000) 0.75rem);
 }
 
-@container (min-width: 60rem) {
-  .calendar-days-flex[data-card-size="l"] {
-    flex-direction: row;
-  }
-  .calendar-days-flex[data-card-size="l"] > .day-column {
-    flex: 1 1 0;
-  }
+.week-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  font-weight: var(--font-weight-regular);
 }
 
-.day-column {
+.month {
+  display: block;
+}
+
+.month-name {
+  display: block;
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--size-s);
+}
+
+.calendar[data-card-size="xs"] .week .day {
+  inline-size: var(--size-3xl);
+}
+
+.calendar[data-card-size="s"] .week .day {
+  inline-size: var(--size-4xl);
+}
+
+.calendar[data-card-size="m"] .week .day {
+  inline-size: var(--size-5xl);
+}
+
+.calendar[data-card-size="l"] .week .day {
+  inline-size: var(--size-6xl);
+}
+
+.day {
   min-width: 0;
+  flex-shrink: 0;
 }
 
-.day-header {
+.day-name {
+  display: block;
   font-size: var(--text-s);
   line-height: var(--size-s);
-  text-align: center;
-  padding-block: var(--size-xs);
+  font-weight: var(--font-weight-medium);
   margin-bottom: var(--size-xs);
-  font: var(--font-body);
+}
+
+.event {
+  display: block;
+}
+
+/* Hide empty days on mobile, show on desktop */
+.week .day:not(:has(.event)) {
+  display: none;
+}
+
+@container (min-width: 40rem) {
+  .week .day:not(:has(.event)) {
+    display: flex;
+  }
 }
 
 /* ============================================
