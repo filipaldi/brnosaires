@@ -10,6 +10,8 @@ description: Workshop muzikalita v pohybu přes kontaktní tango. Somatické tec
 author: Filip Paldia
 ---
 
+# Sharing Dreams through our Feet – Musicality in motion through contact-tango
+
 Zažili jste někdy pocit, že vás při tanci svazuje strnulost? Hlava se snaží vzpomenout na všechny kroky, ale tělo se nemůže uvolnit? Cítíte někdy nervozitu? Tango není jen o krocích, ale o propojení, vnímání partnera a dynamice pohybu. Tento workshop vám pomůže:
 
 - *Prohloubit citlivost na kontakt a vedení* – prostřednictvím somatických technik a kontaktní improvizace se naučíte lépe vnímat tělo partnera i vlastní pohyb.

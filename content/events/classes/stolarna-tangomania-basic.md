@@ -14,6 +14,8 @@ description: Tangomania Basic. Pavla Lužná a Ondra Martinák, Stolárna. Úter
 author: Filip Paldia
 ---
 
+# Tangomania Basic
+
 Po absolvování 5 úrovní (kurzů) tance TANGO v tanečním studiu Stolárna máte možnost stát se členem klubu pokročilých tanečníků.​
 
 Co je cílem a náplní tréninků?

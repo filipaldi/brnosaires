@@ -10,6 +10,8 @@ description: Milonga Fuera del Nido. Domini Park, srdce Brna. Openclass od 18:00
 author: Filip Paldia
 ---
 
+# Milonga Fuera del Nido
+
 Eng. below:
 Další Milonga tentokrát v úchvatných prostorách v parkovacím domě Domini Park v samém srdci Brna.
 Openclass od 18:00 (není nutné přijít s partnerem)

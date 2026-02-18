@@ -10,6 +10,8 @@ description: Promítání o Argentině a milonga v Galerii Hex. Prosinec 2025, B
 author: Filip Paldia
 ---
 
+# Promítání o Argentině + milonga v Galerii Hex
+
 Můžete se těšit na přednášku a promítání o Argentině (ve které Štěky tráví velkou část roku), ukázku argentinského tanga a navazující tančírnu ve stylu milonga. Zváni jsou všichni, staří i mladí, mistři tanečníci i nadšení začátečníci.
 
 Časový rozvrh:

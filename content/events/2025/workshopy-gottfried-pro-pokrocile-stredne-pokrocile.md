@@ -10,6 +10,8 @@ description: Workshopy Gottfried pro pokročilé a středně pokročilé. Leden 
 author: Filip Paldia
 ---
 
+# Workshopy Gottfried - pro pokročilé (středně pokročilé)
+
 (***ENGLISH - below keep reading***)
 10. 1. 2026
 Nás čeká další víkend plný tanga v Brně s Gottfriedem z Vídně.

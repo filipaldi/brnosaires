@@ -10,6 +10,8 @@ description: Valentýnská párty na Stolárně s tangem. Únor 2026, Olomoucká
 author: Filip Paldia
 ---
 
+# Valentínska párty na stolárne s tangom
+
 Po krásné Novoroční párty bychom Vás rádi pozvali na Valentýnskou párty ve stejném duchu
 
 Dress code jak jinak než červená a co nejvíc srdíček

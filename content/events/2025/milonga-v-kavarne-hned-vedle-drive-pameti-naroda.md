@@ -10,6 +10,8 @@ description: Milonga v kavárně Hned vedle. Centrum Brna, u Staré radnice, 1. 
 author: Filip Paldia
 ---
 
+# Milonga v kavárně Hned vedle (dříve Paměti národa)
+
 Kavárna v centru Brna, u Staré radnice, 1. patro. Dole kavárna, hore milonga. 
 Příspěvek: 100 Kč.
 

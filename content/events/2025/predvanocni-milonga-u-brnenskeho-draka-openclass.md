@@ -10,6 +10,8 @@ description: Předvánoční milonga u Brněnského draka s openclass. Prosinec 
 author: Filip Paldia
 ---
 
+# Předvánoční milonga u Brněnského draka + openclass
+
 DJ Ferry Nielsen - DJ, fotograf a audiovizuální vypravěč příběhů z Vídně.
 
 Open class 18.00-19.00, Michaela Lukavská: Mozek v tangu – hodinová lekce pro začátečníky i pokročilé

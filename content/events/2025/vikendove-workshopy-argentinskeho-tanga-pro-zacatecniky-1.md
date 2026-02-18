@@ -10,6 +10,8 @@ description: Víkendový workshop argentinského tanga pro začátečníky, prvn
 author: Filip Paldia
 ---
 
+# Víkendové workshopy argentinského tanga pro začátečníky (1)
+
 Argentinské tango 💃
 Tanec, ve kterém nepotřebuješ složité figury 🫶
 Tanec, kde se naučíš improvizaci a komunikaci, na kterou ti bude stačit místo slov objetí. 🤗

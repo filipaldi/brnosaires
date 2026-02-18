@@ -11,6 +11,8 @@ description: Praktikomilonga na Stolárně každou neděli. Začátečníci i po
 author: Filip Paldia
 ---
 
+# Praktika na Stolárně
+
 Praktikomilonga pro všechny - ať už jsi na začátku, uprostřed nebo máš za sebou dlouhou tango cestu, přijď potrénovat v atmosféře, kde se nemusíš bát dělat chyby. 
 Vedená část, kdy se střídá po 2 písničkách 20:00 - 21:30
 DJ Filip

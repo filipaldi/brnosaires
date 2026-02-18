@@ -14,6 +14,8 @@ description: Tangomania. Pavla Lužná a Ondra Martinák, Stolárna. Úterý 18:
 author: Filip Paldia
 ---
 
+# Tangomania
+
 Přihlásit se může pouze aktivní člen TANGOMANIA BASIC a o přijetí rozhodují vedoucí lektoři Ondra & Pavla.​
 
 Co je cílem a náplní tréninků?

@@ -10,6 +10,8 @@ description: Workshop Sabine a Thomas Mayr z Rakouska. Prosinec 2025, Brno.
 author: Filip Paldia
 ---
 
+# Workshop - Sabine & Thomas Mayr, Rakousko
+
 Další akce se skvělými lektory. Největším lákadlem může být jedinečný přístup lektorů a témata. Jednotlivé bloky nebo celodenní výuka pro každého. Přijďte si zatančit a naučit se spoustu nových věcí. Je pro vás připraveno spousta hodin výuky. Večer milonga na reprodukovanou hudbu. Workshop je včetně ubytování v hotelu, jídla a wellness.
 
 Wellness 18:30-20:00

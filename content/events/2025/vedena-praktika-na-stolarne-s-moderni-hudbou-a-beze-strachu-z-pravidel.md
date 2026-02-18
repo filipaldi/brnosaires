@@ -10,6 +10,8 @@ description: Vedená praktika na Stolárně s moderní hudbou. Beze strachu z pr
 author: Filip Paldia
 ---
 
+# Vedená praktika na Stolárně s moderní hudbou a beze strachu z pravidel
+
 Začínáte tančit argentinské tango nebo již delší dobu tančíte, ale...
 
 ....nelíbí se vám klasická hudba?
