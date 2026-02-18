@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-24 13:00:00
 event-end: 2026-05-24 14:00:00
 event-organiser: Gottfried a Štěky
-location: Společenský sál na Staré radnici
+event-location: Společenský sál na Staré radnici
 description: Workshop Chacarera s Gottfriedem a Štěky pro všechny úrovně. Brnos Aires Tango víkend 2026.
 preview_image: /images/events/2026/milonga-hned-vedle.avif
 author: Filip Paldia

@@ -1,5 +1,5 @@
 from pelicanconf import *
 
-SITEURL = "https://filipaldi.github.io/brnosaires"
+SITEURL = "https://brnosaires.com"
 RELATIVE_URLS = False
 DELETE_OUTPUT_DIRECTORY = True

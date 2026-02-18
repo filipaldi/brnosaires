@@ -22,7 +22,7 @@
     {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
     {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
     {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-    {% set event_location = event.metadata.get('location') if event.metadata else none %}
+    {% set event_location = event.metadata.get('event-location') if event.metadata else none %}
     {% if event_start %}
       {% set day = event_start.strftime('%d') %}
       {% set month = event_start.strftime('%m') %}

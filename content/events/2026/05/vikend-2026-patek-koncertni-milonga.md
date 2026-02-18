@@ -6,7 +6,7 @@ event-type: milonga
 event-start: 2026-05-22 21:00:00
 event-end: 2026-05-23 01:00:00
 event-organiser: Lenka a Filip
-location: Společenský sál na Staré radnici
+event-location: Společenský sál na Staré radnici
 description: Koncertní milonga s živou hudbou - orchestr nebo Petr Zámečník. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/milonga-hned-vedle.avif

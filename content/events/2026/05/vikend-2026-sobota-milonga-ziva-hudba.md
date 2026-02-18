@@ -6,7 +6,7 @@ event-type: milonga
 event-start: 2026-05-23 20:30:00
 event-end: 2026-05-23 23:00:00
 event-organiser: Helmuth a Miloš
-location: Společenský sál na Staré radnici
+event-location: Společenský sál na Staré radnici
 description: Milonga s živou hudbou. Hudba: Helmuth a Miloš. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/milonga-hned-vedle.avif

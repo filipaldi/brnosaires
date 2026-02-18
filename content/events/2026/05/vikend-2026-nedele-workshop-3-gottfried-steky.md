@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-24 15:45:00
 event-end: 2026-05-24 17:00:00
 event-organiser: Gottfried a Štěky
-location: Společenský sál na Staré radnici
+event-location: Společenský sál na Staré radnici
 description: Workshop pro pokročilé s Gottfriedem a Štěky. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/milonga-hned-vedle.avif

@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-23 13:00:00
 event-end: 2026-05-23 14:15:00
 event-organiser: Iris a Helmuth
-location: Společenský sál na Staré radnici
+event-location: Společenský sál na Staré radnici
 description: Workshop pro středně pokročilé s Iris a Helmuthem. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/milonga-hned-vedle.avif

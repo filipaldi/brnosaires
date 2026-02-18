@@ -624,12 +624,14 @@ def _ics_escape(s):
     return s
 
 
-def _format_ics_datetime(dt):
+def _format_ics_datetime(dt, timezone_name=None):
     if dt is None:
         return ""
     if hasattr(dt, "strftime"):
-        return dt.strftime("%Y%m%dT%H%M%S")
-    return ""
+        if timezone_name:
+            return (dt.strftime("%Y%m%dT%H%M%S"), timezone_name)
+        return (dt.strftime("%Y%m%dT%H%M%S"), None)
+    return ("", None)
 
 
 def _event_rrule(metadata):
@@ -643,6 +645,13 @@ def _event_rrule(metadata):
 
 def build_ics(events, siteurl, timezone_name=None):
     lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Calendarium//EN"]
+    
+    if timezone_name:
+        lines.append(f"X-WR-TIMEZONE:{timezone_name}")
+        lines.append("BEGIN:VTIMEZONE")
+        lines.append(f"TZID:{timezone_name}")
+        lines.append("END:VTIMEZONE")
+    
     for event in events or []:
         meta = getattr(event, "metadata", None) or {}
         start_dt = _parse_event_start(meta)
@@ -671,14 +680,24 @@ def build_ics(events, siteurl, timezone_name=None):
             uid = f"{uid}@{netloc}"
         summary = _ics_escape(getattr(event, "title", "") or "Event")
         desc = _ics_escape(meta.get("description") or getattr(event, "summary", "") or "")
-        location = _ics_escape(meta.get("location") or "")
+        location = _ics_escape(meta.get("event-location") or "")
         url = (siteurl or "").rstrip("/") + "/" + (getattr(event, "slug", "") or "").strip("/") + "/"
         if url and url != "/":
             url = _ics_escape(url)
+        
+        start_str, start_tz = _format_ics_datetime(start_dt, timezone_name)
+        end_str, end_tz = _format_ics_datetime(end_dt, timezone_name)
+        
         lines.append("BEGIN:VEVENT")
         lines.append(f"UID:{uid}")
-        lines.append(f"DTSTART:{_format_ics_datetime(start_dt)}")
-        lines.append(f"DTEND:{_format_ics_datetime(end_dt)}")
+        if start_tz:
+            lines.append(f"DTSTART;TZID={start_tz}:{start_str}")
+        else:
+            lines.append(f"DTSTART:{start_str}")
+        if end_tz:
+            lines.append(f"DTEND;TZID={end_tz}:{end_str}")
+        else:
+            lines.append(f"DTEND:{end_str}")
         lines.append(f"SUMMARY:{summary}")
         if desc:
             lines.append(f"DESCRIPTION:{desc}")
@@ -708,6 +727,7 @@ def write_ics_feeds(pelican, **kwargs):
     output_path = settings.get("OUTPUT_PATH", "output")
     ics_dir = settings.get("CALENDAR_ICS_OUTPUT_DIR", "calendars")
     excluded = settings.get("CALENDAR_ICS_EXCLUDED_CATEGORIES", EXCLUDED_CATEGORIES)
+    timezone_name = settings.get("TIMEZONE", "Europe/Prague")
     now = settings.get("NOW")
     if now is None:
         now = datetime.now()
@@ -722,7 +742,7 @@ def write_ics_feeds(pelican, **kwargs):
         feed_id = feed.get("feed_id", "all")
         filter_spec = feed.get("filter", {})
         events = filter_events_for_ics(articles, filter_spec, now, excluded)
-        ics_content = build_ics(events, siteurl)
+        ics_content = build_ics(events, siteurl, timezone_name)
         path = os.path.join(out_dir, f"{feed_id}.ics")
         try:
             with open(path, "w", encoding="utf-8") as f:
