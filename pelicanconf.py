@@ -50,7 +50,9 @@ JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
 JINJA_GLOBALS = {"NOW": NOW}
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
-from calendarium import group_events, make_calendar_filter, parse_widget_attrs
+from calendarium.filter import make_calendar_filter
+from calendarium.grouping import group_events
+from calendarium.attrs import parse_widget_attrs
 from recurring_events import expand_recurring, date_add
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images

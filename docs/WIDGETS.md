@@ -28,7 +28,15 @@ theme/templates/
     └── widget_articles.html           # Articles: unified widget for announcements, curiosities, people
 
 plugins/
-├── calendarium.py                     # Calendar filtering and grouping
+├── calendarium/                        # Calendar filtering and grouping (package)
+│   ├── __init__.py                    # Plugin registration
+│   ├── config.py                      # Constants and defaults
+│   ├── attrs.py                       # Widget attribute parsing
+│   ├── dates.py                       # Date utilities
+│   ├── filter.py                      # Event filtering
+│   ├── grouping.py                    # Event grouping
+│   ├── feed_links.py                  # Calendar link/feed discovery
+│   └── ics.py                         # ICS file generation
 └── article_filter.py                  # Article filtering by category, slugs, sort, limit
 ```
 
@@ -168,7 +176,7 @@ Displays filtered lists of events from `content/events/`.
 - **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
 
 **Implementation:**
-- Component: `theme/templates/components/widget_calendar.html` parses attributes from `tag_content` and calls the `calendarium` Jinja filter (from plugin `plugins/calendarium.py`) for all filtering, date window, sort, and limit.
+- Component: `theme/templates/components/widget_calendar.html` parses attributes from `tag_content` and calls the `calendarium` Jinja filter (from plugin `plugins/calendarium/filter.py`) for all filtering, date window, sort, and limit.
 - Filtering (type, date window, sort, limit) is implemented in the calendarium plugin; the template only parses attributes and renders the result. Event type uses metadata `event-type`; multiple types in `type="a b c"` are OR. Categories `announcement` and `curiosity` are excluded.
 - Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
 - Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
@@ -217,7 +225,7 @@ CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]  # Default: sam
 ```
 
 **Implementation:**
-- Plugin: `plugins/calendarium.py` discovers widgets at `page_generator_finalized`, generates `.ics` files at `finalized`
+- Plugin: `plugins/calendarium/` package discovers widgets at `page_generator_finalized` (via `feed_links.py`), generates `.ics` files at `finalized` (via `ics.py`)
 - Component: `theme/templates/components/widget_calendar_link.html` renders the subscribe link
 - Feed URL: `{SITEURL}/calendars/{feed_id}.ics`
 

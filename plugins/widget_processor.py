@@ -40,7 +40,7 @@ def process_widgets(generator, content_object):
         render_context['tag_content'] = tag_content
 
         if widget_name == 'calendar-link':
-            from calendarium import get_feed_id_for_tag_content, get_calendar_subscribe_url
+            from calendarium.feed_links import get_feed_id_for_tag_content, get_calendar_subscribe_url
             feed_map = context.get('calendar_feed_id_map') or {}
             feed_id, label = get_feed_id_for_tag_content(tag_content, feed_map)
             siteurl = context.get('SITEURL', '') or ''
