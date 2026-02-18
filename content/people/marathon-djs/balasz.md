@@ -5,3 +5,5 @@ preview_image: /images/marathon-photos/djs/dj-balasz-gyenis.avif
 description: Hungary
 people: marathon-dj
 ---
+
+# Balázs Gyenis
