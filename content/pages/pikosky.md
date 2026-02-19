@@ -11,7 +11,11 @@ preview_image: /images/curiosities/smutne-obdobi-drogovych-dealeru.avif
 
 Tango pikošky jsou krátké a kuriózní informace z prostředí argentinského tanga. Informace postupně dohledáváme a sporadicky až pravidelně doplňujeme. 
 
-<widget-articles category="curiosity" limit="all" metadata="image title"></widget-articles>
+<widget-articles 
+    category="curiosity" 
+    limit="all" 
+    metadata="image title">
+</widget-articles>
 
 
 <widget-calendar-link 

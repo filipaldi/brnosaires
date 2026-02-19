@@ -22,11 +22,16 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
-    label_outlook="Ostatní">
+    label_outlook="Kopíruj pro ostatní">
 </widget-calendar-link>
 
 
-<widget-articles category="announcement" limit="3" metadata="image title"></widget-articles>
+<widget-articles 
+    category="announcement" 
+    limit="3" 
+    card_size="s" 
+    metadata="image title">
+</widget-articles>
 
 
 ## Kde tančit tango tento týden
@@ -39,11 +44,27 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 </widget-calendar>
 
 ## Nejbližší lekce
-<widget-calendar start="today" type="class" group_by="day" headers="day" days="1"></widget-calendar>
+<widget-calendar 
+    start="today" 
+    type="class" 
+    group_by="day" 
+    headers="day" 
+    days="1">
+</widget-calendar>
 
 ## Nejbližší workshopy
-<widget-calendar start="today" type="workshop" days="30" group_by="month"></widget-calendar>
+<widget-calendar 
+    start="today" 
+    type="workshop" 
+    days="30" 
+    group_by="month">
+</widget-calendar>
 
 ## Pikošky z prostředí argentinského tanga
-<widget-articles category="curiosity" limit="3" metadata="image title"></widget-articles>
+<widget-articles 
+    category="curiosity" 
+    limit="3" 
+    card_size="s" 
+    metadata="image title">
+</widget-articles>
 
