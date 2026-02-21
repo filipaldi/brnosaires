@@ -95,6 +95,11 @@ body {
    HEADINGS
    ============================================ */
 
+h1, h2, h3 {
+  font-variant-ligatures: common-ligatures contextual discretionary-ligatures historical-ligatures;
+  font-feature-settings: "liga" 1, "clig" 1, "dlig" 1, "hlig" 1, "salt" 1;
+}
+
 h1 {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
