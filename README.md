@@ -21,17 +21,66 @@ Every event file has two parts:
 1. **Frontmatter** (at the top, between `---` lines) - Contains metadata about the event
 2. **Content** (below the frontmatter) - The event description and details
 
-Example:
+### Ideal Event Metadata (Boilerplate for Editors)
+
+Events are displayed with metadata on the site (type, date range, location, organiser, instructors). Fill these in the frontmatter so the event page and widgets show consistent information.
+
+| Field | Required | Use |
+|-------|----------|-----|
+| `title` | Yes | Event name. |
+| `slug` | Yes | URL slug (lowercase, hyphens). Often same as filename without `.md`. |
+| `date` | Yes | Article date. Use same as `event-start` unless published on another day. Format: `YYYY-MM-DD HH:MM:SS`. |
+| `event-type` | Recommended | One of: `milonga`, `workshop`, `class`, `praktika`. Used for filtering in widgets. |
+| `event-start` | Yes | Start date and time. Format: `YYYY-MM-DD HH:MM:SS`. |
+| `event-end` | Recommended | End date and time. Same format as `event-start`. |
+| `event-location` | Recommended | Venue name and address (e.g. `Taneční studio Stolárna, Olomoucká 14` or `Café Adrinela`). |
+| `event-organiser` | Recommended | Who organises the event (e.g. `Taneční studio Stolárna`, `Lenka a Filip`). |
+| `instructor` | For classes/workshops | Instructors. Use list format: `"['Name One', 'Name Two']"` or a single name. |
+| `recurrence` | For recurring events | e.g. `weekly sunday`, `weekly tuesday`. See recurrence section below. |
+| `description` | Recommended | Short summary for cards and SEO. |
+| `preview_image` | Optional | Path to image, e.g. `/images/event.avif`. |
+| `author` | Optional | Content author. |
+
+**Boilerplate – one-off event (milonga or workshop):**
 
 ```markdown
 ---
-title: Milonga Fuera del Nido
+title: Event name
+slug: event-name
+date: 2026-01-17 18:00:00
+event-type: milonga
 event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00
-slug: milonga-fuera-del-nido
+event-location: Venue name, address
+event-organiser: Organiser name
+description: Short summary for cards and search.
+preview_image: /images/your-image.avif
+author: Your name
 ---
 
-Your event description goes here. You can use **bold**, *italic*, and [links](https://example.com).
+Body text here.
+```
+
+**Boilerplate – recurring class:**
+
+```markdown
+---
+title: Class name
+slug: class-name
+date: 2026-01-16 01:00:00
+event-type: class
+event-start: 2026-01-08 18:00:00
+event-end: 2026-01-08 20:00:00
+recurrence: weekly tuesday
+event-organiser: Studio name
+event-location: Address, Brno
+instructor: "['Instructor One', 'Instructor Two']"
+description: Short summary.
+preview_image: /images/class.avif
+author: Your name
+---
+
+Body text here.
 ```
 
 ## Event Metadata - Dates and Times
@@ -424,9 +473,16 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 - `event-start` - When event starts (format: `YYYY-MM-DD HH:MM:SS`)
 - `slug` - URL-friendly identifier (usually lowercase, hyphens)
 
-### Optional Event Fields
+### Recommended / Optional Event Fields
 
-- `event-end` - When event ends
+- `event-type` - `milonga`, `workshop`, `class`, or `praktika`
+- `event-end` - When event ends (same format as `event-start`)
+- `event-location` - Venue and address
+- `event-organiser` - Organiser name or studio
+- `instructor` - For classes/workshops: `"['Name', 'Name']"` or single name
+- `recurrence` - For recurring events, e.g. `weekly sunday`
+- `description` - Short summary for cards and SEO
+- `preview_image` - e.g. `/images/event.avif`
 - `event-rrule` - Recurrence rule (advanced)
 
 ### Widget Quick Syntax

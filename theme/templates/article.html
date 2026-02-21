@@ -12,13 +12,30 @@
       <img src="{{ article.preview_image.lstrip('/') }}" alt="{{ article.preview_image_alt|default(article.title) }}" />
     </div>
     {% endif %}
+    {% set meta = article.metadata or {} %}
+    {% set event_type = meta.get('event-type') %}
+    {% set event_start = meta.get('event-start') %}
+    {% set event_end = meta.get('event-end') %}
+    {% set instructor = meta.get('instructor') %}
+    {% set event_organiser = meta.get('event-organiser') %}
+    {% set event_location = meta.get('event-location') %}
+    {% if event_type or event_start or event_end or instructor or event_organiser or event_location %}
+    <header class="text-s color-neutral-3 el-stack stack-xs">
+      {% if event_type %}<p>{{ event_type }}</p>{% endif %}
+      {% if event_start %}
+      <p>{{ event_start | format_event_datetime }}{% if event_end %} — {{ event_end | format_event_datetime }}{% endif %}</p>
+      {% endif %}
+      {% if instructor %}<p>{{ instructor }}</p>{% endif %}
+      {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
+      {% if event_location %}<p>{{ event_location }}</p>{% endif %}
+    </header>
+    {% elif article.date %}
     <header>
-      {% if article.date %}
       <time class="text-s color-neutral-3" datetime="{{ article.date.isoformat() }}">
         {{ article.date.strftime('%d. %m. %Y') }}
       </time>
-      {% endif %}
     </header>
+    {% endif %}
 
     <div class="el-stack stack-xs">
       {{ article.content }}
