@@ -9,7 +9,7 @@ event-location: Skleněnka, Brno
 preview_image: /images/588559121_1370281164891457_4706084268347851578_n.avif
 description: Pravidelná milonga na Skleněnce. Každý první pátek v měsíci od 18:00.
 author: Filip Paldia
-------
+---
 
 # Milonga na Skleněnce
 
