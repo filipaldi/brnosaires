@@ -13,7 +13,16 @@ Naplánuj si svůj taneční kalendář na nejbližší období.
 
 Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
-<widget-calendar-link feed_id="milongas" path="events" type="milonga practica neolonga" label="📆 Odebírej akce do svého kalendáře"></widget-calendar-link>
+
+<widget-calendar-link 
+    type="milonga practica neolonga"
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Ostatní">
+</widget-calendar-link>
 
 
 <widget-calendar start="this-week" group_by="week day" headers="week day" days="40" type="milonga neolonga pocoloco praktika" hide_empty_days="true"></widget-calendar>

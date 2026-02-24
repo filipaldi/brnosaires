@@ -183,7 +183,7 @@ Displays filtered lists of events from `content/events/`.
 
 ### 2. Calendar Subscribe Link (`<widget-calendar-link>`)
 
-Generates a subscribe link for an iCal (.ics) feed. The plugin discovers these widgets, creates one `.ics` file per unique feed configuration, and renders the link.
+Generates a headline and three platform subscribe links for an iCal (.ics) feed: webcal (Apple / default calendar apps), Google Calendar, and a plain HTTPS link (e.g. for Outlook “Subscribe from web”). The plugin discovers these widgets, creates one `.ics` file per unique feed configuration, and renders one headline plus one plain `<a>` per platform. No classes are applied.
 
 **Attributes:**
 - `feed_id="all|marathon|..."` (optional) - Unique identifier for the feed. If omitted, a stable ID is derived from the filter (hash). Use explicit `feed_id` for readable URLs (e.g. `/calendars/marathon.ics`).
@@ -194,21 +194,41 @@ Generates a subscribe link for an iCal (.ics) feed. The plugin discovers these w
 - `path="events/2026-marathon"` (optional) - Filter by article source path containing this substring
 - `category="events"` (optional) - Filter by Pelican category name (e.g. `events`, `classes`)
 - `tags="tango workshop"` (optional) - Space-separated tags (OR logic)
-- `label="Subscribe"` (optional) - Link text (default: "Subscribe to calendar")
+- `label="Subscribe"` (optional) - Headline text above the links (default: "Subscribe to calendar")
+- `label_webcal="Apple"` (optional) - Link text for the webcal link (default: "Apple / default calendar")
+- `label_google="Google"` (optional) - Link text for the Google Calendar link (default: "Google Calendar")
+- `label_outlook="Ostatní"` (optional) - Link text for the HTTPS/copy link (default: "Copy link")
 
 **Feed Generation:**
 - The plugin scans all pages and articles for `<widget-calendar-link>` tags at build time
 - For each unique feed configuration (same `feed_id` or same filter), one `.ics` file is generated in `output/calendars/`
 - Events with recurrence metadata emit RRULE in the iCal feed
-- The widget renders as: `<a href="/calendars/{feed_id}.ics">{label}</a>`
+- The widget renders as: one `<div>` with a `<p>` (headline from `label`) and one plain `<a>` per platform (webcal, Google, https).
+
+**Renders as (example):**
+```html
+<div>
+  <p>📆 Odebírej akce do svého kalendáře</p>
+  <a href="webcal://example.com/calendars/events.ics">Apple</a>
+  <a href="https://www.google.com/calendar/render?cid=https%3A%2F%2Fexample.com%2Fcalendars%2Fevents.ics">Google</a>
+  <a href="https://example.com/calendars/events.ics">Ostatní</a>
+</div>
+```
 
 **Examples:**
 ```html
 <!-- All events (no filter) -->
 <widget-calendar-link feed_id="all" label="Přidat do kalendáře"></widget-calendar-link>
 
-<!-- Only events from content/events/ -->
-<widget-calendar-link feed_id="events" category="events" label="Subscribe to events"></widget-calendar-link>
+<!-- Headline and custom link labels -->
+<widget-calendar-link
+  feed_id="events"
+  path="events"
+  label="📆 Odebírej akce do svého kalendáře"
+  label_webcal="Apple"
+  label_google="Google"
+  label_outlook="Ostatní"
+></widget-calendar-link>
 
 <!-- Marathon events only -->
 <widget-calendar-link feed_id="marathon" path="events/2026-marathon" label="Marathon 2026"></widget-calendar-link>
@@ -226,8 +246,8 @@ CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]  # Default: sam
 
 **Implementation:**
 - Plugin: `plugins/calendarium/` package discovers widgets at `page_generator_finalized` (via `feed_links.py`), generates `.ics` files at `finalized` (via `ics.py`)
-- Component: `theme/templates/components/widget_calendar_link.html` renders the subscribe link
-- Feed URL: `{SITEURL}/calendars/{feed_id}.ics`
+- Component: `theme/templates/components/widget_calendar_link.html` renders one headline and three links (no classes)
+- Feed URLs: webcal for Apple/default apps; Google Calendar “add by URL”; HTTPS for Outlook / copy link
 
 ### 3. Articles Widget (`<widget-articles>`)
 

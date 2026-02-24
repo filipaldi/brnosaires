@@ -4,13 +4,6 @@
    not suitable for components or utilities
    ============================================ */
 
-.sticky-aside {
-  align-self: flex-start;
-  position: sticky;
-  top: 0;
-}
-
-
 h1, h2, h3, p {
   max-width: 43vw;
   min-width: 20rem;

@@ -12,3 +12,14 @@ preview_image: /images/srpen_tango.avif
 V létě se v Brně tančí! Open-air milongy, open-air praktika, tango s živou hudbou nebo festival argentinské kultury. Tango v létě žije a ty žiješ s ním.
 
 <widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
+
+
+<widget-calendar-link 
+    type="milonga practica neolonga"
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Ostatní">
+</widget-calendar-link>

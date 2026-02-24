@@ -1,1 +1,6 @@
-<a href="{{ subscribe_url }}">{{ label | default('Subscribe to calendar') }}</a>
+<div>
+  <p>{{ label | default('Subscribe to calendar') }}</p>
+  {% for link in subscribe_links %}
+  <a href="{{ link.url }}">{{ link.label }}</a>
+  {% endfor %}
+</div>

@@ -13,4 +13,19 @@ Zjisti, kde se tančí tango v Brně tento týden. Dozvíš se o všech milongá
 
 Užívej a tancuj!
 
-<widget-calendar type="milonga praktika" days="8" hide_empty_days="true"></widget-calendar>
+<widget-calendar 
+    type="milonga praktika" 
+    days="8" 
+    hide_empty_days="true" 
+    card_size="s">
+</widget-calendar>
+
+<widget-calendar-link 
+    type="milonga practica neolonga"
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Ostatní">
+</widget-calendar-link>

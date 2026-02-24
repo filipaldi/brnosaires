@@ -5,6 +5,7 @@ date: 2026-02-12 19:00:00
 event-type: milonga
 event-start: 2026-02-12 19:00:00
 event-end: 2026-02-12 22:00:00
+event-location: Rockwine
 preview_image: /images/Rockwine_kvten_2025_%286%29.avif
 description: Únorová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.
 author: Lenka Pláteníková

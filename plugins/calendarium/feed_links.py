@@ -3,6 +3,7 @@ Calendar link feed discovery and management.
 """
 import hashlib
 import re
+from urllib.parse import quote
 from . import config
 from . import attrs
 
@@ -83,6 +84,17 @@ def get_feed_id_for_tag_content(tag_content, feed_map):
     feed_id = feed_map.get(fp, "all")
     label = parsed_attrs.get("label")
     return feed_id, label
+
+
+def get_feed_url_https(feed_id, siteurl, output_dir="calendars"):
+    calendar_path = f"/{output_dir}/{feed_id}.ics"
+    if not siteurl or not str(siteurl).strip():
+        return calendar_path
+    return str(siteurl).rstrip("/") + calendar_path
+
+
+def get_google_calendar_add_url(https_feed_url):
+    return "https://www.google.com/calendar/render?cid=" + quote(https_feed_url, safe="")
 
 
 def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
