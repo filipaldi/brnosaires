@@ -17,4 +17,4 @@ Poprvé už ve čtvrtek 7. 8. v rámci festivalu Uprostřed:
 👉 Od 19 do 22h milonga.
 Pozvi kamarády, co ještě neznají čáry a kouzla argentinského tanga, podpoř stydlivou veřejnost a doběhni už na openclass 🫶 
 Poděkují ti budoucí tangueros a taky lektoři Pavla s Davidem 💙
-🌊 Milonga u brněnského moře jako tradiční vrchol letní sezóny je už za rohem. Zapiš si za uši a do kalendáte -  úterý 26. 8.🤩
+🌊 Milonga u brněnského moře jako tradiční vrchol letní sezóny je už za rohem. Zapiš si za uši a do kalendáře -  úterý 26. 8.🤩
