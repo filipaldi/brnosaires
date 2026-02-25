@@ -1,5 +1,5 @@
 ---
-title: neboj_a_rozhlidni_se
+title: Neboj a rozhlídni se
 date: 2026-02-11 20:00:00
 category: announcement
 preview_image: /images/announcements/neboj_a_rozhlidni_se3.jpg
