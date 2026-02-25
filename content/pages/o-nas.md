@@ -31,6 +31,7 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
     category="people" 
     metadata="description" 
     metadata="image title description" 
+    card_size="m"
     link="false">
 </widget-articles>
 
