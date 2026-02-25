@@ -6,7 +6,7 @@ preview_image: /images/announcements/neboj_a_rozhlidni_se3.jpg
 description: Neboj se a rozhlídni se. Milonga v Rockwine. Vyspíš se. Valentýn na Stolárně. Praktika každou neděli.
 author: Lenka Platenikova
 ---
-# neboj_a_rozhlidni_se
+# Neboj a rozhlídni se
 Neboj 🫶 Jestli se právě zmateně rozhlížíš, že neeviduješ žádné Lenčino oznámení o nadcházející(ch) milongách 🫢, tak tu ho máš. Trošku na poslední chvíli, promiň, je to zkouška tvojí bdělosti.
 👉 Milonga v Rockwine, co ti nemá ambice krást hodiny spánku je hned ve čtvrtek 12. 2. Což je zítra nebo podle toho, kdy toto čteš 👀
 Od 19 do 22h.  DJ Luboš 🎼🩵
