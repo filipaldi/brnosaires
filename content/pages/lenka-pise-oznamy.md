@@ -19,9 +19,8 @@ Pokud máte RSS čtečku, můžete je odebírat.
 <widget-articles
   category="announcement" 
   limit="12" 
-  metadata="image 
-  card_size="m" 
-  title">
+  metadata="image title" 
+  card_size="m">
 </widget-articles>
 
 [Všechny oznamy →](/category/announcement/)
