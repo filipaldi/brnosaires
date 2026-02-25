@@ -16,6 +16,12 @@ Lenčiny oznamy se staly legendárni a proto je přinášíme v tomhle archívu.
 Pokud máte RSS čtečku, můžete je odebírat.
 
 
-<widget-articles category="announcement" limit="12" metadata="image title"></widget-articles>
+<widget-articles
+  category="announcement" 
+  limit="12" 
+  metadata="image 
+  card_size="m" 
+  title">
+</widget-articles>
 
 [Všechny oznamy →](/category/announcement/)
