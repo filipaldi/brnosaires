@@ -47,17 +47,15 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 <widget-calendar 
     start="today" 
     type="class" 
-    group_by="day" 
-    headers="day" 
-    days="1">
+    card_size="s"
+    days="2">
 </widget-calendar>
 
 ## Nejbližší workshopy
 <widget-calendar 
-    start="today" 
     type="workshop" 
-    days="30" 
-    group_by="month">
+    card_size="s" 
+    days="60">
 </widget-calendar>
 
 ## Pikošky z prostředí argentinského tanga
@@ -68,3 +66,12 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
     metadata="image title">
 </widget-articles>
 
+
+<widget-calendar-link 
+    feed_id="events" 
+    path="events" 
+    label="📆 Odebírej akce do svého kalendáře" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Kopíruj pro ostatní">
+</widget-calendar-link>
