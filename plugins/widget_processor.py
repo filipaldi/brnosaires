@@ -53,7 +53,7 @@ def process_widgets(generator, content_object):
             parsed_attrs = calendarium_attrs.parse_calendar_link_attrs(tag_content)
             https_url = get_feed_url_https(feed_id, siteurl)
             webcal_url = get_calendar_subscribe_url(feed_id, siteurl)
-            google_url = get_google_calendar_add_url(https_url)
+            google_url = get_google_calendar_add_url(webcal_url)
             subscribe_links = [
                 {"id": "webcal", "url": webcal_url, "label": parsed_attrs.get("label_webcal") or "Apple / default calendar"},
                 {"id": "google", "url": google_url, "label": parsed_attrs.get("label_google") or "Google Calendar"},
