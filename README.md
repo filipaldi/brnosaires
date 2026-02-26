@@ -1,269 +1,269 @@
-# Brnos Aires Web - Editor Guide
+# Brnos Aires Web - Průvodce pro editory
 
-This guide is for content editors working with the Brnos Aires website. It covers how to create and edit events, use widgets, manage images, and organize content.
-
----
-
-## Table of Contents
-
-1. [Before You Start](#before-you-start)
-2. [Key Terms Explained](#key-terms-explained)
-3. [Working with Event Files](#working-with-event-files)
-4. [Event Metadata - Dates and Times](#event-metadata---dates-and-times)
-5. [Widget System](#widget-system)
-6. [Working with Images](#working-with-images)
-7. [Content Organization](#content-organization)
-8. [Common Tasks](#common-tasks)
-9. [Quick Reference](#quick-reference)
-10. [Need Help?](#need-help)
+Tento průvodce je určen pro editory obsahu pracující s webem Brnos Aires. Popisuje, jak vytvářet a upravovat akce, používat widgety, spravovat obrázky a organizovat obsah.
 
 ---
 
-## Before You Start
+## Obsah
 
-### How Editing Works
-
-You edit the website by modifying text files stored in this repository. Each file represents a piece of content — an event, a page, or an announcement.
-
-**When changes go live:** After you save (commit) your changes, the website rebuilds automatically at the next scheduled time — typically within 12 hours. If you need an update to appear sooner, ask a developer to trigger a manual rebuild.
-
-**File format:** All content files are plain text files ending in `.md` (Markdown). You can open them in any text editor.
-
-There are two ways to edit files:
-
----
-
-#### Option A: Edit directly on GitHub (recommended for small changes)
-
-No software installation required — you only need a web browser and a GitHub account.
-
-1. Go to the repository on GitHub
-2. Navigate to the file you want to edit (e.g., open `content/events/2026/02/` and click on a file)
-3. Click the **pencil icon** (✏️ "Edit this file") in the top-right corner of the file view
-4. Make your changes in the text editor that appears
-5. Scroll down to the **"Commit changes"** section
-6. In the first text box, write a short description of your change (e.g., `Add milonga January 2026`)
-7. Click **"Commit changes"** — your change is saved; the website will update at the next scheduled rebuild
-
-> **Tip:** GitHub editing is ideal for updating event details, fixing text, or adding a new event file. It does **not** allow uploading images — use GitHub Desktop for that.
+1. [Než začnete](#než-začnete)
+2. [Vysvětlení klíčových pojmů](#vysvětlení-klíčových-pojmů)
+3. [Práce se soubory akcí](#práce-se-soubory-akcí)
+4. [Metadata akcí – data a časy](#metadata-akcí--data-a-časy)
+5. [Systém widgetů](#systém-widgetů)
+6. [Práce s obrázky](#práce-s-obrázky)
+7. [Organizace obsahu](#organizace-obsahu)
+8. [Běžné úkoly](#běžné-úkoly)
+9. [Rychlý přehled](#rychlý-přehled)
+10. [Potřebujete pomoc?](#potřebujete-pomoc)
 
 ---
 
-#### Option B: Edit locally with GitHub Desktop (recommended for uploading images or making many changes at once)
+## Než začnete
 
-GitHub Desktop is a free app that lets you work with files on your computer and sync changes to GitHub.
+### Jak úpravy fungují
 
-**One-time setup:**
-1. Install [GitHub Desktop](https://desktop.github.com/) and sign in with your GitHub account
-2. Clone the repository: **File → Clone Repository** → select the repo → click **Clone**
-   - This downloads all the website files to a folder on your computer
+Web upravujete pomocí textových souborů uložených v tomto repozitáři. Každý soubor představuje jeden obsah — akci, stránku nebo oznámení.
 
-**Editing files:**
-1. Open the cloned folder on your computer and find the file you want to edit
-2. Open it in any plain text editor (Notepad on Windows, TextEdit on Mac)
-3. Make your changes and **save the file**
+**Kdy se změny zveřejní:** Po uložení (commitnutí) změn se web automaticky sestaví v nejbližším naplánovaném čase — obvykle do 12 hodin. Pokud potřebujete aktualizaci zobrazit dříve, požádejte vývojáře o ruční sestavení.
 
-**Uploading images:**
-1. Copy your image file into the `content/images/` subfolder within the cloned folder
+**Formát souborů:** Všechny soubory s obsahem jsou prostý text s příponou `.md` (Markdown). Lze je otevřít v libovolném textovém editoru.
 
-**Saving and publishing your changes:**
-1. Open GitHub Desktop — it shows all the files you have changed or added
-2. In the **"Summary"** field (bottom-left), write a short description (e.g., `Add milonga February 2026 event`)
-3. Click **"Commit to main"**
-4. Click **"Push origin"** in the top bar — your changes are sent to GitHub and the website will update at the next scheduled rebuild
+Soubory lze upravovat dvěma způsoby:
 
 ---
 
-### What is Markdown?
+#### Možnost A: Upravit přímo na GitHubu (doporučeno pro malé změny)
 
-Markdown is a simple way to format text using symbols. For example:
-- `**bold**` becomes **bold**
-- `# Heading` becomes a large heading
-- `- item` becomes a bullet point
+Nevyžaduje instalaci žádného softwaru — stačí webový prohlížeč a GitHub účet.
 
-You don't need to know Markdown deeply — the boilerplate templates in this guide cover everything you need.
+1. Přejděte do repozitáře na GitHubu
+2. Přejděte k souboru, který chcete upravit (např. otevřete `content/events/2026/02/` a klikněte na soubor)
+3. Klikněte na **ikonu tužky** (✏️ „Edit this file") v pravém horním rohu zobrazení souboru
+4. Proveďte změny v textovém editoru, který se zobrazí
+5. Přejděte dolů na sekci **„Commit changes"**
+6. Do prvního textového pole napište krátký popis změny (např. `Přidání milongy leden 2026`)
+7. Klikněte na **„Commit changes"** — změna je uložena; web se aktualizuje při nejbližším naplánovaném sestavení
 
----
-
-## Key Terms Explained
-
-| Term | What it means |
-|------|--------------|
-| **Frontmatter** | The block at the top of every file, between the two `---` lines. It contains structured information like the event title, date, and location. |
-| **Slug** | The URL-friendly version of the event name. It appears in the web address: `brnosaires.cz/events/milonga-fuera-del-nido`. Use only lowercase letters, numbers, and hyphens — no spaces or special characters. |
-| **Markdown file (`.md`)** | A plain text file with simple formatting. The website turns it into a styled webpage. |
-| **AVIF** | An image file format (like JPG or PNG, but more efficient). The website uses `.avif` images. |
-| **Widget** | A special code snippet you paste into a page to automatically display a list of events or articles. |
-| **SEO description** | A short summary (1–2 sentences) shown in search engine results and on social media previews. |
+> **Tip:** Úpravy na GitHubu jsou ideální pro aktualizaci detailů akcí, opravy textu nebo přidání nového souboru akce. **Neumožňují** nahrávání obrázků — k tomu použijte GitHub Desktop.
 
 ---
 
-## Working with Event Files
+#### Možnost B: Upravit lokálně pomocí GitHub Desktop (doporučeno pro nahrávání obrázků nebo více změn najednou)
 
-### Where Event Files Are Located
+GitHub Desktop je bezplatná aplikace, která vám umožňuje pracovat se soubory v počítači a synchronizovat změny s GitHubem.
 
-All event files are stored in the `content/events/` folder. Each event has its own Markdown file (`.md` file).
+**Jednorázové nastavení:**
+1. Nainstalujte [GitHub Desktop](https://desktop.github.com/) a přihlaste se svým GitHub účtem
+2. Naklonujte repozitář: **File → Clone Repository** → vyberte repozitář → klikněte na **Clone**
+   - Tím se stáhnou všechny soubory webu do složky ve vašem počítači
 
-### Creating a New Event File
+**Úprava souborů:**
+1. Otevřete naklonovanou složku v počítači a najděte soubor, který chcete upravit
+2. Otevřete jej v libovolném textovém editoru (Poznámkový blok ve Windows, TextEdit na Macu)
+3. Proveďte změny a **soubor uložte**
 
-1. Create a new file in the appropriate subfolder:
-   - For a dated event: `content/events/YYYY/MM/` — e.g., `content/events/2026/03/` for March 2026
-   - For a recurring class: `content/events/classes/`
-2. Name the file using lowercase letters, hyphens, and numbers only — no spaces, no accented letters (e.g., `milonga-fuera-del-nido.md`)
-3. The file name becomes part of the event's web address, so make it descriptive
+**Nahrávání obrázků:**
+1. Zkopírujte soubor obrázku do podsložky `content/images/` uvnitř naklonované složky
 
-**File naming examples:**
+**Uložení a zveřejnění změn:**
+1. Otevřete GitHub Desktop — zobrazí všechny soubory, které jste změnili nebo přidali
+2. Do pole **„Summary"** (vlevo dole) napište krátký popis (např. `Přidání milongy únor 2026`)
+3. Klikněte na **„Commit to main"**
+4. Klikněte na **„Push origin"** v horní liště — změny jsou odeslány na GitHub a web se aktualizuje při nejbližším naplánovaném sestavení
 
-| Content type | Format | Example |
+---
+
+### Co je Markdown?
+
+Markdown je jednoduchý způsob formátování textu pomocí symbolů. Například:
+- `**tučně**` se zobrazí jako **tučně**
+- `# Nadpis` se zobrazí jako velký nadpis
+- `- položka` se zobrazí jako odrážka
+
+Markdown nemusíte znát do hloubky — šablony v tomto průvodci pokrývají vše, co potřebujete.
+
+---
+
+## Vysvětlení klíčových pojmů
+
+| Pojem | Co znamená |
+|-------|-----------|
+| **Frontmatter** | Blok na začátku každého souboru, ohraničený dvěma řádky `---`. Obsahuje strukturované informace jako název akce, datum a místo konání. |
+| **Slug** | URL-přátelská verze názvu akce. Zobrazuje se v adrese webu: `brnosaires.cz/events/milonga-fuera-del-nido`. Používejte pouze malá písmena, číslice a pomlčky — žádné mezery ani speciální znaky. |
+| **Markdown soubor (`.md`)** | Prostý textový soubor s jednoduchým formátováním. Web ho převede na stylizovanou webovou stránku. |
+| **AVIF** | Formát obrázkových souborů (podobně jako JPG nebo PNG, ale efektivnější). Web používá obrázky `.avif`. |
+| **Widget** | Speciální úryvek kódu, který vložíte na stránku a který automaticky zobrazí seznam akcí nebo článků. |
+| **SEO popis** | Krátké shrnutí (1–2 věty) zobrazované ve výsledcích vyhledávačů a náhledech na sociálních sítích. |
+
+---
+
+## Práce se soubory akcí
+
+### Kde jsou uloženy soubory akcí
+
+Všechny soubory akcí jsou uloženy ve složce `content/events/`. Každá akce má vlastní Markdown soubor (`.md`).
+
+### Vytvoření nového souboru akce
+
+1. Vytvořte nový soubor v příslušné podsložce:
+   - Pro jednorázovou akci: `content/events/YYYY/MM/` — např. `content/events/2026/03/` pro březen 2026
+   - Pro opakující se lekci: `content/events/classes/`
+2. Pojmenujte soubor pouze malými písmeny, pomlčkami a číslicemi — bez mezer, bez diakritiky (např. `milonga-fuera-del-nido.md`)
+3. Název souboru se stane součástí webové adresy akce, proto ho pojmenujte výstižně
+
+**Příklady pojmenování souborů:**
+
+| Typ obsahu | Formát | Příklad |
 |---|---|---|
-| One-off event | `short-description.md` | `milonga-fuera-del-nido.md` |
-| Recurring class | `studio-level.md` | `stolarna-tango-i.md` |
-| Announcement | `YYYY-MM-DD-description.md` | `2026-03-15-spring-announcement.md` |
+| Jednorázová akce | `kratky-popis.md` | `milonga-fuera-del-nido.md` |
+| Opakující se lekce | `studio-uroven.md` | `stolarna-tango-i.md` |
+| Oznámení | `RRRR-MM-DD-popis.md` | `2026-03-15-jarni-oznameni.md` |
 
-**General rules:**
-- Lowercase letters only
-- Hyphens instead of spaces (`milonga-brno`, not `milonga brno`)
-- No underscores, no accented characters (`á`, `č`, `š`, etc.)
+**Obecná pravidla:**
+- Pouze malá písmena
+- Pomlčky místo mezer (`milonga-brno`, ne `milonga brno`)
+- Žádná podtržítka, žádná diakritika (`á`, `č`, `š` apod.)
 
-### Basic Event File Structure
+### Základní struktura souboru akce
 
-Every event file has two parts:
+Každý soubor akce má dvě části:
 
-1. **Frontmatter** (at the top, between `---` lines) — Contains metadata about the event
-2. **Content** (below the frontmatter) — The event description and details
+1. **Frontmatter** (nahoře, mezi řádky `---`) — Obsahuje metadata o akci
+2. **Obsah** (pod frontmatterem) — Popis a detaily akce
 
-### Ideal Event Metadata (Boilerplate for Editors)
+### Ideální metadata akce (šablona pro editory)
 
-Events are displayed with metadata on the site (type, date range, location, organiser, instructors). Fill these in the frontmatter so the event page and widgets show consistent information.
+Akce se na webu zobrazují s metadaty (typ, časový rozsah, místo, pořadatel, lektoři). Vyplňte je ve frontmatteru, aby stránka akce a widgety zobrazovaly konzistentní informace.
 
-| Field | Required | Use |
-|-------|----------|-----|
-| `title` | Yes | Event name. |
-| `slug` | Yes | URL slug (lowercase, hyphens). Often same as filename without `.md`. |
-| `date` | Yes | Article date. Use the same value as `event-start` unless you're publishing the article on a different day. Format: `YYYY-MM-DD HH:MM:SS`. |
-| `event-type` | Recommended | One of: `milonga`, `workshop`, `class`, `praktika`. Used for filtering in widgets. |
-| `event-start` | Yes | Start date and time. Format: `YYYY-MM-DD HH:MM:SS`. |
-| `event-end` | Recommended | End date and time. Same format as `event-start`. |
-| `event-location` | Recommended | Venue name and address (e.g. `Taneční studio Stolárna, Olomoucká 14` or `Café Adrinela`). |
-| `event-organiser` | Recommended | Who organises the event (e.g. `Taneční studio Stolárna`, `Lenka a Filip`). |
-| `instructor` | For classes/workshops | Instructors. For one instructor: just write the name. For multiple: `"['Name One', 'Name Two']"` (see note below). |
-| `recurrence` | For recurring events | e.g. `weekly sunday`, `weekly tuesday`. See recurrence section below. |
-| `description` | Recommended | Short summary for cards and search results (1–2 sentences). |
-| `preview_image` | Optional | Path to image, e.g. `/images/event.avif`. |
-| `author` | Optional | Content author. |
+| Pole | Povinné | Použití |
+|------|---------|---------|
+| `title` | Ano | Název akce. |
+| `slug` | Ano | URL slug (malá písmena, pomlčky). Obvykle stejné jako název souboru bez `.md`. |
+| `date` | Ano | Datum článku. Použijte stejnou hodnotu jako `event-start`, pokud článek nepublikujete jiný den. Formát: `RRRR-MM-DD HH:MM:SS`. |
+| `event-type` | Doporučeno | Jedna z hodnot: `milonga`, `workshop`, `class`, `praktika`. Slouží k filtrování ve widgetech. |
+| `event-start` | Ano | Datum a čas začátku. Formát: `RRRR-MM-DD HH:MM:SS`. |
+| `event-end` | Doporučeno | Datum a čas konce. Stejný formát jako `event-start`. |
+| `event-location` | Doporučeno | Název místa a adresa (např. `Taneční studio Stolárna, Olomoucká 14` nebo `Café Adrinela`). |
+| `event-organiser` | Doporučeno | Kdo akci pořádá (např. `Taneční studio Stolárna`, `Lenka a Filip`). |
+| `instructor` | Pro lekce/workshopy | Lektoři. Pro jednoho lektora: napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz poznámka níže). |
+| `recurrence` | Pro opakující se akce | Např. `weekly sunday`, `weekly tuesday`. Viz sekce o opakování níže. |
+| `description` | Doporučeno | Krátké shrnutí pro kartičky a výsledky vyhledávání (1–2 věty). |
+| `preview_image` | Volitelné | Cesta k obrázku, např. `/images/akce.avif`. |
+| `author` | Volitelné | Autor obsahu. |
 
-> **Multiple instructors:** The unusual format `"['Name One', 'Name Two']"` (with quotes and square brackets) is required by the website system. Copy it exactly and just replace the names. For a single instructor, you can write the name directly: `instructor: Filip Paldia`.
+> **Více lektorů:** Neobvyklý formát `"['Jméno Jedna', 'Jméno Dva']"` (s uvozovkami a hranatými závorkami) je vyžadován systémem webu. Zkopírujte jej přesně a vyměňte pouze jména. Pro jednoho lektora napište jméno přímo: `instructor: Filip Paldia`.
 
-**Boilerplate – one-off event (milonga or workshop):**
+**Šablona – jednorázová akce (milonga nebo workshop):**
 
 ```markdown
 ---
-title: Event name
-slug: event-name
+title: Název akce
+slug: nazev-akce
 date: 2026-01-17 18:00:00
 event-type: milonga
 event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00
-event-location: Venue name, address
-event-organiser: Organiser name
-description: Short summary for cards and search.
-preview_image: /images/your-image.avif
-author: Your name
+event-location: Název místa, adresa
+event-organiser: Název pořadatele
+description: Krátké shrnutí pro kartičky a vyhledávání.
+preview_image: /images/vas-obrazek.avif
+author: Vaše jméno
 ---
 
-Body text here.
+Text akce zde.
 ```
 
-**Boilerplate – recurring class:**
+**Šablona – opakující se lekce:**
 
 ```markdown
 ---
-title: Class name
-slug: class-name
+title: Název lekce
+slug: nazev-lekce
 date: 2026-01-16 01:00:00
 event-type: class
 event-start: 2026-01-08 18:00:00
 event-end: 2026-01-08 20:00:00
 recurrence: weekly tuesday
-event-organiser: Studio name
-event-location: Address, Brno
-instructor: "['Instructor One', 'Instructor Two']"
-description: Short summary.
-preview_image: /images/class.avif
-author: Your name
+event-organiser: Název studia
+event-location: Adresa, Brno
+instructor: "['Lektor Jedna', 'Lektor Dva']"
+description: Krátké shrnutí.
+preview_image: /images/lekce.avif
+author: Vaše jméno
 ---
 
-Body text here.
+Text lekce zde.
 ```
 
 ---
 
-## Event Metadata - Dates and Times
+## Metadata akcí – data a časy
 
-Event files use four types of date/time information:
+Soubory akcí používají čtyři typy informací o datu a čase:
 
-### 1. `date` - Article Date (Required)
+### 1. `date` – Datum článku (povinné)
 
-The website system requires this field for every article. For events, set it to the same value as `event-start`. Only use a different date if you're writing and publishing the article on a separate day from when the event happens.
+Systém webu toto pole vyžaduje u každého článku. U akcí nastavte stejnou hodnotu jako `event-start`. Jiné datum použijte pouze tehdy, pokud článek píšete a publikujete v jiný den, než kdy se akce koná.
 
-**Format:** `YYYY-MM-DD HH:MM:SS`
+**Formát:** `RRRR-MM-DD HH:MM:SS`
 
-**Example:**
+**Příklad:**
 ```markdown
 date: 2026-01-17 18:00:00
 ```
 
-### 2. `event-start` - Event Start Time (Required)
+### 2. `event-start` – Čas začátku akce (povinné)
 
-This is the most important field. It tells when your event begins.
+Toto je nejdůležitější pole. Říká, kdy akce začíná.
 
-**Format:** `YYYY-MM-DD HH:MM:SS`
+**Formát:** `RRRR-MM-DD HH:MM:SS`
 
-**Examples:**
+**Příklady:**
 ```markdown
 event-start: 2026-01-17 18:00:00
 event-start: 2026-03-15 20:30:00
 event-start: 2026-12-25 19:00:00
 ```
 
-**Important:**
-- Always include both the date and the time
-- Use 24-hour format (18:00 instead of 6:00 PM)
-- Use the format exactly as shown above
+**Důležité:**
+- Vždy uveďte datum i čas
+- Používejte 24hodinový formát (18:00 místo 6:00 PM)
+- Dodržujte přesně uvedený formát
 
-### 3. `event-end` - Event End Time (Optional)
+### 3. `event-end` – Čas konce akce (volitelné)
 
-Use this when your event has a specific end time. If the event doesn't have a fixed end time, you can skip this field.
+Vyplňte, pokud má akce konkrétní čas konce. Pokud akce nemá pevný čas konce, toto pole vynechejte.
 
-**Format:** `YYYY-MM-DD HH:MM:SS`
+**Formát:** `RRRR-MM-DD HH:MM:SS`
 
-**Examples:**
+**Příklady:**
 ```markdown
 event-end: 2026-01-17 22:30:00
 event-end: 2026-03-15 23:00:00
 ```
 
-**Important:**
-- Must be on the same day or later than `event-start`
-- Use the same format as `event-start`
+**Důležité:**
+- Musí být ve stejný den nebo později než `event-start`
+- Používejte stejný formát jako u `event-start`
 
-### 4. `recurrence` - Recurring Events (Optional)
+### 4. `recurrence` – Opakující se akce (volitelné)
 
-This field is for events that repeat regularly (like weekly classes). Most events don't need this. If you're not sure, skip it.
+Toto pole slouží pro akce, které se pravidelně opakují (např. týdenní lekce). Většina akcí ho nepotřebuje. Pokud si nejste jistí, pole vynechejte.
 
-**When to use:**
-- Weekly classes that happen every Monday
-- Monthly events that repeat
-- Other regular recurring events
+**Kdy použít:**
+- Týdenní lekce každé pondělí
+- Měsíční akce, které se opakují
+- Jiné pravidelně se opakující akce
 
-**Format:** Simple phrase. `event-start` is the first occurrence; the rule repeats from that date.
+**Formát:** Jednoduchá fráze. `event-start` označuje první výskyt; pravidlo se opakuje od tohoto data.
 
-**Examples:**
-- Every Sunday: `recurrence: weekly sunday`
-- First Saturday of month: `recurrence: monthly 1 saturday`
-- Every Monday: `recurrence: weekly monday`
+**Příklady:**
+- Každou neděli: `recurrence: weekly sunday`
+- První sobotu v měsíci: `recurrence: monthly 1 saturday`
+- Každé pondělí: `recurrence: weekly monday`
 
-### Complete Event Example
+### Kompletní příklad akce
 
 ```markdown
 ---
@@ -280,43 +280,43 @@ Openclass od 18:00 (není nutné přijít s partnerem)
 19.00-22.30 Milonga, DJ Kenan
 ```
 
-### Common Date/Time Mistakes to Avoid
+### Časté chyby při zadávání data a času
 
-1. **Wrong format:** `17.1.2026 18:00` ❌
-   - **Correct:** `2026-01-17 18:00:00` ✅
+1. **Špatný formát:** `17.1.2026 18:00` ❌
+   - **Správně:** `2026-01-17 18:00:00` ✅
 
-2. **Missing time:** `2026-01-17` ❌
-   - **Correct:** `2026-01-17 18:00:00` ✅
+2. **Chybějící čas:** `2026-01-17` ❌
+   - **Správně:** `2026-01-17 18:00:00` ✅
 
-3. **Using `date` instead of `event-start`:** only `date: 2026-01-17 18:00:00` ❌
-   - **Correct:** Include both `date` and `event-start` with the same value ✅
+3. **Pouze `date` místo `event-start`:** jen `date: 2026-01-17 18:00:00` ❌
+   - **Správně:** Uveďte jak `date`, tak `event-start` se stejnou hodnotou ✅
 
-4. **Using `end_date` instead of `event-end`:** `end_date: 2026-01-17 22:30:00` ❌
-   - **Correct:** `event-end: 2026-01-17 22:30:00` ✅
+4. **Použití `end_date` místo `event-end`:** `end_date: 2026-01-17 22:30:00` ❌
+   - **Správně:** `event-end: 2026-01-17 22:30:00` ✅
 
-5. **Missing `date` field:** Events must have both `date` and `event-start` ❌
-   - **Correct:** Include both `date` and `event-start` with the same value ✅
+5. **Chybějící pole `date`:** Akce musí mít jak `date`, tak `event-start` ❌
+   - **Správně:** Uveďte obě pole se stejnou hodnotou ✅
 
 ---
 
-## Widget System
+## Systém widgetů
 
-Widgets are special components that automatically display lists of events on your pages. You can add them anywhere in your Markdown content.
+Widgety jsou speciální komponenty, které automaticky zobrazují seznamy akcí na vašich stránkách. Lze je vložit kamkoliv do obsahu v Markdownu.
 
-For full widget documentation — all attributes, examples, and technical details — see **[docs/WIDGETS.md](docs/WIDGETS.md)**.
+Úplnou dokumentaci widgetů — všechny atributy, příklady a technické detaily — najdete v **[docs/WIDGETS.md](docs/WIDGETS.md)**.
 
-### How Widgets Work
+### Jak widgety fungují
 
-Widgets are embedded using custom HTML tags that you paste into your Markdown file. The website automatically replaces these tags with the actual event list.
+Widgety se vkládají pomocí vlastních HTML tagů, které vložíte do souboru Markdown. Web tyto tagy automaticky nahradí skutečným seznamem akcí.
 
-### Available Widgets
+### Dostupné widgety
 
-**`<widget-calendar>`** — displays filtered event cards:
+**`<widget-calendar>`** — zobrazuje kartičky akcí podle filtru:
 ```html
 <widget-calendar filter_by_type="milonga" days="14"></widget-calendar>
 ```
 
-**`<widget-calendar-link>`** — renders calendar subscription links (Apple, Google, Outlook):
+**`<widget-calendar-link>`** — zobrazuje odkazy pro přihlášení k odběru kalendáře (Apple, Google, Outlook):
 ```html
 <widget-calendar-link
     cal_file_name="milongas"
@@ -329,14 +329,14 @@ Widgets are embedded using custom HTML tags that you paste into your Markdown fi
 </widget-calendar-link>
 ```
 
-**`<widget-articles>`** — displays article cards filtered by category:
+**`<widget-articles>`** — zobrazuje kartičky článků filtrované podle kategorie:
 ```html
 <widget-articles category="announcement" limit="3"></widget-articles>
 ```
 
-### Using Widgets in Pages
+### Použití widgetů na stránkách
 
-You can add widgets anywhere in your page content. Here's a complete example:
+Widgety lze vložit kamkoliv v obsahu stránky. Zde je kompletní příklad:
 
 ```markdown
 ---
@@ -357,52 +357,52 @@ Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
 <widget-articles category="announcement" limit="3"></widget-articles>
 ```
 
-### Widget Best Practices
+### Doporučené postupy pro widgety
 
-1. **Add headings before widgets** — Help readers understand what they're looking at
-2. **Place widgets where they make sense** — Put event lists near relevant content
-3. **Test after adding** — Make sure events are showing up correctly
-4. **Widgets only show if content exists** — If no matching content is found, the widget won't appear
-5. **Use sorting for better organisation** — Sort by oldest for historical content, newest for recent updates
+1. **Přidejte před widget nadpis** — Pomozte čtenářům pochopit, co vidí
+2. **Umísťujte widgety tam, kde to dává smysl** — Seznamy akcí dejte k relevantnímu obsahu
+3. **Po přidání zkontrolujte** — Ověřte, že se akce zobrazují správně
+4. **Widgety se zobrazí jen pokud existuje odpovídající obsah** — Pokud neexistuje žádný odpovídající obsah, widget se nezobrazí
+5. **Používejte řazení pro lepší organizaci** — Od nejstarší pro historický obsah, od nejnovější pro aktuální aktualizace
 
-### Troubleshooting Widgets
+### Řešení problémů s widgety
 
-**Widget not showing:**
-- Check that events exist with the matching `event-type` field (e.g., `event-type: milonga`)
-- Verify the syntax is correct (copy from [docs/WIDGETS.md](docs/WIDGETS.md))
-- Make sure you're editing a page file, not an event file
+**Widget se nezobrazuje:**
+- Zkontrolujte, zda existují akce se správným polem `event-type` (např. `event-type: milonga`)
+- Ověřte, zda je syntaxe správná (viz [docs/WIDGETS.md](docs/WIDGETS.md))
+- Ujistěte se, že upravujete soubor stránky, ne soubor akce
 
-**Events not appearing:**
-- Verify events are in the `content/events/` folder
-- Check that each event file has the correct `event-type` field set (e.g., `event-type: milonga`)
-- Ensure events have valid `event-start` dates in the frontmatter
+**Akce se nezobrazují:**
+- Ověřte, že jsou akce ve složce `content/events/`
+- Zkontrolujte, že každý soubor akce má správně nastavené pole `event-type` (např. `event-type: milonga`)
+- Ujistěte se, že akce mají platná data `event-start` ve frontmatteru
 
-**Articles not appearing:**
-- Verify content is in the correct folder (`content/announcements/`, `content/curiosities/`, `content/people/`, etc.)
-- Check that the `category` attribute matches the folder name
-- Ensure content files have valid dates
+**Články se nezobrazují:**
+- Ověřte, že je obsah ve správné složce (`content/announcements/`, `content/curiosities/`, `content/people/` apod.)
+- Zkontrolujte, zda atribut `category` odpovídá názvu složky
+- Ujistěte se, že soubory s obsahem mají platná data
 
 ---
 
-## Working with Images
+## Práce s obrázky
 
-### Where Images Are Stored
+### Kde jsou uloženy obrázky
 
-All images are in the `content/images/` folder. The website uses `.avif` image files (a modern, efficient format). If you have a JPG or PNG, ask a developer to convert it before uploading.
+Všechny obrázky jsou ve složce `content/images/`. Web používá obrázky ve formátu `.avif` (moderní a efektivní formát). Pokud máte JPG nebo PNG, požádejte vývojáře o převod před nahráním.
 
-### Adding Images to Events
+### Přidání obrázku k akci
 
-To add an image to an event, use this format in your event content:
+Pro přidání obrázku do obsahu akce použijte tento formát:
 
 ```markdown
-![Description of the image]({static}/images/your-image-name.avif)
+![Popis obrázku]({static}/images/nazev-vaseho-obrazku.avif)
 ```
 
-> **Note:** `{static}` is a special keyword used by the website system to find the images folder. Write it exactly as shown — do not change it. Replace only `your-image-name.avif` with your actual filename.
+> **Poznámka:** `{static}` je speciální klíčové slovo používané systémem webu k nalezení složky s obrázky. Pište ho přesně tak, jak je uvedeno — neměňte ho. Nahraďte pouze `nazev-vaseho-obrazku.avif` skutečným názvem souboru.
 
-> **Tip:** Always add a short description inside the `[ ]` brackets (e.g., `![Poster for Milonga Fuera del Nido]`). This helps visually impaired visitors using screen readers, and improves search engine visibility.
+> **Tip:** Vždy přidejte krátký popis do závorek `[ ]` (např. `![Plakát Milongy Fuera del Nido]`). Pomůže to návštěvníkům se zrakovým postižením používajícím čtečky obrazovky a zlepší viditelnost ve vyhledávačích.
 
-**Example:**
+**Příklad:**
 ```markdown
 ---
 title: Milonga Fuera del Nido
@@ -410,181 +410,181 @@ event-start: 2026-01-17 18:00:00
 slug: milonga-fuera-del-nido
 ---
 
-![Poster for Milonga Fuera del Nido]({static}/images/milonga-fuera-del-nido.avif)
+![Plakát Milongy Fuera del Nido]({static}/images/milonga-fuera-del-nido.avif)
 
-Your event description here...
+Popis akce zde...
 ```
 
-### Image Best Practices
+### Doporučené postupy pro obrázky
 
-1. **Use descriptive filenames** — Makes it easier to find images later (e.g., `milonga-january-2026.avif` instead of `IMG_4821.avif`)
-2. **Use `.avif` format** — Ask a developer to convert images if needed
-3. **Keep filenames simple** — Use lowercase letters, numbers, and hyphens only; no spaces or special characters
-4. **Always add a description** — Fill in the `[ ]` brackets with a short description of the image
+1. **Používejte výstižné názvy souborů** — Usnadní pozdější vyhledávání (např. `milonga-leden-2026.avif` místo `IMG_4821.avif`)
+2. **Používejte formát `.avif`** — V případě potřeby požádejte vývojáře o převod
+3. **Udržujte názvy souborů jednoduché** — Pouze malá písmena, číslice a pomlčky; žádné mezery ani speciální znaky
+4. **Vždy přidejte popis** — Vyplňte závorky `[ ]` krátkým popisem obrázku
 
-### Finding Images
+### Vyhledávání obrázků
 
-To see what images are available, look in the `content/images/` folder. The filename you see there is what you use in your Markdown (without the folder path).
+Dostupné obrázky zjistíte pohledem do složky `content/images/`. Název souboru, který tam vidíte, použijte ve svém Markdownu (bez cesty ke složce).
 
 ---
 
-## Content Organization
+## Organizace obsahu
 
-### Directory Structure
+### Struktura složek
 
-The website content is organized into folders:
+Obsah webu je organizován do složek:
 
-- **`content/events/`** — All event files, organized by year and month (e.g., `content/events/2026/03/`)
-- **`content/events/classes/`** — Recurring class files
-- **`content/pages/`** — Regular pages (about us, calendar pages, etc.)
-- **`content/announcements/`** — Announcement posts
-- **`content/images/`** — All images used on the website
+- **`content/events/`** — Všechny soubory akcí, organizované podle roku a měsíce (např. `content/events/2026/03/`)
+- **`content/events/classes/`** — Soubory opakujících se lekcí
+- **`content/pages/`** — Běžné stránky (o nás, stránky kalendáře apod.)
+- **`content/announcements/`** — Oznámení
+- **`content/images/`** — Všechny obrázky používané na webu
 
-### Content Types
+### Typy obsahu
 
-**Events** (`content/events/YYYY/MM/`)
-- Individual events with dates and times
-- Must have `event-start` field
-- Appear in calendars and event lists
-- File naming: `short-description.md` (e.g., `milonga-fuera-del-nido.md`)
+**Akce** (`content/events/YYYY/MM/`)
+- Jednotlivé akce s daty a časy
+- Musí mít pole `event-start`
+- Zobrazují se v kalendářích a seznamech akcí
+- Pojmenování souborů: `kratky-popis.md` (např. `milonga-fuera-del-nido.md`)
 
-**Pages** (`content/pages/`)
-- Regular website pages
-- Can include widgets
-- Examples: calendar pages, information pages
+**Stránky** (`content/pages/`)
+- Běžné webové stránky
+- Mohou obsahovat widgety
+- Příklady: stránky kalendáře, informační stránky
 
-**Boilerplate – page:**
+**Šablona – stránka:**
 
 ```markdown
 ---
-title: Page title
-slug: page-slug
+title: Název stránky
+slug: nazev-stranky
 date: 2026-01-17 18:00:00
-description: Short description shown in search results.
-author: Your name
-preview_image: /images/your-image.avif
+description: Krátký popis zobrazovaný ve výsledcích vyhledávání.
+author: Vaše jméno
+preview_image: /images/vas-obrazek.avif
 ---
 
-Body text here. Add widgets below to automatically display content.
+Text stránky zde. Níže přidejte widgety pro automatické zobrazení obsahu.
 ```
 
-**Announcements** (`content/announcements/`)
-- News and updates
-- Don't need event dates
-- File naming: `YYYY-MM-DD-description.md` (e.g., `2026-03-15-spring-announcement.md`)
+**Oznámení** (`content/announcements/`)
+- Novinky a aktualizace
+- Nepotřebují datum akce
+- Pojmenování souborů: `RRRR-MM-DD-popis.md` (např. `2026-03-15-jarni-oznameni.md`)
 
-**Boilerplate – announcement:**
+**Šablona – oznámení:**
 
 ```markdown
 ---
-title: Your announcement title
+title: Název oznámení
 date: 2026-03-15 09:00:00
 category: announcement
-description: Short summary for cards and search results.
-preview_image: /images/announcements/your-image.avif
-author: Your name
+description: Krátké shrnutí pro kartičky a výsledky vyhledávání.
+preview_image: /images/announcements/vas-obrazek.avif
+author: Vaše jméno
 ---
 
-Body text here.
+Text oznámení zde.
 ```
 
-**Classes** (`content/events/classes/`)
-- Recurring class files with `recurrence` field
-- File naming: `studio-level.md` (e.g., `stolarna-tango-i.md`)
+**Lekce** (`content/events/classes/`)
+- Soubory opakujících se lekcí s polem `recurrence`
+- Pojmenování souborů: `studio-uroven.md` (např. `stolarna-tango-i.md`)
 
 ---
 
-## Common Tasks
+## Běžné úkoly
 
-### Adding a New Event
+### Přidání nové akce
 
-1. Create a new file in the correct subfolder (e.g., `content/events/2026/03/` for a March 2026 event)
-2. Name it descriptively using lowercase and hyphens (e.g., `milonga-fuera-del-nido.md`)
-3. Add the frontmatter with required fields:
+1. Vytvořte nový soubor ve správné podsložce (např. `content/events/2026/03/` pro akci v březnu 2026)
+2. Pojmenujte ho výstižně, malými písmeny a s pomlčkami (např. `milonga-fuera-del-nido.md`)
+3. Přidejte frontmatter s povinnými poli:
    ```markdown
    ---
-   title: Your Event Title
+   title: Název vaší akce
    date: 2026-01-17 18:00:00
    event-start: 2026-01-17 18:00:00
    event-end: 2026-01-17 22:30:00
-   slug: your-event-slug
+   slug: slug-vasi-akce
    ---
    ```
-4. Add your event description below the frontmatter
-5. Save the file
+4. Pod frontmatter přidejte popis akce
+5. Soubor uložte
 
-### Updating Event Dates
+### Aktualizace dat akce
 
-1. Open the event file in `content/events/`
-2. Find the `event-start` or `event-end` line in the frontmatter
-3. Update the date/time using the format: `YYYY-MM-DD HH:MM:SS`
-4. Save the file
+1. Otevřete soubor akce ve složce `content/events/`
+2. Najděte řádek `event-start` nebo `event-end` ve frontmatteru
+3. Aktualizujte datum a čas ve formátu: `RRRR-MM-DD HH:MM:SS`
+4. Soubor uložte
 
-**Example — changing start time from 18:00 to 19:00:**
+**Příklad — změna začátku z 18:00 na 19:00:**
 ```markdown
 event-start: 2026-01-17 19:00:00
 ```
 
-### Adding Widgets to a Page
+### Přidání widgetu na stránku
 
-1. Open the page file in `content/pages/`
-2. Find where you want the widget to appear
-3. Add the widget code (copy from examples above)
-4. Save the file
+1. Otevřete soubor stránky ve složce `content/pages/`
+2. Najděte místo, kde má widget být
+3. Přidejte kód widgetu (zkopírujte z příkladů výše)
+4. Soubor uložte
 
-**Example:**
+**Příklad:**
 ```markdown
-## Upcoming Milongas
+## Nadcházející milongy
 
 <widget-calendar filter_by_type="milonga" days="365"></widget-calendar>
 ```
 
-### Finding and Editing Existing Content
+### Vyhledávání a úprava existujícího obsahu
 
-**To find an event:**
-- Look in `content/events/` folder
-- Search by filename or open files to see titles
+**Hledání akce:**
+- Podívejte se do složky `content/events/`
+- Hledejte podle názvu souboru nebo otevřete soubory a přečtěte si názvy
 
-**To find a page:**
-- Look in `content/pages/` folder
-- Filenames usually match the page topic
+**Hledání stránky:**
+- Podívejte se do složky `content/pages/`
+- Názvy souborů obvykle odpovídají tématu stránky
 
-**To edit:**
-- Open the file
-- Make your changes
-- Save the file
+**Úprava:**
+- Otevřete soubor
+- Proveďte změny
+- Soubor uložte
 
-### Adding Images to Content
+### Přidání obrázku do obsahu
 
-1. Place your `.avif` image file in `content/images/` folder
-2. In your content, add: `![Short description]({static}/images/your-filename.avif)`
-3. Replace `your-filename.avif` with your actual filename and add a description in the `[ ]` brackets
+1. Umístěte soubor obrázku `.avif` do složky `content/images/`
+2. V obsahu přidejte: `![Krátký popis]({static}/images/vas-soubor.avif)`
+3. Nahraďte `vas-soubor.avif` skutečným názvem souboru a do závorek `[ ]` přidejte popis
 
 ---
 
-## Quick Reference
+## Rychlý přehled
 
-### Required Event Fields
+### Povinná pole akce
 
-- `title` — Event name
-- `date` — Article date (format: `YYYY-MM-DD HH:MM:SS`, same value as `event-start`)
-- `event-start` — When event starts (format: `YYYY-MM-DD HH:MM:SS`)
-- `slug` — URL-friendly identifier (lowercase letters, hyphens, no spaces)
+- `title` — Název akce
+- `date` — Datum článku (formát: `RRRR-MM-DD HH:MM:SS`, stejná hodnota jako `event-start`)
+- `event-start` — Kdy akce začíná (formát: `RRRR-MM-DD HH:MM:SS`)
+- `slug` — URL-přátelský identifikátor (malá písmena, pomlčky, bez mezer)
 
-### Recommended / Optional Event Fields
+### Doporučená / volitelná pole akce
 
-- `event-type` — `milonga`, `workshop`, `class`, or `praktika`
-- `event-end` — When event ends (same format as `event-start`)
-- `event-location` — Venue and address
-- `event-organiser` — Organiser name or studio
-- `instructor` — For classes/workshops: `"['Name', 'Name']"` for multiple, or just the name for one
-- `recurrence` — For recurring events, e.g. `weekly sunday`
-- `description` — Short summary for cards and search results
-- `preview_image` — e.g. `/images/event.avif`
+- `event-type` — `milonga`, `workshop`, `class` nebo `praktika`
+- `event-end` — Kdy akce končí (stejný formát jako `event-start`)
+- `event-location` — Místo konání a adresa
+- `event-organiser` — Název pořadatele nebo studia
+- `instructor` — Pro lekce/workshopy: `"['Jméno', 'Jméno']"` pro více lektorů, nebo pouze jméno pro jednoho
+- `recurrence` — Pro opakující se akce, např. `weekly sunday`
+- `description` — Krátké shrnutí pro kartičky a výsledky vyhledávání
+- `preview_image` — Např. `/images/akce.avif`
 
-### Widget Quick Syntax
+### Rychlá syntaxe widgetů
 
-**Events:**
+**Akce:**
 ```html
 <widget-calendar filter_by_type="milonga" days="365"></widget-calendar>
 <widget-calendar filter_by_type="milonga" days="7"></widget-calendar>
@@ -592,7 +592,7 @@ event-start: 2026-01-17 19:00:00
 <widget-calendar filter_by_type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 ```
 
-**Articles (announcements, curiosities, people):**
+**Články (oznámení, pikanterie, lidé):**
 ```html
 <widget-articles category="announcement" limit="3"></widget-articles>
 <widget-articles category="curiosity" limit="all"></widget-articles>
@@ -600,20 +600,20 @@ event-start: 2026-01-17 19:00:00
 <widget-articles category="people" slugs="filip-paldia lenka-platenikova" metadata="description"></widget-articles>
 ```
 
-### Image Syntax
+### Syntaxe obrázku
 
 ```markdown
-![Short description of the image]({static}/images/filename.avif)
+![Krátký popis obrázku]({static}/images/soubor.avif)
 ```
 
 ---
 
-## Need Help?
+## Potřebujete pomoc?
 
-If you're unsure about:
-- **Date formats** — Use the examples in this guide
-- **Widget syntax** — Copy the examples exactly
-- **File locations** — Check the directory structure section
-- **Image usage** — See the images section
+Pokud si nejste jistí:
+- **Formáty dat** — Použijte příklady v tomto průvodci
+- **Syntaxe widgetů** — Zkopírujte příklady přesně
+- **Umístění souborů** — Podívejte se do sekce o struktuře složek
+- **Použití obrázků** — Viz sekce o obrázcích
 
-Remember: When in doubt, look at existing files for examples of how things are done.
+Pamatujte: V případě pochybností se podívejte do existujících souborů jako příkladů, jak se věci dělají.
