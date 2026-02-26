@@ -3,5 +3,5 @@ Kalendář, tango-kalendar-brno
 Lekce, tango-lekce-brno
 Milongy, tango-milongy-brno
 Pikošky, tango-pikosky
-Oznamy, lenka-pise-oznamy
+Oznámení, lenka-pise-oznamy
 O nás, o-nas

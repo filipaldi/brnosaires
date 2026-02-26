@@ -17,7 +17,7 @@ Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce n
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
-    label_outlook="Ostatní">
+    label_outlook="Kopíruj pro ostatní">
 </widget-calendar-link>
 
 

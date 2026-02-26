@@ -93,8 +93,8 @@ def get_feed_url_https(feed_id, siteurl, output_dir="calendars"):
     return str(siteurl).rstrip("/") + calendar_path
 
 
-def get_google_calendar_add_url(https_feed_url):
-    return "https://www.google.com/calendar/render?cid=" + quote(https_feed_url, safe="")
+def get_google_calendar_add_url(feed_url):
+    return "https://www.google.com/calendar/render?cid=" + quote(feed_url, safe="")
 
 
 def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
