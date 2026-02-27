@@ -1,5 +1,5 @@
 ---
-title: Únorová neolonga na Stolárně
+title: Únorová neolonga
 slug: neolonga-na-stolarne-2026-02-28
 date: 2026-02-24 18:00:00
 event-type: milonga
