@@ -13,10 +13,10 @@ Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidel
 
 
 <widget-calendar-link 
-    feed_id="events" 
+    feed_id="classes" 
     path="events" 
     type="class workshop" 
-    label="📆 Odebírej akce do svého kalendáře" 
+    label="📆 Odebírej lekce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
     label_outlook="Kopíruj pro ostatní">
@@ -60,10 +60,10 @@ Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
 
 <widget-calendar-link 
-    feed_id="events" 
+    feed_id="classes" 
     path="events" 
     type="class workshop" 
-    label="📆 Odebírej akce do svého kalendáře" 
+    label="📆 Odebírej lekce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
     label_outlook="Kopíruj pro ostatní">

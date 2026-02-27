@@ -16,9 +16,9 @@ Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
 <widget-calendar-link 
     type="milonga practica neolonga"
-    feed_id="events" 
+    feed_id="milongas" 
     path="events" 
-    label="📆 Odebírej akce do svého kalendáře" 
+    label="📆 Odebírej milongy do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
     label_outlook="Ostatní">
