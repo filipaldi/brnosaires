@@ -1,5 +1,5 @@
 ---
-title: BRNO TANGO WEEKEND with Sercan & Zeynep 
+title: WEEKEND with Sercan & Zeynep 
 slug: brno-tango-weekend-with-sercan-zeynep
 date: 2026-03-07 13:00:00
 event-type: workshop
