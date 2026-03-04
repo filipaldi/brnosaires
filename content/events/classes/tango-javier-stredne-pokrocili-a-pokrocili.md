@@ -6,7 +6,7 @@ instructor: "['Javier Antar']"
 event-start: 2026-03-04 19:00:00
 event-end: 2026-01-08 20:15:00
 recurrence: weekly wednesday
-preview_image: /images/classes/class-stolarna.avif
+preview_image: /images/classes/javier.jfif
 event-organiser: Javier Antar
 event-location: TS Stolárna, Olomoucká 14, Brno 61800
 event-type: class
