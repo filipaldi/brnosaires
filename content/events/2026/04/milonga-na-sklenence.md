@@ -1,5 +1,5 @@
 ---
-title: Milonga na Skleněnce 
+title: Milonga na Skleněnce -asi NEBUDE (Velikonoce)
 slug: milonga-na-sklenence-2026-04-04
 date: 2026-04-04 18:00:00
 event-type: milonga
