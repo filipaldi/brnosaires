@@ -2,7 +2,7 @@
 title: Tango & Pizza - středa v Sesamo Bakery
 slug: tango-pizza-sesamo-2026-03-18
 date: 2026-03-18 18:00:00
-event-type: praktikolonga
+event-type: praktika
 event-start: 2026-03-18 18:00:00
 event-end: 2026-03-18 22:00:00
 event-location: Sesamo Bakery, Purkyňova 97c, Brno
