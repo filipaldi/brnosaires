@@ -30,6 +30,6 @@ SOUKROMÉ LEKCE (páry nebo followerky):
 středy ve 14, 15 a 16 hodin
 
 PŘIHLÁŠKY A PLATBY:
-https://forms.gle/1Ss1iULfLPz5xzPY6
+https://forms.gle/kUqPhscNTnJWRBth7, kontakt: (+420) 776 70 63 64; barbora.kubikova@gmail.com
 Skupina na Facebooku: https://www.facebook.com/groups/295478799641833
 Těšíme se na vás!
