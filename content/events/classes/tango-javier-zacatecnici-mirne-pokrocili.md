@@ -2,7 +2,6 @@
 title: Javier Antar - začátečníci a mírně pokročilí
 slug: tango-javier-zacatecnici-mirne-pokrocili
 date: 2026-01-16 01:00:00
-instructor: "['Javier Antar']"
 event-start: 2026-03-04 17:45:00
 event-end: 2026-01-08 19:00:00
 recurrence: weekly wednesday
