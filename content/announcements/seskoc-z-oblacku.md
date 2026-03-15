@@ -2,7 +2,7 @@
 title: Seskoč z obláčku 
 date: 2026-03-11 02:00:00
 category: announcement
-preview_image: /images/announcements/milonga-rockwine3.jpeg
+preview_image: /images/announcements/milonga-rockwine3.jpg
 description: Co tě Sercan a Zeynep naučili, uplatni v realitě. Milonga v Rockwine. Milonga na Velehradě. 
 author: Lenka Platenikova
 ---
