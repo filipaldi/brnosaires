@@ -13,7 +13,7 @@ description: Tango pro začátečníky. Krok za krokem. Naučíš se dost.
 author: Lenka Pláteníková
 ---
 
-# Femme fatale tango
+# Tanguj za jeden den
 
 Provedeme tě krok za krokem začátky tance, po kterém blázní svět už 120 let s plynulostí sobě vlastní. Posuneš se rychleji, s úsměvem, individuální podporou.  
 4 lekce s krátkými pauzami, kde se naučíte základní rytmus, kroky, princip vedení a následování. Jeden den je krátký, ale přesto na konci budete schopni si zatančit základy tohoto tance.  
