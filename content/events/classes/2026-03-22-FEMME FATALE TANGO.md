@@ -1,6 +1,6 @@
 ---
 title: FEMME FATALE TANGO
-slug: femme-fatale-tango
+slug: femme-fatale-tango-03-2026
 date: 2026-03-19 01:00:00
 instructor: "['Štěky Yaku']"
 event-start: 2026-03-22 10:00:00
