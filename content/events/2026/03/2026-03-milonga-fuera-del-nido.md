@@ -1,6 +1,6 @@
 ---
 title: Milonga Fuera del Nido
-slug: milonga-fuera-del-nido
+slug: milonga-fuera-del-nido-03-2026
 date: 2026-03-21 20:00:00
 event-type: milonga
 event-start: 2026-03-28 19:00:00
