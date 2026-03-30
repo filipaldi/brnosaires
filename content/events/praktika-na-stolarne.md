@@ -6,7 +6,7 @@ event-type: praktika
 event-start: 2026-02-01 20:00:00
 event-end: 2026-02-01 23:00:00
 recurrence: weekly sunday
-preview_image: /images/classes/praktika-stolarna.avif
+preview_image: /images/classes/praktika-stolarna.jpg
 description: Praktikomilonga na Stolárně každou neděli. Začátečníci i pokročilí.
 author: Filip Paldia
 ---
