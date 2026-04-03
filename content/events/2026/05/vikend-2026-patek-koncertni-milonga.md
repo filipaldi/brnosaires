@@ -9,7 +9,7 @@ event-organiser: Lenka a Filip
 event-location: Společenský sál na Staré radnici
 description: Koncertní milonga s živou hudbou - orchestr nebo Petr Zámečník. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/events/2026/milonga-hned-vedle.avif
+preview_image: /images/events/2026/tango-petr-zamecnik.jpeg
 ---
 
 # Koncertní milonga (orchestr nebo Petr Zámečník)
