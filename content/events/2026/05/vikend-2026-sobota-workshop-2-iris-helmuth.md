@@ -9,7 +9,7 @@ event-organiser: Iris a Helmuth
 event-location: Společenský sál na Staré radnici
 description: Workshop pro pokročilé s Iris a Helmuthem. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/events/2026/milonga-hned-vedle.avif
+preview_image: /images/classes/helmuth-iris.jpg
 ---
 
 # Workshop 2 / Iris a Helmuth (pokročilí)

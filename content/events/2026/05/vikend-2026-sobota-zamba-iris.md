@@ -9,7 +9,7 @@ event-organiser: Iris
 event-location: Společenský sál na Staré radnici
 description: Workshop Zamba s Iris pro všechny úrovně. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/events/2026/milonga-hned-vedle.avif
+preview_image: /images/classes/iris-zamba.jpg
 ---
 
 # Zamba (Iris) – všichni
