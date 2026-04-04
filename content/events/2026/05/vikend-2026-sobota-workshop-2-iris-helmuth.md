@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-23 14:30:00
 event-end: 2026-05-23 15:45:00
 event-organiser: Iris a Helmuth
-event-location: Společenský sál na Staré radnici
+event-location: HEX Gallery, Lidická 63a, Brno
 description: Workshop pro pokročilé s Iris a Helmuthem. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/classes/helmuth-iris.jpg
@@ -15,8 +15,18 @@ preview_image: /images/classes/helmuth-iris.jpg
 # Workshop 2 / Iris a Helmuth (pokročilí)
 
 Workshop pro pokročilé tanečníky s Iris a Helmuthem.
-
-**Kdy:** Sobota 23. května 2026, 14:30–15:45  
-**Kde:** Společenský sál na Staré radnici  
 **Lektoři:** Iris a Helmuth  
-**Úroveň:** Pokročilí
+**Úroveň:** Pokročilí  
+
+***CENY***
+Sobota:
+WS1+WS2+WS3 + Zamba v ceně | 1590,- Kč / 54Eur za osobu
+! 90kč SLEVA na milongu !
+Neděle:
+WS1+WS2 + Chacarera v ceně | 1290,- Kč / 52Eur za osobu
+Celý víkend:
+Všechny workshpy + milonga | 3090,- Kč / 124Eur za osobu
+REGISTRACE:
+tangolabsteky@gmail.com
+(Jméno, Jméno partnera, kontaktní mail a tel.)
+- místo je pevně rezervováno až po odeslání zálohy
