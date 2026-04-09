@@ -188,145 +188,46 @@ Openclass od 18:00 (není nutné přijít s partnerem)
 
 Widgets are special components that automatically display lists of events on your pages. You can add them anywhere in your markdown content.
 
-### How Widgets Work
-
-Widgets are embedded using custom HTML tags that you paste into your markdown file. The website automatically replaces these tags with the actual event list.
+For full widget documentation — all attributes, examples, and technical details — see **[docs/WIDGETS.md](docs/WIDGETS.md)**.
 
 ### Available Widgets
 
-#### 1. Events Widget
-
-Shows a list of events filtered by type (milongas, workshops, etc.) or time period. Displays event cards with dates and times.
-
-**Basic Syntax:**
+**`<widget-calendar>`** — displays filtered event cards:
 ```html
-<widget-calendar type="milonga"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="14"></widget-calendar>
 ```
 
-**Options:**
-
-- **Show all milongas:**
-  ```html
-  <widget-calendar type="milonga" days="365"></widget-calendar>
-  ```
-
-- **Show all workshops/lessons:**
-  ```html
-  <widget-calendar type="workshop" days="365"></widget-calendar>
-  ```
-
-- **Show events in the next 7 days:**
-  ```html
-  <widget-calendar type="milonga" days="7"></widget-calendar>
-  ```
-
-- **Show events from the last 30 days:**
-  ```html
-  <widget-calendar type="milonga" days="-30"></widget-calendar>
-  ```
-
-- **Show events in a date range:**
-  ```html
-  <widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
-  ```
-
-- **Show events sorted oldest first:**
-  ```html
-  <widget-calendar type="milonga" days="365" sort="oldest"></widget-calendar>
-  ```
-
-**Attributes:**
-- `type="milonga"`, `type="workshop"`, or `type="class"` - What type of events to show (optional)
-- `days="7"` - Days from today (positive = future, negative = past). Use `365` or `-365` for all events
-- `start="2026-06-01"` - Start date for range (YYYY-MM-DD, requires `end`)
-- `end="2026-08-31"` - End date for range (YYYY-MM-DD, requires `start`)
-- `limit="3"` - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest"` or `sort="oldest"` - Sort order (optional, default: newest first)
-
-### Using Widgets in Pages
-
-You can add widgets anywhere in your page content. Here's a complete example:
-
-```markdown
----
-title: Tango milongy Brno
-slug: tango-milongy-brno
----
-
-Tangové tančírny neboli **milongy v Brně** - pravidelné i nepravidelné.
-
-<widget-calendar type="milonga" days="365"></widget-calendar>
-
-## Upcoming Events
-
-<widget-calendar type="milonga" days="7"></widget-calendar>
-
-## Announcements
-
-<widget-articles category="announcement" limit="3"></widget-articles>
+**`<widget-calendar-link>`** — renders calendar subscription links (Apple, Google, Outlook):
+```html
+<widget-calendar-link
+    cal_file_name="milongas"
+    filter_by_path="events"
+    filter_by_type="milonga"
+    label="📆 Odebírej milongy do svého kalendáře"
+    label_webcal="Apple"
+    label_google="Google"
+    label_outlook="Ostatní">
+</widget-calendar-link>
 ```
 
-#### 2. Articles Widget
-
-Shows a list of articles filtered by category (announcements, curiosities, people, etc.) as cards with images.
-
-**Basic Syntax:**
+**`<widget-articles>`** — displays article cards filtered by category:
 ```html
 <widget-articles category="announcement" limit="3"></widget-articles>
 ```
-
-**Options:**
-- **Show last 3 announcements:**
-  ```html
-  <widget-articles category="announcement" limit="3"></widget-articles>
-  ```
-
-- **Show all curiosities:**
-  ```html
-  <widget-articles category="curiosity" limit="all"></widget-articles>
-  ```
-
-- **Show people with descriptions:**
-  ```html
-  <widget-articles category="people" metadata="description"></widget-articles>
-  ```
-
-- **Show specific people in order:**
-  ```html
-  <widget-articles category="people" slugs="filip-paldia lenka-platenikova" metadata="description"></widget-articles>
-  ```
-
-**Attributes:**
-- `category="announcement"` - Category to filter by (required): `announcement`, `curiosity`, `people`, etc.
-- `limit="3"` - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest"`, `sort="oldest"`, or `sort="title"` - Sort order (optional, default: oldest first)
-- `slugs="slug1 slug2"` - Show specific articles in order (overrides sort/limit)
-- `metadata="description"` - Extra metadata fields to display
-
-### Widget Best Practices
-
-1. **Add headings before widgets** - Help readers understand what they're looking at
-2. **Place widgets where they make sense** - Put event lists near relevant content
-3. **Test after adding** - Make sure events are showing up correctly
-4. **Widgets only show if content exists** - If no matching content is found, the widget won't appear
-5. **Use sorting for better organisation** - Sort by oldest for historical content, newest for recent updates
 
 ### Troubleshooting Widgets
 
 **Widget not showing:**
-- Check that events exist matching your filter (e.g., events with "milonga" in the title)
-- Verify the syntax is correct (copy the examples exactly)
+- Verify the syntax is correct (copy from [docs/WIDGETS.md](docs/WIDGETS.md))
 - Make sure you're editing a page file, not an event file
 
 **Events not appearing:**
 - Verify events are in the `content/events/` folder
-- Check that event titles contain the right keywords (milonga, workshop, etc.) for filtering
-- Ensure events have valid `event-start` dates
+- Ensure events have valid `event-start` dates in the frontmatter
 
 **Articles not appearing:**
 - Verify content is in the correct folder (`content/announcements/`, `content/curiosities/`, `content/people/`, etc.)
 - Check that the `category` attribute matches the folder name
-- Ensure content files have valid dates
 
 ## Working with Images
 
@@ -440,7 +341,7 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 ```markdown
 ## Upcoming Milongas
 
-<widget-calendar type="milonga" days="365"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="365"></widget-calendar>
 ```
 
 ### Finding and Editing Existing Content
@@ -489,10 +390,10 @@ event-start: 2026-01-17 19:00:00  (was 18:00:00)
 
 **Events:**
 ```html
-<widget-calendar type="milonga" days="365"></widget-calendar>
-<widget-calendar type="milonga" days="7"></widget-calendar>
-<widget-calendar type="milonga" days="-30"></widget-calendar>
-<widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="365"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="7"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="-30"></widget-calendar>
+<widget-calendar filter_by_type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 ```
 
 **Articles (announcements, curiosities, people):**

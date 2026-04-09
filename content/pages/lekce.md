@@ -13,9 +13,9 @@ Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidel
 
 
 <widget-calendar-link 
-    feed_id="classes" 
-    path="events" 
-    type="class workshop" 
+    cal_file_name="classes" 
+    filter_by_path="events" 
+    filter_by_type="class workshop" 
     label="📆 Odebírej lekce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
@@ -29,7 +29,7 @@ V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní 
 
 <widget-calendar 
     start="this-week" 
-    type="class" 
+    filter_by_type="class" 
     days="6" 
     sort="oldest" 
     group_by="week day" 
@@ -43,7 +43,7 @@ V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní 
 Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
 <widget-calendar 
-    type="workshop" 
+    filter_by_type="workshop" 
     card_size="s" 
     days="60">
 </widget-calendar>
@@ -60,9 +60,9 @@ Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
 
 <widget-calendar-link 
-    feed_id="classes" 
-    path="events" 
-    type="class workshop" 
+    cal_file_name="classes" 
+    filter_by_path="events" 
+    filter_by_type="class workshop" 
     label="📆 Odebírej lekce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 

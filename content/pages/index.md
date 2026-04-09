@@ -17,8 +17,8 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
 <widget-calendar-link 
-    feed_id="events" 
-    path="events" 
+    cal_file_name="events" 
+    filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
@@ -38,7 +38,7 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 <widget-calendar 
     start="this-week" 
-    type="milonga neolonga pocoloco praktika"
+    filter_by_type="milonga neolonga pocoloco praktika"
     days="7"
     card_size="s">
 </widget-calendar>
@@ -46,14 +46,14 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 ## Nejbližší lekce
 <widget-calendar 
     start="today" 
-    type="class" 
+    filter_by_type="class" 
     card_size="s"
     days="2">
 </widget-calendar>
 
 ## Nejbližší workshopy
 <widget-calendar 
-    type="workshop" 
+    filter_by_type="workshop" 
     card_size="s" 
     days="60">
 </widget-calendar>
@@ -68,8 +68,8 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 
 <widget-calendar-link 
-    feed_id="events" 
-    path="events" 
+    cal_file_name="events" 
+    filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 

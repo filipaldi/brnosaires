@@ -15,9 +15,9 @@ Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
 
 <widget-calendar-link 
-    type="milonga practica neolonga"
-    feed_id="milongas" 
-    path="events" 
+    filter_by_type="milonga practica neolonga"
+    cal_file_name="milongas" 
+    filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 
@@ -25,5 +25,5 @@ Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 </widget-calendar-link>
 
 
-<widget-calendar start="this-week" group_by="week day" headers="week day" days="40" type="milonga neolonga pocoloco praktika" hide_empty_days="true"></widget-calendar>
+<widget-calendar start="this-week" group_by="week day" headers="week day" days="40" filter_by_type="milonga neolonga pocoloco praktika" hide_empty_days="true"></widget-calendar>
 

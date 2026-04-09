@@ -19,7 +19,7 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
 ## Program
 
 <widget-calendar 
-    type="milonga workshop" 
+    filter_by_type="milonga workshop" 
     start="2026-05-22" 
     end="2026-05-24" 
     group_by="day" 
@@ -41,9 +41,9 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
 
 
 <widget-calendar-link 
-    type="milonga practica neolonga"
-    feed_id="milongas" 
-    path="events" 
+    filter_by_type="milonga practica neolonga"
+    cal_file_name="milongas" 
+    filter_by_path="events" 
     label="📆 Odebírej Brnenské tango akce do svého kalendáře" 
     label_webcal="Apple" 
     label_google="Google" 

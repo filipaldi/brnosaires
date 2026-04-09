@@ -18,7 +18,7 @@ def _slugify_feed_id(s):
 
 
 def _feed_fingerprint(attrs):
-    filter_keys = ('type', 'days', 'start', 'end', 'path', 'category', 'tags')
+    filter_keys = ('filter_by_type', 'days', 'start', 'end', 'filter_by_path', 'category', 'tags')
     parts = []
     for k in sorted(filter_keys):
         v = attrs.get(k)
@@ -28,7 +28,7 @@ def _feed_fingerprint(attrs):
 
 
 def _derive_feed_id(attrs, fingerprint):
-    feed_id_attr = (attrs.get('feed_id') or "").strip()
+    feed_id_attr = (attrs.get('cal_file_name') or "").strip()
     if feed_id_attr:
         return _slugify_feed_id(feed_id_attr)
     if not fingerprint:
@@ -51,7 +51,7 @@ def discover_calendar_link_feeds(generator):
             fp = _feed_fingerprint(parsed_attrs)
             feed_id = _derive_feed_id(parsed_attrs, fp)
             if fp not in feed_specs:
-                feed_specs[fp] = {"feed_id": feed_id, "filter": parsed_attrs}
+                feed_specs[fp] = {"cal_file_name": feed_id, "filter": parsed_attrs}
             feed_id_map[fp] = feed_id
 
     for page in getattr(generator, "pages", []):
@@ -65,7 +65,7 @@ def discover_calendar_link_feeds(generator):
     seen_feed_id = set()
     unique_feeds = []
     for item in feeds:
-        fid = item["feed_id"]
+        fid = item["cal_file_name"]
         if fid in seen_feed_id:
             continue
         seen_feed_id.add(fid)

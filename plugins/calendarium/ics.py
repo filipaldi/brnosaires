@@ -83,8 +83,8 @@ def filter_events_for_ics(articles, filter_attrs, now, excluded_categories=None)
         elif getattr(a.category, "name", None) not in excluded_categories:
             out.append(a)
     f = filter_attrs or {}
-    out = filter_module._filter_by_type(out, f.get("type"))
-    out = _filter_by_path(out, f.get("path"))
+    out = filter_module._filter_by_type(out, f.get("filter_by_type"))
+    out = _filter_by_path(out, f.get("filter_by_path"))
     out = _filter_by_category_name(out, f.get("category"))
     out = _filter_by_tags(out, f.get("tags"))
     start_str, end_str = dates._resolve_start_end(now, f.get("days"), f.get("start"), f.get("end"))
@@ -214,7 +214,7 @@ def write_ics_feeds(pelican, **kwargs):
     except OSError:
         return
     for feed in feeds:
-        feed_id = feed.get("feed_id", "all")
+        feed_id = feed.get("cal_file_name", "all")
         filter_spec = feed.get("filter", {})
         events = filter_events_for_ics(articles, filter_spec, now, excluded)
         ics_content = build_ics(events, siteurl, timezone_name)

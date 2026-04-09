@@ -6,12 +6,12 @@ import re
 EXCLUDED_CATEGORIES = ["announcement", "curiosity"]
 
 CALENDAR_LINK_DEFAULTS = {
-    'feed_id': None,
-    'type': None,
+    'cal_file_name': None,
+    'filter_by_type': None,
     'days': None,
     'start': None,
     'end': None,
-    'path': None,
+    'filter_by_path': None,
     'category': None,
     'tags': None,
     'label': None,
@@ -25,7 +25,7 @@ CALENDAR_LINK_PATTERN = re.compile(r'<widget-calendar-link([^>]*)>(?:</widget-ca
 _GENERATOR_CACHE = {}
 
 CALENDAR_DEFAULTS = {
-    'type': None,
+    'filter_by_type': None,
     'days': None,
     'start': None,
     'end': None,

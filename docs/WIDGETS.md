@@ -24,7 +24,7 @@ theme/templates/
 ├── page.html                          # Uses widget processor
 └── components/
     ├── widget_processor.html          # Simplified: detection + routing only
-    ├── widget_calendar.html           # Events: parses type, days, start, end, limit, sort, group_by
+    ├── widget_calendar.html           # Events: parses filter_by_type, days, start, end, limit, sort, group_by
     └── widget_articles.html           # Articles: unified widget for announcements, curiosities, people
 
 plugins/
@@ -104,7 +104,7 @@ Recursively processes page content to find and replace widget tags.
 Displays filtered lists of events from `content/events/`.
 
 **Attributes:**
-- `type="milonga|workshop|class|..."` (optional) - Event type filter. Single type or space-separated list for OR logic (e.g. `type="milonga neolonga pocoloco"`).
+- `filter_by_type="milonga|workshop|class|..."` (optional) - Event type filter. Single type or space-separated list for OR logic (e.g. `filter_by_type="milonga neolonga pocoloco"`).
 - `days="7"` (optional) - Days from today (positive = future, negative = past)
 - `start="2026-06-01"` (optional) - Start of date window. Can be used alone (forward from start) or with `end`. Values: `YYYY-MM-DD`, or tokens `today`, `this-week` (Monday of current week), `this-month` (1st of month), `this-year` (1st Jan).
 - `end="2026-08-31"` (optional) - End of date window. Same format as `start`. If only `start` is set, end defaults to start + 365 days.
@@ -125,22 +125,22 @@ Displays filtered lists of events from `content/events/`.
 **Examples:**
 ```html
 <!-- Next 7 days of milongas -->
-<widget-calendar type="milonga" days="7"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="7"></widget-calendar>
 
 <!-- All workshops in next year -->
-<widget-calendar type="workshop" days="365"></widget-calendar>
+<widget-calendar filter_by_type="workshop" days="365"></widget-calendar>
 
 <!-- Milongas in date range -->
-<widget-calendar type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
+<widget-calendar filter_by_type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
 
 <!-- Last 3 milongas -->
-<widget-calendar type="milonga" days="-7" limit="3"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="-7" limit="3"></widget-calendar>
 
 <!-- Milongas from today (default sort is oldest first) -->
-<widget-calendar type="milonga" start="today"></widget-calendar>
+<widget-calendar filter_by_type="milonga" start="today"></widget-calendar>
 
 <!-- Multiple event types (OR): milonga or neolonga or pocoloco -->
-<widget-calendar type="milonga neolonga pocoloco" days="7"></widget-calendar>
+<widget-calendar filter_by_type="milonga neolonga pocoloco" days="7"></widget-calendar>
 
 <!-- Events grouped by week (rows per week with headline) -->
 <widget-calendar days="365" group_by="week"></widget-calendar>
@@ -158,10 +158,10 @@ Displays filtered lists of events from `content/events/`.
 <widget-calendar start="this-week" group_by="week day" days="14" headers="day" hide_empty_days="true"></widget-calendar>
 
 <!-- Events with medium-sized cards -->
-<widget-calendar type="milonga" days="7" card_size="m"></widget-calendar>
+<widget-calendar filter_by_type="milonga" days="7" card_size="m"></widget-calendar>
 
 <!-- Events with large-sized cards -->
-<widget-calendar type="workshop" days="30" card_size="l"></widget-calendar>
+<widget-calendar filter_by_type="workshop" days="30" card_size="l"></widget-calendar>
 ```
 
 **Grouping (`group_by`):**
@@ -177,7 +177,7 @@ Displays filtered lists of events from `content/events/`.
 
 **Implementation:**
 - Component: `theme/templates/components/widget_calendar.html` parses attributes from `tag_content` and calls the `calendarium` Jinja filter (from plugin `plugins/calendarium/filter.py`) for all filtering, date window, sort, and limit.
-- Filtering (type, date window, sort, limit) is implemented in the calendarium plugin; the template only parses attributes and renders the result. Event type uses metadata `event-type`; multiple types in `type="a b c"` are OR. Categories `announcement` and `curiosity` are excluded.
+- Filtering (filter_by_type, date window, sort, limit) is implemented in the calendarium plugin; the template only parses attributes and renders the result. Event type uses metadata `event-type`; multiple types in `filter_by_type="a b c"` are OR. Categories `announcement` and `curiosity` are excluded.
 - Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
 - Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
 
@@ -186,12 +186,12 @@ Displays filtered lists of events from `content/events/`.
 Generates a headline and three platform subscribe links for an iCal (.ics) feed: webcal (Apple / default calendar apps), Google Calendar, and a plain HTTPS link (e.g. for Outlook “Subscribe from web”). The plugin discovers these widgets, creates one `.ics` file per unique feed configuration, and renders one headline plus one plain `<a>` per platform. No classes are applied.
 
 **Attributes:**
-- `feed_id="all|marathon|..."` (optional) - Unique identifier for the feed. If omitted, a stable ID is derived from the filter (hash). Use explicit `feed_id` for readable URLs (e.g. `/calendars/marathon.ics`).
-- `type="milonga|workshop|..."` (optional) - Event type filter (same as `widget-calendar`)
+- `cal_file_name="all|marathon|..."` (optional) - Output filename for the feed: `/calendars/{cal_file_name}.ics`. If omitted, a stable ID is derived from the filter (hash). Use explicit `cal_file_name` for readable URLs (e.g. `/calendars/marathon.ics`).
+- `filter_by_type="milonga|workshop|..."` (optional) - Event type filter (same as `widget-calendar`)
 - `days="7"` (optional) - Days from today (positive = future, negative = past)
 - `start="2026-06-01"` (optional) - Start of date window (same as `widget-calendar`)
 - `end="2026-08-31"` (optional) - End of date window
-- `path="events/2026-marathon"` (optional) - Filter by article source path containing this substring
+- `filter_by_path="events/2026-marathon"` (optional) - Filter by article source path containing this substring
 - `category="events"` (optional) - Filter by Pelican category name (e.g. `events`, `classes`)
 - `tags="tango workshop"` (optional) - Space-separated tags (OR logic)
 - `label="Subscribe"` (optional) - Headline text above the links (default: "Subscribe to calendar")
@@ -218,12 +218,12 @@ Generates a headline and three platform subscribe links for an iCal (.ics) feed:
 **Examples:**
 ```html
 <!-- All events (no filter) -->
-<widget-calendar-link feed_id="all" label="Přidat do kalendáře"></widget-calendar-link>
+<widget-calendar-link cal_file_name="all" label="Přidat do kalendáře"></widget-calendar-link>
 
 <!-- Headline and custom link labels -->
 <widget-calendar-link
-  feed_id="events"
-  path="events"
+  cal_file_name="events"
+  filter_by_path="events"
   label="📆 Odebírej akce do svého kalendáře"
   label_webcal="Apple"
   label_google="Google"
@@ -231,10 +231,10 @@ Generates a headline and three platform subscribe links for an iCal (.ics) feed:
 ></widget-calendar-link>
 
 <!-- Marathon events only -->
-<widget-calendar-link feed_id="marathon" path="events/2026-marathon" label="Marathon 2026"></widget-calendar-link>
+<widget-calendar-link cal_file_name="marathon" filter_by_path="events/2026-marathon" label="Marathon 2026"></widget-calendar-link>
 
 <!-- Milongas in next 30 days -->
-<widget-calendar-link feed_id="milongas" type="milonga" days="30" label="Upcoming milongas"></widget-calendar-link>
+<widget-calendar-link cal_file_name="milongas" filter_by_type="milonga" days="30" label="Upcoming milongas"></widget-calendar-link>
 ```
 
 **Configuration (optional):**
@@ -245,9 +245,8 @@ CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]  # Default: sam
 ```
 
 **Implementation:**
-- Plugin: `plugins/calendarium/` package discovers widgets at `page_generator_finalized` (via `feed_links.py`), generates `.ics` files at `finalized` (via `ics.py`)
+- See `plugins/calendarium/README.md` for full plugin documentation: feed discovery, ICS generation, filter pipeline, URL types, and module overview.
 - Component: `theme/templates/components/widget_calendar_link.html` renders one headline and three links (no classes)
-- Feed URLs: webcal for Apple/default apps; Google Calendar “add by URL”; HTTPS for Outlook / copy link
 
 ### 3. Articles Widget (`<widget-articles>`)
 
@@ -294,7 +293,7 @@ Unified widget for displaying articles filtered by category. Replaces the old `w
 
 | Attribute | Type | Required | Values | Description |
 |-----------|------|----------|--------|-------------|
-| `type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter |
+| `filter_by_type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter |
 | `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
 | `start` | date/token | No | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Start of date window |
 | `end` | date/token | No | Same as `start` | End of date window (optional if `start` set) |
