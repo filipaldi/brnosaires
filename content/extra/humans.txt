@@ -1,0 +1,15 @@
+/* TEAM */
+Míša Lukavská
+Šteky Yaku
+Irena Babilonová
+Martin Černý
+Filip Paldia
+Lenka Pláteníková
+Pavla Lužná
+Radek Šich
+
+/* SITE */
+Name: Brnos Aires
+Description: Přehledně a aktuálně o argentinském tangu v Brně
+Language: Czech
+Location: Brno, Czech Republic

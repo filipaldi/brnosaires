@@ -7,7 +7,15 @@ DEFAULT_LANG = "cs"
 PATH = "content"
 PAGE_PATHS = ["pages"]
 ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]
-STATIC_PATHS = ["images", "extra/llms.txt", "extra/marathon/llms.txt"]
+STATIC_PATHS = [
+    "images",
+    "extra/llms.txt",
+    "extra/marathon/llms.txt",
+    "extra/robots.txt",
+    "extra/humans.txt",
+    "extra/ads.txt",
+    "extra/ai.txt",
+]
 THEME_STATIC_PATHS = ["static"]
 
 THEME = "theme"
@@ -88,6 +96,10 @@ EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},
     "extra/llms.txt": {"path": "llms.txt"},
     "extra/marathon/llms.txt": {"path": "marathon/llms.txt"},
+    "extra/robots.txt": {"path": "robots.txt"},
+    "extra/humans.txt": {"path": "humans.txt"},
+    "extra/ads.txt": {"path": "ads.txt"},
+    "extra/ai.txt": {"path": "ai.txt"},
 }
 
 CALENDAR_ICS_OUTPUT_DIR = "calendars"
