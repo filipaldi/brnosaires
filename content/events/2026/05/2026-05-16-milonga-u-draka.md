@@ -6,7 +6,7 @@ event-type: milonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 23:30:00
 event-location: Stará radnice, Radnická 8, Brno
-preview_image: /images/events/2026/2026-05-16-milonga-drak.jpg
+preview_image: /images/events/2026/milonga-u-draka-kveten.jpg
 description: Květnová milonga u Brněnského draka.
 author: Lenka Pláteníková
 ---
