@@ -15,4 +15,4 @@ author: Lenka Pláteníková
 # Milonga v Rockwine - duben
 Když na těch rotundových základech tehdy stavěli Rockwine, nemohli tušit, že se to ujme zároveň jako taneční parket pro argentinské tango.💃
 Ke kvalitnímu tanci a kvalitní muzice si dej kvalitní víno 🍷 a přidej další pochutiny. Milé slečny za barem budou mít radost.
-Parket v Rockwine má pod sebou tajemství stejně jako tango. Odhalit ho můžeš s kamarády, co tě rádi obejmou....🤗 DJ: bude doplněn.
+Parket v Rockwine má pod sebou tajemství stejně jako tango. Odhalit ho můžeš s kamarády, co tě rádi obejmou....🤗 DJ: Terka
