@@ -1,7 +1,7 @@
 ---
 title: Milonga v Rockwine - duben
 slug: 2026-04-milonga-v-rockwine
-date: 2026-02-30 18:00:00
+date: 2026-04-10 18:00:00
 event-type: milonga
 event-start: 2026-04-23 19:00:00
 event-end: 2026-04-23 22:00:00
