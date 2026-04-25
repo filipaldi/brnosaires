@@ -19,14 +19,21 @@
   {% set _type = 'article' if article is defined else 'website' %}
   {% set _abs_img = (SITEURL ~ '/' ~ _img.lstrip('/')) if _img and SITEURL else '' %}
 
-  {% if SITEURL %}<link rel="canonical" href="{{ SITEURL }}/{{ _page_url }}">{% endif %}
+  {% set _series = (article.metadata.get('series') if article is defined and article.metadata
+                    else page.metadata.get('series') if page is defined and page.metadata
+                    else none) %}
+  {% set _hub = namespace(url=none) %}
+  {% if _series %}{% for p in pages %}{% if p.slug == _series %}{% set _hub.url = p.url %}{% endif %}{% endfor %}{% endif %}
+  {% set _canonical_url = _hub.url if _hub.url else _page_url %}
+
+  {% if SITEURL %}<link rel="canonical" href="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
 
   <meta property="og:site_name" content="{{ SITENAME }}">
   <meta property="og:locale" content="cs_CZ">
   <meta property="og:title" content="{{ _title }}">
   <meta property="og:description" content="{{ _desc }}">
   <meta property="og:type" content="{{ _type }}">
-  {% if SITEURL %}<meta property="og:url" content="{{ SITEURL }}/{{ _page_url }}">{% endif %}
+  {% if SITEURL %}<meta property="og:url" content="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
   {% if _abs_img %}<meta property="og:image" content="{{ _abs_img }}">{% endif %}
 
   <meta name="twitter:card" content="summary_large_image">

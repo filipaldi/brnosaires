@@ -6,6 +6,7 @@ event-type: milonga
 event-start: 2026-04-18 19:00:00
 event-end: 2026-04-18 22:30:00
 event-location: Stará radnice, Radnická 8, Brno
+series: milonga-u-draka
 preview_image: /images/events/2026/milonga-u-draka-duben.jpg
 description: Milonga u draka se vrátila k drakovi! Vrať se taky. Tango na staré radnici.
 author: Lenka Pláteníková

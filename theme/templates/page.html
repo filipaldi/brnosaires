@@ -13,6 +13,30 @@
     <div class="el-stack stack-xs">
       {{ page.content }}
     </div>
+
+    {% set hub_series = page.metadata.get('series') if page.metadata else none %}
+    {% if hub_series %}
+    <section class="el-stack stack-m" aria-label="Nejbližší termíny série">
+      <h2>Nejbližší termíny</h2>
+      {% set window_events = articles | calendarium(start='today', end='2030-12-31', sort='oldest') %}
+      {% set series_events = [] %}
+      {% for event in window_events %}
+        {% if event.metadata.get('series') == hub_series %}
+          {% do series_events.append(event) %}
+        {% endif %}
+      {% endfor %}
+      {% if series_events %}
+      <div class="el-cluster" role="list">
+        {% set card_size = 'm' %}
+        {% for event in series_events %}
+          {% include 'components/event_card.html' %}
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>Aktuálně nejsou plánovány žádné termíny. Sleduj nás na sociálních sítích.</p>
+      {% endif %}
+    </section>
+    {% endif %}
   </article>
 </div>
 {% endblock %}

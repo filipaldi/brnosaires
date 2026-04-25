@@ -37,6 +37,15 @@
     </header>
     {% endif %}
 
+    {% set series_slug = meta.get('series') %}
+    {% if series_slug %}
+      {% for p in pages if p.slug == series_slug %}
+      <p class="text-s color-neutral-3">
+        Součást pravidelné série: <a href="{{ p.url }}">{{ p.title }}</a>
+      </p>
+      {% endfor %}
+    {% endif %}
+
     <div class="el-stack stack-xs">
       {{ article.content }}
     </div>
