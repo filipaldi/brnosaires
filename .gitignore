@@ -16,3 +16,12 @@ migration-scripts/
 .cursorignore
 /.claude
 .claude/
+.playwright-mcp/
+
+# Browser-test screenshots (UX once-over). Skill writes them under
+# .playwright-mcp/ — these patterns are belt-and-braces in case anyone
+# forgets the path prefix and they land at the repo root.
+event-detail.png
+verif-*.png
+uxr-*.png
+*-pr*.png
