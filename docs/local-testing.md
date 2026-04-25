@@ -11,16 +11,25 @@ source venv/bin/activate  # macOS/Linux
 venv\Scripts\activate     # Windows
 
 # Start Pelican with auto-reload
-pelican content -s pelicanconf.py --autoreload --listen
+pelican content -s pelicanconf.py --autoreload --listen --port 41234
 ```
 
 **Options:**
 - `--autoreload`: Automatically rebuild on file changes
-- `--listen`: Start HTTP server on port 8000
+- `--listen`: Start HTTP server
+- `--port 41234`: Bind on a fixed non-default port (see "Port choice" below)
+
+### Port choice — `41234`
+
+We deliberately avoid Pelican's default port 8000. It collides with Django, http-server, Python's `http.server`, and dozens of other dev tools the moment they're running. Picking a fixed port in the unregistered user-port range (30000–48000) means:
+
+- The port stays the same across sessions, so bookmarks, MCP browser tabs, and notes all keep working.
+- It's high enough to be above common dev defaults but below the OS ephemeral port floor (49152 on macOS), so the OS won't auto-grab it.
+- If `lsof -i :41234` ever shows it busy, **jump** to a different non-adjacent port (e.g. 38765, 43210) and update this file plus [.claude/CLAUDE.md](../.claude/CLAUDE.md) — don't pick the next sequential number.
 
 ### Access Local Site
 
-Open browser to: `http://localhost:8000`
+Open browser to: `http://localhost:41234`
 
 ### Stop Server
 
@@ -30,12 +39,12 @@ Press `Ctrl+C` in terminal
 
 **macOS/Linux:**
 ```bash
-lsof -ti:8000 | xargs kill -9
+lsof -ti:41234 | xargs kill -9
 ```
 
 **Windows:**
 ```bash
-netstat -ano | findstr :8000
+netstat -ano | findstr :41234
 taskkill /PID <PID> /F
 ```
 
@@ -97,7 +106,7 @@ slug: test-widgets
 
 ### 2. View Test Page
 
-Navigate to: `http://localhost:8000/test-widgets.html`
+Navigate to: `http://localhost:41234/test-widgets.html`
 
 ### 3. Verify Widgets
 
