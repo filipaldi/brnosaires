@@ -10,8 +10,6 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 - [ ] **Automatické kontroly před publikací.** [docs/publishing.md:8-18](publishing.md#L8-L18) definuje ruční checklist před nasazením (widgety se renderují, metadata akcí jsou validní, odkazy fungují atd.). Nahradit CI jobem, který poběží při každém pushi: sestaví web s `publishconf.py`, ověří frontmatter akcí (povinná a parsovatelná pole `date` a `event-start`) a zkontroluje odkazy ve složce `output/`.
 
-- [ ] **Dokončit LLM / SEO vrstvu.** Commity [ecfcf62](../../../commit/ecfcf62) (stránka LLM Info) a [f73dcfd](../../../commit/f73dcfd) (robots) jsou prvními kroky. Chybí pravděpodobně: strukturovaná data JSON-LD `Event` na stránkách akcí, ověřený `sitemap.xml`, Open Graph / Twitter card metadata v šablonách akcí a stránek a audit kanonických URL.
-
 ---
 
 ## Známé problémy

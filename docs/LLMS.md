@@ -42,17 +42,29 @@ Each `.md` file contains:
 Exclusion is by source path (`/content/curiosities/`, `/content/people/`)
 plus a fallback on Pelican `category` value.
 
-## `llms_index.py` — auto-generated index + dump *(PR 6, planned)*
+## `llms_index.py` — auto-generated index + dump
 
-Will hook the global `finalized` signal and walk the full corpus once at
-build time to emit:
+Collects articles and pages via the `*_generator_finalized` hooks, then on
+the global `finalized` hook walks the corpus once and emits:
 
-- `output/llms.txt` — curated Key Pages + dynamic Upcoming Events / Regular
-  Series Hubs / Recent Updates
-- `output/llms-full.txt` — full bodies + recurring lessons expanded ~12 weeks
-  ahead
-- `output/.well-known/llms.txt` and `output/.well-known/llms-full.txt` —
-  byte-identical copies (IETF well-known convention)
+- `output/llms.txt` — curated Key Pages + dynamic Regular Series Hubs +
+  Upcoming Events + Recent Updates
+- `output/llms-full.txt` — full bodies for hubs, pages, upcoming events
+  (with recurring lessons expanded ~12 weeks ahead via the existing
+  `expand_recurring` helper from `recurring_events`), and recent updates
+- `output/.well-known/llms.txt` + `output/.well-known/llms-full.txt` —
+  byte-identical copies for the IETF well-known convention
 
-Will replace the existing hand-maintained `content/extra/llms.txt` whose
-hardcoded dates go stale between deploys.
+Replaced the hand-maintained `content/extra/llms.txt` whose hardcoded
+event dates went stale between deploys. The plugin's output reflects the
+current content corpus on every build, so dates never drift.
+
+Tunable constants at the top of the plugin:
+
+- `WINDOW_WEEKS_AHEAD = 12` — how far the recurring-event expansion looks
+- `RECENT_ANNOUNCEMENTS = 8` — how many recent announcements to surface
+- `KEY_PAGES` — the curated list of top-level entry points, listed first
+
+The `marathon/llms.txt` static file under `content/extra/marathon/` is
+kept as-is; it's a separate marathon sub-site fixture, not part of this
+plugin's scope.
