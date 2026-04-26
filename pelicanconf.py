@@ -109,7 +109,21 @@ from gallery_widget import get_gallery_images
 JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601}
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs"]
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs", "pelican.plugins.sitemap"]
+
+SITEMAP = {
+    "format": "xml",
+    "priorities": {
+        "articles": 0.7,
+        "pages": 0.9,
+        "indexes": 0.4,
+    },
+    "changefreqs": {
+        "articles": "weekly",
+        "pages": "monthly",
+        "indexes": "daily",
+    },
+}
 
 EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon"},
