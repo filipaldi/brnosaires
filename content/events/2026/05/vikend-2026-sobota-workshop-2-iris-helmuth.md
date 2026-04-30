@@ -5,7 +5,7 @@ date: 2026-05-23 14:30:00
 event-type: workshop
 event-start: 2026-05-23 14:30:00
 event-end: 2026-05-23 15:45:00
-event-organiser: Iris a Helmuth
+event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: Workshop pro pokročilé s Iris a Helmuthem. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
