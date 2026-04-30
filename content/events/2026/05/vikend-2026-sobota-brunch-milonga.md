@@ -9,7 +9,7 @@ event-organiser: Michaela Lukavská
 event-location: Sesamo bakery, Purkyňova 97, Brno - Královo Pole
 description: Brunch milonga u Rosaria. Výborné občerstvení - italská kvalita a Rosariova pohostinnost.
 author: Lenka Platenikova
-preview_image: /images/events/2026/brunch-milonga-sesamo-kveten.jpg
+preview_image: /images/events/2026/brunch milonga.jpg
 ---
 
 # Brunch milonga v Sesamu
