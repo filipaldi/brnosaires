@@ -5,7 +5,7 @@ date: 2026-05-24 15:45:00
 event-type: workshop
 event-start: 2026-05-24 15:45:00
 event-end: 2026-05-24 17:00:00
-event-organiser: Gottfried a Štěky
+event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: Workshop pro pokročilé s Gottfriedem a Štěky. Součástí výuka Chacarery. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
@@ -14,8 +14,8 @@ preview_image: /images/events/2026/milonga-hned-vedle.avif
 
 # Workshop 3 / Gottfried a Štěky (pokročilí)
 
-Workshop pro pokročilé tanečníky s Gottfriedem a Štěky. Součástí bude i výuka lidového argentinského tance Chacarera. 
-**Lektoři:** Gottfried a Štěky  
+Workshop pro pokročilé tanečníky. Součástí bude i argentinský lidový tanec CHACARERA (aneb kořeny argentinského tanga II. )
+**Lektor:**  Gottfried (Vienna: Studio Sol) 
 **Úroveň:** Pokročilí
 
 ***CENY***
@@ -26,7 +26,4 @@ Neděle:
 WS1+WS2 + Chacarera v ceně | 1290,- Kč / 52Eur za osobu
 Celý víkend:
 Všechny workshpy + milonga | 3090,- Kč / 124Eur za osobu
-REGISTRACE:
-tangolabsteky@gmail.com
-(Jméno, Jméno partnera, kontaktní mail a tel.)
-- místo je pevně rezervováno až po odeslání zálohy
+REGISTRACE: https://tangolabsteky.webnode.cz/l/internatinonal-workshops-2026-05/
