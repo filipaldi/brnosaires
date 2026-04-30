@@ -12,10 +12,11 @@ author: Filip Paldia
 preview_image: /images/classes/helmuth-iris.jpg
 ---
 
-# Workshop 1 / Iris a Helmuth (středně pokročilí)
+# Workshop 1 / Iris a Helmut (středně pokročilí)
 
-Workshop pro středně pokročilé tanečníky s Iris a Helmuthem.
-**Lektoři:** Iris a Helmuth  
+Close embrace turns: Density & elasticity
+(probereme rotační principy v blízkém držení: zaměříme se na hutnost, napojení a elasticitu)
+**Lektoři:** Helmut + Iris (Vienna: Studio Sol)
 **Úroveň:** Středně pokročilí  
 
 ***CENY***
@@ -26,7 +27,5 @@ Neděle:
 WS1+WS2 + Chacarera v ceně | 1290,- Kč / 52Eur za osobu
 Celý víkend:
 Všechny workshpy + milonga | 3090,- Kč / 124Eur za osobu
-REGISTRACE:
-tangolabsteky@gmail.com
-(Jméno, Jméno partnera, kontaktní mail a tel.)
-- místo je pevně rezervováno až po odeslání zálohy
+REGISTRACE: https://tangolabsteky.webnode.cz/l/internatinonal-workshops-2026-05/
+
