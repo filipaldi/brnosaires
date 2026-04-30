@@ -5,7 +5,7 @@ date: 2026-05-24 14:15:00
 event-type: workshop
 event-start: 2026-05-24 14:15:00
 event-end: 2026-05-24 15:30:00
-event-organiser: Gottfried a Štěky
+event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: Workshop pro středně pokročilé s Gottfriedem a Štěky. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
@@ -14,8 +14,9 @@ preview_image: /images/events/2026/milonga-hned-vedle.avif
 
 # Workshop 2 / Gottfried a Štěky (středně pokročilí)
 
-Workshop pro středně pokročilé tanečníky s Gottfriedem a Štěky.
-**Lektoři:** Gottfried a Štěky  
+Workshop pro středně pokročilé tanečníky. Téma: Games in couple on the dance floor, playful creativity - in praktice
+(Taneční hry v páru na parketě - aneb jak vytvořit a předat kreativitu v souladu s hudbou a partnerem - prakticky)
+**Lektoři:** Gottfried (Vienna: Studio Sol) + Šteky (Brno: TangoLab)  
 **Úroveň:** Středně pokročilí  
 
 ***CENY***
@@ -26,7 +27,4 @@ Neděle:
 WS1+WS2 + Chacarera v ceně | 1290,- Kč / 52Eur za osobu
 Celý víkend:
 Všechny workshpy + milonga | 3090,- Kč / 124Eur za osobu
-REGISTRACE:
-tangolabsteky@gmail.com
-(Jméno, Jméno partnera, kontaktní mail a tel.)
-- místo je pevně rezervováno až po odeslání zálohy
+REGISTRACE: https://tangolabsteky.webnode.cz/l/internatinonal-workshops-2026-05/
