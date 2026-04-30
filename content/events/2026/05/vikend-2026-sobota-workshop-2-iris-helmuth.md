@@ -14,8 +14,10 @@ preview_image: /images/classes/helmuth-iris.jpg
 
 # Workshop 2 / Iris a Helmuth (pokročilí)
 
-Workshop pro pokročilé tanečníky s Iris a Helmuthem.
-**Lektoři:** Iris a Helmuth  
+Workshop pro pokročilé tanečníky. Téma: Ochos: Torsion, Flow & musicality
+(ocha neboli tango osmičky jsou základem, který rozvineme do pokročilé podoby: hlavně budeme pracovat s pokročilou rotací v těle, plynulostí a důležitou musicalitou)
+
+**Lektoři:** Helmut + Iris (Vienna: Studio Sol)  
 **Úroveň:** Pokročilí  
 
 ***CENY***
@@ -26,7 +28,4 @@ Neděle:
 WS1+WS2 + Chacarera v ceně | 1290,- Kč / 52Eur za osobu
 Celý víkend:
 Všechny workshpy + milonga | 3090,- Kč / 124Eur za osobu
-REGISTRACE:
-tangolabsteky@gmail.com
-(Jméno, Jméno partnera, kontaktní mail a tel.)
-- místo je pevně rezervováno až po odeslání zálohy
+REGISTRACE: https://tangolabsteky.webnode.cz/l/internatinonal-workshops-2026-05/
