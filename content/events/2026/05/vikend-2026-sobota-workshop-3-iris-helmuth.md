@@ -14,8 +14,8 @@ preview_image: /images/classes/helmuth-iris.jpg
 
 # Workshop 3 / Iris a Helmuth
 
-Workshop pro pokročilé. Téma: Individual work with couples - conclusion
-(poslední část se přizpůsobí potřebám účastníků - individuální práci, dovysvětlení a rozšíření dle zájmů a potřeb)
+Workshop pro pokročilé. 
+Téma: Individual work with couples - conclusion (poslední část se přizpůsobí potřebám účastníků - individuální práci, dovysvětlení a rozšíření dle zájmů a potřeb)
 
 **Lektoři:** Helmut + Iris (Vienna: Studio Sol)
 
