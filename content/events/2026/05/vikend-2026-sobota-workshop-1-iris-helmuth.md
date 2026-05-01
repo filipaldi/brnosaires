@@ -14,8 +14,10 @@ preview_image: /images/classes/helmuth-iris.jpg
 
 # Workshop 1 / Iris a Helmut (středně pokročilí)
 
-Close embrace turns: Density & elasticity
+Workshop pro středně pokročilé. 
+Téma:Close embrace turns: Density & elasticity
 (probereme rotační principy v blízkém držení: zaměříme se na hutnost, napojení a elasticitu)
+
 **Lektoři:** Helmut + Iris (Vienna: Studio Sol)
 **Úroveň:** Středně pokročilí  
 
