@@ -14,8 +14,8 @@ preview_image: /images/classes/helmuth-iris.jpg
 
 # Workshop 2 / Iris a Helmuth (pokročilí)
 
-Workshop pro pokročilé tanečníky. Téma: Ochos: Torsion, Flow & musicality
-(ocha neboli tango osmičky jsou základem, který rozvineme do pokročilé podoby: hlavně budeme pracovat s pokročilou rotací v těle, plynulostí a důležitou musicalitou)
+Workshop pro pokročilé tanečníky. 
+Téma: Ochos: Torsion, Flow & musicality (ocha neboli tango osmičky jsou základem, který rozvineme do pokročilé podoby: hlavně budeme pracovat s pokročilou rotací v těle, plynulostí a důležitou musicalitou)
 
 **Lektoři:** Helmut + Iris (Vienna: Studio Sol)  
 **Úroveň:** Pokročilí  
