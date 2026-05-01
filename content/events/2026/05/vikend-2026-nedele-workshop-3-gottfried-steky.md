@@ -14,7 +14,9 @@ preview_image: /images/events/2026/milonga-hned-vedle.avif
 
 # Workshop 3 / Gottfried a Štěky (pokročilí)
 
-Workshop pro pokročilé tanečníky. Součástí bude i argentinský lidový tanec CHACARERA (aneb kořeny argentinského tanga II. )
+Workshop pro pokročilé tanečníky. 
+Součástí bude i argentinský lidový tanec CHACARERA (aneb kořeny argentinského tanga II.)
+
 **Lektor:**  Gottfried (Vienna: Studio Sol) 
 **Úroveň:** Pokročilí
 
