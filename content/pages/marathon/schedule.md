@@ -2,7 +2,7 @@
 title: Healthy Schedule of Marathon Brnos Aires
 date: 2025-10-14T12:25:00+00:00
 slug: marathon-schedule
-description: Marathon schedule. Over 30 hours of dancing, civilised hours, food and rest at the venue. Your feet might complain, your heart won't.
+description: Marathon schedule. 26 hours of dancing, civilised hours, food and rest at the venue. Your feet might complain, your heart won't.
 author: Filip Paldia
 ---
 
