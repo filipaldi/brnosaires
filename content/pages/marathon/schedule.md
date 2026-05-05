@@ -8,7 +8,7 @@ author: Filip Paldia
 
 # Healthy Schedule
 
-**More than 30 hours of dancing.** Your feet might complain, but your heart won't.
+**26 hours of dancing.** Your feet might complain, but your heart won't.
 
 In Buenos Aires, they dance all night while reasonable Europeans sleep. We love tango, but we also love waking up without regret. So we built a marathon that won't destroy you.
 
