@@ -352,8 +352,14 @@
      reel's reserved padding-top area above the snap row. Inherits
      position: absolute; top: 0 from the base rule. */
 
-  /* Single-axis Cluster of cards becomes a snap-track too */
+  /* Single-axis Cluster of cards becomes a snap-track too.
+     Named clusters (.day/.week/.month.el-cluster) include a *-name label as
+     a flex sibling. With flex-wrap:nowrap the label's flex-basis:100% is
+     ignored and the label collapses into a narrow column beside the cards.
+     Lift it out of flow into a reserved padding-top strip — same pattern
+     as .week.el-reel — so the label sits *above* the card row. */
   .calendar .el-cluster {
+    position: relative;
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -365,6 +371,9 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
+  }
+  .calendar .el-cluster:is(.day, .week, .month) {
+    padding-top: var(--size-l);
   }
   .calendar .el-cluster::-webkit-scrollbar {
     display: none;
@@ -378,6 +387,26 @@
   .calendar .el-cluster [class*="card-"]:last-child {
     margin-inline-end: 20vw;
   }
+  /* Label: anchor to top-left of the cluster, aligned with card title text. */
+  .calendar .el-cluster > .day-name,
+  .calendar .el-cluster > .week-name,
+  .calendar .el-cluster > .month-name {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: var(--label-indent, var(--size-s));
+    flex-basis: auto;
+    margin: 0;
+    font-size: var(--text-s);
+    line-height: var(--size-s);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  /* Re-derive --label-indent for clusters too (mirrors the reel). */
+  .calendar[data-card-size="xs"] .el-cluster { --label-indent: var(--size-xs); }
+  .calendar[data-card-size="s"]  .el-cluster { --label-indent: var(--size-s); }
+  .calendar[data-card-size="m"]  .el-cluster { --label-indent: var(--size-m); }
+  .calendar[data-card-size="l"]  .el-cluster { --label-indent: var(--size-l); }
 
   /* Square preview image inside event cards */
   .calendar .event .el-frame-16x9 {
