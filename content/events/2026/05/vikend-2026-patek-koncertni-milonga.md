@@ -1,5 +1,5 @@
 ---
-title: Koncertní milonga (orchestr Petra Zámečníka)
+title: Slavnostní milonga s koncertem - orchestr Petra Zámečníka
 slug: vikend-2026-patek-koncertni-milonga
 date: 2026-05-22 21:00:00
 event-type: milonga
@@ -12,7 +12,7 @@ author: Filip Paldia
 preview_image: /images/events/2026/tango-petr-zamecnik.jpeg
 ---
 
-# Koncertní milonga (orchestr Petra Zámečníka)
+# Slavnostní milonga s koncertem (orchestr Petra Zámečníka)
 
 Koncertní milonga s živou hudbou. Petr Zámečník je akordeonista, hudební pedagog, aranžér a skladatel, absolvent konzervatoře v Plzni. Se svými tango formacemi vystupuje od roku 1993 na mezinárodních hudebních festivalech a koncertech v České republice, Velvyslanectví Argentinské republiky v Praze i v zahraničí.
 Jako akordeonový interpret účinkoval v tangových projektech s brněnskou filharmonií, baletem Národního divadla v Brně a dalšími hudebníky. 
