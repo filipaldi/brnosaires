@@ -13,6 +13,7 @@ Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce n
 
 <widget-calendar-link 
     cal_file_name="events" 
+    filter_by_type="milonga practika neolonga workshop"
     filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 

@@ -21,7 +21,7 @@ Užívej a tancuj!
 </widget-calendar>
 
 <widget-calendar-link 
-    filter_by_type="milonga practica neolonga"
+    filter_by_type="milonga practika neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
