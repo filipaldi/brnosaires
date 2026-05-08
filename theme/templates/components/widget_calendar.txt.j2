@@ -1,0 +1,36 @@
+{% set cfg = tag_content | parse_widget_attrs %}
+{% set event_type = cfg.filter_by_type %}
+{% set days = cfg.days %}
+{% set start_date = cfg.start %}
+{% set end_date = cfg.end %}
+{% set limit = cfg.limit %}
+{% set sort = cfg.sort %}
+
+{% set dedupe = ('dedupe-recurring="false"' not in tag_content) %}
+
+{% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, sort=sort, limit=limit) %}
+
+{%- set siteurl = (SITEURL | default('')) | string -%}
+{%- if dedupe -%}
+{%- set ns = namespace(seen=[]) -%}
+{%- for event in display_events -%}
+{%- if event.slug not in ns.seen -%}
+{%- set _ = ns.seen.append(event.slug) -%}
+{%- set rec = (event.metadata.get('recurrence') if event.metadata else none) -%}
+{%- set parts = (rec | string).split() if rec else [] -%}
+{%- if parts | length == 2 and parts[0] | lower == 'weekly' -%}
+{%- set weekday = parts[1] | capitalize -%}
+{%- set time_str = event.date.strftime('%H:%M') if event.date else '' -%}
+- weekly {{ weekday }} {{ time_str }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+{% elif rec -%}
+- {{ rec }} {{ event.date.strftime('%H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+{% else -%}
+- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+{% endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- else -%}
+{%- for event in display_events %}
+- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+{% endfor -%}
+{%- endif -%}

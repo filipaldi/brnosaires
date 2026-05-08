@@ -129,6 +129,42 @@ Použijte společná pole. Aktuálně:
 - **Vymýšlení pole `og_image`** — takové pole neexistuje. Použijte `preview_image`.
 - **Příliš dlouhý `description`** — držte se pod cca 200 znaky; delší hodnoty se ořežou.
 
+## Soubory pro AI asistenty (`content/llm/`)
+
+Adresář [content/llm/](../content/llm/) obsahuje soubory, které řídí to, co web nabízí LLM asistentům (ChatGPT, Claude, Perplexity, …) k textovému stažení. **Jeden soubor → jeden výstup:** každý `*.md` v `content/llm/` se při buildu promítne do stejně pojmenovaného `*.txt` na rootu webu (a do `.well-known/`).
+
+Aktuálně:
+
+| Soubor | Výstup |
+|---|---|
+| [content/llm/llms.md](../content/llm/llms.md) | `/llms.txt` (krátký kurátorský rozcestník) |
+| [content/llm/llms-full.md](../content/llm/llms-full.md) | `/llms-full.txt` (širší výpis) |
+
+Chcete přidat další cílové publikum (např. zvlášť pro robota, který indexuje jen milongy)? Vytvořte nový soubor:
+
+```bash
+cp content/llm/llms.md content/llm/milongas.md
+# upravte hlavičky, widget filtry, popisky pro to publikum
+# build → /milongas.txt a /.well-known/milongas.txt vzniknou samy
+```
+
+Editujete je stejně jako homepage: Markdown plus tagy `<widget-*>`. Při buildu se widgety rozbalí do bulletů. Detaily v [LLMS.md](LLMS.md).
+
+## Vyloučení stránky z `.md` zrcadla (`llm_mirror: false`)
+
+Plugin standardně generuje `.md` zrcadlo (čistý Markdown bez HTML/CSS) ke každé stránce a článku — LLM asistent si tak může stáhnout obsah ve strojově dobře zpracovatelné podobě. Pokud nějaký soubor **nemá** být zrcadlen (např. interní píkošky, profily lidí), stačí do jeho frontmatteru přidat jeden řádek:
+
+```yaml
+---
+title: …
+slug: …
+date: …
+llm_mirror: false
+---
+```
+
+Aktuálně tento řádek nesou všechny soubory v [content/curiosities/](../content/curiosities/) a [content/people/](../content/people/). Editor jednotlivých souborů to může kdykoli vrátit zpět odebráním řádku — `.md` zrcadlo se začne znovu generovat při dalším buildu. HTML stránka tím dotčená není.
+
 ## Související dokumenty
 
 - [README.md](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
