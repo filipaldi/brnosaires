@@ -18,8 +18,8 @@ WIDGET_TEMPLATES = {
 def _enrich_calendar_link_context(tag_content, render_context, context):
     from calendarium.feed_links import (
         get_feed_id_for_tag_content,
-        get_calendar_subscribe_url,
         get_feed_url_https,
+        get_calendar_subscribe_url,
         get_google_calendar_add_url,
     )
     from calendarium import attrs as calendarium_attrs
@@ -29,11 +29,11 @@ def _enrich_calendar_link_context(tag_content, render_context, context):
     parsed_attrs = calendarium_attrs.parse_calendar_link_attrs(tag_content)
     https_url = get_feed_url_https(feed_id, siteurl)
     webcal_url = get_calendar_subscribe_url(feed_id, siteurl)
-    google_url = get_google_calendar_add_url(webcal_url)
+    google_url = get_google_calendar_add_url(https_url)
     subscribe_links = [
         {"id": "webcal", "url": webcal_url, "label": parsed_attrs.get("label_webcal") or "Apple / default calendar"},
         {"id": "google", "url": google_url, "label": parsed_attrs.get("label_google") or "Google Calendar"},
-        {"id": "outlook", "url": https_url, "label": parsed_attrs.get("label_outlook") or "Copy link"},
+        {"id": "outlook", "url": https_url, "label": parsed_attrs.get("label_outlook") or "Copy link", "is_copy": True},
     ]
     render_context['label'] = label
     render_context['subscribe_links'] = subscribe_links

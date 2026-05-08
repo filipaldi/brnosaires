@@ -94,14 +94,11 @@ def get_feed_url_https(feed_id, siteurl, output_dir="calendars"):
 
 
 def get_google_calendar_add_url(feed_url):
-    return "https://www.google.com/calendar/render?cid=" + quote(feed_url, safe="")
+    return "https://calendar.google.com/calendar/r?cid=" + quote(feed_url, safe="")
 
 
 def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
-    calendar_path = f"/{output_dir}/{feed_id}.ics"
-    if not siteurl or not str(siteurl).strip():
-        return calendar_path
-    full_url = str(siteurl).rstrip("/") + calendar_path
+    full_url = get_feed_url_https(feed_id, siteurl, output_dir)
     if full_url.startswith("https://"):
         return "webcal://" + full_url[8:]
     if full_url.startswith("http://"):
