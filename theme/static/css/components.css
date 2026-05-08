@@ -69,12 +69,15 @@
   font-weight: var(--font-weight-regular);
   margin-bottom: var(--card-inner-margin);
   /* Wrap long titles / metadata so they never overflow the card.
-     overflow-wrap: anywhere is the safety net for tokens longer than
-     the card (URLs, hyphenated names); hyphens: auto adds Czech
-     hyphenation when the document's lang attribute is cs (set via
-     DEFAULT_LANG in pelicanconf.py). Both layer cleanly: hyphens
-     splits at syllable boundaries first, overflow-wrap breaks any
-     remaining unsplittable token. */
+     min-inline-size: 0 cancels the global "h1, h2, h3, p { min-width:
+     20rem }" rule from pages.css that pins prose to a 320px minimum
+     measure (which is too wide for cards). max-inline-size: 100%
+     keeps text inside its parent. overflow-wrap: anywhere breaks any
+     unsplittable token (URLs, long names); hyphens: auto adds Czech
+     hyphenation when <html lang="cs"> is set (DEFAULT_LANG in
+     pelicanconf.py). */
+  min-inline-size: 0;
+  max-inline-size: 100%;
   overflow-wrap: anywhere;
   hyphens: auto;
 }
