@@ -235,11 +235,16 @@
      label stays anchored above the row instead of being squeezed into it. */
   .week.el-reel {
     flex-direction: row;
-    gap: 0;
+    gap: var(--size-s);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
+    scroll-padding-inline: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    touch-action: pan-x;
   }
   .week.el-reel::-webkit-scrollbar {
     display: none;
@@ -248,6 +253,7 @@
     inline-size: 80vw;
     flex: 0 0 80vw;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .week.el-reel .day:last-child {
     margin-inline-end: 20vw;
@@ -260,11 +266,15 @@
   .calendar .el-cluster {
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 0;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    gap: var(--size-s);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
+    scroll-padding-inline: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    touch-action: pan-x;
   }
   .calendar .el-cluster::-webkit-scrollbar {
     display: none;
@@ -273,6 +283,7 @@
     flex: 0 0 80vw;
     inline-size: 80vw;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .calendar .el-cluster [class*="card-"]:last-child {
     margin-inline-end: 20vw;
@@ -305,11 +316,15 @@
   .el-cluster:has(.event) {
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 0;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    gap: var(--size-s);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
+    scroll-padding-inline: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    touch-action: pan-x;
   }
   .el-cluster:has(.event)::-webkit-scrollbar {
     display: none;
@@ -319,6 +334,7 @@
     flex: 0 0 80vw;
     inline-size: 80vw;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   .el-cluster:has(.event) > .event:last-child,
   .el-cluster:has(.event) > [class*="card-"]:last-child {
