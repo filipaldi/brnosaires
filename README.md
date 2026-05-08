@@ -4,6 +4,30 @@ Tento průvodce je určen pro editory obsahu pracující s webem Brnos Aires. Po
 
 ---
 
+## Rychlé zkratky
+
+### Složky
+
+| Složka | Odkaz |
+|--------|-------|
+| Akce 2026 | [content/events/2026/](https://github.com/filipaldi/brnosaires/tree/main/content/events/2026) |
+| Lekce (opakující se) | [content/events/classes/](https://github.com/filipaldi/brnosaires/tree/main/content/events/classes) |
+| Stránky | [content/pages/](https://github.com/filipaldi/brnosaires/tree/main/content/pages) |
+| Oznámení | [content/announcements/](https://github.com/filipaldi/brnosaires/tree/main/content/announcements) |
+| Obrázky | [content/images/](https://github.com/filipaldi/brnosaires/tree/main/content/images) |
+
+### Nejpoužívanější stránky
+
+| Stránka | Odkaz |
+|---------|-------|
+| Milongy | [content/pages/milongy.md](https://github.com/filipaldi/brnosaires/blob/main/content/pages/milongy.md) |
+| Kalendář | [content/pages/kalendar.md](https://github.com/filipaldi/brnosaires/blob/main/content/pages/kalendar.md) |
+| Lekce | [content/pages/lekce.md](https://github.com/filipaldi/brnosaires/blob/main/content/pages/lekce.md) |
+| O nás | [content/pages/o-nas.md](https://github.com/filipaldi/brnosaires/blob/main/content/pages/o-nas.md) |
+| Pikanterie | [content/pages/pikosky.md](https://github.com/filipaldi/brnosaires/blob/main/content/pages/pikosky.md) |
+
+---
+
 ## Obsah
 
 1. [Než začnete](#než-začnete)
