@@ -14,6 +14,14 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Známé problémy
 
+- [ ] **Apple kalendář – odběr nefunguje.** Na [brnosaires.com](https://brnosaires.com/) v sekci *„📆 Odebírej akce do svého kalendáře"* odkaz **Apple** na macOS (kterýkoli prohlížeč) neotevře Kalendář ani nespustí odběr. Na mobilu se Kalendář sice otevře, ale odběr se nepřidá. Opravit URL/scheme (`webcal://` vs `https://`, případně správné MIME typu `text/calendar`) tak, aby fungoval jak desktop, tak mobil.
+
+- [ ] **Tlačítka pro odběr kalendáře jsou plain links.** Odkazy *Apple*, *Google*, *Kopíruj pro ostatní* jsou v současnosti nenápadné textové odkazy a špatně se na ně klepe na mobilu. Upravit jako tři plnohodnotná tlačítka ve stylu hlavního menu (stejné velikosti, tap target ≥ 44 px, odsazení).
+
+- [ ] **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály.
+
+- [ ] **UX karet kalendáře na mobilu.** Aktuální horizontální scrollovací řádek karet akcí nahradit „tinder-like" swipe zážitkem: jedna karta na viewport s drobným náznakem následující karty po straně, snap-scroll, vertikální orientace karty. Cílem je výrazně zlepšit čitelnost a ovladatelnost na mobilních zařízeních.
+
 - [ ] **Zastaralá syntaxe widgetů v dokumentaci lokálního testování.** [docs/local-testing.md:94](local-testing.md#L94) stále uvádí `<div data-widget="calendar" data-filter="milonga">`, ale [docs/WIDGETS.md:93](WIDGETS.md#L93) uvádí, že widgety používají formu tagu `<widget-*>` bez prefixu `data-`. Uvedený příklad se nevyrenderuje.
 
 - [ ] **Průvodce publikací popisuje špatný způsob nasazení.** [docs/publishing.md](publishing.md) popisuje postupy přes FTP/SFTP, rsync a Netlify. Skutečné produkční nasazení probíhá přes GitHub Actions → GitHub Pages pomocí `.github/workflows/deploy.yml`. Dokumentaci přepsat tak, aby odpovídala realitě.
