@@ -221,6 +221,125 @@
 }
 
 /* ============================================
+   MOBILE CARD UX (≤ 40rem)
+   ----------------------------------------
+   Cards: 80vw wide, content-driven height.
+   Square preview image. Larger text.
+   Horizontal scroll-snap with peek of next card.
+   Last card snaps fully into view via trailing spacer.
+   ============================================ */
+
+@container (max-width: 40rem) {
+  /* Calendar Reel becomes a snap-track of full-width days.
+     Keeps the existing padding-top + absolute .week-name pattern so the week
+     label stays anchored above the row instead of being squeezed into it. */
+  .week.el-reel {
+    flex-direction: row;
+    gap: 0;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .week.el-reel::-webkit-scrollbar {
+    display: none;
+  }
+  .week.el-reel .day {
+    inline-size: 80vw;
+    flex: 0 0 80vw;
+    scroll-snap-align: start;
+  }
+  .week.el-reel .day:last-child {
+    margin-inline-end: 20vw;
+  }
+  /* Week label: keep desktop's absolute pattern — it sits in the
+     padding-top: 2.5rem reserved area above the snap row. Inherits
+     position: absolute; top: 0; left: 0 from the base rule. */
+
+  /* Single-axis Cluster of cards becomes a snap-track too */
+  .calendar .el-cluster {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .calendar .el-cluster::-webkit-scrollbar {
+    display: none;
+  }
+  .calendar .el-cluster [class*="card-"] {
+    flex: 0 0 80vw;
+    inline-size: 80vw;
+    scroll-snap-align: start;
+  }
+  .calendar .el-cluster [class*="card-"]:last-child {
+    margin-inline-end: 20vw;
+  }
+
+  /* Square preview image inside event cards */
+  .calendar .event .el-frame-16x9 {
+    --n: 1;
+    --d: 1;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Larger poster typography on mobile cards */
+  .calendar .event {
+    --card-font-size: var(--text-s);
+    --card-line-height: var(--size-s);
+  }
+  .calendar .event h3 {
+    font-size: var(--text-l);
+    line-height: var(--size-m);
+  }
+  .calendar .event p {
+    font-size: var(--text-s);
+    line-height: var(--size-s);
+  }
+}
+
+/* Series-hub clusters live outside .calendar — apply same mobile pattern */
+@media (max-width: 40rem) {
+  .el-cluster:has(.event) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .el-cluster:has(.event)::-webkit-scrollbar {
+    display: none;
+  }
+  .el-cluster:has(.event) > .event,
+  .el-cluster:has(.event) > [class*="card-"] {
+    flex: 0 0 80vw;
+    inline-size: 80vw;
+    scroll-snap-align: start;
+  }
+  .el-cluster:has(.event) > .event:last-child,
+  .el-cluster:has(.event) > [class*="card-"]:last-child {
+    margin-inline-end: 20vw;
+  }
+  .el-cluster:has(.event) .el-frame-16x9 {
+    --n: 1;
+    --d: 1;
+    aspect-ratio: 1 / 1;
+  }
+  .el-cluster:has(.event) .event h3 {
+    font-size: var(--text-l);
+    line-height: var(--size-m);
+  }
+  .el-cluster:has(.event) .event p {
+    font-size: var(--text-s);
+    line-height: var(--size-s);
+  }
+}
+
+/* ============================================
    INPUTS
    ============================================ */
 

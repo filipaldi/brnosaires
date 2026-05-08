@@ -14,8 +14,6 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Známé problémy
 
-- **UX karet kalendáře na mobilu.** Aktuální horizontální scrollovací řádek karet akcí nahradit „tinder-like" swipe zážitkem: jedna karta na viewport s drobným náznakem následující karty po straně, snap-scroll, vertikální orientace karty. Cílem je výrazně zlepšit čitelnost a ovladatelnost na mobilních zařízeních.
-
 - **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály.
 
 - **Zastaralá syntaxe widgetů v dokumentaci lokálního testování.** [docs/local-testing.md:94](local-testing.md#L94) stále uvádí `<div data-widget="calendar" data-filter="milonga">`, ale [docs/WIDGETS.md:93](WIDGETS.md#L93) uvádí, že widgety používají formu tagu `<widget-*>` bez prefixu `data-`. Uvedený příklad se nevyrenderuje.
@@ -37,6 +35,8 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 - **Úklid `.DS_Store`.** Smazání `theme/static/.DS_Store` a `theme/static/fonts/.DS_Store` leží v pracovním stromu nestagované. Odstranění commitnout a přidat `.DS_Store` do `.gitignore`, pokud tam ještě není.
 
 ## Hotovo
+
+- **UX karet kalendáře na mobilu.** Pod 40rem je každá řada karet (Reel i Cluster) horizontální scroll-snap track: karta 80vw široká, čtvercový (1:1) preview obrázek místo 16:9, větší titulek a metadata, peek další karty napravo, poslední karta se snapuje plně do view (20vw trailing margin). Desktop ≥40rem beze změny.
 
 - **Apple kalendář – odběr nefunguje.** Na [brnosaires.com](https://brnosaires.com/) v sekci *„📆 Odebírej akce do svého kalendáře"* odkaz **Apple** na macOS (kterýkoli prohlížeč) neotevře Kalendář ani nespustí odběr. Na mobilu se Kalendář sice otevře, ale odběr se nepřidá. Opravit URL/scheme (`webcal://` vs `https://`, případně správné MIME typu `text/calendar`) tak, aby fungoval jak desktop, tak mobil.
 
