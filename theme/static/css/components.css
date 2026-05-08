@@ -262,12 +262,14 @@
   /* Override desktop .day inline-size for ALL four card_size values
      (xs/s/m/l). Each is its own [data-card-size="…"] rule with higher
      specificity than [data-card-size], so we match the same selector
-     here to override at equal specificity (later in source wins). */
-  .week.el-reel .day,
-  .calendar[data-card-size="xs"] .week.el-reel .day,
-  .calendar[data-card-size="s"] .week.el-reel .day,
-  .calendar[data-card-size="m"] .week.el-reel .day,
-  .calendar[data-card-size="l"] .week.el-reel .day {
+     here to override at equal specificity (later in source wins).
+     Scoped with :has(.event) so empty days fall through to the global
+     hide rule at line 168 (.week.el-reel .day:not(:has(.event))). */
+  .week.el-reel .day:has(.event),
+  .calendar[data-card-size="xs"] .week.el-reel .day:has(.event),
+  .calendar[data-card-size="s"] .week.el-reel .day:has(.event),
+  .calendar[data-card-size="m"] .week.el-reel .day:has(.event),
+  .calendar[data-card-size="l"] .week.el-reel .day:has(.event) {
     display: flex;
     flex-direction: row;
     flex: 0 0 auto;
