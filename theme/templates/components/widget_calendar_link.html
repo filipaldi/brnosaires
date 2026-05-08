@@ -1,6 +1,10 @@
-<div>
+<div class="el-stack el-stack-s">
   <p>{{ label | default('Subscribe to calendar') }}</p>
-  {% for link in subscribe_links %}
-  <a href="{{ link.url }}">{{ link.label }}</a>
-  {% endfor %}
+  <div class="el-cluster">
+    {% for link in subscribe_links %}
+    <a href="{{ link.url }}"
+       class="aesthetic-chip chip-m"
+       {% if link.is_copy %}data-copy-url="{{ link.url }}"{% endif %}>{{ link.label }}</a>
+    {% endfor %}
+  </div>
 </div>

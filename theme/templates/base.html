@@ -88,6 +88,21 @@
       if (document.querySelector('.glightbox')) {
         GLightbox({ selector: '.glightbox' });
       }
+
+      document.querySelectorAll('a[data-copy-url]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var url = link.dataset.copyUrl;
+          if (!navigator.clipboard || !url) return;
+          event.preventDefault();
+          navigator.clipboard.writeText(url).then(function () {
+            var original = link.textContent;
+            link.textContent = '✓ ' + original;
+            setTimeout(function () { link.textContent = original; }, 1800);
+          }).catch(function () {
+            window.location.href = url;
+          });
+        });
+      });
     });
   </script>
   {% block scripts %}{% endblock %}
