@@ -44,6 +44,8 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Hotovo
 
+- **UX karet kalendáře na mobilu.** Pod 40rem je každá řada karet (Reel i Cluster) horizontální scroll-snap track: karta 80vw široká, čtvercový (1:1) preview obrázek místo 16:9, větší titulek a metadata, peek další karty napravo, poslední karta se snapuje plně do view (20vw trailing margin). Desktop ≥40rem beze změny.
+
 - **Apple kalendář – odběr nefunguje.** Na [brnosaires.com](https://brnosaires.com/) v sekci *„📆 Odebírej akce do svého kalendáře"* odkaz **Apple** na macOS (kterýkoli prohlížeč) neotevře Kalendář ani nespustí odběr. Na mobilu se Kalendář sice otevře, ale odběr se nepřidá. Opravit URL/scheme (`webcal://` vs `https://`, případně správné MIME typu `text/calendar`) tak, aby fungoval jak desktop, tak mobil.
 
 - **Tlačítka pro odběr kalendáře jsou plain links.** Odkazy *Apple*, *Google*, *Kopíruj pro ostatní* jsou v současnosti nenápadné textové odkazy a špatně se na ně klepe na mobilu. Upravit jako tři plnohodnotná tlačítka ve stylu hlavního menu (stejné velikosti, tap target ≥ 44 px, odsazení).
