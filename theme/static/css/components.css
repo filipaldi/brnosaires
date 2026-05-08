@@ -37,6 +37,20 @@
   --card-inner-margin: var(--size-xs);
 }
 
+/* Desktop card-width cap that scales between 12" laptop and 27" monitor.
+     Below ~1280px viewport: capped at 36rem (576px)
+     Between 1280 and 1920px: scales linearly with viewport
+     Above ~1920px viewport:  capped at 56rem (896px)
+   The middle term `calc(50vw - 4rem)` is the linear interpolation that
+   hits 36rem at 1280px and 56rem at 1920px. clamp() handles the bounds.
+   Mobile (<40rem) keeps its 65vw snap-card layout from the @container
+   block lower in this file. Tune the three rem values in DevTools. */
+@container (min-width: 40rem) {
+  [class*="card-"] {
+    max-inline-size: clamp(36rem, calc(50vw - 4rem), 56rem);
+  }
+}
+
 [class*="card-"] > *:not(:first-child) {
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
@@ -97,6 +111,7 @@
   flex: 1 1 var(--card-min-width);
   min-width: 0;
 }
+
 
 /* Cards in Reel day columns: fill the column width */
 .week.el-reel .day [class*="card-"] {
