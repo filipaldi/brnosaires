@@ -245,6 +245,10 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
+    /* Reserve room for two stacked labels above the row:
+       week-name (top, large) + day-name (below it, small). Desktop's
+       2.5rem isn't enough for both on mobile. */
+    padding-top: 4rem;
   }
   .week.el-reel::-webkit-scrollbar {
     display: none;
@@ -255,29 +259,40 @@
      scroll-snap target — Saturday with 2 events → 2 swipeable cards,
      with one "So 16.5." label visually above the first one. The .day
      wrapper itself is NOT a snap target; only the events are. */
+  /* Override desktop .day inline-size for ALL four card_size values
+     (xs/s/m/l). Each is its own [data-card-size="…"] rule with higher
+     specificity than [data-card-size], so we match the same selector
+     here to override at equal specificity (later in source wins). */
   .week.el-reel .day,
-  .calendar[data-card-size] .week.el-reel .day {
+  .calendar[data-card-size="xs"] .week.el-reel .day,
+  .calendar[data-card-size="s"] .week.el-reel .day,
+  .calendar[data-card-size="m"] .week.el-reel .day,
+  .calendar[data-card-size="l"] .week.el-reel .day {
     display: flex;
     flex-direction: row;
     flex: 0 0 auto;
     gap: var(--size-s);
     position: relative;
     align-items: stretch;
-    /* Override the desktop .calendar[data-card-size="s"] .week.el-reel .day
-       rule that pins inline-size to --size-4xl (187px). */
     inline-size: auto;
   }
-  /* Day label: anchored to the top-left of its .day sub-row, sitting in
-     the reel's padding-top: 2.5rem reserved area above the first event. */
+  /* Day label: sits in the reel's padding-top strip, just below the
+     week-name. Anchored to its day's left edge so it travels with the
+     correct day group when the row scrolls. Position values:
+       reel padding-top: 4rem
+         [0   – 1.75rem] week-name strip (top: 0)
+         [1.75 – 3.5rem] day-name strip
+         [3.5+ rem]      event cards begin */
   .week.el-reel .day .day-name {
     position: absolute;
-    inset-block-start: -1.75rem;
+    inset-block-start: -2.25rem;
     inset-inline-start: 0;
     font-size: var(--text-s);
     line-height: var(--size-s);
     font-weight: var(--font-weight-medium);
     margin: 0;
     white-space: nowrap;
+    pointer-events: none;
   }
   /* Use .day in selector to outrank the .week.el-reel .day [class*="card-"]
      desktop rule (3 class specificity → must match here, not lower). */
