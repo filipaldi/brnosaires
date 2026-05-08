@@ -1,4 +1,5 @@
 pelican[markdown]
+pelican-sitemap
 notion-client
 python-dateutil
 python-dotenv
