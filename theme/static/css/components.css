@@ -68,6 +68,15 @@
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
   margin-bottom: var(--card-inner-margin);
+  /* Wrap long titles / metadata so they never overflow the card.
+     overflow-wrap: anywhere is the safety net for tokens longer than
+     the card (URLs, hyphenated names); hyphens: auto adds Czech
+     hyphenation when the document's lang attribute is cs (set via
+     DEFAULT_LANG in pelicanconf.py). Both layer cleanly: hyphens
+     splits at syllable boundaries first, overflow-wrap breaks any
+     remaining unsplittable token. */
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 [class*="card-"] > * > h3 {
