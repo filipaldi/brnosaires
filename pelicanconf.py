@@ -108,7 +108,7 @@ from gallery_widget import get_gallery_images
 JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601}
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs", "pelican.plugins.sitemap", "md_mirror", "llms_index"]
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

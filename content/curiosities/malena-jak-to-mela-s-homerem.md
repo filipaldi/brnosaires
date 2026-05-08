@@ -5,6 +5,7 @@ category: curiosity
 description: Malena, Homero Manzi a píseň o chladných emocích. Když zjistila, že je o ní, přestala navždy zpívat.
 author: Lenka Platenikova
 preview_image: /images/Malena.avif
+llm_mirror: false
 ---
 
 # Malena – Jak to měla s Homérem?

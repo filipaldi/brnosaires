@@ -1,0 +1,18 @@
+{% set cfg = tag_content | parse_article_attrs %}
+{% set items = all_articles | article_filter(
+    category=cfg.category,
+    slugs=cfg.slugs,
+    sort=cfg.sort,
+    limit=cfg.limit,
+    metadata=cfg.metadata
+) %}
+{%- set siteurl = (SITEURL | default('')) | string -%}
+{%- for item in items -%}
+{%- set article = item.article -%}
+{%- set when = article.date.strftime('%Y-%m-%d') if article.date else '' -%}
+{%- if when %}
+- {{ when }} — {{ article.title }} ({{ siteurl.rstrip('/') }}/{{ article.slug }}/)
+{% else %}
+- {{ article.title }} ({{ siteurl.rstrip('/') }}/{{ article.slug }}/)
+{% endif -%}
+{%- endfor -%}

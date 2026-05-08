@@ -1,0 +1,6 @@
+{%- for link in subscribe_links -%}
+{%- if link.id == 'webcal' %}Subscribe (Apple): {{ link.url }}
+{% elif link.id == 'google' %}Subscribe (Google): {{ link.url }}
+{% elif link.id == 'outlook' %}Subscribe (HTTPS): {{ link.url }}
+{% endif -%}
+{%- endfor -%}

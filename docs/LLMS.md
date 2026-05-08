@@ -1,69 +1,127 @@
 # LLM discoverability
 
-Two custom plugins make Brnos Aires content easy for LLM-driven assistants
-(ChatGPT, Claude, Perplexity, etc.) to consume without scraping HTML/CSS.
+A single custom plugin — `llm_ally.py` — produces LLM-friendly output
+for Brnos Aires. It is a **dumb renderer**: it holds no site-specific
+knowledge. All editorial decisions (what to surface, what to omit, how
+to frame each audience) live in editor-edited files.
 
-## `md_mirror.py` — per-page Markdown mirrors
+## Two responsibilities
 
-Hooks `article_generator_finalized` and `page_generator_finalized`.
+### 1. Editor-curated `*.txt` files
 
-For every public article and page, writes an `index.md` next to the
-generated `index.html`:
+For every `*.md` file in `content/llm/`, the plugin writes a matching
+`.txt` to the site root **and** to `/.well-known/`. Filename mapping is
+one-to-one:
+
+| Source | Output (canonical) | Output (well-known alias) |
+|---|---|---|
+| `content/llm/llms.md` | `output/llms.txt` | `output/.well-known/llms.txt` |
+| `content/llm/llms-full.md` | `output/llms-full.txt` | `output/.well-known/llms-full.txt` |
+| `content/llm/<anything>.md` | `output/<anything>.txt` | `output/.well-known/<anything>.txt` |
+
+Authoring a new audience is a `cp` plus an edit:
+
+```bash
+cp content/llm/llms.md content/llm/androids.md
+# edit headings, widget filters, prose for the android audience
+pelican content -s pelicanconf.py
+# /androids.txt and /.well-known/androids.txt now exist
+```
+
+No code change. No registration step. The plugin walks the directory at
+build time and emits whatever it finds.
+
+`content/llm/` is **not registered with Pelican** — files there don't
+become standalone HTML pages. The plugin reads them directly during the
+`finalized` signal, strips the YAML frontmatter, expands every
+`<widget-*>` tag via `widget_processor.render_widgets_in_text()`, and
+writes the result.
+
+### 2. Per-page Markdown mirrors
+
+For every public article and page, `llm_ally` writes an `index.md` next
+to the generated `index.html`:
 
 ```
 output/tango-pizza-sesamo-2026-04-29/index.html   ← rendered HTML
 output/tango-pizza-sesamo-2026-04-29/index.md     ← clean Markdown mirror
 ```
 
-Each `.md` file contains:
+Each `.md` contains:
 
-1. **Mintlify-style discovery marker** — `> For a complete page index, fetch
-   {SITEURL}/llms.txt`. Tells an LLM that landed on a single page where to
-   find the full corpus index.
-2. **YAML frontmatter** — `title`, `date`, `url`, plus event-specific fields
-   (`event-type`, `event-start`, `event-end`, `event-location`,
-   `event-organiser`, `instructor`, `recurrence`, `series`) when present. YAML
-   is universally parsed; structured event metadata lets an LLM answer date
-   queries without parsing prose.
-3. **Body** — the raw Markdown from `source_path`, with the original
-   frontmatter stripped (re-emitted as YAML above) and `<widget-*>` tags
-   removed (those are SSR-only markers meaningless outside the build pipeline).
+1. **Mintlify-style discovery marker** — `> For a complete page index,
+   fetch {SITEURL}/llms.txt`. Tells an LLM that landed on a single page
+   where to find the full corpus index.
+2. **YAML frontmatter** — `title`, `date`, `url`, plus event-specific
+   fields (`event-type`, `event-start`, `event-end`, `event-location`,
+   `event-organiser`, `instructor`, `recurrence`, `series`) when present.
+3. **Body** — the raw Markdown from `source_path`, with `<widget-*>`
+   tags rendered as plain-text bullets via the same Jinja templates that
+   power the HTML site (text-mode siblings: `widget_calendar.txt.j2`,
+   `widget_articles.txt.j2`, etc.).
 
-### Scope
+### Opting individual content out
 
-| Content type | Mirrored? | Why |
-|---|---|---|
-| Events (`content/events/`) | ✅ | Primary discovery target — what is on / when / where. |
-| Pages (`content/pages/`) | ✅ | About / hubs / explainer pages. |
-| Announcements (`content/announcements/`) | ✅ | Time-stamped editorial updates. |
-| Curiosities (`content/curiosities/`) | ❌ | Editorial color, not what users search for. |
-| People (`content/people/`) | ❌ | Profile bios, redundant with structured org data. |
+Any article or page can opt out of mirror generation by adding one line
+to its frontmatter:
 
-Exclusion is by source path (`/content/curiosities/`, `/content/people/`)
-plus a fallback on Pelican `category` value.
+```yaml
+---
+title: Smutné období drogových dealerů
+slug: smutne-obdobi-drogovych-dealeru
+date: 2026-04-12 18:00:00
+llm_mirror: false
+---
+```
 
-## `llms_index.py` — auto-generated index + dump
+For Brnos Aires, every file under `content/curiosities/` and
+`content/people/` carries `llm_mirror: false` (curiosities are
+editorial color, people files are profile bios — neither is what users
+search for). Other sites set the flag where it makes sense for them.
 
-Collects articles and pages via the `*_generator_finalized` hooks, then on
-the global `finalized` hook walks the corpus once and emits:
+The flag has no central counterpart in code or config. Editors mark
+opt-outs at the source.
 
-- `output/llms.txt` — curated Key Pages + dynamic Regular Series Hubs +
-  Upcoming Events + Recent Updates
-- `output/llms-full.txt` — full bodies for hubs, pages, upcoming events
-  (with recurring lessons expanded ~12 weeks ahead via the existing
-  `expand_recurring` helper from `recurring_events`), and recent updates
-- `output/.well-known/llms.txt` + `output/.well-known/llms-full.txt` —
-  byte-identical copies for the IETF well-known convention
+## Widget text-mode templates
 
-Replaced the hand-maintained `content/extra/llms.txt` whose hardcoded
-event dates went stale between deploys. The plugin's output reflects the
-current content corpus on every build, so dates never drift.
+`theme/templates/components/widget_*.txt.j2` are the text-rendering
+counterparts to the HTML templates. The widget processor exposes
+`render_widgets_in_text(text, env, context)` which the plugin calls;
+the helper resolves `widget_calendar.html` → `widget_calendar.txt.j2`
+at render time.
 
-Tunable constants at the top of the plugin:
+A missing `.txt.j2` template renders the widget as the empty string —
+deliberately, to avoid injecting `<div>` markup into Markdown.
 
-- `WINDOW_WEEKS_AHEAD = 12` — how far the recurring-event expansion looks
-- `RECENT_ANNOUNCEMENTS = 8` — how many recent announcements to surface
-- `KEY_PAGES` — the curated list of top-level entry points, listed first
+### Recurring-class deduplication
+
+In text mode, `<widget-calendar>` defaults to `dedupe-recurring="true"`.
+Each recurring source appears once as
+`- weekly Sunday 18:00 — Title — Location (URL)`, not N concrete-date
+rows. Opt out per-tag with `dedupe-recurring="false"`. The dedup is
+implemented in the text template, not in the plugin — the plugin is
+unaware of "recurring" as a concept.
+
+## Why a dumb renderer
+
+Earlier versions of this work hardcoded the curated section list, the
+recurring window in weeks, the announcement category name, the event
+source path, and the curiosity/people exclusions in Python. Every
+editorial decision required a code edit, and the plugin was bound to
+Brnos Aires.
+
+The dumb-renderer model puts every editorial decision into editor-owned
+files: `content/llm/*.md` defines what `*.txt` outputs the site ships
+and what's in each one; per-content `llm_mirror: false` defines what
+gets mirrored. The plugin is now portable to any Pelican site that has
+`widget_processor`.
+
+## File reference
+
+- `plugins/llm_ally.py` — the plugin (~165 LoC, no site-specific strings).
+- `plugins/widget_processor.py` — exposes `render_widgets_in_text`.
+- `theme/templates/components/widget_*.txt.j2` — text-mode widget templates.
+- `content/llm/*.md` — editor-authored audience files.
 
 The `marathon/llms.txt` static file under `content/extra/marathon/` is
 kept as-is; it's a separate marathon sub-site fixture, not part of this
