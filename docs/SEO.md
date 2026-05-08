@@ -2,6 +2,8 @@
 
 This document explains how the site exposes metadata to search engines and social-card consumers, and pins down decisions that aren't obvious from the templates alone.
 
+> **Pro editory:** Tento dokument je technický (anglicky). Editorský průvodce metadaty s vysvětlením, jaká pole nastavovat ve frontmatteru a co každé dělá v náhledech na sociálních sítích, je v [EDITING.md](EDITING.md) (česky). This document is the architecture-level explanation underneath.
+
 ## Link strategy: relative URLs + `<base href>`
 
 Every template emits **relative** URLs:
