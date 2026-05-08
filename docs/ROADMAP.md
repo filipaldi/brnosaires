@@ -6,7 +6,7 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Plánované funkce
 
-- **Anglická lokalizace nadpisů ve widgetech.** Nadpisy skupin ve widgetech (např. *„Týden od 3.2. do 9.2. 2026"*) jsou dnes pouze česky. Podle [docs/WIDGETS.md:177](WIDGETS.md#L177) lze angličtinu doplnit nastavením `DEFAULT_LANG = "en"` a úpravou šablony, aby tuto hodnotu používala.
+- **Anglická lokalizace celého webu.** Brno hostí stálou komunitu cizinců (expati, výměnní studenti, hosté ze zahraničí) i procházející taneční turisty, pro které je dnes web prakticky nečitelný. Cílem je nabídnout plnohodnotnou anglickou verzi: stránky (`content/pages/`), popisy akcí, navigaci, patičku, widgety, `.ics` kalendářový feed (názvy a popisy událostí) a meta tagy pro SEO. UX: přepínač jazyka v hlavičce, jazyk si pamatovat (cookie/localStorage), URL prefix `/en/`. Implementačně se nabízí Pelican plugin [`i18n_subsites`](https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites) ve spojení s metadaty `Lang:` a `Slug:` u článků (jeden slug, dvě jazykové varianty propojené). Editorský workflow musí zůstat snesitelný — zvážit, zda všechen obsah překládat povinně, nebo povolit fallback na češtinu, když anglická verze chybí. Tato položka pohlcuje samostatný úkol *„Anglická lokalizace nadpisů ve widgetech"*, který byl dříve veden zvlášť.
 
 - **Automatické kontroly před publikací.** [docs/publishing.md:8-18](publishing.md#L8-L18) definuje ruční checklist před nasazením (widgety se renderují, metadata akcí jsou validní, odkazy fungují atd.). Nahradit CI jobem, který poběží při každém pushi: sestaví web s `publishconf.py`, ověří frontmatter akcí (povinná a parsovatelná pole `date` a `event-start`) a zkontroluje odkazy ve složce `output/`.
 
@@ -14,9 +14,9 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Známé problémy
 
-- **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály.
-
 - **UX karet kalendáře na mobilu.** Aktuální horizontální scrollovací řádek karet akcí nahradit „tinder-like" swipe zážitkem: jedna karta na viewport s drobným náznakem následující karty po straně, snap-scroll, vertikální orientace karty. Cílem je výrazně zlepšit čitelnost a ovladatelnost na mobilních zařízeních.
+
+- **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály.
 
 - **Zastaralá syntaxe widgetů v dokumentaci lokálního testování.** [docs/local-testing.md:94](local-testing.md#L94) stále uvádí `<div data-widget="calendar" data-filter="milonga">`, ale [docs/WIDGETS.md:93](WIDGETS.md#L93) uvádí, že widgety používají formu tagu `<widget-*>` bez prefixu `data-`. Uvedený příklad se nevyrenderuje.
 
