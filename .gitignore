@@ -19,9 +19,22 @@ migration-scripts/
 .playwright-mcp/
 
 # Browser-test screenshots (UX once-over). Skill writes them under
-# .playwright-mcp/ — these patterns are belt-and-braces in case anyone
-# forgets the path prefix and they land at the repo root.
+# ~/Documents/playwright-mcp-output/ now — these patterns are belt-and-braces
+# in case an agent forgets the path prefix and a screenshot lands at the repo
+# root. The proper fix lives in ~/.claude/CLAUDE.md.
 event-detail.png
 verif-*.png
 uxr-*.png
 *-pr*.png
+step*.png
+step*.jpg
+step*.jpeg
+mcp-*.png
+mcp-*.jpg
+mcp-*.jpeg
+screenshot-*.png
+screenshot-*.jpg
+screenshot-*.jpeg
+page-2[0-9][0-9][0-9]-*.yml
+console-2[0-9][0-9][0-9]-*.log
+playwright-trace-*.zip
