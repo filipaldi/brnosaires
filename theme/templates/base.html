@@ -7,12 +7,50 @@
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   {% if SITEURL %}<base href="{{ SITEURL }}/">{% endif %}
 
+  {% set _page_url = article.url if article is defined else page.url if page is defined else '' %}
+  {% set _title = article.title if article is defined else page.title if page is defined else SITENAME %}
+  {% set _desc = (article.description if article is defined and article.description
+                  else article.summary if article is defined
+                  else page.description if page is defined and page.description
+                  else SITEDESCRIPTION) | striptags | truncate(200) %}
+  {% set _img = article.preview_image if article is defined and article.preview_image
+                else page.preview_image if page is defined and page.preview_image
+                else '' %}
+  {% set _type = 'article' if article is defined else 'website' %}
+  {% set _abs_img = (SITEURL ~ '/' ~ _img.lstrip('/')) if _img and SITEURL else '' %}
+
+  {% set _series = (article.metadata.get('series') if article is defined and article.metadata
+                    else page.metadata.get('series') if page is defined and page.metadata
+                    else none) %}
+  {% set _hub = namespace(url=none) %}
+  {% if _series %}{% for p in pages %}{% if p.slug == _series %}{% set _hub.url = p.url %}{% endif %}{% endfor %}{% endif %}
+  {% set _canonical_url = _hub.url if _hub.url else _page_url %}
+
+  {% if SITEURL %}<link rel="canonical" href="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
+
+  <meta property="og:site_name" content="{{ SITENAME }}">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:title" content="{{ _title }}">
+  <meta property="og:description" content="{{ _desc }}">
+  <meta property="og:type" content="{{ _type }}">
+  {% if SITEURL %}<meta property="og:url" content="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
+  {% if _abs_img %}<meta property="og:image" content="{{ _abs_img }}">{% endif %}
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ _title }}">
+  <meta name="twitter:description" content="{{ _desc }}">
+  {% if _abs_img %}<meta name="twitter:image" content="{{ _abs_img }}">{% endif %}
+
+  {% if SITEURL %}
+  <link rel="alternate" type="text/plain" title="llms.txt" href="{{ SITEURL }}/llms.txt">
+  <link rel="alternate" type="text/plain" title="llms-full.txt" href="{{ SITEURL }}/llms-full.txt">
+  {% endif %}
+
   <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
   <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
 
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/variables.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/typography.css">
-  <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/core.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/layout.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/spacing.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/aesthetic.css">

@@ -37,9 +37,40 @@
     </header>
     {% endif %}
 
+    {% set series_slug = meta.get('series') %}
+    {% if series_slug %}
+      {% for p in pages if p.slug == series_slug %}
+      <p class="text-s color-neutral-3">
+        Součást pravidelné série: <a href="{{ p.url }}">{{ p.title }}</a>
+      </p>
+      {% endfor %}
+    {% endif %}
+
     <div class="el-stack stack-xs">
       {{ article.content }}
     </div>
   </article>
 </div>
+
+{% if event_start %}
+{% set _ld_url_ns = namespace(url=article.url) %}
+{% if series_slug %}{% for p in pages if p.slug == series_slug %}{% set _ld_url_ns.url = p.url %}{% endfor %}{% endif %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ article.title | tojson }},
+  "description": {{ ((article.description or article.summary or '') | striptags | truncate(300)) | tojson }},
+  "startDate": "{{ event_start | event_iso8601 }}",
+  {% if event_end %}"endDate": "{{ event_end | event_iso8601 }}",{% endif %}
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  {% if event_location %}"location": {"@type": "Place", "name": {{ event_location | tojson }}, "address": {{ event_location | tojson }}},{% endif %}
+  {% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},{% endif %}
+  {% if instructor %}"performer": {"@type": "Person", "name": {{ instructor | tojson }}},{% endif %}
+  {% if article.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ article.preview_image.lstrip('/') }}",{% endif %}
+  "url": "{{ SITEURL }}/{{ _ld_url_ns.url }}"
+}
+</script>
+{% endif %}
 {% endblock %}

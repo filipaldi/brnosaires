@@ -172,8 +172,9 @@ Akce se na webu zobrazují s metadaty (typ, časový rozsah, místo, pořadatel,
 | `event-organiser` | Doporučeno | Kdo akci pořádá (např. `Taneční studio Stolárna`, `Lenka a Filip`). |
 | `instructor` | Pro lekce/workshopy | Lektoři. Pro jednoho lektora: napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz poznámka níže). |
 | `recurrence` | Pro opakující se akce | Např. `weekly sunday`, `weekly tuesday`. Viz sekce o opakování níže. |
+| `series` | Pro instance pravidelné série | Např. `milonga-u-draka`, `tango-pizza`. Spojí jednotlivé instance pod jednu hlavní stránku ("hub"). Viz [docs/EDITING.md](docs/EDITING.md) pro detaily. |
 | `description` | Doporučeno | Krátké shrnutí pro kartičky a výsledky vyhledávání (1–2 věty). |
-| `preview_image` | Volitelné | Cesta k obrázku, např. `/images/akce.avif`. |
+| `preview_image` | Volitelné | Cesta k obrázku, např. `/images/akce.avif`. Slouží zároveň pro náhled na sociálních sítích (Facebook, iMessage, Slack, Twitter). |
 | `author` | Volitelné | Autor obsahu. |
 
 > **Více lektorů:** Neobvyklý formát `"['Jméno Jedna', 'Jméno Dva']"` (s uvozovkami a hranatými závorkami) je vyžadován systémem webu. Zkopírujte jej přesně a vyměňte pouze jména. Pro jednoho lektora napište jméno přímo: `instructor: Filip Paldia`.

@@ -77,6 +77,25 @@ def format_event_datetime(value):
     return dt.strftime("%d. %m. %Y %H:%M")
 
 
+def event_iso8601(value):
+    if value is None:
+        return ""
+    tz = pytz.timezone(TIMEZONE)
+    if hasattr(value, "isoformat") and hasattr(value, "tzinfo"):
+        return (tz.localize(value) if value.tzinfo is None else value).isoformat()
+    s = str(value).strip()
+    if not s or len(s) < 10:
+        return ""
+    try:
+        dt = datetime.strptime(s[:19], "%Y-%m-%d %H:%M:%S")
+    except (ValueError, TypeError):
+        try:
+            dt = datetime.strptime(s[:10], "%Y-%m-%d")
+        except (ValueError, TypeError):
+            return s
+    return tz.localize(dt).isoformat()
+
+
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
 JINJA_GLOBALS = {"NOW": NOW}
 
@@ -87,7 +106,7 @@ from calendarium.attrs import parse_widget_attrs
 from recurring_events import expand_recurring, date_add
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601}
 
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs"]
