@@ -249,13 +249,47 @@
   .week.el-reel::-webkit-scrollbar {
     display: none;
   }
+  /* Promote each event to its own snap card.
+     The .day wrapper becomes transparent (display: contents) so its children —
+     the .day-name label and the .event cards — sit directly in the flex row.
+     This means a Saturday with 2 events produces 2 swipeable cards instead of
+     one tall stacked card. The day label appears once at the start of each
+     day-group; the date is repeated inside each card's metadata so no info
+     is lost on the second card. */
   .week.el-reel .day {
+    display: contents;
+  }
+  /* Day label sits above the first event card of its day group.
+     Render it as a flex item that takes a full-row slot (flex-basis: 100%)
+     above the events but with zero height so it doesn't push cards down.
+     Order: -1 so it appears above its day's events.
+     This keeps cards uniform width 80vw and lets the label scroll with the
+     row of events it labels. */
+  /* Day label sits as a slim flex item aligned to the top of the row,
+     between day groups. It renders at natural width (e.g. "St 13.5."),
+     introduces a small horizontal gap before the first event of its day,
+     and scrolls with the snap track so the label always travels with
+     its events. Width is small (~3rem) so cards stay the dominant element. */
+  .week.el-reel .day .day-name {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    font-size: var(--text-s);
+    line-height: var(--size-s);
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+    padding-block-start: 0.5rem;
+    white-space: nowrap;
+  }
+  /* Use .day in selector to outrank the .week.el-reel .day [class*="card-"]
+     desktop rule (3 class specificity → must match here, not lower). */
+  .week.el-reel .day .event {
     inline-size: 80vw;
     flex: 0 0 80vw;
+    width: auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
-  .week.el-reel .day:last-child {
+  .week.el-reel .day:last-child .event:last-child {
     margin-inline-end: 20vw;
   }
   /* Week label: keep desktop's absolute pattern — it sits in the
