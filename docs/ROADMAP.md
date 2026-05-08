@@ -16,6 +16,8 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 ## Známé problémy
 
+- **Nadpisy v kartách akcí se nezalamují.** `h3` v `theme/templates/components/event_card.html` u delších názvů akcí nezalamuje na další řádek — text přeteče šířku karty a je oříznutý/nezobrazený. Přidat v `theme/static/css/components.css` k pravidlu `[class*="card-"] > * > h3` zalamování (`overflow-wrap: anywhere;` nebo `word-break: break-word;`, případně `hyphens: auto;` s `lang="cs"`), aby dlouhé nadpisy korektně zalomily a zůstaly celé čitelné.
+
 - **Maximální šířka karty akce na desktopu.** Když v řadě kalendáře (např. týdenní skupina) je jen jedna akce, karta `aesthetic-card` (viz `theme/templates/components/event_card.html` a `theme/static/css/components.css`) se na desktopu roztáhne přes celou šířku flex/grid kontejneru a působí nepřiměřeně velká. Nastavit `max-width: 45vw` (případně `max-width: min(45vw, …)`) na desktopových breakpointech tak, aby karta neměla nikdy víc než 45 % šířky viewportu. Mobilní layout zachovat beze změny.
 
 - **UX karet kalendáře na mobilu.** Aktuální horizontální scrollovací řádek karet akcí nahradit „tinder-like" swipe zážitkem: jedna karta na viewport s drobným náznakem následující karty po straně, snap-scroll, vertikální orientace karty. Cílem je výrazně zlepšit čitelnost a ovladatelnost na mobilních zařízeních.
@@ -45,4 +47,3 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 - **Apple kalendář – odběr nefunguje.** Na [brnosaires.com](https://brnosaires.com/) v sekci *„📆 Odebírej akce do svého kalendáře"* odkaz **Apple** na macOS (kterýkoli prohlížeč) neotevře Kalendář ani nespustí odběr. Na mobilu se Kalendář sice otevře, ale odběr se nepřidá. Opravit URL/scheme (`webcal://` vs `https://`, případně správné MIME typu `text/calendar`) tak, aby fungoval jak desktop, tak mobil.
 
 - **Tlačítka pro odběr kalendáře jsou plain links.** Odkazy *Apple*, *Google*, *Kopíruj pro ostatní* jsou v současnosti nenápadné textové odkazy a špatně se na ně klepe na mobilu. Upravit jako tři plnohodnotná tlačítka ve stylu hlavního menu (stejné velikosti, tap target ≥ 44 px, odsazení).
-
