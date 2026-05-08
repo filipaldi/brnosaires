@@ -246,9 +246,9 @@
     scrollbar-width: none;
     touch-action: pan-x;
     /* Reserve room for two stacked labels above the row:
-       week-name (top, large) + day-name (below it, small). Desktop's
-       2.5rem isn't enough for both on mobile. */
-    padding-top: 4rem;
+       week-name (top, large) + day-name (below it, small). Desktop
+       padding-top isn't enough for both on mobile. */
+    padding-top: var(--size-2xl);
   }
   .week.el-reel::-webkit-scrollbar {
     display: none;
@@ -293,7 +293,7 @@
      it aligns with the card's title text (not the image edge). */
   .week.el-reel .day .day-name {
     position: absolute;
-    inset-block-start: -2.25rem;
+    inset-block-start: calc(-1 * var(--size-l));
     inset-inline-start: var(--label-indent, var(--size-s));
     font-size: var(--text-s);
     line-height: var(--size-s);
@@ -320,8 +320,8 @@
     margin-inline-end: 20vw;
   }
   /* Week label: keep desktop's absolute pattern — it sits in the
-     padding-top: 2.5rem reserved area above the snap row. Inherits
-     position: absolute; top: 0; left: 0 from the base rule. */
+     reel's reserved padding-top area above the snap row. Inherits
+     position: absolute; top: 0 from the base rule. */
 
   /* Single-axis Cluster of cards becomes a snap-track too */
   .calendar .el-cluster {
