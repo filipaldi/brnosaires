@@ -4,13 +4,39 @@
    not suitable for components or utilities
    ============================================ */
 
-h1, h2, h3, p {
-  max-width: 43vw;
-  min-width: 20rem;
+/* Prose measure. `max(20rem, 43vw)` reproduces the old behaviour exactly —
+   on phones the 20rem term wins (≈ a comfortable line length, but it's a
+   *cap* now, not a min-width, so it can never force the box wider than its
+   column and so can never cause horizontal page scroll on a < 320px screen);
+   on wide screens 43vw wins (the desktop measure column beside the nav rail).
+   `:not([class*="card-"] *)` keeps this off card/widget internals, which set
+   their own (smaller) measure. overflow-wrap / word-break / hyphens let long
+   unbreakable tokens — bare URLs, long Czech display-font words in headings —
+   break instead of jutting out past the viewport (DEFAULT_LANG="cs" → real
+   Czech hyphenation when the element is inside <html lang="cs">). */
+:where(h1, h2, h3, p):not([class*="card-"] *) {
+  max-inline-size: max(20rem, 43vw);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 p img {
   width: 100%;
+}
+
+/* Card text never overflows its card — authoritative reset that wins
+   regardless of source order (pages.css loads last). The card components
+   already do this for `[class*="card-"] > * > h3/p`; this covers any
+   nesting depth (e.g. .calendar .event h3) without relying on the prose
+   rule above (which is scoped out of cards). */
+[class*="card-"] h3,
+[class*="card-"] p {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 /* ============================================
