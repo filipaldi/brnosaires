@@ -1,4 +1,9 @@
-{% set nav_list = nav_items.get(nav_slot|lower, []) %}
+{# nav_slot is 'Main' or 'Marathon' (set by base.html). nav_items['main'] is a
+   {lang: [...]} dict (per-language); nav_items['marathon'] is a flat list
+   (English-only sub-site). Pick the right shape. nav_aria is already a
+   resolved, translated string. #}
+{% set _raw = nav_items.get(nav_slot|lower, []) %}
+{% set nav_list = _raw.get(page_lang, _raw.get('cs', [])) if _raw is mapping else _raw %}
 <nav class="el-stack stack-s align-end{% if nav_slot == 'Marathon' %} nav{% endif %}" role="navigation" aria-label="{{ nav_aria }}">
   {% for nav_page in nav_list %}
   {% set is_active = (page is defined and nav_page.slug and page.slug == nav_page.slug) or (article is defined and nav_page.slug and article.slug == nav_page.slug) or (output_file is defined and nav_page.slug and nav_page.slug in output_file) %}
