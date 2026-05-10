@@ -295,6 +295,31 @@
   .calendar {
     margin-inline: calc(-1 * var(--size-m));
   }
+
+  /* Day-column hugs its card(s) so the reel strides exactly one card at a time.
+     The desktop rule (`.calendar[data-card-size="s"] .week.el-reel .day`, ~line
+     188) pins `.day` to `var(--size-Nxl)` ≈ 411px; the `@container (max-width:
+     40rem)` block below tries to reset it to `inline-size: auto` via a
+     `:has(.event)` selector list — Chromium honours that, but **Safari/WebKit
+     does not** (a `:has()`-bearing selector list inside an `@container` block
+     loses the cascade there). Result on iOS Safari: `.day` keeps its ~411px
+     desktop width while the card inside it is only 70vw ≈ 273px, so the next
+     day's card starts ~138px past where it should — far off-screen, no "swipe
+     me" peek of the next day. So re-assert the day-column width here in a plain
+     `@media` query (WebKit-reliable) and with `!important` so it can't be
+     out-specificity'd by the [data-card-size] desktop rule. `max-content` = the
+     card width (the .day-name is position:absolute → doesn't count); the card
+     also gets an explicit `width: 70vw` so `.day`'s content-size can't
+     re-circularise through the card's `width: 100%`-of-parent rule (line ~131). */
+  .week.el-reel .day {
+    inline-size: max-content !important;
+  }
+  .week.el-reel .day .event,
+  .week.el-reel .day [class*="card-"] {
+    inline-size: 70vw !important;
+    width: 70vw !important;
+    flex: 0 0 70vw !important;
+  }
 }
 
 @container (max-width: 40rem) {
