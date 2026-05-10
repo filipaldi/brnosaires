@@ -1,9 +1,18 @@
+{# --- language signal: define before <html> so line 1 can use it ---------- #}
+{# Marathon is an English-first sub-site with no Czech mirror; force its
+   page_lang to 'en'. Everything else follows the content object's Lang:
+   metadata (default 'cs'). One definition, reused for <html lang>, og:locale,
+   the meta description, hreflang, the aside branch, and the switcher guard. #}
+{% set _is_marathon = (page is defined and (page.section == 'marathon' or 'marathon' in page.url)) or (article is defined and 'marathon' in article.url) %}
+{% set page_lang = 'en' if _is_marathon else (article.lang if article is defined else page.lang if page is defined else DEFAULT_LANG) %}
+{% set _og_locale = {'cs': 'cs_CZ', 'en': 'en_GB'}.get(page_lang, 'cs_CZ') %}
+{% set _site_desc = {'cs': SITEDESCRIPTION, 'en': SITEDESCRIPTION_EN}.get(page_lang, SITEDESCRIPTION) %}
 <!DOCTYPE html>
-<html lang="{{ DEFAULT_LANG }}">
+<html lang="{{ page_lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
+  <meta name="description" content="{{ SITENAME }} - {{ _site_desc }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   {% if SITEURL %}<base href="{{ SITEURL }}/">{% endif %}
 
@@ -12,7 +21,7 @@
   {% set _desc = (article.description if article is defined and article.description
                   else article.summary if article is defined
                   else page.description if page is defined and page.description
-                  else SITEDESCRIPTION) | striptags | truncate(200) %}
+                  else _site_desc) | striptags | truncate(200) %}
   {% set _img = article.preview_image if article is defined and article.preview_image
                 else page.preview_image if page is defined and page.preview_image
                 else '' %}
@@ -28,8 +37,19 @@
 
   {% if SITEURL %}<link rel="canonical" href="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
 
+  {# hreflang alternates: the current page + each of its translations.
+     With the i18n_fallback plugin every cs page has an `en` variant and
+     vice-versa, so this fires on (almost) every page. Marathon pages have no
+     translation -> no block, which is correct (single-language sub-site). #}
+  {% set _trans = (article.translations if article is defined else page.translations if page is defined else []) %}
+  {% if SITEURL and _trans %}
+  <link rel="alternate" hreflang="{{ page_lang }}" href="{{ SITEURL }}/{{ _canonical_url }}">
+  {% for tr in _trans %}<link rel="alternate" hreflang="{{ tr.lang }}" href="{{ SITEURL }}/{{ tr.url }}">
+  {% endfor %}<link rel="alternate" hreflang="x-default" href="{{ SITEURL }}/{{ _canonical_url if page_lang == DEFAULT_LANG else _trans[0].url }}">
+  {% endif %}
+
   <meta property="og:site_name" content="{{ SITENAME }}">
-  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:locale" content="{{ _og_locale }}">
   <meta property="og:title" content="{{ _title }}">
   <meta property="og:description" content="{{ _desc }}">
   <meta property="og:type" content="{{ _type }}">
@@ -60,7 +80,7 @@
 
   {% block head %}{% endblock %}
 </head>
-<body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}marathon{% endif %}">
+<body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if _is_marathon %}marathon{% endif %}">
   <div class="layout-with-aside">
     <div class="el-stack stack-l">
       <main role="main" class="padding-all-m padding-top-l">
@@ -69,14 +89,15 @@
       {% include 'components/footer.html' %}
     </div>
     <aside class="layout-aside padding-all-m el-stack stack-l align-end el-imposter-aside" role="complementary">
-      {% if (page is defined and page.section == 'marathon') or (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
+      {% if _is_marathon %}
       {% set nav_slot = 'Marathon' %}
-      {% set nav_aria = 'Marathon navigation' %}
+      {% set nav_aria = 'marathon_navigation' | t(page_lang) %}
       {% include 'components/navigation.html' %}
       {% else %}
       <a href="" class="logo text-xl">{{ SITENAME }}</a>
+      {% include 'components/lang_switcher.html' %}
       {% set nav_slot = 'Main' %}
-      {% set nav_aria = 'Main navigation' %}
+      {% set nav_aria = 'main_navigation' | t(page_lang) %}
       {% include 'components/navigation.html' %}
       {% endif %}
     </aside>
@@ -96,13 +117,30 @@
           event.preventDefault();
           navigator.clipboard.writeText(url).then(function () {
             var original = link.textContent;
-            link.textContent = '✓ ' + original;
+            link.textContent = '{{ "copied_prefix" | t(page_lang) }}' + original;
             setTimeout(function () { link.textContent = original; }, 1800);
           }).catch(function () {
             window.location.href = url;
           });
         });
       });
+
+      // Language switcher: remember the choice, and on the root path redirect
+      // to /en/ if the visitor previously picked English. Progressive
+      // enhancement only — the switcher links work without JS.
+      try {
+        var path = window.location.pathname;
+        var stored = window.localStorage.getItem('lang');
+        // record the language of the page we're on
+        document.querySelectorAll('a[data-set-lang]').forEach(function (a) {
+          a.addEventListener('click', function () {
+            try { window.localStorage.setItem('lang', a.getAttribute('data-set-lang')); } catch (e) {}
+          });
+        });
+        if (stored === 'en' && (path === '/' || path === '/index.html')) {
+          window.location.replace('/en/');
+        }
+      } catch (e) {}
     });
   </script>
   {% block scripts %}{% endblock %}

@@ -1,0 +1,30 @@
+{# Language switcher: CS · EN. The current language is shown as plain
+   (non-link) text; the other language links to this page's counterpart
+   (from the content object's `.translations`), falling back to the other
+   language's homepage. Included from base.html only when not _is_marathon
+   (the marathon sub-site is English-only — nothing to switch to).
+
+   `data-set-lang` lets the small script in base.html remember the choice
+   in localStorage; the link works fine without JS. #}
+{% set _obj = article if article is defined else page if page is defined else none %}
+{% set _here_lang = page_lang %}
+{% set _ns = namespace(cs_url=none, en_url=none) %}
+{% if _obj %}
+  {% if _here_lang == 'cs' %}{% set _ns.cs_url = _obj.url %}{% else %}{% set _ns.en_url = _obj.url %}{% endif %}
+  {% for tr in (_obj.translations or []) %}
+    {% if tr.lang == 'cs' %}{% set _ns.cs_url = tr.url %}{% elif tr.lang == 'en' %}{% set _ns.en_url = tr.url %}{% endif %}
+  {% endfor %}
+{% endif %}
+{% set _cs_href = _ns.cs_url if _ns.cs_url else '' %}
+{% set _en_href = _ns.en_url if _ns.en_url else 'en/' %}
+<nav class="lang-switcher cluster gap-xs text-s" role="navigation" aria-label="{{ 'language_switcher' | t(page_lang) }}">
+  {% if _here_lang == 'cs' %}
+  <span class="lang-switcher__current" aria-current="true">CS</span>
+  <span aria-hidden="true">·</span>
+  <a class="lang-switcher__alt" href="{{ _en_href }}" hreflang="en" lang="en" data-set-lang="en">EN</a>
+  {% else %}
+  <a class="lang-switcher__alt" href="{{ _cs_href }}" hreflang="cs" lang="cs" data-set-lang="cs">CS</a>
+  <span aria-hidden="true">·</span>
+  <span class="lang-switcher__current" aria-current="true">EN</span>
+  {% endif %}
+</nav>
