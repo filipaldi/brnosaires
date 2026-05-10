@@ -14,8 +14,11 @@
     {% if event_start %}
       {# Date in the page's locale (cs: "16. 05. 2026", en: "16 May 2026").
          event_start carries a time, but we want date-only here, so build a
-         midnight-equivalent value via .date() before formatting. #}
-      <p>{{ event_start.date() | format_event_datetime(page_lang) }}</p>
+         midnight-equivalent value via .date() before formatting. page_lang is
+         defaulted in case this card is included from a context that doesn't
+         set it (it's the template-level set in page.html and injected into the
+         widget render context by widget_processor.py — but be defensive). #}
+      <p>{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>
       {% set event_time_str = event_start.strftime('%H:%M') %}
       {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
       {% if event_time_str %}<p>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
