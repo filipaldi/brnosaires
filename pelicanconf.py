@@ -1,5 +1,7 @@
 SITENAME = "Brnos Aires"
 SITEDESCRIPTION = "Přehledně a aktuálně o argentinském tangu v Brně"
+# English meta-description fallback (base.html picks per page_lang).
+SITEDESCRIPTION_EN = "Argentine tango in Brno, kept current and clear"
 SITEURL = ""
 RELATIVE_URLS = True
 DEFAULT_LANG = "cs"
@@ -46,6 +48,9 @@ PAGINATION_PATTERNS = (
 SLUGIFY_SOURCE = "basename"
 
 DEFAULT_DATE_FORMAT = "%d. %m. %Y"
+# Pelican keys date formatting by language. English: "8 January 2026" — full
+# month name, day-first, no comma (the schema.org-/Google-friendly format).
+DATE_FORMATS = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}
 TIMEZONE = "Europe/Prague"
 
 FEED_ALL_ATOM = None
@@ -64,13 +69,28 @@ import os
 NOW = datetime.now(pytz.timezone(TIMEZONE))
 
 
-def format_event_datetime(value):
+# Date-only format strings, keyed by language; the time ("HH:MM") is appended
+# language-agnostically when the value carries a non-midnight time.
+_DATE_ONLY_FMT = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}
+
+
+def _fmt_dt(dt, lang):
+    date_fmt = _DATE_ONLY_FMT.get(lang or "cs", _DATE_ONLY_FMT["cs"])
+    if dt.hour == 0 and dt.minute == 0:
+        return dt.strftime(date_fmt)
+    return dt.strftime(date_fmt) + " " + dt.strftime("%H:%M")
+
+
+def format_event_datetime(value, lang="cs"):
+    """Render a date / datetime / ISO-ish string in the given language.
+
+    Used by article.html and event_card.html — pass the page's `page_lang`.
+    Defaults to Czech so existing call sites without the arg keep working.
+    """
     if value is None:
         return ""
     if hasattr(value, "strftime"):
-        if getattr(value, "hour", 0) == 0 and getattr(value, "minute", 0) == 0:
-            return value.strftime("%d. %m. %Y")
-        return value.strftime("%d. %m. %Y %H:%M")
+        return _fmt_dt(value, lang)
     s = str(value).strip()
     if not s or len(s) < 10:
         return ""
@@ -81,9 +101,7 @@ def format_event_datetime(value):
             dt = datetime.strptime(s[:10], "%Y-%m-%d")
         except (ValueError, TypeError):
             return s
-    if dt.hour == 0 and dt.minute == 0:
-        return dt.strftime("%d. %m. %Y")
-    return dt.strftime("%d. %m. %Y %H:%M")
+    return _fmt_dt(dt, lang)
 
 
 def event_iso8601(value):
@@ -106,16 +124,29 @@ def event_iso8601(value):
 
 
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
-JINJA_GLOBALS = {"NOW": NOW}
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
+sys.path.insert(0, os.path.dirname(__file__))  # so `theme.i18n` is importable
 from calendarium.filter import make_calendar_filter
 from calendarium.grouping import group_events
 from calendarium.attrs import parse_widget_attrs
 from recurring_events import expand_recurring, date_add
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601}
+from theme.i18n import cs as _i18n_cs, en as _i18n_en
+
+# Per-language UI string tables. `t(key, lang)` is the template helper:
+#   {{ 'no_upcoming_dates' | t(page_lang) }}
+# Unknown lang -> Czech; unknown key -> the key itself (visible but harmless).
+STRINGS = {"cs": _i18n_cs.STRINGS, "en": _i18n_en.STRINGS}
+
+
+def t(key, lang="cs"):
+    return STRINGS.get(lang, STRINGS["cs"]).get(key, STRINGS["cs"].get(key, key))
+
+
+JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body
