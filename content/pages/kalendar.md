@@ -27,7 +27,6 @@ Aktuální kalendář brněnských tango událostí. Milongy, praktika a lekce n
     group_by="week day" 
     headers="week day" 
     filter_by_type="milonga neolonga pocoloco praktika workshop" 
-    card_size="xs" 
     days="120"
     hide_empty_days="true"
     card_size="s">
