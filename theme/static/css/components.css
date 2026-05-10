@@ -43,7 +43,7 @@
      Above ~1920px viewport:  capped at 56rem (896px)
    The middle term `calc(50vw - 4rem)` is the linear interpolation that
    hits 36rem at 1280px and 56rem at 1920px. clamp() handles the bounds.
-   Mobile (<40rem) keeps its 65vw snap-card layout from the @container
+   Mobile (<40rem) uses the 70vw snap-card layout from the @container
    block lower in this file. Tune the three rem values in DevTools. */
 @container (min-width: 40rem) {
   [class*="card-"] {
@@ -250,10 +250,13 @@
 /* ============================================
    MOBILE CARD UX (≤ 40rem)
    ----------------------------------------
-   Cards: 80vw wide, content-driven height.
+   Cards: 70vw wide, content-driven height. The reel breaks out of <main>'s
+   gutter (see the @media block below) so it scrolls the full screen width;
+   the gutter is re-added inside each scroller as scroll-padding-inline + a
+   leading ::before spacer.
    Square preview image. Larger text.
-   Horizontal scroll-snap with peek of next card.
-   Last card snaps fully into view via trailing spacer.
+   Horizontal scroll-snap with peek of next card (70vw card + 30vw spacer/peek
+   = 100vw, so the last card can still snap fully into view).
    ============================================ */
 
 /* Escape <main>'s horizontal gutter (padding-all-m = var(--size-m)) so the
@@ -369,14 +372,14 @@
   /* Use .day in selector to outrank the .week.el-reel .day [class*="card-"]
      desktop rule (3 class specificity → must match here, not lower). */
   .week.el-reel .day .event {
-    inline-size: 80vw;
-    flex: 0 0 80vw;
+    inline-size: 70vw;
+    flex: 0 0 70vw;
     width: auto;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
   .week.el-reel .day:last-child .event:last-child {
-    margin-inline-end: 20vw;
+    margin-inline-end: 30vw;
   }
   /* Week label: keep desktop's absolute pattern — it sits in the
      reel's reserved padding-top area above the snap row. Inherits
@@ -409,13 +412,13 @@
     display: none;
   }
   .calendar .el-cluster [class*="card-"] {
-    flex: 0 0 80vw;
-    inline-size: 80vw;
+    flex: 0 0 70vw;
+    inline-size: 70vw;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
   .calendar .el-cluster [class*="card-"]:last-child {
-    margin-inline-end: 20vw;
+    margin-inline-end: 30vw;
   }
   /* Label: anchor to top-left of the cluster, aligned with the first card's
      title text — cluster's left edge is now at the screen edge, so add the
@@ -492,14 +495,14 @@
   }
   .el-cluster:has(.event):not(.calendar *) > .event,
   .el-cluster:has(.event):not(.calendar *) > [class*="card-"] {
-    flex: 0 0 80vw;
-    inline-size: 80vw;
+    flex: 0 0 70vw;
+    inline-size: 70vw;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
   .el-cluster:has(.event):not(.calendar *) > .event:last-child,
   .el-cluster:has(.event):not(.calendar *) > [class*="card-"]:last-child {
-    margin-inline-end: 20vw;
+    margin-inline-end: 30vw;
   }
   .el-cluster:has(.event):not(.calendar *) .el-frame-16x9 {
     --n: 1;
