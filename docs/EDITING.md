@@ -165,10 +165,33 @@ llm_mirror: false
 
 Aktuálně tento řádek nesou všechny soubory v [content/curiosities/](../content/curiosities/) a [content/people/](../content/people/). Editor jednotlivých souborů to může kdykoli vrátit zpět odebráním řádku — `.md` zrcadlo se začne znovu generovat při dalším buildu. HTML stránka tím dotčená není.
 
+## Jazykové verze — anglická verze webu (`/en/`)
+
+Web má anglickou verzi pod prefixem `/en/`. České stránky si ponechávají původní URL (`/<slug>/`) beze změny. V hlavičce webu je přepínač `CS · EN`.
+
+**Jak to funguje editorsky:**
+
+- **Každá stránka má anglický klon „zdarma".** I když anglickou verzi nenapíšete, `/en/<slug>/` přesto existuje — zobrazí *české tělo* článku, ale s anglickým „obalem": navigace, datumy, meta tagy, přepínač jazyka, `<html lang="en">`, `hreflang`. Web tak má od začátku plné pokrytí; překlady přibývají postupně.
+- **Chcete napsat skutečnou anglickou verzi stránky?** Vytvořte vedle původního souboru sourozenec s příponou `.en.md` a **stejným `slug`em**:
+
+  ```
+  content/pages/o-nas.md        →  Lang: cs  (nepovinné — výchozí),  Slug: o-nas
+  content/pages/o-nas.en.md     →  Lang: en,                          Slug: o-nas   (stejný slug!)
+  ```
+
+  Pelican je propojí podle `slug`u. Anglický soubor se vyrenderuje na `/en/o-nas/`, přepínač jazyka mezi nimi pak skáče správně. `Lang: en` do hlavičky napište explicitně, i když přípona `.en.` ho nastavuje sama (kvůli čitelnosti).
+- **Domovská stránka:** anglický `content/pages/index.en.md` musí mít `save_as: en/index.html` (protože český `index.md` má vlastní `save_as: index.html` / prázdný `url:`, který by se jinak zdědil).
+- **Datumy** se vykreslují podle jazyka stránky: česky `16. 05. 2026`, anglicky `16 May 2026`. Nic nenastavujete — je to automatické.
+- **Navigace v hlavičce:** anglické popisky odkazů jsou v [content/navigation/main.en.md](../content/navigation/main.en.md) (stejné slugy, anglické texty). Patička je zatím česky i na `/en/` stránkách — bude přepracována zvlášť (viz [ROADMAP.md](ROADMAP.md)).
+- **Tango Marathon** je výjimka: je **anglicky od začátku, bez české verze**. Stránky v `content/pages/marathon/` proto žádný sourozenec nedostávají, přepínač jazyka se na nich nezobrazuje a `<html lang>` je tam vždy `en`. (Soubor `index-cz.md` je osamělá česká upoutávka mimo tento systém — neřešte ho.)
+
+Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang`, proč jsou české URL beze změny) je popsaná v [SEO.md](SEO.md).
+
 ## Související dokumenty
 
 - [README.md](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
-- [SEO.md](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů.
+- [SEO.md](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
 - [WIDGETS.md](WIDGETS.md) — tagy `<widget-*>` v těle článku.
 - [content/pages/milonga-u-draka.md](../content/pages/milonga-u-draka.md) — reálný příklad hub stránky.
 - [content/events/2026/05/2026-05-16-milonga-u-draka.md](../content/events/2026/05/2026-05-16-milonga-u-draka.md) — reálný příklad instance v sérii.
+- [content/navigation/main.en.md](../content/navigation/main.en.md) — anglické popisky hlavní navigace.

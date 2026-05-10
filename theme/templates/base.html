@@ -95,10 +95,10 @@
       {% include 'components/navigation.html' %}
       {% else %}
       <a href="" class="logo text-xl">{{ SITENAME }}</a>
-      {% include 'components/lang_switcher.html' %}
       {% set nav_slot = 'Main' %}
       {% set nav_aria = 'main_navigation' | t(page_lang) %}
       {% include 'components/navigation.html' %}
+      {% include 'components/lang_switcher.html' %}
       {% endif %}
     </aside>
   </div>

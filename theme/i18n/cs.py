@@ -7,7 +7,12 @@ STRINGS = {
     # --- navigation (aria-labels in base.html) ---
     "main_navigation": "Hlavní navigace",
     "marathon_navigation": "Navigace maratonu",
-    "language_switcher": "Přepnout jazyk",
+    # Language switcher: the visible label is the *target* language's own name
+    # (an endonym — same in any UI language); the aria-label spells out the action.
+    "lang_name_cs": "Čeština",
+    "lang_name_en": "English",
+    "switch_to_cs": "Přepnout na češtinu",
+    "switch_to_en": "Switch to English",
 
     # --- page.html: series hub "upcoming dates" block ---
     "series_upcoming_heading": "Nejbližší termíny",

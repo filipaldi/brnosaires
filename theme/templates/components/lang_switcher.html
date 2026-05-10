@@ -1,34 +1,23 @@
-{# Language switcher: CS · EN. The current language is shown as plain
-   (non-link) text; the other language links to this page's counterpart
-   (from the content object's `.translations`), falling back to the other
-   language's homepage. Included from base.html only when not _is_marathon
-   (the marathon sub-site is English-only — nothing to switch to).
+{# Language switcher — a single chip styled exactly like the other menu items,
+   labelled with the *target* language's own name ("English" on a Czech page,
+   "Čeština" on an English page). Links to this page's translation counterpart
+   (from .translations), falling back to the other language's homepage.
+   Included from base.html only when not _is_marathon (the marathon sub-site is
+   English-only — nothing to switch to).
 
-   `data-set-lang` lets the small script in base.html remember the choice
-   in localStorage; the link works fine without JS. #}
+   `data-set-lang` lets the small script in base.html remember the choice in
+   localStorage; the link works fine without JS. #}
 {% set _obj = article if article is defined else page if page is defined else none %}
-{% set _here_lang = page_lang %}
-{% set _ns = namespace(cs_url=none, en_url=none) %}
+{% set _other = 'en' if page_lang == 'cs' else 'cs' %}
+{% set _ns = namespace(url=none) %}
 {% if _obj %}
-  {% if _here_lang == 'cs' %}{% set _ns.cs_url = _obj.url %}{% else %}{% set _ns.en_url = _obj.url %}{% endif %}
   {% for tr in (_obj.translations or []) %}
-    {% if tr.lang == 'cs' %}{% set _ns.cs_url = tr.url %}{% elif tr.lang == 'en' %}{% set _ns.en_url = tr.url %}{% endif %}
+    {% if tr.lang == _other %}{% set _ns.url = tr.url %}{% endif %}
   {% endfor %}
 {% endif %}
-{# The cs homepage's url is literally empty (url:/save_as:index.html), so an
-   empty cs counterpart means "the site root" -> '/'. Likewise '/en/' for the
-   English homepage. (With <base href> in prod these resolve correctly; in dev
-   '/' is the server root.) #}
-{% set _cs_href = _ns.cs_url if _ns.cs_url else '/' %}
-{% set _en_href = _ns.en_url if _ns.en_url else 'en/' %}
-<nav class="lang-switcher cluster gap-xs text-s" role="navigation" aria-label="{{ 'language_switcher' | t(page_lang) }}">
-  {% if _here_lang == 'cs' %}
-  <span class="lang-switcher__current" aria-current="true">CS</span>
-  <span aria-hidden="true">·</span>
-  <a class="lang-switcher__alt" href="{{ _en_href }}" hreflang="en" lang="en" data-set-lang="en">EN</a>
-  {% else %}
-  <a class="lang-switcher__alt" href="{{ _cs_href }}" hreflang="cs" lang="cs" data-set-lang="cs">CS</a>
-  <span aria-hidden="true">·</span>
-  <span class="lang-switcher__current" aria-current="true">EN</span>
-  {% endif %}
+{# empty/absent counterpart -> the other language's homepage: '/' for cs, 'en/' for en.
+   With <base href> in prod these resolve to the right absolute URLs. #}
+{% set _href = _ns.url if _ns.url else ('/' if _other == 'cs' else 'en/') %}
+<nav class="lang-switcher el-stack stack-s align-end" aria-label="{{ ('switch_to_' ~ _other) | t(page_lang) }}">
+  <a href="{{ _href }}" class="aesthetic-chip chip-m" hreflang="{{ _other }}" lang="{{ _other }}" data-set-lang="{{ _other }}">{{ ('lang_name_' ~ _other) | t(page_lang) }}</a>
 </nav>
