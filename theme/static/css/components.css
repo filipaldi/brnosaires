@@ -132,6 +132,29 @@
 }
 
 /* ============================================
+   PAGE NAV RAIL (.layout-aside)
+   ----------------------------------------
+   The aside is a position:fixed rail pinned to the right edge of every
+   page (see .el-imposter-aside in layout.css). Its box — including the
+   empty space between/around the chips — would otherwise be a solid
+   hit-test surface that swallows taps aimed at page content sitting
+   behind it (e.g. calendar cards on the right strip on phones). Make the
+   rail's *container* transparent to pointer events; the chips and the
+   wordmark stay clickable. A tap on a chip navigates as before; a tap on
+   the empty rail space passes through to whatever is behind it. Purely a
+   hit-testing change — no visual/layout effect.
+   ============================================ */
+
+.layout-aside,
+.layout-aside nav {
+  pointer-events: none;
+}
+
+.layout-aside a {
+  pointer-events: auto;
+}
+
+/* ============================================
    WIDGET CALENDAR (grouped)
    ============================================ */
 
