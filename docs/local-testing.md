@@ -2,7 +2,9 @@
 
 ## Development Server
 
-### Start Development Server
+### The workflow: build manually, serve statically — no `--autoreload`
+
+**We do not use `--autoreload`.** You rebuild the site yourself with `pelican content` whenever you change content, theme, or settings, then hard-reload the browser. The server is a plain static file server (`pelican --listen`) — it serves `output/` and never rebuilds it. This is deliberate: on this machine `--autoreload` interacts badly with Spotlight/Time Machine churning `output/` (torn, partial builds), and more importantly you want to control exactly when `output/` is regenerated rather than have it happen on every keystroke. Stick to **one** server on **one** port (41234) — don't spin up throwaway servers on other ports.
 
 ```bash
 # Activate virtual environment
@@ -10,14 +12,19 @@ source venv/bin/activate  # macOS/Linux
 # or
 venv\Scripts\activate     # Windows
 
-# Start Pelican with auto-reload
-pelican content -s pelicanconf.py --autoreload --listen --port 41234
+# 1. Build the site (re-run this every time you change something)
+pelican content -s pelicanconf.py
+
+# 2. In a separate shell, serve output/ (leave it running; it does NOT rebuild)
+pelican --listen --port 41234
 ```
 
+Loop: edit files → re-run `pelican content -s pelicanconf.py` → hard-reload `http://localhost:41234/` (`Cmd+Shift+R`).
+
 **Options:**
-- `--autoreload`: Automatically rebuild on file changes
-- `--listen`: Start HTTP server
-- `--port 41234`: Bind on a fixed non-default port (see "Port choice" below)
+- `--listen`: start the HTTP static server (serves `output/`, no rebuilding)
+- `--port 41234`: bind on a fixed non-default port (see "Port choice" below)
+- (We intentionally omit `--autoreload`. If you ever want it for a quick throwaway session, fine — but the documented, repeatable workflow is the manual rebuild above.)
 
 ### Port choice — `41234`
 
@@ -34,11 +41,13 @@ Open browser to: `http://localhost:41234`
 ### Preview on a phone / other device (same Wi-Fi)
 
 `localhost` only works on the Mac itself. To open the site on an iPhone (or any
-other device on the same network), bind the dev server to **all** interfaces:
+other device on the same network), build first, then run the static server bound
+to **all** interfaces:
 
 ```bash
 source venv/bin/activate
-pelican content -s pelicanconf.py --autoreload --listen --bind 0.0.0.0 --port 41234
+pelican content -s pelicanconf.py                       # build (re-run after edits)
+pelican --listen --bind 0.0.0.0 --port 41234            # serve output/ on all interfaces (no autoreload)
 ```
 
 Then find the Mac's LAN IP and open it from the phone:
@@ -69,10 +78,13 @@ Press `Ctrl+C` in terminal
 
 ### Kill Port (if needed)
 
-**macOS/Linux:**
+**macOS/Linux** — find what's holding it, then kill (plain `kill`, not `kill -9`; the agent harness blocks `kill -9`):
 ```bash
-lsof -ti:41234 | xargs kill -9
+lsof -nP -iTCP:41234 -sTCP:LISTEN     # who's listening (PID + command)
+lsof -ti:41234 | xargs kill           # kill by port
+lsof -ti:41234 || echo "41234 free"   # verify
 ```
+The static server is also a `pelican` process, so `pkill -f 'venv/bin/pelican'` works too (but `pkill` is blocked in the agent harness — a human runs it).
 
 **Windows:**
 ```bash
@@ -105,11 +117,8 @@ pelican content -s publishconf.py
 ### Clean Build
 
 ```bash
-# Delete output directory first
-rm -rf output/  # macOS/Linux
-rmdir /s output  # Windows
-
-# Then build
+# Delete output directory first, then build
+rm -rf output/   # macOS/Linux  (rmdir /s output on Windows)
 pelican content -s pelicanconf.py
 ```
 
@@ -117,6 +126,8 @@ Or use Pelican's built-in clean:
 ```bash
 pelican content -s pelicanconf.py --delete-output-directory
 ```
+
+> **Heads-up (agent harness):** `rm -rf`, `rmdir`, and `--delete-output-directory` (the word "delete") are blocked by the dangerous-command hook — a human runs those. Also: if `output/` keeps reappearing right after you delete it, something is still running a build — it's almost always a stray `pelican --autoreload` (which is exactly why we don't use it) or an editor's preview server. Find it with `ps aux | grep pelican | grep -v grep` and `lsof -ti:41234`.
 
 ## Testing Widgets
 
@@ -184,9 +195,9 @@ Add debug output to templates temporarily:
 
 Modify template in `theme/templates/`
 
-### 2. Auto-Reload
+### 2. Rebuild
 
-With `--autoreload` flag, changes rebuild automatically
+Re-run `pelican content -s pelicanconf.py` (we don't use `--autoreload` — see [the workflow note](#the-workflow-build-manually-serve-statically--no---autoreload) at the top). Watch this command's output for template errors.
 
 ### 3. Refresh Browser
 
@@ -194,7 +205,7 @@ Hard refresh: `Cmd+Shift+R` (macOS) or `Ctrl+Shift+R` (Windows)
 
 ### 4. Check for Errors
 
-Watch terminal output for:
+Watch the `pelican content` output for:
 - Template syntax errors
 - Missing variables
 - Import errors
