@@ -5,7 +5,7 @@ lang: en
 slug: skoly-a-lektorstvi
 description: Argentine tango schools and teachers in Brno. Who teaches, where, and with what approach.
 author: Filip Paldia
-preview_image: /images//images/milonga-hned-vedle.avif
+preview_image: /images/milonga-hned-vedle.avif
 ---
 
 # Argentine Tango Schools and Teachers in Brno
