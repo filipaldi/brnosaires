@@ -28,6 +28,16 @@ PAGE_URL = "{slug}/"
 PAGE_SAVE_AS = "{slug}/index.html"
 CATEGORY_URL = "category/{slug}/"
 CATEGORY_SAVE_AS = "category/{slug}/index.html"
+
+# Non-default-language content (Lang: en) lives under /en/. Default lang (cs)
+# keeps the root-level URLs above untouched. A Content object with lang != cs
+# automatically reads these via Content.get_url_setting (lang_ prefix).
+ARTICLE_LANG_URL = "en/{slug}/"
+ARTICLE_LANG_SAVE_AS = "en/{slug}/index.html"
+PAGE_LANG_URL = "en/{slug}/"
+PAGE_LANG_SAVE_AS = "en/{slug}/index.html"
+CATEGORY_LANG_URL = "en/category/{slug}/"
+CATEGORY_LANG_SAVE_AS = "en/category/{slug}/index.html"
 PAGINATION_PATTERNS = (
     (1, '{url}', '{save_as}'),
     (2, '{base_name}/{number}/', '{base_name}/{number}/index.html'),
@@ -108,7 +118,9 @@ from gallery_widget import get_gallery_images
 JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601}
 
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# i18n_fallback must come AFTER widget_processor — it clones the post-widget body
+# (widget_processor only iterates generator.pages/articles, not translations).
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",
