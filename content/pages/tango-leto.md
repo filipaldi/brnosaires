@@ -15,7 +15,7 @@ V létě se v Brně tančí! Open-air milongy, open-air praktika, tango s živou
 
 
 <widget-calendar-link 
-    filter_by_type="milonga practica neolonga"
+    filter_by_type="milonga praktika"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 

@@ -1,10 +1,19 @@
 {# --- language signal: define before <html> so line 1 can use it ---------- #}
-{# Marathon is an English-first sub-site with no Czech mirror; force its
-   page_lang to 'en'. Everything else follows the content object's Lang:
-   metadata (default 'cs'). One definition, reused for <html lang>, og:locale,
-   the meta description, hreflang, the aside branch, and the switcher guard. #}
+{# Some content is monolingual — no translation, and never will have one (e.g.
+   the marathon sub-site, English-first with no Czech mirror). Such content
+   declares `translate: false` in its front-matter (the marathon folders get it
+   in bulk via EXTRA_PATH_METADATA in pelicanconf.py). On those pages page_lang
+   is 'en' and the language switcher is suppressed — the i18n_fallback plugin
+   also synthesizes no /en/ clone for them, so `_trans` is empty and the
+   hreflang block below doesn't fire (correct: single-language content).
+   Everything else follows Lang: (default 'cs') and gets the switcher + an /en/
+   counterpart.
+   `_is_marathon` (below) is a separate, purely *layout* signal — which nav and
+   <body data-section> to use. Don't conflate it with the language test. #}
+{% set _obj = article if article is defined else page if page is defined else none %}
+{% set _no_translate = (_obj is not none and _obj.metadata is defined and _obj.metadata.get('translate') is sameas false) %}
 {% set _is_marathon = (page is defined and (page.section == 'marathon' or 'marathon' in page.url)) or (article is defined and 'marathon' in article.url) %}
-{% set page_lang = 'en' if _is_marathon else (article.lang if article is defined else page.lang if page is defined else DEFAULT_LANG) %}
+{% set page_lang = 'en' if _no_translate else (_obj.lang if _obj else DEFAULT_LANG) %}
 {% set _og_locale = {'cs': 'cs_CZ', 'en': 'en_GB'}.get(page_lang, 'cs_CZ') %}
 {% set _site_desc = {'cs': SITEDESCRIPTION, 'en': SITEDESCRIPTION_EN}.get(page_lang, SITEDESCRIPTION) %}
 <!DOCTYPE html>
@@ -98,7 +107,7 @@
       {% set nav_slot = 'Main' %}
       {% set nav_aria = 'main_navigation' | t(page_lang) %}
       {% include 'components/navigation.html' %}
-      {% include 'components/lang_switcher.html' %}
+      {% if not _no_translate %}{% include 'components/lang_switcher.html' %}{% endif %}
       {% endif %}
     </aside>
   </div>

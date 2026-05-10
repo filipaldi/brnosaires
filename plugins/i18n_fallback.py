@@ -19,8 +19,12 @@ entry, build a clone with `Lang: en`, the same slug, and the same body, then
 register it on the original's `.translations` AND on the generator's
 `self.translations` so the writer picks it up.
 
-Marathon pages are skipped — that sub-site is English-first with no Czech
-mirror, so it must NOT get a `/en/marathon-...` duplicate.
+Monolingual content is skipped — a page that declares `translate: false` in
+its front-matter (the marathon sub-site does this in bulk via
+EXTRA_PATH_METADATA in pelicanconf.py) has no translation and never will, so
+it must NOT get an `/en/<slug>/` duplicate. (Before, this plugin sniffed for
+"marathon" in the URL / source path; the explicit flag replaces that — see
+docs/EDITING.md.)
 
 ORDER MATTERS: this plugin must run *after* `widget_processor` so the clone
 copies an already-widget-rendered `_content` (widget_processor only iterates
@@ -37,14 +41,12 @@ logger = logging.getLogger(__name__)
 EN_LANG = "en"
 
 
-def _is_marathon(content):
-    """True if this content object belongs to the English-only marathon site."""
-    url = getattr(content, "url", "") or ""
-    if "marathon" in url:
-        return True
-    src = getattr(content, "source_path", "") or ""
-    # source paths look like .../content/pages/marathon/venue.md
-    return "/pages/marathon/" in src.replace("\\", "/") or src.replace("\\", "/").endswith("/pages/marathon")
+def _is_monolingual(content):
+    """True if this content opts out of translation (`translate: false` in
+    front-matter, e.g. injected for the marathon section via
+    EXTRA_PATH_METADATA) — no /en/ mirror should be synthesized for it."""
+    meta = getattr(content, "metadata", None) or {}
+    return meta.get("translate") is False
 
 
 def _has_en_translation(content):
@@ -95,7 +97,7 @@ def _clone_as_en(content):
 def _process(generator, originals, label):
     new_translations = []
     for content in originals:
-        if _is_marathon(content):
+        if _is_monolingual(content):
             continue
         if _has_en_translation(content):
             continue

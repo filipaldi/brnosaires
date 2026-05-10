@@ -15,7 +15,7 @@ Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika neolonga"
+    filter_by_type="milonga praktika"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
@@ -30,7 +30,7 @@ Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
     group_by="week day" 
     headers="week day" 
     days="40" 
-    filter_by_type="milonga neolonga pocoloco praktika" 
+    filter_by_type="milonga praktika" 
     hide_empty_days="true"
     card_size="s">
 </widget-calendar>
