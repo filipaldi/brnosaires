@@ -16,8 +16,8 @@
 
     {% set hub_series = page.metadata.get('series') if page.metadata else none %}
     {% if hub_series %}
-    <section class="el-stack stack-m" aria-label="Nejbližší termíny série">
-      <h2>Nejbližší termíny</h2>
+    <section class="el-stack stack-m" aria-label="{{ 'series_upcoming_aria' | t(page_lang) }}">
+      <h2>{{ 'series_upcoming_heading' | t(page_lang) }}</h2>
       {% set window_events = articles | calendarium(start='today', end='2030-12-31', sort='oldest') %}
       {% set series_events = [] %}
       {% for event in window_events %}
@@ -33,7 +33,7 @@
         {% endfor %}
       </div>
       {% else %}
-      <p>Aktuálně nejsou plánovány žádné termíny. Sleduj nás na sociálních sítích.</p>
+      <p>{{ 'no_upcoming_dates' | t(page_lang) }}</p>
       {% endif %}
     </section>
     {% endif %}

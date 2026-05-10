@@ -76,7 +76,11 @@ _DATE_ONLY_FMT = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}
 
 def _fmt_dt(dt, lang):
     date_fmt = _DATE_ONLY_FMT.get(lang or "cs", _DATE_ONLY_FMT["cs"])
-    if dt.hour == 0 and dt.minute == 0:
+    # `dt` may be a datetime or a plain date (no .hour/.minute). A date, or a
+    # datetime at midnight, renders date-only; otherwise append "HH:MM".
+    hour = getattr(dt, "hour", 0)
+    minute = getattr(dt, "minute", 0)
+    if hour == 0 and minute == 0:
         return dt.strftime(date_fmt)
     return dt.strftime(date_fmt) + " " + dt.strftime("%H:%M")
 

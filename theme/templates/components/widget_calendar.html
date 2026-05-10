@@ -10,12 +10,13 @@
 {% set hide_empty_days = cfg.hide_empty_days %}
 {% set card_size = cfg.card_size or 's' %}
 
+{% set _lang = page_lang | default(DEFAULT_LANG, true) %}
 {% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, sort=sort, limit=limit) %}
 
 {% if display_events %}
-<div class="calendar el-stack-l" role="region" aria-label="Event calendar" data-card-size="{{ card_size }}">
+<div class="calendar el-stack-l" role="region" aria-label="{{ 'event_calendar_aria' | t(_lang) }}" data-card-size="{{ card_size }}">
 {% if group_by %}
-  {% set grouped = display_events | group_events(group_by, DEFAULT_LANG, hide_empty_days) %}
+  {% set grouped = display_events | group_events(group_by, _lang, hide_empty_days) %}
   {% if grouped %}
     {% set first_group = grouped[0] %}
     {% set group_metadata = first_group[2] if first_group|length > 2 else {} %}
