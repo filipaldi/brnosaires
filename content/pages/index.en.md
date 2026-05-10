@@ -1,0 +1,80 @@
+---
+title: Brnos Aires
+date: 2026-01-17 18:00:00
+lang: en
+slug: index
+save_as: en/index.html
+url: en/
+description: Argentine tango in Brno, kept current and clear. The calendar of milongas, classes and workshops, all in one place.
+author: Filip Paldia
+preview_image: /images/milonga-hned-vedle.avif
+---
+
+# Brnos Aires
+
+Brnos Aires is a bunch of people from Brno who ran into Argentine tango. It got into their heads, into their hearts, and, with varying degrees of success, into their feet.
+
+Now they want it to get to you, as close as possible. Up close it looks even better than you think.
+
+Under one roof, Brnos Aires brings together all of Brno's tango communities, schools, teachers and dancers.
+
+<widget-calendar-link 
+    cal_file_name="events" 
+    filter_by_type="milonga praktika workshop"
+    filter_by_path="events" 
+    label="📆 Subscribe to events in your calendar" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Copy for others">
+</widget-calendar-link>
+
+
+<widget-articles 
+    category="announcement" 
+    limit="3" 
+    card_size="s" 
+    metadata="image title">
+</widget-articles>
+
+
+## Where to dance tango this week
+
+<widget-calendar 
+    start="this-week" 
+    filter_by_type="milonga praktika"
+    days="7"
+    card_size="s">
+</widget-calendar>
+
+## Next classes
+<widget-calendar 
+    start="today" 
+    filter_by_type="class" 
+    card_size="s"
+    days="2">
+</widget-calendar>
+
+## Next workshops
+<widget-calendar 
+    filter_by_type="workshop" 
+    card_size="s" 
+    days="60">
+</widget-calendar>
+
+## Curiosities from the world of Argentine tango
+<widget-articles 
+    category="curiosity" 
+    limit="3" 
+    card_size="s" 
+    metadata="image title">
+</widget-articles>
+
+
+<widget-calendar-link 
+    cal_file_name="events" 
+    filter_by_path="events" 
+    label="📆 Subscribe to events in your calendar" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Copy for others">
+</widget-calendar-link>

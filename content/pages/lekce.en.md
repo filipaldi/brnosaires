@@ -1,0 +1,71 @@
+---
+title: Argentine Tango Classes and Workshops in Brno
+date: 2026-01-17 18:00:00
+lang: en
+slug: tango-lekce-brno
+description: Where to learn tango in Brno. The schedule of regular classes from every school and the next workshops, all in one place.
+author: Filip Paldia
+preview_image: /images/milonga-hned-vedle.avif
+---
+
+# Argentine Tango Classes in Brno
+
+Where do you learn tango in Brno? Right here you will find the next workshops and the schedule of regular classes from every school that teaches Argentine tango in the city.
+
+
+<widget-calendar-link 
+    cal_file_name="classes" 
+    filter_by_path="events" 
+    filter_by_type="class workshop" 
+    label="📆 Subscribe to classes in your calendar" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Copy for others">
+</widget-calendar-link>
+
+
+## Regular Argentine tango classes
+
+Three schools run regular classes in Brno, each with its own approach: Taneční studio Stolárna, TangoLab Štěky, and Gabriela & Petr Nečasovi.
+
+<widget-calendar 
+    start="this-week" 
+    filter_by_type="class" 
+    days="6" 
+    sort="oldest" 
+    group_by="week day" 
+    headers="day" 
+    card_size="xs" 
+    hide_empty_days="true">
+</widget-calendar>
+
+## Workshops
+
+For when you want something the regular classes do not give you.
+
+<widget-calendar 
+    filter_by_type="workshop" 
+    card_size="s" 
+    days="60">
+</widget-calendar>
+
+
+## News about tango events in Brno
+
+<widget-articles 
+    category="announcement" 
+    limit="3" 
+    card_size="s" 
+    metadata="image title">
+</widget-articles>
+
+
+<widget-calendar-link 
+    cal_file_name="classes" 
+    filter_by_path="events" 
+    filter_by_type="class workshop" 
+    label="📆 Subscribe to classes in your calendar" 
+    label_webcal="Apple" 
+    label_google="Google" 
+    label_outlook="Copy for others">
+</widget-calendar-link>
