@@ -119,6 +119,7 @@ Markdown nemusíte znát do hloubky — šablony v tomto průvodci pokrývají v
 | **AVIF** | Formát obrázkových souborů (podobně jako JPG nebo PNG, ale efektivnější). Web používá obrázky `.avif`. |
 | **Widget** | Speciální úryvek kódu, který vložíte na stránku a který automaticky zobrazí seznam akcí nebo článků. |
 | **SEO popis** | Krátké shrnutí (1–2 věty) zobrazované ve výsledcích vyhledávačů a náhledech na sociálních sítích. |
+| **Jazyková verze (`.en.md`)** | Web má anglickou verzi pod `/en/`. Vedle českého souboru `foo.md` můžete vytvořit anglický `foo.en.md` se **stejným `Slug`em** a `Lang: en` — Pelican je propojí a přepínač jazyka mezi nimi přepíná. Bez anglického souboru se na `/en/<slug>/` zobrazí české tělo v anglickém obalu (fallback). Podrobnosti a postup krok za krokem: [docs/EDITING.md](docs/EDITING.md) → „Jazykové verze". |
 
 ---
 
