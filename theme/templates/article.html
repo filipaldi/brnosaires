@@ -23,7 +23,7 @@
     <header class="text-s color-neutral-3 el-stack stack-xs">
       {% if event_type %}<p>{{ event_type }}</p>{% endif %}
       {% if event_start %}
-      <p>{{ event_start | format_event_datetime }}{% if event_end %} — {{ event_end | format_event_datetime }}{% endif %}</p>
+      <p>{{ event_start | format_event_datetime(page_lang) }}{% if event_end %} — {{ event_end | format_event_datetime(page_lang) }}{% endif %}</p>
       {% endif %}
       {% if instructor %}<p>{{ instructor }}</p>{% endif %}
       {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
@@ -32,7 +32,7 @@
     {% elif article.date %}
     <header>
       <time class="text-s color-neutral-3" datetime="{{ article.date.isoformat() }}">
-        {{ article.date.strftime('%d. %m. %Y') }}
+        {{ article.date | format_event_datetime(page_lang) }}
       </time>
     </header>
     {% endif %}
@@ -40,8 +40,11 @@
     {% set series_slug = meta.get('series') %}
     {% if series_slug %}
       {% for p in pages if p.slug == series_slug %}
+      {# link to the en hub when we're on an /en/ page, so the visitor stays in English #}
+      {% set _hub_url = namespace(v=p.url) %}
+      {% if page_lang == 'en' %}{% for tr in (p.translations or []) if tr.lang == 'en' %}{% set _hub_url.v = tr.url %}{% endfor %}{% endif %}
       <p class="text-s color-neutral-3">
-        Součást pravidelné série: <a href="{{ p.url }}">{{ p.title }}</a>
+        {{ 'part_of_series' | t(page_lang) }} <a href="{{ _hub_url.v }}">{{ p.title }}</a>
       </p>
       {% endfor %}
     {% endif %}

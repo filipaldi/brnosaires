@@ -18,7 +18,7 @@ Plánované funkce, známé problémy a úklidové úkoly pro web Brnos Aires. P
 
 - **Web neni plne optimalizovan pro čtečky.** 
 
-- **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály.
+- **Footer postrádá SEO a UX best practices.** Současná patička je velmi strohá a pravděpodobně ignoruje SEO i UX standardy (chybí např. navigační odkazy, kontakt, sociální sítě, odkaz na zdroj kalendáře, structured data, odkazy na klíčové stránky). Přepracovat patičku tak, aby plnila funkci sekundární navigace a zlepšila SEO signály. **Součástí tohoto přepracování musí být i anglická varianta patičky** — při anglické lokalizaci webu (`/en/`) byla patička záměrně ponechána česky i na anglických stránkách jako dočasný stav; oprava se sloučí sem, ať se patička nedělá nadvakrát. Odkazy patičky by ideálně měly vznikat přes stejný mechanismus jako hlavní navigace (`content/navigation/`, plugin `nav_from_docs.py`), aby měly per-jazyk varianty (`footer.md` + `footer.en.md`) bez hardcodu v `theme/templates/components/footer.html`.
 
 - **Zastaralá syntaxe widgetů v dokumentaci lokálního testování.** [docs/local-testing.md:94](local-testing.md#L94) stále uvádí `<div data-widget="calendar" data-filter="milonga">`, ale [docs/WIDGETS.md:93](WIDGETS.md#L93) uvádí, že widgety používají formu tagu `<widget-*>` bez prefixu `data-`. Uvedený příklad se nevyrenderuje.
 

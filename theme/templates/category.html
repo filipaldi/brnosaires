@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}{% if category.name == 'announcement' %}Oznámení{% else %}{{ category.name|capitalize }}{% endif %} | {{ SITENAME }}{% endblock %}
+{# Category display name: a localized label for known categories
+   (category_announcement / category_curiosity in the string table),
+   falling back to a capitalised raw name for anything else. #}
+{% set _cat_key = 'category_' ~ category.name %}
+{% set _cat_known = (STRINGS.get(page_lang, STRINGS['cs']).get(_cat_key) is not none) or (STRINGS['cs'].get(_cat_key) is not none) %}
+{% set _cat_label = (_cat_key | t(page_lang)) if _cat_known else (category.name | capitalize) %}
+
+{% block title %}{{ _cat_label }} | {{ SITENAME }}{% endblock %}
 
 {% block content %}
 <div class="group--main-container">
   <article class="el-stack stack-l">
     <header class="el-stack stack-xs">
-      <h1>{% if category.name == 'announcement' %}Oznámení{% else %}{{ category.name|capitalize }}{% endif %}</h1>
+      <h1>{{ _cat_label }}</h1>
     </header>
 
     <div class="widget-announcements">
@@ -27,18 +34,18 @@
     </div>
 
     {% if articles_paginator is defined and articles_page is defined and articles_paginator.num_pages > 1 %}
-    <nav class="el-stack stack-m" aria-label="Stránkování">
+    <nav class="el-stack stack-m" aria-label="{{ 'pagination_aria' | t(page_lang) }}">
       <div class="cluster gap-s">
         {% if articles_page.has_previous() %}
           {% if articles_page.previous_page_number() == 1 %}
-        <a href="{{ category.url }}" class="aesthetic-chip chip-m">← Předchozí</a>
+        <a href="{{ category.url }}" class="aesthetic-chip chip-m">{{ 'pagination_prev' | t(page_lang) }}</a>
           {% else %}
-        <a href="{{ category.url }}{{ articles_page.previous_page_number() }}/" class="aesthetic-chip chip-m">← Předchozí</a>
+        <a href="{{ category.url }}{{ articles_page.previous_page_number() }}/" class="aesthetic-chip chip-m">{{ 'pagination_prev' | t(page_lang) }}</a>
           {% endif %}
         {% endif %}
-        <span class="aesthetic-chip chip-m">Strana {{ articles_page.number }} / {{ articles_paginator.num_pages }}</span>
+        <span class="aesthetic-chip chip-m">{{ ('pagination_page_of' | t(page_lang)).format(n=articles_page.number, total=articles_paginator.num_pages) }}</span>
         {% if articles_page.has_next() %}
-        <a href="{{ category.url }}{{ articles_page.next_page_number() }}/" class="aesthetic-chip chip-m">Další →</a>
+        <a href="{{ category.url }}{{ articles_page.next_page_number() }}/" class="aesthetic-chip chip-m">{{ 'pagination_next' | t(page_lang) }}</a>
         {% endif %}
       </div>
     </nav>

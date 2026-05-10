@@ -1,0 +1,23 @@
+{# Language switcher — a single chip styled exactly like the other menu items,
+   labelled with the *target* language's own name ("English" on a Czech page,
+   "Čeština" on an English page). Links to this page's translation counterpart
+   (from .translations), falling back to the other language's homepage.
+   Included from base.html only when not _is_marathon (the marathon sub-site is
+   English-only — nothing to switch to).
+
+   `data-set-lang` lets the small script in base.html remember the choice in
+   localStorage; the link works fine without JS. #}
+{% set _obj = article if article is defined else page if page is defined else none %}
+{% set _other = 'en' if page_lang == 'cs' else 'cs' %}
+{% set _ns = namespace(url=none) %}
+{% if _obj %}
+  {% for tr in (_obj.translations or []) %}
+    {% if tr.lang == _other %}{% set _ns.url = tr.url %}{% endif %}
+  {% endfor %}
+{% endif %}
+{# empty/absent counterpart -> the other language's homepage: '/' for cs, 'en/' for en.
+   With <base href> in prod these resolve to the right absolute URLs. #}
+{% set _href = _ns.url if _ns.url else ('/' if _other == 'cs' else 'en/') %}
+<nav class="lang-switcher el-stack stack-s align-end" aria-label="{{ ('switch_to_' ~ _other) | t(page_lang) }}">
+  <a href="{{ _href }}" class="aesthetic-chip chip-m" hreflang="{{ _other }}" lang="{{ _other }}" data-set-lang="{{ _other }}">{{ ('lang_name_' ~ _other) | t(page_lang) }}</a>
+</nav>

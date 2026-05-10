@@ -1,5 +1,6 @@
+{% set _lang = page_lang | default(DEFAULT_LANG, true) %}
 <div class="el-stack el-stack-s">
-  <p>{{ label | default('Subscribe to calendar') }}</p>
+  <p>{{ label | default('subscribe_calendar' | t(_lang), true) }}</p>
   <div class="el-cluster">
     {% for link in subscribe_links %}
     <a href="{{ link.url }}"

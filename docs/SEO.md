@@ -22,6 +22,26 @@ Every page emits `<link rel="canonical" href="{{ SITEURL }}/{{ url }}">`. This t
 
 For **recurring events** (Milonga u Draka, Tango & Pizza, recurring lessons), the canonical URL of each instance points at the **hub page** in `pages/` rather than the instance itself. See "Recurring events: hub pages" below.
 
+> **Known limitation (fallback `/en/` pages):** an `/en/<event-instance>/` fallback page (one with no real English translation) computes its canonical against the *Czech* hub (`/<hub-slug>/`), not the English hub. That's defensible — the fallback body *is* the Czech page — but if you ever translate the hub, also translate the instances, or accept the cross-language canonical.
+
+## Multilingual: the `/en/` mirror
+
+The site has an English version under the `/en/` prefix. Czech (the default language, `DEFAULT_LANG = "cs"`) keeps its original root-level URLs untouched — **zero risk to existing SEO** — and non-default-language content routes under `/en/` via `PAGE_LANG_URL` / `PAGE_LANG_SAVE_AS` / `ARTICLE_LANG_*` / `CATEGORY_LANG_*` in [pelicanconf.py](../pelicanconf.py).
+
+**How a page gets an English version:** add a sibling file with `Lang: en` and the *same* `Slug` (Pelican links translations by slug, via `ARTICLE_TRANSLATION_ID` / `PAGE_TRANSLATION_ID`, both `"slug"`). E.g. `o-nas.md` (`Lang: cs`, `Slug: o-nas`) + `o-nas.en.md` (`Lang: en`, `Slug: o-nas`) → the latter renders at `/en/o-nas/`.
+
+**The Czech fallback** is the one custom piece — core Pelican gives you `/en/<slug>/` only when a real `.en.md` exists. [plugins/i18n_fallback.py](../plugins/i18n_fallback.py) fills the gap: in `page_generator_finalized` / `article_generator_finalized` (after `process_translations`, before output is written) it synthesizes an `en` translation object for every Czech page lacking one — same slug, `Lang: en`, reusing the *already-rendered* `_content` (hence the plugin is registered **after** `widget_processor` in `PLUGINS`, so widgets in the body are already expanded). The clone is wired into `.translations` both ways and appended to `generator.translations` (the writer iterates that). Result: `/en/<slug>/` mirrors the whole site from launch, with English chrome (nav, dates, meta, hreflang, `<html lang="en">`) wrapping a Czech body until a real translation lands. Marathon pages are skipped — that sub-site is English-first with no Czech mirror, so it must not get a `/en/marathon-…` duplicate.
+
+**`page_lang`** is computed once at the top of [base.html](../theme/templates/base.html) (before `<html>`): marathon section → `en`, otherwise the content object's `Lang:` (default `cs`). It drives `<html lang>`, `<meta og:locale>` (`cs_CZ` / `en_GB`), the meta description (`SITEDESCRIPTION` / `SITEDESCRIPTION_EN`), `hreflang`, the nav aria-labels, and the language-switcher guard. UI chrome strings come from per-language tables in [theme/i18n/](../theme/i18n/) via the `t(key, page_lang)` Jinja filter; dates from `DATE_FORMATS = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}`.
+
+**`hreflang`:** every page (with `SITEURL` set) emits `<link rel="alternate" hreflang="…">` for itself plus each of its `.translations`, plus `hreflang="x-default"` pointing at the Czech (default-language) version. Marathon pages have no translation → no `hreflang` block, which is correct (single-language sub-site). The sitemap includes the `/en/` pages automatically.
+
+**Language switcher** ([theme/templates/components/lang_switcher.html](../theme/templates/components/lang_switcher.html)): `CS · EN` in the header; the current language is inert, the other links to this page's translation counterpart (or `/` ↔ `/en/` for the homepage). It's omitted entirely on marathon pages. A small progressive-enhancement script in `base.html` remembers the chosen language in `localStorage` and, on the bare root path, redirects to `/en/` if `en` was previously chosen — the links work fine without JS.
+
+**Footer note:** the footer is currently Czech on `/en/` pages too. Its English variant is folded into the separate "rework the footer" item in [ROADMAP.md](ROADMAP.md), not done here.
+
+Editor-facing version of all this (the `.en.md` naming, what to write where): [EDITING.md → Jazykové verze](EDITING.md).
+
 ## Recurring events: hub pages
 
 Some events recur but each occurrence is authored as its own dated file (e.g., `2026-04-18-milonga-u-draka.md`, `2026-05-16-milonga-u-draka.md`). Without intervention, search engines see N near-identical URLs competing for the same query and split the link equity. The `series:` convention solves this.

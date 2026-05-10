@@ -79,6 +79,20 @@ def _substitute(text, env, context, template_suffix):
     return WIDGET_PATTERN.sub(replace_widget, text)
 
 
+def _page_lang_for(content_object, settings):
+    """Mirror base.html's page_lang: marathon section -> 'en', else the
+    content object's Lang: (default DEFAULT_LANG). Widget templates need this
+    because Pelican's render context doesn't carry the template-level
+    `page_lang` set."""
+    url = getattr(content_object, "url", "") or ""
+    section = getattr(content_object, "section", None)
+    src = (getattr(content_object, "source_path", "") or "").replace("\\", "/")
+    if "marathon" in url or section == "marathon" or "/pages/marathon/" in src:
+        return "en"
+    lang = (getattr(content_object, "lang", "") or "").lower()
+    return lang or (settings.get("DEFAULT_LANG", "cs") if settings else "cs")
+
+
 def process_widgets(generator, content_object):
     if not hasattr(content_object, '_content') or not content_object._content:
         return
@@ -89,6 +103,7 @@ def process_widgets(generator, content_object):
     articles = generator.context.get('articles', [])
     context = generator.context.copy()
     context['all_articles'] = articles
+    context['page_lang'] = _page_lang_for(content_object, getattr(generator, "settings", None))
 
     content_object._content = _substitute(content_object._content, env, context, '.html')
 
