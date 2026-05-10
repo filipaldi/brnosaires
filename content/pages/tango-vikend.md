@@ -41,7 +41,7 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
 
 
 <widget-calendar-link 
-    filter_by_type="milonga practica neolonga"
+    filter_by_type="milonga praktika"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej Brnenské tango akce do svého kalendáře" 
