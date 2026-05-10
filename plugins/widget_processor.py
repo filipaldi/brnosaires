@@ -125,12 +125,19 @@ def render_widgets_in_text(text, env, context):
 
 
 def process_page_widgets(generator):
-    for page in generator.pages:
+    # `generator.pages` holds default-lang pages; authored translations
+    # (e.g. `*.en.md` files) land in `generator.translations` instead, so we
+    # must process those too or their <widget-*> tags ship raw to the page.
+    # (The i18n_fallback plugin's synthesized clones are built from an
+    # already-substituted cs `_content`, so they don't need this — but it
+    # runs *after* widget_processor and skips cs pages that already have an
+    # authored translation, so there's no double processing.)
+    for page in list(generator.pages) + list(getattr(generator, 'translations', []) or []):
         process_widgets(generator, page)
 
 
 def process_article_widgets(generator):
-    for article in generator.articles:
+    for article in list(generator.articles) + list(getattr(generator, 'translations', []) or []):
         process_widgets(generator, article)
 
 
