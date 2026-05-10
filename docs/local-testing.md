@@ -31,6 +31,38 @@ We deliberately avoid Pelican's default port 8000. It collides with Django, http
 
 Open browser to: `http://localhost:41234`
 
+### Preview on a phone / other device (same Wi-Fi)
+
+`localhost` only works on the Mac itself. To open the site on an iPhone (or any
+other device on the same network), bind the dev server to **all** interfaces:
+
+```bash
+source venv/bin/activate
+pelican content -s pelicanconf.py --autoreload --listen --bind 0.0.0.0 --port 41234
+```
+
+Then find the Mac's LAN IP and open it from the phone:
+
+```bash
+ipconfig getifaddr en0   # e.g. 192.168.0.73  (en1 on older Macs / Ethernet)
+```
+
+On the phone (Safari): `http://<that-ip>:41234/` — e.g. `http://192.168.0.73:41234/`
+
+Notes:
+- `pelicanconf.py` has `RELATIVE_URLS = True`, so internal links resolve fine
+  against the IP address — no need to touch `SITEURL`. Don't use `publishconf.py`
+  for device testing (its absolute `https://brnosaires.com` URLs would jump off-site).
+- First time you bind to `0.0.0.0`, macOS may pop a one-time "allow incoming
+  connections for Python" firewall prompt — allow it. (System Settings → Network → Firewall.)
+- The LAN IP can change when you reconnect to Wi-Fi / switch networks — re-run
+  `ipconfig getifaddr en0` if the phone stops loading.
+- **Safari Web Inspector**: connect the iPhone to the Mac via USB → Safari →
+  Develop menu → [your iPhone] → inspect the live page (DOM/console/network).
+- If the network blocks device-to-device traffic (some corporate/guest Wi-Fi),
+  use a tunnel instead: `cloudflared tunnel --url http://localhost:41234`
+  (public HTTPS URL, no signup) or `ngrok http 41234`.
+
 ### Stop Server
 
 Press `Ctrl+C` in terminal
@@ -232,7 +264,7 @@ Open browser developer tools:
 
 - Test different screen sizes
 - Use browser dev tools device emulation
-- Test on actual mobile devices
+- Test on actual mobile devices — see [Preview on a phone / other device](#preview-on-a-phone--other-device-same-wi-fi) above for the `--bind 0.0.0.0` recipe
 
 ## Performance Testing
 
