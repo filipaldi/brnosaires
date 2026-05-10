@@ -256,6 +256,21 @@
    Last card snaps fully into view via trailing spacer.
    ============================================ */
 
+/* Escape <main>'s horizontal gutter (padding-all-m = var(--size-m)) so the
+   calendar reel can scroll the full screen width instead of being trimmed at
+   <main>'s content-box edge. Same identifier <main> uses → exact by
+   construction; the gutter is re-added *inside* each scroller (the @container
+   block below) as scroll-padding-inline + a leading ::before spacer, so the
+   first card still rests on the page's usual gutter.
+   Must be @media, not @container: .calendar carries container-type:inline-size,
+   so it is a query container for its descendants but has no container ancestor
+   of its own — an @container rule targeting .calendar itself never matches. */
+@media (max-width: 40rem) {
+  .calendar {
+    margin-inline: calc(-1 * var(--size-m));
+  }
+}
+
 @container (max-width: 40rem) {
   /* Calendar Reel becomes a snap-track of full-width days.
      Keeps the existing padding-top + absolute .week-name pattern so the week
@@ -268,7 +283,7 @@
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
-    scroll-padding-inline: 0;
+    scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
@@ -276,6 +291,17 @@
        week-name (top, large) + day-name (below it, small). Desktop
        padding-top isn't enough for both on mobile. */
     padding-top: var(--size-2xl);
+  }
+  /* Leading spacer = the page gutter the .calendar negative margin removed.
+     A real (pseudo) flex item rather than padding, so scroll-snap rest
+     positions stay consistent. */
+  .week.el-reel::before,
+  .calendar .el-cluster::before {
+    content: "";
+    flex: 0 0 var(--size-m);
+    align-self: stretch;
+    scroll-snap-align: none;
+    pointer-events: none;
   }
   .week.el-reel::-webkit-scrollbar {
     display: none;
@@ -323,6 +349,8 @@
   .week.el-reel .day .day-name {
     position: absolute;
     inset-block-start: calc(-1 * var(--size-l));
+    /* day-relative: each .day is already shifted right by the leading
+       ::before spacer, so the day-name keeps its in-card text indent. */
     inset-inline-start: var(--label-indent, var(--size-s));
     font-size: var(--text-s);
     line-height: var(--size-s);
@@ -331,10 +359,12 @@
     white-space: nowrap;
     pointer-events: none;
   }
-  /* Week label: same horizontal alignment as day-name → both line up
-     with the card's title text. */
+  /* Week label is reel-relative (.week.el-reel is the positioned ancestor);
+     the reel's left edge is now at the screen edge, so add the page gutter
+     (the ::before spacer width) plus the in-card text indent so it lines up
+     with the first card's title text. */
   .week.el-reel .week-name {
-    inset-inline-start: var(--label-indent, var(--size-s));
+    inset-inline-start: calc(var(--size-m) + var(--label-indent, var(--size-s)));
   }
   /* Use .day in selector to outrank the .week.el-reel .day [class*="card-"]
      desktop rule (3 class specificity → must match here, not lower). */
@@ -367,7 +397,7 @@
     gap: var(--size-s);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
-    scroll-padding-inline: 0;
+    scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
@@ -387,13 +417,15 @@
   .calendar .el-cluster [class*="card-"]:last-child {
     margin-inline-end: 20vw;
   }
-  /* Label: anchor to top-left of the cluster, aligned with card title text. */
+  /* Label: anchor to top-left of the cluster, aligned with the first card's
+     title text — cluster's left edge is now at the screen edge, so add the
+     page gutter (the ::before spacer width) + the in-card text indent. */
   .calendar .el-cluster > .day-name,
   .calendar .el-cluster > .week-name,
   .calendar .el-cluster > .month-name {
     position: absolute;
     inset-block-start: 0;
-    inset-inline-start: var(--label-indent, var(--size-s));
+    inset-inline-start: calc(var(--size-m) + var(--label-indent, var(--size-s)));
     flex-basis: auto;
     margin: 0;
     font-size: var(--text-s);
@@ -430,9 +462,12 @@
   }
 }
 
-/* Series-hub clusters live outside .calendar — apply same mobile pattern */
+/* Series-hub clusters live outside .calendar — apply same mobile pattern,
+   including the break-out from <main>'s gutter (it can't ride on .calendar's
+   negative margin, so it gets its own). */
 @media (max-width: 40rem) {
-  .el-cluster:has(.event) {
+  .el-cluster:has(.event):not(.calendar *) {
+    margin-inline: calc(-1 * var(--size-m));
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -440,35 +475,42 @@
     gap: var(--size-s);
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
-    scroll-padding-inline: 0;
+    scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
   }
-  .el-cluster:has(.event)::-webkit-scrollbar {
+  .el-cluster:has(.event):not(.calendar *)::before {
+    content: "";
+    flex: 0 0 var(--size-m);
+    align-self: stretch;
+    scroll-snap-align: none;
+    pointer-events: none;
+  }
+  .el-cluster:has(.event):not(.calendar *)::-webkit-scrollbar {
     display: none;
   }
-  .el-cluster:has(.event) > .event,
-  .el-cluster:has(.event) > [class*="card-"] {
+  .el-cluster:has(.event):not(.calendar *) > .event,
+  .el-cluster:has(.event):not(.calendar *) > [class*="card-"] {
     flex: 0 0 80vw;
     inline-size: 80vw;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
-  .el-cluster:has(.event) > .event:last-child,
-  .el-cluster:has(.event) > [class*="card-"]:last-child {
+  .el-cluster:has(.event):not(.calendar *) > .event:last-child,
+  .el-cluster:has(.event):not(.calendar *) > [class*="card-"]:last-child {
     margin-inline-end: 20vw;
   }
-  .el-cluster:has(.event) .el-frame-16x9 {
+  .el-cluster:has(.event):not(.calendar *) .el-frame-16x9 {
     --n: 1;
     --d: 1;
     aspect-ratio: 1 / 1;
   }
-  .el-cluster:has(.event) .event h3 {
+  .el-cluster:has(.event):not(.calendar *) .event h3 {
     font-size: var(--text-l);
     line-height: var(--size-m);
   }
-  .el-cluster:has(.event) .event p {
+  .el-cluster:has(.event):not(.calendar *) .event p {
     font-size: var(--text-s);
     line-height: var(--size-s);
   }
