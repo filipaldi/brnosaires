@@ -15,7 +15,11 @@
     {% if tr.lang == 'cs' %}{% set _ns.cs_url = tr.url %}{% elif tr.lang == 'en' %}{% set _ns.en_url = tr.url %}{% endif %}
   {% endfor %}
 {% endif %}
-{% set _cs_href = _ns.cs_url if _ns.cs_url else '' %}
+{# The cs homepage's url is literally empty (url:/save_as:index.html), so an
+   empty cs counterpart means "the site root" -> '/'. Likewise '/en/' for the
+   English homepage. (With <base href> in prod these resolve correctly; in dev
+   '/' is the server root.) #}
+{% set _cs_href = _ns.cs_url if _ns.cs_url else '/' %}
 {% set _en_href = _ns.en_url if _ns.en_url else 'en/' %}
 <nav class="lang-switcher cluster gap-xs text-s" role="navigation" aria-label="{{ 'language_switcher' | t(page_lang) }}">
   {% if _here_lang == 'cs' %}

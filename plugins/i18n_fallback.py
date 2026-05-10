@@ -71,13 +71,22 @@ def _clone_as_en(content):
         source_path=getattr(content, "source_path", None),
         context=getattr(content, "_context", None),
     )
-    # If the original page overrode save_as/url in its metadata (e.g. the
-    # homepage uses `save_as: index.html`), the clone inherited that override
-    # too — which would make it collide with the cs page. Drop the overrides so
-    # the clone falls back to PAGE_LANG_SAVE_AS / PAGE_LANG_URL.
+    # The original may have overridden save_as/url in its metadata.
+    #   - the homepage (`url:` empty + `save_as: index.html`) -> the English
+    #     clone should be the /en/ homepage, i.e. en/index.html at /en/.
+    #   - any other override (a page pinned to a custom path) -> just drop it
+    #     so the clone falls back to PAGE_LANG_SAVE_AS / PAGE_LANG_URL and
+    #     doesn't collide with the cs page at the same custom path.
+    orig_save_as = (getattr(content, "save_as", "") or "")
+    is_homepage = orig_save_as in ("index.html", "/index.html") or (
+        getattr(content, "url", "") in ("", "/")
+    )
     for attr in ("override_save_as", "override_url"):
         if hasattr(clone, attr):
             delattr(clone, attr)
+    if is_homepage:
+        clone.override_save_as = "en/index.html"
+        clone.override_url = "en/"
     # Make doubly sure the URL machinery treats it as a translation.
     clone.in_default_lang = False
     return clone
