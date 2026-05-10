@@ -172,7 +172,15 @@ SITEMAP = {
 }
 
 EXTRA_PATH_METADATA = {
-    "pages/marathon": {"section": "marathon"},
+    # `translate: False` -> this content is English-first with no Czech mirror
+    # and never will have one: the i18n_fallback plugin synthesizes no
+    # /en/<slug>/ clone for it, base.html renders no language switcher on it,
+    # and page_lang is forced to 'en'. (`section: marathon` on the pages folder
+    # is separate -> the marathon layout/nav.) The whole marathon sub-site lives
+    # in three content folders, all flagged here. See docs/EDITING.md.
+    "pages/marathon": {"section": "marathon", "translate": False},
+    "events/2026-marathon": {"translate": False},
+    "people/marathon-djs": {"translate": False},
     "extra/marathon/llms.txt": {"path": "marathon/llms.txt"},
     "extra/robots.txt": {"path": "robots.txt"},
     "extra/humans.txt": {"path": "humans.txt"},

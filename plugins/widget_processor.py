@@ -80,14 +80,13 @@ def _substitute(text, env, context, template_suffix):
 
 
 def _page_lang_for(content_object, settings):
-    """Mirror base.html's page_lang: marathon section -> 'en', else the
-    content object's Lang: (default DEFAULT_LANG). Widget templates need this
-    because Pelican's render context doesn't carry the template-level
+    """Mirror base.html's page_lang. Monolingual content (`translate: false` in
+    front-matter — the marathon folders, set via EXTRA_PATH_METADATA) -> 'en';
+    everything else -> its Lang: (default DEFAULT_LANG). Widget templates need
+    this because Pelican's render context doesn't carry the template-level
     `page_lang` set."""
-    url = getattr(content_object, "url", "") or ""
-    section = getattr(content_object, "section", None)
-    src = (getattr(content_object, "source_path", "") or "").replace("\\", "/")
-    if "marathon" in url or section == "marathon" or "/pages/marathon/" in src:
+    meta = getattr(content_object, "metadata", None) or {}
+    if meta.get("translate") is False:
         return "en"
     lang = (getattr(content_object, "lang", "") or "").lower()
     return lang or (settings.get("DEFAULT_LANG", "cs") if settings else "cs")
