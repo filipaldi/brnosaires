@@ -7,22 +7,28 @@ event-start: 2026-05-22 21:00:00
 event-end: 2026-05-23 01:00:00
 event-organiser: Lenka a Filip
 event-location: Společenský sál na Staré radnici
-description: Koncertní milonga s živou hudbou - soubor Petr Zámečník & Piastra (Moda Tango Project). Brnos Aires Tango víkend 2026.
+description: Koncertní milonga s živou hudbou - soubor Petr Zámečník & Piastra hraje speciální program autorských aranží zlatých tangových orchestrů. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/tango-piastra.jpeg
 ---
 
 # Slavnostní milonga s koncertem (Petr Zámečník & Piastra)
 
-Koncertní milonga s živou hudbou v podání souboru **Petr Zámečník & Piastra** – projekt *Moda Tango Project*. Repertoár sahá od piazzollovského nuevo tanga až po osobité kompozice akordeonisty a skladatele Petra Zámečníka, kde tango nemusí být hudebně důležité a kde jeho jediný význam je ten, který mu dáme.
+Koncertní milonga s živou hudbou. Soubor **Petr Zámečník & Piastra** nacvičil program přímo pro tento večer a tady ho také odehraje poprvé. Žádná konzerva, žádný playlist, který si pustíte doma desetkrát stejně.
 
-Soubor hraje v komorním obsazení akordeon, klavír, příčná flétna, violoncello, kontrabas a perkuse:
+Petr Zámečník napsal aranže s jediným cílem: aby se na ně dobře tančilo. Nejsou to koncertní úpravy pro posluchače v sále, ale verze stavěné pro parket, pro nohy, pro objetí. A jsou napsané na míru zvuku tohohle souboru: akordeon, klavír, příčná flétna, violoncello, kontrabas a perkuse, přesně to spojení, které uslyšíte na pódiu.
+
+Na programu jsou skladby orchestrů **Francisco Canaro**, **Juan d'Arienzo**, **Osvaldo Fresedo** a **Carlos di Sarli** v aranžích Petra Zámečníka, poprvé uvedené právě na téhle milonze.
+
+Jak to bude vypadat: soubor zahraje **čtyři tandy živě** (šestnáct skladeb), mezi nimi pustí DJ tandy jako na běžné milonze. Večer tak prokládá živý koncert a DJská hudba, tančí se celou dobu.
+
+Obsazení:
 
 - **Petr Zámečník** – akordeon
 - **Ondřej Špaček** – klavír
-- **Pavlína Kavulová** – příčná flétna
+- **Michal Vojáček** – příčná flétna
 - **Anežka Kavalírová** – violoncello
-- **Jaroslav Panuš** – kontrabas
+- **Šimon Jakubíček** – kontrabas
 - **Lukáš Krejčí** – perkuse
 
 Více: https://www.tangozamecnik.cz/piastra/
