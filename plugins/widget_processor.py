@@ -92,6 +92,31 @@ def _page_lang_for(content_object, settings):
     return lang or (settings.get("DEFAULT_LANG", "cs") if settings else "cs")
 
 
+def _articles_in_lang(articles, lang):
+    """Return `articles` with each entry swapped for its translation in `lang`
+    when one exists. `generator.context['articles']` only holds default-lang
+    articles; authored `*.<lang>.md` siblings live in `.translations`. So an
+    `/en/` page's calendar widget would otherwise show Czech event cards — this
+    swaps in the English event file where the editor has provided one, and
+    leaves the Czech one untouched everywhere else (most events aren't
+    translated, on purpose)."""
+    lang = (lang or "").lower()
+    if not lang:
+        return list(articles or [])
+    out = []
+    for a in articles or []:
+        if (getattr(a, "lang", "") or "").lower() == lang:
+            out.append(a)
+            continue
+        match = next(
+            (t for t in getattr(a, "translations", []) or []
+             if (getattr(t, "lang", "") or "").lower() == lang),
+            None,
+        )
+        out.append(match or a)
+    return out
+
+
 def process_widgets(generator, content_object):
     if not hasattr(content_object, '_content') or not content_object._content:
         return
@@ -99,10 +124,11 @@ def process_widgets(generator, content_object):
         return
 
     env = generator.env
-    articles = generator.context.get('articles', [])
+    page_lang = _page_lang_for(content_object, getattr(generator, "settings", None))
+    articles = _articles_in_lang(generator.context.get('articles', []), page_lang)
     context = generator.context.copy()
     context['all_articles'] = articles
-    context['page_lang'] = _page_lang_for(content_object, getattr(generator, "settings", None))
+    context['page_lang'] = page_lang
 
     content_object._content = _substitute(content_object._content, env, context, '.html')
 

@@ -49,6 +49,12 @@ def _parse_date_str(s):
 class Occurrence:
     def __init__(self, article, start_dt, end_dt):
         self.slug = getattr(article, "slug", None)
+        # Carry the source article's URL (e.g. "en/<slug>/" for an English
+        # event, "<slug>/" for a Czech one) so event_card.html can link to the
+        # right page — "{slug}/" alone resolves against the site root and would
+        # send an /en/ card to the Czech event.
+        self.url = getattr(article, "url", None)
+        self.lang = getattr(article, "lang", None)
         self.title = getattr(article, "title", None)
         self.preview_image = getattr(article, "preview_image", None)
         self.metadata = copy(article.metadata) if getattr(article, "metadata", None) else {}
