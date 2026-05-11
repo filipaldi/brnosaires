@@ -1,6 +1,6 @@
 ---
 title: Workshop 2 / Lenka a Filip (začátečníci)
-slug: vikend-2026-neděle-workshop-2-lenka-filip
+slug: vikend-2026-nedele-workshop-2-lenka-filip
 date: 2026-05-24 14:30:00
 event-type: workshop
 event-start: 2026-05-24 14:30:00
