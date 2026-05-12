@@ -68,6 +68,24 @@ Some events recur but each occurrence is authored as its own dated file (e.g., `
 - One-off events (a single milonga that won't repeat) — self-canonical is correct.
 - Recurring classes/praktikas authored via the `recurrence:` field in [plugins/recurring_events.py](../plugins/recurring_events.py) — those are a single source file expanded into N occurrences sharing one URL, so they already have a single canonical surface.
 
+## Evergreen month pages (`/milongy-brno-<měsíc>/`)
+
+Twelve hand-authored pages, one per Czech month name (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), in [content/pages/events/](../content/pages/events/). They target the query pattern *"milonga Brno [měsíc]"* / *"milonga Brno [měsíc] [rok]"* — which nothing else on the site is titled or structured for. Each page is a thin shell: a `<widget-calendar month="<N>" filter_by_type="milonga praktika neolonga">`, an evergreen intro, the `.ics` subscribe widget. They are **year-agnostic** — the URL is reused every year; only the displayed year changes.
+
+### The moving parts
+
+- **`month: <N>` frontmatter** on the page (a number 1–12) is the flag that switches on the month-page branch in [theme/templates/page.html](../theme/templates/page.html). It also tells the template which month's events to list in the JSON-LD.
+- **`tango_year_for_month(month)`** — a Jinja filter ([pelicanconf.py](../pelicanconf.py)) used in the page's `title`/`<h1>`/intro to print the year: the current year, or next year if that month has already passed this year. So in November, `/milongy-brno-leden/`'s title reads "…leden 2027". **No annual edit chore.** (Companion helpers, also in `pelicanconf.py` + registered in `JINJA_FILTERS`: `month_name(n, lang, form)` — display name, `form="locative"` gives the Czech "v lednu"; `month_page_slug(n)` / `month_page_url(n, lang)`; `month_wrap(n, ±1)` — month arithmetic that wraps 12↔1. The calendarium plugin keeps its own tiny `year_for_month` mirror in [dates.py](../plugins/calendarium/dates.py) — a plugin must not import the site config.)
+- **`<widget-calendar month="<N>">`** — the `month=` param (see [WIDGETS.md](WIDGETS.md)) restricts the widget to exactly that calendar month in the `tango_year_for_month`-resolved year, overriding `days`/`start`/`end`.
+- **`page.html` month-page branch** (gated on `month:`):
+  - emits a JSON-LD **`ItemList`** of that month's milongas/praktikas/neolongas (`itemListElement` → `ListItem` → `Event` with `startDate`/`endDate`/`location`/`url`) — built from the *same* `calendarium(month=…)` query the widget uses, so it can't drift from what's rendered;
+  - if the month currently has **no events**, emits `<meta name="robots" content="noindex,follow">` (via the `head` block) plus an empty-state line — keeps the thin page crawlable but out of the index until an event lands; the `noindex` flips off automatically on the next build after a matching event is added;
+  - renders **prev/next-month ring links** (`← květen` / `červenec →`) and an **all-months strip** — crawl paths between the 12, lang-aware (`/milongy-brno-<m>/` in CS, `/en/milongy-brno-<m>/` in EN).
+- **English twins** are `.en.md` siblings with the *same* slug + `Lang: en` (like every other `.en.md`) → routed to `/en/milongy-brno-<m>/`. Only the copy and the displayed month/year wording differ; the `month=` param and the year filter are language-neutral.
+- **Canonical/sitemap**: each month page is self-canonical and picked up by the sitemap plugin automatically; the `noindex` (empty months only) keeps the thin ones out of the index without removing them.
+
+Editor-facing version (how to author/edit a month page, what to leave alone): [EDITING.md → Měsíční stránky milong](EDITING.md).
+
 ## Open Graph + Twitter Card
 
 `<head>` includes:

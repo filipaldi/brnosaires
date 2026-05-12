@@ -102,7 +102,25 @@ Pro hub-stránky a běžné stránky (o nás, FAQ, marathon sub-site) stačí sp
 
 ### Roční úklid: rok v titulcích landing stránek
 
-Titulky a nadpisy přehledových stránek (`tango-kalendar-brno`, `tango-milongy-brno`, `tango-lekce-brno` a jejich `.en.md` varianty) obsahují aktuální rok kvůli vyhledávání (lidé hledají „milonga Brno 2026"). **Jednou ročně** (typicky začátkem ledna) v nich přepište rok na nový — je to ~6 souborů + 6 anglických dvojčat, jen pole `title`, `description` a první `<h1>`/odstavec. Měsíční stránky (`milongy-brno-<měsíc>`) rok řeší samy přes build-time filtr, ty se nedotýkáte.
+Titulky a nadpisy přehledových stránek (`tango-kalendar-brno`, `tango-milongy-brno`, `tango-lekce-brno` a jejich `.en.md` varianty) obsahují aktuální rok kvůli vyhledávání (lidé hledají „milonga Brno 2026"). **Jednou ročně** (typicky začátkem ledna) v nich přepište rok na nový — je to ~6 souborů + 6 anglických dvojčat, jen pole `title`, `description` a první `<h1>`/odstavec. Měsíční stránky (`milongy-brno-<měsíc>`, viz níže) rok řeší samy přes build-time filtr, ty se nedotýkáte.
+
+## Měsíční stránky milong (`content/pages/events/milongy-brno-<měsíc>.md`)
+
+Dvanáct stránek, jedna pro každý měsíc (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), aby web uměl odpovědět na hledání „milonga Brno červen", „milonga Brno květen 2026" apod. Jsou **bez ročníku** — stejná URL platí každý rok, mění se jen zobrazený rok.
+
+**Co je v souboru a co (ne)měnit:**
+
+| Pole / prvek | Co s tím |
+|---|---|
+| `month: N` ve frontmatteru (číslo 1–12) | **Nech být.** Tohle je přepínač, který stránce zapne měsíční režim (seznam akcí v JSON-LD, `noindex` u prázdného měsíce, odkazy na sousední měsíce). |
+| `title` / `<h1>` / úvodní odstavec | Obsahují `{{ tango_year_for_month(N) }}` — rok se dopočítá při buildu (letošní, nebo příští, pokud ten měsíc už letos byl). **Ručně rok nepřepisuj.** Text okolo (úvodní věty, „atmosféra měsíce") klidně uprav, ať to není mdlé. |
+| `<widget-calendar month="N" ...>` v těle | Vykreslí milongy/praktiky/neolongy v daném měsíci. `month` musí odpovídat `month:` z frontmatteru. |
+| widget odběru `.ics` | Standardní, nech být. |
+| prázdný měsíc | Když na ten měsíc zatím nic není, stránka se sama označí `noindex` (zůstane dostupná, ale Google ji nenabízí) a ukáže hlášku „Na tenhle měsíc zatím žádné milongy vypsané nejsou." Jakmile přidáš akci v tom měsíci, při příštím buildu se `noindex` sám zruší. **Nic neděláš.** |
+
+**Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v `content/events/RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
+
+**Anglické verze** jsou `.en.md` dvojčata se stejným `slug` a `Lang: en` (jako u ostatních stránek) — běží na `/en/milongy-brno-<měsíc>/`. Mění se jen text; `month:` a vše ostatní je stejné.
 
 ## Oznámení / píkoška / osoba
 
