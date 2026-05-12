@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-24 16:00:00
 event-end: 2026-05-24 17:15:00
 event-organiser: Taneční studio Stolárna
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno.
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 description: Workshop pro začátečníky s Lenkou a Filipem. Brnos Aires Tango víkend 2026.
 author: Lenka Pláteníková
 preview_image: /images/classes/class-lenka-filip.avif

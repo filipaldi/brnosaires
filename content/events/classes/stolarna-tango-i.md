@@ -8,7 +8,7 @@ event-end: 2026-01-08 20:30:00
 recurrence: weekly thursday
 preview_image: /images/classes/class-stolarna.avif
 event-organiser: Taneční studio Stolárna
-event-location: Olomoucká 14, Brno 61800
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: class
 description: Lekce Tango I. a výš, technika. Pavla Lužná a Ondra Martinák, Stolárna. Čtvrtek 19:15, Olomoucká 14.
 author: Filip Paldia

@@ -9,6 +9,7 @@ recurrence: weekly sunday
 preview_image: /images/classes/praktika-stolarna.jpg
 description: Praktikomilonga na Stolárně každou neděli. Začátečníci i pokročilí.
 author: Filip Paldia
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 ---
 
 # Praktika na Stolárně

@@ -5,7 +5,7 @@ date: 2026-03-25 18:00:00
 event-type: milonga
 event-start: 2026-04-16 20:30:00
 event-end: 2026-04-16 23:15:00
-event-location: Café Adrinela
+event-location: Adrinela Cafe, Životského 14, Brno-Židenice
 preview_image: /images/adrinela_people.avif
 description: Dubnová milonga v Café Adrinela. Dortíky, paní Lada, rybičky a tango.
 author: Lenka Pláteníková

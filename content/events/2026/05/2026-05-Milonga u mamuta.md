@@ -8,6 +8,8 @@ event-end: 2026-05-16 23:00:00
 preview_image: /images/events/2026/2026-05-milonga-u-mamuta.jpg
 description: Milonga u mamuta - Anthropos, Brno. V rámci akce Brněnská muzejní noc.
 author: Lenka Platenikova
+event-location: Pavilon Anthropos, Pisárecká 5, Brno
+event-organiser: Petr a Gábina Nečasovi
 ---
 
 # Milonga u mamuta

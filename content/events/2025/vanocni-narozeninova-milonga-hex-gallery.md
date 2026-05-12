@@ -7,6 +7,7 @@ event-start: 2025-12-17 18:00:00
 preview_image: /images/IMAGE_2025-12-06_163958.avif
 description: Vánoční narozeninová milonga v HEX Gallery. Prosinec 2025, Brno.
 author: Filip Paldia
+event-location: HEX Gallery, Lidická 63a, Brno
 ---
 
 # Vánoční narozeninová milonga - HEX Gallery

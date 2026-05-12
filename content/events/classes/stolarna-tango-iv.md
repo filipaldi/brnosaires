@@ -8,7 +8,7 @@ event-end: 2026-01-08 20:15:00
 recurrence: weekly tuesday
 preview_image: /images/classes/class-stolarna.avif
 event-organiser: Taneční studio Stolárna
-event-location: Olomoucká 14, Brno 61800
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: class
 description: Pravidelná lekce Tango IV. Jana Habalová a Petr Truhlař, Stolárna. Úterý 18:00, Olomoucká 14.
 author: Filip Paldia
