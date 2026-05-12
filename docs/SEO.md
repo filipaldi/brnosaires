@@ -48,7 +48,7 @@ Some events recur but each occurrence is authored as its own dated file (e.g., `
 
 ### How it works
 
-1. **Author a hub page** in `content/pages/` with a stable slug, e.g. [content/pages/milonga-u-draka.md](../content/pages/milonga-u-draka.md). Set `series: <slug>` in the frontmatter to mark it as a hub. The body describes the recurring event in general (location, vibe, music style, organisers).
+1. **Author a hub page** in `content/pages/series/` with a stable slug, e.g. [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md). Set `series: <slug>` in the frontmatter to mark it as a hub. The body describes the recurring event in general (location, vibe, music style, organisers). (The `series/` subdir is organisational only — Pelican routes by `Slug:`, not path; one-off / multi-day event hubs like Tango Weekend live in `content/pages/events/`.)
 
 2. **Tag each instance** with the same `series: <slug>` field in its frontmatter. No body changes required.
 

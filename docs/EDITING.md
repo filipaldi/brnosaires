@@ -198,6 +198,6 @@ Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang
 - [README.md](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
 - [SEO.md](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
 - [WIDGETS.md](WIDGETS.md) — tagy `<widget-*>` v těle článku.
-- [content/pages/milonga-u-draka.md](../content/pages/milonga-u-draka.md) — reálný příklad hub stránky.
+- [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md) — reálný příklad hub stránky pravidelné série. Organizace složek v `content/pages/`: `series/` = huby pravidelných sérií (`series: <slug>`); `events/` = stránky konkrétních akcí a časově vymezené přehledy milong (Tango víkend, Tango léto, „milongy tento týden" a budoucí měsíční přehledy); `marathon/` = sub-web maratonu. URL se přesunem **nemění** — Pelican routuje podle `Slug:`, ne podle cesty.
 - [content/events/2026/05/2026-05-16-milonga-u-draka.md](../content/events/2026/05/2026-05-16-milonga-u-draka.md) — reálný příklad instance v sérii.
 - [content/navigation/main.en.md](../content/navigation/main.en.md) — anglické popisky hlavní navigace.
