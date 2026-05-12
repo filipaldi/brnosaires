@@ -37,6 +37,13 @@ STRINGS = {
     # --- widget_calendar.html ---
     "event_calendar_aria": "Kalendář akcí",
 
+    # --- page.html: evergreen month pages (/milongy-brno-<měsíc>/) ---
+    "month_page_empty": "Na tenhle měsíc zatím žádné milongy vypsané nejsou.",
+    "month_page_full_calendar": "Celý kalendář →",
+    "month_page_prev": "← {month}",   # prev-month link; {month} = the month name (nominative)
+    "month_page_next": "{month} →",   # next-month link
+    "month_page_other_months_label": "Milongy po měsících:",
+
     # --- base.html: copy-link confirmation prefix ---
     "copied_prefix": "✓ ",
 }

@@ -3,6 +3,7 @@
 {% set days = cfg.days %}
 {% set start_date = cfg.start %}
 {% set end_date = cfg.end %}
+{% set month = cfg.month %}
 {% set limit = cfg.limit %}
 {% set sort = cfg.sort %}
 {% set group_by = cfg.group_by %}
@@ -11,7 +12,7 @@
 {% set card_size = cfg.card_size or 's' %}
 
 {% set _lang = page_lang | default(DEFAULT_LANG, true) %}
-{% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, sort=sort, limit=limit) %}
+{% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, month=month, sort=sort, limit=limit) %}
 
 {% if display_events %}
 <div class="calendar el-stack-l" role="region" aria-label="{{ 'event_calendar_aria' | t(_lang) }}" data-card-size="{{ card_size }}">

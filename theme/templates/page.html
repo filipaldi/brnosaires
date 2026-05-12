@@ -2,6 +2,18 @@
 
 {% block title %}{{ page.title }} | {{ SITENAME }}{% endblock %}
 
+{# --- evergreen month pages (/milongy-brno-<měsíc>/): `month: <N>` in frontmatter. Compute once, use in head + body. --- #}
+{% set month_num = (page.metadata.get('month') if page.metadata else none) %}
+{% if month_num %}
+  {% set _mlang = page_lang | default(DEFAULT_LANG, true) %}
+  {% set month_events = articles | calendarium(filter_by_type="milonga praktika neolonga", month=month_num, sort="oldest") %}
+{% endif %}
+
+{% block head %}
+{# A month with no events yet is a thin page — keep it crawlable (follow) but out of the index until an event lands. #}
+{% if month_num and not month_events %}<meta name="robots" content="noindex,follow">{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="group--main-container">
   <article class="el-stack stack-l">
@@ -13,6 +25,57 @@
     <div class="el-stack stack-xs">
       {{ page.content }}
     </div>
+
+    {% if month_num %}
+    {# --- month-page extras: empty-state, prev/next ring, all-months strip, ItemList JSON-LD --- #}
+    {% if not month_events %}
+    <p class="color-neutral-3">{{ 'month_page_empty' | t(_mlang) }} <a href="/tango-kalendar-brno/">{{ 'month_page_full_calendar' | t(_mlang) }}</a></p>
+    {% endif %}
+
+    {% set _kal = '/en/tango-kalendar-brno/' if _mlang == 'en' else '/tango-kalendar-brno/' %}
+    {% set _prev = month_num | month_wrap(-1) %}
+    {% set _next = month_num | month_wrap(1) %}
+    <nav class="el-cluster text-s" aria-label="{{ 'month_page_other_months_label' | t(_mlang) }}">
+      {% if _prev %}<a href="{{ _prev | month_page_url(_mlang) }}">{{ 'month_page_prev' | t(_mlang) | replace('{month}', _prev | month_name(_mlang)) }}</a>{% endif %}
+      <a href="{{ _kal }}">{{ 'month_page_full_calendar' | t(_mlang) }}</a>
+      {% if _next %}<a href="{{ _next | month_page_url(_mlang) }}">{{ 'month_page_next' | t(_mlang) | replace('{month}', _next | month_name(_mlang)) }}</a>{% endif %}
+    </nav>
+
+    <p class="text-s color-neutral-3">{{ 'month_page_other_months_label' | t(_mlang) }}
+      {% for m in range(1, 13) %}<a href="{{ m | month_page_url(_mlang) }}">{{ m | month_name(_mlang) }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+    </p>
+
+    {% if month_events %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ page.title | tojson }},
+  {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",{% endif %}
+  "numberOfItems": {{ month_events | length }},
+  "itemListElement": [
+    {% for event in month_events %}{
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Event",
+        "name": {{ event.title | tojson }},
+        {% set _es = event.metadata.get('event-start') if event.metadata else none %}
+        {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
+        {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
+        {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
+        {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
+        {% if _loc %}"location": {"@type": "Place", "name": {{ (_loc.split(',')[0] | trim) | tojson }}, "address": {{ _loc | tojson }}},{% endif %}
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
+        "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
+      }
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}
+    </script>
+    {% endif %}
+    {% endif %}
 
     {% set hub_series = page.metadata.get('series') if page.metadata else none %}
     {% if hub_series %}

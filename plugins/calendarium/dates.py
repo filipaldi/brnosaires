@@ -1,8 +1,43 @@
 """
 Date parsing, formatting, and headline generation utilities.
 """
+import calendar as _calmod
 from datetime import datetime, timedelta
 from . import config
+
+
+def _month_number(value):
+    """Coerce a month given as int / numeric string / CS|EN name → 1..12, or None."""
+    if value is None:
+        return None
+    if isinstance(value, int):
+        return value if 1 <= value <= 12 else None
+    s = str(value).strip().lower()
+    if not s:
+        return None
+    if s.isdigit():
+        n = int(s)
+        return n if 1 <= n <= 12 else None
+    return config.MONTH_NAME_TO_NUM.get(s)
+
+
+def year_for_month(month_num, now):
+    """The year that month "belongs to" for an *upcoming* framing: the current
+    year, or next year if that month has already passed this year. Mirrors
+    `tango_year_for_month` in pelicanconf.py — kept here to avoid a circular
+    import (the plugin must not import the site config)."""
+    return now.year if month_num >= now.month else now.year + 1
+
+
+def _month_range(now, month_value):
+    """Return (first-day, last-day) ISO strings for `month_value` in the
+    upcoming-framing year, or None if `month_value` can't be parsed."""
+    m = _month_number(month_value)
+    if m is None:
+        return None
+    y = year_for_month(m, now)
+    last_day = _calmod.monthrange(y, m)[1]
+    return (f"{y:04d}-{m:02d}-01", f"{y:04d}-{m:02d}-{last_day:02d}")
 
 
 def _parse_date_str(s):
@@ -36,9 +71,16 @@ def _date_from_now(now, token):
     return parsed.date() if parsed and hasattr(parsed, "date") else parsed
 
 
-def _resolve_start_end(now, days, start, end):
+def _resolve_start_end(now, days, start, end, month=None):
     if now is None:
         return (None, None)
+    # `month=` (the evergreen-month-page param) overrides days/start/end: it
+    # brackets exactly that calendar month in the upcoming-framing year.
+    if month is not None and str(month).strip():
+        rng = _month_range(now, month)
+        if rng is not None:
+            return rng
+        # unparseable month → fall through to the normal days/start/end logic
     if hasattr(now, "date"):
         today = now.date()
     else:

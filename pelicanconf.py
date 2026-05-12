@@ -108,6 +108,117 @@ def format_event_datetime(value, lang="cs"):
     return _fmt_dt(dt, lang)
 
 
+_MONTH_NAME_TO_NUM = {
+    # Czech — base + the genitive/locative variants that show up in titles ("v lednu", "ledna")
+    "leden": 1, "ledna": 1, "lednu": 1,
+    "unor": 2, "únor": 2, "unora": 2, "února": 2, "unoru": 2, "únoru": 2,
+    "brezen": 3, "březen": 3, "brezna": 3, "března": 3, "breznu": 3, "březnu": 3,
+    "duben": 4, "dubna": 4, "dubnu": 4,
+    "kveten": 5, "květen": 5, "kvetna": 5, "května": 5, "kvetnu": 5, "květnu": 5,
+    "cerven": 6, "červen": 6, "cervna": 6, "června": 6, "cervnu": 6, "červnu": 6,
+    "cervenec": 7, "červenec": 7, "cervence": 7, "července": 7, "cervenci": 7, "červenci": 7,
+    "srpen": 8, "srpna": 8, "srpnu": 8,
+    "zari": 9, "září": 9,
+    "rijen": 10, "říjen": 10, "rijna": 10, "října": 10, "rijnu": 10, "říjnu": 10,
+    "listopad": 11, "listopadu": 11,
+    "prosinec": 12, "prosince": 12, "prosinci": 12,
+    # English
+    "january": 1, "february": 2, "march": 3, "april": 4, "may": 5, "june": 6,
+    "july": 7, "august": 8, "september": 9, "october": 10, "november": 11, "december": 12,
+}
+
+
+def _month_number(value):
+    """Coerce a month given as int, numeric string, or CS/EN name → 1..12, or None."""
+    if value is None:
+        return None
+    if isinstance(value, int):
+        return value if 1 <= value <= 12 else None
+    s = str(value).strip().lower()
+    if s.isdigit():
+        n = int(s)
+        return n if 1 <= n <= 12 else None
+    return _MONTH_NAME_TO_NUM.get(s)
+
+
+def tango_year_for_month(value, now=None):
+    """Return the year that month "belongs to" for an *upcoming* framing.
+
+    Used by the 12 evergreen month pages (`/milongy-brno-<měsíc>/`) so their
+    titles/H1s carry a year without anyone editing 12 files each January:
+    if the month is this month or later → current year; if it's already passed
+    this year → next year. So `tango_year_for_month('leden')` rendered in
+    November → next year. `value` may be an int, a numeric string, or a CS/EN
+    month name. Falls back to the current year if `value` can't be parsed
+    (harmless — the page still builds, the year is just "this year").
+    """
+    ref = now if now is not None else NOW
+    m = _month_number(value)
+    if m is None:
+        return ref.year
+    return ref.year if m >= ref.month else ref.year + 1
+
+
+# Nominative month names, indexed [0]=January … [11]=December. Mirrors
+# calendarium.config.MONTH_NAMES_{CS,EN} — duplicated here so pelicanconf has
+# no import-time dependency on a plugin module being importable yet.
+_MONTH_NAMES = {
+    "cs": ["leden", "únor", "březen", "duben", "květen", "červen",
+           "červenec", "srpen", "září", "říjen", "listopad", "prosinec"],
+    "en": ["January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December"],
+}
+# Locative ("v ...") forms for Czech page titles/H1s: "Milongy v Brně v lednu".
+_MONTH_NAMES_CS_LOCATIVE = ["lednu", "únoru", "březnu", "dubnu", "květnu", "červnu",
+                            "červenci", "srpnu", "září", "říjnu", "listopadu", "prosinci"]
+# ASCII (no-diacritics) month stems for the /milongy-brno-<month>/ URLs. The
+# slug is the SAME in both languages (the EN month page is a `.en.md` twin with
+# the same `Slug:`, routed to /en/<slug>/ by the i18n machinery — like every
+# other .en.md). Only the `/en/` prefix differs, and the template adds that.
+_MONTH_SLUG_STEMS = ["leden", "unor", "brezen", "duben", "kveten", "cerven",
+                     "cervenec", "srpen", "zari", "rijen", "listopad", "prosinec"]
+
+
+def month_name(value, lang="cs", form="nominative"):
+    """Display name for a month (int / numeric string / CS|EN name) in `lang`.
+    `form="locative"` gives the Czech "v lednu" form (English ignores it)."""
+    m = _month_number(value)
+    if m is None:
+        return ""
+    idx = m - 1
+    if lang == "cs" and form == "locative":
+        return _MONTH_NAMES_CS_LOCATIVE[idx]
+    return _MONTH_NAMES.get(lang, _MONTH_NAMES["cs"])[idx]
+
+
+def month_page_slug(value):
+    """The slug of the evergreen month page for month `value`:
+    `milongy-brno-<cs-month-stem>` (same slug in CS and EN — the EN page is a
+    same-slug `.en.md` twin). Returns '' if `value` can't be parsed."""
+    m = _month_number(value)
+    if m is None:
+        return ""
+    return "milongy-brno-" + _MONTH_SLUG_STEMS[m - 1]
+
+
+def month_page_url(value, lang="cs"):
+    """The URL path of the evergreen month page for month `value` in `lang`:
+    `/milongy-brno-<month>/` (cs) or `/en/milongy-brno-<month>/` (en)."""
+    slug = month_page_slug(value)
+    if not slug:
+        return ""
+    return ("/en/" + slug + "/") if lang == "en" else ("/" + slug + "/")
+
+
+def month_wrap(value, delta):
+    """Month arithmetic that wraps 12→1 / 1→12. `value` may be int/str/name;
+    returns an int 1..12, or None if `value` can't be parsed."""
+    m = _month_number(value)
+    if m is None:
+        return None
+    return ((m - 1 + delta) % 12) + 1
+
+
 def event_iso8601(value):
     if value is None:
         return ""
@@ -150,7 +261,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body
