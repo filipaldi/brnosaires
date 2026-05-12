@@ -1,17 +1,15 @@
 ---
-title: Tango milongy tento týden - Tango Brno
+title: Milonga Brno tento týden — kde se dnes tančí - Tango Brno
 date: 2026-02-03 18:00:00
 slug: tango-milongy-tenhle-tyden
-description: Kde se tančí tango v Brně tento týden. Všechny milongy a tančírny na nejbližší dny.
+description: Kde se v Brně tančí tango tento týden. Všechny milongy a tančírny na nejbližší dny, s místem a časem.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-#  Milongy tento týden v Brně
+# Milongy v Brně tento týden
 
-Zjisti, kde se tančí tango v Brně tento týden. Dozvíš se o všech milongách (tančírnách argentinského tanga) v Brně a okolí.
-
-Užívej a tancuj!
+Tento týden se v Brně tančí milonga tady: níže najdeš všechny tančírny argentinského tanga v Brně a okolí na nejbližší dny, s místem a časem. Užívej a tancuj.
 
 <widget-calendar 
     filter_by_type="milonga praktika" 

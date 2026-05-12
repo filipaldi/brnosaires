@@ -1,15 +1,15 @@
 ---
-title: Lekce a workshopy argentinského tanga v Brně
+title: Tango lekce a kurzy v Brně 2026 - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-lekce-brno
-description: Kde se učit tango v Brně. Rozvrh pravidelných lekcí všech škol a nejbližší workshopy na jednom místě.
+description: Kde se učit tango v Brně. Kurzy tanga pro začátečníky, rozvrh pravidelných lekcí všech škol a nejbližší workshopy na jednom místě.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Lekce argentinského tanga v Brně
+# Tango lekce a kurzy v Brně
 
-Kde se učit tango v Brně? Zde najdeš nejbližší workshopy a rozvrh pravidelných lekcí všech škol, které učí v Brně argentinské tango. 
+Kde se učit tango v Brně? Kurzy tanga pro začátečníky i rozvrh pravidelných lekcí a nejbližší workshopy všech škol, které v Brně učí argentinské tango: Taneční studio Stolárna, TangoLab Štěky, Gabriela a Petr Nečasovi.
 
 
 <widget-calendar-link 

@@ -1,18 +1,16 @@
 ---
-title: Milongas and Praktikas in Brno - Tango Brno
+title: Milongas in Brno: dance-floor dates 2026 - Tango Brno
 date: 2026-01-17 18:00:00
 lang: en
 slug: tango-milongy-brno
-description: Milongas in Brno for the period ahead. Regular and one-off dance floors, plan your calendar.
+description: Milongas in Brno for the period ahead. Regular and one-off Argentine tango dance floors, dates and venues in one place.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Milongas in Brno for the Period Ahead
+# Milongas in Brno — the next dates
 
-Plan your dancing calendar for the weeks to come.
-
-Tango dance floors, or **milongas in Brno**, regular and not so regular.
+Argentine tango dance floors in Brno, regular and one-off. Plan your calendar for the weeks ahead: most milongas start in the evening, and you do not need to bring a partner.
 
 
 <widget-calendar-link 

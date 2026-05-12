@@ -1,16 +1,16 @@
 ---
-title: Brno Tango Calendar - Tango Brno
+title: Brno tango calendar 2026: milongas, praktikas, classes - Tango Brno
 date: 2026-01-17 18:00:00
 lang: en
 slug: tango-kalendar-brno
-description: The calendar of Brno tango events. Milongas, praktikas and classes in one place, laid out month by month.
+description: The calendar of Brno tango events. Milongas, praktikas, classes and workshops from every school and organiser, laid out week by week.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Brno Tango Calendar
+# Brno tango calendar — milongas and classes 2026
 
-The current calendar of Brno tango events. Milongas, praktikas and classes, all in one place.
+The current calendar of Brno tango events: milongas, praktikas, classes and workshops from every school and organiser, all in one place.
 
 <widget-calendar-link 
     cal_file_name="events" 

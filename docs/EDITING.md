@@ -100,6 +100,10 @@ Tělo hubu by mělo popisovat **sérii obecně**, ne konkrétní termín. Sekce 
 
 Pro hub-stránky a běžné stránky (o nás, FAQ, marathon sub-site) stačí společná pole nahoře. Bez polí pro akce. Bez `series`, pokud to není hub.
 
+### Roční úklid: rok v titulcích landing stránek
+
+Titulky a nadpisy přehledových stránek (`tango-kalendar-brno`, `tango-milongy-brno`, `tango-lekce-brno` a jejich `.en.md` varianty) obsahují aktuální rok kvůli vyhledávání (lidé hledají „milonga Brno 2026"). **Jednou ročně** (typicky začátkem ledna) v nich přepište rok na nový — je to ~6 souborů + 6 anglických dvojčat, jen pole `title`, `description` a první `<h1>`/odstavec. Měsíční stránky (`milongy-brno-<měsíc>`) rok řeší samy přes build-time filtr, ty se nedotýkáte.
+
 ## Oznámení / píkoška / osoba
 
 Použijte společná pole. Aktuálně:

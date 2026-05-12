@@ -1,17 +1,15 @@
 ---
-title: Milongy a praktiká v Brně - Tango Brno
+title: Milongy v Brně: termíny tančíren 2026 - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-milongy-brno
-description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny, naplánuj si kalendář.
+description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny argentinského tanga, termíny a místa na jednom místě.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Milongy v Brně na nejbližší období
+# Milongy v Brně — nejbližší termíny
 
-Naplánuj si svůj taneční kalendář na nejbližší období.
-
-Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
+Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj si kalendář na nejbližší týdny: většina milong začíná večer a partnera s sebou nepotřebuješ.
 
 
 <widget-calendar-link 
