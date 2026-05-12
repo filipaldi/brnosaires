@@ -22,6 +22,10 @@ STRINGS = {
     # --- article.html: recurring-series note ---
     "part_of_series": "Součást pravidelné série:",
 
+    # --- article.html: first-timer nudge on milonga/praktika events ---
+    "first_milonga_prompt": "Poprvé na milonze?",
+    "first_milonga_link": "Mrkni, jak na to.",
+
     # --- category.html ---
     "category_announcement": "Oznámení",
     "category_curiosity": "Pikošky",

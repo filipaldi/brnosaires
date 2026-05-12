@@ -38,15 +38,24 @@
     {% endif %}
 
     {% set series_slug = meta.get('series') %}
+    {% set _hub = namespace(url=none, title=none) %}
     {% if series_slug %}
       {% for p in pages if p.slug == series_slug %}
+      {% set _hub.title = p.title %}
       {# link to the en hub when we're on an /en/ page, so the visitor stays in English #}
       {% set _hub_url = namespace(v=p.url) %}
       {% if page_lang == 'en' %}{% for tr in (p.translations or []) if tr.lang == 'en' %}{% set _hub_url.v = tr.url %}{% endfor %}{% endif %}
+      {% set _hub.url = _hub_url.v %}
       <p class="text-s color-neutral-3">
         {{ 'part_of_series' | t(page_lang) }} <a href="{{ _hub_url.v }}">{{ p.title }}</a>
       </p>
       {% endfor %}
+    {% endif %}
+
+    {# First-timer nudge to the beginner/glossary page — only on milonga/praktika events. #}
+    {% if event_type in ('milonga', 'praktika', 'neolonga') %}
+    {% set _beginner_url = '/en/tango-pro-zacatecniky-brno/' if page_lang == 'en' else '/tango-pro-zacatecniky-brno/' %}
+    <p class="text-s color-neutral-3">{{ 'first_milonga_prompt' | t(page_lang) }} <a href="{{ _beginner_url }}">{{ 'first_milonga_link' | t(page_lang) }}</a></p>
     {% endif %}
 
     <div class="el-stack stack-xs">
@@ -56,23 +65,45 @@
 </div>
 
 {% if event_start %}
-{% set _ld_url_ns = namespace(url=article.url) %}
-{% if series_slug %}{% for p in pages if p.slug == series_slug %}{% set _ld_url_ns.url = p.url %}{% endfor %}{% endif %}
+{# url/@id follow the same canonical rule as base.html: a series instance points at its hub. #}
+{% set _ld_url = _hub.url if _hub.url else article.url %}
+{% set _addr = event_location | event_address %}
+{% set _entry = meta.get('entry') %}
+{% set _free = _entry and (_entry | string | lower | trim) in ('zdarma', 'free', '0', '0 kč', 'dobrovolné', 'dobrovolne') %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Event",
-  "name": {{ article.title | tojson }},
+  {% if SITEURL %}"@id": "{{ SITEURL }}/{{ _ld_url }}#event",
+  {% endif %}"name": {{ article.title | tojson }},
   "description": {{ ((article.description or article.summary or '') | striptags | truncate(300)) | tojson }},
   "startDate": "{{ event_start | event_iso8601 }}",
   {% if event_end %}"endDate": "{{ event_end | event_iso8601 }}",{% endif %}
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  {% if event_location %}"location": {"@type": "Place", "name": {{ event_location | tojson }}, "address": {{ event_location | tojson }}},{% endif %}
-  {% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},{% endif %}
-  {% if instructor %}"performer": {"@type": "Person", "name": {{ instructor | tojson }}},{% endif %}
-  {% if article.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ article.preview_image.lstrip('/') }}",{% endif %}
-  "url": "{{ SITEURL }}/{{ _ld_url_ns.url }}"
+  {% if event_location %}"location": {
+    "@type": "Place",
+    {% if _addr.name %}"name": {{ _addr.name | tojson }},
+    {% endif %}{% if _addr.streetAddress or _addr.addressLocality %}"address": {
+      "@type": "PostalAddress",
+      {% if _addr.streetAddress %}"streetAddress": {{ _addr.streetAddress | tojson }},
+      {% endif %}"addressLocality": {{ (_addr.addressLocality or 'Brno') | tojson }},
+      "addressCountry": "CZ"
+    }{% else %}"address": {{ event_location | tojson }}{% endif %}
+  },
+  {% endif %}{% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},
+  {% endif %}{% if instructor %}"performer": {"@type": "Person", "name": {{ instructor | tojson }}},
+  {% endif %}{% if _entry %}"offers": {
+    "@type": "Offer",
+    "price": {{ ('0' if _free else (_entry | string | trim)) | tojson }},
+    "priceCurrency": "CZK",
+    "availability": "https://schema.org/InStock"{% if SITEURL %},
+    "url": "{{ SITEURL }}/{{ _ld_url }}"{% endif %}
+  },
+  {% if _free %}"isAccessibleForFree": true,
+  {% endif %}{% endif %}{% if _hub.url and SITEURL %}"superEvent": {"@type": "EventSeries", "name": {{ _hub.title | tojson }}, "url": "{{ SITEURL }}/{{ _hub.url }}"},
+  {% endif %}{% if article.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ article.preview_image.lstrip('/') }}",
+  {% endif %}"url": "{{ SITEURL }}/{{ _ld_url }}"
 }
 </script>
 {% endif %}

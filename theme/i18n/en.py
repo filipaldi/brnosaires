@@ -25,6 +25,10 @@ STRINGS = {
     # --- article.html: recurring-series note ---
     "part_of_series": "Part of a recurring series:",
 
+    # --- article.html: first-timer nudge on milonga/praktika events ---
+    "first_milonga_prompt": "First time at a milonga?",
+    "first_milonga_link": "Here's how it goes.",
+
     # --- category.html ---
     "category_announcement": "Announcements",
     "category_curiosity": "Curiosities",

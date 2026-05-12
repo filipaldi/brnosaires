@@ -62,6 +62,8 @@ INDEX_SAVE_AS = ''
 ARTICLE_ORDER_BY = 'reversed-date'
 
 from datetime import datetime
+from html import unescape
+import re
 import pytz
 import sys
 import os
@@ -238,6 +240,60 @@ def event_iso8601(value):
     return tz.localize(dt).isoformat()
 
 
+def event_address(value):
+    """Parse a canonical 'Venue, Street, Brno-District' event-location string into a
+    schema.org address dict. Degrades gracefully — never returns a half-built PostalAddress:
+
+      "Adrinela Cafe, Životského 14, Brno-Židenice"
+        -> {"name": "Adrinela Cafe", "streetAddress": "Životského 14", "addressLocality": "Brno-Židenice"}
+      "Sono Centrum, Brno"        -> {"name": "Sono Centrum", "addressLocality": "Brno"}   # 2 parts: venue + locality
+      "Brno"                      -> {"addressLocality": "Brno"}                              # bare locality floor
+      "Nějaký sál"                -> {"name": "Nějaký sál"}                                   # bare venue, no address
+      None / ""                   -> {}
+
+    article.html turns the dict into a Place (`name`) wrapping a PostalAddress
+    (`streetAddress`/`addressLocality`), or just one of them, whatever is present.
+    `addressCountry` ("CZ") is added by the template, not here.
+    """
+    if value is None:
+        return {}
+    parts = [p.strip() for p in str(value).split(",") if p.strip()]
+    if not parts:
+        return {}
+    if len(parts) == 1:
+        only = parts[0]
+        # A bare "Brno" / "Brno-District" is a locality, not a venue name.
+        return {"addressLocality": only} if only == "Brno" or only.startswith("Brno-") or only.startswith("Brno ") else {"name": only}
+    if len(parts) == 2:
+        return {"name": parts[0], "addressLocality": parts[1]}
+    # 3+ parts: name, then everything-but-last is the street, last is the locality.
+    return {"name": parts[0], "streetAddress": ", ".join(parts[1:-1]), "addressLocality": parts[-1]}
+
+
+_TAG_RE = re.compile(r"<[^>]+>")
+_FAQ_PAIR_RE = re.compile(
+    r"<p>\s*<strong>(.*?)</strong>\s*(.*?)</p>", re.S | re.I
+)
+
+
+def faq_pairs(html):
+    """Extract (question, answer) pairs from a glossary page's rendered HTML.
+    The page authors FAQs as `**Question?**` + answer paragraph, which Markdown
+    renders as `<p><strong>Question?</strong> answer…</p>`. Returns a list of
+    {"q": ..., "a": ...} dicts with tags stripped — fed to FAQPage JSON-LD.
+    Only pairs whose question ends with '?' count, so ordinary bold text in the
+    body isn't misread as an FAQ entry."""
+    if not html:
+        return []
+    out = []
+    for q_raw, a_raw in _FAQ_PAIR_RE.findall(str(html)):
+        q = unescape(_TAG_RE.sub("", q_raw)).strip()
+        a = unescape(_TAG_RE.sub("", a_raw)).strip()
+        if q.endswith("?") and a:
+            out.append({"q": q, "a": a})
+    return out
+
+
 JINJA_ENVIRONMENT = {"extensions": ["jinja2.ext.do"]}
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plugins'))
@@ -261,7 +317,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_address": event_address, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body

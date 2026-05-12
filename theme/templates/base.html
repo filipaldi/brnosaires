@@ -21,16 +21,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ SITENAME }} - {{ _site_desc }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   {% if SITEURL %}<base href="{{ SITEURL }}/">{% endif %}
 
   {% set _page_url = article.url if article is defined else page.url if page is defined else '' %}
   {% set _title = article.title if article is defined else page.title if page is defined else SITENAME %}
+  {# Per-page meta description — the search-snippet field. Must be the page's own
+     `description:` (→ article `summary` → site default), NOT a hardcoded sitewide string. #}
   {% set _desc = (article.description if article is defined and article.description
                   else article.summary if article is defined
                   else page.description if page is defined and page.description
                   else _site_desc) | striptags | truncate(200) %}
+  <meta name="description" content="{{ _desc }}">{# previously hardcoded sitewide — now per-page #}
   {% set _img = article.preview_image if article is defined and article.preview_image
                 else page.preview_image if page is defined and page.preview_image
                 else '' %}
