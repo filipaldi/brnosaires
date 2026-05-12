@@ -44,6 +44,15 @@ STRINGS = {
     # --- widget_calendar.html ---
     "event_calendar_aria": "Event calendar",
 
+    # --- components/footer.html ---
+    "footer_tagline": "Argentine tango in Brno — milongas, classes, events.",
+    "footer_links_label": "Footer links",
+    "footer_months_label": "Milongas month by month:",
+    "footer_subscribe_label": "Subscribe in your calendar:",
+    "footer_ics_milongas": "milongas .ics",
+    "footer_ics_classes": "classes .ics",
+    "footer_ics_all": "all .ics",
+
     # --- page.html: evergreen month pages (/milongy-brno-<month>/) ---
     "month_page_empty": "No milongas listed for this month yet.",
     "month_page_full_calendar": "Full calendar →",

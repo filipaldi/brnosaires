@@ -1,15 +1,42 @@
-<footer class="padding-all-m margin-top-xl" role="contentinfo">
+{# Site footer — secondary nav + month strip + calendar subscribe + Organization JSON-LD.
+   Link list comes from content/navigation/footer.md (+ footer.en.md), resolved by
+   nav_from_docs into nav_items['footer'][lang]. Per-language (was hardcoded Czech). #}
+{% set _flang = page_lang | default(DEFAULT_LANG, true) %}
+{% set _fnav = (nav_items.get('footer', {}) if nav_items is defined else {}) %}
+{% set _flinks = _fnav.get(_flang, _fnav.get('cs', [])) if _fnav is mapping else _fnav %}
+{% set _home = '/en/' if _flang == 'en' else '/' %}
+<footer class="padding-all-m margin-top-xl el-stack stack-m" role="contentinfo">
   <div class="cluster justify-between gap-m">
-    <a href="" class="logo text-l">{{ SITENAME }}</a>
-    <nav class="nav cluster gap-s">
-      <a href="tango-kalendar-brno/" class="nav__item text-s">Kalendář</a>
-      <a href="tango-lekce-brno/" class="nav__item text-s">Lekce</a>
-      <a href="tango-milongy-brno/" class="nav__item text-s">Milongy</a>
-      <a href="lenka-pise-oznamy/" class="nav__item text-s">Oznámení</a>
-      <a href="tango-pikosky/" class="nav__item text-s">Pikošky</a>
-      <a href="o-nas/" class="nav__item text-s">O nás</a>
-      <a href="marathon/" class="nav__item text-s">Tango Marathon</a>
-      <a href="tango-milongy-tenhle-tyden/" class="nav__item text-s">Tanči tenhle týden</a>
-    </nav>
+    <a href="{{ _home }}" class="logo text-l">{{ SITENAME }}</a>
+    <p class="text-s color-neutral-3">{{ 'footer_tagline' | t(_flang) }}</p>
   </div>
+
+  {% if _flinks %}
+  <nav class="nav cluster gap-s" aria-label="{{ 'footer_links_label' | t(_flang) }}">
+    {% for link in _flinks %}<a href="{{ link.url }}" class="nav__item text-s"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>{% endfor %}
+  </nav>
+  {% endif %}
+
+  <p class="text-s color-neutral-3">{{ 'footer_months_label' | t(_flang) }}
+    {% for m in range(1, 13) %}<a href="{{ m | month_page_url(_flang) }}">{{ m | month_name(_flang) }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+  </p>
+
+  <p class="text-s color-neutral-3">{{ 'footer_subscribe_label' | t(_flang) }}
+    <a href="/milongas.ics">{{ 'footer_ics_milongas' | t(_flang) }}</a> ·
+    <a href="/classes.ics">{{ 'footer_ics_classes' | t(_flang) }}</a> ·
+    <a href="/events.ics">{{ 'footer_ics_all' | t(_flang) }}</a>
+  </p>
 </footer>
+
+{# Sitewide entity signal — emitted once per page (the footer is on every page). #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  {% if SITEURL %}"@id": "{{ SITEURL }}/#organization",
+  "url": "{{ SITEURL }}/",
+  {% endif %}"name": {{ SITENAME | tojson }},
+  "description": {{ (SITEDESCRIPTION_EN if _flang == 'en' else SITEDESCRIPTION) | tojson }},
+  "areaServed": {"@type": "City", "name": "Brno"}
+}
+</script>
