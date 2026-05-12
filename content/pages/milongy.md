@@ -33,3 +33,4 @@ Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj 
     card_size="s">
 </widget-calendar>
 
+**Milongy po měsících:** [leden](/milongy-brno-leden/) · [únor](/milongy-brno-unor/) · [březen](/milongy-brno-brezen/) · [duben](/milongy-brno-duben/) · [květen](/milongy-brno-kveten/) · [červen](/milongy-brno-cerven/) · [červenec](/milongy-brno-cervenec/) · [srpen](/milongy-brno-srpen/) · [září](/milongy-brno-zari/) · [říjen](/milongy-brno-rijen/) · [listopad](/milongy-brno-listopad/) · [prosinec](/milongy-brno-prosinec/)

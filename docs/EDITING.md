@@ -112,13 +112,17 @@ Dvanáct stránek, jedna pro každý měsíc (`/milongy-brno-leden/` … `/milon
 
 | Pole / prvek | Co s tím |
 |---|---|
-| `month: N` ve frontmatteru (číslo 1–12) | **Nech být.** Tohle je přepínač, který stránce zapne měsíční režim (seznam akcí v JSON-LD, `noindex` u prázdného měsíce, odkazy na sousední měsíce). |
-| `title` / `<h1>` / úvodní odstavec | Obsahují `{{ tango_year_for_month(N) }}` — rok se dopočítá při buildu (letošní, nebo příští, pokud ten měsíc už letos byl). **Ručně rok nepřepisuj.** Text okolo (úvodní věty, „atmosféra měsíce") klidně uprav, ať to není mdlé. |
+| `month: N` ve frontmatteru (číslo 1–12) | **Nech být.** Tohle je přepínač, který stránce zapne měsíční režim: nadpis i `<title>` se z něj vyrobí (`Milongy v Brně v <6. pádu> <rok>`), vykreslí se seznam akcí v JSON-LD, `noindex` u prázdného měsíce, odkazy na sousední měsíce. |
+| `title:` ve frontmatteru | Záložní — skutečný `<title>` a `<h1>` na stránce vyrábí šablona z `month:` (včetně roku přes `tango_year_for_month`). `title:` ponech jak je; **rok do něj nepiš**, nemá smysl ho udržovat. |
+| nadpis `#` v těle | **Žádný nepřidávej.** `<h1>` dodává šablona. Soubor má jen úvodní odstavec + widgety. |
+| úvodní odstavec | Bez ročníku. Text klidně uprav (úvodní věty, „atmosféra měsíce"), ať to není mdlé — jen tam **nepiš konkrétní rok**, ať stránka zůstane evergreen. |
 | `<widget-calendar month="N" ...>` v těle | Vykreslí milongy/praktiky/neolongy v daném měsíci. `month` musí odpovídat `month:` z frontmatteru. |
 | widget odběru `.ics` | Standardní, nech být. |
 | prázdný měsíc | Když na ten měsíc zatím nic není, stránka se sama označí `noindex` (zůstane dostupná, ale Google ji nenabízí) a ukáže hlášku „Na tenhle měsíc zatím žádné milongy vypsané nejsou." Jakmile přidáš akci v tom měsíci, při příštím buildu se `noindex` sám zruší. **Nic neděláš.** |
 
 **Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v `content/events/RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
+
+**Odkazy na měsíční stránky** najdeš ve spodku stránek `tango-milongy-brno` a `tango-kalendar-brno` (řádek „Milongy po měsících: leden · únor · …") — to je obyčejný seznam odkazů v Markdownu, klidně ho uprav nebo přesuň. Mezi sebou se měsíční stránky prolinkují samy (předchozí/další měsíc + pásek všech měsíců dodává šablona).
 
 **Anglické verze** jsou `.en.md` dvojčata se stejným `slug` a `Lang: en` (jako u ostatních stránek) — běží na `/en/milongy-brno-<měsíc>/`. Mění se jen text; `month:` a vše ostatní je stejné.
 

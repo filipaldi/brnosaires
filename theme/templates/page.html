@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}{{ page.title }} | {{ SITENAME }}{% endblock %}
-
-{# --- evergreen month pages (/milongy-brno-<měsíc>/): `month: <N>` in frontmatter. Compute once, use in head + body. --- #}
+{# --- evergreen month pages (/milongy-brno-<měsíc>/): `month: <N>` in frontmatter. Compute once, use in title + head + body.
+   NB: `page_lang` is set by base.html *after* this child's top-level runs, so derive lang from `page.lang` here. --- #}
 {% set month_num = (page.metadata.get('month') if page.metadata else none) %}
 {% if month_num %}
-  {% set _mlang = page_lang | default(DEFAULT_LANG, true) %}
+  {% set _mlang = (page.lang if page.lang else DEFAULT_LANG) %}
+  {% set _myear = month_num | tango_year_for_month %}
   {% set month_events = articles | calendarium(filter_by_type="milonga praktika neolonga", month=month_num, sort="oldest") %}
+  {% if _mlang == 'en' %}
+    {% set month_h1 = 'Milongas in Brno in ' ~ (month_num | month_name('en')) ~ ' ' ~ _myear %}
+    {% set month_title = month_h1 ~ ' — dates' %}
+  {% else %}
+    {% set month_h1 = 'Milongy v Brně v ' ~ (month_num | month_name('cs', 'locative')) ~ ' ' ~ _myear %}
+    {% set month_title = 'Milongy v Brně v ' ~ (month_num | month_name('cs', 'locative')) ~ ' ' ~ _myear ~ ' — termíny tančíren' %}
+  {% endif %}
 {% endif %}
+
+{% block title %}{{ month_title if month_num else page.title }} | {{ SITENAME }}{% endblock %}
 
 {% block head %}
 {# A month with no events yet is a thin page — keep it crawlable (follow) but out of the index until an event lands. #}
@@ -23,6 +32,7 @@
     </div>
     {% endif %}
     <div class="el-stack stack-xs">
+      {% if month_num %}<h1>{{ month_h1 }}</h1>{% endif %}
       {{ page.content }}
     </div>
 
@@ -50,7 +60,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": {{ page.title | tojson }},
+  "name": {{ month_title | tojson }},
   {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",{% endif %}
   "numberOfItems": {{ month_events | length }},
   "itemListElement": [
