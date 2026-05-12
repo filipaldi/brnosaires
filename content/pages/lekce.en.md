@@ -12,6 +12,8 @@ preview_image: /images/milonga-hned-vedle.avif
 
 Where do you learn tango in Brno? Beginner courses, the schedule of regular classes and the next workshops from every school that teaches Argentine tango in the city: Taneční studio Stolárna, TangoLab Štěky, and Gabriela & Petr Nečasovi.
 
+Brand new to this? Start by reading [what a milonga, praktika and class are, and where to start with tango in Brno](/en/tango-pro-zacatecniky-brno/).
+
 
 <widget-calendar-link 
     cal_file_name="classes" 

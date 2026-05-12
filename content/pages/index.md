@@ -16,7 +16,7 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
-Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar-brno/) nebo rovnou na [milongy tento týden](/tango-milongy-tenhle-tyden/).
+Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar-brno/) nebo rovnou na [milongy tento týden](/tango-milongy-tenhle-tyden/). Začínáš úplně od nuly? [Tudy](/tango-pro-zacatecniky-brno/).
 
 <widget-calendar-link 
     cal_file_name="events" 

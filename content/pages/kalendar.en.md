@@ -12,6 +12,8 @@ preview_image: /images/milonga-hned-vedle.avif
 
 The current calendar of Brno tango events: milongas, praktikas, classes and workshops from every school and organiser, all in one place.
 
+Not sure what a milonga or a praktika is, or where to start with tango? [Have a look here](/en/tango-pro-zacatecniky-brno/).
+
 <widget-calendar-link 
     cal_file_name="events" 
     filter_by_type="milonga praktika workshop"

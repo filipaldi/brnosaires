@@ -18,7 +18,7 @@ Now they want it to get to you, as close as possible. Up close it looks even bet
 
 Under one roof, Brnos Aires brings together all of Brno's tango communities, schools, teachers and dancers.
 
-Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tango-kalendar-brno/) or jump straight to [milongas this week](/en/tango-milongy-tenhle-tyden/).
+Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tango-kalendar-brno/) or jump straight to [milongas this week](/en/tango-milongy-tenhle-tyden/). Starting from scratch? [This way](/en/tango-pro-zacatecniky-brno/).
 
 <widget-calendar-link 
     cal_file_name="events" 

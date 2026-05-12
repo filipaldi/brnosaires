@@ -11,6 +11,8 @@ preview_image: /images/milonga-hned-vedle.avif
 
 Aktuální kalendář brněnských tango událostí: milongy, praktika, lekce a workshopy všech škol a organizátorů, přehledně na jednom místě.
 
+Nevíš, co je milonga nebo praktika a kde s tangem začít? [Mrkni sem](/tango-pro-zacatecniky-brno/).
+
 <widget-calendar-link 
     cal_file_name="events" 
     filter_by_type="milonga praktika workshop"

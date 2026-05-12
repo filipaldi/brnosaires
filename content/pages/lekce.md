@@ -11,6 +11,8 @@ preview_image: /images/milonga-hned-vedle.avif
 
 Kde se učit tango v Brně? Kurzy tanga pro začátečníky i rozvrh pravidelných lekcí a nejbližší workshopy všech škol, které v Brně učí argentinské tango: Taneční studio Stolárna, TangoLab Štěky, Gabriela a Petr Nečasovi.
 
+Úplně začínáš? Přečti si nejdřív, [co je milonga, praktika a lekce a jak s tangem v Brně začít](/tango-pro-zacatecniky-brno/).
+
 
 <widget-calendar-link 
     cal_file_name="classes" 
