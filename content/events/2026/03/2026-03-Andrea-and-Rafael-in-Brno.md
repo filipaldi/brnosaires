@@ -5,7 +5,7 @@ date: 2026-02-28 13:00:00
 event-type: workshop
 event-start: 2026-03-28 13:00:00
 event-end: 2026-03-29 17:30:00
-event-location: Pd Domini park, Panská 2, Brno
+event-location: Domini Park, Husova 14, Brno
 preview_image: /images/events/2026/Andrea-and-Rafael.jpg
 description: Andrea Giurizzato & Rafael Luna v Brně. 
 author: Lenka Plateniková

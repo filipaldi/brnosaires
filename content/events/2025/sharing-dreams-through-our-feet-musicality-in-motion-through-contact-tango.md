@@ -8,6 +8,7 @@ event-end: 2025-11-23 14:00:00
 preview_image: /images/Javier_2024-19.avif
 description: Workshop muzikalita v pohybu přes kontaktní tango. Somatické techniky, Tai Chi, kontaktní improvizace. Listopad 2025.
 author: Filip Paldia
+event-location: Škola Danza, Okružní 1, Brno
 ---
 
 # Sharing Dreams through our Feet – Musicality in motion through contact-tango

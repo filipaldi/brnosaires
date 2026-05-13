@@ -41,7 +41,7 @@ def _apply_limit(events, limit):
         return list(events)
 
 
-def calendar_filter(articles, now, filter_by_type=None, days=None, start=None, end=None, sort=None, limit=None):
+def calendar_filter(articles, now, filter_by_type=None, days=None, start=None, end=None, month=None, sort=None, limit=None):
     event_pages = []
     for a in articles or []:
         if not getattr(a, "category", None):
@@ -49,7 +49,7 @@ def calendar_filter(articles, now, filter_by_type=None, days=None, start=None, e
         elif getattr(a.category, "name", None) not in config.EXCLUDED_CATEGORIES:
             event_pages.append(a)
     type_filtered = _filter_by_type(event_pages, filter_by_type)
-    start_str, end_str = dates._resolve_start_end(now, days, start, end)
+    start_str, end_str = dates._resolve_start_end(now, days, start, end, month=month)
     calendar_events = expand_recurring(type_filtered, start_str, end_str)
     reverse = str(sort).strip().lower() == "newest"
     calendar_events.sort(key=lambda e: getattr(e, "date", None) or datetime.min, reverse=reverse)
@@ -58,6 +58,6 @@ def calendar_filter(articles, now, filter_by_type=None, days=None, start=None, e
 
 
 def make_calendar_filter(now):
-    def _filter(articles, filter_by_type=None, days=None, start=None, end=None, sort=None, limit=None):
-        return calendar_filter(articles, now, filter_by_type=filter_by_type, days=days, start=start, end=end, sort=sort, limit=limit)
+    def _filter(articles, filter_by_type=None, days=None, start=None, end=None, month=None, sort=None, limit=None):
+        return calendar_filter(articles, now, filter_by_type=filter_by_type, days=days, start=start, end=end, month=month, sort=sort, limit=limit)
     return _filter

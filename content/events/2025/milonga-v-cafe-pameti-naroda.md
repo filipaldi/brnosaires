@@ -7,6 +7,7 @@ preview_image: /images/image.avif
 event-type: milonga
 description: Milonga v Café Paměti národa. Brno.
 author: Filip Paldia
+event-location: Brno
 ---
 
 # Milonga v Café Paměti národa

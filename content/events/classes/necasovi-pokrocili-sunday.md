@@ -8,7 +8,7 @@ event-end: 2026-01-07 21:00:00
 recurrence: weekly sunday
 preview_image: /images/classes/class-necasovi.jpg
 event-organiser: Gabriela a Petr Nečasovi
-event-location: Tango Studio, Koliště 23, 602 00, Brno
+event-location: Tango Studio, Koliště 23, Brno
 event-type: class
 description: Pravidelná lekce pro pokročilé. Gabriela a Petr Nečasovi, Tango Studio. Každá neděle od 19:30, Koliště 23.
 author: Filip Paldia

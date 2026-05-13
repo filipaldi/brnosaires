@@ -1,18 +1,16 @@
 ---
-title: Tango Milongas This Week - Tango Brno
+title: Milonga Brno this week — where to dance tonight - Tango Brno
 date: 2026-02-03 18:00:00
 lang: en
 slug: tango-milongy-tenhle-tyden
-description: Where tango is danced in Brno this week. Every milonga and dance floor for the days ahead.
+description: Where tango is danced in Brno this week. Every milonga and dance floor for the days ahead, with venue and time.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Milongas This Week in Brno
+# Milongas in Brno this week
 
-Find out where tango is danced in Brno this week. You will hear about every milonga (Argentine tango dance floor) in Brno and nearby.
-
-Enjoy, and dance!
+This week tango is danced in Brno here: below are all the Argentine tango dance floors in Brno and nearby for the days ahead, with venue and time. Enjoy, and dance.
 
 <widget-calendar 
     filter_by_type="milonga praktika" 

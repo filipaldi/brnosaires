@@ -5,7 +5,7 @@ date: 2026-04-10 18:00:00
 event-type: milonga
 event-start: 2026-04-10 18:00:00
 event-end: 2026-04-10 22:00:00
-event-location: Skleněnka, Brno
+event-location: Skleněnka, Kounicova 23, Brno
 preview_image: /images/events/2026/sklenenka.avif
 description: Pravidelná milonga na Skleněnce. Tentokrát nepravidelně - přesunutá kvůli Velikonocům
 author: Lenka Pláteníková

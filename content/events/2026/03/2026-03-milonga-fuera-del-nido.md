@@ -8,6 +8,7 @@ event-end: 2026-03-26 23:30:00
 preview_image: /images/events/2026/2026-03-milonga-fuera-del-nido.jpg
 description: Slavnostní milonga v Domini parku. Součást víkendových workshopů Andrea Giurizzato & Rafael Luna. DJ Daniel.
 author: Lenka Pláteníková
+event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
 ---
 
 # Milonga Sesamo

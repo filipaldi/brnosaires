@@ -8,6 +8,7 @@ event-end: 2026-01-10 17:45:00
 preview_image: /images/image.avif
 description: Workshopy Gottfried pro pokročilé a středně pokročilé. Leden 2026, Brno.
 author: Filip Paldia
+event-location: i.D Yoga, Poštovská 3, Brno
 ---
 
 # Workshopy Gottfried - pro pokročilé (středně pokročilé)

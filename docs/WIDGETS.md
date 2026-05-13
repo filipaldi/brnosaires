@@ -108,6 +108,7 @@ Displays filtered lists of events from `content/events/`.
 - `days="7"` (optional) - Days from today (positive = future, negative = past)
 - `start="2026-06-01"` (optional) - Start of date window. Can be used alone (forward from start) or with `end`. Values: `YYYY-MM-DD`, or tokens `today`, `this-week` (Monday of current week), `this-month` (1st of month), `this-year` (1st Jan).
 - `end="2026-08-31"` (optional) - End of date window. Same format as `start`. If only `start` is set, end defaults to start + 365 days.
+- `month="6"` (optional) - Restrict the widget to **one calendar month** — the whole of month 6 (June) in the *upcoming-framing* year (this year, or next year if June has already passed). Accepts a number `1`–`12` or a month name, Czech (incl. locative forms — `cerven`, `červnu`, `leden`, `prosinci`…) or English (`June`). **Overrides `days`/`start`/`end`** (if `month` is unparseable, the widget falls through to the normal `days`/`start`/`end` logic). This is what powers the 12 evergreen month pages (`/milongy-brno-<měsíc>/` — see [SEO.md → Evergreen month pages](SEO.md)); year resolution mirrors the `tango_year_for_month` Jinja filter.
 - `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
 - `sort="newest|oldest"` (optional) - Sort order (default: **oldest first**, i.e. chronological)
 - `group_by="day|week|month|week day"` (optional) - Group events into rows with a headline per group. Single value (e.g. `"week"`) = flat grouping. Space-separated tokens (e.g. `"week day"`) = nested grouping with 7-column grid layout (first token = outer/rows, second token = inner/columns). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
@@ -121,6 +122,7 @@ Displays filtered lists of events from `content/events/`.
 - `days="365"` or `days="-365"` = one-year window from today
 - `start` (optional) = start of window; use with or without `end`. With `end` = date range; without `end` = from start to start+365 days. Mutually exclusive with `days`.
 - `start` and `end` accept tokens `today`, `this-week`, `this-month`, `this-year` or `YYYY-MM-DD`
+- `month="6"` / `month="cerven"` = exactly that calendar month in the upcoming-framing year; overrides `days`/`start`/`end`
 
 **Examples:**
 ```html
@@ -132,6 +134,9 @@ Displays filtered lists of events from `content/events/`.
 
 <!-- Milongas in date range -->
 <widget-calendar filter_by_type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
+
+<!-- Just June's milongas/praktikas (the evergreen-month-page widget) -->
+<widget-calendar filter_by_type="milonga praktika neolonga" month="6"></widget-calendar>
 
 <!-- Last 3 milongas -->
 <widget-calendar filter_by_type="milonga" days="-7" limit="3"></widget-calendar>

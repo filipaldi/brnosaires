@@ -18,6 +18,17 @@ Now they want it to get to you, as close as possible. Up close it looks even bet
 
 Under one roof, Brnos Aires brings together all of Brno's tango communities, schools, teachers and dancers.
 
+Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tango-kalendar-brno/) or jump straight to [milongas this week](/en/tango-milongy-tenhle-tyden/). Starting from scratch? [This way](/en/tango-pro-zacatecniky-brno/).
+
+## Milongas in Brno this week
+
+<widget-calendar 
+    start="this-week" 
+    filter_by_type="milonga praktika"
+    days="7"
+    card_size="s">
+</widget-calendar>
+
 <widget-calendar-link 
     cal_file_name="events" 
     filter_by_type="milonga praktika workshop"
@@ -36,15 +47,6 @@ Under one roof, Brnos Aires brings together all of Brno's tango communities, sch
     metadata="image title">
 </widget-articles>
 
-
-## Where to dance tango this week
-
-<widget-calendar 
-    start="this-week" 
-    filter_by_type="milonga praktika"
-    days="7"
-    card_size="s">
-</widget-calendar>
 
 ## Next classes
 <widget-calendar 

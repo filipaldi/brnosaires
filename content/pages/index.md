@@ -16,6 +16,17 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
+Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar-brno/) nebo rovnou na [milongy tento týden](/tango-milongy-tenhle-tyden/). Začínáš úplně od nuly? [Tudy](/tango-pro-zacatecniky-brno/).
+
+## Milongy v Brně tento týden
+
+<widget-calendar 
+    start="this-week" 
+    filter_by_type="milonga praktika"
+    days="7"
+    card_size="s">
+</widget-calendar>
+
 <widget-calendar-link 
     cal_file_name="events" 
     filter_by_type="milonga praktika workshop"
@@ -34,15 +45,6 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
     metadata="image title">
 </widget-articles>
 
-
-## Kde tančit tango tento týden
-
-<widget-calendar 
-    start="this-week" 
-    filter_by_type="milonga praktika"
-    days="7"
-    card_size="s">
-</widget-calendar>
 
 ## Nejbližší lekce
 <widget-calendar 

@@ -8,6 +8,7 @@ event-end: 2025-12-20 22:30:00
 preview_image: /images/571118869_10240208165132292_7276733406663436891_n.avif
 description: Předvánoční milonga u Brněnského draka s openclass. Prosinec 2025.
 author: Filip Paldia
+event-location: Stará radnice, Radnická 8, Brno
 ---
 
 # Předvánoční milonga u Brněnského draka + openclass

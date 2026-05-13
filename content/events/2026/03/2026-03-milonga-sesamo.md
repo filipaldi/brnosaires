@@ -8,6 +8,7 @@ event-end: 2026-03-22 01:00:00
 preview_image: /images/events/2026/2026-03-milonga-sesamo.avif
 description: Milonga Sesamo. Březen 2026, Brno. 20:00–01:00.
 author: Filip Paldia
+event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
 ---
 
 # Milonga Sesamo

@@ -3,12 +3,13 @@
 {% set days = cfg.days %}
 {% set start_date = cfg.start %}
 {% set end_date = cfg.end %}
+{% set month = cfg.month %}
 {% set limit = cfg.limit %}
 {% set sort = cfg.sort %}
 
 {% set dedupe = ('dedupe-recurring="false"' not in tag_content) %}
 
-{% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, sort=sort, limit=limit) %}
+{% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, month=month, sort=sort, limit=limit) %}
 
 {%- set siteurl = (SITEURL | default('')) | string -%}
 {%- if dedupe -%}

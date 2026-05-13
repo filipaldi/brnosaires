@@ -6,7 +6,7 @@ event-type: milonga
 event-start: 2026-05-22 21:00:00
 event-end: 2026-05-23 01:00:00
 event-organiser: Lenka a Filip
-event-location: Společenský sál na Staré radnici
+event-location: Stará radnice, Radnická 8, Brno
 description: Koncertní milonga s živou hudbou - soubor Petr Zámečník & Piastra hraje speciální program autorských aranží zlatých tangových orchestrů. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
 preview_image: /images/events/2026/tango-piastra.jpeg

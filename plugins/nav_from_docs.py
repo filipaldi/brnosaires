@@ -4,6 +4,9 @@ Reads nav documents from content/navigation/ and sets context['nav_items'].
 - main.md      -> Czech main nav     -> nav_items['main']['cs']
 - main.en.md   -> English main nav   -> nav_items['main']['en']  (optional;
                   if absent, the cs list is reused for both langs)
+- footer.md    -> Czech footer links -> nav_items['footer']['cs']
+- footer.en.md -> English footer     -> nav_items['footer']['en']  (optional;
+                  if absent, the cs list is reused for both langs)
 - marathon.md  -> Marathon nav (English-only sub-site, no per-lang variants)
                   -> nav_items['marathon']  (a flat list, not a {lang: ...} dict)
 
@@ -78,25 +81,31 @@ def build_nav_items(generator):
     if path is None:
         path = os.path.join(settings["PATH"], "navigation")
     if not os.path.isdir(path):
-        generator.context["nav_items"] = {"marathon": [], "main": {"cs": [], "en": []}}
+        generator.context["nav_items"] = {"marathon": [], "main": {"cs": [], "en": []}, "footer": {"cs": [], "en": []}}
         return
 
     pages_by_slug = {p.slug: p for p in generator.pages}
 
-    # Main nav: per-language. main.en.md is optional — fall back to cs labels.
-    main_cs_raw = _parse_nav_file(os.path.join(path, "main.md"))
-    main_en_path = os.path.join(path, "main.en.md")
-    main_en_raw = _parse_nav_file(main_en_path) if os.path.isfile(main_en_path) else main_cs_raw
-    main_nav = {
-        "cs": _resolve_items(main_cs_raw, pages_by_slug, lang=DEFAULT_LANG),
-        "en": _resolve_items(main_en_raw, pages_by_slug, lang=EN_LANG),
-    }
+    def _per_lang(basename):
+        """Parse <basename>.md (+ optional <basename>.en.md) into a {cs, en} dict
+        of resolved nav items; en falls back to the cs labels if no .en.md."""
+        cs_raw = _parse_nav_file(os.path.join(path, basename + ".md"))
+        en_path = os.path.join(path, basename + ".en.md")
+        en_raw = _parse_nav_file(en_path) if os.path.isfile(en_path) else cs_raw
+        return {
+            "cs": _resolve_items(cs_raw, pages_by_slug, lang=DEFAULT_LANG),
+            "en": _resolve_items(en_raw, pages_by_slug, lang=EN_LANG),
+        }
 
     # Marathon nav: English-only sub-site, single flat list (no per-lang dict).
     marathon_raw = _parse_nav_file(os.path.join(path, "marathon.md"))
     marathon_nav = _resolve_items(marathon_raw, pages_by_slug, lang=DEFAULT_LANG)
 
-    generator.context["nav_items"] = {"main": main_nav, "marathon": marathon_nav}
+    generator.context["nav_items"] = {
+        "main": _per_lang("main"),
+        "footer": _per_lang("footer"),
+        "marathon": marathon_nav,
+    }
 
 
 def register():

@@ -100,6 +100,32 @@ Tělo hubu by mělo popisovat **sérii obecně**, ne konkrétní termín. Sekce 
 
 Pro hub-stránky a běžné stránky (o nás, FAQ, marathon sub-site) stačí společná pole nahoře. Bez polí pro akce. Bez `series`, pokud to není hub.
 
+### Roční úklid: rok v titulcích landing stránek
+
+Titulky a nadpisy přehledových stránek (`tango-kalendar-brno`, `tango-milongy-brno`, `tango-lekce-brno` a jejich `.en.md` varianty) obsahují aktuální rok kvůli vyhledávání (lidé hledají „milonga Brno 2026"). **Jednou ročně** (typicky začátkem ledna) v nich přepište rok na nový — je to ~6 souborů + 6 anglických dvojčat, jen pole `title`, `description` a první `<h1>`/odstavec. Měsíční stránky (`milongy-brno-<měsíc>`, viz níže) rok řeší samy přes build-time filtr, ty se nedotýkáte.
+
+## Měsíční stránky milong (`content/pages/events/milongy-brno-<měsíc>.md`)
+
+Dvanáct stránek, jedna pro každý měsíc (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), aby web uměl odpovědět na hledání „milonga Brno červen", „milonga Brno květen 2026" apod. Jsou **bez ročníku** — stejná URL platí každý rok, mění se jen zobrazený rok.
+
+**Co je v souboru a co (ne)měnit:**
+
+| Pole / prvek | Co s tím |
+|---|---|
+| `month: N` ve frontmatteru (číslo 1–12) | **Nech být.** Tohle je přepínač, který stránce zapne měsíční režim: nadpis i `<title>` se z něj vyrobí (`Milongy v Brně v <6. pádu> <rok>`), vykreslí se seznam akcí v JSON-LD, `noindex` u prázdného měsíce, odkazy na sousední měsíce. |
+| `title:` ve frontmatteru | Záložní — skutečný `<title>` a `<h1>` na stránce vyrábí šablona z `month:` (včetně roku přes `tango_year_for_month`). `title:` ponech jak je; **rok do něj nepiš**, nemá smysl ho udržovat. |
+| nadpis `#` v těle | **Žádný nepřidávej.** `<h1>` dodává šablona. Soubor má jen úvodní odstavec + widgety. |
+| úvodní odstavec | Bez ročníku. Text klidně uprav (úvodní věty, „atmosféra měsíce"), ať to není mdlé — jen tam **nepiš konkrétní rok**, ať stránka zůstane evergreen. |
+| `<widget-calendar month="N" ...>` v těle | Vykreslí milongy/praktiky/neolongy v daném měsíci. `month` musí odpovídat `month:` z frontmatteru. |
+| widget odběru `.ics` | Standardní, nech být. |
+| prázdný měsíc | Když na ten měsíc zatím nic není, stránka se sama označí `noindex` (zůstane dostupná, ale Google ji nenabízí) a ukáže hlášku „Na tenhle měsíc zatím žádné milongy vypsané nejsou." Jakmile přidáš akci v tom měsíci, při příštím buildu se `noindex` sám zruší. **Nic neděláš.** |
+
+**Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v `content/events/RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
+
+**Odkazy na měsíční stránky** najdeš ve spodku stránek `tango-milongy-brno` a `tango-kalendar-brno` (řádek „Milongy po měsících: leden · únor · …") — to je obyčejný seznam odkazů v Markdownu, klidně ho uprav nebo přesuň. Mezi sebou se měsíční stránky prolinkují samy (předchozí/další měsíc + pásek všech měsíců dodává šablona).
+
+**Anglické verze** jsou `.en.md` dvojčata se stejným `slug` a `Lang: en` (jako u ostatních stránek) — běží na `/en/milongy-brno-<měsíc>/`. Mění se jen text; `month:` a vše ostatní je stejné.
+
 ## Oznámení / píkoška / osoba
 
 Použijte společná pole. Aktuálně:
@@ -184,7 +210,7 @@ Web má anglickou verzi pod prefixem `/en/`. České stránky si ponechávají p
   **Postup krok za krokem:** zkopírujte `content/pages/foo.md` → `content/pages/foo.en.md`; do hlavičky přidejte `Lang: en` a ponechte **stejný `Slug:`** jako v českém souboru; přeložte `Title:`, `Description:` a tělo (anglicky podle [voice skillu](../.claude/skills/voice/SKILL.md) — britská angličtina, bez pomlček „—"); widgety (`<widget-*>`) nechte tak, jen u nich přeložte texty v atributech `label=` / `label_webcal=` / `label_google=` / `label_outlook=`. Hotovo — stránka se objeví na `/en/<slug>/` místo dosavadního českého fallbacku.
 - **Domovská stránka:** anglický `content/pages/index.en.md` má zvláštnost — musí mít `Slug: index` (web má `SLUGIFY_SOURCE = "basename"`, takže slug českého `index.md` je `index`, ne `brnos-aires` z titulku — sourozenec se propojí jen při shodě slugu) **a** `save_as: en/index.html` / `url: en/` (český `index.md` má vlastní `save_as`, který by se jinak zdědil).
 - **Datumy** se vykreslují podle jazyka stránky: česky `16. 05. 2026`, anglicky `16 May 2026`. Nic nenastavujete — je to automatické.
-- **Navigace v hlavičce:** anglické popisky odkazů jsou v [content/navigation/main.en.md](../content/navigation/main.en.md) (stejné slugy, anglické texty). Patička je zatím česky i na `/en/` stránkách — bude přepracována zvlášť (viz [ROADMAP.md](ROADMAP.md)).
+- **Navigace v hlavičce i patičce:** odkazy se berou ze souborů v [content/navigation/](../content/navigation/) — formát `Popisek, slug` (jeden na řádek; `slug` je slug stránky nebo absolutní URL; řádky `#…` jsou komentář). Hlavní navigace: `main.md` (česky) + `main.en.md` (anglické popisky, stejné slugy). Patička: `footer.md` + `footer.en.md` — patička je **per-jazyk** (na `/en/` stránkách je celá anglicky), kromě odkazů obsahuje ještě automaticky pásek měsíčních stránek („Milongy po měsících:") a odkazy na `.ics` kalendáře — ty se z `footer.md` neberou, jsou v šabloně [components/footer.html](../theme/templates/components/footer.html). Pořadí v navigaci = pořadí řádků v souboru; změna se projeví na celém webu.
 - **Jednojazyčný obsah — `translate: false`.** Obsah, který **nemá a nikdy mít nebude** překlad (typicky anglicky psaný microsite), může v hlavičce deklarovat `translate: false`. Pak se pro něj negeneruje žádný `/en/` klon, nezobrazuje se přepínač jazyka a `<html lang>` je `en`. Pro **Tango Marathon** je tahle vlajka nastavena hromadně pro všechny tři jeho složky — `content/pages/marathon/`, `content/events/2026-marathon/` a `content/people/marathon-djs/` — přes `EXTRA_PATH_METADATA` v `pelicanconf.py`. Marathon je tedy anglicky od začátku, bez české verze; jeho stránky, akce ani DJ profily žádný český sourozenec nedostávají a `<html lang>` je tam vždy `en`. Výchozí stav (bez vlajky) = obsah je „přeložitelný" a dostává český fallback pod `/en/`.
 
 Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang`, proč jsou české URL beze změny) je popsaná v [SEO.md](SEO.md).
@@ -194,6 +220,6 @@ Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang
 - [README.md](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
 - [SEO.md](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
 - [WIDGETS.md](WIDGETS.md) — tagy `<widget-*>` v těle článku.
-- [content/pages/milonga-u-draka.md](../content/pages/milonga-u-draka.md) — reálný příklad hub stránky.
+- [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md) — reálný příklad hub stránky pravidelné série. Organizace složek v `content/pages/`: `series/` = huby pravidelných sérií (`series: <slug>`); `events/` = stránky konkrétních akcí a časově vymezené přehledy milong (Tango víkend, Tango léto, „milongy tento týden" a budoucí měsíční přehledy); `marathon/` = sub-web maratonu. URL se přesunem **nemění** — Pelican routuje podle `Slug:`, ne podle cesty.
 - [content/events/2026/05/2026-05-16-milonga-u-draka.md](../content/events/2026/05/2026-05-16-milonga-u-draka.md) — reálný příklad instance v sérii.
-- [content/navigation/main.en.md](../content/navigation/main.en.md) — anglické popisky hlavní navigace.
+- [content/navigation/](../content/navigation/) — odkazy v navigaci: `main.md`/`main.en.md` (hlavička), `footer.md`/`footer.en.md` (patička), `marathon.md` (sub-web maratonu).

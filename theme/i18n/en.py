@@ -25,6 +25,10 @@ STRINGS = {
     # --- article.html: recurring-series note ---
     "part_of_series": "Part of a recurring series:",
 
+    # --- article.html: first-timer nudge on milonga/praktika events ---
+    "first_milonga_prompt": "First time at a milonga?",
+    "first_milonga_link": "Here's how it goes.",
+
     # --- category.html ---
     "category_announcement": "Announcements",
     "category_curiosity": "Curiosities",
@@ -39,6 +43,22 @@ STRINGS = {
 
     # --- widget_calendar.html ---
     "event_calendar_aria": "Event calendar",
+
+    # --- components/footer.html ---
+    "footer_tagline": "Argentine tango in Brno — milongas, classes, events.",
+    "footer_links_label": "Footer links",
+    "footer_months_label": "Milongas month by month:",
+    "footer_subscribe_label": "Subscribe in your calendar:",
+    "footer_ics_milongas": "milongas .ics",
+    "footer_ics_classes": "classes .ics",
+    "footer_ics_all": "all .ics",
+
+    # --- page.html: evergreen month pages (/milongy-brno-<month>/) ---
+    "month_page_empty": "No milongas listed for this month yet.",
+    "month_page_full_calendar": "Full calendar →",
+    "month_page_prev": "← {month}",   # prev-month link; {month} = the month name
+    "month_page_next": "{month} →",   # next-month link
+    "month_page_other_months_label": "Milongas month by month:",
 
     # --- base.html: copy-link confirmation prefix ---
     "copied_prefix": "✓ ",

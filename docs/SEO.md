@@ -48,7 +48,7 @@ Some events recur but each occurrence is authored as its own dated file (e.g., `
 
 ### How it works
 
-1. **Author a hub page** in `content/pages/` with a stable slug, e.g. [content/pages/milonga-u-draka.md](../content/pages/milonga-u-draka.md). Set `series: <slug>` in the frontmatter to mark it as a hub. The body describes the recurring event in general (location, vibe, music style, organisers).
+1. **Author a hub page** in `content/pages/series/` with a stable slug, e.g. [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md). Set `series: <slug>` in the frontmatter to mark it as a hub. The body describes the recurring event in general (location, vibe, music style, organisers). (The `series/` subdir is organisational only — Pelican routes by `Slug:`, not path; one-off / multi-day event hubs like Tango Weekend live in `content/pages/events/`.)
 
 2. **Tag each instance** with the same `series: <slug>` field in its frontmatter. No body changes required.
 
@@ -67,6 +67,24 @@ Some events recur but each occurrence is authored as its own dated file (e.g., `
 
 - One-off events (a single milonga that won't repeat) — self-canonical is correct.
 - Recurring classes/praktikas authored via the `recurrence:` field in [plugins/recurring_events.py](../plugins/recurring_events.py) — those are a single source file expanded into N occurrences sharing one URL, so they already have a single canonical surface.
+
+## Evergreen month pages (`/milongy-brno-<měsíc>/`)
+
+Twelve hand-authored pages, one per Czech month name (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), in [content/pages/events/](../content/pages/events/). They target the query pattern *"milonga Brno [měsíc]"* / *"milonga Brno [měsíc] [rok]"* — which nothing else on the site is titled or structured for. Each `.md` is a thin shell: an evergreen intro paragraph (year-free, with a sentence of per-month flavour), a `<widget-calendar month="<N>" filter_by_type="milonga praktika neolonga">`, the `.ics` subscribe widget — **and deliberately no `#` H1 and no year anywhere in the file**. They are **year-agnostic** — the URL is reused every year; only the displayed year changes, and it's the *template* that prints it (see below). Entry points: a `<widget-calendar>`-style "Milongy po měsících:" link strip on [milongy.md](../content/pages/milongy.md) and [kalendar.md](../content/pages/kalendar.md) (CS + `.en.md`), plus the inter-page prev/next ring + all-months strip the template emits.
+
+### The moving parts
+
+- **`month: <N>` frontmatter** on the page (a number 1–12) is the flag that switches on the month-page branch in [theme/templates/page.html](../theme/templates/page.html). It also tells the template which month's events to list in the JSON-LD.
+- **`tango_year_for_month(month)`** — a Jinja filter ([pelicanconf.py](../pelicanconf.py)). `page.html` uses it (together with `month_name(N, lang, 'locative')`) to build the `<title>` *and* the `<h1>` for a month page — `Milongy v Brně v <6. pádu> <rok>` (CS) / `Milongas in Brno in <Month> <year>` (EN) — so the year is computed at build time: the current year, or next year if that month has already passed this year. So in November, `/milongy-brno-leden/`'s title reads "…leden 2027". **No annual edit chore, and nothing in the `.md` to update.** (The lang for that title is read from `page.lang`, not the usual `page_lang` — `page_lang` is set by `base.html` *after* the child template's top-level statements run, so it isn't visible up there yet.) Companion helpers, also in `pelicanconf.py` + registered in `JINJA_FILTERS`: `month_name(n, lang, form)` — display name, `form="locative"` gives the Czech "v lednu"; `month_page_slug(n)` / `month_page_url(n, lang)`; `month_wrap(n, ±1)` — month arithmetic that wraps 12↔1. The calendarium plugin keeps its own tiny `year_for_month` mirror in [dates.py](../plugins/calendarium/dates.py) — a plugin must not import the site config.
+- **`<widget-calendar month="<N>">`** — the `month=` param (see [WIDGETS.md](WIDGETS.md)) restricts the widget to exactly that calendar month in the `tango_year_for_month`-resolved year, overriding `days`/`start`/`end`.
+- **`page.html` month-page branch** (gated on `month:`):
+  - emits a JSON-LD **`ItemList`** of that month's milongas/praktikas/neolongas (`itemListElement` → `ListItem` → `Event` with `startDate`/`endDate`/`location`/`url`) — built from the *same* `calendarium(month=…)` query the widget uses, so it can't drift from what's rendered;
+  - if the month currently has **no events**, emits `<meta name="robots" content="noindex,follow">` (via the `head` block) plus an empty-state line — keeps the thin page crawlable but out of the index until an event lands; the `noindex` flips off automatically on the next build after a matching event is added;
+  - renders **prev/next-month ring links** (`← květen` / `červenec →`) and an **all-months strip** — crawl paths between the 12, lang-aware (`/milongy-brno-<m>/` in CS, `/en/milongy-brno-<m>/` in EN).
+- **English twins** are `.en.md` siblings with the *same* slug + `Lang: en` (like every other `.en.md`) → routed to `/en/milongy-brno-<m>/`. Only the copy and the displayed month/year wording differ; the `month=` param and the year filter are language-neutral.
+- **Canonical/sitemap**: each month page is self-canonical and picked up by the sitemap plugin automatically; the `noindex` (empty months only) keeps the thin ones out of the index without removing them.
+
+Editor-facing version (how to author/edit a month page, what to leave alone): [EDITING.md → Měsíční stránky milong](EDITING.md).
 
 ## Open Graph + Twitter Card
 
@@ -89,13 +107,13 @@ If a page lacks `preview_image`, no `og:image` / `twitter:image` is emitted (gra
 
 ### Description fallback chain
 
-`<meta description>`, `og:description`, `twitter:description` resolve in this order:
+`<meta name="description">`, `og:description`, `twitter:description` all resolve in this order:
 
 1. `article.description` / `page.description` (explicit frontmatter, when set)
 2. `article.summary` (auto-generated by Pelican from the first ~50 words)
-3. `SITEDESCRIPTION` (global fallback)
+3. `_site_desc` — `SITEDESCRIPTION` (cs) / `SITEDESCRIPTION_EN` (en)
 
-Truncated to 200 characters and stripped of HTML.
+Truncated to 200 characters and stripped of HTML — that's the `_desc` variable in [base.html](../theme/templates/base.html). All three tags use it. (Until T1, `<meta name="description">` was hardcoded to the sitewide `{{ SITENAME }} - {{ SITEDESCRIPTION }}` and only `og:`/`twitter:` honoured `_desc` — so every page shipped the same search snippet. Fixed: the `<meta description>` tag now sits below the `_desc` assignment and uses it.)
 
 ## llms.txt discoverability
 
@@ -108,8 +126,23 @@ Truncated to 200 characters and stripped of HTML.
 
 These point at the LLM-readable endpoints generated by [plugins/llms_index.py](../plugins/llms_index.py). LLM crawlers and chatbots that follow the [llms.txt convention](https://llmstxt.org) discover the endpoints via these hints. See [LLMS.md](LLMS.md) for the plugin's structure and what each section contains.
 
+## Structured data (JSON-LD)
+
+Schema.org JSON-LD is emitted server-side (it's a static site — there's no JS to inject it). Where each block lives:
+
+| `@type` | Where | Notes |
+|---|---|---|
+| `Event` | [article.html](../theme/templates/article.html), gated on `event-start` | `name`, `description`, `startDate`/`endDate` (ISO8601 via the `event_iso8601` filter), `eventStatus`, `eventAttendanceMode` (offline), `location` (see `event_address` below), `organizer`, `performer`, `image`, `url`, `@id` (`<canonical>#event`). For a `series:` instance: `superEvent` → `EventSeries` pointing at the hub, and `url`/`@id` resolve to the hub (same rule as the `<link rel=canonical>`). `offers` (`@type` Offer, `price`/`priceCurrency` CZK/`availability`) is **gated on a `entry:` frontmatter field** — no event has one yet (it's a ROADMAP item), so the block is dormant; `isAccessibleForFree: true` when `entry` is "zdarma"/"free"/"0"/"dobrovolné". |
+| `EventSeries` | [page.html](../theme/templates/page.html), on a `series:` hub page | `name`, `description`, `url`, `image`, `location` (Brno), and `subEvent` — each upcoming instance as a minimal `Event`. Makes the hub a single structured surface for "all upcoming \<series\> dates". |
+| `ItemList` | [page.html](../theme/templates/page.html), on `/tango-kalendar-brno/` (matched by `page.slug`) and on every month page (`month:` flag) | `itemListElement` → `ListItem` → `Event`. The kalendar list is the next ≤50 upcoming events; the month-page list is that month's milongas/praktikas/neolongas. Both built from the same `calendarium(...)` query the visible widget uses, so the data can't drift from what's rendered. |
+| `FAQPage` | [page.html](../theme/templates/page.html), on `/tango-pro-zacatecniky-brno/` (the [E2 glossary page](EDITING.md)) | `mainEntity` → `Question`/`acceptedAnswer`, parsed from the page's `**Question?**` + answer-paragraph Markdown by the `faq_pairs` Jinja filter (only `<p><strong>…?</strong> …</p>` blocks whose bold text ends with `?` — ordinary bold body text is ignored). Add/edit FAQs by editing that page's "Časté otázky" section; nothing else needed. |
+| `Organization` | [components/footer.html](../theme/templates/components/footer.html), once per page (the footer is on every page) | `@id` `<siteurl>/#organization`, `name`, `description` (per language), `areaServed` → `City` "Brno". The baseline entity signal; no `sameAs`/`email`/`logo` (none exist for the site — don't invent). |
+
+The `event_address(loc)` filter ([pelicanconf.py](../pelicanconf.py)) turns a canonical `"Venue, Street, Brno-District"` event-location string into a `Place` (`name`) wrapping a `PostalAddress` (`streetAddress`/`addressLocality`/`addressCountry: "CZ"`), degrading safely: `"Venue, Brno"` → `Place` + `PostalAddress` with just `addressLocality`; bare `"Brno"` / `"Brno-District"` → `PostalAddress` locality only, no `name`; bare venue name (no comma) → `Place` `name` only, no address; empty → `{}` (template falls back to the raw string). It **never emits a half-built `PostalAddress`** — every level degrades to the next. This depends on `event-location` being in the canonical 3-/2-part form (the [E3 hygiene pass](EDITING.md) normalised it). `"Brno"` in `addressLocality` is the literal city signal for `milonga Brno`.
+
+A small "Poprvé na milonze? [Mrkni, jak na to.](…)" line under the event header on `milonga`/`praktika`/`neolonga` event pages links the beginner page (strings `first_milonga_prompt` / `first_milonga_link` in [theme/i18n/](../theme/i18n/)) — site-wide internal links to the glossary page.
+
 ## Related shipped pieces
 
-- **JSON-LD Event schema** on event articles — see the `<script type="application/ld+json">` block in [theme/templates/article.html](../theme/templates/article.html) and the `event_iso8601` Jinja filter in [pelicanconf.py](../pelicanconf.py). Gated on `event-start`, so non-event articles don't emit Event schema.
 - **`sitemap.xml`** generated by the `pelican.plugins.sitemap` community plugin; configuration lives in `SITEMAP` in [pelicanconf.py](../pelicanconf.py). Advertised in [content/extra/robots.txt](../content/extra/robots.txt).
 - **Per-page Markdown mirrors** generated by [plugins/md_mirror.py](../plugins/md_mirror.py). Documented in [LLMS.md](LLMS.md).

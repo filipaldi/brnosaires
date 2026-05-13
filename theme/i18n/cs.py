@@ -22,6 +22,10 @@ STRINGS = {
     # --- article.html: recurring-series note ---
     "part_of_series": "Součást pravidelné série:",
 
+    # --- article.html: first-timer nudge on milonga/praktika events ---
+    "first_milonga_prompt": "Poprvé na milonze?",
+    "first_milonga_link": "Mrkni, jak na to.",
+
     # --- category.html ---
     "category_announcement": "Oznámení",
     "category_curiosity": "Pikošky",
@@ -36,6 +40,22 @@ STRINGS = {
 
     # --- widget_calendar.html ---
     "event_calendar_aria": "Kalendář akcí",
+
+    # --- components/footer.html ---
+    "footer_tagline": "Argentinské tango v Brně — milongy, lekce, akce.",
+    "footer_links_label": "Odkazy v patičce",
+    "footer_months_label": "Milongy po měsících:",
+    "footer_subscribe_label": "Odebírej do kalendáře:",
+    "footer_ics_milongas": "milongy .ics",
+    "footer_ics_classes": "lekce .ics",
+    "footer_ics_all": "vše .ics",
+
+    # --- page.html: evergreen month pages (/milongy-brno-<měsíc>/) ---
+    "month_page_empty": "Na tenhle měsíc zatím žádné milongy vypsané nejsou.",
+    "month_page_full_calendar": "Celý kalendář →",
+    "month_page_prev": "← {month}",   # prev-month link; {month} = the month name (nominative)
+    "month_page_next": "{month} →",   # next-month link
+    "month_page_other_months_label": "Milongy po měsících:",
 
     # --- base.html: copy-link confirmation prefix ---
     "copied_prefix": "✓ ",

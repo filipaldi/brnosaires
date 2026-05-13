@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}{{ page.title }} | {{ SITENAME }}{% endblock %}
+{# --- evergreen month pages (/milongy-brno-<měsíc>/): `month: <N>` in frontmatter. Compute once, use in title + head + body.
+   NB: `page_lang` is set by base.html *after* this child's top-level runs, so derive lang from `page.lang` here. --- #}
+{% set month_num = (page.metadata.get('month') if page.metadata else none) %}
+{% if month_num %}
+  {% set _mlang = (page.lang if page.lang else DEFAULT_LANG) %}
+  {% set _myear = month_num | tango_year_for_month %}
+  {% set month_events = articles | calendarium(filter_by_type="milonga praktika neolonga", month=month_num, sort="oldest") %}
+  {% if _mlang == 'en' %}
+    {% set month_h1 = 'Milongas in Brno in ' ~ (month_num | month_name('en')) ~ ' ' ~ _myear %}
+    {% set month_title = month_h1 ~ ' — dates' %}
+  {% else %}
+    {% set month_h1 = 'Milongy v Brně v ' ~ (month_num | month_name('cs', 'locative')) ~ ' ' ~ _myear %}
+    {% set month_title = 'Milongy v Brně v ' ~ (month_num | month_name('cs', 'locative')) ~ ' ' ~ _myear ~ ' — termíny tančíren' %}
+  {% endif %}
+{% endif %}
+
+{% block title %}{{ month_title if month_num else page.title }} | {{ SITENAME }}{% endblock %}
+
+{% block head %}
+{# A month with no events yet is a thin page — keep it crawlable (follow) but out of the index until an event lands. #}
+{% if month_num and not month_events %}<meta name="robots" content="noindex,follow">{% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="group--main-container">
@@ -11,8 +32,61 @@
     </div>
     {% endif %}
     <div class="el-stack stack-xs">
+      {% if month_num %}<h1>{{ month_h1 }}</h1>{% endif %}
       {{ page.content }}
     </div>
+
+    {% if month_num %}
+    {# --- month-page extras: empty-state, prev/next ring, all-months strip, ItemList JSON-LD --- #}
+    {% if not month_events %}
+    <p class="color-neutral-3">{{ 'month_page_empty' | t(_mlang) }} <a href="/tango-kalendar-brno/">{{ 'month_page_full_calendar' | t(_mlang) }}</a></p>
+    {% endif %}
+
+    {% set _kal = '/en/tango-kalendar-brno/' if _mlang == 'en' else '/tango-kalendar-brno/' %}
+    {% set _prev = month_num | month_wrap(-1) %}
+    {% set _next = month_num | month_wrap(1) %}
+    <nav class="el-cluster text-s" aria-label="{{ 'month_page_other_months_label' | t(_mlang) }}">
+      {% if _prev %}<a href="{{ _prev | month_page_url(_mlang) }}">{{ 'month_page_prev' | t(_mlang) | replace('{month}', _prev | month_name(_mlang)) }}</a>{% endif %}
+      <a href="{{ _kal }}">{{ 'month_page_full_calendar' | t(_mlang) }}</a>
+      {% if _next %}<a href="{{ _next | month_page_url(_mlang) }}">{{ 'month_page_next' | t(_mlang) | replace('{month}', _next | month_name(_mlang)) }}</a>{% endif %}
+    </nav>
+
+    <p class="text-s color-neutral-3">{{ 'month_page_other_months_label' | t(_mlang) }}
+      {% for m in range(1, 13) %}<a href="{{ m | month_page_url(_mlang) }}">{{ m | month_name(_mlang) }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+    </p>
+
+    {% if month_events %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ month_title | tojson }},
+  {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",{% endif %}
+  "numberOfItems": {{ month_events | length }},
+  "itemListElement": [
+    {% for event in month_events %}{
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Event",
+        "name": {{ event.title | tojson }},
+        {% set _es = event.metadata.get('event-start') if event.metadata else none %}
+        {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
+        {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
+        {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
+        {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
+        {% set _la = _loc | event_address %}
+        {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
+        "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
+      }
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}
+    </script>
+    {% endif %}
+    {% endif %}
 
     {% set hub_series = page.metadata.get('series') if page.metadata else none %}
     {% if hub_series %}
@@ -36,6 +110,93 @@
       <p>{{ 'no_upcoming_dates' | t(page_lang) }}</p>
       {% endif %}
     </section>
+
+    {# --- EventSeries JSON-LD: the hub is a single structured surface for "all upcoming <series> dates". --- #}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EventSeries",
+  {% if SITEURL %}"@id": "{{ SITEURL }}/{{ page.url }}#series",
+  {% endif %}"name": {{ page.title | tojson }},
+  "description": {{ ((page.description or '') | striptags | truncate(300)) | tojson }},
+  {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",
+  {% endif %}{% if page.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ page.preview_image.lstrip('/') }}",
+  {% endif %}"location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Brno", "addressCountry": "CZ"}}{% if series_events %},
+  "subEvent": [
+    {% for event in series_events %}{
+      "@type": "Event",
+      "name": {{ event.title | tojson }},
+      {% set _es = event.metadata.get('event-start') if event.metadata else none %}
+      {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
+      {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
+      {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
+      {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
+      {% set _la = _loc | event_address %}
+      {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
+      "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]{% endif %}
+}
+    </script>
+    {% endif %}
+
+    {# --- /tango-kalendar-brno/: a machine-readable manifest of every upcoming tango event in Brno. --- #}
+    {% if page.slug == 'tango-kalendar-brno' %}
+    {% set _kal_events = (articles | calendarium(start='today', end='2030-12-31', sort='oldest'))[:50] %}
+    {% if _kal_events %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ page.title | tojson }},
+  {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",{% endif %}
+  "numberOfItems": {{ _kal_events | length }},
+  "itemListElement": [
+    {% for event in _kal_events %}{
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Event",
+        "name": {{ event.title | tojson }},
+        {% set _es = event.metadata.get('event-start') if event.metadata else none %}
+        {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
+        {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
+        {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
+        {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
+        {% set _la = _loc | event_address %}
+        {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
+        "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
+      }
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}
+    </script>
+    {% endif %}
+    {% endif %}
+
+    {# --- glossary page: FAQPage JSON-LD parsed from the page's "**Q?** A" markdown. --- #}
+    {% if page.slug == 'tango-pro-zacatecniky-brno' %}
+    {% set _faqs = page.content | faq_pairs %}
+    {% if _faqs %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",{% endif %}
+  "mainEntity": [
+    {% for f in _faqs %}{
+      "@type": "Question",
+      "name": {{ f.q | tojson }},
+      "acceptedAnswer": {"@type": "Answer", "text": {{ f.a | tojson }}}
+    }{% if not loop.last %},{% endif %}{% endfor %}
+  ]
+}
+    </script>
+    {% endif %}
     {% endif %}
   </article>
 </div>

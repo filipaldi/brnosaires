@@ -8,6 +8,7 @@ event-end: 2026-01-18 16:45:00
 preview_image: /images/dsa07433-kopie-%281%29_optimized.avif
 description: Víkendový workshop argentinského tanga pro začátečníky, druhá část. Leden 2026, Brno.
 author: Filip Paldia
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 ---
 
 # Víkendové workshopy argentinského tanga pro začátečníky (2)
