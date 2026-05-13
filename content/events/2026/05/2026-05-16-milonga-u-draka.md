@@ -10,6 +10,7 @@ series: milonga-u-draka
 preview_image: /images/events/2026/milonga-u-draka-kveten.jpg
 description: Květnová milonga u Brněnského draka.
 author: Lenka Pláteníková
+entry: 200 Kč
 ---
 
 # Milonga u Brněnského draka

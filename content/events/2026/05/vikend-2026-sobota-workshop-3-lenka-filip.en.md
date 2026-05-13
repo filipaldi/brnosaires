@@ -11,6 +11,7 @@ event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 description: A beginners' workshop with Lenka and Filip. Brnos Aires Tango Weekend 2026.
 author: Lenka Pláteníková
 preview_image: /images/classes/class-lenka-filip.avif
+entry: 270 Kč / lekce, 480 Kč / 2
 ---
 
 # Workshop 3 / Lenka and Filip (beginners)

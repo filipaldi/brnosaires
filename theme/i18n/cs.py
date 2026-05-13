@@ -25,6 +25,7 @@ STRINGS = {
     # --- article.html: first-timer nudge on milonga/praktika events ---
     "first_milonga_prompt": "Poprvé na milonze?",
     "first_milonga_link": "Mrkni, jak na to.",
+    "event_entry_label": "Vstupné:",
 
     # --- category.html ---
     "category_announcement": "Oznámení",
