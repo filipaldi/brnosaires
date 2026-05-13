@@ -28,6 +28,7 @@ STRINGS = {
     # --- article.html: first-timer nudge on milonga/praktika events ---
     "first_milonga_prompt": "First time at a milonga?",
     "first_milonga_link": "Here's how it goes.",
+    "event_entry_label": "Entry:",
 
     # --- category.html ---
     "category_announcement": "Announcements",

@@ -37,6 +37,7 @@ Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je tec
 | `event-end` | Ano (pro akce) | Datum a čas konce. Stejná použití jako `event-start`. |
 | `event-location` | Ano (pro akce) | Volný text místa, např. `Stará radnice, Radnická 8, Brno`. Zobrazí se na stránce a vloží do JSON-LD pod `location.address`. |
 | `event-organiser` | Doporučeno | Kdo akci pořádá. |
+| `entry` | Volitelné | Vstupné — volně formátovaný řetězec (např. `entry: 150 Kč`, `entry: 390 Kč / 16 €`, `entry: zdarma`, `entry: dobrovolné`). Zobrazí se v hlavičce stránky akce i na kartě v kalendáři (česky „Vstupné: …", anglicky „Entry: …"). Pole je zároveň napojené na JSON-LD: hodnota jde do `offers.price` + `priceCurrency: CZK`; pokud napíšete `zdarma` / `free` / `0` / `dobrovolné`, šablona navíc nastaví `isAccessibleForFree: true`. Pole vynechejte, pokud vstupné neznáte / není relevantní — řádek se prostě nezobrazí. |
 | `instructor` | Pro lekce/workshopy | Lektor/lektoři. Pro jednoho napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz README pro detail). |
 | `recurrence` | Volitelné | Pro **šablonové** opakující se akce (typicky lekce/praktiky). Příklad: `recurrence: weekly sunday`. Plugin [recurring_events.py](../plugins/recurring_events.py) ji rozbalí na N instancí sdílejících jeden URL. **Nepoužívejte pro milongy** — milongy se píší jako oddělené souborové instance, viz „Pravidelná série (`series:`)" níže. |
 | `series` | Volitelné | Označuje tuto instanci jako součást skupiny pod hlavní stránkou („hubem"). Viz „Pravidelná série" níže. |
@@ -145,6 +146,7 @@ Použijte společná pole. Aktuálně:
 | `preview_image` | Kartičce akce/článku na webu, náhledu na Facebooku/iMessage/Slacku, velké kartičce na Twitteru/X |
 | `event-start` + `event-end` | Kalendáři (`/kalendar/`), hlavičce detailu akce, Google Event rich-result snippetu, `.ics` feedu |
 | `event-location` | Hlavičce detailu akce, Google Event rich-result `location.address` |
+| `entry` | Hlavičce detailu akce („Vstupné: …"), kartě akce v kalendáři, Google Event rich-result `offers.price`/`isAccessibleForFree` |
 | `series:` | Kanonická URL ukazuje na hub, odznak „Součást pravidelné série", seznam „Nejbližší termíny série" na hubu |
 
 ## Časté chyby

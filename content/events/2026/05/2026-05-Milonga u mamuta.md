@@ -10,6 +10,7 @@ description: Milonga u mamuta - Anthropos, Brno. V rámci akce Brněnská muzejn
 author: Lenka Platenikova
 event-location: Pavilon Anthropos, Pisárecká 5, Brno
 event-organiser: Petr a Gábina Nečasovi
+entry: zdarma
 ---
 
 # Milonga u mamuta

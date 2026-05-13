@@ -171,6 +171,7 @@ Akce se na webu zobrazují s metadaty (typ, časový rozsah, místo, pořadatel,
 | `event-end` | Doporučeno | Datum a čas konce. Stejný formát jako `event-start`. |
 | `event-location` | Doporučeno | Název místa a adresa (např. `Taneční studio Stolárna, Olomoucká 14` nebo `Café Adrinela`). |
 | `event-organiser` | Doporučeno | Kdo akci pořádá (např. `Taneční studio Stolárna`, `Lenka a Filip`). |
+| `entry` | Volitelné | Vstupné — volně formátovaný řetězec (např. `entry: 150 Kč`, `entry: 390 Kč / 16 €`, `entry: zdarma`, `entry: dobrovolné`). Zobrazí se v hlavičce stránky akce („Vstupné: …") a na kartě v kalendáři. Vynechejte, pokud vstupné neznáte. |
 | `instructor` | Pro lekce/workshopy | Lektoři. Pro jednoho lektora: napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz poznámka níže). |
 | `recurrence` | Pro opakující se akce | Např. `weekly sunday`, `weekly tuesday`. Viz sekce o opakování níže. |
 | `series` | Pro instance pravidelné série | Např. `milonga-u-draka`, `tango-pizza`. Spojí jednotlivé instance pod jednu hlavní stránku ("hub"). Viz [docs/EDITING.md](docs/EDITING.md) pro detaily. |
@@ -192,6 +193,7 @@ event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00
 event-location: Název místa, adresa
 event-organiser: Název pořadatele
+entry: 150 Kč
 description: Krátké shrnutí pro kartičky a vyhledávání.
 preview_image: /images/vas-obrazek.avif
 author: Vaše jméno
@@ -213,6 +215,7 @@ event-end: 2026-01-08 20:00:00
 recurrence: weekly tuesday
 event-organiser: Název studia
 event-location: Adresa, Brno
+entry: 350 Kč
 instructor: "['Lektor Jedna', 'Lektor Dva']"
 description: Krátké shrnutí.
 preview_image: /images/lekce.avif
@@ -603,6 +606,7 @@ event-start: 2026-01-17 19:00:00
 - `event-end` — Kdy akce končí (stejný formát jako `event-start`)
 - `event-location` — Místo konání a adresa
 - `event-organiser` — Název pořadatele nebo studia
+- `entry` — Vstupné jako volný text (`150 Kč`, `390 Kč / 16 €`, `zdarma`, `dobrovolné`)
 - `instructor` — Pro lekce/workshopy: `"['Jméno', 'Jméno']"` pro více lektorů, nebo pouze jméno pro jednoho
 - `recurrence` — Pro opakující se akce, např. `weekly sunday`
 - `description` — Krátké shrnutí pro kartičky a výsledky vyhledávání
