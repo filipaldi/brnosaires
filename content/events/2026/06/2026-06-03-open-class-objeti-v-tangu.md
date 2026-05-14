@@ -3,8 +3,8 @@ title: Open Class - Objetí v tangu
 slug: 2026-06-03-open-class-objeti-v-tangu
 date: 2026-06-03 18:00:00
 event-type: workshop
-event-start: 2026-06-03 18:00:00
-event-end: 2026-06-03 19:00:00
+event-start: 2026-05-23 18:00:00
+event-end: 2026-05-23 19:00:00
 event-organiser: Michaela Lukavská
 event-location: Sesamo Bakery, Brno
 description: Open class s Míšou Lukavskou o tom, jak hudba mění objetí v tangu. Od D'Arienza přes Caló po Puglieseho.
