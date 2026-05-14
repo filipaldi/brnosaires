@@ -39,6 +39,6 @@ The lessons are led together by a man and a woman, which makes it possible to pe
 
 It's not just about the steps. It's about the way to feel tango.
 
-![Poster](/images/events/2026/body_poster.avif)
+![Poster](/images/events/2026/elisabeth_matias_body_poster.avif)
 
 For more information or private lessons with the teachers, contact Michaela Lukavská on Messenger or WhatsApp +420 773 163 648.

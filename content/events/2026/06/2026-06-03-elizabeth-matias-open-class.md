@@ -38,6 +38,6 @@ Lekce vedou společně muž a žena, což umožňuje vnímat tango z obou rolí 
 
 Nejde jen o kroky. Jde o způsob, jak tango cítit.
 
-![Plakát](/images/events/2026/body_poster.avif)
+![Plakát](/images/events/2026/elisabeth_matias_body_poster.avif)
 
 V případě zájmu o další info nebo soukromé lekce s lektory Messenger Michaela Lukavská nebo WhatsApp +420 773 163 648.
