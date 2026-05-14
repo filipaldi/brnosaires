@@ -18,8 +18,20 @@ Lektoři z Vídně, koncertní milonga s živou hudbou a workshopy pro všechny 
 
 ## Program
 
+### Milongy
 <widget-calendar 
-    filter_by_type="milonga workshop" 
+    filter_by_type="milonga" 
+    start="2026-05-22" 
+    end="2026-05-24" 
+    group_by="day" 
+    headers="day" 
+    hide_empty_days="true"
+    card_size="s">
+</widget-calendar>
+
+### Lekce
+<widget-calendar 
+    filter_by_type="workshop" 
     start="2026-05-22" 
     end="2026-05-24" 
     group_by="day" 
