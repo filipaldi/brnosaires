@@ -9,7 +9,7 @@ event-organiser: Michaela Lukavská
 event-location: Sesamo Bakery, Brno
 description: Open class s Míšou Lukavskou o tom, jak hudba mění objetí v tangu. Od D'Arienza přes Caló po Puglieseho.
 author: Michaela Lukavská
-preview_image: /images/events/2026/2026-06-open-class-objeti-v-tangu.avif
+preview_image: /images/events/2026/misa_lukavska_preview.avif
 ---
 
 # Open Class: Objetí v tangu

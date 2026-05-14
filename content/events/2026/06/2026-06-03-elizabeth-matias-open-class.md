@@ -9,7 +9,7 @@ event-organiser: Brnos Aires
 event-location: Sesamo Bakery, Brno
 description: Z Buenos Aires do Brna. Open class s Elizabeth Cordone a Matíasem Rivasem z Tango Studio Recoleta. Cena 15€ na osobu.
 author: Michaela Lukavská
-preview_image: /images/events/2026/2026-06-elizabeth-matias.avif
+preview_image: /images/events/2026/elisabeth_matias.avif
 ---
 
 # Elizabeth Cordone a Matías Rivas z Tango Studio Recoleta
@@ -38,6 +38,6 @@ Lekce vedou společně muž a žena, což umožňuje vnímat tango z obou rolí 
 
 Nejde jen o kroky. Jde o způsob, jak tango cítit.
 
-![Plakát](/images/events/2026/2026-06-elizabeth-matias-poster.avif)
+![Plakát](/images/events/2026/body_poster.avif)
 
 V případě zájmu o další info nebo soukromé lekce s lektory Messenger Michaela Lukavská nebo WhatsApp +420 773 163 648.
