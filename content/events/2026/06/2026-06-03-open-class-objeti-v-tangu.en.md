@@ -10,7 +10,7 @@ event-organiser: Michaela Lukavská
 event-location: Sesamo Bakery, Brno
 description: An open class with Míša Lukavská about how music changes the embrace in tango. From D'Arienzo through Caló to Pugliese.
 author: Michaela Lukavská
-preview_image: /images/events/2026/misa_lukavska_preview.avif
+preview_image: /images/events/2026/2026-06-open-class-objeti-v-tangu.avif
 ---
 
 # Open Class: The Embrace in Tango
