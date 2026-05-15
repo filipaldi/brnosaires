@@ -1,148 +1,172 @@
-# SEO + Social Cards
+# SEO + sociální kartičky
 
-This document explains how the site exposes metadata to search engines and social-card consumers, and pins down decisions that aren't obvious from the templates alone.
+Tento dokument popisuje, jak web vystavuje metadata vyhledávačům a konzumentům sociálních kartiček, a fixuje rozhodnutí, která ze samotných šablon nejsou zřejmá.
 
-> **Pro editory:** Tento dokument je technický (anglicky). Editorský průvodce metadaty s vysvětlením, jaká pole nastavovat ve frontmatteru a co každé dělá v náhledech na sociálních sítích, je v [EDITING.md](EDITING.md) (česky). This document is the architecture-level explanation underneath.
+> **Pro editory:** Tento dokument je technický. Editorský průvodce metadaty s vysvětlením, jaká pole nastavovat ve frontmatteru a co každé dělá v náhledech na sociálních sítích, je v [Úprava obsahu](EDITING.md). Tady jde o architekturu, která pod tím vším běží.
 
-## Link strategy: relative URLs + `<base href>`
+## Obsah
 
-Every template emits **relative** URLs:
+1. [Strategie odkazů: relativní URL + `<base href>`](#strategie-odkazů-relativní-url--base-href)
+2. [Kanonická URL](#kanonická-url)
+3. [Vícejazyčnost: zrcadlo `/en/`](#vícejazyčnost-zrcadlo-en)
+4. [Opakující se akce: hub stránky](#opakující-se-akce-hub-stránky)
+5. [Evergreen měsíční stránky (`/milongy-brno-<měsíc>/`)](#evergreen-měsíční-stránky-milongy-brno-měsíc)
+6. [Open Graph + Twitter Card](#open-graph--twitter-card)
+7. [Discoverabilita llms.txt](#discoverabilita-llmstxt)
+8. [Strukturovaná data (JSON-LD)](#strukturovaná-data-json-ld)
+9. [Související shipnuté kousky](#související-shipnuté-kousky)
+10. [Související dokumenty](#související-dokumenty)
 
-- `href="{{ x.slug }}/"` for navigation
-- `src="{{ x.preview_image.lstrip('/') }}"` for images
-- `href="{{ nav_page.url }}"` for the side menu
+## Strategie odkazů: relativní URL + `<base href>`
 
-A single `<base href="{{ SITEURL }}/">` in [theme/templates/base.html](../theme/templates/base.html) resolves them all. **Do not remove or work around `<base href>`** — the side menu and every listing card depend on it. If you find yourself writing `{{ SITEURL }}/{{ x.url }}` in a template, you're fighting the existing strategy. Stop and reuse the relative form.
+Všechny šablony emitují **relativní** URL:
 
-Trade-off: `<base href>` also rewrites `<a href="#section">` to `https://brnosaires.com/#section` instead of staying on the current page. We have no on-page fragment links today; if that ever changes, prefer JavaScript-driven scrolling or absolute `href="{current_url}#section"` rather than dropping `<base>`.
+- `href="{{ x.slug }}/"` pro navigaci
+- `src="{{ x.preview_image.lstrip('/') }}"` pro obrázky
+- `href="{{ nav_page.url }}"` pro boční menu
 
-## Canonical URL
+Jediný `<base href="{{ SITEURL }}/">` v [theme/templates/base.html](../theme/templates/base.html) je všechny dořeší. **Nikdy `<base href>` neodstraňuj ani neobcházej** — boční menu a každá kartička v listingu na něm závisí. Pokud se v šabloně přistihneš, jak píšeš `{{ SITEURL }}/{{ x.url }}`, jdeš proti zavedené strategii. Zastav se a použij relativní formu.
 
-Every page emits `<link rel="canonical" href="{{ SITEURL }}/{{ url }}">`. This tells search engines the one true URL of the page and prevents duplicate-content penalties from `RELATIVE_URLS` artefacts (`/x/`, `/x/index.html`, etc.).
+Trade-off: `<base href>` taky přepíše `<a href="#section">` na `https://brnosaires.com/#section` místo aby zůstal na aktuální stránce. Dnes žádné on-page fragment odkazy nemáme; kdyby se to změnilo, použij raději JS-driven scrolling nebo absolutní `href="{current_url}#section"`, ne shazování `<base>`.
 
-For **recurring events** (Milonga u Draka, Tango & Pizza, recurring lessons), the canonical URL of each instance points at the **hub page** in `pages/` rather than the instance itself. See "Recurring events: hub pages" below.
+## Kanonická URL
 
-> **Known limitation (fallback `/en/` pages):** an `/en/<event-instance>/` fallback page (one with no real English translation) computes its canonical against the *Czech* hub (`/<hub-slug>/`), not the English hub. That's defensible — the fallback body *is* the Czech page — but if you ever translate the hub, also translate the instances, or accept the cross-language canonical.
+Každá stránka emituje `<link rel="canonical" href="{{ SITEURL }}/{{ url }}">`. Říká to vyhledávačům jedinou pravou URL stránky a brání tomu, aby `RELATIVE_URLS` artefakty (`/x/`, `/x/index.html`, …) vyvolaly penalizaci za duplicitní obsah.
 
-## Multilingual: the `/en/` mirror
+U **opakujících se akcí** (Milonga u Draka, Tango & Pizza, opakující se lekce) kanonická URL každé instance ukazuje na **hub stránku** v [content/pages/](../content/pages/), ne na instanci samotnou. Viz „Opakující se akce: hub stránky" níže.
 
-The site has an English version under the `/en/` prefix. Czech (the default language, `DEFAULT_LANG = "cs"`) keeps its original root-level URLs untouched — **zero risk to existing SEO** — and non-default-language content routes under `/en/` via `PAGE_LANG_URL` / `PAGE_LANG_SAVE_AS` / `ARTICLE_LANG_*` / `CATEGORY_LANG_*` in [pelicanconf.py](../pelicanconf.py).
+> **Známé omezení (fallback `/en/` stránky):** fallback stránka `/en/<event-instance>/` (taková, která nemá skutečný anglický překlad) si kanonickou počítá proti *českému* hubu (`/<hub-slug>/`), ne anglickému. To je obhajitelné — tělo fallbacku *je* česká stránka — ale když někdy hub přeložíš, přelož i instance, nebo akceptuj cross-language kanonickou.
 
-**How a page gets an English version:** add a sibling file with `Lang: en` and the *same* `Slug` (Pelican links translations by slug, via `ARTICLE_TRANSLATION_ID` / `PAGE_TRANSLATION_ID`, both `"slug"`). E.g. `o-nas.md` (`Lang: cs`, `Slug: o-nas`) + `o-nas.en.md` (`Lang: en`, `Slug: o-nas`) → the latter renders at `/en/o-nas/`.
+## Vícejazyčnost: zrcadlo `/en/`
 
-**The Czech fallback** is the one custom piece — core Pelican gives you `/en/<slug>/` only when a real `.en.md` exists. [plugins/i18n_fallback.py](../plugins/i18n_fallback.py) fills the gap: in `page_generator_finalized` / `article_generator_finalized` (after `process_translations`, before output is written) it synthesizes an `en` translation object for every Czech page lacking one — same slug, `Lang: en`, reusing the *already-rendered* `_content` (hence the plugin is registered **after** `widget_processor` in `PLUGINS`, so widgets in the body are already expanded). The clone is wired into `.translations` both ways and appended to `generator.translations` (the writer iterates that). Result: `/en/<slug>/` mirrors the whole site from launch, with English chrome (nav, dates, meta, hreflang, `<html lang="en">`) wrapping a Czech body until a real translation lands. Marathon pages are skipped — that sub-site is English-first with no Czech mirror, so it must not get a `/en/marathon-…` duplicate.
+Web má anglickou verzi pod prefixem `/en/`. Čeština (výchozí jazyk, `DEFAULT_LANG = "cs"`) si ponechává původní root-level URL beze změny — **nulové riziko pro stávající SEO** — a obsah v jiném než výchozím jazyce routuje pod `/en/` přes `PAGE_LANG_URL` / `PAGE_LANG_SAVE_AS` / `ARTICLE_LANG_*` / `CATEGORY_LANG_*` v [pelicanconf.py](../pelicanconf.py).
 
-**`page_lang`** is computed once at the top of [base.html](../theme/templates/base.html) (before `<html>`): marathon section → `en`, otherwise the content object's `Lang:` (default `cs`). It drives `<html lang>`, `<meta og:locale>` (`cs_CZ` / `en_GB`), the meta description (`SITEDESCRIPTION` / `SITEDESCRIPTION_EN`), `hreflang`, the nav aria-labels, and the language-switcher guard. UI chrome strings come from per-language tables in [theme/i18n/](../theme/i18n/) via the `t(key, page_lang)` Jinja filter; dates from `DATE_FORMATS = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}`.
+**Jak stránka dostane anglickou verzi:** přidej sourozenecký soubor s `Lang: en` a *stejným* `Slug` (Pelican propojuje překlady podle slugu, přes `ARTICLE_TRANSLATION_ID` / `PAGE_TRANSLATION_ID`, oba `"slug"`). Např. `o-nas.md` (`Lang: cs`, `Slug: o-nas`) + `o-nas.en.md` (`Lang: en`, `Slug: o-nas`) → druhý se vyrenderuje na `/en/o-nas/`.
 
-**`hreflang`:** every page (with `SITEURL` set) emits `<link rel="alternate" hreflang="…">` for itself plus each of its `.translations`, plus `hreflang="x-default"` pointing at the Czech (default-language) version. Marathon pages have no translation → no `hreflang` block, which is correct (single-language sub-site). The sitemap includes the `/en/` pages automatically.
+**Český fallback** je jediný vlastní kousek — Pelican v jádře dá `/en/<slug>/` jen tehdy, když existuje skutečný `.en.md`. [plugins/i18n_fallback.py](../plugins/i18n_fallback.py) tu díru zaplňuje: v `page_generator_finalized` / `article_generator_finalized` (po `process_translations`, před zápisem výstupu) syntetizuje `en` translation objekt pro každou českou stránku, která žádný nemá — stejný slug, `Lang: en`, znovu používá *už vyrenderovaný* `_content` (proto je plugin registrován v `PLUGINS` **až za** `widget_processor`em, aby byly widgety v těle už rozbalené). Klon se napojí do `.translations` na obě strany a přidá do `generator.translations` (writer iteruje právě to). Výsledek: `/en/<slug>/` zrcadlí celý web od startu, s anglickým „obalem" (nav, datumy, meta, hreflang, `<html lang="en">`) obalujícím české tělo, dokud nedorazí skutečný překlad. Marathon stránky jsou přeskočené — to je English-first sub-web bez českého zrcadla, takže nesmí dostat duplicitu `/en/marathon-…`.
 
-**Language switcher** ([theme/templates/components/lang_switcher.html](../theme/templates/components/lang_switcher.html)): `CS · EN` in the header; the current language is inert, the other links to this page's translation counterpart (or `/` ↔ `/en/` for the homepage). It's omitted entirely on marathon pages. A small progressive-enhancement script in `base.html` remembers the chosen language in `localStorage` and, on the bare root path, redirects to `/en/` if `en` was previously chosen — the links work fine without JS.
+**`page_lang`** se počítá jednou nahoře v [base.html](../theme/templates/base.html) (před `<html>`): marathon sekce → `en`, jinak `Lang:` content objektu (výchozí `cs`). Řídí `<html lang>`, `<meta og:locale>` (`cs_CZ` / `en_GB`), meta description (`SITEDESCRIPTION` / `SITEDESCRIPTION_EN`), `hreflang`, aria-labely v navigaci a guard přepínače jazyka. UI stringy chrome se berou z per-jazykových tabulek v [theme/i18n/](../theme/i18n/) přes `t(key, page_lang)` Jinja filtr; datumy z `DATE_FORMATS = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}`.
 
-**Footer note:** the footer is currently Czech on `/en/` pages too. Its English variant is folded into the separate "rework the footer" item in [ROADMAP.md](ROADMAP.md), not done here.
+**`hreflang`:** každá stránka (s nastaveným `SITEURL`) emituje `<link rel="alternate" hreflang="…">` pro sebe + pro každý ze svých `.translations`, plus `hreflang="x-default"` ukazující na českou (default-language) verzi. Marathon stránky nemají překlad → žádný `hreflang` blok, což je správně (jednojazyčný sub-web). Sitemap zahrnuje `/en/` stránky automaticky.
 
-Editor-facing version of all this (the `.en.md` naming, what to write where): [EDITING.md → Jazykové verze](EDITING.md).
+**Přepínač jazyka** ([theme/templates/components/lang_switcher.html](../theme/templates/components/lang_switcher.html)): `CS · EN` v hlavičce; aktuální jazyk je inertní, druhý odkazuje na překladový protějšek této stránky (nebo `/` ↔ `/en/` pro homepage). Na marathon stránkách se úplně vynechává. Malý progressive-enhancement skript v `base.html` si zvolený jazyk pamatuje v `localStorage` a na holém root pathu redirectuje na `/en/`, pokud bylo dřív zvoleno `en` — odkazy fungují fajn i bez JS.
 
-## Recurring events: hub pages
+**Poznámka k patičce:** patička je aktuálně česká i na `/en/` stránkách. Její anglická varianta je součástí samostatné položky „rework the footer" v [Plánu rozvoje](ROADMAP.md), tady se neřeší.
 
-Some events recur but each occurrence is authored as its own dated file (e.g., `2026-04-18-milonga-u-draka.md`, `2026-05-16-milonga-u-draka.md`). Without intervention, search engines see N near-identical URLs competing for the same query and split the link equity. The `series:` convention solves this.
+Editorská verze tohoto všeho (pojmenování `.en.md`, co kam psát): [Úprava obsahu → Jazykové verze](EDITING.md).
 
-### How it works
+## Opakující se akce: hub stránky
 
-1. **Author a hub page** in `content/pages/series/` with a stable slug, e.g. [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md). Set `series: <slug>` in the frontmatter to mark it as a hub. The body describes the recurring event in general (location, vibe, music style, organisers). (The `series/` subdir is organisational only — Pelican routes by `Slug:`, not path; one-off / multi-day event hubs like Tango Weekend live in `content/pages/events/`.)
+Některé akce se opakují, ale každý termín je autorovaný jako vlastní datovaný soubor (např. `2026-04-18-milonga-u-draka.md`, `2026-05-16-milonga-u-draka.md`). Bez zásahu vyhledávače vidí N téměř identických URL soutěžících o stejný dotaz a roztříští link equity. Konvence `series:` to řeší.
 
-2. **Tag each instance** with the same `series: <slug>` field in its frontmatter. No body changes required.
+### Jak to funguje
 
-3. **Templates do the rest:**
-   - [theme/templates/base.html](../theme/templates/base.html) detects `series:` on the article and overrides `<link rel="canonical">` and `<meta property="og:url">` to point at the hub URL (`/<series>/`) instead of self. Same for the hub page itself, which trivially canonicals to itself.
-   - [theme/templates/article.html](../theme/templates/article.html) renders a small "Součást pravidelné série: [Hub Title]" link below the event header so readers and crawlers can navigate instance → hub.
-   - [theme/templates/page.html](../theme/templates/page.html) detects `series:` on a page and renders a "Nejbližší termíny" section listing all upcoming instances of the series (filtered by `event-start >= today`, sorted chronologically). Uses the existing `calendarium` Jinja filter to ensure event metadata is parsed consistently with the rest of the site.
+1. **Vytvoř hub stránku** v [content/pages/series/](../content/pages/series/) se stabilním slugem, např. [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md). Ve frontmatteru nastav `series: <slug>`, čímž ji označíš jako hub. Tělo popisuje opakující se akci obecně (místo, atmosféra, hudební styl, organizátoři). (Podsložka `series/` je čistě organizační — Pelican routuje podle `Slug:`, ne podle cesty; huby jednorázových / vícedenních akcí jako Tango Weekend žijí v [content/pages/events/](../content/pages/events/).)
 
-### Adding a new series
+2. **Otaguj každou instanci** stejným polem `series: <slug>` v jejím frontmatteru. Žádné změny v těle.
 
-1. Create `content/pages/<series-slug>.md` with `series: <series-slug>` in frontmatter and a descriptive body.
-2. Add `series: <series-slug>` to each existing instance file in `content/events/`.
-3. Future instances just need the same `series:` line and they auto-appear on the hub.
+3. **Šablony udělají zbytek:**
+   - [theme/templates/base.html](../theme/templates/base.html) detekuje `series:` na článku a přepíše `<link rel="canonical">` a `<meta property="og:url">` tak, aby ukazovaly na URL hubu (`/<series>/`) místo na sebe. Totéž platí pro samotný hub, který triviálně kanonicalizuje sám na sebe.
+   - [theme/templates/article.html](../theme/templates/article.html) vyrenderuje pod hlavičkou akce malý odkaz „Součást pravidelné série: [Hub Title]", aby čtenáři i crawler měli cestu instance → hub.
+   - [theme/templates/page.html](../theme/templates/page.html) detekuje `series:` na stránce a vyrenderuje sekci „Nejbližší termíny" se všemi budoucími instancemi série (filtrované podle `event-start >= today`, řazené chronologicky). Používá existující `calendarium` Jinja filtr, aby se metadata akcí parsovala konzistentně se zbytkem webu.
 
-### What does NOT need a hub
+### Přidání nové série
 
-- One-off events (a single milonga that won't repeat) — self-canonical is correct.
-- Recurring classes/praktikas authored via the `recurrence:` field in [plugins/recurring_events.py](../plugins/recurring_events.py) — those are a single source file expanded into N occurrences sharing one URL, so they already have a single canonical surface.
+1. Vytvoř `content/pages/<series-slug>.md` s `series: <series-slug>` ve frontmatteru a popisným tělem.
+2. Přidej `series: <series-slug>` ke každému existujícímu souboru instance v [content/events/](../content/events/).
+3. Budoucí instance potřebují jen stejný řádek `series:` a samy se na hubu objeví.
 
-## Evergreen month pages (`/milongy-brno-<měsíc>/`)
+### Co hub **nepotřebuje**
 
-Twelve hand-authored pages, one per Czech month name (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), in [content/pages/events/](../content/pages/events/). They target the query pattern *"milonga Brno [měsíc]"* / *"milonga Brno [měsíc] [rok]"* — which nothing else on the site is titled or structured for. Each `.md` is a thin shell: an evergreen intro paragraph (year-free, with a sentence of per-month flavour), a `<widget-calendar month="<N>" filter_by_type="milonga praktika neolonga">`, the `.ics` subscribe widget — **and deliberately no `#` H1 and no year anywhere in the file**. They are **year-agnostic** — the URL is reused every year; only the displayed year changes, and it's the *template* that prints it (see below). Entry points: a `<widget-calendar>`-style "Milongy po měsících:" link strip on [milongy.md](../content/pages/milongy.md) and [kalendar.md](../content/pages/kalendar.md) (CS + `.en.md`), plus the inter-page prev/next ring + all-months strip the template emits.
+- Jednorázové akce (jediná milonga, která se nebude opakovat) — self-canonical je správně.
+- Opakující se lekce/praktiky autorované přes pole `recurrence:` v [plugins/recurring_events.py](../plugins/recurring_events.py) — ty jsou jediný zdrojový soubor rozbalený do N termínů sdílejících jednu URL, takže už mají jednu kanonickou plochu.
 
-### The moving parts
+## Evergreen měsíční stránky (`/milongy-brno-<měsíc>/`)
 
-- **`month: <N>` frontmatter** on the page (a number 1–12) is the flag that switches on the month-page branch in [theme/templates/page.html](../theme/templates/page.html). It also tells the template which month's events to list in the JSON-LD.
-- **`tango_year_for_month(month)`** — a Jinja filter ([pelicanconf.py](../pelicanconf.py)). `page.html` uses it (together with `month_name(N, lang, 'locative')`) to build the `<title>` *and* the `<h1>` for a month page — `Milongy v Brně v <6. pádu> <rok>` (CS) / `Milongas in Brno in <Month> <year>` (EN) — so the year is computed at build time: the current year, or next year if that month has already passed this year. So in November, `/milongy-brno-leden/`'s title reads "…leden 2027". **No annual edit chore, and nothing in the `.md` to update.** (The lang for that title is read from `page.lang`, not the usual `page_lang` — `page_lang` is set by `base.html` *after* the child template's top-level statements run, so it isn't visible up there yet.) Companion helpers, also in `pelicanconf.py` + registered in `JINJA_FILTERS`: `month_name(n, lang, form)` — display name, `form="locative"` gives the Czech "v lednu"; `month_page_slug(n)` / `month_page_url(n, lang)`; `month_wrap(n, ±1)` — month arithmetic that wraps 12↔1. The calendarium plugin keeps its own tiny `year_for_month` mirror in [dates.py](../plugins/calendarium/dates.py) — a plugin must not import the site config.
-- **`<widget-calendar month="<N>">`** — the `month=` param (see [WIDGETS.md](WIDGETS.md)) restricts the widget to exactly that calendar month in the `tango_year_for_month`-resolved year, overriding `days`/`start`/`end`.
-- **`page.html` month-page branch** (gated on `month:`):
-  - emits a JSON-LD **`ItemList`** of that month's milongas/praktikas/neolongas (`itemListElement` → `ListItem` → `Event` with `startDate`/`endDate`/`location`/`url`) — built from the *same* `calendarium(month=…)` query the widget uses, so it can't drift from what's rendered;
-  - if the month currently has **no events**, emits `<meta name="robots" content="noindex,follow">` (via the `head` block) plus an empty-state line — keeps the thin page crawlable but out of the index until an event lands; the `noindex` flips off automatically on the next build after a matching event is added;
-  - renders **prev/next-month ring links** (`← květen` / `červenec →`) and an **all-months strip** — crawl paths between the 12, lang-aware (`/milongy-brno-<m>/` in CS, `/en/milongy-brno-<m>/` in EN).
-- **English twins** are `.en.md` siblings with the *same* slug + `Lang: en` (like every other `.en.md`) → routed to `/en/milongy-brno-<m>/`. Only the copy and the displayed month/year wording differ; the `month=` param and the year filter are language-neutral.
-- **Canonical/sitemap**: each month page is self-canonical and picked up by the sitemap plugin automatically; the `noindex` (empty months only) keeps the thin ones out of the index without removing them.
+Dvanáct ručně psaných stránek, jedna pro každý český název měsíce (`/milongy-brno-leden/` … `/milongy-brno-prosinec/`), v [content/pages/events/](../content/pages/events/). Cílí na dotazovací vzor *„milonga Brno [měsíc]"* / *„milonga Brno [měsíc] [rok]"* — na který nic jiného na webu titulem ani strukturou necílí. Každý `.md` je tenká schránka: evergreen úvodní odstavec (bez roku, s větou per-měsíc atmosféry), `<widget-calendar month="<N>" filter_by_type="milonga praktika neolonga">`, widget odběru `.ics` — a **záměrně bez `#` H1 a bez roku kdekoliv v souboru**. Jsou **year-agnostic** — URL se používá každý rok, mění se jen zobrazený rok, a tiskne ho *šablona* (viz níže). Vstupní body: pásek odkazů „Milongy po měsících:" stylu `<widget-calendar>` na [milongy.md](../content/pages/milongy.md) a [kalendar.md](../content/pages/kalendar.md) (CS + `.en.md`), plus inter-page prev/next prstenec + pásek všech měsíců, který emituje šablona.
 
-Editor-facing version (how to author/edit a month page, what to leave alone): [EDITING.md → Měsíční stránky milong](EDITING.md).
+### Pohyblivé části
+
+- **`month: <N>` ve frontmatteru** stránky (číslo 1–12) je vlajka, která v [theme/templates/page.html](../theme/templates/page.html) zapne větev pro měsíční stránku. Taky šabloně říká, akce kterého měsíce vypsat do JSON-LD.
+- **`tango_year_for_month(month)`** — Jinja filtr ([pelicanconf.py](../pelicanconf.py)). `page.html` ho používá (společně s `month_name(N, lang, 'locative')`) k sestavení `<title>` *i* `<h1>` měsíční stránky — `Milongy v Brně v <6. pádu> <rok>` (CS) / `Milongas in Brno in <Month> <year>` (EN) — takže se rok počítá v době buildu: aktuální rok, nebo příští rok, pokud už ten měsíc tento rok proběhl. Takže v listopadu titulek `/milongy-brno-leden/` čte „…leden 2027". **Žádná roční editorská povinnost a v `.md` se nic neaktualizuje.** (Lang pro ten titulek se čte z `page.lang`, ne z obvyklého `page_lang` — `page_lang` nastavuje `base.html` *až po* top-level statementech child šablony, takže nahoře ještě není vidět.) Společné helpery, taky v `pelicanconf.py` + zaregistrované v `JINJA_FILTERS`: `month_name(n, lang, form)` — display name, `form="locative"` dává české „v lednu"; `month_page_slug(n)` / `month_page_url(n, lang)`; `month_wrap(n, ±1)` — měsíční aritmetika, která omotává 12↔1. Calendarium plugin si v [dates.py](../plugins/calendarium/dates.py) drží vlastní drobné `year_for_month` zrcadlo — plugin nesmí importovat site config.
+- **`<widget-calendar month="<N>">`** — parametr `month=` (viz [Widget systém](WIDGETS.md)) omezí widget přesně na ten kalendářní měsíc v roce vyřešeném `tango_year_for_month`, přepisuje `days`/`start`/`end`.
+- **Větev `page.html` pro měsíční stránku** (gate na `month:`):
+  - emituje JSON-LD **`ItemList`** milong/praktik/neolong toho měsíce (`itemListElement` → `ListItem` → `Event` s `startDate`/`endDate`/`location`/`url`) — postavený ze *stejného* `calendarium(month=…)` dotazu, jaký používá widget, takže nemůže driftovat od toho, co je vyrenderované;
+  - pokud měsíc aktuálně **nemá žádné akce**, emituje `<meta name="robots" content="noindex,follow">` (přes `head` blok) plus empty-state řádek — drží tenkou stránku crawlovatelnou, ale mimo index, dokud akce nepřibyde; `noindex` se sám vypne při dalším buildu po přidání odpovídající akce;
+  - renderuje **prev/next-month prstencové odkazy** (`← květen` / `červenec →`) a **pásek všech měsíců** — crawl cesty mezi 12, lang-aware (`/milongy-brno-<m>/` v CS, `/en/milongy-brno-<m>/` v EN).
+- **Anglická dvojčata** jsou `.en.md` sourozenci se *stejným* slugem + `Lang: en` (jako každé jiné `.en.md`) → routováno na `/en/milongy-brno-<m>/`. Liší se jen text a zobrazený měsíc/rok; parametr `month=` a year filter jsou jazykově neutrální.
+- **Canonical/sitemap**: každá měsíční stránka je self-canonical a sitemap plugin si ji vezme automaticky; `noindex` (jen prázdné měsíce) drží ty tenké mimo index, aniž by je odstranil.
+
+Editorská verze (jak měsíční stránku autorovat/editovat, čeho se nedotýkat): [Úprava obsahu → Měsíční stránky milong](EDITING.md).
 
 ## Open Graph + Twitter Card
 
-`<head>` includes:
+`<head>` obsahuje:
 
-- Open Graph — `og:site_name / locale / title / description / type / url / image`. Used by Facebook, LinkedIn, Slack, Discord, WhatsApp, iMessage, Google for rendering link previews.
-- Twitter Card — `twitter:card=summary_large_image` plus title/description/image. Twitter/X ignores OG alone and reads its own namespace. `summary_large_image` shows the preview image edge-to-edge above the headline.
+- Open Graph — `og:site_name / locale / title / description / type / url / image`. Používá Facebook, LinkedIn, Slack, Discord, WhatsApp, iMessage, Google pro renderování náhledů odkazů.
+- Twitter Card — `twitter:card=summary_large_image` plus title/description/image. Twitter/X ignoruje samotný OG a čte vlastní namespace. `summary_large_image` ukazuje preview obrázek od kraje ke kraji nad titulkem.
 
-### One image powers everything: `preview_image`
+### Jeden obrázek pohání všechno: `preview_image`
 
-Articles and pages already declare `preview_image:` in frontmatter for in-page card rendering ([components/event_card.html](../theme/templates/components/event_card.html), [components/widget_articles.html](../theme/templates/components/widget_articles.html), [article.html](../theme/templates/article.html), [page.html](../theme/templates/page.html)). The same field powers `og:image` and `twitter:image` — there are deliberately **no separate `og_image` / `twitter_image` frontmatter fields**.
+Články a stránky už deklarují `preview_image:` ve frontmatteru pro renderování kartičky na webu ([components/event_card.html](../theme/templates/components/event_card.html), [components/widget_articles.html](../theme/templates/components/widget_articles.html), [article.html](../theme/templates/article.html), [page.html](../theme/templates/page.html)). Totéž pole pohání `og:image` i `twitter:image` — záměrně **neexistují samostatná pole `og_image` / `twitter_image` ve frontmatteru**.
 
-Reasons:
+Důvody:
 
-- One image to maintain per content item, not three.
-- Guaranteed parity between in-site cards and external link previews.
-- Zero authoring burden — every author already fills `preview_image`.
+- Jeden obrázek na content item, ne tři.
+- Garantovaná parita mezi kartičkami na webu a externími náhledy odkazů.
+- Nulová autorská zátěž — každý autor už `preview_image` plní.
 
-If a page lacks `preview_image`, no `og:image` / `twitter:image` is emitted (graceful degradation). Social previews still render with title + description, just without an image.
+Pokud stránka `preview_image` nemá, `og:image` / `twitter:image` se neemituje (graceful degradation). Sociální náhledy se pořád vyrenderují s titulkem + popisem, jen bez obrázku.
 
-### Description fallback chain
+### Fallback řetězec pro description
 
-`<meta name="description">`, `og:description`, `twitter:description` all resolve in this order:
+`<meta name="description">`, `og:description`, `twitter:description` se všechny resolvují v tomto pořadí:
 
-1. `article.description` / `page.description` (explicit frontmatter, when set)
-2. `article.summary` (auto-generated by Pelican from the first ~50 words)
+1. `article.description` / `page.description` (explicitní frontmatter, když je nastaven)
+2. `article.summary` (auto-generovaný Pelicanem z prvních ~50 slov)
 3. `_site_desc` — `SITEDESCRIPTION` (cs) / `SITEDESCRIPTION_EN` (en)
 
-Truncated to 200 characters and stripped of HTML — that's the `_desc` variable in [base.html](../theme/templates/base.html). All three tags use it. (Until T1, `<meta name="description">` was hardcoded to the sitewide `{{ SITENAME }} - {{ SITEDESCRIPTION }}` and only `og:`/`twitter:` honoured `_desc` — so every page shipped the same search snippet. Fixed: the `<meta description>` tag now sits below the `_desc` assignment and uses it.)
+Oříznuté na 200 znaků a zbavené HTML — to je proměnná `_desc` v [base.html](../theme/templates/base.html). Všechny tři tagy ji používají. (Do T1 byl `<meta name="description">` hardcodovaný na sitewide `{{ SITENAME }} - {{ SITEDESCRIPTION }}` a jen `og:`/`twitter:` ctily `_desc` — takže každá stránka shipovala stejný search snippet. Opraveno: tag `<meta description>` teď sedí pod přiřazením `_desc` a používá ho.)
 
-## llms.txt discoverability
+## Discoverabilita llms.txt
 
-`<head>` also includes:
+`<head>` taky obsahuje:
 
 ```html
 <link rel="alternate" type="text/plain" title="llms.txt" href=".../llms.txt">
 <link rel="alternate" type="text/plain" title="llms-full.txt" href=".../llms-full.txt">
 ```
 
-These point at the LLM-readable endpoints generated by [plugins/llms_index.py](../plugins/llms_index.py). LLM crawlers and chatbots that follow the [llms.txt convention](https://llmstxt.org) discover the endpoints via these hints. See [LLMS.md](LLMS.md) for the plugin's structure and what each section contains.
+Ty ukazují na LLM-readable endpointy generované [plugins/llms_index.py](../plugins/llms_index.py). LLM crawleri a chatboti, kteří se řídí [konvencí llms.txt](https://llmstxt.org), objeví endpointy přes tyto hinty. Struktura pluginu a co která sekce obsahuje viz [Discoverability pro LLM](LLMS.md).
 
-## Structured data (JSON-LD)
+## Strukturovaná data (JSON-LD)
 
-Schema.org JSON-LD is emitted server-side (it's a static site — there's no JS to inject it). Where each block lives:
+Schema.org JSON-LD se emituje server-side (je to statický web — není tu JS, který by ho injektoval). Kde každý blok žije:
 
-| `@type` | Where | Notes |
+| `@type` | Kde | Poznámky |
 |---|---|---|
-| `Event` | [article.html](../theme/templates/article.html), gated on `event-start` | `name`, `description`, `startDate`/`endDate` (ISO8601 via the `event_iso8601` filter), `eventStatus`, `eventAttendanceMode` (offline), `location` (see `event_address` below), `organizer`, `performer`, `image`, `url`, `@id` (`<canonical>#event`). For a `series:` instance: `superEvent` → `EventSeries` pointing at the hub, and `url`/`@id` resolve to the hub (same rule as the `<link rel=canonical>`). `offers` (`@type` Offer, `price`/`priceCurrency` CZK/`availability`) is **gated on a `entry:` frontmatter field** — no event has one yet (it's a ROADMAP item), so the block is dormant; `isAccessibleForFree: true` when `entry` is "zdarma"/"free"/"0"/"dobrovolné". |
-| `EventSeries` | [page.html](../theme/templates/page.html), on a `series:` hub page | `name`, `description`, `url`, `image`, `location` (Brno), and `subEvent` — each upcoming instance as a minimal `Event`. Makes the hub a single structured surface for "all upcoming \<series\> dates". |
-| `ItemList` | [page.html](../theme/templates/page.html), on `/tango-kalendar-brno/` (matched by `page.slug`) and on every month page (`month:` flag) | `itemListElement` → `ListItem` → `Event`. The kalendar list is the next ≤50 upcoming events; the month-page list is that month's milongas/praktikas/neolongas. Both built from the same `calendarium(...)` query the visible widget uses, so the data can't drift from what's rendered. |
-| `FAQPage` | [page.html](../theme/templates/page.html), on `/tango-pro-zacatecniky-brno/` (the [E2 glossary page](EDITING.md)) | `mainEntity` → `Question`/`acceptedAnswer`, parsed from the page's `**Question?**` + answer-paragraph Markdown by the `faq_pairs` Jinja filter (only `<p><strong>…?</strong> …</p>` blocks whose bold text ends with `?` — ordinary bold body text is ignored). Add/edit FAQs by editing that page's "Časté otázky" section; nothing else needed. |
-| `Organization` | [components/footer.html](../theme/templates/components/footer.html), once per page (the footer is on every page) | `@id` `<siteurl>/#organization`, `name`, `description` (per language), `areaServed` → `City` "Brno". The baseline entity signal; no `sameAs`/`email`/`logo` (none exist for the site — don't invent). |
+| `Event` | [article.html](../theme/templates/article.html), gated na `event-start` | `name`, `description`, `startDate`/`endDate` (ISO8601 přes filtr `event_iso8601`), `eventStatus`, `eventAttendanceMode` (offline), `location` (viz `event_address` níže), `organizer`, `performer`, `image`, `url`, `@id` (`<canonical>#event`). Pro instanci se `series:`: `superEvent` → `EventSeries` ukazující na hub, a `url`/`@id` se resolvujou na hub (stejné pravidlo jako `<link rel=canonical>`). `offers` (`@type` Offer, `price`/`priceCurrency` CZK/`availability`) je **gated na pole `entry:` ve frontmatteru** — žádná akce ho ještě nemá (je to ROADMAP položka), takže blok je dormantní; `isAccessibleForFree: true` když je `entry` „zdarma"/„free"/„0"/„dobrovolné". |
+| `EventSeries` | [page.html](../theme/templates/page.html), na hub stránce se `series:` | `name`, `description`, `url`, `image`, `location` (Brno) a `subEvent` — každá budoucí instance jako minimální `Event`. Dělá z hubu jedinou strukturovanou plochu pro „všechny budoucí termíny série \<series\>". |
+| `ItemList` | [page.html](../theme/templates/page.html), na `/tango-kalendar-brno/` (matchováno podle `page.slug`) a na každé měsíční stránce (vlajka `month:`) | `itemListElement` → `ListItem` → `Event`. Kalendářní list je dalších ≤50 nadcházejících akcí; měsíční list jsou milongy/praktiky/neolongy daného měsíce. Oba postavené ze stejného `calendarium(...)` dotazu, jaký používá viditelný widget, takže data nemohou driftovat od toho, co je vyrenderované. |
+| `FAQPage` | [page.html](../theme/templates/page.html), na `/tango-pro-zacatecniky-brno/` (stránka [E2 glossary](EDITING.md)) | `mainEntity` → `Question`/`acceptedAnswer`, parsované z Markdownu stránky ve formátu `**Otázka?**` + odstavec odpovědi přes Jinja filtr `faq_pairs` (jen `<p><strong>…?</strong> …</p>` bloky, jejichž tučný text končí `?` — běžný tučný text v těle se ignoruje). FAQ se přidává/edituje editováním sekce „Časté otázky" té stránky; nic jiného není potřeba. |
+| `Organization` | [components/footer.html](../theme/templates/components/footer.html), jednou na stránku (patička je na každé stránce) | `@id` `<siteurl>/#organization`, `name`, `description` (per jazyk), `areaServed` → `City` „Brno". Základní entity signál; žádné `sameAs`/`email`/`logo` (pro web žádné neexistuje — nevymýšlej). |
 
-The `event_address(loc)` filter ([pelicanconf.py](../pelicanconf.py)) turns a canonical `"Venue, Street, Brno-District"` event-location string into a `Place` (`name`) wrapping a `PostalAddress` (`streetAddress`/`addressLocality`/`addressCountry: "CZ"`), degrading safely: `"Venue, Brno"` → `Place` + `PostalAddress` with just `addressLocality`; bare `"Brno"` / `"Brno-District"` → `PostalAddress` locality only, no `name`; bare venue name (no comma) → `Place` `name` only, no address; empty → `{}` (template falls back to the raw string). It **never emits a half-built `PostalAddress`** — every level degrades to the next. This depends on `event-location` being in the canonical 3-/2-part form (the [E3 hygiene pass](EDITING.md) normalised it). `"Brno"` in `addressLocality` is the literal city signal for `milonga Brno`.
+Filtr `event_address(loc)` ([pelicanconf.py](../pelicanconf.py)) ze stringu `event-location` v kanonickém tvaru `"Venue, Street, Brno-District"` udělá `Place` (`name`) obalující `PostalAddress` (`streetAddress`/`addressLocality`/`addressCountry: "CZ"`), s bezpečným degradováním: `"Venue, Brno"` → `Place` + `PostalAddress` jen s `addressLocality`; samotné `"Brno"` / `"Brno-District"` → jen locality v `PostalAddress`, bez `name`; samotný název venue (bez čárky) → jen `Place` `name`, bez adresy; prázdné → `{}` (šablona spadne zpět na surový string). **Nikdy neemituje napůl postavenou `PostalAddress`** — každá úroveň graceful degradationem padá na další. Spoléhá na to, že je `event-location` v kanonickém 3-/2-dílném tvaru ([E3 hygiene pass](EDITING.md) ho normalizoval). `"Brno"` v `addressLocality` je literální city signál pro `milonga Brno`.
 
-A small "Poprvé na milonze? [Mrkni, jak na to.](…)" line under the event header on `milonga`/`praktika`/`neolonga` event pages links the beginner page (strings `first_milonga_prompt` / `first_milonga_link` in [theme/i18n/](../theme/i18n/)) — site-wide internal links to the glossary page.
+Malý řádek „Poprvé na milonze? [Mrkni, jak na to.](…)" pod hlavičkou akce na `milonga`/`praktika`/`neolonga` stránkách odkazuje na beginner stránku (stringy `first_milonga_prompt` / `first_milonga_link` v [theme/i18n/](../theme/i18n/)) — site-wide interní odkazy na glossary stránku.
 
-## Related shipped pieces
+## Související shipnuté kousky
 
-- **`sitemap.xml`** generated by the `pelican.plugins.sitemap` community plugin; configuration lives in `SITEMAP` in [pelicanconf.py](../pelicanconf.py). Advertised in [content/extra/robots.txt](../content/extra/robots.txt).
-- **Per-page Markdown mirrors** generated by [plugins/md_mirror.py](../plugins/md_mirror.py). Documented in [LLMS.md](LLMS.md).
+- **`sitemap.xml`** generovaný komunitním pluginem `pelican.plugins.sitemap`; konfigurace v `SITEMAP` v [pelicanconf.py](../pelicanconf.py). Inzerováno v [content/extra/robots.txt](../content/extra/robots.txt).
+- **Per-page Markdown zrcadla** generovaná [plugins/md_mirror.py](../plugins/md_mirror.py). Zdokumentováno v [Discoverability pro LLM](LLMS.md).
+
+## Související dokumenty
+
+- [EDITING.md](EDITING.md) — editorský průvodce metadaty ve frontmatteru.
+- [LLMS.md](LLMS.md) — `llms.txt` / `llms-full.txt` endpointy a per-page `.md` zrcadla.
+- [WIDGETS.md](WIDGETS.md) — tagy `<widget-*>` v těle článku.
+- [local-testing.md](local-testing.md) — lokální dev server, port 41234, phone preview.
+- [publishing.md](publishing.md) — deploy přes GitHub Actions na GitHub Pages.
+- [setup.md](setup.md) — first-time setup repozitáře a venv.
+- [ROADMAP.md](ROADMAP.md) — co je naplánováno a co je hotovo.
+- [../README.md](../README.md) — hlavní průvodce pro editory: pracovní postup, struktura souboru akce, widgety, obrázky.

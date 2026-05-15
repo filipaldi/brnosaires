@@ -1,69 +1,58 @@
-# LLM discoverability
+# Discoverability pro LLM
 
-A single custom plugin — `llm_ally.py` — produces LLM-friendly output
-for Brnos Aires. It is a **dumb renderer**: it holds no site-specific
-knowledge. All editorial decisions (what to surface, what to omit, how
-to frame each audience) live in editor-edited files.
+O LLM-friendly výstupy Brnos Aires se stará jediný custom plugin - [`llm_ally.py`](../plugins/llm_ally.py). Je to **hloupý renderer**: žádné znalosti o konkrétním webu v sobě nemá. Všechna editorská rozhodnutí (co vystavit, co vynechat, jak oslovit které publikum) leží v souborech, které editují editoři.
 
-## Two responsibilities
+## Obsah
 
-### 1. Editor-curated `*.txt` files
+- [Dvě zodpovědnosti](#dvě-zodpovědnosti)
+- [Textové šablony widgetů](#textové-šablony-widgetů)
+- [Proč hloupý renderer](#proč-hloupý-renderer)
+- [Reference souborů](#reference-souborů)
+- [Související dokumenty](#související-dokumenty)
 
-For every `*.md` file in `content/llm/`, the plugin writes a matching
-`.txt` to the site root **and** to `/.well-known/`. Filename mapping is
-one-to-one:
+## Dvě zodpovědnosti
 
-| Source | Output (canonical) | Output (well-known alias) |
+### 1. Editorsky kurátorované `*.txt` soubory
+
+Pro každý `*.md` soubor v [`content/llm/`](../content/llm/) plugin vygeneruje odpovídající `.txt` do rootu webu **a** do `/.well-known/`. Mapování názvů je jedna ku jedné:
+
+| Zdroj | Výstup (kanonický) | Výstup (well-known alias) |
 |---|---|---|
 | `content/llm/llms.md` | `output/llms.txt` | `output/.well-known/llms.txt` |
 | `content/llm/llms-full.md` | `output/llms-full.txt` | `output/.well-known/llms-full.txt` |
-| `content/llm/<anything>.md` | `output/<anything>.txt` | `output/.well-known/<anything>.txt` |
+| `content/llm/<cokoli>.md` | `output/<cokoli>.txt` | `output/.well-known/<cokoli>.txt` |
 
-Authoring a new audience is a `cp` plus an edit:
+Přidat nové publikum znamená `cp` plus editaci:
 
 ```bash
 cp content/llm/llms.md content/llm/androids.md
-# edit headings, widget filters, prose for the android audience
+# uprav nadpisy, widget filtry a text pro android publikum
 pelican content -s pelicanconf.py
-# /androids.txt and /.well-known/androids.txt now exist
+# /androids.txt a /.well-known/androids.txt jsou na světě
 ```
 
-No code change. No registration step. The plugin walks the directory at
-build time and emits whatever it finds.
+Žádná změna v kódu. Žádná registrace. Plugin při buildu projde adresář a vyrobí, co tam najde.
 
-`content/llm/` is **not registered with Pelican** — files there don't
-become standalone HTML pages. The plugin reads them directly during the
-`finalized` signal, strips the YAML frontmatter, expands every
-`<widget-*>` tag via `widget_processor.render_widgets_in_text()`, and
-writes the result.
+[`content/llm/`](../content/llm/) **není zaregistrované u Pelicanu** - soubory v něm se nestanou samostatnými HTML stránkami. Plugin si je čte přímo během signálu `finalized`, ořeže YAML frontmatter, rozbalí každý tag `<widget-*>` přes `widget_processor.render_widgets_in_text()` a výsledek zapíše.
 
-### 2. Per-page Markdown mirrors
+### 2. Markdown zrcadla jednotlivých stránek
 
-For every public article and page, `llm_ally` writes an `index.md` next
-to the generated `index.html`:
+Pro každý veřejný článek a stránku zapíše `llm_ally` soubor `index.md` vedle vygenerovaného `index.html`:
 
 ```
-output/tango-pizza-sesamo-2026-04-29/index.html   ← rendered HTML
-output/tango-pizza-sesamo-2026-04-29/index.md     ← clean Markdown mirror
+output/tango-pizza-sesamo-2026-04-29/index.html   ← vyrenderované HTML
+output/tango-pizza-sesamo-2026-04-29/index.md     ← čisté Markdown zrcadlo
 ```
 
-Each `.md` contains:
+Každý `.md` obsahuje:
 
-1. **Mintlify-style discovery marker** — `> For a complete page index,
-   fetch {SITEURL}/llms.txt`. Tells an LLM that landed on a single page
-   where to find the full corpus index.
-2. **YAML frontmatter** — `title`, `date`, `url`, plus event-specific
-   fields (`event-type`, `event-start`, `event-end`, `event-location`,
-   `event-organiser`, `instructor`, `recurrence`, `series`) when present.
-3. **Body** — the raw Markdown from `source_path`, with `<widget-*>`
-   tags rendered as plain-text bullets via the same Jinja templates that
-   power the HTML site (text-mode siblings: `widget_calendar.txt.j2`,
-   `widget_articles.txt.j2`, etc.).
+1. **Discovery marker ve stylu Mintlify** - `> For a complete page index, fetch {SITEURL}/llms.txt`. Říká LLM, který přistál na jediné stránce, kde najde index celého korpusu.
+2. **YAML frontmatter** - `title`, `date`, `url`, a u akcí navíc `event-type`, `event-start`, `event-end`, `event-location`, `event-organiser`, `instructor`, `recurrence`, `series` (pokud jsou vyplněné).
+3. **Tělo** - syrový Markdown ze `source_path`, kde se `<widget-*>` tagy vykreslí jako prosté textové bullety přes stejné Jinja šablony, co pohánějí HTML web (textoví sourozenci: `widget_calendar.txt.j2`, `widget_articles.txt.j2`, atd.).
 
-### Opting individual content out
+### Jak vyřadit konkrétní obsah
 
-Any article or page can opt out of mirror generation by adding one line
-to its frontmatter:
+Libovolný článek nebo stránka se dá ze zrcadlení vyřadit jedním řádkem ve frontmatteru:
 
 ```yaml
 ---
@@ -74,55 +63,42 @@ llm_mirror: false
 ---
 ```
 
-For Brnos Aires, every file under `content/curiosities/` and
-`content/people/` carries `llm_mirror: false` (curiosities are
-editorial color, people files are profile bios — neither is what users
-search for). Other sites set the flag where it makes sense for them.
+Na Brnos Aires nese tento řádek každý soubor pod [`content/curiosities/`](../content/curiosities/) a [`content/people/`](../content/people/) (píkošky jsou editorské zabarvení, profily lidí jsou bio - ani jedno není to, co uživatelé hledají). Jiné weby si vlajku nastaví, kde dává smysl jim.
 
-The flag has no central counterpart in code or config. Editors mark
-opt-outs at the source.
+Vlajka nemá žádný centrální protějšek v kódu ani v konfiguraci. Vyřazení editor značí přímo u zdroje.
 
-## Widget text-mode templates
+## Textové šablony widgetů
 
-`theme/templates/components/widget_*.txt.j2` are the text-rendering
-counterparts to the HTML templates. The widget processor exposes
-`render_widgets_in_text(text, env, context)` which the plugin calls;
-the helper resolves `widget_calendar.html` → `widget_calendar.txt.j2`
-at render time.
+[`theme/templates/components/widget_*.txt.j2`](../theme/templates/components/) jsou textové protějšky HTML šablon. Widget processor poskytuje `render_widgets_in_text(text, env, context)`, kterou plugin volá; helper si při renderu sám přemapuje `widget_calendar.html` → `widget_calendar.txt.j2`.
 
-A missing `.txt.j2` template renders the widget as the empty string —
-deliberately, to avoid injecting `<div>` markup into Markdown.
+Chybějící `.txt.j2` šablona vykreslí widget jako prázdný řetězec - záměrně, aby se do Markdownu nedostalo `<div>`.
 
-### Recurring-class deduplication
+### Deduplikace pravidelných lekcí
 
-In text mode, `<widget-calendar>` defaults to `dedupe-recurring="true"`.
-Each recurring source appears once as
-`- weekly Sunday 18:00 — Title — Location (URL)`, not N concrete-date
-rows. Opt out per-tag with `dedupe-recurring="false"`. The dedup is
-implemented in the text template, not in the plugin — the plugin is
-unaware of "recurring" as a concept.
+V textovém režimu má `<widget-calendar>` defaultně `dedupe-recurring="true"`. Každý opakující se zdroj se objeví jednou jako `- weekly Sunday 18:00 — Title — Location (URL)`, ne jako N řádků s konkrétními daty. Vypnout to lze per-tag přes `dedupe-recurring="false"`. Deduplikace je implementovaná v textové šabloně, ne v pluginu - plugin o konceptu „opakující se" vůbec neví.
 
-## Why a dumb renderer
+## Proč hloupý renderer
 
-Earlier versions of this work hardcoded the curated section list, the
-recurring window in weeks, the announcement category name, the event
-source path, and the curiosity/people exclusions in Python. Every
-editorial decision required a code edit, and the plugin was bound to
-Brnos Aires.
+Dřívější verze tohohle řešení měly natvrdo v Pythonu seznam kurátorovaných sekcí, okno opakujících se akcí v týdnech, název kategorie oznámení, zdrojovou cestu k akcím a vyloučení píkošek a lidí. Každé editorské rozhodnutí znamenalo zásah do kódu a plugin byl přilepený na Brnos Aires.
 
-The dumb-renderer model puts every editorial decision into editor-owned
-files: `content/llm/*.md` defines what `*.txt` outputs the site ships
-and what's in each one; per-content `llm_mirror: false` defines what
-gets mirrored. The plugin is now portable to any Pelican site that has
-`widget_processor`.
+Model hloupého rendereru posouvá všechna editorská rozhodnutí do souborů, které vlastní editor: `content/llm/*.md` určuje, jaké `*.txt` výstupy web vystavuje a co je v každém z nich; `llm_mirror: false` na úrovni obsahu určuje, co se zrcadlí. Plugin je teď přenositelný na libovolný Pelican web, který má `widget_processor`.
 
-## File reference
+## Reference souborů
 
-- `plugins/llm_ally.py` — the plugin (~165 LoC, no site-specific strings).
-- `plugins/widget_processor.py` — exposes `render_widgets_in_text`.
-- `theme/templates/components/widget_*.txt.j2` — text-mode widget templates.
-- `content/llm/*.md` — editor-authored audience files.
+- [`plugins/llm_ally.py`](../plugins/llm_ally.py) - samotný plugin (~165 řádků, žádné stringy specifické pro web).
+- [`plugins/widget_processor.py`](../plugins/widget_processor.py) - poskytuje `render_widgets_in_text`.
+- [`theme/templates/components/widget_*.txt.j2`](../theme/templates/components/) - textové šablony widgetů.
+- [`content/llm/*.md`](../content/llm/) - soubory pro jednotlivá publika, editované editorem.
 
-The `marathon/llms.txt` static file under `content/extra/marathon/` is
-kept as-is; it's a separate marathon sub-site fixture, not part of this
-plugin's scope.
+Statický soubor `marathon/llms.txt` pod [`content/extra/marathon/`](../content/extra/marathon/) zůstává tak, jak je; je to fixture pro samostatný sub-web maratonu, mimo působnost tohohle pluginu.
+
+## Související dokumenty
+
+- [Úprava obsahu](EDITING.md) - průvodce metadaty pro editory.
+- [SEO + sociální kartičky](SEO.md) - kanonická strategie, hreflang, mechanika hubů.
+- [Widget systém](WIDGETS.md) - tagy `<widget-*>` v těle článku.
+- [Lokální testování](local-testing.md) - lokální vývoj a testování.
+- [Nasazení](publishing.md) - publikační workflow.
+- [Nastavení vývojového prostředí](setup.md) - počáteční nastavení projektu.
+- [Plán rozvoje](ROADMAP.md) - co je hotové a co se chystá.
+- [Brnos Aires — web](../README.md) - hlavní průvodce pro editory.
