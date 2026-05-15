@@ -1,11 +1,11 @@
 ---
 title: Open Class - The Embrace in Tango
-slug: 2026-06-03-open-class-objeti-v-tangu
-date: 2026-06-03 18:00:00
+slug: 2026-05-16-open-class-objeti-v-tangu
+date: 2026-05-03 18:00:00
 lang: en
 event-type: workshop
-event-start: 2026-05-23 18:00:00
-event-end: 2026-05-23 19:00:00
+event-start: 2026-05-16 18:00:00
+event-end: 2026-05-16 19:00:00
 event-organiser: Michaela Lukavská
 event-location: Sesamo Bakery, Brno
 description: An open class with Míša Lukavská about how music changes the embrace in tango. From D'Arienzo through Caló to Pugliese.
