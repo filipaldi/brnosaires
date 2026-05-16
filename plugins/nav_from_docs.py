@@ -10,9 +10,16 @@ Reads nav documents from content/navigation/ and sets context['nav_items'].
 - marathon.md  -> Marathon nav (English-only sub-site, no per-lang variants)
                   -> nav_items['marathon']  (a flat list, not a {lang: ...} dict)
 
-Each line is `Label, link` where `link` is either an absolute URL or a page
-slug. Slugs are resolved against generator.pages; for the English main nav,
-if the page has an `en` translation (the /en/ fallback synthesized by
+Each line is `Label, link[, flag][, icon]` where `link` is either an
+absolute URL or a page slug. Optional positional fields:
+  - `flag` (3rd column): currently understood values: `primary` (the item
+    appears in the phone quick-link stack). Anything else is ignored.
+  - `icon` (4th column): an emoji or short token shown by templates that
+    render an icon view of the item (the phone quick-link stack). The
+    special value `cta` marks the item as the call-to-action variant
+    (rendered as a wide text chip instead of an icon).
+Slugs are resolved against generator.pages; for the English main nav, if
+the page has an `en` translation (the /en/ fallback synthesized by
 i18n_fallback), the link points at the translation's URL so the nav stays
 within /en/.
 
@@ -35,14 +42,17 @@ def _parse_nav_file(path):
             line = raw.strip()
             if not line or line.lstrip().startswith("#"):
                 continue
-            idx = line.find(",")
-            if idx < 0:
+            parts = [p.strip() for p in line.split(",")]
+            if len(parts) < 2 or not parts[0] or not parts[1]:
                 continue
-            label = line[:idx].strip()
-            link = line[idx + 1:].strip()
-            if not label or not link:
-                continue
-            items.append({"label": label, "link": link})
+            label = parts[0]
+            link = parts[1]
+            extra = [p for p in parts[2:] if p]
+            primary = any(p.lower() == "primary" for p in extra)
+            # Icon = the first non-flag token after the link. "primary" is a
+            # flag; everything else is treated as the icon (emoji or token).
+            icon = next((p for p in extra if p.lower() != "primary"), "")
+            items.append({"label": label, "link": link, "primary": primary, "icon": icon})
     return items
 
 
@@ -60,8 +70,10 @@ def _resolve_items(items, pages_by_slug, lang=DEFAULT_LANG):
     for item in items:
         label = item["label"]
         link = item["link"]
+        primary = item.get("primary", False)
+        icon = item.get("icon", "")
         if link.startswith("http://") or link.startswith("https://"):
-            result.append({"label": label, "url": link, "slug": None, "external": True})
+            result.append({"label": label, "url": link, "slug": None, "external": True, "primary": primary, "icon": icon})
             continue
         page = pages_by_slug.get(link)
         if page is None:
@@ -71,7 +83,7 @@ def _resolve_items(items, pages_by_slug, lang=DEFAULT_LANG):
             url = _en_url(page)
         else:
             url = page.url
-        result.append({"label": label, "url": url, "slug": link, "external": False})
+        result.append({"label": label, "url": url, "slug": link, "external": False, "primary": primary, "icon": icon})
     return result
 
 
