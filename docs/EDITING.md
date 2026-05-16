@@ -2,9 +2,26 @@
 
 Tento dokument je **průvodce pro editory**, kteří publikují obsah na webu brnosaires.com. Říká, co napsat do hlavičky (frontmatteru) Markdown souboru a co každé pole skutečně dělá na živém webu.
 
-Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je technicky propojené, čtěte [SEO.md](SEO.md). Pokud chcete porozumět tagům `<widget-*>` v těle článku, čtěte [WIDGETS.md](WIDGETS.md). Vše níže je jen: *co napsat na začátek souboru?*
+Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je technicky propojené, čtěte [SEO + sociální kartičky](SEO.md). Pokud chcete porozumět tagům `<widget-*>` v těle článku, čtěte [Widget systém](WIDGETS.md). Vše níže je jen: *co napsat na začátek souboru?*
 
-> Tento dokument doplňuje hlavní [README.md](../README.md), který je rovněž průvodcem pro editory. README pokrývá celkový pracovní postup (jak vytvořit soubor akce, jak používat widgety, jak nahrávat obrázky); tento dokument se zaměřuje výhradně na **metadata v hlavičce souboru** a na to, jak se promítnou do náhledů ve vyhledávačích a na sociálních sítích.
+> Tento dokument doplňuje hlavní [Brnos Aires — web](../README.md), který je rovněž průvodcem pro editory. README pokrývá celkový pracovní postup (jak vytvořit soubor akce, jak používat widgety, jak nahrávat obrázky); tento dokument se zaměřuje výhradně na **metadata v hlavičce souboru** a na to, jak se promítnou do náhledů ve vyhledávačích a na sociálních sítích.
+
+## Obsah
+
+1. [Kde soubory leží](#kde-soubory-leží)
+2. [Společná pole (všechny typy obsahu)](#společná-pole-všechny-typy-obsahu)
+3. [Specifická pole pro akce](#specifická-pole-pro-akce)
+4. [Pravidelná série (`series:`) — milongy s více datovanými instancemi](#pravidelná-série-series-milongy-s-více-datovanými-instancemi)
+5. [Hub stránka (`content/pages/<slug-série>.md`)](#hub-stránka-contentpagesslug-sériemd)
+6. [Samostatné stránky](#samostatné-stránky)
+7. [Měsíční stránky milong (`content/pages/events/milongy-brno-<měsíc>.md`)](#měsíční-stránky-milong-contentpageseventsmilongy-brno-měsícmd)
+8. [Oznámení / píkoška / osoba](#oznámení--píkoška--osoba)
+9. [Co se zobrazí kde, když publikujete](#co-se-zobrazí-kde-když-publikujete)
+10. [Časté chyby](#časté-chyby)
+11. [Soubory pro AI asistenty (`content/llm/`)](#soubory-pro-ai-asistenty-contentllm)
+12. [Vyloučení stránky z `.md` zrcadla (`llm_mirror: false`)](#vyloučení-stránky-z-md-zrcadla-llm_mirror-false)
+13. [Jazykové verze — anglická verze webu (`/en/`)](#jazykové-verze--anglická-verze-webu-en)
+14. [Související dokumenty](#související-dokumenty)
 
 ## Kde soubory leží
 
@@ -39,7 +56,7 @@ Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je tec
 | `event-organiser` | Doporučeno | Kdo akci pořádá. |
 | `entry` | Volitelné | Vstupné — volně formátovaný řetězec (např. `entry: 150 Kč`, `entry: 390 Kč / 16 €`, `entry: zdarma`, `entry: dobrovolné`). Zobrazí se v hlavičce stránky akce i na kartě v kalendáři (česky „Vstupné: …", anglicky „Entry: …"). Pole je zároveň napojené na JSON-LD: hodnota jde do `offers.price` + `priceCurrency: CZK`; pokud napíšete `zdarma` / `free` / `0` / `dobrovolné`, šablona navíc nastaví `isAccessibleForFree: true`. Pole vynechejte, pokud vstupné neznáte / není relevantní — řádek se prostě nezobrazí. |
 | `instructor` | Pro lekce/workshopy | Lektor/lektoři. Pro jednoho napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz README pro detail). |
-| `recurrence` | Volitelné | Pro **šablonové** opakující se akce (typicky lekce/praktiky). Příklad: `recurrence: weekly sunday`. Plugin [recurring_events.py](../plugins/recurring_events.py) ji rozbalí na N instancí sdílejících jeden URL. **Nepoužívejte pro milongy** — milongy se píší jako oddělené souborové instance, viz „Pravidelná série (`series:`)" níže. |
+| `recurrence` | Volitelné | Pro **šablonové** opakující se akce (typicky lekce/praktiky). Příklad: `recurrence: weekly sunday`. Plugin [plugins/recurring_events.py](../plugins/recurring_events.py) ji rozbalí na N instancí sdílejících jeden URL. **Nepoužívejte pro milongy** — milongy se píší jako oddělené souborové instance, viz „Pravidelná série (`series:`)" níže. |
 | `series` | Volitelné | Označuje tuto instanci jako součást skupiny pod hlavní stránkou („hubem"). Viz „Pravidelná série" níže. |
 
 ### Minimální příklad akce
@@ -68,7 +85,7 @@ Některé akce se opakují, ale každá instance je vlastní datovaný soubor (M
 
 **Přidat novou instanci do existující série:**
 
-1. Vytvořte soubor akce normálně v `content/events/RRRR/MM/`.
+1. Vytvořte soubor akce normálně v [content/events/](../content/events/)`RRRR/MM/`.
 2. Přidejte jeden řádek: `series: <slug-existujícího-hubu>` (např. `series: milonga-u-draka`).
 3. Hotovo. Web automaticky:
    - Přepne kanonickou URL stránky na `/{series}/`.
@@ -77,8 +94,8 @@ Některé akce se opakují, ale každá instance je vlastní datovaný soubor (M
 
 **Vytvořit zcela novou sérii:**
 
-1. Vytvořte hub stránku: `content/pages/<slug-série>.md`. Nastavte `series: <slug-série>` v jejím frontmatteru a do těla napište obecný popis série (atmosféra, místo, co očekávat).
-2. Přidejte `series: <slug-série>` do každé existující instance v `content/events/`.
+1. Vytvořte hub stránku: [content/pages/](../content/pages/)`<slug-série>.md`. Nastavte `series: <slug-série>` v jejím frontmatteru a do těla napište obecný popis série (atmosféra, místo, co očekávat).
+2. Přidejte `series: <slug-série>` do každé existující instance v [content/events/](../content/events/).
 3. Budoucí instance pak stačí, aby měly stejný řádek `series:`.
 
 ### Kdy `series:` **nepoužívat**
@@ -121,7 +138,7 @@ Dvanáct stránek, jedna pro každý měsíc (`/milongy-brno-leden/` … `/milon
 | widget odběru `.ics` | Standardní, nech být. |
 | prázdný měsíc | Když na ten měsíc zatím nic není, stránka se sama označí `noindex` (zůstane dostupná, ale Google ji nenabízí) a ukáže hlášku „Na tenhle měsíc zatím žádné milongy vypsané nejsou." Jakmile přidáš akci v tom měsíci, při příštím buildu se `noindex` sám zruší. **Nic neděláš.** |
 
-**Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v `content/events/RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
+**Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v [content/events/](../content/events/)`RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
 
 **Odkazy na měsíční stránky** najdeš ve spodku stránek `tango-milongy-brno` a `tango-kalendar-brno` (řádek „Milongy po měsících: leden · únor · …") — to je obyčejný seznam odkazů v Markdownu, klidně ho uprav nebo přesuň. Mezi sebou se měsíční stránky prolinkují samy (předchozí/další měsíc + pásek všech měsíců dodává šablona).
 
@@ -176,7 +193,7 @@ cp content/llm/llms.md content/llm/milongas.md
 # build → /milongas.txt a /.well-known/milongas.txt vzniknou samy
 ```
 
-Editujete je stejně jako homepage: Markdown plus tagy `<widget-*>`. Při buildu se widgety rozbalí do bulletů. Detaily v [LLMS.md](LLMS.md).
+Editujete je stejně jako homepage: Markdown plus tagy `<widget-*>`. Při buildu se widgety rozbalí do bulletů. Detaily v [Discoverability pro LLM](LLMS.md).
 
 ## Vyloučení stránky z `.md` zrcadla (`llm_mirror: false`)
 
@@ -213,15 +230,15 @@ Web má anglickou verzi pod prefixem `/en/`. České stránky si ponechávají p
 - **Domovská stránka:** anglický `content/pages/index.en.md` má zvláštnost — musí mít `Slug: index` (web má `SLUGIFY_SOURCE = "basename"`, takže slug českého `index.md` je `index`, ne `brnos-aires` z titulku — sourozenec se propojí jen při shodě slugu) **a** `save_as: en/index.html` / `url: en/` (český `index.md` má vlastní `save_as`, který by se jinak zdědil).
 - **Datumy** se vykreslují podle jazyka stránky: česky `16. 05. 2026`, anglicky `16 May 2026`. Nic nenastavujete — je to automatické.
 - **Navigace v hlavičce i patičce:** odkazy se berou ze souborů v [content/navigation/](../content/navigation/) — formát `Popisek, slug` (jeden na řádek; `slug` je slug stránky nebo absolutní URL; řádky `#…` jsou komentář). Hlavní navigace: `main.md` (česky) + `main.en.md` (anglické popisky, stejné slugy). Patička: `footer.md` + `footer.en.md` — patička je **per-jazyk** (na `/en/` stránkách je celá anglicky), kromě odkazů obsahuje ještě automaticky pásek měsíčních stránek („Milongy po měsících:") a odkazy na `.ics` kalendáře — ty se z `footer.md` neberou, jsou v šabloně [components/footer.html](../theme/templates/components/footer.html). Pořadí v navigaci = pořadí řádků v souboru; změna se projeví na celém webu.
-- **Jednojazyčný obsah — `translate: false`.** Obsah, který **nemá a nikdy mít nebude** překlad (typicky anglicky psaný microsite), může v hlavičce deklarovat `translate: false`. Pak se pro něj negeneruje žádný `/en/` klon, nezobrazuje se přepínač jazyka a `<html lang>` je `en`. Pro **Tango Marathon** je tahle vlajka nastavena hromadně pro všechny tři jeho složky — `content/pages/marathon/`, `content/events/2026-marathon/` a `content/people/marathon-djs/` — přes `EXTRA_PATH_METADATA` v `pelicanconf.py`. Marathon je tedy anglicky od začátku, bez české verze; jeho stránky, akce ani DJ profily žádný český sourozenec nedostávají a `<html lang>` je tam vždy `en`. Výchozí stav (bez vlajky) = obsah je „přeložitelný" a dostává český fallback pod `/en/`.
+- **Jednojazyčný obsah — `translate: false`.** Obsah, který **nemá a nikdy mít nebude** překlad (typicky anglicky psaný microsite), může v hlavičce deklarovat `translate: false`. Pak se pro něj negeneruje žádný `/en/` klon, nezobrazuje se přepínač jazyka a `<html lang>` je `en`. Pro **Tango Marathon** je tahle vlajka nastavena hromadně pro všechny tři jeho složky — [content/pages/marathon/](../content/pages/marathon/), [content/events/2026-marathon/](../content/events/2026-marathon/) a [content/people/marathon-djs/](../content/people/marathon-djs/) — přes `EXTRA_PATH_METADATA` v [pelicanconf.py](../pelicanconf.py). Marathon je tedy anglicky od začátku, bez české verze; jeho stránky, akce ani DJ profily žádný český sourozenec nedostávají a `<html lang>` je tam vždy `en`. Výchozí stav (bez vlajky) = obsah je „přeložitelný" a dostává český fallback pod `/en/`.
 
-Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang`, proč jsou české URL beze změny) je popsaná v [SEO.md](SEO.md).
+Architektura toho všeho (jak přesně se klony generují, jak funguje `hreflang`, proč jsou české URL beze změny) je popsaná v [SEO + sociální kartičky](SEO.md).
 
 ## Související dokumenty
 
-- [README.md](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
-- [SEO.md](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
-- [WIDGETS.md](WIDGETS.md) — tagy `<widget-*>` v těle článku.
+- [Brnos Aires — web](../README.md) — hlavní průvodce pro editory (česky): pracovní postup, struktura souboru akce, widgety, obrázky.
+- [SEO + sociální kartičky](SEO.md) — *proč* to celé funguje takto (anglicky, technický popis): kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
+- [Widget systém](WIDGETS.md) — tagy `<widget-*>` v těle článku.
 - [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md) — reálný příklad hub stránky pravidelné série. Organizace složek v `content/pages/`: `series/` = huby pravidelných sérií (`series: <slug>`); `events/` = stránky konkrétních akcí a časově vymezené přehledy milong (Tango víkend, Tango léto, „milongy tento týden" a budoucí měsíční přehledy); `marathon/` = sub-web maratonu. URL se přesunem **nemění** — Pelican routuje podle `Slug:`, ne podle cesty.
 - [content/events/2026/05/2026-05-16-milonga-u-draka.md](../content/events/2026/05/2026-05-16-milonga-u-draka.md) — reálný příklad instance v sérii.
 - [content/navigation/](../content/navigation/) — odkazy v navigaci: `main.md`/`main.en.md` (hlavička), `footer.md`/`footer.en.md` (patička), `marathon.md` (sub-web maratonu).

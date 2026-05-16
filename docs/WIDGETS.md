@@ -1,23 +1,41 @@
-# Widget System - Technical Documentation
+# Widget systém — technická dokumentace
 
-## Overview
+Tahle dokumentace popisuje, jak widget systém funguje uvnitř Pelicanu — od detekce tagů v Markdownu po renderování komponent.
 
-The widget system allows embedding dynamic components in markdown content using custom HTML tags. Widgets are processed server-side during Pelican's template rendering phase.
+## Obsah
 
-## Architecture
+1. [Přehled](#přehled)
+2. [Architektura](#architektura)
+3. [Widget procesor](#widget-procesor)
+4. [Pravidla pro standardizaci](#pravidla-pro-standardizaci)
+5. [Podporované typy widgetů](#podporované-typy-widgetů)
+6. [Referenční přehled atributů](#referenční-přehled-atributů)
+7. [Standard pro metadata akcí](#standard-pro-metadata-akcí)
+8. [Přidání nového widgetu](#přidání-nového-widgetu)
+9. [Technické detaily](#technické-detaily)
+10. [Troubleshooting](#troubleshooting)
+11. [Migrační průvodce](#migrační-průvodce)
+12. [Výkonnostní úvahy](#výkonnostní-úvahy)
+13. [Související dokumenty](#související-dokumenty)
 
-### Processing Flow
+## Přehled
 
-1. **Content Input**: Markdown files contain custom HTML tags (`<widget-calendar>`, `<widget-articles>`)
-2. **Markdown Processing**: Pelican's markdown processor preserves HTML elements
-3. **Template Processing**: `page.html` template calls `process_widgets()` macro
-4. **Widget Detection**: Macro detects widget tags and extracts tag name + raw attributes string
-5. **Routing**: Macro routes to appropriate component template based on tag name
-6. **Attribute Parsing**: Each component parses its own attributes from the raw tag content
-7. **Component Rendering**: Component filters, sorts, limits, and renders content
-8. **Output**: Rendered HTML replaces the original widget tag
+Widget systém umožňuje vkládat dynamické komponenty do Markdown obsahu pomocí vlastních HTML tagů. Widgety se zpracovávají na straně serveru během renderování šablon v Pelicanu.
 
-### File Structure
+## Architektura
+
+### Tok zpracování
+
+1. **Vstupní obsah**: Markdown soubory obsahují vlastní HTML tagy (`<widget-calendar>`, `<widget-articles>`)
+2. **Zpracování Markdownu**: Pelicanův Markdown procesor zachová HTML elementy
+3. **Zpracování šablony**: Šablona `page.html` volá makro `process_widgets()`
+4. **Detekce widgetů**: Makro detekuje widget tagy a vytáhne název tagu + surový řetězec atributů
+5. **Routing**: Makro nasměruje na příslušnou šablonu komponenty podle názvu tagu
+6. **Parsování atributů**: Každá komponenta si parsuje atributy sama z obsahu tagu
+7. **Renderování komponenty**: Komponenta filtruje, řadí, omezuje a renderuje obsah
+8. **Výstup**: Vyrenderované HTML nahradí původní widget tag
+
+### Struktura souborů
 
 ```
 theme/templates/
@@ -40,91 +58,91 @@ plugins/
 └── article_filter.py                  # Article filtering by category, slugs, sort, limit
 ```
 
-## Widget Processor
+## Widget procesor
 
-### Location
+### Umístění
 
 `theme/templates/components/widget_processor.html`
 
-### Macro: `process_widgets(content)`
+### Makro: `process_widgets(content)`
 
-Recursively processes page content to find and replace widget tags.
+Rekurzivně prochází obsah stránky a nahrazuje widget tagy.
 
-**Parameters:**
-- `content` (string): The page content HTML/markdown
+**Parametry:**
+- `content` (string): HTML/Markdown obsah stránky
 
-**Returns:**
-- Rendered HTML with widgets replaced by components
+**Vrací:**
+- Vyrenderované HTML, kde jsou widgety nahrazené komponentami
 
-**Responsibilities:**
-- Detects widget tags (`<widget-calendar />`, `<widget-articles />`, etc.)
-- Extracts tag name and raw tag content (attributes string)
-- Routes to appropriate component template
-- Passes `tag_content` variable to component (contains raw attributes string)
-- Handles recursive processing for nested widgets
+**Co dělá:**
+- Detekuje widget tagy (`<widget-calendar />`, `<widget-articles />`, atd.)
+- Vytáhne název tagu a surový obsah tagu (řetězec atributů)
+- Nasměruje na příslušnou šablonu komponenty
+- Předá komponentě proměnnou `tag_content` (obsahuje surový řetězec atributů)
+- Řeší rekurzivní zpracování pro vnořené widgety
 
-**Algorithm:**
-1. Split content by widget pattern `<widget-`
-2. For each widget found:
-   - Extract tag name from tag content
-   - Extract raw tag content (includes all attributes as string)
-   - Route to component based on tag name (`calendar`, `articles`)
-   - Pass `tag_content` variable to component
-   - Component handles its own attribute parsing
-   - Recursively process remaining content
+**Algoritmus:**
+1. Rozdělí obsah podle vzoru `<widget-`
+2. Pro každý nalezený widget:
+   - Vytáhne název tagu z obsahu tagu
+   - Vytáhne surový obsah tagu (včetně všech atributů jako string)
+   - Nasměruje na komponentu podle názvu tagu (`calendar`, `articles`)
+   - Předá komponentě proměnnou `tag_content`
+   - Komponenta si parsuje atributy sama
+   - Rekurzivně zpracuje zbytek obsahu
 
-**Key Design:**
-- Processor does NOT parse attributes (components handle their own parsing)
-- Processor only detects and routes widgets
-- Each component is self-contained and independent
+**Klíčový princip:**
+- Procesor atributy NEparsuje (parsování si řeší komponenty)
+- Procesor jen detekuje a routuje widgety
+- Každá komponenta je samostatná a nezávislá
 
-## Standardization Rules
+## Pravidla pro standardizaci
 
-### Widget Type Naming
+### Pojmenování typů widgetů
 
-- All widget tags use **kebab-case** (lowercase with hyphens)
-- Tag names: `widget-calendar`, `widget-articles`
-- Internal widget types: `calendar` (widget_calendar.html), `articles` (widget_articles.html)
+- Všechny widget tagy používají **kebab-case** (malá písmena s pomlčkami)
+- Názvy tagů: `widget-calendar`, `widget-articles`
+- Interní typy widgetů: `calendar` (widget_calendar.html), `articles` (widget_articles.html)
 
-### Attribute Naming
+### Pojmenování atributů
 
-- **All attributes use standard HTML format (no `data-` prefix)**
-- **All attributes use kebab-case**
-- Examples: `type="milonga"`, `days="365"`, `limit="3"`, `category="announcement"`
+- **Všechny atributy mají standardní HTML formát (bez prefixu `data-`)**
+- **Všechny atributy používají kebab-case**
+- Příklady: `type="milonga"`, `days="365"`, `limit="3"`, `category="announcement"`
 
-### Tag to Component Mapping
+### Mapování tagu na komponentu
 
 - `<widget-calendar>` → `widget_calendar.html`
 - `<widget-articles>` → `widget_articles.html`
 
-## Supported Widget Types
+## Podporované typy widgetů
 
-### 1. Events Widget (`<widget-calendar>`)
+### 1. Widget akcí (`<widget-calendar>`)
 
-Displays filtered lists of events from `content/events/`.
+Zobrazuje filtrované seznamy akcí z [`content/events/`](../content/events/).
 
-**Attributes:**
-- `filter_by_type="milonga|workshop|class|..."` (optional) - Event type filter. Single type or space-separated list for OR logic (e.g. `filter_by_type="milonga neolonga pocoloco"`).
-- `days="7"` (optional) - Days from today (positive = future, negative = past)
-- `start="2026-06-01"` (optional) - Start of date window. Can be used alone (forward from start) or with `end`. Values: `YYYY-MM-DD`, or tokens `today`, `this-week` (Monday of current week), `this-month` (1st of month), `this-year` (1st Jan).
-- `end="2026-08-31"` (optional) - End of date window. Same format as `start`. If only `start` is set, end defaults to start + 365 days.
-- `month="6"` (optional) - Restrict the widget to **one calendar month** — the whole of month 6 (June) in the *upcoming-framing* year (this year, or next year if June has already passed). Accepts a number `1`–`12` or a month name, Czech (incl. locative forms — `cerven`, `červnu`, `leden`, `prosinci`…) or English (`June`). **Overrides `days`/`start`/`end`** (if `month` is unparseable, the widget falls through to the normal `days`/`start`/`end` logic). This is what powers the 12 evergreen month pages (`/milongy-brno-<měsíc>/` — see [SEO.md → Evergreen month pages](SEO.md)); year resolution mirrors the `tango_year_for_month` Jinja filter.
-- `limit="3"` (optional) - Limit number of items displayed (`"3"`, `"all"`, `"last 3"`)
-- `sort="newest|oldest"` (optional) - Sort order (default: **oldest first**, i.e. chronological)
-- `group_by="day|week|month|week day"` (optional) - Group events into rows with a headline per group. Single value (e.g. `"week"`) = flat grouping. Space-separated tokens (e.g. `"week day"`) = nested grouping with 7-column grid layout (first token = outer/rows, second token = inner/columns). When set, only non-empty groups are shown; sort is chronological (earliest first) between and within groups.
-- `headers="week|day|week day"` (optional) - Show group headers. Default: headers hidden. Values: `"week"` (show week headers only), `"day"` (show day headers only), `"week day"` (show both). Only applies when `group_by` is set.
-- `hide_empty_days="true"` (optional) - Hide empty day columns in week-day grid layout. Default: false (all 7 days rendered). Only applies when `group_by="week day"` is set.
-- `card_size="xs|s|m|l"` (optional) - Card size for event cards. Default: `s` (small). Values: `xs` (extra small), `s` (small), `m` (medium), `l` (large).
+**Atributy:**
+- `filter_by_type="milonga|workshop|class|..."` (volitelné) - Filtr typu akce. Jeden typ nebo seznam oddělený mezerami pro OR logiku (např. `filter_by_type="milonga neolonga pocoloco"`).
+- `days="7"` (volitelné) - Dnů od dneška (kladné = budoucnost, záporné = minulost)
+- `start="2026-06-01"` (volitelné) - Začátek časového okna. Lze použít samostatně (od startu dál) nebo s `end`. Hodnoty: `YYYY-MM-DD` nebo tokeny `today`, `this-week` (pondělí aktuálního týdne), `this-month` (1. dne měsíce), `this-year` (1. ledna).
+- `end="2026-08-31"` (volitelné) - Konec časového okna. Stejný formát jako `start`. Pokud je nastaven jen `start`, končí se na start + 365 dnů.
+- `month="6"` (volitelné) - Omezí widget na **jeden kalendářní měsíc** — celý měsíc 6 (červen) v *upcoming-framing* roce (letos, nebo příští rok, pokud už červen proběhl). Přijímá číslo `1`–`12` nebo název měsíce, česky (včetně tvarů v 6. pádě — `cerven`, `červnu`, `leden`, `prosinci`…) nebo anglicky (`June`). **Přepisuje `days`/`start`/`end`** (pokud je `month` neparsovatelný, widget spadne zpět na běžnou logiku `days`/`start`/`end`). Tohle pohání 12 evergreen měsíčních stránek (`/milongy-brno-<měsíc>/` — viz [SEO + sociální kartičky](SEO.md)); rozhodování o ročníku kopíruje Jinja filtr `tango_year_for_month`.
+- `limit="3"` (volitelné) - Omezí počet zobrazených položek (`"3"`, `"all"`, `"last 3"`)
+- `sort="newest|oldest"` (volitelné) - Řazení (výchozí: **nejstarší první**, tj. chronologicky)
+- `group_by="day|week|month|week day"` (volitelné) - Seskupí akce do řádků s nadpisem pro každou skupinu. Jedna hodnota (např. `"week"`) = ploché seskupení. Tokeny oddělené mezerou (např. `"week day"`) = vnořené seskupení s 7sloupcovým gridem (první token = vnější/řádky, druhý token = vnitřní/sloupce). Když je nastaveno, zobrazí se jen neprázdné skupiny; řazení je chronologické (nejdřív nejstarší) mezi skupinami i uvnitř nich.
+- `headers="week|day|week day"` (volitelné) - Zobrazí hlavičky skupin. Výchozí: hlavičky skryté. Hodnoty: `"week"` (jen týdenní hlavičky), `"day"` (jen denní hlavičky), `"week day"` (obojí). Funguje jen když je nastaveno `group_by`.
+- `hide_empty_days="true"` (volitelné) - Skryje prázdné denní sloupce v gridu week-day. Výchozí: false (všech 7 dnů se vykreslí). Funguje jen když je `group_by="week day"`.
+- `card_size="xs|s|m|l"` (volitelné) - Velikost kartiček akcí. Výchozí: `s` (malá). Hodnoty: `xs` (extra malá), `s` (malá), `m` (střední), `l` (velká).
 
-**Date Filtering:**
-- `days="7"` = next 7 days from today
-- `days="-7"` = last 7 days from today
-- `days="365"` or `days="-365"` = one-year window from today
-- `start` (optional) = start of window; use with or without `end`. With `end` = date range; without `end` = from start to start+365 days. Mutually exclusive with `days`.
-- `start` and `end` accept tokens `today`, `this-week`, `this-month`, `this-year` or `YYYY-MM-DD`
-- `month="6"` / `month="cerven"` = exactly that calendar month in the upcoming-framing year; overrides `days`/`start`/`end`
+**Filtrování podle data:**
+- `days="7"` = příštích 7 dnů od dneška
+- `days="-7"` = posledních 7 dnů od dneška
+- `days="365"` nebo `days="-365"` = roční okno od dneška
+- `start` (volitelné) = začátek okna; použij s `end` nebo bez. S `end` = rozsah dat; bez `end` = od startu do start+365 dnů. Vzájemně se vylučuje s `days`.
+- `start` i `end` přijímají tokeny `today`, `this-week`, `this-month`, `this-year` nebo `YYYY-MM-DD`
+- `month="6"` / `month="cerven"` = přesně tenhle kalendářní měsíc v upcoming-framing roce; přepisuje `days`/`start`/`end`
 
-**Examples:**
+**Příklady:**
 ```html
 <!-- Next 7 days of milongas -->
 <widget-calendar filter_by_type="milonga" days="7"></widget-calendar>
@@ -169,48 +187,48 @@ Displays filtered lists of events from `content/events/`.
 <widget-calendar filter_by_type="workshop" days="30" card_size="l"></widget-calendar>
 ```
 
-**Grouping (`group_by`):**
-- **Flat grouping:** Single value (`day`, `week`, `month`). Events shown in rows by group; each row has a headline (day date, week date range, or month name + year).
-- **Nested grouping:** Space-separated tokens (e.g. `"week day"`). First token = outer grouping (rows), second token = inner grouping (columns). Creates a 7-column grid layout when using `"week day"`.
-- **Week:** Monday–Sunday; headline = date range "Týden od 3.2. do 9.2. 2026" in Czech, "Week from 3 Feb to 9 Feb 2026" in English.
-- **Day (nested):** Short format with weekday abbreviation: "Po 3.2." (Czech), "Mon 3 Feb" (English).
-- **Empty groups:** Rows with zero events are not rendered (flat grouping). In nested grouping with `"week day"`, all 7 day columns are rendered by default (even if empty) to maintain grid structure. Use `hide_empty_days="true"` to hide empty columns.
-- **Sort:** Chronological (earliest first) between groups and within each group. The widget's `sort` attribute does not apply when `group_by` is set.
-- **Headers:** By default, group headers are hidden. Use `headers` attribute to show them (e.g. `headers="week"`, `headers="day"`, `headers="week day"`).
-- **Layout:** Nested grouping uses a responsive day-column grid (`.calendar-days-grid`) that keeps all visible days in a single row. Columns automatically expand to fill available width based on the number of visible days. When `hide_empty_days="true"`, only days with events are shown and each takes equal width. Events within each day stack vertically using `.el-stack`.
-- **Locale:** Headlines and date formats depend on `DEFAULT_LANG` (e.g. `cs`, `en`). Czech is supported now; English can be added by setting `DEFAULT_LANG = "en"` and ensuring the theme uses it.
+**Seskupení (`group_by`):**
+- **Ploché seskupení:** Jedna hodnota (`day`, `week`, `month`). Akce v řádcích po skupinách; každý řádek má nadpis (datum dne, rozsah dat týdne nebo název měsíce + rok).
+- **Vnořené seskupení:** Tokeny oddělené mezerou (např. `"week day"`). První token = vnější seskupení (řádky), druhý token = vnitřní seskupení (sloupce). Při `"week day"` vznikne 7sloupcový grid.
+- **Týden:** Pondělí–neděle; nadpis = rozsah dat „Týden od 3.2. do 9.2. 2026" česky, „Week from 3 Feb to 9 Feb 2026" anglicky.
+- **Den (vnořený):** Krátký formát se zkratkou dne v týdnu: „Po 3.2." (česky), „Mon 3 Feb" (anglicky).
+- **Prázdné skupiny:** Řádky s nulou akcí se nevykreslují (ploché seskupení). U vnořeného seskupení `"week day"` se ve výchozím stavu vykreslí všech 7 denních sloupců (i prázdných), aby se zachovala struktura gridu. Použij `hide_empty_days="true"`, aby se prázdné sloupce skryly.
+- **Řazení:** Chronologické (nejdřív nejstarší) mezi skupinami i uvnitř každé skupiny. Atribut `sort` widgetu se při nastaveném `group_by` neuplatní.
+- **Hlavičky:** Hlavičky skupin jsou ve výchozím stavu skryté. Pro zobrazení použij atribut `headers` (např. `headers="week"`, `headers="day"`, `headers="week day"`).
+- **Layout:** Vnořené seskupení používá responzivní grid denních sloupců (`.calendar-days-grid`), který drží všechny viditelné dny v jednom řádku. Sloupce se automaticky rozšíří podle počtu viditelných dní. Při `hide_empty_days="true"` se zobrazí jen dny s akcemi a každý má stejnou šířku. Akce uvnitř každého dne se stackují vertikálně přes `.el-stack`.
+- **Locale:** Nadpisy a formáty dat se řídí podle `DEFAULT_LANG` (např. `cs`, `en`). Čeština funguje hned; angličtinu lze přidat nastavením `DEFAULT_LANG = "en"` a tím, že ji theme používá.
 
-**Implementation:**
-- Component: `theme/templates/components/widget_calendar.html` parses attributes from `tag_content` and calls the `calendarium` Jinja filter (from plugin `plugins/calendarium/filter.py`) for all filtering, date window, sort, and limit.
-- Filtering (filter_by_type, date window, sort, limit) is implemented in the calendarium plugin; the template only parses attributes and renders the result. Event type uses metadata `event-type`; multiple types in `filter_by_type="a b c"` are OR. Categories `announcement` and `curiosity` are excluded.
-- Grouping: When `group_by` is set, the calendarium plugin's `group_events` filter groups events by day/week/month and returns `(headline, events)` pairs; template renders a section per group with headline + card grid.
-- Default sort: oldest first (chronological). Use `sort="newest"` for reverse.
+**Implementace:**
+- Komponenta: [`theme/templates/components/widget_calendar.html`](../theme/templates/components/widget_calendar.html) parsuje atributy z `tag_content` a volá Jinja filtr `calendarium` (z pluginu [`plugins/calendarium/filter.py`](../plugins/calendarium/filter.py)) pro veškeré filtrování, datové okno, řazení a limit.
+- Filtrování (filter_by_type, datové okno, sort, limit) je implementované v pluginu calendarium; šablona jen parsuje atributy a renderuje výsledek. Typ akce používá metadata `event-type`; více typů ve `filter_by_type="a b c"` jsou OR. Kategorie `announcement` a `curiosity` jsou vyloučené.
+- Seskupení: Při nastaveném `group_by` filtr `group_events` z pluginu calendarium seskupí akce po dnech/týdnech/měsících a vrátí dvojice `(headline, events)`; šablona renderuje sekci na skupinu s nadpisem + grid kartiček.
+- Výchozí řazení: nejstarší první (chronologicky). Pro opačné použij `sort="newest"`.
 
-### 2. Calendar Subscribe Link (`<widget-calendar-link>`)
+### 2. Odběr kalendáře (`<widget-calendar-link>`)
 
-Generates a headline and three platform subscribe links for an iCal (.ics) feed: webcal (Apple / default calendar apps), Google Calendar, and a plain HTTPS link (e.g. for Outlook “Subscribe from web”). The plugin discovers these widgets, creates one `.ics` file per unique feed configuration, and renders one headline plus one plain `<a>` per platform. No classes are applied.
+Vygeneruje nadpis a tři odkazy pro odběr iCal (.ics) feedu na třech platformách: webcal (Apple / výchozí kalendářové aplikace), Google Calendar a obyčejný HTTPS odkaz (např. pro Outlook „Subscribe from web"). Plugin najde tyhle widgety, pro každou unikátní konfiguraci feedu vytvoří jeden `.ics` soubor a vyrenderuje jeden nadpis plus jeden prostý `<a>` na platformu. Žádné třídy se neaplikují.
 
-**Attributes:**
-- `cal_file_name="all|marathon|..."` (optional) - Output filename for the feed: `/calendars/{cal_file_name}.ics`. If omitted, a stable ID is derived from the filter (hash). Use explicit `cal_file_name` for readable URLs (e.g. `/calendars/marathon.ics`).
-- `filter_by_type="milonga|workshop|..."` (optional) - Event type filter (same as `widget-calendar`)
-- `days="7"` (optional) - Days from today (positive = future, negative = past)
-- `start="2026-06-01"` (optional) - Start of date window (same as `widget-calendar`)
-- `end="2026-08-31"` (optional) - End of date window
-- `filter_by_path="events/2026-marathon"` (optional) - Filter by article source path containing this substring
-- `category="events"` (optional) - Filter by Pelican category name (e.g. `events`, `classes`)
-- `tags="tango workshop"` (optional) - Space-separated tags (OR logic)
-- `label="Subscribe"` (optional) - Headline text above the links (default: "Subscribe to calendar")
-- `label_webcal="Apple"` (optional) - Link text for the webcal link (default: "Apple / default calendar")
-- `label_google="Google"` (optional) - Link text for the Google Calendar link (default: "Google Calendar")
-- `label_outlook="Ostatní"` (optional) - Link text for the HTTPS/copy link (default: "Copy link")
+**Atributy:**
+- `cal_file_name="all|marathon|..."` (volitelné) - Název výstupního souboru feedu: `/calendars/{cal_file_name}.ics`. Když není uvedený, odvodí se stabilní ID z filtru (hash). Pro čitelné URL používej explicitní `cal_file_name` (např. `/calendars/marathon.ics`).
+- `filter_by_type="milonga|workshop|..."` (volitelné) - Filtr typu akce (stejně jako u `widget-calendar`)
+- `days="7"` (volitelné) - Dnů od dneška (kladné = budoucnost, záporné = minulost)
+- `start="2026-06-01"` (volitelné) - Začátek časového okna (stejně jako u `widget-calendar`)
+- `end="2026-08-31"` (volitelné) - Konec časového okna
+- `filter_by_path="events/2026-marathon"` (volitelné) - Filtruje podle source path článku obsahujícího tenhle podřetězec
+- `category="events"` (volitelné) - Filtruje podle názvu Pelican kategorie (např. `events`, `classes`)
+- `tags="tango workshop"` (volitelné) - Tagy oddělené mezerou (OR logika)
+- `label="Subscribe"` (volitelné) - Text nadpisu nad odkazy (výchozí: „Subscribe to calendar")
+- `label_webcal="Apple"` (volitelné) - Text odkazu pro webcal (výchozí: „Apple / default calendar")
+- `label_google="Google"` (volitelné) - Text odkazu pro Google Calendar (výchozí: „Google Calendar")
+- `label_outlook="Ostatní"` (volitelné) - Text odkazu pro HTTPS/copy link (výchozí: „Copy link")
 
-**Feed Generation:**
-- The plugin scans all pages and articles for `<widget-calendar-link>` tags at build time
-- For each unique feed configuration (same `feed_id` or same filter), one `.ics` file is generated in `output/calendars/`
-- Events with recurrence metadata emit RRULE in the iCal feed
-- The widget renders as: one `<div>` with a `<p>` (headline from `label`) and one plain `<a>` per platform (webcal, Google, https).
+**Generování feedu:**
+- Plugin při buildu projde všechny stránky a články a najde tagy `<widget-calendar-link>`
+- Pro každou unikátní konfiguraci feedu (stejné `feed_id` nebo stejný filtr) vznikne jeden `.ics` soubor v `output/calendars/`
+- Akce s metadaty `recurrence` vygenerují v iCal feedu RRULE
+- Widget se vyrenderuje jako: jeden `<div>` s `<p>` (nadpis z `label`) a jeden prostý `<a>` na platformu (webcal, Google, https).
 
-**Renders as (example):**
+**Vyrenderuje se jako (příklad):**
 ```html
 <div>
   <p>📆 Odebírej akce do svého kalendáře</p>
@@ -220,7 +238,7 @@ Generates a headline and three platform subscribe links for an iCal (.ics) feed:
 </div>
 ```
 
-**Examples:**
+**Příklady:**
 ```html
 <!-- All events (no filter) -->
 <widget-calendar-link cal_file_name="all" label="Přidat do kalendáře"></widget-calendar-link>
@@ -242,30 +260,30 @@ Generates a headline and three platform subscribe links for an iCal (.ics) feed:
 <widget-calendar-link cal_file_name="milongas" filter_by_type="milonga" days="30" label="Upcoming milongas"></widget-calendar-link>
 ```
 
-**Configuration (optional):**
-In `pelicanconf.py`:
+**Konfigurace (volitelná):**
+V `pelicanconf.py`:
 ```python
 CALENDAR_ICS_OUTPUT_DIR = "calendars"  # Default: "calendars"
 CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]  # Default: same as EXCLUDED_CATEGORIES
 ```
 
-**Implementation:**
-- See `plugins/calendarium/README.md` for full plugin documentation: feed discovery, ICS generation, filter pipeline, URL types, and module overview.
-- Component: `theme/templates/components/widget_calendar_link.html` renders one headline and three links (no classes)
+**Implementace:**
+- Kompletní dokumentaci pluginu najdeš v [`plugins/calendarium/README.md`](../plugins/calendarium/README.md): discovery feedů, generování ICS, filter pipeline, typy URL a přehled modulů.
+- Komponenta: [`theme/templates/components/widget_calendar_link.html`](../theme/templates/components/widget_calendar_link.html) renderuje jeden nadpis a tři odkazy (bez tříd)
 
-### 3. Articles Widget (`<widget-articles>`)
+### 3. Widget článků (`<widget-articles>`)
 
-Unified widget for displaying articles filtered by category. Replaces the old `widget-announcements`, `widget-curiosities`, `widget-classes`, and `widget-people` widgets.
+Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahrazuje staré widgety `widget-announcements`, `widget-curiosities`, `widget-classes` a `widget-people`.
 
-**Attributes:**
-- `category="announcement|curiosity|people"` (required) - Category to filter by
-- `slugs="slug1 slug2"` (optional) - Space-separated list of article slugs to display in order. Overrides `sort` and `limit`.
-- `sort="newest|oldest|title"` (optional) - Sort order (default: oldest first)
-- `limit="3"` (optional) - Limit number of items (`"3"`, `"all"`, `"last 3"`)
-- `columns="3"` (optional) - Grid columns for layout (uses `.el-grid-N`)
-- `metadata="description location"` (optional) - Space-separated list of extra metadata fields to display
+**Atributy:**
+- `category="announcement|curiosity|people"` (povinné) - Kategorie, podle které se filtruje
+- `slugs="slug1 slug2"` (volitelné) - Seznam slugů článků oddělený mezerou k zobrazení v daném pořadí. Přepisuje `sort` a `limit`.
+- `sort="newest|oldest|title"` (volitelné) - Řazení (výchozí: nejstarší první)
+- `limit="3"` (volitelné) - Omezí počet položek (`"3"`, `"all"`, `"last 3"`)
+- `columns="3"` (volitelné) - Počet sloupců gridu (používá `.el-grid-N`)
+- `metadata="description location"` (volitelné) - Seznam dalších metadat k zobrazení, oddělený mezerou
 
-**Examples:**
+**Příklady:**
 ```html
 <!-- Last 3 announcements -->
 <widget-articles category="announcement" limit="3"></widget-articles>
@@ -283,82 +301,82 @@ Unified widget for displaying articles filtered by category. Replaces the old `w
 <widget-articles category="announcement" limit="12" sort="newest"></widget-articles>
 ```
 
-**Implementation:**
-- Component: `theme/templates/components/widget_articles.html`
-- Plugin: `plugins/article_filter.py` provides `parse_article_attrs` and `article_filter` Jinja filters
-- Filters articles by `article.category.name`
-- Returns list of `{article, extra_metadata}` dicts
-- Template renders cards with title, description (if present), preview image, and any extra metadata fields
+**Implementace:**
+- Komponenta: [`theme/templates/components/widget_articles.html`](../theme/templates/components/widget_articles.html)
+- Plugin: [`plugins/article_filter.py`](../plugins/article_filter.py) poskytuje Jinja filtry `parse_article_attrs` a `article_filter`
+- Filtruje články podle `article.category.name`
+- Vrací seznam dictů `{article, extra_metadata}`
+- Šablona renderuje kartičky s titulem, popisem (pokud je), náhledovým obrázkem a jakýmikoli dalšími metadaty
 
-**Paginated archive (two-tier pattern):** For a preview page with limited items plus a link to full archive, use `limit="12"` and add a link to the category page: `[Všechny oznamy →](/category/announcement/)`. The full paginated list is at `/category/announcement/` via Pelican's category template with 12 items per page.
+**Stránkovaný archiv (vzor dvou úrovní):** Pro náhledovou stránku s omezeným počtem položek + odkazem na plný archiv použij `limit="12"` a doplň odkaz na stránku kategorie: `[Všechny oznamy →](/category/announcement/)`. Plný stránkovaný seznam je na `/category/announcement/` přes Pelican šablonu kategorie s 12 položkami na stránku.
 
-## Attribute Reference
+## Referenční přehled atributů
 
-### widget-calendar Attributes
+### Atributy widget-calendar
 
-| Attribute | Type | Required | Values | Description |
+| Atribut | Typ | Povinný | Hodnoty | Popis |
 |-----------|------|----------|--------|-------------|
-| `filter_by_type` | string | No | `milonga`, `workshop`, `class`, or space-separated for OR | Event type filter |
-| `days` | integer | No | `7`, `365`, `-7` | Days from today (positive = future, negative = past) |
-| `start` | date/token | No | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Start of date window |
-| `end` | date/token | No | Same as `start` | End of date window (optional if `start` set) |
-| `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
-| `sort` | string | No | `newest`, `oldest` | Sort order (default: oldest) |
-| `group_by` | string | No | `day`, `week`, `month`, `week day` | Group events into rows |
-| `headers` | string | No | `week`, `day`, `week day` | Show group headers (default: hidden) |
-| `hide_empty_days` | boolean | No | `true`, `false` | Hide empty day columns in week-day grid |
-| `card_size` | string | No | `xs`, `s`, `m`, `l` | Card size (default: `s`) |
+| `filter_by_type` | string | Ne | `milonga`, `workshop`, `class` nebo oddělené mezerou pro OR | Filtr typu akce |
+| `days` | integer | Ne | `7`, `365`, `-7` | Dnů od dneška (kladné = budoucnost, záporné = minulost) |
+| `start` | date/token | Ne | `YYYY-MM-DD`, `today`, `this-week`, `this-month`, `this-year` | Začátek datového okna |
+| `end` | date/token | Ne | Stejné jako `start` | Konec datového okna (volitelné, pokud je nastaven `start`) |
+| `limit` | string/integer | Ne | `"3"`, `"all"`, `"last 3"` | Omezení počtu položek |
+| `sort` | string | Ne | `newest`, `oldest` | Řazení (výchozí: oldest) |
+| `group_by` | string | Ne | `day`, `week`, `month`, `week day` | Seskupit akce do řádků |
+| `headers` | string | Ne | `week`, `day`, `week day` | Zobrazit hlavičky skupin (výchozí: skryté) |
+| `hide_empty_days` | boolean | Ne | `true`, `false` | Skrýt prázdné denní sloupce v gridu week-day |
+| `card_size` | string | Ne | `xs`, `s`, `m`, `l` | Velikost kartičky (výchozí: `s`) |
 
-### widget-articles Attributes
+### Atributy widget-articles
 
-| Attribute | Type | Required | Values | Description |
+| Atribut | Typ | Povinný | Hodnoty | Popis |
 |-----------|------|----------|--------|-------------|
-| `category` | string | Yes | `announcement`, `curiosity`, `people`, etc. | Category to filter by |
-| `slugs` | string | No | `"slug1 slug2 slug3"` | Space-separated slugs to show in order (overrides sort/limit) |
-| `sort` | string | No | `newest`, `oldest`, `title` | Sort order (default: oldest) |
-| `limit` | string/integer | No | `"3"`, `"all"`, `"last 3"` | Limit number of items |
-| `columns` | string/integer | No | `"3"` | Grid columns for layout |
-| `metadata` | string | No | `"title description image location"` | Space-separated fields to display (default: `title description`) |
-| `card_size` | string | No | `s`, `m`, `l` | Card size: small, medium (default), or large |
-| `link` | string | No | `true`, `false`, `yes`, `no`, `0` | Whether each card links to the article; default is link. `false`/`no`/`0` render non-clickable cards. |
+| `category` | string | Ano | `announcement`, `curiosity`, `people`, atd. | Kategorie pro filtrování |
+| `slugs` | string | Ne | `"slug1 slug2 slug3"` | Slugy oddělené mezerou, zobrazí se v daném pořadí (přepíše sort/limit) |
+| `sort` | string | Ne | `newest`, `oldest`, `title` | Řazení (výchozí: oldest) |
+| `limit` | string/integer | Ne | `"3"`, `"all"`, `"last 3"` | Omezení počtu položek |
+| `columns` | string/integer | Ne | `"3"` | Sloupce gridu |
+| `metadata` | string | Ne | `"title description image location"` | Pole k zobrazení, oddělená mezerou (výchozí: `title description`) |
+| `card_size` | string | Ne | `s`, `m`, `l` | Velikost kartičky: malá, střední (výchozí), velká |
+| `link` | string | Ne | `true`, `false`, `yes`, `no`, `0` | Jestli každá kartička linkuje na článek; výchozí je linkování. `false`/`no`/`0` vyrenderují kartičky bez prokliku. |
 
-**Rules:**
-- `days` and `start`/`end` are mutually exclusive for `widget-calendar`
-- `group_by` only applies to `widget-calendar`; when set, sort is always chronological
-- `slugs` overrides `sort` and `limit` for `widget-articles`
-- Default sort: `oldest` (chronological)
+**Pravidla:**
+- `days` a `start`/`end` se u `widget-calendar` vzájemně vylučují
+- `group_by` funguje jen u `widget-calendar`; když je nastaveno, řazení je vždy chronologické
+- `slugs` přepisuje `sort` a `limit` u `widget-articles`
+- Výchozí řazení: `oldest` (chronologicky)
 
-## Event Metadata Standard
+## Standard pro metadata akcí
 
-Widgets expect events to use standardized metadata format:
+Widgety očekávají, že akce použijí standardizovaný formát metadat:
 
-### Required Fields
+### Povinná pole
 
-- `date`: Article date (Pelican requirement, format: `YYYY-MM-DD HH:MM:SS`)
-- `event-start`: Event start date/time (format: `YYYY-MM-DD HH:MM:SS`)
-- `slug`: URL-friendly identifier
+- `date`: Datum článku (požadavek Pelicanu, formát: `YYYY-MM-DD HH:MM:SS`)
+- `event-start`: Datum a čas začátku akce (formát: `YYYY-MM-DD HH:MM:SS`)
+- `slug`: Identifikátor pro URL
 
-### Optional Fields
+### Volitelná pole
 
-- `event-end`: Event end date/time (format: `YYYY-MM-DD HH:MM:SS`)
-- `recurrence`: Recurring events are expanded into multiple occurrences in the calendar widget. Use a simple phrase: `recurrence: weekly sunday` (every Sunday), `recurrence: monthly 1 saturday` (first Saturday of month). Raw RRULE is also supported via optional `event-rrule` for advanced use.
+- `event-end`: Datum a čas konce akce (formát: `YYYY-MM-DD HH:MM:SS`)
+- `recurrence`: Opakující se akce se ve widgetu kalendáře rozbalí na více instancí. Použij jednoduchou frázi: `recurrence: weekly sunday` (každou neděli), `recurrence: monthly 1 saturday` (první sobota v měsíci). Pro pokročilé použití je podporované i syrové RRULE přes volitelný `event-rrule`.
 
-### Template Access Pattern
+### Vzor přístupu v šabloně
 
-Templates use metadata only for event start/end:
+Šablony používají metadata jen pro event start/end:
 
 ```jinja2
 {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
 {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
 ```
 
-Templates do not use `event.date` or `event.metadata.get('end_date')`.
+Šablony nepoužívají `event.date` ani `event.metadata.get('end_date')`.
 
-## Adding New Widgets
+## Přidání nového widgetu
 
-### Step 1: Create Component Template
+### Krok 1: Vytvoř šablonu komponenty
 
-Create `theme/templates/components/your-widget.html`:
+Vytvoř `theme/templates/components/your-widget.html`:
 
 ```jinja2
 {% set your_param = none %}
@@ -384,34 +402,34 @@ Create `theme/templates/components/your-widget.html`:
 </div>
 ```
 
-**Key points:**
-- Component receives `tag_content` variable from processor
-- Component parses its own attributes from `tag_content`
-- Use standard attribute parsing pattern (split by `" `)
+**Klíčové body:**
+- Komponenta dostane od procesoru proměnnou `tag_content`
+- Komponenta si parsuje vlastní atributy z `tag_content`
+- Použij standardní vzor parsování atributů (split podle `" `)
 
-### Step 2: Update Widget Processor
+### Krok 2: Uprav widget procesor
 
-Add routing in `widget_processor.html`:
+Přidej routing do `widget_processor.html`:
 
 ```jinja2
 {% elif tag_name == 'your-widget' %}
   {% include 'components/your_widget.html' with context %}
 ```
 
-**Key points:**
-- Processor only routes based on `tag_name`
-- Passes `tag_content` variable automatically
-- No attribute parsing in processor
+**Klíčové body:**
+- Procesor routuje jen podle `tag_name`
+- Proměnnou `tag_content` předává automaticky
+- Žádné parsování atributů v procesoru
 
-### Step 3: Document Usage
+### Krok 3: Zdokumentuj použití
 
-Update this documentation with widget syntax and examples.
+Doplň do téhle dokumentace syntax a příklady widgetu.
 
-## Technical Details
+## Technické detaily
 
-### Widget Tag Detection
+### Detekce widget tagů
 
-The processor uses string splitting to detect widget tags:
+Procesor používá rozdělení stringu pro detekci widget tagů:
 
 ```jinja2
 {% set parts = content.split('<widget-') %}
@@ -424,9 +442,9 @@ The processor uses string splitting to detect widget tags:
 {% endfor %}
 ```
 
-### Attribute Parsing (in Components)
+### Parsování atributů (v komponentách)
 
-Each component parses its own attributes from `tag_content`:
+Každá komponenta si parsuje vlastní atributy z `tag_content`:
 
 ```jinja2
 {% set tag_name_parts = tag_content.split(' ') %}
@@ -444,30 +462,30 @@ Each component parses its own attributes from `tag_content`:
 {% endif %}
 ```
 
-**Features:**
-- Supports both self-closing (`<widget-calendar />`) and paired tags (`<widget-calendar></widget-calendar>`)
-- Handles whitespace and newlines in tags
-- Attributes must be separated by `" ` (quote + space)
-- Attribute values must not contain spaces (use separate attributes instead)
-- Nested widgets supported via recursion
-- Each component is self-contained and handles its own parsing
+**Vlastnosti:**
+- Podporuje samouzavírací (`<widget-calendar />`) i párové tagy (`<widget-calendar></widget-calendar>`)
+- Zvládá whitespace a nové řádky v tagech
+- Atributy musí být oddělené `" ` (uvozovka + mezera)
+- Hodnoty atributů nesmí obsahovat mezery (použij raději samostatné atributy)
+- Vnořené widgety jsou podporované přes rekurzi
+- Každá komponenta je samostatná a parsuje si atributy sama
 
-### Context Variables
+### Kontextové proměnné
 
-Widgets have access to full Pelican template context:
+Widgety mají přístup k plnému Pelican kontextu šablon:
 
-- `articles`: All articles (events are filtered from this)
-- `pages`: All pages
-- `SITEURL`: Site base URL
-- `SITENAME`: Site name
-- `NOW`: Current datetime object (automatically exposed from `pelicanconf.py`)
-- All other Pelican context variables
+- `articles`: Všechny články (akce se z toho filtrují)
+- `pages`: Všechny stránky
+- `SITEURL`: Základní URL webu
+- `SITENAME`: Název webu
+- `NOW`: Aktuální datetime objekt (automaticky vystavený z `pelicanconf.py`)
+- Všechny ostatní kontextové proměnné Pelicanu
 
-### Content Filtering
+### Filtrování obsahu
 
-**widget-calendar:** Uses the `calendarium` plugin which filters by event metadata and excludes categories `announcement` and `curiosity`.
+**widget-calendar:** Používá plugin `calendarium`, který filtruje podle event metadat a vylučuje kategorie `announcement` a `curiosity`.
 
-**widget-articles:** Uses the `article_filter` plugin which filters by `article.category.name`:
+**widget-articles:** Používá plugin `article_filter`, který filtruje podle `article.category.name`:
 
 ```python
 def _filter_by_category(articles, category):
@@ -480,69 +498,69 @@ def _filter_by_category(articles, category):
     return out
 ```
 
-This matches Pelican's `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]` configuration where each subdirectory becomes a category.
+Tohle navazuje na Pelican konfiguraci `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]`, kde se každý podadresář stává kategorií.
 
-### Date Handling
+### Práce s daty
 
-Widgets use metadata for event dates:
+Widgety používají metadata pro data akcí:
 
 ```jinja2
 {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
 ```
 
-**Important:**
-- The value may be a string (needs parsing if used for calculations)
-- For display: branch on `event_start is string` and slice or use `strftime` accordingly
-- For filtering: normalise to date/datetime before comparing
+**Důležité:**
+- Hodnota může být string (pro výpočty potřebuje parsování)
+- Pro zobrazení: větvi podle `event_start is string` a buď ořež, nebo použij `strftime`
+- Pro filtrování: před porovnáním normalizuj na date/datetime
 
 ## Troubleshooting
 
-### Widget Not Rendering
+### Widget se nerenderuje
 
-**Check:**
-1. Widget syntax matches exactly (copy from examples above)
-2. Widget tag name uses correct format (`widget-calendar`, not `widget_calendar`)
-3. All attributes use standard HTML format (no `data-` prefix)
-4. Page uses `page.html` template (not custom template)
-5. `process_widgets()` macro is called in template
-6. No syntax errors in widget HTML
-
-**Debug:**
-- Check Pelican build output for template errors
-- Verify widget tag is in page content (not stripped by markdown)
-- Test with simple widget first
-
-### Events Not Appearing
-
-**Check:**
-1. Events exist in correct directory (`content/events/`, `content/announcements/`, etc.)
-2. Events have valid `event-start` metadata
-3. Filter criteria match event titles (case-insensitive)
-4. Events are within date range (if `days` or `start`/`end` specified)
+**Zkontroluj:**
+1. Syntax widgetu sedí přesně (zkopíruj z příkladů výše)
+2. Název widget tagu má správný formát (`widget-calendar`, ne `widget_calendar`)
+3. Všechny atributy mají standardní HTML formát (bez prefixu `data-`)
+4. Stránka používá šablonu `page.html` (ne vlastní šablonu)
+5. V šabloně se volá makro `process_widgets()`
+6. V HTML widgetu nejsou syntaktické chyby
 
 **Debug:**
-- Check `article.source_path` contains expected path
-- Verify event metadata format matches standard
-- Test event access: `{{ event.metadata.get('event-start') }}`
+- Mrkni do build outputu Pelicanu na template errors
+- Ověř, že widget tag je v obsahu stránky (a markdown ho neshodil)
+- Otestuj nejdřív jednoduchý widget
 
-### Date Display Issues
+### Akce se nezobrazují
 
-**Check:**
-1. Event has `event-start` in frontmatter
-2. Format is `YYYY-MM-DD HH:MM:SS`
+**Zkontroluj:**
+1. Akce existují ve správném adresáři ([`content/events/`](../content/events/), [`content/announcements/`](../content/announcements/), atd.)
+2. Akce mají platné metadatum `event-start`
+3. Filtr odpovídá titulům akcí (case-insensitive)
+4. Akce jsou v datovém rozsahu (pokud je nastaveno `days` nebo `start`/`end`)
 
 **Debug:**
-- Check metadata: `{{ event.metadata }}`
-- Verify datetime object: `{{ event_start }}`
-- Test strftime: `{{ event_start.strftime('%d. %m. %Y') }}`
+- Zkontroluj, že `article.source_path` obsahuje očekávanou cestu
+- Ověř, že formát metadat akce sedí se standardem
+- Otestuj přístup k akci: `{{ event.metadata.get('event-start') }}`
 
-## Migration Guide
+### Problémy se zobrazením data
 
-### From Legacy Widgets to widget-articles
+**Zkontroluj:**
+1. Akce má `event-start` ve frontmatteru
+2. Formát je `YYYY-MM-DD HH:MM:SS`
 
-The following widgets have been replaced by the unified `widget-articles`:
+**Debug:**
+- Zkontroluj metadata: `{{ event.metadata }}`
+- Ověř datetime objekt: `{{ event_start }}`
+- Otestuj strftime: `{{ event_start.strftime('%d. %m. %Y') }}`
 
-| Old Widget | New Widget |
+## Migrační průvodce
+
+### Ze starých widgetů na widget-articles
+
+Následující widgety byly nahrazeny sjednoceným `widget-articles`:
+
+| Starý widget | Nový widget |
 |------------|------------|
 | `<widget-announcements limit="3">` | `<widget-articles category="announcement" limit="3">` |
 | `<widget-curiosities limit="3">` | `<widget-articles category="curiosity" limit="3">` |
@@ -550,31 +568,35 @@ The following widgets have been replaced by the unified `widget-articles`:
 | `<widget-people>` | `<widget-articles category="people" metadata="description">` |
 | `<widget-people slugs="...">` | `<widget-articles category="people" slugs="..." metadata="description">` |
 
-**Key changes:**
-- All article-based widgets now use `<widget-articles>` with a `category` attribute
-- The `metadata` attribute allows specifying which extra fields to display (e.g., `description`)
-- The `slugs` attribute works the same way for selecting specific articles in order
-- `pagination` attribute was never implemented and is removed
+**Klíčové změny:**
+- Všechny widgety založené na článcích teď používají `<widget-articles>` s atributem `category`
+- Atribut `metadata` umožňuje určit, která další pole se mají zobrazit (např. `description`)
+- Atribut `slugs` funguje stejně — vybírá konkrétní články v daném pořadí
+- Atribut `pagination` nikdy nebyl implementovaný a je odstraněný
 
-## Performance Considerations
+## Výkonnostní úvahy
 
-### Widget Processing
+### Zpracování widgetů
 
-- Widgets are processed during template rendering (server-side)
-- No client-side JavaScript required
-- Processing is recursive (supports nested widgets)
-- Each widget processes all articles (consider caching for large sites)
+- Widgety se zpracovávají během renderování šablon (server-side)
+- Žádný JavaScript na straně klienta není potřeba
+- Zpracování je rekurzivní (podporuje vnořené widgety)
+- Každý widget projde všechny články (u velkých webů zvaž cache)
 
-### Event Filtering
+### Filtrování akcí
 
-- Filtering happens in Jinja2 templates (no database queries)
-- All articles loaded into memory
-- Filtering is O(n) where n = number of articles
-- Consider pagination for large event lists
+- Filtrování probíhá v Jinja2 šablonách (žádné databázové dotazy)
+- Všechny články jsou v paměti
+- Filtrování je O(n), kde n = počet článků
+- U velkých seznamů akcí zvaž stránkování
 
-## Related Documentation
+## Související dokumenty
 
-- **README.md**: User-facing widget documentation
-- **setup.md**: Development environment setup
-- **local-testing.md**: Testing widgets locally
-- **publishing.md**: Deployment process
+- [Brnos Aires — web](../README.md) — hlavní průvodce: pracovní postup, struktura souboru akce, widgety, obrázky.
+- [Úprava obsahu](EDITING.md) — průvodce pro editory: metadata v hlavičce souboru a co dělají na živém webu.
+- [SEO + sociální kartičky](SEO.md) — *proč* to celé funguje takto: kanonická strategie, `<base href>`, mechanika hubů, anglická verze a `hreflang`.
+- [Discoverability pro LLM](LLMS.md) — soubory pro AI asistenty (`content/llm/`) a `.md` zrcadla stránek.
+- [Lokální testování](local-testing.md) — lokální testování widgetů a celého webu.
+- [Nasazení](publishing.md) — deployment a publikace.
+- [Nastavení vývojového prostředí](setup.md) — nastavení vývojového prostředí.
+- [Plán rozvoje](ROADMAP.md) — co je v plánu.

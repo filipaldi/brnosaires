@@ -1,317 +1,138 @@
-# Publishing Guide
+# Nasazení (publikace)
 
-## Overview
+Tento dokument popisuje, **jak se obsah dostane na produkci** (`https://brnosaires.com`). Pro většinu úprav nemusíš dělat nic ručně — stačí commitnout do `main` a počkat na další automatický build.
 
-This guide covers deploying the Brnos Aires website to production. The site is a static Pelican site that can be deployed to various hosting platforms.
+## Obsah
 
-## Pre-Deployment Checklist
+1. [Jak to funguje ve zkratce](#jak-to-funguje-ve-zkratce)
+2. [Co workflow dělá](#co-workflow-dělá)
+3. [Když potřebuješ rychlejší nasazení](#když-potřebuješ-rychlejší-nasazení)
+4. [Co dělat při selhání buildu](#co-dělat-při-selhání-buildu)
+5. [Lokální produkční build (pro kontrolu před commitem)](#lokální-produkční-build-pro-kontrolu-před-commitem)
+6. [Co kontrolovat po nasazení (manuální checklist)](#co-kontrolovat-po-nasazení-manuální-checklist)
+7. [Rollback (vrácení změny)](#rollback-vrácení-změny)
+8. [Konfigurace GitHub Pages](#konfigurace-github-pages)
+9. [Související](#související)
 
-Before publishing:
+## Jak to funguje ve zkratce
 
-- [ ] All content reviewed and approved
-- [ ] Site builds successfully with `publishconf.py`
-- [ ] All widgets render correctly
-- [ ] Events have correct metadata (`date`, `event-start`, `event-end`)
-- [ ] Images optimized and loading correctly
-- [ ] Links verified (internal and external)
-- [ ] No console errors in browser
-- [ ] Responsive design tested
+Produkční nasazení běží přes **GitHub Actions → GitHub Pages**. Workflow je definovaný v [.github/workflows/deploy.yml](../.github/workflows/deploy.yml).
 
-## Build for Production
+Build se spouští:
 
-### Production Build Command
+- **Automaticky dvakrát denně** podle cronu: `0 6,18 * * *` (06:00 a 18:00 UTC, tj. 07:00/08:00 a 19:00/20:00 v Brně podle zimního/letního času).
+- **Ručně na vyžádání** přes `workflow_dispatch` — vývojář může build spustit kdykoli z GitHub UI (Actions → *Build and Deploy* → *Run workflow*) nebo přes `gh workflow run`.
+
+**Push do `main` build neaktivuje sám o sobě** — změna se zveřejní až při dalším naplánovaném buildu (max ~12 hodin), nebo když někdo workflow spustí ručně.
+
+## Co workflow dělá
+
+Soubor [.github/workflows/deploy.yml](../.github/workflows/deploy.yml) má dva joby:
+
+### Job 1: `build`
+
+1. **Checkout** repozitáře (`actions/checkout@v4`).
+2. **Setup Python 3.11** (`actions/setup-python@v5`).
+3. **Instalace závislostí**: `pip install -r requirements.txt`.
+4. **Build s Pelicanem**: `PYTHONPATH=. pelican content -s publishconf.py` — produkční konfigurace s `SITEURL = "https://brnosaires.com"` a `RELATIVE_URLS = False`.
+5. **CNAME pro vlastní doménu**: `echo "brnosaires.com" > output/CNAME` (GitHub Pages tak ví, na jaké doméně web běží).
+6. **Setup Pages** (`actions/configure-pages@v4`).
+7. **Upload artefaktu** — obsah `output/` se nahraje jako GitHub Pages artefakt (`actions/upload-pages-artifact@v3`).
+
+### Job 2: `deploy`
+
+Po úspěšném buildu (`needs: build`) se artefakt nasadí na GitHub Pages přes `actions/deploy-pages@v4`. URL nasazené verze (`https://brnosaires.com`) se zobrazí jako výstup workflow.
+
+## Když potřebuješ rychlejší nasazení
+
+Stačí v GitHub UI spustit workflow ručně:
+
+1. Otevři **Actions** v repu.
+2. Vlevo vyber **Build and Deploy**.
+3. Vpravo nahoře klikni na **Run workflow** → větev `main` → **Run workflow**.
+
+Případně z příkazové řádky (pokud máš nainstalovaný `gh` CLI):
 
 ```bash
-# Activate virtual environment
-source venv/bin/activate  # macOS/Linux
-# or
-venv\Scripts\activate     # Windows
+gh workflow run "Build and Deploy"
+gh run watch    # sleduj průběh
+```
 
-# Build with production config
+Build trvá obvykle 1–2 minuty, deploy dalších ~30 sekund. Celkem do 3 minut je změna na produkci.
+
+## Co dělat při selhání buildu
+
+Pokud workflow spadne (červený křížek v Actions), nejčastější příčiny:
+
+| Chyba | Příčina | Co s tím |
+|---|---|---|
+| Selhal `pelican content` | Chyba v markdownu, šabloně nebo metadatech akce (např. nevalidní formát data ve frontmatteru, chybějící `event-start`) | Otevři log Actions, najdi konkrétní soubor a oprav |
+| Selhal `pip install` | `requirements.txt` má rozbitou nebo neexistující verzi balíku | Lokálně ověř `pip install -r requirements.txt`, případně aktualizuj `requirements.txt` |
+| Build proběhne, ale deploy selže | GitHub Pages mají dočasný výpadek nebo omezení (rate limit) | Zkusit znovu spustit workflow za chvíli |
+| Build se vůbec nespustí | Workflow byl zakázán nebo se větev nejmenuje `main` | Zkontroluj **Actions → Build and Deploy → … → Enable workflow** |
+
+Lokální build pro reprodukci chyby:
+
+```bash
+source venv/bin/activate
 pelican content -s publishconf.py
 ```
 
-**Configuration differences:**
-- `SITEURL = "https://brnosaires.com"` (absolute URLs)
-- `RELATIVE_URLS = False` (absolute URLs for production)
-- All other settings from `pelicanconf.py`
+Pokud projde lokálně a v CI ne, podívej se na rozdíly v Python verzi (CI = 3.11) a v `requirements.txt`.
 
-### Verify Build
+## Lokální produkční build (pro kontrolu před commitem)
 
 ```bash
-# Check output directory
-ls -la output/
-
-# Verify HTML files generated
-find output/ -name "*.html" | wc -l
-
-# Check for errors in build output
-pelican content -s publishconf.py 2>&1 | grep -i error
+source venv/bin/activate
+pelican content -s publishconf.py
 ```
 
-**Note:** The `output/category/` directory will contain paginated category pages (e.g., `announcement.html`, `announcement2.html`, etc.) when categories have more articles than the pagination limit. This is expected behaviour. See `setup.md` for pagination configuration details.
+**Rozdíly proti dev konfiguraci v [pelicanconf.py](../pelicanconf.py):**
 
-## Deployment Methods
+- `SITEURL = "https://brnosaires.com"` — odkazy jsou absolutní.
+- `RELATIVE_URLS = False` — nemůžeš to otevřít přes `file://` a očekávat funkční odkazy, takže pro „prohlédnout output/" radši stavěj přes `pelicanconf.py`.
 
-### Method 1: FTP/SFTP Upload
+Stavěj přes `publishconf.py` jen tehdy, když chceš ověřit, že absolutní URL a JSON-LD obsahují správné prefixy.
 
-**Steps:**
+## Co kontrolovat po nasazení (manuální checklist)
 
-1. Build production site:
-   ```bash
-   pelican content -s publishconf.py
-   ```
+Po významnější změně se hodí přejít přes pár stránek a podívat se, jestli něco není rozbité:
 
-2. Upload `output/` directory contents to web server:
-   ```bash
-   # Using rsync
-   rsync -avz output/ user@server:/path/to/webroot/
-   
-   # Using scp
-   scp -r output/* user@server:/path/to/webroot/
-   ```
+- [ ] Homepage [brnosaires.com](https://brnosaires.com/) se načítá, obrázky a navigace fungují.
+- [ ] [/kalendar/](https://brnosaires.com/kalendar/) zobrazuje budoucí akce.
+- [ ] [/milongy/](https://brnosaires.com/milongy/) má aktuální seznam.
+- [ ] Detail nějaké nedávno upravené akce vypadá správně (data, místo, popis).
+- [ ] Žádné chyby v konzoli prohlížeče (Cmd+Alt+I → Console).
+- [ ] Měsíční stránka odpovídající aktuálnímu měsíci (`/milongy-brno-<měsíc>/`) má obsah.
 
-3. Verify deployment:
-   - Visit `https://brnosaires.com`
-   - Check all pages load
-   - Verify widgets work
+Pro důkladnější procházku existuje subagent `ux-visual-once-over` (viz [.claude/CLAUDE.md](../.claude/CLAUDE.md)), který obejde web Playwrightem a vrátí per-stránku pass/fail report.
 
-### Method 2: Git-Based Deployment
+## Rollback (vrácení změny)
 
-**If using Git hooks or CI/CD:**
+GitHub Pages drží pouze poslední nasazenou verzi — neexistuje „one click rollback". Postup, když je potřeba něco rychle vrátit:
 
-1. Commit changes:
-   ```bash
-   git add .
-   git commit -m "Update content"
-   git push
-   ```
+1. V repu identifikuj problematický commit (`git log`, případně v GitHub UI).
+2. Vrať změnu přes `git revert <sha>` (vytvoří nový commit, který původní změnu odčiní), commit pushni.
+3. Spusť workflow ručně (viz výše), aby se nasazená verze obnovila do 3 minut.
 
-2. Server pulls and builds:
-   ```bash
-   # On server
-   git pull
-   source venv/bin/activate
-   pelican content -s publishconf.py
-   # Copy output/ to webroot
-   ```
+Pro úplný snapshot historie webu je k dispozici git historie samotná — celý obsah je verzovaný v `content/`.
 
-### Method 3: Static Hosting (Netlify, Vercel, etc.)
+## Konfigurace GitHub Pages
 
-**Configuration:**
+Nastavení Pages v repu (jednorázové, už proběhlo):
 
-1. Build command:
-   ```bash
-   pelican content -s publishconf.py
-   ```
+- **Source**: GitHub Actions (ne „Deploy from a branch" — workflow staví a deployuje sám).
+- **Custom domain**: `brnosaires.com` (CNAME se generuje při buildu, viz krok 5 workflow).
+- **Enforce HTTPS**: zapnuto.
 
-2. Publish directory: `output`
+DNS pro `brnosaires.com` ukazuje CNAME na `<owner>.github.io` (správa domény je mimo repo).
 
-3. Build settings:
-   - Python version: 3.8+
-   - Install command: `pip install -r requirements.txt`
-   - Build command: `pelican content -s publishconf.py`
+## Související
 
-## Post-Deployment Verification
-
-### 1. Check Homepage
-
-Visit `https://brnosaires.com` and verify:
-- Page loads correctly
-- Images display
-- Navigation works
-- No console errors
-
-### 2. Test Widgets
-
-Visit pages with widgets:
-- `https://brnosaires.com/tango-milongy-brno.html`
-- `https://brnosaires.com/tango-kalendar-brno.html`
-
-Verify:
-- Filtered events display
-- Calendar month shows events
-- Dates formatted correctly
-
-### 3. Test Events
-
-Visit event pages:
-- Check event dates display
-- Verify `event-start` and `event-end` work
-- Test event links
-
-### 4. Check URLs
-
-Verify:
-- All internal links work
-- External links valid
-- Images load from correct paths
-- No 404 errors
-
-### 5. Validate HTML
-
-Use online validators:
-- W3C HTML Validator
-- Google Search Console
-- Lighthouse audit
-
-## Rollback Procedure
-
-If deployment has issues:
-
-### Quick Rollback
-
-1. Restore previous `output/` directory:
-   ```bash
-   # If backed up
-   cp -r output.backup/* output/
-   rsync -avz output/ user@server:/path/to/webroot/
-   ```
-
-2. Or rebuild previous version:
-   ```bash
-   git checkout <previous-commit>
-   pelican content -s publishconf.py
-   # Deploy output/
-   ```
-
-### Content Rollback
-
-1. Revert content changes:
-   ```bash
-   git checkout <previous-commit> content/
-   ```
-
-2. Rebuild and redeploy
-
-## Maintenance
-
-### Regular Updates
-
-**Content updates:**
-1. Edit content files in `content/`
-2. Test locally
-3. Build and deploy
-
-**Template updates:**
-1. Edit templates in `theme/templates/`
-2. Test locally with `--autoreload`
-3. Build and deploy
-
-### Monitoring
-
-**Check regularly:**
-- Site accessibility
-- Widget functionality
-- Event display
-- Broken links
-- Image loading
-
-**Tools:**
-- Google Search Console
-- Uptime monitoring
-- Error logging (if configured)
-
-## Troubleshooting
-
-### Build Fails
-
-**Check:**
-- Python version (3.8+)
-- Dependencies installed
-- Configuration file syntax
-- Content file syntax
-
-**Debug:**
-```bash
-pelican content -s publishconf.py --debug
-```
-
-### Widgets Not Working
-
-**Check:**
-- Widget syntax in content
-- Template includes `process_widgets()`
-- Events have correct metadata
-- Build completed without errors
-
-### Date Display Issues
-
-**Check:**
-- Event metadata format: `YYYY-MM-DD HH:MM:SS`
-- `event-start` field present
-- Template uses standardized access pattern
-
-### Images Not Loading
-
-**Check:**
-- Image paths: `{static}/images/filename.avif`
-- Images in `content/images/`
-- `STATIC_PATHS` includes `"images"`
-
-## Security Considerations
-
-### Content Security
-
-- Review user-generated content
-- Validate external links
-- Sanitize markdown input (if allowing user input)
-
-### Server Security
-
-- Keep Pelican updated
-- Use HTTPS
-- Secure file permissions
-- Regular backups
-
-## Backup Strategy
-
-### Content Backup
-
-```bash
-# Backup content directory
-tar -czf content-backup-$(date +%Y%m%d).tar.gz content/
-
-# Backup to remote location
-scp content-backup-*.tar.gz backup-server:/backups/
-```
-
-### Full Site Backup
-
-```bash
-# Backup entire project
-tar -czf site-backup-$(date +%Y%m%d).tar.gz \
-  --exclude='venv' \
-  --exclude='output' \
-  --exclude='__pycache__' \
-  .
-```
-
-### Automated Backups
-
-Set up cron job or scheduled task:
-```bash
-# Daily backup at 2 AM
-0 2 * * * cd /path/to/project && tar -czf backups/content-$(date +\%Y\%m\%d).tar.gz content/
-```
-
-## Performance Optimization
-
-### Build Optimization
-
-- Minimize template processing
-- Optimize images before upload
-- Use CDN for static assets (if applicable)
-
-### Site Performance
-
-- Enable gzip compression
-- Use browser caching
-- Optimize images
-- Minify CSS/JS (if applicable)
-
-## Next Steps
-
-- See `local-testing.md` for testing before deployment
-- See `setup.md` for environment setup
-- See `WIDGETS.md` for widget system details
+- [Nastavení vývojového prostředí](setup.md) — příprava lokálního prostředí.
+- [Lokální testování](local-testing.md) — lokální build a testování před commitem.
+- [SEO + sociální kartičky](SEO.md) — co se v produkčním buildu generuje (kanonická URL, sitemap, JSON-LD).
+- [Widget systém](WIDGETS.md) — widgety v markdownu.
+- [Úprava obsahu](EDITING.md) — frontmatter a metadata.
+- [Plán rozvoje](ROADMAP.md) — plán a známé chyby (v *Plánované funkce* je položka „Automatické kontroly před publikací" — návrh CI jobu, který by validoval frontmatter před deployem).
+- [Brnos Aires — web](../README.md) — hlavní rozcestník.
