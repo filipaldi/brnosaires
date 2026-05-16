@@ -15,7 +15,7 @@
    break instead of jutting out past the viewport (DEFAULT_LANG="cs" → real
    Czech hyphenation when the element is inside <html lang="cs">). */
 :where(h1, h2, h3, p):not([class*="card-"] *) {
-  max-inline-size: max(20rem, 43vw);
+  max-inline-size: max(20rem, 63ch);
   overflow-wrap: anywhere;
   word-break: break-word;
   hyphens: auto;
