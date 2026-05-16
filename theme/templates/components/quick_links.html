@@ -1,0 +1,35 @@
+{# Phone-only quick-link stack.
+
+   Reads the same nav_list `base.html` already resolved (main or marathon,
+   correct language). Renders one chip per item marked `primary=true` in
+   content/navigation/*.md, in the order they appear in that file.
+
+   Two visual variants driven by the `icon` column:
+   - icon == "cta"  -> wider text chip (the marathon Registration CTA)
+   - icon == else   -> icon-only chip; label hidden visually but kept for
+                       assistive tech via aria-label
+
+   CSS keeps the whole stack hidden on tablet/desktop (≥ 813 px) so this
+   template is a no-op there. #}
+{% set _primary = nav_list | selectattr('primary') | list %}
+{% if _primary %}
+<aside class="quick-links" aria-label="{{ 'quick_links' | t(page_lang) }}">
+  {% for item in _primary %}
+    {% if item.icon == 'cta' %}
+      <a href="{{ item.url }}"
+         class="quick-links__chip quick-links__chip--cta aesthetic-chip chip-m"
+         {% if item.external %}target="_blank" rel="noopener"{% endif %}>
+        {{ item.label }}
+      </a>
+    {% else %}
+      <a href="{{ item.url }}"
+         class="quick-links__chip aesthetic-chip"
+         aria-label="{{ item.label }}"
+         title="{{ item.label }}"
+         {% if item.external %}target="_blank" rel="noopener"{% endif %}>
+        <span class="quick-links__icon" aria-hidden="true">{{ item.icon }}</span>
+      </a>
+    {% endif %}
+  {% endfor %}
+</aside>
+{% endif %}

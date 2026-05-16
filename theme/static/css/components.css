@@ -132,29 +132,6 @@
 }
 
 /* ============================================
-   PAGE NAV RAIL (.layout-aside)
-   ----------------------------------------
-   The aside is a position:fixed rail pinned to the right edge of every
-   page (see .el-imposter-aside in layout.css). Its box — including the
-   empty space between/around the chips — would otherwise be a solid
-   hit-test surface that swallows taps aimed at page content sitting
-   behind it (e.g. calendar cards on the right strip on phones). Make the
-   rail's *container* transparent to pointer events; the chips and the
-   wordmark stay clickable. A tap on a chip navigates as before; a tap on
-   the empty rail space passes through to whatever is behind it. Purely a
-   hit-testing change — no visual/layout effect.
-   ============================================ */
-
-.layout-aside,
-.layout-aside nav {
-  pointer-events: none;
-}
-
-.layout-aside a {
-  pointer-events: auto;
-}
-
-/* ============================================
    WIDGET CALENDAR (grouped)
    ============================================ */
 
@@ -510,6 +487,41 @@
   .calendar .event p {
     font-size: var(--text-s);
     line-height: var(--size-s);
+  }
+}
+
+/* ============================================
+   DESKTOP CALENDAR REEL — left gutter break-out only (≥ 813 px)
+   ----------------------------------------
+   The reel stays inside <main>'s right edge (column 1's right edge =
+   rail's left edge) — cards never extend past it. The only break-out
+   is on the LEFT, so the reel's scroll surface starts at the viewport's
+   left edge. This way: cards scrolling rightward (pulling the row left)
+   slide off into the viewport's left edge, not into <main>'s left
+   padding. A ::before spacer keeps the first card resting on the page
+   gutter on initial load.
+
+   Attempted: extending the reel past the rail so cards scroll under it.
+   Abandoned because the box-model math (main border-box + grid 1fr +
+   scrollbar fudge) consistently drifted by 10-50px across viewports.
+   Trade-off: visual is less impressive but it's correct at every size.
+   ============================================ */
+@media screen and (min-width: 813px) {
+  .week.el-reel {
+    /* Break out of <main>'s left page-gutter so the reel's left edge
+       sits at the page's left content-box edge. */
+    margin-inline-start: calc(-1 * var(--size-m));
+  }
+  /* Leading spacer = the page gutter the negative left margin removed.
+     A real (pseudo) flex item rather than padding, so scroll-snap rest
+     positions stay consistent. Matches the mobile pattern at
+     `.week.el-reel::before` above. */
+  .week.el-reel::before {
+    content: "";
+    flex: 0 0 var(--size-m);
+    align-self: stretch;
+    scroll-snap-align: none;
+    pointer-events: none;
   }
 }
 

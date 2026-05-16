@@ -1,6 +1,6 @@
-Calendar, tango-kalendar-brno
-Milongas, tango-milongy-brno
-Classes, tango-lekce-brno
+Calendar, tango-kalendar-brno, primary, 📅
+Milongas, tango-milongy-brno, primary, 🎵
+Classes, tango-lekce-brno, primary, 🎓
 New here?, tango-pro-zacatecniky-brno
 Tango weekend, jarni-tango-vikend-v-brne
 Curiosities, tango-pikosky

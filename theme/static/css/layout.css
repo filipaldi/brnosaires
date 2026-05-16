@@ -284,7 +284,190 @@
     overflow: auto;
     z-index: var(--z-index-mid);
   }
-  
+
+  /* ============================================
+     LAYOUT WITH ASIDE (≥ 813 px)
+     ----------------------------------------
+     Reserve a track on the right of the page for the fixed nav rail
+     (.el-imposter-aside in this file). Without this, <main> renders at
+     the full viewport width and content slides under the rail.
+
+     <main> needs border-box so its .padding-all-m stays inside column 1.
+     Under the default content-box, the padding is added outside the
+     1fr-allocated width and the right edge spills into column 2 (the
+     rail's track), sliding ~var(--size-m) of content under the rail.
+
+     minmax(0, 1fr) — not plain `1fr` — is critical. Plain `1fr` resolves
+     to `minmax(auto, 1fr)`, which lets the track grow to fit its
+     content's min-content size; full-width children (the calendar reel,
+     hub clusters) then stretch column 1 past the rail's left edge.
+     minmax(0, 1fr) caps column 1 at the fractional share regardless of
+     content intrinsic size.
+
+     On phone (≤ 812 px) the rail is hidden and the grid collapses to a
+     single column — see the @media block at the bottom of this section.
+     ============================================ */
+  .layout-with-aside {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--aside-width, var(--size-3xl));
+  }
+  .layout-with-aside > * > main {
+    box-sizing: border-box;
+  }
+
+  /* ============================================
+     TOP CHIP (phone only — ≤ 812 px)
+     ----------------------------------------
+     On phone the rail collapses; the site's wordmark + menu opener
+     collapse into a small "double chip" pinned to the top-right of the
+     viewport. Left half: site wordmark, link to home. Right half: a •••
+     <summary> that opens the full menu (a <details>/<summary> disclosure).
+     Hidden by default; revealed inside the @media block below.
+     ============================================ */
+
+  .top-chip {
+    display: none;
+    position: fixed;
+    inset-block-start: var(--size-s);
+    inset-inline-end: var(--size-s);
+    z-index: var(--z-index-mid);
+    align-items: stretch;
+  }
+
+  .top-chip__brand {
+    font-family: var(--font-display);
+    font-size: var(--text-l);
+    line-height: var(--size-l);
+    padding: var(--size-2xs) var(--size-s);
+    border: var(--border-style-s);
+    border-radius: var(--border-radius-m) 0 0 var(--border-radius-m);
+    border-inline-end: 0;
+    background-color: var(--color-gray-light-1);
+    color: var(--color-neutral-5);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .top-chip__menu {
+    position: relative;
+  }
+
+  .top-chip__more {
+    list-style: none;
+    cursor: pointer;
+    padding: var(--size-2xs) var(--size-s);
+    border: var(--border-style-s);
+    border-radius: 0 var(--border-radius-m) var(--border-radius-m) 0;
+    background-color: var(--color-gray-light-1);
+    color: var(--color-neutral-5);
+    font-size: var(--text-l);
+    line-height: var(--size-l);
+    user-select: none;
+  }
+  .top-chip__more::-webkit-details-marker { display: none; }
+  .top-chip__menu[open] .top-chip__more {
+    background-color: var(--color-neutral-5);
+    color: var(--color-gray-light-1);
+  }
+
+  /* Menu panel — a transparent positioning wrapper that hangs beneath
+     the ••• when <details> is open. No background, border, or padding:
+     the chips inside already carry those, an outer card would be a
+     redundant second layer.
+
+     Spacing: every chip across the panel (main nav + lang switcher)
+     uses the same gap, regardless of which inner <nav> it sits in.
+     `gap` set at panel level applies to direct children (the two <nav>s);
+     `* + *` targets adjacent chips inside each <nav>. The `el-stack
+     stack-s` margin from the nav templates is reset to 0 so this rule
+     is the single source of truth. */
+  .top-chip__panel {
+    position: absolute;
+    inset-block-start: calc(100% + var(--size-xs));
+    inset-inline-end: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xs);
+    align-items: stretch;
+  }
+  .top-chip__panel nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-xs);
+  }
+  .top-chip__panel nav > * + * {
+    margin-block-start: 0;
+  }
+
+  /* ============================================
+     QUICK LINKS (phone only — ≤ 812 px)
+     ----------------------------------------
+     A small vertical stack pinned to the bottom-right corner. Icon-only
+     chips for the items marked `primary` in content/navigation/*.md.
+     Hidden on tablet/desktop — the rail handles nav there.
+     ============================================ */
+
+  .quick-links {
+    display: none;
+  }
+
+  /* ============================================
+     PHONE LAYOUT (≤ 812 px)
+     ----------------------------------------
+     - Hide the right rail (.layout-aside).
+     - Collapse the grid to a single column so <main> spans the viewport.
+     - Reveal the top-right [Brnos Aires | •••] chip + the bottom-right
+       quick-links icon stack.
+     Threshold 812 px matches the existing --const ramp boundary in
+     variables.css:128-134.
+     ============================================ */
+  @media screen and (max-width: 812px) {
+    .layout-with-aside {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .layout-aside {
+      display: none;
+    }
+    .top-chip {
+      display: flex;
+    }
+    .quick-links {
+      position: fixed;
+      inset-block-end: var(--size-s);
+      inset-inline-end: var(--size-s);
+      z-index: var(--z-index-mid);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-xs);
+      align-items: flex-end;
+    }
+    .quick-links__chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: var(--size-l);
+      block-size: var(--size-l);
+      border-radius: var(--border-radius-m);
+      padding: 0;
+    }
+    .quick-links__icon {
+      font-size: var(--text-l);
+      line-height: 1;
+    }
+    /* CTA variant — wider text chip for marathon REGISTRATION. */
+    .quick-links__chip--cta {
+      inline-size: auto;
+      block-size: auto;
+      background-color: var(--color-neutral-5);
+      color: var(--color-gray-light-1);
+      font-weight: var(--font-weight-bold);
+    }
+    .quick-links__chip--cta:hover {
+      background-color: var(--color-neutral-5);
+      color: var(--color-gray-light-1);
+    }
+  }
+
   /* ============================================
      JUSTIFY CONTENT UTILITIES
      ============================================ */

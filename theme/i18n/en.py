@@ -10,6 +10,9 @@ STRINGS = {
     # --- navigation (aria-labels in base.html) ---
     "main_navigation": "Main navigation",
     "marathon_navigation": "Marathon navigation",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "quick_links": "Quick links",
     # Language switcher: the visible label is the *target* language's own name
     # (an endonym — same in any UI language); the aria-label spells out the action.
     "lang_name_cs": "Čeština",
