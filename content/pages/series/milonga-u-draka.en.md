@@ -1,7 +1,7 @@
 ---
 title: Milonga at the Brno Dragon
 slug: milonga-u-draka
-date: 2026-04-25 00:00:00
+date: 2026-05-16 00:00:00
 lang: en
 series: milonga-u-draka
 preview_image: /images/events/2026/milonga-u-draka-duben.jpg

@@ -7,6 +7,7 @@ event-start: 2026-05-14 19:00:00
 event-end: 2026-05-14 22:00:00
 event-location: Rockwine, Vídeňská 18, Brno
 event-organiser: Brnos Aires
+series: milonga-rockwine
 description: Květnová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.
 preview_image: /images/announcements/milonga_rockwine_2.JPEG
 author: Lenka Pláteníková
