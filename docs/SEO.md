@@ -166,5 +166,5 @@ Malý řádek „Poprvé na milonze? [Mrkni, jak na to.](…)" pod hlavičkou ak
 - [local-testing.md](local-testing.md) — lokální dev server, port 41234, phone preview.
 - [publishing.md](publishing.md) — deploy přes GitHub Actions na GitHub Pages.
 - [setup.md](setup.md) — first-time setup repozitáře a venv.
-- [ROADMAP.md](ROADMAP.md) - rozcestník na GitHub Issues.
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - plán a nápady.
 - [../README.md](../README.md) — hlavní průvodce pro editory: pracovní postup, struktura souboru akce, widgety, obrázky.

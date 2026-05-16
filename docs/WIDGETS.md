@@ -599,4 +599,4 @@ Následující widgety byly nahrazeny sjednoceným `widget-articles`:
 - [Lokální testování](local-testing.md) — lokální testování widgetů a celého webu.
 - [Nasazení](publishing.md) — deployment a publikace.
 - [Nastavení vývojového prostředí](setup.md) — nastavení vývojového prostředí.
-- [Plán rozvoje](ROADMAP.md) — co je v plánu.
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - co je v plánu.

@@ -51,7 +51,6 @@ Všechny dokumenty jsou česky. Krátké shrnutí toho, kde se co dočteš:
 | [Nastavení vývojového prostředí](docs/setup.md) | Vývojáři | Příprava lokálního prostředí (Python, virtualenv, závislosti, struktura projektu). |
 | [Lokální testování](docs/local-testing.md) | Vývojáři | Spuštění lokálního serveru, port 41234, náhled na telefonu, ladění buildu, testování widgetů a šablon. |
 | [Nasazení](docs/publishing.md) | Vývojáři | Jak se web nasazuje (GitHub Actions → GitHub Pages, automatický build dvakrát denně). |
-| [Plán rozvoje](docs/ROADMAP.md) | Všichni | Rozcestník na GitHub Issues - plánované funkce, nápady a bugy. |
 
 ## Pracovní postup pro editory (ve zkratce)
 
@@ -93,7 +92,14 @@ Pro snadnější otevírání: [content/](content/), [theme/](theme/), [plugins/
 
 Detail jednotlivých složek a souborů: [Nastavení vývojového prostředí](docs/setup.md) a [SEO + sociální kartičky](docs/SEO.md).
 
+## Jak přispět
+
+Nápady, chyby a plán rozvoje se vedou v **GitHub Issues**. Kdokoli s GitHub účtem může otevřít nový issue nebo komentovat existující.
+
+- **Kanban board:** [Brnos Aires - Plán rozvoje](https://github.com/users/filipaldi/projects/2) - sloupce *Nápady* / *Pracuje se* / *Hotovo*.
+- **Seznam issues:** [github.com/filipaldi/brnosaires/issues](https://github.com/filipaldi/brnosaires/issues)
+- **Nový nápad / bug:** [otevřít issue](https://github.com/filipaldi/brnosaires/issues/new)
+
 ## Související
 
-- **Plán rozvoje a nápady:** [Plán rozvoje](docs/ROADMAP.md) (vede se v GitHub Issues)
 - **Návod pro Claude Code agenty:** [.claude/CLAUDE.md](.claude/CLAUDE.md) (jen pro vývojáře pracující s agenty)

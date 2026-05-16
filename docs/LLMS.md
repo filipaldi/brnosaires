@@ -100,5 +100,5 @@ Statický soubor `marathon/llms.txt` pod [`content/extra/marathon/`](../content/
 - [Lokální testování](local-testing.md) - lokální vývoj a testování.
 - [Nasazení](publishing.md) - publikační workflow.
 - [Nastavení vývojového prostředí](setup.md) - počáteční nastavení projektu.
-- [Plán rozvoje](ROADMAP.md) - rozcestník na GitHub Issues.
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - plán rozvoje, nápady, bugy.
 - [Brnos Aires — web](../README.md) - hlavní průvodce pro editory.

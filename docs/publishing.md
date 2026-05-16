@@ -134,5 +134,5 @@ DNS pro `brnosaires.com` ukazuje CNAME na `<owner>.github.io` (správa domény j
 - [SEO + sociální kartičky](SEO.md) — co se v produkčním buildu generuje (kanonická URL, sitemap, JSON-LD).
 - [Widget systém](WIDGETS.md) — widgety v markdownu.
 - [Úprava obsahu](EDITING.md) — frontmatter a metadata.
-- [Plán rozvoje](ROADMAP.md) - plán a nápady se vedou v GitHub Issues (mj. [#26 Automatické kontroly před publikací](https://github.com/filipaldi/brnosaires/issues/26) - návrh CI jobu validujícího frontmatter před deployem).
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - plán rozvoje (mj. [#26 Automatické kontroly před publikací](https://github.com/filipaldi/brnosaires/issues/26) - návrh CI jobu validujícího frontmatter před deployem).
 - [Brnos Aires — web](../README.md) — hlavní rozcestník.

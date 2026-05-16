@@ -388,5 +388,5 @@ Před publikací ověř:
 - [WIDGETS.md](WIDGETS.md) — syntaxe a chování `<widget-*>` tagů
 - [publishing.md](publishing.md) — nasazení
 - [setup.md](setup.md) — příprava prostředí
-- [ROADMAP.md](ROADMAP.md) — plán dalších kroků
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - plán dalších kroků
 - [../README.md](../README.md) — hlavní README repozitáře

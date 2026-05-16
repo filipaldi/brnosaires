@@ -239,5 +239,5 @@ Měl by vygenerovat web do adresáře `output/` bez chyb.
 - [Widget systém](WIDGETS.md) – systém widgetů
 - [Lokální testování](local-testing.md) – běh vývojového serveru
 - [Nasazení](publishing.md) – proces nasazení
-- [Plán rozvoje](ROADMAP.md) – plán dalšího vývoje
+- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) – plán a nápady
 - [Brnos Aires — web](../README.md) – hlavní README projektu
