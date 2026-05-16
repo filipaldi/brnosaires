@@ -27,7 +27,7 @@
          aria-label="{{ item.label }}"
          title="{{ item.label }}"
          {% if item.external %}target="_blank" rel="noopener"{% endif %}>
-        <span class="quick-links__icon" aria-hidden="true">{{ item.icon }}</span>
+        <i class="ph {{ item.icon }} quick-links__icon" aria-hidden="true"></i>
       </a>
     {% endif %}
   {% endfor %}

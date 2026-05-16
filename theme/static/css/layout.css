@@ -279,6 +279,12 @@
     inset-block-start: 0;
     inset-block-end: 0;
     inset-inline-end: 0;
+    /* border-box so padding is included in inline-size. With content-box
+       (the default), .padding-all-m adds var(--size-m) on each side outside
+       the inline-size, making the rail's outer width larger than what the
+       grid track reserves — content slides into the gap and ends up under
+       the rail. */
+    box-sizing: border-box;
     inline-size: var(--aside-width, var(--size-3xl));
     max-block-size: 100vh;
     overflow: auto;
@@ -451,7 +457,7 @@
       padding: 0;
     }
     .quick-links__icon {
-      font-size: var(--text-l);
+      font-size: var(--text-xl);
       line-height: 1;
     }
     /* CTA variant — wider text chip for marathon REGISTRATION. */

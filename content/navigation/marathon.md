@@ -1,6 +1,6 @@
 Home, marathon
-DJs, marathon-djs-team, primary, 🎵
-Venue, marathon-venue, primary, 📍
+DJs, marathon-djs-team, primary, ph-music-notes
+Venue, marathon-venue, primary, ph-map-pin
 Gallery, marathon-gallery
 Schedule, marathon-schedule
 Travel, marathon-getting-to-brno
