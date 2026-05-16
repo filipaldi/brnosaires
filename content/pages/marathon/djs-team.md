@@ -13,9 +13,9 @@ Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that he
 <widget-articles
     link="false" 
     category="marathon-djs" 
-    metadata="image title 
-    description" 
-    columns="3" 
+    metadata="image title description" 
+    columns="4"
+    frame="1x1"
     card_size="s">
 </widget-articles>
 

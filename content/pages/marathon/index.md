@@ -25,9 +25,9 @@ We're not just booking someone behind the decks. We're selecting DJs we've dance
 <widget-articles
     link="false" 
     category="marathon-djs" 
-    metadata="image title 
-    description" 
-    columns="3" 
+    metadata="image title description" 
+    columns="4"
+    frame="1x1"
     card_size="s">
 </widget-articles>
 

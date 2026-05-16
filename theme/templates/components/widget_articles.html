@@ -8,6 +8,7 @@
 ) %}
 {% set fields = (cfg.metadata or 'title description').split() %}
 {% set link_enabled = cfg.link is none or (cfg.link | lower) not in ['false', 'no', '0'] %}
+{% set frame = (cfg.frame or '16x9') | replace(':', 'x') %}
 
 {% if items %}
 <div class="widget-articles">
@@ -16,7 +17,7 @@
     {% if link_enabled %}
     <a href="{{ item.article.slug }}/" class="aesthetic-card card-{{ cfg.card_size | default('m') }}">
       {% if 'image' in fields and item.article.preview_image %}
-      <div class="el-frame-16x9">
+      <div class="el-frame-{{ frame }}">
         <img src="{{ item.article.preview_image.lstrip('/') }}" alt="{{ item.article.preview_image_alt|default(item.article.title) }}" />
       </div>
       {% endif %}
@@ -37,7 +38,7 @@
     {% else %}
     <div class="aesthetic-card card-{{ cfg.card_size | default('m') }}">
       {% if 'image' in fields and item.article.preview_image %}
-      <div class="el-frame-16x9">
+      <div class="el-frame-{{ frame }}">
         <img src="{{ item.article.preview_image.lstrip('/') }}" alt="{{ item.article.preview_image_alt|default(item.article.title) }}" />
       </div>
       {% endif %}

@@ -282,6 +282,7 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 - `limit="3"` (volitelné) - Omezí počet položek (`"3"`, `"all"`, `"last 3"`)
 - `columns="3"` (volitelné) - Počet sloupců gridu (používá `.el-grid-N`)
 - `metadata="description location"` (volitelné) - Seznam dalších metadat k zobrazení, oddělený mezerou
+- `frame="1x1"` (volitelné) - Poměr stran rámečku náhledového obrázku. Hodnoty: `1x1`, `4x3`, `16x9`, `2x1`, `3x1`. Výchozí: `16x9`. Tolerován i zápis s dvojtečkou (`1:1`).
 
 **Příklady:**
 ```html
@@ -339,6 +340,7 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 | `metadata` | string | Ne | `"title description image location"` | Pole k zobrazení, oddělená mezerou (výchozí: `title description`) |
 | `card_size` | string | Ne | `s`, `m`, `l` | Velikost kartičky: malá, střední (výchozí), velká |
 | `link` | string | Ne | `true`, `false`, `yes`, `no`, `0` | Jestli každá kartička linkuje na článek; výchozí je linkování. `false`/`no`/`0` vyrenderují kartičky bez prokliku. |
+| `frame` | string | Ne | `1x1`, `4x3`, `16x9`, `2x1`, `3x1` | Poměr stran rámečku obrázku (výchozí: `16x9`). Tolerován i zápis `1:1`. |
 
 **Pravidla:**
 - `days` a `start`/`end` se u `widget-calendar` vzájemně vylučují
