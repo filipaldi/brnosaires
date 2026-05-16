@@ -51,7 +51,7 @@ Všechny dokumenty jsou česky. Krátké shrnutí toho, kde se co dočteš:
 | [Nastavení vývojového prostředí](docs/setup.md) | Vývojáři | Příprava lokálního prostředí (Python, virtualenv, závislosti, struktura projektu). |
 | [Lokální testování](docs/local-testing.md) | Vývojáři | Spuštění lokálního serveru, port 41234, náhled na telefonu, ladění buildu, testování widgetů a šablon. |
 | [Nasazení](docs/publishing.md) | Vývojáři | Jak se web nasazuje (GitHub Actions → GitHub Pages, automatický build dvakrát denně). |
-| [Plán rozvoje](docs/ROADMAP.md) | Všichni | Plánované funkce, známé chyby, úklidové úkoly, hotové milníky. |
+| [Plán rozvoje](docs/ROADMAP.md) | Všichni | Rozcestník na GitHub Issues - plánované funkce, nápady a bugy. |
 
 ## Pracovní postup pro editory (ve zkratce)
 
@@ -95,5 +95,5 @@ Detail jednotlivých složek a souborů: [Nastavení vývojového prostředí](d
 
 ## Související
 
-- **Plán a hotové milníky:** [Plán rozvoje](docs/ROADMAP.md)
+- **Plán rozvoje a nápady:** [Plán rozvoje](docs/ROADMAP.md) (vede se v GitHub Issues)
 - **Návod pro Claude Code agenty:** [.claude/CLAUDE.md](.claude/CLAUDE.md) (jen pro vývojáře pracující s agenty)

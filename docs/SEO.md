@@ -51,8 +51,6 @@ Web má anglickou verzi pod prefixem `/en/`. Čeština (výchozí jazyk, `DEFAUL
 
 **Přepínač jazyka** ([theme/templates/components/lang_switcher.html](../theme/templates/components/lang_switcher.html)): `CS · EN` v hlavičce; aktuální jazyk je inertní, druhý odkazuje na překladový protějšek této stránky (nebo `/` ↔ `/en/` pro homepage). Na marathon stránkách se úplně vynechává. Malý progressive-enhancement skript v `base.html` si zvolený jazyk pamatuje v `localStorage` a na holém root pathu redirectuje na `/en/`, pokud bylo dřív zvoleno `en` — odkazy fungují fajn i bez JS.
 
-**Poznámka k patičce:** patička je aktuálně česká i na `/en/` stránkách. Její anglická varianta je součástí samostatné položky „rework the footer" v [Plánu rozvoje](ROADMAP.md), tady se neřeší.
-
 Editorská verze tohoto všeho (pojmenování `.en.md`, co kam psát): [Úprava obsahu → Jazykové verze](EDITING.md).
 
 ## Opakující se akce: hub stránky
@@ -145,7 +143,7 @@ Schema.org JSON-LD se emituje server-side (je to statický web — není tu JS, 
 
 | `@type` | Kde | Poznámky |
 |---|---|---|
-| `Event` | [article.html](../theme/templates/article.html), gated na `event-start` | `name`, `description`, `startDate`/`endDate` (ISO8601 přes filtr `event_iso8601`), `eventStatus`, `eventAttendanceMode` (offline), `location` (viz `event_address` níže), `organizer`, `performer`, `image`, `url`, `@id` (`<canonical>#event`). Pro instanci se `series:`: `superEvent` → `EventSeries` ukazující na hub, a `url`/`@id` se resolvujou na hub (stejné pravidlo jako `<link rel=canonical>`). `offers` (`@type` Offer, `price`/`priceCurrency` CZK/`availability`) je **gated na pole `entry:` ve frontmatteru** — žádná akce ho ještě nemá (je to ROADMAP položka), takže blok je dormantní; `isAccessibleForFree: true` když je `entry` „zdarma"/„free"/„0"/„dobrovolné". |
+| `Event` | [article.html](../theme/templates/article.html), gated na `event-start` | `name`, `description`, `startDate`/`endDate` (ISO8601 přes filtr `event_iso8601`), `eventStatus`, `eventAttendanceMode` (offline), `location` (viz `event_address` níže), `organizer`, `performer`, `image`, `url`, `@id` (`<canonical>#event`). Pro instanci se `series:`: `superEvent` → `EventSeries` ukazující na hub, a `url`/`@id` se resolvujou na hub (stejné pravidlo jako `<link rel=canonical>`). `offers` (`@type` Offer, `price`/`priceCurrency` CZK/`availability`) je **gated na pole `entry:` ve frontmatteru** — žádná akce ho ještě nemá (vedeno jako [issue](https://github.com/filipaldi/brnosaires/issues)), takže blok je dormantní; `isAccessibleForFree: true` když je `entry` „zdarma"/„free"/„0"/„dobrovolné". |
 | `EventSeries` | [page.html](../theme/templates/page.html), na hub stránce se `series:` | `name`, `description`, `url`, `image`, `location` (Brno) a `subEvent` — každá budoucí instance jako minimální `Event`. Dělá z hubu jedinou strukturovanou plochu pro „všechny budoucí termíny série \<series\>". |
 | `ItemList` | [page.html](../theme/templates/page.html), na `/tango-kalendar-brno/` (matchováno podle `page.slug`) a na každé měsíční stránce (vlajka `month:`) | `itemListElement` → `ListItem` → `Event`. Kalendářní list je dalších ≤50 nadcházejících akcí; měsíční list jsou milongy/praktiky/neolongy daného měsíce. Oba postavené ze stejného `calendarium(...)` dotazu, jaký používá viditelný widget, takže data nemohou driftovat od toho, co je vyrenderované. |
 | `FAQPage` | [page.html](../theme/templates/page.html), na `/tango-pro-zacatecniky-brno/` (stránka [E2 glossary](EDITING.md)) | `mainEntity` → `Question`/`acceptedAnswer`, parsované z Markdownu stránky ve formátu `**Otázka?**` + odstavec odpovědi přes Jinja filtr `faq_pairs` (jen `<p><strong>…?</strong> …</p>` bloky, jejichž tučný text končí `?` — běžný tučný text v těle se ignoruje). FAQ se přidává/edituje editováním sekce „Časté otázky" té stránky; nic jiného není potřeba. |
@@ -168,5 +166,5 @@ Malý řádek „Poprvé na milonze? [Mrkni, jak na to.](…)" pod hlavičkou ak
 - [local-testing.md](local-testing.md) — lokální dev server, port 41234, phone preview.
 - [publishing.md](publishing.md) — deploy přes GitHub Actions na GitHub Pages.
 - [setup.md](setup.md) — first-time setup repozitáře a venv.
-- [ROADMAP.md](ROADMAP.md) — co je naplánováno a co je hotovo.
+- [ROADMAP.md](ROADMAP.md) - rozcestník na GitHub Issues.
 - [../README.md](../README.md) — hlavní průvodce pro editory: pracovní postup, struktura souboru akce, widgety, obrázky.
