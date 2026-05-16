@@ -337,7 +337,6 @@
     scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    touch-action: pan-x;
     /* Reserve room for two stacked labels above the row:
        week-name (top, large) + day-name (below it, small). Desktop
        padding-top isn't enough for both on mobile. */
@@ -451,7 +450,6 @@
     scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    touch-action: pan-x;
   }
   .calendar .el-cluster:is(.day, .week, .month) {
     padding-top: var(--size-l);
@@ -529,7 +527,6 @@
     scroll-padding-inline: var(--size-m);
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    touch-action: pan-x;
   }
   .el-cluster:has(.event):not(.calendar *)::before {
     content: "";
