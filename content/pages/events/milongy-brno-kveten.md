@@ -13,8 +13,7 @@ Květen v Brně bývá nabitý — víkendy, festivaly, milongy skoro každý ve
     month="5"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

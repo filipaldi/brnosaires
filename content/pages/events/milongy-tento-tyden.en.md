@@ -12,11 +12,10 @@ preview_image: /images/milonga-hned-vedle.avif
 
 This week tango is danced in Brno here: below are all the Argentine tango dance floors in Brno and nearby for the days ahead, with venue and time. Enjoy, and dance.
 
-<widget-calendar 
-    filter_by_type="milonga praktika" 
-    days="8" 
-    hide_empty_days="true" 
-    card_size="s">
+<widget-calendar
+    filter_by_type="milonga praktika"
+    days="8"
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link 

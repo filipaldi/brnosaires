@@ -35,7 +35,10 @@ CALENDAR_DEFAULTS = {
     'group_by': None,
     'headers': None,
     'hide_empty_days': False,
-    'card_size': 's',
+    'card_mode': 'solid',
+    'card_width': 's',
+    'text_size': 's',
+    'image_ratio': '1x1',
 }
 
 ATTR_PATTERN = re.compile(r'(\w+)="([^"]*)"')

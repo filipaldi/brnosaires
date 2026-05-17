@@ -20,25 +20,26 @@ Teachers from Vienna, a concert milonga with live music, and workshops for every
 ## Programme
 
 ### Milongas
-<widget-calendar 
-    filter_by_type="milonga" 
-    start="2026-05-22" 
-    end="2026-05-24" 
-    group_by="day" 
-    headers="day" 
+<widget-calendar
+    filter_by_type="milonga"
+    start="2026-05-22"
+    end="2026-05-24"
+    group_by="day"
+    headers="day"
     hide_empty_days="true"
-    card_size="s">
+    card_mode="scaling"
+    card_width="m">
 </widget-calendar>
 
 ### Workshops
-<widget-calendar 
-    filter_by_type="workshop" 
-    start="2026-05-22" 
-    end="2026-05-24" 
-    group_by="day" 
-    headers="day" 
+<widget-calendar
+    filter_by_type="workshop"
+    start="2026-05-22"
+    end="2026-05-24"
+    group_by="day"
+    headers="day"
     hide_empty_days="true"
-    card_size="s">
+    card_width="m">
 </widget-calendar>
 
 ## Organisers

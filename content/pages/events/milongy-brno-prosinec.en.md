@@ -14,8 +14,7 @@ Before the holidays there's still room for a few milongas — maybe a New Year's
     month="12"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

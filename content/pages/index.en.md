@@ -22,11 +22,10 @@ Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tan
 
 ## Milongas in Brno this week
 
-<widget-calendar 
-    start="this-week" 
+<widget-calendar
+    start="this-week"
     filter_by_type="milonga praktika"
-    days="7"
-    card_size="s">
+    days="7">
 </widget-calendar>
 
 <widget-calendar-link 
@@ -49,17 +48,15 @@ Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tan
 
 
 ## Next classes
-<widget-calendar 
-    start="today" 
-    filter_by_type="class" 
-    card_size="s"
+<widget-calendar
+    start="today"
+    filter_by_type="class"
     days="2">
 </widget-calendar>
 
 ## Next workshops
-<widget-calendar 
-    filter_by_type="workshop" 
-    card_size="s" 
+<widget-calendar
+    filter_by_type="workshop"
     days="60">
 </widget-calendar>
 

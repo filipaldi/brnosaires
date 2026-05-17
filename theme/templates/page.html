@@ -100,11 +100,12 @@
         {% endif %}
       {% endfor %}
       {% if series_events %}
-      <div class="el-cluster" role="list">
-        {% set card_size = 'm' %}
-        {% for event in series_events %}
-          {% include 'components/event_card.html' %}
-        {% endfor %}
+      <div class="calendar" data-card-mode="solid" data-card-width="m" data-text-size="s" data-group-by="none">
+        <section class="week">
+          <div class="day" role="list">
+            {% for event in series_events %}{% include 'components/event_card.html' %}{% endfor %}
+          </div>
+        </section>
       </div>
       {% else %}
       <p>{{ 'no_upcoming_dates' | t(page_lang) }}</p>

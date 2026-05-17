@@ -13,8 +13,7 @@ Prázdninové tempo — milongy se stěhují ven a večery se protahují. Níže
     month="7"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

@@ -14,8 +14,7 @@ May in Brno tends to be packed — weekends, festivals, milongas almost every ni
     month="5"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

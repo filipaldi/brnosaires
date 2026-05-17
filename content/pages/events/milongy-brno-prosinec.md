@@ -13,8 +13,7 @@ Před svátky se ještě stihne pár milong — a možná i silvestrovská tanč
     month="12"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

@@ -30,14 +30,15 @@ Brand new to this? Start by reading [what a milonga, praktika and class are, and
 
 Three schools run regular classes in Brno, each with its own approach: Taneční studio Stolárna, TangoLab Štěky, and Gabriela & Petr Nečasovi.
 
-<widget-calendar 
-    start="this-week" 
-    filter_by_type="class" 
-    days="6" 
-    sort="oldest" 
-    group_by="week day" 
-    headers="day" 
-    card_size="xs" 
+<widget-calendar
+    start="this-week"
+    filter_by_type="class"
+    days="6"
+    sort="oldest"
+    group_by="week day"
+    headers="day"
+    card_width="xs"
+    text_size="xs"
     hide_empty_days="true">
 </widget-calendar>
 
@@ -45,9 +46,8 @@ Three schools run regular classes in Brno, each with its own approach: Taneční
 
 For when you want something the regular classes do not give you.
 
-<widget-calendar 
-    filter_by_type="workshop" 
-    card_size="s" 
+<widget-calendar
+    filter_by_type="workshop"
     days="60">
 </widget-calendar>
 
