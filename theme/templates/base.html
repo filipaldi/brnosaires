@@ -88,10 +88,26 @@
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/components.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/pages.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
 
   {% block head %}{% endblock %}
 </head>
 <body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if _is_marathon %}marathon{% endif %}">
+  {# Resolve the right nav slot once so the rail, the phone top-chip menu,
+     and the phone quick-link stack all pull from the same source.
+     nav_items['marathon'] is a flat list; nav_items['main'] is
+     {cs: [...], en: [...]}. #}
+  {% if _is_marathon %}
+    {% set nav_slot = 'Marathon' %}
+    {% set nav_aria = 'marathon_navigation' | t(page_lang) %}
+    {% set _raw_nav = nav_items.get('marathon', []) %}
+  {% else %}
+    {% set nav_slot = 'Main' %}
+    {% set nav_aria = 'main_navigation' | t(page_lang) %}
+    {% set _raw_nav = nav_items.get('main', {}) %}
+  {% endif %}
+  {% set nav_list = _raw_nav.get(page_lang, _raw_nav.get('cs', [])) if _raw_nav is mapping else _raw_nav %}
+
   <div class="layout-with-aside">
     <div class="el-stack stack-l">
       <main role="main" class="padding-all-m padding-top-l">
@@ -99,26 +115,58 @@
       </main>
       {% include 'components/footer.html' %}
     </div>
+    {# Desktop / tablet rail (≥ 813 px). CSS hides it on phone (≤ 812 px),
+       where the phone top-chip + quick-links below take over. #}
     <aside class="layout-aside padding-all-m el-stack stack-l align-end el-imposter-aside" role="complementary">
       {% if _is_marathon %}
-      {% set nav_slot = 'Marathon' %}
-      {% set nav_aria = 'marathon_navigation' | t(page_lang) %}
-      {% include 'components/navigation.html' %}
+        {% include 'components/navigation.html' %}
       {% else %}
-      <a href="" class="logo text-xl">{{ SITENAME }}</a>
-      {% set nav_slot = 'Main' %}
-      {% set nav_aria = 'main_navigation' | t(page_lang) %}
-      {% include 'components/navigation.html' %}
-      {% if not _no_translate %}{% include 'components/lang_switcher.html' %}{% endif %}
+        <a href="" class="logo text-xl">{{ SITENAME }}</a>
+        {% include 'components/navigation.html' %}
+        {% if not _no_translate %}{% include 'components/lang_switcher.html' %}{% endif %}
       {% endif %}
     </aside>
   </div>
+
+  {# Phone-only top-right "double chip": wordmark + ••• menu toggle.
+     CSS hides it on tablet/desktop where the rail is visible. #}
+  <header class="top-chip" role="banner">
+    <a href="" class="top-chip__brand">{{ SITENAME }}</a>
+    <details class="top-chip__menu" id="top-chip-menu">
+      <summary class="top-chip__more" aria-label="{{ 'open_menu' | t(page_lang) }}">•••</summary>
+      <div class="top-chip__panel" role="dialog" aria-modal="false" aria-label="{{ nav_aria }}">
+        {% include 'components/navigation.html' %}
+        {% if not _is_marathon and not _no_translate %}
+          {% include 'components/lang_switcher.html' %}
+        {% endif %}
+      </div>
+    </details>
+  </header>
+
+  {# Phone-only quick-link stack (fixed bottom-right).
+     CSS hides it on tablet/desktop. Renders chips for items where
+     primary=true, using the icon column from content/navigation/*. #}
+  {% include 'components/quick_links.html' %}
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (document.querySelector('.glightbox')) {
         GLightbox({ selector: '.glightbox' });
+      }
+
+      // Close the top-chip <details> menu when the user clicks outside it,
+      // or when they pick a link inside it. <details> handles toggle-on-summary
+      // and Esc natively; this just covers click-elsewhere-to-dismiss.
+      var menu = document.getElementById('top-chip-menu');
+      if (menu) {
+        document.addEventListener('click', function (event) {
+          if (!menu.open) return;
+          if (!menu.contains(event.target)) menu.open = false;
+        });
+        menu.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () { menu.open = false; });
+        });
       }
 
       document.querySelectorAll('a[data-copy-url]').forEach(function (link) {

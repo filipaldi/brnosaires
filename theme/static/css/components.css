@@ -127,30 +127,6 @@
 
 
 /* ============================================
-   PAGE NAV RAIL (.layout-aside)
-   ----------------------------------------
-   The aside is a position:fixed rail pinned to the right edge of every
-   page (see .el-imposter-aside in layout.css). Its box — including the
-   empty space between/around the chips — would otherwise be a solid
-   hit-test surface that swallows taps aimed at page content sitting
-   behind it (e.g. calendar cards on the right strip on phones). Make the
-   rail's *container* transparent to pointer events; the chips and the
-   wordmark stay clickable. A tap on a chip navigates as before; a tap on
-   the empty rail space passes through to whatever is behind it. Purely a
-   hit-testing change — no visual/layout effect.
-   ============================================ */
-
-.layout-aside,
-.layout-aside nav {
-  pointer-events: none;
-}
-
-.layout-aside a {
-  pointer-events: auto;
-}
-
-
-/* ============================================
    CALENDAR (v2 — self-contained component, mobile-first)
    See plan: /Users/flp/.claude/plans/calendar-component-refactor.md
    ============================================ */
@@ -343,6 +319,59 @@
 }
 .calendar[data-text-size="m"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry) {
   font-size: var(--text-m);
+}
+
+/* Series-hub clusters live outside .calendar — apply same mobile pattern,
+   including the break-out from <main>'s gutter (it can't ride on .calendar's
+   negative margin, so it gets its own). */
+@media (max-width: 40rem) {
+  .el-cluster:has(.event):not(.calendar *) {
+    margin-inline: calc(-1 * var(--size-m));
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    gap: var(--size-s);
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    scroll-padding-inline: var(--size-m);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .el-cluster:has(.event):not(.calendar *)::before {
+    content: "";
+    flex: 0 0 var(--size-m);
+    align-self: stretch;
+    scroll-snap-align: none;
+    pointer-events: none;
+  }
+  .el-cluster:has(.event):not(.calendar *)::-webkit-scrollbar {
+    display: none;
+  }
+  .el-cluster:has(.event):not(.calendar *) > .event,
+  .el-cluster:has(.event):not(.calendar *) > [class*="card-"] {
+    flex: 0 0 70vw;
+    inline-size: 70vw;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .el-cluster:has(.event):not(.calendar *) > .event:last-child,
+  .el-cluster:has(.event):not(.calendar *) > [class*="card-"]:last-child {
+    margin-inline-end: 30vw;
+  }
+  .el-cluster:has(.event):not(.calendar *) .el-frame-16x9 {
+    --n: 1;
+    --d: 1;
+    aspect-ratio: 1 / 1;
+  }
+  .el-cluster:has(.event):not(.calendar *) .event h3 {
+    font-size: var(--text-l);
+    line-height: var(--size-m);
+  }
+  .el-cluster:has(.event):not(.calendar *) .event p {
+    font-size: var(--text-s);
+    line-height: var(--size-s);
+  }
 }
 
 /* ============================================
