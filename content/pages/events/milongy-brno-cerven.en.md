@@ -12,8 +12,8 @@ Tango summer begins: open-air milongas, praktica in the park, live music. Below 
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="6"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

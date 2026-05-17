@@ -12,8 +12,8 @@ May in Brno tends to be packed — weekends, festivals, milongas almost every ni
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="5"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

@@ -11,8 +11,8 @@ Po Novém roce se parket rozjíždí pomalu, ale jistě — ideální měsíc za
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="1"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

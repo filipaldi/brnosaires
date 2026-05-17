@@ -12,8 +12,8 @@ Before the holidays there's still room for a few milongas — maybe a New Year's
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="12"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

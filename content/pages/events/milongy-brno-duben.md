@@ -11,8 +11,8 @@ Dubnové milongy už lákají i na první večery pod širým nebem. Níže najd
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="4"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

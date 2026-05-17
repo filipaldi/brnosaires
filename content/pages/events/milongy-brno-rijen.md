@@ -11,8 +11,8 @@ preview_image: /images/milonga-hned-vedle.avif
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="10"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

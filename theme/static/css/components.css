@@ -150,11 +150,16 @@
 }
 
 .calendar .week-name {
-  font-size: var(--text-s);
-  line-height: var(--size-s);
+  font-size: var(--text-m);
+  line-height: var(--size-m);
   font-weight: var(--font-weight-medium);
   margin-block-end: var(--size-xs);
   padding-inline-start: var(--size-m);
+}
+
+.calendar .week-name.row-headline:has(+ .week .day-name) {
+  font-size: var(--text-l);
+  line-height: var(--size-l);
 }
 
 .calendar .month-name {
@@ -166,21 +171,16 @@
 }
 
 .calendar .day-name {
-  position: absolute;
-  inset-block-start: calc(-1 * var(--size-l));
-  inset-inline-start: var(--size-s);
-  font-size: var(--text-s);
-  line-height: var(--size-s);
+  font-size: var(--text-m);
+  line-height: var(--size-m);
   font-weight: var(--font-weight-medium);
   white-space: nowrap;
-  pointer-events: none;
+  margin-block-end: var(--size-xs);
 }
 
 .calendar .row-headline {
-  position: static;
   padding-inline-start: var(--size-m);
   margin-block-end: var(--size-xs);
-  pointer-events: auto;
 }
 
 .calendar .week + .row-headline {
@@ -213,7 +213,7 @@
 
 .calendar .week::before {
   content: "";
-  flex: 0 0 var(--size-m);
+  flex: 0 0 calc(var(--size-m) - var(--size-s));
   align-self: stretch;
   scroll-snap-align: none;
   pointer-events: none;

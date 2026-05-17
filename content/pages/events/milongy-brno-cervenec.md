@@ -11,8 +11,8 @@ Prázdninové tempo — milongy se stěhují ven a večery se protahují. Níže
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="7"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

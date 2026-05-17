@@ -12,8 +12,8 @@ After the holidays the community returns — September is the season's restart. 
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="9"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

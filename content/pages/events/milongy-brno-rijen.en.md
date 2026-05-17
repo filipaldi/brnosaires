@@ -12,8 +12,8 @@ October milongas run at full tilt, the floor is full again. Below you'll find ev
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="10"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 

@@ -12,8 +12,8 @@ August belongs to summer dance floors and the tail of tango summer. Below you'll
 <widget-calendar
     filter_by_type="milonga praktika neolonga"
     month="8"
-    group_by="day"
-    headers="day"
+    group_by="week day"
+    headers="week day"
     hide_empty_days="true">
 </widget-calendar>
 
