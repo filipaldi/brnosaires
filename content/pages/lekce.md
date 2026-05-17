@@ -29,14 +29,15 @@ Kde se učit tango v Brně? Kurzy tanga pro začátečníky i rozvrh pravidelný
 
 V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní přístup: Taneční studio Stolárna, TangoLab Štěky, Gabriela a Petr Nečasovi.
 
-<widget-calendar 
-    start="this-week" 
-    filter_by_type="class" 
-    days="6" 
-    sort="oldest" 
-    group_by="week day" 
-    headers="day" 
-    card_size="xs" 
+<widget-calendar
+    start="this-week"
+    filter_by_type="class"
+    days="6"
+    sort="oldest"
+    group_by="week day"
+    headers="day"
+    card_width="xs"
+    text_size="xs"
     hide_empty_days="true">
 </widget-calendar>
 
@@ -44,9 +45,8 @@ V Brně organizují pravidelné lekce tři školy, každá má svůj unikátní 
 
 Když chceš zažít neco co na pravidelních lekcích nenajdeš.
 
-<widget-calendar 
-    filter_by_type="workshop" 
-    card_size="s" 
+<widget-calendar
+    filter_by_type="workshop"
     days="60">
 </widget-calendar>
 

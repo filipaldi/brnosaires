@@ -13,8 +13,7 @@ Dubnové milongy už lákají i na první večery pod širým nebem. Níže najd
     month="4"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

@@ -24,14 +24,13 @@ Nevíš, co je milonga nebo praktika a kde s tangem začít? [Mrkni sem](/tango-
 </widget-calendar-link>
 
 
-<widget-calendar 
-    start="this-week" 
-    group_by="week day" 
-    headers="week day" 
-    filter_by_type="milonga praktika workshop" 
+<widget-calendar
+    start="this-week"
+    group_by="week day"
+    headers="week day"
+    filter_by_type="milonga praktika workshop"
     days="120"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 **Milongy po měsících:** [leden](/milongy-brno-leden/) · [únor](/milongy-brno-unor/) · [březen](/milongy-brno-brezen/) · [duben](/milongy-brno-duben/) · [květen](/milongy-brno-kveten/) · [červen](/milongy-brno-cerven/) · [červenec](/milongy-brno-cervenec/) · [srpen](/milongy-brno-srpen/) · [září](/milongy-brno-zari/) · [říjen](/milongy-brno-rijen/) · [listopad](/milongy-brno-listopad/) · [prosinec](/milongy-brno-prosinec/)

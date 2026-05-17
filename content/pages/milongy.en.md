@@ -24,14 +24,13 @@ Argentine tango dance floors in Brno, regular and one-off. Plan your calendar fo
 </widget-calendar-link>
 
 
-<widget-calendar 
-    start="this-week" 
-    group_by="week day" 
-    headers="week day" 
-    days="40" 
-    filter_by_type="milonga praktika" 
-    hide_empty_days="true"
-    card_size="s">
+<widget-calendar
+    start="this-week"
+    group_by="week day"
+    headers="week day"
+    days="40"
+    filter_by_type="milonga praktika"
+    hide_empty_days="true">
 </widget-calendar>
 
 **Milongas month by month:** [January](/en/milongy-brno-leden/) · [February](/en/milongy-brno-unor/) · [March](/en/milongy-brno-brezen/) · [April](/en/milongy-brno-duben/) · [May](/en/milongy-brno-kveten/) · [June](/en/milongy-brno-cerven/) · [July](/en/milongy-brno-cervenec/) · [August](/en/milongy-brno-srpen/) · [September](/en/milongy-brno-zari/) · [October](/en/milongy-brno-rijen/) · [November](/en/milongy-brno-listopad/) · [December](/en/milongy-brno-prosinec/)

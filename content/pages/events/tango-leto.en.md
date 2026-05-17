@@ -12,7 +12,11 @@ preview_image: /images/srpen_tango.avif
 
 In summer, Brno dances! Open-air milongas, open-air praktikas, tango with live music, a festival of Argentine culture. Tango is alive in summer, and so are you.
 
-<widget-calendar filter_by_type="milonga" start="2026-06-01" end="2026-08-31"></widget-calendar>
+<widget-calendar
+    filter_by_type="milonga"
+    start="2026-06-01"
+    end="2026-08-31">
+</widget-calendar>
 
 
 <widget-calendar-link 

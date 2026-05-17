@@ -132,7 +132,9 @@ Zobrazuje filtrované seznamy akcí z [`content/events/`](../content/events/).
 - `group_by="day|week|month|week day"` (volitelné) - Seskupí akce do řádků s nadpisem pro každou skupinu. Jedna hodnota (např. `"week"`) = ploché seskupení. Tokeny oddělené mezerou (např. `"week day"`) = vnořené seskupení s 7sloupcovým gridem (první token = vnější/řádky, druhý token = vnitřní/sloupce). Když je nastaveno, zobrazí se jen neprázdné skupiny; řazení je chronologické (nejdřív nejstarší) mezi skupinami i uvnitř nich.
 - `headers="week|day|week day"` (volitelné) - Zobrazí hlavičky skupin. Výchozí: hlavičky skryté. Hodnoty: `"week"` (jen týdenní hlavičky), `"day"` (jen denní hlavičky), `"week day"` (obojí). Funguje jen když je nastaveno `group_by`.
 - `hide_empty_days="true"` (volitelné) - Skryje prázdné denní sloupce v gridu week-day. Výchozí: false (všech 7 dnů se vykreslí). Funguje jen když je `group_by="week day"`.
-- `card_size="xs|s|m|l"` (volitelné) - Velikost kartiček akcí. Výchozí: `s` (malá). Hodnoty: `xs` (extra malá), `s` (malá), `m` (střední), `l` (velká).
+- `card_mode="solid|scaling"` (volitelné) - Režim šířky karty. Výchozí: `solid` (fixní šířka podle tokenu, stejně velká kartička napříč webem). `scaling` = šířka jako zlomek kontejneru (peek další karty jako swipe affordance). Většinou nech `solid`.
+- `card_width="xs|s|m|l"` (volitelné) - Velikost kartičky v rámci zvoleného režimu. V `solid` režimu: token velikosti (`xs` ≈ 180px, `s` ≈ 240px (výchozí), `m` ≈ 320px, `l` ≈ 400px). V `scaling` režimu: zlomek kontejneru (`s` = 50%, `m` = 70% (výchozí), `l` = 90%).
+- `text_size="xs|s|m"` (volitelné) - Velikost textu uvnitř karty. Výchozí: `s`. Mění typografii (velikost písma, řádkování), neovlivňuje layout. Hodí se kombinovat s `card_width` nezávisle (např. malé karty s ještě menším textem: `card_width="xs" text_size="xs"`).
 
 **Filtrování podle data:**
 - `days="7"` = příštích 7 dnů od dneška
@@ -180,11 +182,14 @@ Zobrazuje filtrované seznamy akcí z [`content/events/`](../content/events/).
 <!-- Events in week-day grid, hiding empty days -->
 <widget-calendar start="this-week" group_by="week day" days="14" headers="day" hide_empty_days="true"></widget-calendar>
 
-<!-- Events with medium-sized cards -->
-<widget-calendar filter_by_type="milonga" days="7" card_size="m"></widget-calendar>
+<!-- Events with medium-sized solid cards (the editorial default) -->
+<widget-calendar filter_by_type="milonga" days="7" card_width="m" text_size="m"></widget-calendar>
 
-<!-- Events with large-sized cards -->
-<widget-calendar filter_by_type="workshop" days="30" card_size="l"></widget-calendar>
+<!-- Events with large-sized solid cards -->
+<widget-calendar filter_by_type="workshop" days="30" card_width="l" text_size="m"></widget-calendar>
+
+<!-- Phone-style swipe reel with peek of next card (scaling mode) -->
+<widget-calendar filter_by_type="milonga" days="7" card_mode="scaling" card_width="m"></widget-calendar>
 ```
 
 **Seskupení (`group_by`):**
@@ -326,7 +331,9 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 | `group_by` | string | Ne | `day`, `week`, `month`, `week day` | Seskupit akce do řádků |
 | `headers` | string | Ne | `week`, `day`, `week day` | Zobrazit hlavičky skupin (výchozí: skryté) |
 | `hide_empty_days` | boolean | Ne | `true`, `false` | Skrýt prázdné denní sloupce v gridu week-day |
-| `card_size` | string | Ne | `xs`, `s`, `m`, `l` | Velikost kartičky (výchozí: `s`) |
+| `card_mode` | string | Ne | `solid`, `scaling` | Režim šířky karty (výchozí: `solid` — fixní, konzistentní napříč webem). `scaling` = zlomek kontejneru (swipe reel s peek). |
+| `card_width` | string | Ne | `xs`, `s`, `m`, `l` | Velikost karty v rámci `card_mode`. V solid: token velikosti. V scaling: zlomek kontejneru (50/70/90 %). Výchozí: `s` (solid). |
+| `text_size` | string | Ne | `xs`, `s`, `m` | Velikost textu v kartě (výchozí: `s`). Mění typografii, neovlivňuje layout. |
 
 ### Atributy widget-articles
 

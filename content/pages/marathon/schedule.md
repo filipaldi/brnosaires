@@ -12,7 +12,14 @@ author: Filip Paldia
 
 In Buenos Aires, they dance all night while reasonable Europeans sleep. We love tango, but we also love waking up without regret. So we built a marathon that won't destroy you.
 
-<widget-calendar filter_by_type="milonga" start="2026-10-16" end="2026-10-18" group_by="week day" headers="day" hide_empty_days="true"></widget-calendar>
+<widget-calendar
+    filter_by_type="milonga"
+    start="2026-10-16"
+    end="2026-10-18"
+    group_by="week day"
+    headers="day"
+    hide_empty_days="true">
+</widget-calendar>
 
 
 ## No Scheduled Pauses,<br> Civilised Hours

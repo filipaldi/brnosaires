@@ -13,8 +13,7 @@ Srpen patří letním tančírnám a doznívajícímu tango létu. Níže najde�
     month="8"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

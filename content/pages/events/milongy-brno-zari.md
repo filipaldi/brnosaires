@@ -13,8 +13,7 @@ Po prázdninách se komunita vrací — září je restart sezóny. Níže najde
     month="9"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

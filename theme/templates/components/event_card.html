@@ -1,37 +1,22 @@
-{% set card_size = card_size or 's' %}
-{# Link to the event's own URL, not "{slug}/": the latter is resolved against
-   the site root via <base href> (prod) or breaks on sub-pages (dev), so on an
-   /en/ page it would still land on the Czech event. event.url is "en/<slug>/"
-   for an English event object, "<slug>/" for a Czech one — and the calendar
-   widget hands this template the English event on /en/ pages. The
-   "{{ SITEURL }}/{{ ... }}" shape is the link pattern used throughout base.html. #}
-<a href="{{ SITEURL }}/{{ event.url }}" class="event aesthetic-card card-{{ card_size }}" role="listitem">
+<a href="{{ SITEURL }}/{{ event.url }}" class="event-card" role="listitem">
   {% if event.preview_image %}
-  <div class="el-frame-16x9">
+  <div class="event-card__image el-frame-{{ image_ratio | default('1x1', true) }}">
     <img src="{{ SITEURL }}/{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
   </div>
   {% endif %}
-  <div>
-    <h3>{{ event.title }}</h3>
-    {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
-    {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
-    {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-    {% set event_location = event.metadata.get('event-location') if event.metadata else none %}
-    {% set event_entry = event.metadata.get('entry') if event.metadata else none %}
-    {% if event_start %}
-      {# Date in the page's locale (cs: "16. 05. 2026", en: "16 May 2026").
-         event_start carries a time, but we want date-only here, so build a
-         midnight-equivalent value via .date() before formatting. page_lang is
-         defaulted in case this card is included from a context that doesn't
-         set it (it's the template-level set in page.html and injected into the
-         widget render context by widget_processor.py — but be defensive). #}
-      <p>{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>
-      {% set event_time_str = event_start.strftime('%H:%M') %}
-      {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
-      {% if event_time_str %}<p>{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
-    {% endif %}
-    {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
-    {% if event_location %}<p>{{ event_location }}</p>{% endif %}
-    {% if event_entry %}<p class="text-s color-neutral-3">{{ 'event_entry_label' | t(page_lang | default('cs', true)) }} {{ event_entry }}</p>{% endif %}
-  </div>
+  <h3 class="event-card__title">{{ event.title }}</h3>
+  {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
+  {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
+  {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
+  {% set event_location = event.metadata.get('event-location') if event.metadata else none %}
+  {% set event_entry = event.metadata.get('entry') if event.metadata else none %}
+  {% if event_start %}
+    <p class="event-card__date">{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>
+    {% set event_time_str = event_start.strftime('%H:%M') %}
+    {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
+    {% if event_time_str %}<p class="event-card__time">{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
+  {% endif %}
+  {% if event_organiser %}<p class="event-card__organiser">{{ event_organiser }}</p>{% endif %}
+  {% if event_location %}<p class="event-card__location">{{ event_location }}</p>{% endif %}
+  {% if event_entry %}<p class="event-card__entry">{{ 'event_entry_label' | t(page_lang | default('cs', true)) }} {{ event_entry }}</p>{% endif %}
 </a>

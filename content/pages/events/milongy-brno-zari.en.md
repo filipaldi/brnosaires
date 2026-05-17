@@ -14,8 +14,7 @@ After the holidays the community returns — September is the season's restart. 
     month="9"
     group_by="day"
     headers="day"
-    hide_empty_days="true"
-    card_size="s">
+    hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link

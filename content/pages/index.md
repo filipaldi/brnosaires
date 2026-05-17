@@ -20,11 +20,10 @@ Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar
 
 ## Milongy v Brně tento týden
 
-<widget-calendar 
-    start="this-week" 
+<widget-calendar
+    start="this-week"
     filter_by_type="milonga praktika"
-    days="7"
-    card_size="s">
+    days="7">
 </widget-calendar>
 
 <widget-calendar-link 
@@ -47,17 +46,15 @@ Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar
 
 
 ## Nejbližší lekce
-<widget-calendar 
-    start="today" 
-    filter_by_type="class" 
-    card_size="s"
+<widget-calendar
+    start="today"
+    filter_by_type="class"
     days="2">
 </widget-calendar>
 
 ## Nejbližší workshopy
-<widget-calendar 
-    filter_by_type="workshop" 
-    card_size="s" 
+<widget-calendar
+    filter_by_type="workshop"
     days="60">
 </widget-calendar>
 
