@@ -267,21 +267,24 @@
   inline-size: var(--card-target-width, var(--size-4xl));
   flex: none;
 }
-.calendar[data-card-mode="solid"] .week > .day:last-child .event-card:last-child,
-.calendar:not([data-card-mode]) .week > .day:last-child .event-card:last-child,
-.calendar[data-card-mode="solid"] .week > .event-card:last-child,
-.calendar:not([data-card-mode]) .week > .event-card:last-child {
-  margin-inline-end: calc(100cqi - var(--card-target-width, var(--size-4xl)));
+.calendar .week::after {
+  content: "";
+  flex: 0 0 calc(var(--aside-width, var(--size-3xl)) + var(--size-l));
+  align-self: stretch;
+  scroll-snap-align: none;
+  pointer-events: none;
+}
+
+.calendar .week > .day:last-child .event-card:last-child,
+.calendar .week > .event-card:last-child {
+  scroll-snap-align: end;
+  scroll-margin-inline-end: calc(var(--aside-width, var(--size-3xl)) + var(--size-l));
 }
 
 /* Scaling mode — container-fraction widths, floored at the matching solid token. */
 .calendar[data-card-mode="scaling"] .event-card {
   inline-size: max(var(--card-target-width, var(--size-4xl)), var(--card-scale-fraction, 33cqi));
   flex: 0 0 max(var(--card-target-width, var(--size-4xl)), var(--card-scale-fraction, 33cqi));
-}
-.calendar[data-card-mode="scaling"] .week > .day:last-child .event-card:last-child,
-.calendar[data-card-mode="scaling"] .week > .event-card:last-child {
-  margin-inline-end: calc(100cqi - max(var(--card-target-width, var(--size-4xl)), var(--card-scale-fraction, 33cqi)));
 }
 
 /* Solid widths per data-card-width (also used as scaling floor). */
