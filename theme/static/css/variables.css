@@ -10,13 +10,12 @@
       takes over and lets it grow again. Replaces the previous five-band
       @media --const swap. Anchors the curve to rem (not px) so OS-level
       font-size preference still scales the whole system. */
-   --size: clamp(0.06vw, 0.08rem, 0.2vw);
+   --size: clamp(0.058vw, 0.072rem, 0.18vw);
 
    /* ============================================
       SIZE SCALE
       ============================================ */
-
-   --size-2xs: calc(var(--size) * 5);  
+   --size-2xs: calc(var(--size) * 5);
    --size-xs: calc(var(--size) * 10);
    --size-s: calc(var(--size) * 20);
    --size-m: calc(var(--size) * 30);
@@ -31,7 +30,6 @@
    /* ============================================
       TYPOGRAPHY SCALE
       ============================================ */
-
    --text-2xs: calc(var(--size) * 12);
    --text-xs: calc(var(--size) * 14);
    --text-s: calc(var(--size) * 16);
@@ -39,14 +37,13 @@
    --text-l: calc(var(--size) * 21.5);
    --text-xl: calc(var(--size) * 23);
    --text-2xl: calc(var(--size) * 25);
-   --text-3xl: calc(var(--size) * 56);
+   --text-3xl: calc(var(--size) * 52);
    --text-4xl: calc(var(--size) * 71);
    --text-5xl: calc(var(--size) * 184);
 
    /* ============================================
       COLOR SCALES - NEUTRAL (PRIMARY)
       ============================================ */
-
    --color-neutral-1: #BDBABA;
    --color-neutral-2: #9B9898;
    --color-neutral-3: #6F6D6D;
@@ -56,7 +53,6 @@
    /* ============================================
       COLOR SCALES - LIGHT GRAY (BACKGROUNDS)
       ============================================ */
-
    --color-gray-light-1: #FFFFFF;
    --color-gray-light-2: #F1F1F1;
    --color-gray-light-3: #E3E3E3;
@@ -66,7 +62,6 @@
    /* ============================================
       COLOR SCALES - ACCENT (LINKS)
       ============================================ */
-
    --color-accent-1: #6F6D6D;
    --color-accent-2: #4A4949;
    --color-accent-3: #212121;
@@ -74,7 +69,6 @@
    /* ============================================
       FONT VARIABLES
       ============================================ */
-
    --font-base: "Nunito", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
    --font-display: "Brnos-Aires", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
    --font-weight-regular: 400;
@@ -87,16 +81,12 @@
    /* ============================================
       BORDERS
       ============================================ */
-
-   --border-width-s: calc(var(--size) * 1.5); 
+   --border-width-s: calc(var(--size) * 1.5);
    --border-width-m: calc(var(--size) * 3);
    --border-width-l: calc(var(--size) * 5);
-
    --border-style-s: var(--border-width-s) solid var(--color-neutral-5);
    --border-style-m: var(--border-width-m) solid var(--color-neutral-5);
    --border-style-l: var(--border-width-l) solid var(--color-neutral-5);
-
-
    --border-radius-none: 0;
    --border-radius-xs: var(--size-xs);
    --border-radius-s: var(--size-s);
@@ -111,7 +101,6 @@
    /* ============================================
       Z-INDEX
       ============================================ */
-
    --z-index-inferior: -1;
    --z-index-low: 1;
    --z-index-mid: 100;
@@ -121,6 +110,5 @@
    /* ============================================
       BUTTONS
       ============================================ */
-
    --button-padding: 0 calc(var(--size) * 8);
 }
