@@ -50,9 +50,11 @@ STRINGS = {
 
     # --- components/footer.html ---
     "footer_tagline": "Argentine tango in Brno — milongas, classes, events.",
-    "footer_links_label": "Footer links",
-    "footer_months_label": "Milongas month by month:",
-    "footer_subscribe_label": "Subscribe in your calendar:",
+    "footer_h_events": "What's on",
+    "footer_h_read": "Have a read",
+    "footer_h_learn": "Learn it",
+    "footer_months_label": "Milongas by month",
+    "footer_subscribe_label": "Pop it in your calendar",
     "footer_ics_milongas": "milongas .ics",
     "footer_ics_classes": "classes .ics",
     "footer_ics_all": "all .ics",

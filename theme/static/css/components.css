@@ -468,3 +468,40 @@ input[type="checkbox"]:checked + span {
   margin-top: var(--size-2xs);
 }
 
+/* ============================================
+   SITE FOOTER
+   ============================================ */
+
+.site-footer {
+  border-top: var(--border-style-s);
+  color: var(--color-neutral-3);
+  /* Reserve space for the fixed right nav rail (see layout.css L293).
+     Mirrors the rule that protects <main> from sliding under the rail. */
+  padding-inline-end: var(--size-4xl);
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer h2 {
+  font-size: var(--text-m);
+  line-height: var(--size-l);
+  color: var(--color-neutral-4);
+  margin-bottom: var(--size-xs);
+}
+
+/* Six-cell footer grid: brand + 3 nav groups + subscribe + months.
+   auto-fit + minmax lets it lay out as 6 columns when room permits and
+   collapses gracefully to 5/4/3/2/1 on narrower viewports. The minmax
+   anchor (~120px) is the smallest width that keeps the longest single
+   label ("Školy a lektorství") on one line. No media queries authored. */
+.site-footer__groups {
+  display: grid;
+  gap: var(--size-l);
+  grid-template-columns: repeat(auto-fit, minmax(var(--size-2xl), 1fr));
+}
+
+

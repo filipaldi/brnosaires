@@ -141,11 +141,6 @@ label {
   color: var(--color-neutral-3);
 }
 
-footer p {
-  font-size: var(--text-xs);
-  line-height: var(--size-m);
-}
-
 /* ============================================
    LOGO
    ============================================ */

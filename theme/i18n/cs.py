@@ -47,9 +47,11 @@ STRINGS = {
 
     # --- components/footer.html ---
     "footer_tagline": "Argentinské tango v Brně — milongy, lekce, akce.",
-    "footer_links_label": "Odkazy v patičce",
-    "footer_months_label": "Milongy po měsících:",
-    "footer_subscribe_label": "Odebírej do kalendáře:",
+    "footer_h_events": "Co se chystá",
+    "footer_h_read": "Mrkni",
+    "footer_h_learn": "Nauč se",
+    "footer_months_label": "Milongy podle měsíce",
+    "footer_subscribe_label": "Nech si to v kalendáři",
     "footer_ics_milongas": "milongy .ics",
     "footer_ics_classes": "lekce .ics",
     "footer_ics_all": "vše .ics",
