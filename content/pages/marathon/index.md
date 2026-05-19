@@ -97,8 +97,8 @@ Full pass for individuals
 **€230 Couple**  
 Full pass for couples (price for both)
 
-**€30 Youth**  
-Full pass for dancers up to 26 years old
+**€30 Student & Young Dancer**  
+Full pass for full-time students, PhD candidates, and dancers under 26. [Details](/marathon-students/)
 
 ### Organisers
 
