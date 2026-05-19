@@ -49,8 +49,10 @@ A realistic budget for three days in Brno:
 | Hostel dorm × 2 nights | €20 – 36 |
 | Two dinners out | €10 – 20 |
 | Lunch at the venue | €10 |
-| Tram + arrival | ~€10 |
-| **Total** | **€80 – 110** |
+| Tram (hard daily cap: 100 Kč ≈ €4) | up to €12 |
+| **Total** | **€82 – 112** |
+
+Brno's public transport has a hard daily fare cap — you can't spend more than 100 Kč (≈ €4) on trams and buses in a single day, no matter how much you ride.
 
 A weekend in most European capitals costs more than this — without the dancing.
 
