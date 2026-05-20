@@ -9,7 +9,7 @@ event-end: 2026-05-24 14:15:00
 event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: An intermediate workshop with Gottfried and Štěky. Brnos Aires Tango Weekend 2026.
-preview_image: /images/events/2026/milonga-hned-vedle.avif
+preview_image: /images/Gottfried-Steky.png
 author: Filip Paldia
 ---
 
