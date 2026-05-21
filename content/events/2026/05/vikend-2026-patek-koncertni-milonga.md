@@ -37,3 +37,4 @@ Více: https://www.tangozamecnik.cz/piastra/
 **Kde:** Společenský sál na Staré radnici  
 **Živá hudba:** Petr Zámečník & Piastra  
 **Organizátoři:** Lenka a Filip
+**Vstupné:** 390 Kč (na místě)
