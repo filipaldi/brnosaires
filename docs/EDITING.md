@@ -59,21 +59,35 @@ Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je tec
 | `recurrence` | Volitelné | Pro **šablonové** opakující se akce (typicky lekce/praktiky). Příklad: `recurrence: weekly sunday`. Plugin [plugins/recurring_events.py](../plugins/recurring_events.py) ji rozbalí na N instancí sdílejících jeden URL. **Nepoužívejte pro milongy** — milongy se píší jako oddělené souborové instance, viz „Pravidelná série (`series:`)" níže. |
 | `series` | Volitelné | Označuje tuto instanci jako součást skupiny pod hlavní stránkou („hubem"). Viz „Pravidelná série" níže. |
 
-### Minimální příklad akce
+### Kompletní příklad akce — všechna pole
+
+Zkopírujte, smažte řádky, které nepotřebujete, a upravte hodnoty. Komentáře za `#` jsou jen pro orientaci, do skutečného souboru je nemusíte psát.
 
 ```yaml
 ---
+# POVINNÉ VŽDY
 title: Milonga u Brněnského draka
 slug: milonga-u-draka-2026-05-16
-date: 2026-04-10 18:00:00
-event-type: milonga
-event-start: 2026-05-16 19:00:00
-event-end: 2026-05-16 22:30:00
-event-location: Stará radnice, Radnická 8, Brno
-series: milonga-u-draka
-preview_image: /images/events/2026/milonga-u-draka-kveten.jpg
-description: Květnová milonga u Brněnského draka.
+date: 2026-04-10 18:00:00         # datum PUBLIKACE (kdy soubor vznikl) — ne datum akce!
 author: Lenka Pláteníková
+
+# SILNĚ DOPORUČENO
+description: Pravidelná páteční milonga u Brněnského draka v květnu 2026.
+preview_image: /images/events/2026/milonga-u-draka-kveten.jpg
+
+# POVINNÉ PRO AKCE
+event-type: milonga                # milonga | workshop | class | praktika
+event-start: 2026-05-16 19:00:00
+event-end: 2026-05-16 22:30:00     # půlnoc = 2026-05-17 00:00:00  ← NIKDY nepište 24:00:00!
+event-location: Stará radnice, Radnická 8, Brno
+
+# VOLITELNÉ — smažte řádky, které nepotřebujete
+event-organiser: Brno Tango Club   # kdo akci pořádá
+entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" nastaví isAccessibleForFree
+series: milonga-u-draka            # jen pokud akce patří do série (viz sekce Pravidelná série níže)
+instructor: Jana Nováková          # pro více lektorů: "['Jana Nováková', 'Petr Novák']"
+recurrence: weekly friday          # jen pro šablonové opakující se akce — pro milongy NEPOUŽÍVAT
+llm_mirror: false                  # vynechejte nebo nastavte false, chcete-li skrýt před AI asistenty
 ---
 ```
 
@@ -168,6 +182,8 @@ Použijte společná pole. Aktuálně:
 
 ## Časté chyby
 
+- **Půlnoc jako `24:00:00`** — Python tento formát neumí zpracovat a akce se nepublikuje. Půlnoc pište jako začátek dalšího dne: `event-end: 2026-05-17 00:00:00` (ne `2026-05-16 24:00:00`).
+- **`date:` nastavené na datum akce** — `date` je datum publikace souboru (kdy jste ho vytvořili), ne datum akce. Datum akce nastavujte pomocí `event-start`. Pokud `date` nastavíte do budoucnosti, stránka se nemusí objevit ve správném pořadí.
 - **Mezery nebo diakritika v `slug:`** — slug musí být ASCII s pomlčkami. Špatně: `Milonga u Mamuta`. Správně: `milonga-u-mamuta`.
 - **Nastavený `series:` u jednorázové akce** — `series:` použijte jen tehdy, když existuje hub stránka s tímto slugem v `content/pages/`.
 - **Chybějící `event-end`** — JSON-LD vyžaduje začátek i konec; build neselže, ale Google rich-result se nespustí.
