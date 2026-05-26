@@ -9,19 +9,18 @@ Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je tec
 ## Obsah
 
 1. [Kde soubory leží](#kde-soubory-leží)
-2. [Společná pole (všechny typy obsahu)](#společná-pole-všechny-typy-obsahu)
-3. [Specifická pole pro akce](#specifická-pole-pro-akce)
-4. [Pravidelná série (`series:`) — milongy s více datovanými instancemi](#pravidelná-série-series-milongy-s-více-datovanými-instancemi)
-5. [Hub stránka (`content/pages/<slug-série>.md`)](#hub-stránka-contentpagesslug-sériemd)
-6. [Samostatné stránky](#samostatné-stránky)
-7. [Měsíční stránky milong (`content/pages/events/milongy-brno-<měsíc>.md`)](#měsíční-stránky-milong-contentpageseventsmilongy-brno-měsícmd)
-8. [Oznámení / píkoška / osoba](#oznámení--píkoška--osoba)
-9. [Co se zobrazí kde, když publikujete](#co-se-zobrazí-kde-když-publikujete)
-10. [Časté chyby](#časté-chyby)
-11. [Soubory pro AI asistenty (`content/llm/`)](#soubory-pro-ai-asistenty-contentllm)
-12. [Vyloučení stránky z `.md` zrcadla (`llm_mirror: false`)](#vyloučení-stránky-z-md-zrcadla-llm_mirror-false)
-13. [Jazykové verze — anglická verze webu (`/en/`)](#jazykové-verze--anglická-verze-webu-en)
-14. [Související dokumenty](#související-dokumenty)
+2. [Šablona akce — všechna pole](#šablona-akce--všechna-pole)
+3. [Pravidelná série (`series:`)](#pravidelná-série-series-milongy-s-více-datovanými-instancemi)
+4. [Hub stránka](#hub-stránka-contentpagesslug-sériemd)
+5. [Samostatné stránky](#samostatné-stránky)
+6. [Měsíční stránky milong](#měsíční-stránky-milong-contentpageseventsmilongy-brno-měsícmd)
+7. [Oznámení / píkoška / osoba](#oznámení--píkoška--osoba)
+8. [Co se zobrazí kde, když publikujete](#co-se-zobrazí-kde-když-publikujete)
+9. [Časté chyby](#časté-chyby)
+10. [Soubory pro AI asistenty](#soubory-pro-ai-asistenty-contentllm)
+11. [Vyloučení stránky z `.md` zrcadla](#vyloučení-stránky-z-md-zrcadla-llm_mirror-false)
+12. [Jazykové verze — anglická verze webu](#jazykové-verze--anglická-verze-webu-en)
+13. [Související dokumenty](#související-dokumenty)
 
 ## Kde soubory leží
 
@@ -34,34 +33,9 @@ Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je tec
 | Píkoška (článek) | `content/curiosities/` | `/<slug>/` |
 | Osoba (DJ, lektor) | `content/people/` | `/<slug>/` |
 
-## Společná pole (všechny typy obsahu)
+## Šablona akce — všechna pole
 
-| Pole | Povinné? | Co ovlivňuje |
-|---|---|---|
-| `title` | Ano | `<title>` stránky, nadpis v náhledu na sociálních sítích, drobečková navigace, nadpisy na kartičkách na webu. |
-| `slug` | Ano | URL — `/{slug}/`. Používejte malá písmena, pomlčky, **bez diakritiky a bez mezer**. Po publikaci by se neměl měnit (rozbil by odkazy). |
-| `date` | Ano | Datum publikace článku (kdy soubor vznikl). Pelican ho používá pro řazení. **Není totéž co `event-start`.** |
-| `author` | Doporučeno | Zobrazuje se na detailu, slouží k atribuci. |
-| `description` | Doporučeno | Jednovětné shrnutí. Použito jako `<meta description>`, `og:description`, `twitter:description`. **Pokud nenastavíte**, Pelican automaticky vytáhne prvních ~50 slov těla článku. Lépe ho ale nastavit explicitně — řídí, co se zobrazí ve výsledcích Googlu a v náhledech v iMessage / Slacku / Facebooku. Maximum cca 200 znaků. |
-| `preview_image` | Doporučeno | Cesta pod `/images/...`. Najednou napájí tři místa: (1) kartičku akce/článku na webu, (2) náhled na Facebooku / LinkedIn / iMessage / WhatsApp / Slacku (`og:image`), (3) velkou kartičku na Twitteru/X (`twitter:image`). **Jeden obrázek, tři použití** — záměrně neexistují samostatná pole `og_image` / `twitter_image`. Pokud nenastavíte, náhledy na sociálních sítích pořád fungují, jen bez obrázku (jen titul + popis). |
-
-## Specifická pole pro akce
-
-| Pole | Povinné? | Co ovlivňuje |
-|---|---|---|
-| `event-type` | Ano | Jedna z hodnot: `milonga`, `workshop`, `class`, `praktika`. Ovlivňuje styl, filtrování v `/kalendar/` a typ JSON-LD struktury, kterou web vygeneruje. |
-| `event-start` | Ano (pro akce) | Datum a čas začátku, např. `2026-05-16 19:00:00`. Použito v kalendáři, v JSON-LD bloku Event (kvalifikace pro Google rich-results) a v `.ics` feedu. |
-| `event-end` | Ano (pro akce) | Datum a čas konce. Stejná použití jako `event-start`. |
-| `event-location` | Ano (pro akce) | Volný text místa, např. `Stará radnice, Radnická 8, Brno`. Zobrazí se na stránce a vloží do JSON-LD pod `location.address`. |
-| `event-organiser` | Doporučeno | Kdo akci pořádá. |
-| `entry` | Volitelné | Vstupné — volně formátovaný řetězec (např. `entry: 150 Kč`, `entry: 390 Kč / 16 €`, `entry: zdarma`, `entry: dobrovolné`). Zobrazí se v hlavičce stránky akce i na kartě v kalendáři (česky „Vstupné: …", anglicky „Entry: …"). Pole je zároveň napojené na JSON-LD: hodnota jde do `offers.price` + `priceCurrency: CZK`; pokud napíšete `zdarma` / `free` / `0` / `dobrovolné`, šablona navíc nastaví `isAccessibleForFree: true`. Pole vynechejte, pokud vstupné neznáte / není relevantní — řádek se prostě nezobrazí. |
-| `instructor` | Pro lekce/workshopy | Lektor/lektoři. Pro jednoho napište jméno přímo. Pro více: `"['Jméno Jedna', 'Jméno Dva']"` (viz README pro detail). |
-| `recurrence` | Volitelné | Pro **šablonové** opakující se akce (typicky lekce/praktiky). Příklad: `recurrence: weekly sunday`. Plugin [plugins/recurring_events.py](../plugins/recurring_events.py) ji rozbalí na N instancí sdílejících jeden URL. **Nepoužívejte pro milongy** — milongy se píší jako oddělené souborové instance, viz „Pravidelná série (`series:`)" níže. |
-| `series` | Volitelné | Označuje tuto instanci jako součást skupiny pod hlavní stránkou („hubem"). Viz „Pravidelná série" níže. |
-
-### Kompletní příklad akce — všechna pole
-
-Zkopírujte, smažte řádky, které nepotřebujete, a upravte hodnoty. Komentáře za `#` jsou jen pro orientaci, do skutečného souboru je nemusíte psát.
+Zkopírujte, smažte řádky, které nepotřebujete, a upravte hodnoty.
 
 ```yaml
 ---
@@ -119,14 +93,21 @@ Některé akce se opakují, ale každá instance je vlastní datovaný soubor (M
 
 ## Hub stránka (`content/pages/<slug-série>.md`)
 
-Hub stránka vypadá jako běžná stránka, jen má dva specifické požadavky ve frontmatteru:
+Hub stránka vypadá jako běžná stránka. Kritické jsou dva řádky: `slug` a `series` musí mít **stejnou hodnotu** — takto systém pozná, že je to hub a ne další instance.
 
-| Pole | Proč na něm záleží |
-|---|---|
-| `slug: <slug-série>` | Musí odpovídat hodnotě, kterou ostatní instance zapíšou do svého pole `series:`. |
-| `series: <slug-série>` | Ano, hub *také* má `series` — odkazuje sám na sebe. Logika přepisu kanonické URL to správně pozná jako „jsem hub" a smyčka se neuzavře. |
+```yaml
+---
+title: Milonga u brněnského draka
+slug: milonga-u-draka                   # instance série píší series: milonga-u-draka
+date: 2026-05-16 00:00:00
+series: milonga-u-draka                 # hub odkazuje sám na sebe — slug = series
+preview_image: /images/events/2026/milonga-u-draka.jpg
+description: Pravidelná milonga ve Staré radnici v Brně.
+author: Lenka Pláteníková
+---
+```
 
-Tělo hubu by mělo popisovat **sérii obecně**, ne konkrétní termín. Sekce „Nejbližší termíny série" se vykreslí automaticky pod tělem — tu nepíšete vy.
+Tělo hubu popisuje **sérii obecně**, ne konkrétní termín. Sekce „Nejbližší termíny série" se vykreslí automaticky pod tělem — tu nepíšete vy.
 
 ## Samostatné stránky
 
@@ -142,15 +123,19 @@ Dvanáct stránek, jedna pro každý měsíc (`/milongy-brno-leden/` … `/milon
 
 **Co je v souboru a co (ne)měnit:**
 
-| Pole / prvek | Co s tím |
-|---|---|
-| `month: N` ve frontmatteru (číslo 1–12) | **Nech být.** Tohle je přepínač, který stránce zapne měsíční režim: nadpis i `<title>` se z něj vyrobí (`Milongy v Brně v <6. pádu> <rok>`), vykreslí se seznam akcí v JSON-LD, `noindex` u prázdného měsíce, odkazy na sousední měsíce. |
-| `title:` ve frontmatteru | Záložní — skutečný `<title>` a `<h1>` na stránce vyrábí šablona z `month:` (včetně roku přes `tango_year_for_month`). `title:` ponech jak je; **rok do něj nepiš**, nemá smysl ho udržovat. |
-| nadpis `#` v těle | **Žádný nepřidávej.** `<h1>` dodává šablona. Soubor má jen úvodní odstavec + widgety. |
-| úvodní odstavec | Bez ročníku. Text klidně uprav (úvodní věty, „atmosféra měsíce"), ať to není mdlé — jen tam **nepiš konkrétní rok**, ať stránka zůstane evergreen. |
-| `<widget-calendar month="N" ...>` v těle | Vykreslí milongy/praktiky/neolongy v daném měsíci. `month` musí odpovídat `month:` z frontmatteru. |
-| widget odběru `.ics` | Standardní, nech být. |
-| prázdný měsíc | Když na ten měsíc zatím nic není, stránka se sama označí `noindex` (zůstane dostupná, ale Google ji nenabízí) a ukáže hlášku „Na tenhle měsíc zatím žádné milongy vypsané nejsou." Jakmile přidáš akci v tom měsíci, při příštím buildu se `noindex` sám zruší. **Nic neděláš.** |
+```yaml
+---
+title: Milongy v Brně v květnu   # záložní; skutečný <h1> a <title> vyrábí šablona — ROK SEM NEPIŠ
+slug: milongy-brno-kveten
+date: 2026-01-01 00:00:00
+month: 5                          # 1–12; NEDOTÝKEJ SE — řídí zobrazený rok, noindex, navigaci
+---
+```
+
+- Nadpis `#` do těla **nepřidávej** — `<h1>` dodá šablona.
+- Úvodní odstavec klidně uprav, ale **nepiš konkrétní rok** — stránka je evergreen.
+- `<widget-calendar month="N" ...>` v těle musí mít stejné číslo jako `month:` ve frontmatteru.
+- Prázdný měsíc se sám označí `noindex`; jakmile přibyde akce, při dalším buildu se `noindex` zruší. **Nic neděláš.**
 
 **Přidat akci do měsíční stránky** = nic navíc. Stačí normálně vytvořit soubor akce v [content/events/](../content/events/)`RRRR/MM/` s `event-type: milonga` (nebo `praktika`/`neolonga`) a `event-start` v daném měsíci — objeví se na příslušné měsíční stránce automaticky.
 
