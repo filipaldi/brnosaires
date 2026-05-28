@@ -4,7 +4,7 @@ slug: neolonga-na-stolarne-2026-05-30
 date: 2026-05-26 18:00:00
 event-type: milonga
 event-start: 2026-05-30 20:00:00
-event-end: 2026-05-31 00:00:00
+event-end: 2026-05-31 23:59:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 series: neolonga-na-stolarne
 preview_image: /images/events/2026/neolonga.jpg
