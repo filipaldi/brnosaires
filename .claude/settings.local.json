@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mdls \"/Users/flp/Documents/Brnos Aires/brnos-aires-web/content/images/marathon-photos/djs/dj-balasz-gyenis.avif\")",
+      "WebFetch(domain:docs.getpelican.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "WebFetch(domain:context7.com)",
+      "Bash(gh api:*)",
+      "Bash(./venv/bin/pelican content *)",
+      "Bash(gh run *)",
+      "Bash(gh issue *)",
+      "Bash(gh label *)",
+      "Bash(gh repo *)",
+      "Read(//Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/**)",
+      "Read(//Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/05/**)",
+      "Read(//Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/04/**)",
+      "Bash(venv/bin/python --version)",
+      "Bash(/Users/flp/Documents/_brnos-aires/brnos-aires-web/venv/bin/python -m pelican content -s pelicanconf.py)",
+      "Bash(venv/bin/pelican content *)",
+      "Read(//Users/flp/Documents/**)",
+      "Skill(visual-reviewer)",
+      "Skill(visual-reviewer:*)",
+      "Bash(kill %1)",
+      "Bash(xargs -r kill)",
+      "Bash(git worktree *)",
+      "mcp__github__create_issue",
+      "Bash(pelican --listen --bind 0.0.0.0 --port 41234)",
+      "Read(//Users/flp/.claude/**)",
+      "Bash(/Users/flp/Documents/_brnos-aires/brnos-aires-web/venv/bin/pelican content *)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/private/tmp",
+      "/Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/pages/series",
+      "/Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/02",
+      "/Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/03",
+      "/Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/04",
+      "/Users/flp/Documents/_brnos-aires/brnos-aires-web-series-revival/content/events/2026/05",
+      "/Users/flp/.claude/memory"
+    ]
+  }
+}

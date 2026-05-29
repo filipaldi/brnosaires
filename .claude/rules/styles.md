@@ -1,0 +1,20 @@
+---
+globs: *.css
+alwaysApply: false
+---
+NEWER CREATE NEW CSS STYLES BEFORE TRYING THE EXISTING STYLES
+- CSS Styles are stored in the @theme/static/css folder
+
+
+- ALWAYS start checking @variables.css for all the propperties then look for existing styles in @layout.css, @spacing.css, @aesthetic.css, @typography.css
+
+
+## WHEN NEED TO CREATE NEW UTILITIES
+- ALWAYS discuss what kind of utility is needed and how it fits into the current utility system
+- ALWAYS let user confirm that new utility is going to be defined
+
+## WHEN NEED TO CREATE NEW COMPONENTS
+Components styles are abstraction and meant as a shorthand for the underlying utility classes.
+See @components.css for existing components.
+
+DO NOT DEFINE COMPONENT STYLES when there are less than 3 utility classes used in the style.

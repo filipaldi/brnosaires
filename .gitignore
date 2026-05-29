@@ -14,8 +14,6 @@ copy/
 migration-scripts/
 .obsidian/
 .cursorignore
-/.claude
-.claude/
 .playwright-mcp/
 
 # Browser-test screenshots (UX once-over). Skill writes them under
