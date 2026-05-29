@@ -1,73 +1,108 @@
 # Úprava obsahu — přehled metadat
 
-Tento dokument je **průvodce pro editory**, kteří publikují obsah na webu brnosaires.com. Říká, co napsat do hlavičky (frontmatteru) Markdown souboru a co každé pole skutečně dělá na živém webu.
+Průvodce pro editory: co napsat do hlavičky (frontmatteru) Markdown souboru. Pracovní postup řeší [README](../README.md), *proč* to funguje [SEO](SEO.md), widgety [WIDGETS](WIDGETS.md).
 
-Pokud chcete vědět *proč* je některé pole takto zařízené nebo jak je technicky propojené, čtěte [SEO + sociální kartičky](SEO.md). Pokud chcete porozumět tagům `<widget-*>` v těle článku, čtěte [Widget systém](WIDGETS.md). Vše níže je jen: *co napsat na začátek souboru?*
+## Kam co patří — rychlé odkazy do repa
 
-> Tento dokument doplňuje hlavní [Brnos Aires — web](../README.md), který je rovněž průvodcem pro editory. README pokrývá celkový pracovní postup (jak vytvořit soubor akce, jak používat widgety, jak nahrávat obrázky); tento dokument se zaměřuje výhradně na **metadata v hlavičce souboru** a na to, jak se promítnou do náhledů ve vyhledávačích a na sociálních sítích.
+Klikněte na složku, ve které soubor pro daný typ obsahu leží. Editovat budete vždy uvnitř `content/`.
 
-## Obsah
+| Co chcete přidat / upravit | Otevřete složku |
+|---|---|
+| Konkrétní akci (milongu, workshop, lekci) | [content/events/](../content/events/) → podsložka `RRRR/MM/` |
+| Hub pravidelné série (Milonga u Draka, Tango & Pizza) | [content/pages/series/](../content/pages/series/) |
+| Hub jednorázové / vícedenní akce (Tango víkend, Tango léto) | [content/pages/events/](../content/pages/events/) |
+| Měsíční přehled milong (`milongy-brno-kveten` atd.) | [content/pages/events/](../content/pages/events/) |
+| Samostatnou stránku (o nás, FAQ, školy a lektorství) | [content/pages/](../content/pages/) |
+| Marathon sub-web (anglicky, bez české verze) | [content/pages/marathon/](../content/pages/marathon/) + [content/events/2026-marathon/](../content/events/2026-marathon/) |
+| Oznámení | [content/announcements/](../content/announcements/) |
+| Píkošku (článek) | [content/curiosities/](../content/curiosities/) |
+| Profil osoby (DJ, lektor) | [content/people/](../content/people/) |
+| Odkazy v navigaci (hlavička / patička) | [content/navigation/](../content/navigation/) |
+| Obrázky | [content/images/](../content/images/) |
 
-1. [Kde soubory leží](#kde-soubory-leží)
-2. [Šablona akce — všechna pole](#šablona-akce--všechna-pole)
-3. [Pravidelná série (`series:`)](#pravidelná-série-series-milongy-s-více-datovanými-instancemi)
-4. [Hub stránka](#hub-stránka-contentpagesslug-sériemd)
-5. [Samostatné stránky](#samostatné-stránky)
-6. [Měsíční stránky milong](#měsíční-stránky-milong-contentpageseventsmilongy-brno-měsícmd)
-7. [Oznámení / píkoška / osoba](#oznámení--píkoška--osoba)
-8. [Co se zobrazí kde, když publikujete](#co-se-zobrazí-kde-když-publikujete)
-9. [Časté chyby](#časté-chyby)
-10. [Soubory pro AI asistenty](#soubory-pro-ai-asistenty-contentllm)
-11. [Vyloučení stránky z `.md` zrcadla](#vyloučení-stránky-z-md-zrcadla-llm_mirror-false)
-12. [Jazykové verze — anglická verze webu](#jazykové-verze--anglická-verze-webu-en)
-13. [Související dokumenty](#související-dokumenty)
+Detaily k jednotlivým typům (struktura hlaviček, povinná pole, šablony) najdete v sekcích níže.
 
-## Kde soubory leží
+## Šablona hlavičky — všechna pole
 
-| Typ obsahu | Složka | URL |
-|---|---|---|
-| Akce (jednorázová nebo instance série) | `content/events/RRRR/MM/` | `/<slug>/` |
-| Hlavní stránka („hub") pravidelné série | `content/pages/` | `/<slug>/` |
-| Samostatná stránka (o nás, FAQ…) | `content/pages/` | `/<slug>/` |
-| Oznámení | `content/announcements/` | `/<slug>/` |
-| Píkoška (článek) | `content/curiosities/` | `/<slug>/` |
-| Osoba (DJ, lektor) | `content/people/` | `/<slug>/` |
-
-## Šablona akce — všechna pole
-
-Zkopírujte, smažte řádky, které nepotřebujete, a upravte hodnoty.
+Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ obsahu nepotřebujete, a vyplňte hodnoty. Komentář na konci řádku říká, **pro který typ dokumentu řádek platí**.
 
 ```yaml
 ---
-# POVINNÉ VŽDY
-title: Milonga u Brněnského draka
-slug: milonga-u-draka-2026-05-16
-date: 2026-04-10 18:00:00         # datum PUBLIKACE (kdy soubor vznikl) — ne datum akce!
-author: Lenka Pláteníková
+# ─── POVINNÉ VŽDY (akce, stránka, hub, oznámení, píkoška, osoba) ───
+title: Název dokumentu
+slug: nazev-dokumentu              # zobrazí se v URL: brnosaires.com/<slug>/
+date: 2026-04-10 18:00:00          # datum PUBLIKACE souboru, NE datum akce
+author: Jméno autora
 
-# SILNĚ DOPORUČENO
-description: Pravidelná páteční milonga u Brněnského draka v květnu 2026.
-preview_image: /images/events/2026/milonga-u-draka-kveten.jpg
+# ─── SILNĚ DOPORUČENO VŽDY ───
+description: Krátký popis (cca 160–200 znaků) pro Google a sociální kartičky.
+preview_image: /images/.../nahled.jpg   # 1200×630; OG, Twitter, kalendář
 
-# POVINNÉ PRO AKCE
+# ─── JEN PRO AKCE (content/events/RRRR/MM/) ───
 event-type: milonga                # milonga | workshop | class | praktika
 event-start: 2026-05-16 19:00:00
-event-end: 2026-05-16 22:30:00     # půlnoc = 2026-05-17 00:00:00  ← NIKDY nepište 24:00:00!
+event-end: 2026-05-16 22:30:00     # půlnoc = další den 00:00:00, NIKDY 24:00:00
 event-location: Stará radnice, Radnická 8, Brno
 
-# VOLITELNÉ — smažte řádky, které nepotřebujete
+# ─── VOLITELNÉ PRO AKCE ───
 event-organiser: Brno Tango Club   # kdo akci pořádá
-entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" nastaví isAccessibleForFree
-series: milonga-u-draka            # jen pokud akce patří do série (viz sekce Pravidelná série níže)
-instructor: Jana Nováková          # pro více lektorů: "['Jana Nováková', 'Petr Novák']"
-recurrence: weekly friday          # jen pro šablonové opakující se akce — pro milongy NEPOUŽÍVAT
-llm_mirror: false                  # vynechejte nebo nastavte false, chcete-li skrýt před AI asistenty
+entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" → isAccessibleForFree
+series: milonga-u-draka            # jen pokud akce patří do série (slug hubu)
+instructor: Jana Nováková          # více lektorů: ['Jana Nováková', 'Petr Novák']
+recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT
+
+# ─── JEN PRO HUB PRAVIDELNÉ SÉRIE (content/pages/series/) ───
+series: milonga-u-draka            # MUSÍ být stejné jako slug — tím se soubor pozná jako hub
+
+# ─── JEN PRO MĚSÍČNÍ PŘEHLED MILONG (milongy-brno-<měsíc>) ───
+month: 5                           # 1–12; řídí zobrazený rok, noindex, navigaci
+
+# ─── VOLITELNÉ VŽDY ───
+llm_mirror: false                  # skrýt před AI asistenty (vynechte = mirror se vytvoří)
+translate: false                   # obsah bez anglické verze (marathon sub-web)
 ---
 ```
+
+### Co se zobrazí kde, když publikujete
+
+| Když nastavíte… | …zobrazí se v |
+|---|---|
+| `title` | Záložce prohlížeče, výsledku Googlu, nadpisu náhledu na sociálních sítích, kartičce na webu |
+| `description` | Snippetu ve výsledku Googlu, popisu náhledu na sociálních sítích (pokud nenastavíte, použije se prvních ~50 slov těla) |
+| `preview_image` | Kartičce akce/článku na webu, náhledu na Facebooku/iMessage/Slacku, velké kartičce na Twitteru/X |
+| `event-start` + `event-end` | Kalendáři (`/kalendar/`), hlavičce detailu akce, Google Event rich-result snippetu, `.ics` feedu |
+| `event-location` | Hlavičce detailu akce, Google Event rich-result `location.address` |
+| `entry` | Hlavičce detailu akce („Vstupné: …"), kartě akce v kalendáři, Google Event rich-result `offers.price`/`isAccessibleForFree` |
+| `series:` | Kanonická URL ukazuje na hub, odznak „Součást pravidelné série", seznam „Nejbližší termíny série" na hubu |
+
+## Čeklist před publikací — časté chyby
+
+Než stránku commitnete, projděte tyto body. Pokrývají chyby, které se v souborech objevují nejčastěji.
+
+- [ ] **`date:` má formát `RRRR-MM-DD HH:MM:SS` a je to datum publikace, ne akce.** Časté přehození: `date: 10. 4. 2026` nebo `date: 2026-05-16` (datum akce). Správně: `date: 2026-04-10 18:00:00`. Datum akce patří výhradně do `event-start`. Pokud `date` nastavíte do budoucnosti, stránka se neobjeví ve správném pořadí.
+- [ ] **`slug:` je unikátní a bez diakritiky.** Dva české soubory se stejným slugem se přepíší při buildu (vyhraje poslední); český a anglický sourozenec **musí** sdílet slug, ale jiný pár souborů ne. Slug musí být ASCII, malými písmeny, pomlčky místo mezer (`Milonga u Mamuta` ❌ → `milonga-u-mamuta` ✅). Zkontrolujte hledáním slugu přes `content/`.
+- [ ] **Všechna povinná YAML pole jsou vyplněná.** Pro akce: `title`, `slug`, `date`, `author`, `event-type`, `event-start`, `event-end`, `event-location`. Silně doporučené: `description`, `preview_image`. Nezapomeňte na `entry:` u placených akcí (jinak schema.org neoznačí akci jako placenou). Šablonu viz [Šablona hlavičky](#šablona-hlavičky--všechna-pole).
+- [ ] **`event-end` je vyplněné a půlnoc je `00:00:00` dalšího dne, ne `24:00:00`.** Bez `event-end` se nespustí Google Event rich-result. Zápis `24:00:00` Python neumí — akce se nepublikuje. Půlnoc: `event-end: 2026-05-17 00:00:00`, ne `2026-05-16 24:00:00`.
+- [ ] **`preview_image:` ukazuje na existující soubor.** Cesta začíná lomítkem, bez prefixu `content` (např. `/images/events/2026/milonga.jpg`). Pole se jmenuje `preview_image`, **ne** `og_image` (to neexistuje). Špatná cesta = rozbité OG kartičky a prázdný náhled v kalendáři.
+- [ ] **`description:` má pod ~200 znaků.** Delší se ořeže ve snippetu Googlu i v OG kartičce.
+- [ ] **`series:` jen pro skutečné série.** Použijte jen tehdy, když v `content/pages/series/` existuje hub stránka s tímto slugem. U jednorázových akcí pole vynechte.
+- [ ] **Názvy souborů bez mezer a diakritiky.** Markdowny i obrázky pojmenovávejte malými písmeny, pomlčkami místo mezer, bez háčků a čárek. Místo `Únorová neolonga.md` → `2026-02-neolonga.md`, místo `brunch milonga.jpg` → `brunch-milonga.jpg`.
+- [ ] **Datum v názvu souboru je `RRRR-MM-DD` nebo `RRRR-MM`, ne `DD-MM-RRRR`.** Pelican tahá datum z názvu přes regex `\d{4}-\d{2}-\d{2}` a kontroluje jen tvar, ne platnost — `2026-30-05-neolonga.jpg` projde regexem, ale spadne při parsování a **shodí celý build**. Pořadí vždy rok-měsíc-den.
 
 ## Pravidelná série (`series:`) — milongy s více datovanými instancemi
 
 Některé akce se opakují, ale každá instance je vlastní datovaný soubor (Milonga u Draka, Tango & Pizza). Bez seskupení by každé hledání jména série v Googlu rozdělovalo pozornost mezi N téměř identických stránek. Pole `series:` říká webu „všechny tyhle akce jsou jedna a ta samá věc, pošli vyhledávače na jednu hlavní stránku".
+
+### Série vs. hub — jaký je rozdíl?
+
+Lidé tyhle dva pojmy často míchají, protože spolu úzce souvisí, ale dělají dvě jiné věci:
+
+- **Série** je **koncept** — „Milonga u Draka", logická skupina opakujících se akcí, které mají stejné jméno, atmosféru a obvykle i místo. Sérii reprezentuje **slug** (např. `milonga-u-draka`), nic víc; nemá vlastní soubor, neexistuje samostatně. Žije jen jako hodnota v poli `series:` v hlavičkách instancí.
+- **Hub** je **konkrétní stránka v `content/pages/`**, která sérii reprezentuje navenek — má vlastní URL (`brnosaires.com/<slug-série>/`), titulek, popis, preview obrázek a tělo, které vysvětluje co je série zač. Hub je „domovská stránka" série; sem Google posílá uživatele místo na jednotlivé instance.
+
+Vztah: **série = skupina, hub = stránka té skupiny**. Hub poznáte podle toho, že má `slug:` a `series:` se stejnou hodnotou (odkazuje sám na sebe). Instance mají vlastní `slug:` (s datem), ale jejich `series:` ukazuje na slug hubu.
+
+Jednoduchá analogie: série je název kapely, hub je oficiální web kapely, jednotlivé instance jsou koncerty.
 
 ### Co potřebuje editor udělat
 
@@ -152,28 +187,6 @@ Použijte společná pole. Aktuálně:
 - Osoby se zobrazují na marathonové stránce DJs/teamu, když jsou tam odkazované.
 
 Žádný z těchto typů nevkládá JSON-LD Event strukturu (správně — nejsou to akce).
-
-## Co se zobrazí kde, když publikujete
-
-| Když nastavíte… | …zobrazí se v |
-|---|---|
-| `title` | Záložce prohlížeče, výsledku Googlu, nadpisu náhledu na sociálních sítích, kartičce na webu |
-| `description` | Snippetu ve výsledku Googlu, popisu náhledu na sociálních sítích (pokud nenastavíte, použije se prvních ~50 slov těla) |
-| `preview_image` | Kartičce akce/článku na webu, náhledu na Facebooku/iMessage/Slacku, velké kartičce na Twitteru/X |
-| `event-start` + `event-end` | Kalendáři (`/kalendar/`), hlavičce detailu akce, Google Event rich-result snippetu, `.ics` feedu |
-| `event-location` | Hlavičce detailu akce, Google Event rich-result `location.address` |
-| `entry` | Hlavičce detailu akce („Vstupné: …"), kartě akce v kalendáři, Google Event rich-result `offers.price`/`isAccessibleForFree` |
-| `series:` | Kanonická URL ukazuje na hub, odznak „Součást pravidelné série", seznam „Nejbližší termíny série" na hubu |
-
-## Časté chyby
-
-- **Půlnoc jako `24:00:00`** — Python tento formát neumí zpracovat a akce se nepublikuje. Půlnoc pište jako začátek dalšího dne: `event-end: 2026-05-17 00:00:00` (ne `2026-05-16 24:00:00`).
-- **`date:` nastavené na datum akce** — `date` je datum publikace souboru (kdy jste ho vytvořili), ne datum akce. Datum akce nastavujte pomocí `event-start`. Pokud `date` nastavíte do budoucnosti, stránka se nemusí objevit ve správném pořadí.
-- **Mezery nebo diakritika v `slug:`** — slug musí být ASCII s pomlčkami. Špatně: `Milonga u Mamuta`. Správně: `milonga-u-mamuta`.
-- **Nastavený `series:` u jednorázové akce** — `series:` použijte jen tehdy, když existuje hub stránka s tímto slugem v `content/pages/`.
-- **Chybějící `event-end`** — JSON-LD vyžaduje začátek i konec; build neselže, ale Google rich-result se nespustí.
-- **Vymýšlení pole `og_image`** — takové pole neexistuje. Použijte `preview_image`.
-- **Příliš dlouhý `description`** — držte se pod cca 200 znaky; delší hodnoty se ořežou.
 
 ## Soubory pro AI asistenty (`content/llm/`)
 
