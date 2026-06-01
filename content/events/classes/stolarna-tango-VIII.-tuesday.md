@@ -1,6 +1,6 @@
 ---
 title: "Tango VIII."
-slug: stolarna-tango-VIII
+slug: stolarna-tango-VIII-tuesday
 date: 2026-06-01 01:00:00
 instructor: "['Jana Habalová', 'Petr Truhlař']"
 event-start: 2026-06-02 19:00:00
