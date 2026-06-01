@@ -17,3 +17,5 @@ author: Lenka Pláteníková
 # Stolárna - Tango II.
 
 Kurz argentinského tanga pro mírně pokročilé. Jana s Petrem tě naučí hezké figury i správné držení těla a techniku provedení. 
+
+Více informací a registrace na www.studiostolarna.cz
