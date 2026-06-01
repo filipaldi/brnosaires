@@ -17,3 +17,4 @@ author: Lenka Pláteníková
 # Stolárna - Tango VIII.
 
 Lekce pro pokročilé tanečníky argentinského tanga - absolventy kurzu Tango VII.
+Více informací a registrace na www.studiostolarna.cz
