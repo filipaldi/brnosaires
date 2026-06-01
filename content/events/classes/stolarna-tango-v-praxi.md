@@ -17,3 +17,4 @@ author: Filip Paldia
 # Stolárna - Tango v praxi - úroveň II. a výš
 
 Tango pro mírně pokročilé. Nebojte se složitých figur a kroků, naučíme vás, jak si v páru porozumět a tanečně improvizovat, jak vnímat pohyb těla a využít to do tance.
+Více informací a registrace na www.studiostolarna.cz
