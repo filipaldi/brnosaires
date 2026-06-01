@@ -17,3 +17,4 @@ author: Filip Paldia
 # Stolárna - Tango IV. - moderní variace
 
 Kurz argentinského párového tance TANGO pro absolventy kurzů TANGO 3 a vyšších, zaměřený na moderní variace figur :-) 
+Více informací a registrace na www.studiostolarna.cz
