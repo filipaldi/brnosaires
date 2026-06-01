@@ -1,6 +1,6 @@
 ---
 title: Tango II.
-slug: stolarna-tango-II-pondeli
+slug: stolarna-tango-II-monday
 date: 2026-06-01 01:00:00
 instructor: "['Jana Habalová', 'Petr Truhlář']"
 event-start: 2026-06-01 17:45:00
