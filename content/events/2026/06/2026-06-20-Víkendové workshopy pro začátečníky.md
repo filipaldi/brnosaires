@@ -1,7 +1,7 @@
 ---
 title: Víkendové workshopy pro začátečníky - sobota
 slug: vikendove-workshopy-zacatecnici-sobota
-date: 2026-06-20 01:00:00
+date: 2026-06-03 12:00:00
 instructor: "Filip a Lenka"
 event-start: 2026-06-20 13:00:00
 event-end: 2026-06-20 17:15:00
