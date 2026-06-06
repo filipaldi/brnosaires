@@ -17,6 +17,9 @@
     {% set event_start = meta.get('event-start') %}
     {% set event_end = meta.get('event-end') %}
     {% set instructor = meta.get('instructor') %}
+    {# instructor may be a list (multiline metadata) or a single string; normalise to a list of names #}
+    {% if instructor is string %}{% set instructor_list = [instructor] %}{% else %}{% set instructor_list = instructor or [] %}{% endif %}
+    {% set instructor_names = instructor_list | join(', ') %}
     {% set event_organiser = meta.get('event-organiser') %}
     {% set event_location = meta.get('event-location') %}
     {% set event_entry = meta.get('entry') %}
@@ -24,9 +27,9 @@
     <header class="text-s color-neutral-3 el-stack stack-xs">
       {% if event_type %}<p>{{ event_type }}</p>{% endif %}
       {% if event_start %}
-      <p>{{ event_start | format_event_datetime(page_lang) }}{% if event_end %} — {{ event_end | format_event_datetime(page_lang) }}{% endif %}</p>
+      <p><time datetime="{{ event_start | event_iso8601 }}">{{ event_start | format_event_datetime(page_lang) }}</time>{% if event_end %} – <time datetime="{{ event_end | event_iso8601 }}">{{ event_end | format_event_datetime(page_lang) }}</time>{% endif %}</p>
       {% endif %}
-      {% if instructor %}<p>{{ instructor }}</p>{% endif %}
+      {% if instructor %}<p>{{ instructor_names }}</p>{% endif %}
       {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
       {% if event_location %}<p>{{ event_location }}</p>{% endif %}
       {% if event_entry %}<p>{{ 'event_entry_label' | t(page_lang) }} {{ event_entry }}</p>{% endif %}
@@ -94,7 +97,7 @@
     }{% else %}"address": {{ event_location | tojson }}{% endif %}
   },
   {% endif %}{% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},
-  {% endif %}{% if instructor %}"performer": {"@type": "Person", "name": {{ instructor | tojson }}},
+  {% endif %}{% if instructor %}"performer": [{% for name in instructor_list %}{"@type": "Person", "name": {{ name | tojson }}}{% if not loop.last %}, {% endif %}{% endfor %}],
   {% endif %}{% if _entry %}"offers": {
     "@type": "Offer",
     "price": {{ ('0' if _free else (_entry | string | trim)) | tojson }},

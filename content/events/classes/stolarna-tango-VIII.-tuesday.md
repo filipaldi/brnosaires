@@ -2,7 +2,8 @@
 title: "Tango VIII."
 slug: stolarna-tango-VIII-tuesday
 date: 2026-06-01 01:00:00
-instructor: "['Jana Habalová', 'Petr Truhlař']"
+instructor: Jana Habalová
+    Petr Truhlař
 event-start: 2026-06-02 19:00:00
 event-end: 2026-06-02 20:15:00
 recurrence: weekly tuesday

@@ -2,7 +2,7 @@
 title: Začátečníci
 slug: necasovi-zacatecnici-thursday
 date: 2026-01-16 01:00:00
-instructor: "['Gabriela a Petr Nečasovi']"
+instructor: Gabriela a Petr Nečasovi
 event-start: 2026-01-08 18:30:00
 event-end: 2026-01-08 19:45:00
 recurrence: weekly thursday

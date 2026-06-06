@@ -48,7 +48,7 @@ event-location: Stará radnice, Radnická 8, Brno
 event-organiser: Brno Tango Club   # kdo akci pořádá
 entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" → isAccessibleForFree
 series: milonga-u-draka            # jen pokud akce patří do série (slug hubu) — viz SERIE.md
-instructor: Jana Nováková          # více lektorů: ['Jana Nováková', 'Petr Novák']
+instructor: Jana Nováková          # více lektorů → každé jméno na vlastní řádek, odsazené (viz níže)
 recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT
 
 # ─── JEN PRO HUB PRAVIDELNÉ SÉRIE (content/pages/series/) — viz SERIE.md ───
@@ -62,6 +62,19 @@ llm_mirror: false                  # skrýt před AI asistenty (vynechte = mirro
 translate: false                   # obsah bez anglické verze (marathon sub-web) — viz ANGLICKA-VERZIA.md
 ---
 ```
+
+### Více lektorů na jedné akci
+
+Každé jméno na vlastní řádek, druhé a další **odsazené** (4 mezery). Žádné hranaté závorky, žádné uvozovky:
+
+```yaml
+instructor: Šteky Yaku
+    Filip Šterc
+    Albert Mikó
+    Jana Popelková
+```
+
+Zobrazí se oddělené čárkou: „Šteky Yaku, Filip Šterc, Albert Mikó, Jana Popelková". Jeden lektor = jeden řádek. (Jména píšte tak, jak mají vypadat — do budoucna se z nich budou moct stát odkazy na profil lektora, pokud profil existuje.)
 
 ## Co se zobrazí kde, když publikujete
 

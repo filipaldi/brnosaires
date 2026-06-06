@@ -2,7 +2,8 @@
 title: Tango I.
 slug: stolarna-tango-I-sunday
 date: 2026-06-07 01:00:00
-instructor: "['Filip Paldia', 'Lenka Pláteníková']"
+instructor: Filip Paldia
+    Lenka Pláteníková
 event-start: 2026-06-07 17:30:00
 event-end: 2026-06-07 18:45:00
 recurrence: weekly sunday

@@ -2,7 +2,8 @@
 title: Tangomania
 slug: stolarna-tangomania
 date: 2026-01-16 01:00:00
-instructor: "['Pavla Lužná', 'Ondra Martinák']"
+instructor: Pavla Lužná
+    Ondra Martinák
 event-start: 2026-01-08 19:00:00
 event-end: 2026-01-08 20:15:00
 recurrence: weekly monday

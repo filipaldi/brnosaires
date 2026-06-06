@@ -2,7 +2,7 @@
 title: Pokročilí
 slug: necasovi-pokrocili-friday
 date: 2026-01-16 01:00:00
-instructor: "['Gabriela a Petr Nečasovi']"
+instructor: Gabriela a Petr Nečasovi
 event-start: 2026-01-07 18:00:00
 event-end: 2026-01-07 19:30:00
 recurrence: weekly friday

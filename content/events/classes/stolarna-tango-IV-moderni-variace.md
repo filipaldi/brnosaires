@@ -2,7 +2,8 @@
 title: Tango IV. a výš - moderní variace.
 slug: stolarna-tango-IV-a-vys-moderni-variace
 date: 2026-06-01 01:00:00
-instructor: "['Pavla Lužná', 'Ondra Martinák']"
+instructor: Pavla Lužná
+    Ondra Martinák
 event-start: 2026-06-04 19:15:00
 event-end: 2026-06-04 20:30:00
 recurrence: weekly thursday

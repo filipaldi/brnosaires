@@ -2,7 +2,8 @@
 title: Tango II.
 slug: stolarna-tango-II-monday
 date: 2026-06-01 01:00:00
-instructor: "['Jana Habalová', 'Petr Truhlář']"
+instructor: Jana Habalová
+    Petr Truhlář
 event-start: 2026-06-01 17:45:00
 event-end: 2026-06-01 19:00:00
 recurrence: weekly monday
