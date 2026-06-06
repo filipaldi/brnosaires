@@ -1,6 +1,10 @@
-# Přidat akci za 5 minut
+# Přidat a upravit akci
 
-Nejčastější úkol: přidat milongu, workshop nebo lekci do kalendáře. Tenhle návod tě provede od kopírování po commit. Postupuj shora dolů.
+Nejčastější úkoly v kostce:
+
+- **Přidat jednorázovou akci** (milonga, workshop) → kroky 1-5 níže.
+- **Přidat pravidelnou lekci** (každý týden / měsíc) → [Pravidelná lekce přes `recurrence:`](#pravidelná-lekce-přes-recurrence).
+- **Upravit už existující akci/lekci** (datum, čas, cena) → [Upravit existující akci](#upravit-existující-akci).
 
 Detail všech polí hlavičky → [Pole v hlavičce](EDITING.md). Série (Milonga u Draka apod.) → [Série](SERIE.md). Anglická verze → [Anglická verze](ANGLICKA-VERZIA.md).
 
@@ -93,6 +97,53 @@ Soubor je commitnutý, build proběhl, ale akci na webu nevidíš. Skoro vždy j
 5. **Náhled je prázdný / kartička rozbitá** — `preview_image:` ukazuje na neexistující soubor, nebo cesta začíná `content` (má začínat lomítkem: `/images/...`). Pole se jmenuje `preview_image`, ne `og_image`.
 
 Stále nic? Build mohl spadnout úplně (typicky špatné pořadí data v názvu souboru, krok 2). Napiš vývojáři, ať se podívá do logu GitHub Actions.
+
+---
+
+## Pravidelná lekce přes `recurrence:`
+
+Lekce, která se opakuje každý týden nebo měsíc, je **jeden soubor**, ne dvanáct. Pole `recurrence:` ho při buildu rozbalí na všechny termíny. Soubory pravidelných lekcí leží v [content/events/classes/](../content/events/classes/) a v názvu **nemají datum** (datum dodá `event-start` + `recurrence`).
+
+Vezmi existující lekci ze složky jako předlohu. Hlavička vypadá takhle:
+
+```yaml
+title: Tango II.
+slug: stolarna-tango-ii-monday          # bez data; unikátní
+event-start: 2026-06-01 17:45:00         # PRVNÍ termín (datum + čas začátku)
+event-end: 2026-06-01 19:00:00           # konec prvního termínu
+recurrence: weekly monday                # rozbalí na každé pondělí
+event-type: class                        # pravidelná lekce = class (NE workshop)
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+instructor: "['Jana Habalová', 'Petr Truhlář']"
+preview_image: /images/classes/class-stolarna.avif
+description: …
+author: Tvé jméno
+```
+
+**Hodnoty `recurrence:`** — fungují jen tyhle dvě formy (jiné se tiše ignorují a zůstane jen jeden termín):
+
+| Zápis | Význam |
+|---|---|
+| `weekly <den>` | každý týden: `weekly monday`, `weekly friday` … `weekly sunday` |
+| `monthly <pořadí> <den>` | N-tý den v měsíci: `monthly 2 sunday` = každá 2. neděle; `monthly -1 friday` = poslední pátek (pořadí `1`-`4` nebo `-1`) |
+
+Dny **anglicky** a malými písmeny (`monday`…`sunday`). Den v `recurrence:` musí sedět se dnem, na který padá `event-start` — jinak se termíny rozjedou. Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
+
+## Upravit existující akci
+
+Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../content/events/) pro jednorázové, [content/events/classes/](../content/events/classes/) pro pravidelné lekce) a uprav jen ten řádek:
+
+| Co měníš | Řádek | Pozor |
+|---|---|---|
+| Datum / čas jednorázové akce | `event-start`, `event-end` | `date:` **neměň** — to je datum publikace, ne akce. Půlnoc v `event-end` = `00:00:00` dalšího dne, nikdy `24:00:00`. |
+| Cenu | `entry` | „zdarma" / „dobrovolné" → akce se označí jako bezplatná. |
+| Místo | `event-location` | Tvar `Místo, Ulice, Brno` (kvůli mapě/SEO). |
+| Čas pravidelné lekce | `event-start`, `event-end` | Změní se na **všech** termínech. |
+| Den pravidelné lekce | `event-start` **i** `recurrence` | Musíš změnit **oba** — datum v `event-start` posuň na nový den a uprav `recurrence: weekly <den>`. Změna jen jednoho je nejčastější chyba. |
+
+Co **neměnit**, pokud nechceš změnit URL: `slug:`. Změna slugu = nová URL, stará přestane fungovat (rozbité odkazy, ztracené SEO).
+
+Po úpravě commitni stejně jako u nové akce (krok 5). Pokud se změna neprojeví, projdi [Akce se neobjevila?](#akce-se-neobjevila-pět-nejčastějších-důvodů) výše.
 
 ---
 

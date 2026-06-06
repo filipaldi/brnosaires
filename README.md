@@ -1,17 +1,22 @@
 # Brnos Aires — web
 
-Statický web argentinského tanga v Brně, postavený na [Pelicanu](https://getpelican.com/). Tento dokument je **rozcestník** — najdeš tu rychlé odkazy do obsahu, mapu dokumentace a stručně, jak je projekt poskládaný. Detaily žijí v jednotlivých dokumentech v [docs/](docs/).
+## Co chceš udělat?
 
-> **Přidáváš akci?** → **[Přidat akci za 5 minut](docs/PRIDAT-AKCIU.md)**. To je nejčastější úkol; tenhle návod tě provede od kopírování po commit.
+| Chci… | Jdi sem |
+|---|---|
+| **Upravit** existující akci/lekci (datum, čas, cenu) | Najdi soubor → [content/events/](content/events/) (jednorázové) nebo [content/events/classes/](content/events/classes/) (pravidelné lekce). Co měnit a na co bacha → [Přidat a upravit akci](docs/PRIDAT-AKCIU.md#upravit-existující-akci). |
+| **Přidat** milongu, workshop nebo jednorázovou akci | [Přidat a upravit akci](docs/PRIDAT-AKCIU.md) — postup za 5 minut. |
+| **Přidat / upravit pravidelnou lekci** (každý týden / měsíc) | [Pravidelná lekce přes `recurrence:`](docs/PRIDAT-AKCIU.md#pravidelná-lekce-přes-recurrence) — jeden soubor, ne dvanáct. |
+| Přidat termín do **série** (Milonga u Draka, Tango & Pizza) | [Série](docs/SERIE.md). |
+| Upravit běžnou **stránku** (o nás, milongy, lekce, FAQ) | [content/pages/](content/pages/) — viz tabulka „Nejčastěji upravované stránky" níže. |
+| Napsat **anglickou** verzi stránky | [Anglická verze](docs/ANGLICKA-VERZIA.md). |
+| Něco jiného (oznámení, pikoška, obrázky, navigace…) | Tabulka [Kam co patří](#rychlé-odkazy-do-obsahu-pro-editory) níže. |
 
-## Obsah
+Vývojář (build, struktura, nasazení)? Skoč na [Pracovní postup pro vývojáře](#pracovní-postup-pro-vývojáře-ve-zkratce).
 
-1. [Rychlé odkazy do obsahu (pro editory)](#rychlé-odkazy-do-obsahu-pro-editory)
-2. [Dokumentace](#dokumentace)
-3. [Pracovní postup pro editory (ve zkratce)](#pracovní-postup-pro-editory-ve-zkratce)
-4. [Pracovní postup pro vývojáře (ve zkratce)](#pracovní-postup-pro-vývojáře-ve-zkratce)
-5. [Struktura projektu (vysoká úroveň)](#struktura-projektu-vysoká-úroveň)
-6. [Související](#související)
+---
+
+Statický web argentinského tanga v Brně, postavený na [Pelicanu](https://getpelican.com/). Detaily žijí v dokumentech v [docs/](docs/); tahle stránka je rozcestník.
 
 ## Rychlé odkazy do obsahu (pro editory)
 
