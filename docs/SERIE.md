@@ -2,9 +2,9 @@
 
 Některé akce se opakují, ale každá instance je vlastní datovaný soubor (Milonga u Draka, Tango & Pizza). Bez seskupení by každé hledání jména série v Googlu rozdělovalo pozornost mezi N téměř identických stránek. Pole `series:` říká webu „všechny tyhle akce jsou jedna a ta samá věc, pošli vyhledávače na jednu hlavní stránku".
 
-Běžnou akci bez série řeší [Přidat akci](PRIDAT-AKCIU.md). Tenhle návod je navíc, jen když akce patří do opakující se série.
+Běžnou akci bez série řeší [Akce: přidat a upravit](AKCE.md). Tenhle návod je navíc, jen když akce patří do opakující se série.
 
-## Série vs. hub — jaký je rozdíl?
+## 🤔 Série vs. hub — jaký je rozdíl?
 
 Lidé tyhle dva pojmy často míchají, protože spolu úzce souvisí, ale dělají dvě jiné věci:
 
@@ -15,11 +15,11 @@ Vztah: **série = skupina, hub = stránka té skupiny**. Hub poznáte podle toho
 
 Jednoduchá analogie: série je název kapely, hub je oficiální web kapely, jednotlivé instance jsou koncerty.
 
-## Co potřebuje editor udělat
+## ✍️ Co potřebuje editor udělat
 
 **Přidat novou instanci do existující série:**
 
-1. Vytvořte soubor akce normálně podle [Přidat akci](PRIDAT-AKCIU.md), v [content/events/](../content/events/)`RRRR/MM/`.
+1. Vytvořte soubor akce normálně podle [Akce: přidat a upravit](AKCE.md), v [content/events/](../content/events/)`RRRR/MM/`.
 2. Přidejte jeden řádek: `series: <slug-existujícího-hubu>` (např. `series: milonga-u-draka`).
 3. Hotovo. Web automaticky:
    - Přepne kanonickou URL stránky na `/{series}/`.
@@ -37,7 +37,7 @@ Jednoduchá analogie: série je název kapely, hub je oficiální web kapely, je
 - Jednorázové akce, které se nebudou opakovat — nechte pole vynechané, stránka bude kanonická sama na sebe (což je správné chování).
 - Opakující se **lekce/praktiky** psané přes `recurrence:` (jeden zdrojový soubor, jeden URL) — `series:` nepotřebují, už mají jednu kanonickou stránku.
 
-## Hub stránka (`content/pages/series/<slug-série>.md`)
+## 🏠 Hub stránka (`content/pages/series/<slug-série>.md`)
 
 Hub stránka vypadá jako běžná stránka. Kritické jsou dva řádky: `slug` a `series` musí mít **stejnou hodnotu** — takto systém pozná, že je to hub a ne další instance.
 
@@ -55,9 +55,9 @@ author: Lenka Pláteníková
 
 Tělo hubu popisuje **sérii obecně**, ne konkrétní termín. Sekce „Nejbližší termíny série" se vykreslí automaticky pod tělem — tu nepíšete vy.
 
-## Související
+## 🔗 Související
 
-- [Přidat akci](PRIDAT-AKCIU.md) — základní postup pro instanci akce.
+- [Akce: přidat a upravit](AKCE.md) — základní postup pro instanci akce.
 - [Pole v hlavičce](EDITING.md) — referenční přehled všech metadat.
 - [content/pages/series/milonga-u-draka.md](../content/pages/series/milonga-u-draka.md) — reálný příklad hub stránky.
 - [content/events/2026/05/2026-05-16-milonga-u-draka.md](../content/events/2026/05/2026-05-16-milonga-u-draka.md) — reálný příklad instance v sérii.

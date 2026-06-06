@@ -1,10 +1,10 @@
 # Pole v hlavičce — referenční přehled
 
-Referenční přehled metadat (frontmatteru) Markdown souborů. **Když jen přidáváš akci, jdi na [Přidat akci](PRIDAT-AKCIU.md)** — provede tě postupem za 5 minut. Tenhle dokument je slovník všech polí pro případy, kdy potřebuješ detail.
+Referenční přehled metadat (frontmatteru) Markdown souborů. **Když jen přidáváš nebo upravuješ akci, jdi na [Akce: přidat a upravit](AKCE.md)** — provede tě postupem za 5 minut. Tenhle dokument je slovník všech polí pro případy, kdy potřebuješ detail.
 
 Související: série → [Série](SERIE.md), měsíční stránky milong → [Měsíční stránky](MESACNE-STRANKY.md), anglická verze → [Anglická verze](ANGLICKA-VERZIA.md), *proč* to funguje → [SEO](SEO.md), widgety → [Widgety](WIDGETS.md).
 
-## Kam co patří — rychlé odkazy do repa
+## 🗂️ Kam co patří — rychlé odkazy do repa
 
 Klikněte na složku, ve které soubor pro daný typ obsahu leží. Editovat budete vždy uvnitř `content/`.
 
@@ -22,7 +22,7 @@ Klikněte na složku, ve které soubor pro daný typ obsahu leží. Editovat bud
 | Odkazy v navigaci (hlavička / patička) | [content/navigation/](../content/navigation/) |
 | Obrázky | [content/images/](../content/images/) |
 
-## Šablona hlavičky — všechna pole
+## 📋 Šablona hlavičky — všechna pole
 
 Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ obsahu nepotřebujete, a vyplňte hodnoty. Komentář na konci řádku říká, **pro který typ dokumentu řádek platí**.
 
@@ -76,7 +76,7 @@ instructor: Šteky Yaku
 
 Zobrazí se oddělené čárkou: „Šteky Yaku, Filip Šterc, Albert Mikó, Jana Popelková". Jeden lektor = jeden řádek. (Jména píšte tak, jak mají vypadat — do budoucna se z nich budou moct stát odkazy na profil lektora, pokud profil existuje.)
 
-## Co se zobrazí kde, když publikujete
+## 👀 Co se zobrazí kde, když publikujete
 
 | Když nastavíte… | …zobrazí se v |
 |---|---|
@@ -96,7 +96,7 @@ Pro hub-stránky a běžné stránky (o nás, FAQ, marathon sub-site) stačí sp
 
 Titulky a nadpisy přehledových stránek (`tango-kalendar-brno`, `tango-milongy-brno`, `tango-lekce-brno` a jejich `.en.md` varianty) obsahují aktuální rok kvůli vyhledávání (lidé hledají „milonga Brno 2026"). **Jednou ročně** (typicky začátkem ledna) v nich přepište rok na nový — je to ~6 souborů + 6 anglických dvojčat, jen pole `title`, `description` a první `<h1>`/odstavec. Měsíční stránky (`milongy-brno-<měsíc>`, viz [Měsíční stránky](MESACNE-STRANKY.md)) rok řeší samy přes build-time filtr, ty se nedotýkáte.
 
-## Oznámení / píkoška / osoba
+## 📢 Oznámení / píkoška / osoba
 
 Použijte společná pole. Aktuálně:
 
@@ -106,7 +106,7 @@ Použijte společná pole. Aktuálně:
 
 Žádný z těchto typů nevkládá JSON-LD Event strukturu (správně — nejsou to akce).
 
-## Soubory pro AI asistenty (`content/llm/`)
+## 🤖 Soubory pro AI asistenty (`content/llm/`)
 
 Adresář [content/llm/](../content/llm/) obsahuje soubory, které řídí to, co web nabízí LLM asistentům (ChatGPT, Claude, Perplexity, …) k textovému stažení. **Jeden soubor → jeden výstup:** každý `*.md` v `content/llm/` se při buildu promítne do stejně pojmenovaného `*.txt` na rootu webu (a do `.well-known/`).
 
@@ -142,9 +142,9 @@ llm_mirror: false
 
 Aktuálně tento řádek nesou všechny soubory v [content/curiosities/](../content/curiosities/) a [content/people/](../content/people/). Editor jednotlivých souborů to může kdykoli vrátit zpět odebráním řádku — `.md` zrcadlo se začne znovu generovat při dalším buildu. HTML stránka tím dotčená není.
 
-## Související dokumenty
+## 🔗 Související dokumenty
 
-- [Přidat akci](PRIDAT-AKCIU.md) — postup za 5 minut pro nejčastější úkol.
+- [Akce: přidat a upravit](AKCE.md) — postup za 5 minut pro nejčastější úkol.
 - [Série](SERIE.md) — série vs hub, přidat instanci, založit sérii.
 - [Měsíční stránky](MESACNE-STRANKY.md) — měsíční přehledy milong.
 - [Anglická verze](ANGLICKA-VERZIA.md) — `.en.md` sourozenci, navigace, `translate: false`.

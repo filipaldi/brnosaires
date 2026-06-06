@@ -10,7 +10,7 @@ Detail všech polí hlavičky → [Pole v hlavičce](EDITING.md). Série (Milong
 
 ---
 
-## 1. Vytvoř soubor a zkopíruj do něj tuhle hlavičku
+## 1️⃣ Vytvoř soubor a zkopíruj do něj tuhle hlavičku
 
 Nový soubor patří do [content/events/](../content/events/) → podsložka `RRRR/MM/` podle měsíce akce (např. akce v květnu 2026 → `content/events/2026/05/`).
 
@@ -34,7 +34,7 @@ Volitelně: `event-organiser`, `instructor`, `series` (jen u série, viz [Série
 
 ---
 
-## 2. Pojmenuj soubor správně
+## 2️⃣ Pojmenuj soubor správně ⚠️
 
 Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **Tři pravidla, jinak se akce nepublikuje nebo spadne celý web:**
 
@@ -48,7 +48,7 @@ Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **
 
 ---
 
-## 3. Zkontroluj tyhle čtyři řádky — tady se chybuje nejčastěji
+## 3️⃣ Zkontroluj tyhle čtyři řádky — tady se chybuje nejčastěji ⚠️
 
 | Řádek | Na co si dát pozor |
 |---|---|
@@ -59,7 +59,7 @@ Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **
 
 ---
 
-## 4. Vyber správný `event-type`
+## 4️⃣ Vyber správný `event-type`
 
 Špatný typ build **nerozbije**, ale zařadí akci do jiné kategorie — v kalendáři a filtrech se zobrazí jinde, než má.
 
@@ -75,7 +75,7 @@ Klasická past: víkendový workshop omylem jako `class` se schová mezi pravide
 
 ---
 
-## 5. Commitni
+## 5️⃣ Commitni 💾
 
 Soubor uložíš jedním ze dvou způsobů:
 
@@ -86,7 +86,7 @@ Web se sestaví **automaticky dvakrát denně** (06:00 a 18:00 UTC). Potřebuje�
 
 ---
 
-## Akce se neobjevila? Pět nejčastějších důvodů
+## Akce se neobjevila? Pět nejčastějších důvodů ❌
 
 Soubor je commitnutý, build proběhl, ale akci na webu nevidíš. Skoro vždy je to jedno z těchto — a žádné z nich nehlásí chybu:
 
@@ -100,7 +100,7 @@ Stále nic? Build mohl spadnout úplně (typicky špatné pořadí data v názvu
 
 ---
 
-## Pravidelná lekce přes `recurrence:`
+## Pravidelná lekce přes `recurrence:` 🔁
 
 Lekce, která se opakuje každý týden nebo měsíc, je **jeden soubor**, ne dvanáct. Pole `recurrence:` ho při buildu rozbalí na všechny termíny. Soubory pravidelných lekcí leží v [content/events/classes/](../content/events/classes/) a v názvu **nemají datum** (datum dodá `event-start` + `recurrence`).
 
@@ -129,7 +129,7 @@ author: Tvé jméno
 
 Dny **anglicky** a malými písmeny (`monday`…`sunday`). Den v `recurrence:` musí sedět se dnem, na který padá `event-start` — jinak se termíny rozjedou. Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
 
-## Upravit existující akci
+## Upravit existující akci ✏️
 
 Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../content/events/) pro jednorázové, [content/events/classes/](../content/events/classes/) pro pravidelné lekce) a uprav jen ten řádek:
 
@@ -147,7 +147,7 @@ Po úpravě commitni stejně jako u nové akce (krok 5). Pokud se změna neproje
 
 ---
 
-## Související
+## Související 🔗
 
 - [Pole v hlavičce](EDITING.md) — referenční přehled všech metadat a co se kde zobrazí.
 - [Série](SERIE.md) — jak přidat akci do pravidelné série (Milonga u Draka, Tango & Pizza).
