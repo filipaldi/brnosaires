@@ -39,7 +39,7 @@ description: Krátký popis (cca 160–200 znaků) pro Google a sociální karti
 preview_image: /images/.../nahled.jpg   # 1200×630; OG, Twitter, kalendář
 
 # ─── JEN PRO AKCE (content/events/RRRR/MM/) ───
-event-type: milonga                # milonga | workshop | class | praktika
+event-type: milonga                # milonga | workshop | class | praktika | neolonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 22:30:00     # půlnoc = další den 00:00:00, NIKDY 24:00:00
 event-location: Stará radnice, Radnická 8, Brno
@@ -82,6 +82,7 @@ Než stránku commitnete, projděte tyto body. Pokrývají chyby, které se v so
 - [ ] **`date:` má formát `RRRR-MM-DD HH:MM:SS` a je to datum publikace, ne akce.** Časté přehození: `date: 10. 4. 2026` nebo `date: 2026-05-16` (datum akce). Správně: `date: 2026-04-10 18:00:00`. Datum akce patří výhradně do `event-start`. Pokud `date` nastavíte do budoucnosti, stránka se neobjeví ve správném pořadí.
 - [ ] **`slug:` je unikátní a bez diakritiky.** Dva české soubory se stejným slugem se přepíší při buildu (vyhraje poslední); český a anglický sourozenec **musí** sdílet slug, ale jiný pár souborů ne. Slug musí být ASCII, malými písmeny, pomlčky místo mezer (`Milonga u Mamuta` ❌ → `milonga-u-mamuta` ✅). Zkontrolujte hledáním slugu přes `content/`.
 - [ ] **Všechna povinná YAML pole jsou vyplněná.** Pro akce: `title`, `slug`, `date`, `author`, `event-type`, `event-start`, `event-end`, `event-location`. Silně doporučené: `description`, `preview_image`. Nezapomeňte na `entry:` u placených akcí (jinak schema.org neoznačí akci jako placenou). Šablonu viz [Šablona hlavičky](#šablona-hlavičky--všechna-pole).
+- [ ] **`event-type:` odpovídá druhu akce.** Povolené hodnoty: `milonga` | `workshop` | `class` | `praktika` | `neolonga` (`neolonga` se chová jako milonga, jen se zatím v obsahu nepoužívá). Špatný typ akci nerozbije build, ale zařadí ji do nesprávné kategorie, takže se v kalendáři a filtrech zobrazí jinde, než má (víkendový workshop omylem jako `class` se schová mezi pravidelné lekce). Pravidlo: jednorázová intenzivní akce = `workshop`, pravidelná týdenní lekce = `class`. Porovnejte s existující stejnou akcí přes `grep`, ať máte stejný typ jako minule.
 - [ ] **`event-end` je vyplněné a půlnoc je `00:00:00` dalšího dne, ne `24:00:00`.** Bez `event-end` se nespustí Google Event rich-result. Zápis `24:00:00` Python neumí — akce se nepublikuje. Půlnoc: `event-end: 2026-05-17 00:00:00`, ne `2026-05-16 24:00:00`.
 - [ ] **`preview_image:` ukazuje na existující soubor.** Cesta začíná lomítkem, bez prefixu `content` (např. `/images/events/2026/milonga.jpg`). Pole se jmenuje `preview_image`, **ne** `og_image` (to neexistuje). Špatná cesta = rozbité OG kartičky a prázdný náhled v kalendáři.
 - [ ] **`description:` má pod ~200 znaků.** Delší se ořeže ve snippetu Googlu i v OG kartičce.

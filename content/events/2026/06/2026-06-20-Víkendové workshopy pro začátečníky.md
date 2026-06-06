@@ -1,15 +1,15 @@
 ---
-title: "Víkendové workshopy pro začátečníky - sobota"
+title: Víkendové workshopy pro začátečníky - sobota
 slug: vikendove-workshopy-zacatecnici-sobota
 date: 2026-06-01 
-instructor: "Filip a Lenka"
+instructor: Filip a Lenka
 event-start: 2026-06-20 13:00:00
 event-end: 2026-06-20 17:15:00
 preview_image: /images/classes/class-lenka-filip.avif
-event-organiser: "Taneční studio Stolárna"
-event-location: "Taneční studio Stolárna, Olomoucká 14, Brno"
-event-type: class
-description: "Víkendové workshopy pro všechny začátečníky, které kdy lákalo argentinské tango. Studenti sleva." 
+event-organiser: Taneční studio Stolárna
+event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-type: workshop
+description: Víkendové workshopy pro všechny začátečníky, které kdy lákalo argentinské tango. Studenti sleva.
 author: Lenka Pláteníková
 ---
 
