@@ -51,7 +51,7 @@ Web má anglickou verzi pod prefixem `/en/`. Čeština (výchozí jazyk, `DEFAUL
 
 **Přepínač jazyka** ([theme/templates/components/lang_switcher.html](../theme/templates/components/lang_switcher.html)): `CS · EN` v hlavičce; aktuální jazyk je inertní, druhý odkazuje na překladový protějšek této stránky (nebo `/` ↔ `/en/` pro homepage). Na marathon stránkách se úplně vynechává. Malý progressive-enhancement skript v `base.html` si zvolený jazyk pamatuje v `localStorage` a na holém root pathu redirectuje na `/en/`, pokud bylo dřív zvoleno `en` — odkazy fungují fajn i bez JS.
 
-Editorská verze tohoto všeho (pojmenování `.en.md`, co kam psát): [Úprava obsahu → Jazykové verze](EDITING.md).
+Editorská verze tohoto všeho (pojmenování `.en.md`, co kam psát): [Anglická verze](ANGLICKA-VERZIA.md).
 
 ## Opakující se akce: hub stránky
 
@@ -95,7 +95,7 @@ Dvanáct ručně psaných stránek, jedna pro každý český název měsíce (`
 - **Anglická dvojčata** jsou `.en.md` sourozenci se *stejným* slugem + `Lang: en` (jako každé jiné `.en.md`) → routováno na `/en/milongy-brno-<m>/`. Liší se jen text a zobrazený měsíc/rok; parametr `month=` a year filter jsou jazykově neutrální.
 - **Canonical/sitemap**: každá měsíční stránka je self-canonical a sitemap plugin si ji vezme automaticky; `noindex` (jen prázdné měsíce) drží ty tenké mimo index, aniž by je odstranil.
 
-Editorská verze (jak měsíční stránku autorovat/editovat, čeho se nedotýkat): [Úprava obsahu → Měsíční stránky milong](EDITING.md).
+Editorská verze (jak měsíční stránku autorovat/editovat, čeho se nedotýkat): [Měsíční stránky](MESACNE-STRANKY.md).
 
 ## Open Graph + Twitter Card
 

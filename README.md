@@ -2,6 +2,8 @@
 
 Statický web argentinského tanga v Brně, postavený na [Pelicanu](https://getpelican.com/). Tento dokument je **rozcestník** — najdeš tu rychlé odkazy do obsahu, mapu dokumentace a stručně, jak je projekt poskládaný. Detaily žijí v jednotlivých dokumentech v [docs/](docs/).
 
+> **Přidáváš akci?** → **[Přidat akci za 5 minut](docs/PRIDAT-AKCIU.md)**. To je nejčastější úkol; tenhle návod tě provede od kopírování po commit.
+
 ## Obsah
 
 1. [Rychlé odkazy do obsahu (pro editory)](#rychlé-odkazy-do-obsahu-pro-editory)
@@ -40,11 +42,15 @@ Statický web argentinského tanga v Brně, postavený na [Pelicanu](https://get
 
 ## Dokumentace
 
-Všechny dokumenty jsou česky. Krátké shrnutí toho, kde se co dočteš:
+Všechny dokumenty jsou česky. Editorské nahoře, vývojářské pod čarou:
 
 | Dokument | Pro koho | O čem to je |
 |---|---|---|
-| [Úprava obsahu](docs/EDITING.md) | Editoři | **Metadata v hlavičce souboru** (frontmatter) — co napsat do `event-start`, `series:`, `preview_image`, jak fungují anglické verze (`.en.md`), jak založit hub pravidelné série, měsíční stránky milong, soubory pro AI asistenty. |
+| [Přidat akci](docs/PRIDAT-AKCIU.md) | Editoři | **Nejčastější úkol.** Přidat milongu/workshop/lekci za 5 minut: zkopíruj hlavičku, pojmenuj soubor, vyplň pole, commitni. Na konci „Akce se neobjavila? Pět důvodů". |
+| [Pole v hlavičce](docs/EDITING.md) | Editoři | Referenční přehled všech metadat (frontmatteru) a co se kde zobrazí. Slovník polí pro detail. |
+| [Série](docs/SERIE.md) | Editoři | Pravidelné série (Milonga u Draka, Tango & Pizza): série vs hub, přidat instanci, založit sérii. |
+| [Měsíční stránky](docs/MESACNE-STRANKY.md) | Editoři | Měsíční přehledy milong (`/milongy-brno-kveten/` …), co (ne)měnit. |
+| [Anglická verze](docs/ANGLICKA-VERZIA.md) | Editoři | `.en.md` sourozenci stránek, navigace per-jazyk, `translate: false`. |
 | [Widget systém](docs/WIDGETS.md) | Editoři + vývojáři | Tagy `<widget-*>` v těle markdownu: `<widget-calendar>`, `<widget-calendar-link>`, `<widget-articles>`. Atributy, filtry, příklady. |
 | [SEO + sociální kartičky](docs/SEO.md) | Vývojáři | *Proč* je web takhle poskládaný: kanonická URL strategie, `<base href>`, JSON-LD, anglická verze a `hreflang`, evergreen měsíční stránky, mechanika hubů. |
 | [Discoverability pro LLM](docs/LLMS.md) | Vývojáři | Generování `/llms.txt`, `/llms-full.txt` a `.md` zrcadel pro AI asistenty. |
@@ -55,16 +61,13 @@ Všechny dokumenty jsou česky. Krátké shrnutí toho, kde se co dočteš:
 ## Pracovní postup pro editory (ve zkratce)
 
 1. Najdi nebo vytvoř soubor ve správné složce (viz tabulka výše).
-2. Vyplň hlavičku (frontmatter) podle [Úprava obsahu](docs/EDITING.md) — povinná pole jsou `title`, `slug`, `date`, u akcí navíc `event-type`, `event-start`, `event-end`, `event-location`.
-3. Napiš tělo v Markdownu. Widgety (`<widget-*>`) vlož kamkoli v těle — viz [Widget systém](docs/WIDGETS.md).
-4. Commitni (přes GitHub web UI nebo GitHub Desktop). Web se sestaví automaticky dvakrát denně (06:00 a 18:00 UTC); pokud potřebuješ rychlejší aktualizaci, vyžádej si ruční build u vývojáře.
+2. Vyplň hlavičku (frontmatter) a tělo. Akci provede krok za krokem [Přidat akci](docs/PRIDAT-AKCIU.md); slovník všech polí je v [Pole v hlavičce](docs/EDITING.md); widgety (`<widget-*>`) v [Widget systém](docs/WIDGETS.md).
+3. Commitni. Web se sestaví automaticky dvakrát denně (06:00 a 18:00 UTC); potřebuješ rychleji, vyžádej si ruční build u vývojáře.
 
 **Soubor můžeš upravit dvěma způsoby:**
 
 - **Přes GitHub web UI** — stačí prohlížeč a GitHub účet. Otevři soubor v repu, klikni na tužku (✏️), uprav, dole napiš krátký commit message, klikni „Commit changes". Vhodné pro krátké textové úpravy.
 - **Přes [GitHub Desktop](https://desktop.github.com/)** — naklonuj repo do počítače, edituj v libovolném textovém editoru, v GitHub Desktopu commitni a klikni „Push origin". Vhodné pro nahrávání obrázků a více souborů najednou.
-
-Co je Markdown, co je frontmatter, jak se zachází se slugy a obrázky — popsáno v [Úprava obsahu](docs/EDITING.md).
 
 ## Pracovní postup pro vývojáře (ve zkratce)
 

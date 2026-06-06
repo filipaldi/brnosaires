@@ -111,7 +111,7 @@ The site has an English mirror under `/en/`. Lightweight engine — no `i18n_sub
 - `plugins/i18n_fallback.py` synthesizes an English clone (Czech body, English chrome) for every default-lang page/article that has no `.en.md` yet — so `/en/` is a full navigable mirror from day one.
 - Per-language UI strings live in `theme/i18n/{cs,en}.py`, exposed as the `STRINGS` Jinja global + a `t(key, lang)` filter; `base.html` computes `page_lang` once and drives `<html lang>`, `og:locale`, meta-desc, `hreflang`, the bottom-of-rail language switcher (`components/lang_switcher.html`), and lang-aware dates (`DATE_FORMATS`).
 - **Monolingual content declares `translate: false`** in front-matter (the marathon folders get it in bulk via `EXTRA_PATH_METADATA`): no `/en/` clone, no switcher, `page_lang` forced to `en`. Marathon is English-first with no Czech mirror.
-- Editor workflow: [docs/EDITING.md](docs/EDITING.md) → "Jazykové verze". Architecture / SEO: [docs/SEO.md](docs/SEO.md) → "Multilingual: the /en/ mirror".
+- Editor workflow: [docs/ANGLICKA-VERZIA.md](docs/ANGLICKA-VERZIA.md). Architecture / SEO: [docs/SEO.md](docs/SEO.md) → "Multilingual: the /en/ mirror".
 
 ## Content Format
 
