@@ -10,6 +10,7 @@ preview_image: /images/classes/class-lenka-filip.avif
 event-organiser: Taneční studio Stolárna
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: workshop
+event-url: https://www.sportimea.com/cs/enrollment/27615
 description: A whole beginners' course, squeezed into one weekend. No partner, no talent required. Students dance for half price.
 author: Lenka Pláteníková
 ---

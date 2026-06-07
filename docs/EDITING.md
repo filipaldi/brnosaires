@@ -47,6 +47,7 @@ event-location: Stará radnice, Radnická 8, Brno
 # ─── VOLITELNÉ PRO AKCE ───
 event-organiser: Brno Tango Club   # kdo akci pořádá
 entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" → isAccessibleForFree
+event-url: https://...             # externí odkaz: vstupenky / registrace; zobrazí se jako "Více info a vstupenky"
 series: milonga-u-draka            # jen pokud akce patří do série (slug hubu) — viz SERIE.md
 instructor: Jana Nováková          # více lektorů → každé jméno na vlastní řádek, odsazené (viz níže)
 recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT

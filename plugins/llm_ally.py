@@ -30,6 +30,7 @@ _PELICAN_HEADER_RE = re.compile(r"\A([A-Za-z][A-Za-z0-9_-]*:\s.*\n)+\n", re.MULT
 EVENT_FRONTMATTER_FIELDS = (
     "event-type", "event-start", "event-end", "event-location",
     "event-organiser", "instructor", "recurrence", "series",
+    "event-url",
 )
 
 # Stash for handoff between *_generator_finalized and finalized signals.

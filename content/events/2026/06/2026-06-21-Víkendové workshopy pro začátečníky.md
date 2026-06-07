@@ -9,6 +9,7 @@ preview_image: /images/classes/class-lenka-filip.avif
 event-organiser: Taneční studio Stolárna
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: workshop
+event-url: https://www.sportimea.com/cs/enrollment/27615
 description: Víkendové workshopy pro všechny začátečníky, které kdy lákalo argentinské tango. Studenti sleva.
 author: Lenka Pláteníková
 ---

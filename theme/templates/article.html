@@ -23,7 +23,8 @@
     {% set event_organiser = meta.get('event-organiser') %}
     {% set event_location = meta.get('event-location') %}
     {% set event_entry = meta.get('entry') %}
-    {% if event_type or event_start or event_end or instructor or event_organiser or event_location or event_entry %}
+    {% set event_url = meta.get('event-url') %}
+    {% if event_type or event_start or event_end or instructor or event_organiser or event_location or event_entry or event_url %}
     <header class="text-s color-neutral-3 el-stack stack-xs">
       {% if event_type %}<p>{{ event_type }}</p>{% endif %}
       {% if event_start %}
@@ -33,6 +34,7 @@
       {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
       {% if event_location %}<p>{{ event_location }}</p>{% endif %}
       {% if event_entry %}<p>{{ 'event_entry_label' | t(page_lang) }} {{ event_entry }}</p>{% endif %}
+      {% if event_url %}<p><a href="{{ event_url }}" rel="noopener" target="_blank">{{ 'event_url_label' | t(page_lang) }}</a></p>{% endif %}
     </header>
     {% elif article.date %}
     <header>
@@ -102,7 +104,8 @@
     "@type": "Offer",
     "price": {{ ('0' if _free else (_entry | string | trim)) | tojson }},
     "priceCurrency": "CZK",
-    "availability": "https://schema.org/InStock"{% if SITEURL %},
+    "availability": "https://schema.org/InStock"{% if event_url %},
+    "url": {{ event_url | tojson }}{% elif SITEURL %},
     "url": "{{ SITEURL }}/{{ _ld_url }}"{% endif %}
   },
   {% if _free %}"isAccessibleForFree": true,

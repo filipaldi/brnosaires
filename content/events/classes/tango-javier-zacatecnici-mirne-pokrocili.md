@@ -9,6 +9,7 @@ preview_image: /images/classes/class-javier.jfif
 event-organiser: Javier Antar
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: class
+event-url: https://forms.gle/kUqPhscNTnJWRBth7
 description: Kurz argentinského tanga pro začátečníky a mírně pokročilé. Vede profesionální tanečník a učitel JAVIER ANTAR. 13 lekcí od 4. 3..
 author: Lenka Pláteníková
 entry: 350 Kč
