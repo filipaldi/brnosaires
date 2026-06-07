@@ -8,7 +8,7 @@
 <div class="group--main-container">
   <article class="el-stack stack-m">
     {% if article.preview_image %}
-    <div class="el-frame-16x9">
+    <div class="el-frame-16x9 aesthetic-card">
       <img src="{{ article.preview_image.lstrip('/') }}" alt="{{ article.preview_image_alt|default(article.title) }}" />
     </div>
     {% endif %}
