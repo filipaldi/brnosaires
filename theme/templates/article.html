@@ -25,16 +25,40 @@
     {% set event_entry = meta.get('entry') %}
     {% set event_url = meta.get('event-url') %}
     {% if event_type or event_start or event_end or instructor or event_organiser or event_location or event_entry or event_url %}
-    <header class="text-s color-neutral-3 el-stack stack-xs">
-      {% if event_type %}<p>{{ event_type }}</p>{% endif %}
-      {% if event_start %}
-      <p><time datetime="{{ event_start | event_iso8601 }}">{{ event_start | format_event_datetime(page_lang) }}</time>{% if event_end %} – <time datetime="{{ event_end | event_iso8601 }}">{{ event_end | format_event_datetime(page_lang) }}</time>{% endif %}</p>
-      {% endif %}
-      {% if instructor %}<p>{{ instructor_names }}</p>{% endif %}
-      {% if event_organiser %}<p>{{ event_organiser }}</p>{% endif %}
-      {% if event_location %}<p>{{ event_location }}</p>{% endif %}
-      {% if event_entry %}<p>{{ 'event_entry_label' | t(page_lang) }} {{ event_entry }}</p>{% endif %}
-      {% if event_url %}<p><a href="{{ event_url }}" rel="noopener" target="_blank">{{ 'event_url_label' | t(page_lang) }}</a></p>{% endif %}
+    {# localised event-type word; falls back to the raw value when no i18n key exists #}
+    {% set _type_key = 'event_type_' ~ (event_type | string | lower) %}
+    {% set _type_word = _type_key | t(page_lang) %}
+    {% if _type_word == _type_key %}{% set _type_word = event_type %}{% endif %}
+    <header aria-label="{{ article.title }}">
+      <dl class="meta-list text-s color-neutral-3">
+        {% if event_type %}
+        <dt>{{ 'event_type_label' | t(page_lang) }}</dt>
+        <dd>{{ _type_word }}</dd>
+        {% endif %}
+        {% if event_start %}
+        <dt>{{ 'event_when_label' | t(page_lang) }}</dt>
+        <dd><time datetime="{{ event_start | event_iso8601 }}">{{ event_start | format_event_datetime(page_lang) }}</time>{% if event_end %} – <time datetime="{{ event_end | event_iso8601 }}">{{ event_end | format_event_datetime(page_lang) }}</time>{% endif %}</dd>
+        {% endif %}
+        {% if instructor %}
+        <dt>{{ 'event_instructor_label' | t(page_lang) }}</dt>
+        <dd>{{ instructor_names }}</dd>
+        {% endif %}
+        {% if event_organiser %}
+        <dt>{{ 'event_organiser_label' | t(page_lang) }}</dt>
+        <dd>{{ event_organiser }}</dd>
+        {% endif %}
+        {% if event_location %}
+        <dt>{{ 'event_location_label' | t(page_lang) }}</dt>
+        <dd>{{ event_location }}</dd>
+        {% endif %}
+        {% if event_entry %}
+        <dt>{{ 'event_entry_label' | t(page_lang) }}</dt>
+        <dd>{{ event_entry }}</dd>
+        {% endif %}
+        {% if event_url %}
+        <dd class="meta-list__full"><a href="{{ event_url }}" rel="noopener" target="_blank">{{ 'event_url_label' | t(page_lang) }}</a></dd>
+        {% endif %}
+      </dl>
     </header>
     {% elif article.date %}
     <header>

@@ -28,8 +28,20 @@ STRINGS = {
     # --- article.html: first-timer nudge on milonga/praktika events ---
     "first_milonga_prompt": "Poprvé na milonze?",
     "first_milonga_link": "Mrkni, jak na to.",
-    "event_entry_label": "Vstupné:",
+    "event_entry_label": "Vstupné",
     "event_url_label": "Více info a vstupenky",
+    # event header <dl> labels (article.html semantic rework)
+    "event_type_label": "Typ akce",
+    "event_when_label": "Kdy",
+    "event_instructor_label": "Lektoři",
+    "event_organiser_label": "Pořadatel",
+    "event_location_label": "Místo",
+    # localised event-type words (keyed by the raw event-type metadata value)
+    "event_type_class": "Lekce",
+    "event_type_milonga": "Milonga",
+    "event_type_neolonga": "Neolonga",
+    "event_type_praktika": "Praktika",
+    "event_type_workshop": "Workshop",
 
     # --- category.html ---
     "category_announcement": "Oznámení",

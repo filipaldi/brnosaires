@@ -31,8 +31,20 @@ STRINGS = {
     # --- article.html: first-timer nudge on milonga/praktika events ---
     "first_milonga_prompt": "First time at a milonga?",
     "first_milonga_link": "Here's how it goes.",
-    "event_entry_label": "Entry:",
+    "event_entry_label": "Entry",
     "event_url_label": "More info & tickets",
+    # event header <dl> labels (article.html semantic rework)
+    "event_type_label": "Event type",
+    "event_when_label": "When",
+    "event_instructor_label": "Teachers",
+    "event_organiser_label": "Organiser",
+    "event_location_label": "Venue",
+    # localised event-type words (keyed by the raw event-type metadata value)
+    "event_type_class": "Class",
+    "event_type_milonga": "Milonga",
+    "event_type_neolonga": "Neolonga",
+    "event_type_praktika": "Praktika",
+    "event_type_workshop": "Workshop",
 
     # --- category.html ---
     "category_announcement": "Announcements",

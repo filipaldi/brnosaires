@@ -237,3 +237,34 @@
 .stack-l > * + * {
   margin-top: var(--size-l);
 }
+
+
+/* ============================================
+   META LIST (label/value description list)
+   ============================================
+   A compact <dl> of "Label value" rows. Each row is a dt+dd pair laid
+   out inline; rows are tightly stacked. Strips the browser-default dl/dd
+   margins and indent. Used by the event header in article.html. */
+
+.meta-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--size-s);
+  row-gap: var(--size-2xs);
+  margin: 0;
+}
+
+.meta-list > dt {
+  grid-column: 1;
+  font-weight: var(--font-weight-semibold);
+}
+
+.meta-list > dd {
+  grid-column: 2;
+  margin: 0;
+}
+
+/* a dd with no preceding dt (e.g. the action link) spans the full width */
+.meta-list > .meta-list__full {
+  grid-column: 1 / -1;
+}
