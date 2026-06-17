@@ -1,5 +1,5 @@
-title: Openclass a milonga na Střeše Vaňkovky
-slug: 2026-07-30-milonga-u-draka     
+title: Openclass a milonga na Střeše Vaňkovky - červenec
+slug: 2026-07-30-milonga-na-strese-vankovky     
 date: 2026-06-17 18:00:00             
 author: Lenka Pláteníková
 description: Openclass a milonga na Střeše Vaňkovky v rámci festivalu Stay fit by Vaňkovka
