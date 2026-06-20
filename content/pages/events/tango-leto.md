@@ -2,9 +2,9 @@
 title: Tango léto v Brně aneb Letní tango menu
 date: 2026-01-17 18:00:00
 slug: tango-leto-v-brne-aneb-letni-tango-menu
-description: Tango v létě žije. Open-air milongy, praktiky, živá hudba a festival argentinské kultury v Brně. Přehled na červen až srpen.
+description: Tango v létě žije. Open-air milongy, praktiky, živá hudba a festival argentinské kultury v Brně. Přehled na červenec až srpen.
 author: Filip Paldia
-preview_image: /images/srpen_tango.avif
+preview_image: /images/events/2026/tango-leto-obecne.JPEG
 ---
 
 # Tango léto v Brně aneb Letní tango menu
