@@ -3,17 +3,17 @@ title: Praktika na Stolárně
 slug: praktika-na-stolarne
 date: 2026-02-01 20:00:00
 event-type: praktika
-event-start: 2026-02-01 20:00:00
-event-end: 2026-02-01 23:00:00
-recurrence: weekly sunday
+event-start: 2026-07-06 20:15:00
+event-end: 2026-07-06 22:30:00
+recurrence: weekly monday
 preview_image: /images/classes/praktika-stolarna.jpg
-description: Praktikomilonga na Stolárně každou neděli. Začátečníci i pokročilí.
+description: Praktikomilonga na Stolárně se přesouvá přes léto na každé pondělí. Začátečníci i pokročilí.
 author: Filip Paldia
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 ---
 
 # Praktika na Stolárně
 
-Praktikomilonga pro všechny - ať už jsi na začátku, uprostřed nebo máš za sebou dlouhou tango cestu, přijď potrénovat v atmosféře, kde se nemusíš bát dělat chyby. 
-Vedená část, kdy se střídá po 2 písničkách 20:00 - 21:30
-DJ Filip
+Praktikomilonga se přes léto stěhuje z neděle na každé PONDĚLÍ. Je pro všechny - ať už jsi na začátku, uprostřed nebo máš za sebou dlouhou tango cestu, přijď potrénovat v atmosféře, kde se nemusíš bát dělat chyby. 
+Praktika je prostor, kde máš šanci tango vstřebat a usadit do těla. Na lekcích získáš informace a inspiraci, na praktice si v klidu všechno vyzkoušíš, zopakuješ a propojíš s vlastním tancem. Potrénuj konkrétní věci, které ti nejdou, zeptej se přítomných lektorů nebo zkušených tanečníků na detaily techniky, vedení, opakováním najdi větší jistotu nebo přesnost v pohybu, aby ses na reálné milonze užíval(a) tanec a objetí. 
+**Pravidelná praktika často dělá větší rozdíl než další nové figury.**
