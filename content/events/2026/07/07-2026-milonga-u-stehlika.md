@@ -1,4 +1,4 @@
-title: Open air milonga u Stehlíka
+title: Open air milonga u Stehlíka, co nemá jistý termín
 slug: 2026-07-16-milonga-u-stehlika      
 date: 2026-06-23 12:00:00              
 author: Lenka Pláteníková
