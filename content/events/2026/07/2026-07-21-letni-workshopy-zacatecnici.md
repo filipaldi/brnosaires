@@ -5,7 +5,7 @@ date: 2026-07-06
 instructor: Ondra a Pavla
 event-start: 2026-07-21 17:45:00
 event-end: 2026-07-21 22:00:00
-preview_image: /images/classes/class-lenka-filip.avif
+preview_image: /images/events/2026/Ondra-Pavla.jpg
 event-organiser: Taneční studio Stolárna
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: workshop
