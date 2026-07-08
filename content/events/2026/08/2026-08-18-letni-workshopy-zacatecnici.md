@@ -27,7 +27,7 @@ PLNÁ CENA:
 jedna lekce 270 Kč
 celý kurz (8 lekcí) 1840 Kč
 STUDENTI se slevou 20 %!!! Stačí použít slevový kód "STUDENT20" a na místě se prokázat platných ISIC průkazem.
-LEKTOŘI: Ondra & Pavla
+LEKTOŘI: Filip & Lenka
 ROZVRH:
 8 lekcí po 75 minutách:
 Úterý 17:45 - 22:00 (3 lekce)
