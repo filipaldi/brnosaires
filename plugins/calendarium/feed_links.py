@@ -93,14 +93,20 @@ def get_feed_url_https(feed_id, siteurl, output_dir="calendars"):
     return str(siteurl).rstrip("/") + calendar_path
 
 
+def _to_webcal(url):
+    if url.startswith("https://"):
+        return "webcal://" + url[8:]
+    if url.startswith("http://"):
+        return "webcal://" + url[7:]
+    return url
+
+
 def get_google_calendar_add_url(feed_url):
-    return "https://calendar.google.com/calendar/r?cid=" + quote(feed_url, safe="")
+    # Google Calendar's add-by-URL (?cid=) is unreliable with a plain https:// .ics
+    # link, but consistently subscribes when the cid uses the webcal:// scheme.
+    return "https://calendar.google.com/calendar/r?cid=" + quote(_to_webcal(feed_url), safe="")
 
 
 def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
     full_url = get_feed_url_https(feed_id, siteurl, output_dir)
-    if full_url.startswith("https://"):
-        return "webcal://" + full_url[8:]
-    if full_url.startswith("http://"):
-        return "webcal://" + full_url[7:]
-    return full_url
+    return _to_webcal(full_url)
