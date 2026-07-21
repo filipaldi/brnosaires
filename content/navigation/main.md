@@ -1,4 +1,5 @@
 Tango léto, tango-leto-v-brne-aneb-letni-tango-menu
+Maraton, marathon
 Kalendář, tango-kalendar-brno, primary, ph-calendar-blank
 Milongy, tango-milongy-brno, primary, ph-music-notes
 Lekce, tango-lekce-brno, primary, ph-graduation-cap

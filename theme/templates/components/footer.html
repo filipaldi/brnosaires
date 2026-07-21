@@ -6,7 +6,13 @@
 {% set _flang = page_lang | default(DEFAULT_LANG, true) %}
 {% set _home = '/en/' if _flang == 'en' else '/' %}
 {% set _en_prefix = '/en/' if _flang == 'en' else '/' %}
-{% macro _u(slug) %}{{ _en_prefix }}{{ slug }}/{% endmacro %}
+{# Monolingual slugs have no /en/ mirror (the marathon sub-site is English-only,
+   translate:false — i18n_fallback synthesizes no /en/ clone) so they live ONLY
+   at the root. Never prefix them with /en/, or the link 404s on English pages —
+   and marathon pages force page_lang=en, so it would 404 even inside marathon.
+   Every other slug here is translatable and keeps the /en/ prefix as before. #}
+{% set _monolingual = ['marathon'] %}
+{% macro _u(slug) %}{{ '/' if slug in _monolingual else _en_prefix }}{{ slug }}/{% endmacro %}
 {% set _events = [
   ('jarni-tango-vikend-v-brne', 'Tango víkend' if _flang != 'en' else 'Tango weekend'),
   ('tango-leto-v-brne-aneb-letni-tango-menu', 'Tango léto' if _flang != 'en' else 'Tango summer'),

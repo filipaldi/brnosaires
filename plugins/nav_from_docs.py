@@ -57,12 +57,18 @@ def _parse_nav_file(path):
 
 
 def _en_url(page):
-    """The /en/ URL of `page`: its en translation's url if one exists, else
-    the page's own url prefixed with en/ as a last-resort fallback."""
+    """The /en/ URL of `page`: its en translation's url if one exists.
+
+    If the page has no en translation it is monolingual (e.g. the marathon
+    sub-site, `translate: false` — i18n_fallback deliberately synthesizes no
+    /en/ clone for it), so it lives ONLY at its root URL. Return that root URL,
+    never a fabricated `en/<slug>/`: that path is never generated and would
+    404. (With i18n_fallback every translatable page DOES get an en clone, so
+    the only slugs reaching this fallback are monolingual ones.)"""
     for tr in getattr(page, "translations", []) or []:
         if (getattr(tr, "lang", "") or "").lower() == EN_LANG:
             return tr.url
-    return "en/" + page.url
+    return page.url
 
 
 def _resolve_items(items, pages_by_slug, lang=DEFAULT_LANG):
