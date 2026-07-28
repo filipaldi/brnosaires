@@ -6,7 +6,7 @@ event-type: praktika
 event-start: 2026-02-04 20:30:00
 event-end: 2026-02-04 22:00:00
 recurrence: weekly wednesday
-preview_image: /images/classes/praktika-tangolab-steky.avif
+preview_image: /images/events/2026/Tangolab-zacatecnici.png
 event-organiser: TangoLab Štěky
 event-location: i.D Yoga, Poštovská 3, Brno
 description: Praktika každou středu. Trénuj, ptej se zkušenějších, prodiskutuj nejistoty. Poštovská 3 od 20:30.
