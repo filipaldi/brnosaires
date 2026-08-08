@@ -32,6 +32,19 @@ Do hlavičky pište příponu toho souboru, který nahráváte; robot ji opraví
 
 Sociální náhledy (Facebook, LinkedIn, WhatsApp) AVIF neumí přečíst. **Řešit to nemusíte** — web si při každém buildu vyrobí JPEG kopii jen pro ně, do `/og/`. V repu ani v hlavičce ji nikde neuvidíte.
 
+### Kam obrázek uložit — dvě možnosti
+
+| Kam | Jak se na něj odkážete | Kdy to použít |
+|---|---|---|
+| [content/images/](../content/images/) | absolutní cesta: `preview_image: /images/curiosities/foto.avif` | **Výchozí volba.** Vždy, když obrázek používá (nebo může použít) víc než jeden článek. |
+| **Vedle `.md` souboru** | jen jméno souboru: `preview_image: foto.avif` | Jednorázový článek, jehož obrázek nikdo jiný nepoužije — píkoška, jednotlivé oznámení. |
+
+Druhá varianta je pohodlnější: obrázek nahrajete do stejné složky jako článek a nevymýšlíte cestu. Příklad v repu: [content/curiosities/dvacet-let-s-blancou.md](../content/curiosities/dvacet-let-s-blancou.md).
+
+**Nefunguje to** u akcí s `recurrence:` nebo `series:` — jeden soubor se tam rozpadá na víc stránek a obrázek by u většiny z nich chyběl. Když to zkusíte, build vás na to upozorní v logu a obrázek se nezobrazí; přesuňte ho do `content/images/` a použijte absolutní cestu.
+
+V **těle** článku (`![](...)`) odkazujte vždy absolutní cestou `/images/...`, i když obrázek leží vedle `.md`.
+
 ## 📋 Šablona hlavičky — všechna pole
 
 Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ obsahu nepotřebujete, a vyplňte hodnoty. Komentář na konci řádku říká, **pro který typ dokumentu řádek platí**.

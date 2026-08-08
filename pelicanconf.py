@@ -324,7 +324,10 @@ PLUGIN_PATHS = ["plugins"]
 # (widget_processor only iterates generator.pages/articles, not translations).
 # og_image must come AFTER i18n_fallback — it stamps og_image onto the English
 # clones too, and those only exist once i18n_fallback has synthesized them.
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# colocated_images must come FIRST — widget_processor bakes preview_image into
+# the rendered widget HTML during the same signal, so the bare filename has to
+# be rewritten before it runs.
+PLUGINS = ["colocated_images", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

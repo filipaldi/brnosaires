@@ -77,6 +77,16 @@ JPEG_QUALITY = 82
 _JOBS = {}  # output relative path -> absolute source path
 
 
+def _colocated_sources():
+    """Map of rewritten preview_image value -> real file, or {} if the
+    colocated_images plugin is not enabled."""
+    try:
+        from colocated_images import SOURCE_BY_REF
+    except ImportError:
+        return {}
+    return SOURCE_BY_REF
+
+
 def _passthrough(ref):
     # Exact (lowercase) match only — see PASSTHROUGH_EXTENSIONS on why `.JPEG`
     # is deliberately not equivalent to `.jpeg` here.
@@ -146,7 +156,15 @@ def _assign(generators):
             content.og_image = ref
             continue
 
-        source, rel = _resolve_source(ref, content_root)
+        # A co-located preview no longer lives under content/ at the path its
+        # (rewritten) value spells, so colocated_images keeps the real file
+        # behind the rewritten value. See plugins/colocated_images.py.
+        colocated = _colocated_sources().get(ref)
+        if colocated:
+            source = colocated
+            rel = os.path.relpath(colocated, content_root)
+        else:
+            source, rel = _resolve_source(ref, content_root)
         if source is None:
             # A dead `preview_image`. The visible <img> is already broken; do
             # not add a second broken URL on top of it.
