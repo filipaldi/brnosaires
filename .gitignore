@@ -37,3 +37,7 @@ screenshot-*.jpeg
 page-2[0-9][0-9][0-9]-*.yml
 console-2[0-9][0-9][0-9]-*.log
 playwright-trace-*.zip
+
+# Same class, one level down: the patterns above are filename-anchored, so a
+# whole folder of verification shots (e.g. footer-verify/) slipped past them.
+*-verify/
