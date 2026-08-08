@@ -1,0 +1,242 @@
+# Sveltia CMS — editorské rozhraní nad tímhle repem.
+# Otevři https://brnosaires.com/admin/ a přihlas se GitHub účtem.
+#
+# Poznámky pro vývojáře (proč to je takhle):
+#
+#   modes: [raw] u každého těla článku. V obsahu je 125 výskytů vlastních
+#   widget tagů (<widget-calendar/>, <widget-gallery/>, …). Rich-text editor
+#   je Markdown↔HTML round-trip a vlastní tagy neumí zachovat, takže by je
+#   při prvním uložení přepsal. Raw režim žádný round-trip nedělá.
+#
+#   i18n.structure: multiple_files zapisuje /<folder>/<path>.<locale>.<ext>,
+#   což je přesně naše konvence `foo.en.md` se stejným slugem. Spolu
+#   s omit_default_locale_from_file_path zůstává česká verze jako `foo.md`.
+#
+#   Přihlášení: GitHub backend nabízí „Sign In with Token“ (osobní přístupový
+#   token), takže tenhle web nepotřebuje žádný OAuth relay ani nic dalšího
+#   hostovat. Kdyby se někdy chtělo klasické „Přihlásit přes GitHub“, přibude
+#   sem `base_url:` na nasazený sveltia-cms-auth.
+
+backend:
+  name: github
+  repo: filipaldi/brnosaires
+  branch: main
+  # Commituje rovnou do main — web se od té chvíle staví při každém pushi
+  # (.github/workflows/deploy.yml), takže změna je venku za pár minut.
+
+media_folder: content/images
+public_folder: /images
+
+output:
+  yaml:
+    quote: none
+    indent_size: 2
+
+i18n:
+  structure: multiple_files
+  locales: [cs, en]
+  default_locale: cs
+  omit_default_locale_from_file_path: true
+
+collections:
+  - name: events
+    label: Akce
+    label_singular: Akci
+    folder: content/events
+    # Rok a měsíc se berou z data KONÁNÍ, ne z data publikace — repo je
+    # tříděné podle měsíce akce.
+    path: "{{event-start | date('YYYY')}}/{{event-start | date('MM')}}/{{slug}}"
+    create: true
+    format: yaml-frontmatter
+    extension: md
+    i18n: true
+    summary: "{{title}} — {{event-start | date('D. M. YYYY')}}"
+    sortable_fields: [event-start, title]
+    fields:
+      - { name: title, label: Název, widget: string, i18n: true }
+      - name: slug
+        label: Slug (v URL)
+        widget: string
+        i18n: duplicate
+        hint: Bez diakritiky, malými písmeny s pomlčkami. Česká i anglická verze mají stejný slug.
+      - name: date
+        label: Datum publikace
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+        hint: Kdy soubor zakládáš, NE kdy je akce. Datum akce patří do „Začátek".
+      - name: author
+        label: Autor
+        widget: select
+        i18n: duplicate
+        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
+      - name: description
+        label: Krátký popis
+        widget: text
+        i18n: true
+        hint: Do ~200 znaků. Jde do Googlu a do náhledu na sítích.
+      - name: preview_image
+        label: Náhledový obrázek
+        widget: image
+        required: false
+        i18n: duplicate
+        hint: 1200×630. Nahraj v jakémkoli formátu — robot ho převede na .avif.
+      - name: event-type
+        label: Typ akce
+        widget: select
+        i18n: duplicate
+        options: [milonga, neolonga, workshop, class, praktika]
+        hint: Jednorázová intenzivní akce = workshop. Pravidelná týdenní lekce = class.
+      - name: event-start
+        label: Začátek
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+      - name: event-end
+        label: Konec
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+        hint: Půlnoc piš jako 00:00:00 dalšího dne.
+      - name: event-location
+        label: Místo
+        widget: select
+        i18n: duplicate
+        # Kanonický seznam míst. Volný text tady nejde zadat schválně —
+        # `event_address()` v pelicanconf.py z téhle věty skládá schema.org
+        # adresu podle čárek a odchylka od tvaru „Podnik, Ulice, Brno-Čtvrť"
+        # tiše degraduje strukturovaná data. Nové místo přidej sem.
+        options:
+          - Adrinela Cafe, Životského 14, Brno-Židenice
+          - Café Paměti národa, Radnická 10, Brno
+          - Dělnický dům, Jamborova 65, Brno
+          - Domini Park, Husova 14, Brno
+          - HEX Gallery, Lidická 63a, Brno
+          - i.D Yoga, Poštovská 3, Brno
+          - Kancelář ombudsmana (předsálí), Údolní 39, Brno
+          - Kavárna Hned vedle, Radnická 10, Brno
+          - Park Anthropos, Pisárecká 5, Brno
+          - Park Moravské náměstí, Brno
+          - Pavilon Anthropos, Pisárecká 5, Brno
+          - Rockwine, Vídeňská 18, Brno
+          - Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
+          - Skleněnka, Kounicova 23, Brno
+          - Škola Danza, Okružní 1, Brno
+          - Společenský sál na Staré radnici, Dominikánská 264/2, Brno-město
+          - Stará radnice, Radnická 8, Brno
+          - Střecha Vaňkovky, Brno
+          - Taneční studio Stolárna, Olomoucká 14, Brno
+          - Vlněna, Přízova 216/18, Brno
+      - name: event-organiser
+        label: Pořadatel
+        widget: string
+        required: false
+        i18n: duplicate
+      - name: instructor
+        label: Lektoři
+        widget: list
+        required: false
+        i18n: duplicate
+      - name: entry
+        label: Vstupné
+        widget: string
+        required: false
+        i18n: true
+        hint: '„zdarma" nebo „dobrovolné" označí akci jako bezplatnou.'
+      - name: event-url
+        label: Externí odkaz (vstupenky, registrace)
+        widget: string
+        required: false
+        i18n: duplicate
+      - name: series
+        label: Série
+        widget: select
+        required: false
+        i18n: duplicate
+        options: [milonga-adrinela, milonga-rockwine, milonga-u-draka, neolonga-na-stolarne, tango-pizza]
+        hint: Vyplň jen u akce, která patří do pravidelné série s vlastní hub-stránkou.
+      - name: recurrence
+        label: Opakování
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: >-
+          Jen u pravidelných lekcí. Tvar „weekly monday" nebo „monthly 1 sunday",
+          volitelně + „from 2026-09-07", „until 2026-12-16" nebo „count 10".
+          JEDEN soubor pokryje všechny termíny — nezakládej je ručně.
+      - name: body
+        label: Text
+        widget: markdown
+        modes: [raw]
+        i18n: true
+
+  - name: announcements
+    label: Oznámení
+    label_singular: Oznámení
+    folder: content/announcements
+    create: true
+    format: yaml-frontmatter
+    extension: md
+    i18n: true
+    fields:
+      - { name: title, label: Název, widget: string, i18n: true }
+      - { name: date, label: Datum publikace, widget: datetime, format: YYYY-MM-DD HH:mm:ss, i18n: duplicate }
+      - name: author
+        label: Autor
+        widget: select
+        i18n: duplicate
+        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
+      - { name: category, label: Kategorie, widget: hidden, default: announcement, i18n: duplicate }
+      - { name: description, label: Krátký popis, widget: text, i18n: true }
+      - { name: preview_image, label: Náhledový obrázek, widget: image, required: false, i18n: duplicate }
+      - { name: body, label: Text, widget: markdown, modes: [raw], i18n: true }
+
+  - name: curiosities
+    label: Píkošky
+    label_singular: Píkošku
+    folder: content/curiosities
+    create: true
+    format: yaml-frontmatter
+    extension: md
+    i18n: true
+    # Obrázek píkošky smí bydlet vedle .md (viz plugins/colocated_images.py),
+    # ale CMS ho ukládá do content/images/ jako všechno ostatní — jednodušší
+    # a vždycky správné.
+    fields:
+      - { name: title, label: Název, widget: string, i18n: true }
+      - { name: date, label: Datum publikace, widget: datetime, format: YYYY-MM-DD HH:mm:ss, i18n: duplicate }
+      - name: author
+        label: Autor
+        widget: select
+        i18n: duplicate
+        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
+      - { name: category, label: Kategorie, widget: hidden, default: curiosity, i18n: duplicate }
+      - { name: description, label: Krátký popis, widget: text, i18n: true }
+      - { name: preview_image, label: Náhledový obrázek, widget: image, required: false, i18n: duplicate }
+      - { name: body, label: Text, widget: markdown, modes: [raw], i18n: true }
+
+  - name: people
+    label: Lidé
+    label_singular: Osobu
+    folder: content/people
+    create: true
+    format: yaml-frontmatter
+    extension: md
+    i18n: true
+    fields:
+      - { name: title, label: Jméno, widget: string, i18n: true }
+      - { name: slug, label: Slug (v URL), widget: string, i18n: duplicate }
+      - { name: date, label: Datum publikace, widget: datetime, format: YYYY-MM-DD HH:mm:ss, i18n: duplicate }
+      - name: author
+        label: Autor
+        widget: select
+        i18n: duplicate
+        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
+      - { name: description, label: Krátký popis, widget: text, i18n: true }
+      - { name: preview_image, label: Fotka, widget: image, required: false, i18n: duplicate }
+      - { name: body, label: Text, widget: markdown, modes: [raw], i18n: true }
+
+  # Stránky obsahují widget tagy a ruční `url:`/`save_as:` override. Editují se
+  # zatím ručně — až po round-trip testu, který prokáže, že uložení stránky
+  # s <widget-calendar/> nezmění ani bajt. Marathon sub-web (translate: false)
+  # sem taky zatím nepatří.

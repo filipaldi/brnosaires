@@ -1,5 +1,15 @@
 # Přidat a upravit akci
 
+## Nejjednodušší cesta: formulář na [/admin/](https://brnosaires.com/admin/) 🖱️
+
+Otevři **[brnosaires.com/admin](https://brnosaires.com/admin/)** a přihlas se GitHub účtem („Sign In with Token" — token si vygeneruješ podle odkazu přímo na přihlašovací obrazovce, stačí jednou).
+
+Dostaneš formulář: typ akce vybereš ze seznamu, datum a čas naklikáš, místo vybereš z nabídky, obrázek nahraješ přetažením. Slug, datum publikace a formát hlavičky za tebe pohlídá formulář — nic z toho, co je popsané níž, psát nemusíš.
+
+Zbytek téhle stránky je **ruční cesta**: platí, když edituješ soubory přímo na GitHubu nebo v editoru, a hodí se jako referenční popis polí. Obě cesty zapisují ty samé soubory, takže se dají libovolně střídat.
+
+---
+
 Nejčastější úkoly v kostce:
 
 - **Přidat jednorázovou akci** (milonga, workshop) → kroky 1-5 níže.

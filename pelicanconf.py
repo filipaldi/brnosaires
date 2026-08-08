@@ -11,6 +11,8 @@ PAGE_PATHS = ["pages"]
 ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]
 STATIC_PATHS = [
     "images",
+    # Sveltia CMS: a static admin SPA + its config, served at /admin/.
+    "extra/admin",
     "extra/marathon/llms.txt",
     "extra/robots.txt",
     "extra/humans.txt",
@@ -353,6 +355,8 @@ EXTRA_PATH_METADATA = {
     "pages/marathon": {"section": "marathon", "translate": False},
     "events/2026-marathon": {"translate": False},
     "people/marathon-djs": {"translate": False},
+    "extra/admin/index.html": {"path": "admin/index.html"},
+    "extra/admin/config.yml": {"path": "admin/config.yml"},
     "extra/marathon/llms.txt": {"path": "marathon/llms.txt"},
     "extra/robots.txt": {"path": "robots.txt"},
     "extra/humans.txt": {"path": "humans.txt"},
