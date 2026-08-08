@@ -3,7 +3,7 @@ title: Neolonga na Stolárně
 slug: neolonga-na-stolarne
 date: 2026-05-26 00:00:00
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.jpg
+preview_image: /images/events/2026/neolonga.avif
 description: Pravidelně nepravidelná neolonga na Stolárně. Klasické tango, nuevo i jiné žánry — záleží na DJ. Klasická struktura tand a cortin.
 author: Lenka Pláteníková
 ---

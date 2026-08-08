@@ -22,7 +22,7 @@ slug: 2026-05-16-milonga-u-draka       # v URL: brnosaires.com/<slug>/
 date: 2026-04-10 18:00:00              # datum PUBLIKACE, NE datum akce
 author: Tvé jméno
 description: Krátký popis (do ~200 znaků) pro Google a náhled na sítích.
-preview_image: /images/events/2026/milonga.jpg   # 1200×630
+preview_image: /images/events/2026/milonga.avif  # 1200×630
 event-type: milonga                    # milonga | workshop | class | praktika | neolonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 22:30:00         # půlnoc = 00:00:00 dalšího dne, NIKDY 24:00:00
@@ -110,7 +110,9 @@ Soubor uložíš jedním ze dvou způsobů:
 - **GitHub web UI** — otevři repo v prohlížeči, najdi složku, „Add file" → „Create new file" (nebo tužku ✏️ u existujícího), vlož obsah, dole „Commit changes". Stačí prohlížeč a GitHub účet. Vhodné pro text.
 - **GitHub Desktop** — naklonuj repo, edituj v textovém editoru, commitni a „Push origin". Vhodné pro obrázky a víc souborů najednou.
 
-Web se sestaví **automaticky dvakrát denně** (06:00 a 18:00 UTC). Potřebuješ rychleji? Vyžádej si ruční build u vývojáře.
+Web se sestaví **hned po commitu** (a pro jistotu ještě dvakrát denně, v 06:00 a 18:00 UTC). Než se změna objeví, počítej s pár minutami — tolik trvá build a nasazení.
+
+**Obrázky:** nahraj je v jakémkoli formátu, který máš po ruce (`.jpg` z mobilu, `.png` ze screenshotu, cokoli). Chvíli po tvém commitu se objeví další commit od robota, který obrázek převede do menšího formátu `.avif` a přepíše na něj odkazy — původní soubor zmizí. **Tak to má být.** V hlavičce ho ale rovnou piš s příponou, kterou nahráváš; robot ji opraví za tebe.
 
 ---
 

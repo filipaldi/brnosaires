@@ -7,7 +7,7 @@ instructor: Pavla Lužná
 event-start: 2026-01-08 19:00:00
 event-end: 2026-01-08 20:15:00
 recurrence: weekly monday
-preview_image: /images/classes/tangomania.jfif
+preview_image: /images/classes/tangomania.avif
 event-organiser: Taneční studio Stolárna
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-type: class

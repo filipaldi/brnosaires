@@ -9,7 +9,7 @@ event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: Workshop pro středně pokročilé s Gottfriedem a Štěky. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/Gottfried-Steky.png
+preview_image: /images/Gottfried-Steky.avif
 ---
 
 # Workshop 2 / Gottfried a Štěky (středně pokročilí)

@@ -2,7 +2,7 @@
 title: Vybarvi se
 date: 2026-02-25 01:00:00
 category: announcement
-preview_image: /images/announcements/vybarvi-se.jpg
+preview_image: /images/announcements/vybarvi-se.avif
 description: Vrátilo se slunko. Neolonga. Brno tango víkend se Sercanem a Zeynep.
 author: Lenka Platenikova
 ---

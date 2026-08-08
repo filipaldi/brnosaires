@@ -10,7 +10,7 @@ event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: A workshop with Iris and Helmuth. Brnos Aires Tango Weekend 2026.
 author: Filip Paldia
-preview_image: /images/classes/helmuth-iris.jpg
+preview_image: /images/classes/helmuth-iris.avif
 ---
 
 # Workshop 3 / Iris and Helmuth

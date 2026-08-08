@@ -22,6 +22,16 @@ Klikněte na složku, ve které soubor pro daný typ obsahu leží. Editovat bud
 | Odkazy v navigaci (hlavička / patička) | [content/navigation/](../content/navigation/) |
 | Obrázky | [content/images/](../content/images/) |
 
+## 🖼️ Obrázky — nahrajte cokoli
+
+Nahrajte obrázek v tom formátu, který máte (`.jpg` z mobilu, `.png` ze screenshotu, `.heic` z iPhonu). O formát se starat nemusíte.
+
+Chvíli po vašem commitu se v repu objeví **druhý commit od robota**: obrázek převede na `.avif` (zhruba čtvrtinová velikost při stejné kvalitě), přepíše na něj odkazy ve všech `.md` souborech a původní soubor smaže. Poprvé to zmate, ale je to správně — originál zůstává v historii gitu.
+
+Do hlavičky pište příponu toho souboru, který nahráváte; robot ji opraví spolu s obrázkem.
+
+Sociální náhledy (Facebook, LinkedIn, WhatsApp) AVIF neumí přečíst. **Řešit to nemusíte** — web si při každém buildu vyrobí JPEG kopii jen pro ně, do `/og/`. V repu ani v hlavičce ji nikde neuvidíte.
+
 ## 📋 Šablona hlavičky — všechna pole
 
 Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ obsahu nepotřebujete, a vyplňte hodnoty. Komentář na konci řádku říká, **pro který typ dokumentu řádek platí**.
@@ -36,7 +46,7 @@ author: Jméno autora
 
 # ─── SILNĚ DOPORUČENO VŽDY ───
 description: Krátký popis (cca 160-200 znaků) pro Google a sociální kartičky.
-preview_image: /images/.../nahled.jpg   # 1200×630; OG, Twitter, kalendář
+preview_image: /images/.../nahled.avif  # 1200×630; OG, Twitter, kalendář
 
 # ─── JEN PRO AKCE (content/events/RRRR/MM/) ───
 event-type: milonga                # milonga | workshop | class | praktika | neolonga

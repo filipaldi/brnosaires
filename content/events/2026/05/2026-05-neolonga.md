@@ -8,7 +8,7 @@ event-end: 2026-05-31 01:00:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 entry: 150 Kč
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.jpg
+preview_image: /images/events/2026/neolonga.avif
 description: Další ze série pravidelně nepravidelných neolong. Objev, co s tebou ladí. Prozkoumáš hranice svojí muzikality.
 author: Lenka Pláteníková
 ---

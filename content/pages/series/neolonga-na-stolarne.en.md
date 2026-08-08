@@ -4,7 +4,7 @@ slug: neolonga-na-stolarne
 date: 2026-05-26 00:00:00
 lang: en
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.jpg
+preview_image: /images/events/2026/neolonga.avif
 description: An irregular-regular neolonga series at Stolárna in Brno. Classic tango, nuevo and other genres depending on the DJ — traditional tanda and cortina structure.
 author: Lenka Pláteníková
 ---

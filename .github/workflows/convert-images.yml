@@ -1,0 +1,78 @@
+name: Convert dropped images
+
+# Editors upload whatever their phone or Facebook handed them. This turns any
+# raster that lands in content/ into AVIF, repoints the Markdown references at
+# the new file, drops the original, and commits the result back.
+#
+# The bot commit uses the default GITHUB_TOKEN, whose pushes deliberately do
+# not trigger workflows — so this cannot loop, and it also means the deploy
+# does NOT re-run for the bot commit. The site stays live and correct on the
+# build from the editor's own push; the smaller images go out with the next
+# push or the next scheduled build.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/**.jpg'
+      - 'content/**.jpeg'
+      - 'content/**.JPG'
+      - 'content/**.JPEG'
+      - 'content/**.png'
+      - 'content/**.PNG'
+      - 'content/**.jfif'
+      - 'content/**.webp'
+      - 'content/**.heic'
+      - 'content/**.bmp'
+      - 'content/**.tif'
+      - 'content/**.tiff'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: convert-images
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install Pillow
+        run: pip install "pillow==12.3.0"
+
+      - name: Convert
+        run: python scripts/convert_images.py --quality 60
+
+      # Proof the rewrite did not orphan anything before the result is pushed.
+      # Needs a full build, since check_links resolves against output/.
+      - name: Verify every reference still resolves
+        run: |
+          pip install -r requirements.txt
+          PYTHONPATH=. pelican content -s publishconf.py
+          python scripts/check_links.py output
+          rm -rf output
+
+      - name: Commit
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing to convert."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Convert dropped images to AVIF
+
+          Automatic: scripts/convert_images.py converted the images added in
+          ${{ github.sha }} and repointed the Markdown references at them."
+          git push
