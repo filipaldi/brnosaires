@@ -79,6 +79,9 @@
   <meta name="twitter:description" content="{{ _desc }}">
   {% if _abs_img %}<meta name="twitter:image" content="{{ _abs_img }}">{% endif %}
 
+  {% if SITEURL and FEED_ALL_ATOM %}
+  <link rel="alternate" type="application/atom+xml" title="{{ SITENAME }}" href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}">
+  {% endif %}
   {% if SITEURL %}
   <link rel="alternate" type="text/plain" title="llms.txt" href="{{ SITEURL }}/llms.txt">
   <link rel="alternate" type="text/plain" title="llms-full.txt" href="{{ SITEURL }}/llms-full.txt">

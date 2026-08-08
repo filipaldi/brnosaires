@@ -55,8 +55,23 @@ DEFAULT_DATE_FORMAT = "%d. %m. %Y"
 DATE_FORMATS = {"cs": "%d. %m. %Y", "en": "%-d %B %Y"}
 TIMEZONE = "Europe/Prague"
 
-FEED_ALL_ATOM = None
-FEED_ALL_RSS = None
+# One feed, for everything, newest first. Anything that wants to echo this
+# site — a fediverse bot, a Nostr relay, a reader, a person — needs a machine
+# readable source of "what is new", and until now the only such outputs were
+# the .ics calendars (events only, no announcements) and llms.txt (a page
+# index, not a timeline). Per-category and per-author feeds stay off: they
+# would be a dozen URLs nobody asked for.
+FEED_ALL_ATOM = "feeds/all.atom.xml"
+FEED_ALL_RSS = "feeds/all.rss.xml"
+FEED_MAX_ITEMS = 30
+CATEGORY_FEED_ATOM = None
+CATEGORY_FEED_RSS = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
+TAG_FEED_ATOM = None
+TAG_FEED_RSS = None
+TRANSLATION_FEED_ATOM = None
+TRANSLATION_FEED_RSS = None
 
 DEFAULT_PAGINATION = False
 PAGINATED_TEMPLATES = {"index": None, "tag": None, "author": None, "category": 12}
