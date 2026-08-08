@@ -157,6 +157,22 @@ author: Tvé jméno
 
 Dny **anglicky** a malými písmeny (`monday`…`sunday`). Den v `recurrence:` musí sedět se dnem, na který padá `event-start` — jinak se termíny rozjedou. Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
 
+### Kdy má série skončit ⏳
+
+Bez dalšího údaje běží série **donekonečna**. Když víš, že kurz má deset lekcí nebo končí v prosinci, dopiš to za základní tvar:
+
+| Dovětek | Význam | Příklad |
+|---|---|---|
+| `until RRRR-MM-DD` | poslední termín je tenhle den (včetně) | `recurrence: weekly wednesday until 2026-12-16` |
+| `count N` | přesně N termínů | `recurrence: weekly monday count 10` |
+| `from RRRR-MM-DD` | první termín je až tenhle den | `recurrence: weekly monday from 2026-09-07` |
+
+Dovětky jdou kombinovat (`from … until …`), jen `until` a `count` **nedávej dohromady** — použije se `until`.
+
+`from` je užitečné, když kurz začíná v září, ale soubor zakládáš už v červnu: `event-start` nech na prvním termínu a `from` neřeš, **nebo** nech `event-start` a přes `from` sérii posuň. Čas začátku a konce se bere pořád z `event-start`/`event-end`.
+
+Když se v dovětku upíšeš (`until 2026-13-99`, `count 0`), web se nerozbije — dovětek se zahodí a série běží dál bez omezení. V logu GitHub Actions je pak varování, takže se to dá dohledat.
+
 ## Upravit existující akci ✏️
 
 Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../content/events/) pro jednorázové, [content/events/classes/](../content/events/classes/) pro pravidelné lekce) a uprav jen ten řádek:

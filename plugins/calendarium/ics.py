@@ -111,12 +111,18 @@ def _format_ics_datetime(dt, timezone_name=None):
 
 
 def _event_rrule(metadata):
+    """(RRULE string or None, series start date or None).
+
+    `recurrence:` may carry a `from` date that moves the first occurrence
+    without touching `event-start`; the caller shifts DTSTART/DTEND by the same
+    amount so the feed and the site agree on when the series begins.
+    """
     if not metadata:
-        return None
-    r = recurrence_to_rrule(metadata)
-    if r:
-        return r
-    return (metadata.get("event-rrule") or "").strip() or None
+        return None, None
+    rule, from_date = recurrence_to_rrule(metadata)
+    if rule:
+        return rule, from_date
+    return (metadata.get("event-rrule") or "").strip() or None, None
 
 
 def build_ics(events, siteurl, timezone_name=None):
@@ -161,6 +167,14 @@ def build_ics(events, siteurl, timezone_name=None):
         if url and url != "/":
             url = _ics_escape(url)
         
+        rrule, rrule_from = _event_rrule(meta)
+        if rrule_from is not None:
+            # Keep the duration, move both ends onto the series start date.
+            duration = end_dt - start_dt
+            start_dt = start_dt.replace(year=rrule_from.year, month=rrule_from.month,
+                                        day=rrule_from.day)
+            end_dt = start_dt + duration
+
         start_str, start_tz = _format_ics_datetime(start_dt, timezone_name)
         end_str, end_tz = _format_ics_datetime(end_dt, timezone_name)
         
@@ -181,7 +195,6 @@ def build_ics(events, siteurl, timezone_name=None):
             lines.append(f"LOCATION:{location}")
         if url:
             lines.append(f"URL:{url}")
-        rrule = _event_rrule(meta)
         if rrule:
             lines.append(f"RRULE:{rrule}")
         lines.append("END:VEVENT")

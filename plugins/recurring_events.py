@@ -67,26 +67,92 @@ class Occurrence:
         return self._start
 
 
+def _split_bounds(parts):
+    """Peel `from` / `until` / `count` off the end of a recurrence value.
+
+    Returns (base_parts, from_date, until_date, count). A malformed modifier is
+    dropped with a warning rather than killing the whole series — a class that
+    silently collapses to a single date is a worse outcome than one that runs
+    past its intended end, and the warning is visible in the build log.
+    """
+    base = []
+    from_date = until_date = count = None
+    index = 0
+    while index < len(parts):
+        token = parts[index]
+        argument = parts[index + 1] if index + 1 < len(parts) else None
+        if token in ("from", "until") and argument is not None:
+            parsed = _parse_date_str(argument)
+            if parsed is None:
+                logger.warning("recurring_events: ignoring '%s %s' — not a YYYY-MM-DD date",
+                               token, argument)
+            elif token == "from":
+                from_date = parsed
+            else:
+                until_date = parsed
+            index += 2
+            continue
+        if token == "count" and argument is not None:
+            try:
+                parsed_count = int(argument)
+            except (ValueError, TypeError):
+                parsed_count = 0
+            if parsed_count < 1:
+                logger.warning("recurring_events: ignoring 'count %s' — not a positive integer",
+                               argument)
+            else:
+                count = parsed_count
+            index += 2
+            continue
+        base.append(token)
+        index += 1
+    return base, from_date, until_date, count
+
+
 def _recurrence_to_rrule(meta):
+    """Turn a `recurrence:` value into (RRULE string, series start date).
+
+    Grammar:
+        weekly <day>            [from D] [until D] [count N]
+        monthly <ordinal> <day> [from D] [until D] [count N]
+
+    `from` moves the first occurrence without touching `event-start`, whose
+    time-of-day still applies to every occurrence. `until` is inclusive of the
+    named day. RFC 5545 forbids UNTIL and COUNT together, so UNTIL wins.
+
+    Returns (None, None) when nothing recognisable is there.
+    """
     raw = (meta.get("recurrence") or meta.get("Recurrence") or "").strip()
     if not raw:
-        return None
-    parts = raw.lower().split()
+        return None, None
+    parts, from_date, until_date, count = _split_bounds(raw.lower().split())
+
+    rule = None
     if len(parts) == 2 and parts[0] == "weekly":
         day = WEEKDAY_TO_BYDAY.get(parts[1])
         if day:
-            return f"FREQ=WEEKLY;BYDAY={day}"
-    if len(parts) == 3 and parts[0] == "monthly":
+            rule = f"FREQ=WEEKLY;BYDAY={day}"
+    elif len(parts) == 3 and parts[0] == "monthly":
         try:
             ord_val = int(parts[1])
         except (ValueError, TypeError):
-            return None
-        if ord_val < -1 or ord_val == 0 or ord_val > 4:
-            return None
+            ord_val = 0
         day = WEEKDAY_TO_BYDAY.get(parts[2])
-        if day:
-            return f"FREQ=MONTHLY;BYDAY={ord_val}{day}"
-    return None
+        if day and ord_val != 0 and -1 <= ord_val <= 4:
+            rule = f"FREQ=MONTHLY;BYDAY={ord_val}{day}"
+    if rule is None:
+        return None, None
+
+    if until_date is not None:
+        # Inclusive of the named day, so run to the last second of it.
+        rule += ";UNTIL=" + until_date.replace(
+            hour=23, minute=59, second=59).strftime("%Y%m%dT%H%M%S")
+        if count is not None:
+            logger.warning("recurring_events: 'until' and 'count' are mutually "
+                           "exclusive in %r — using 'until'", raw)
+    elif count is not None:
+        rule += f";COUNT={count}"
+    return rule, from_date
 
 
 def _naive(dt):
@@ -109,7 +175,13 @@ def _expand_event(event, window_start_dt, window_end_dt):
         end_dt = start_dt
     end_dt = _naive(end_dt)
     duration = end_dt - start_dt
-    rrule_str = _recurrence_to_rrule(meta)
+    rrule_str, from_date = _recurrence_to_rrule(meta)
+    if from_date is not None:
+        # `from` moves the first occurrence; the time of day still comes from
+        # event-start, so a series can be re-anchored without editing two
+        # fields that have to agree.
+        start_dt = start_dt.replace(year=from_date.year, month=from_date.month,
+                                    day=from_date.day)
     if rrule_str is None:
         rrule_str = (meta.get("event-rrule") or "").strip()
     if not rrule_str:
