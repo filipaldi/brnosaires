@@ -34,6 +34,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Same suite as tests.yml, run here too so a broken build cannot reach
+      # Pages by way of the cron or a manual dispatch.
+      - name: Run tests
+        run: python -m unittest discover -s tests -t .
+
       - name: Build with Pelican
         run: |
           PYTHONPATH=. pelican content -s publishconf.py

@@ -15,16 +15,22 @@ on:
 permissions:
   contents: write
 
+# Shared with convert-images.yml: both commit to main. Serialising them is what
+# stops a rejected push here from losing the record of what was already posted
+# — which on Nostr would mean announcing the same article twice.
 concurrency:
-  group: social
+  group: push-to-main
   cancel-in-progress: false
 
 jobs:
   echo:
-    # `workflow_run` fires for failed runs too.
+    # `workflow_run` fires for failed runs, and for manual dispatches of the
+    # deploy from ANY branch — which would post the live feed to the world off
+    # the back of a feature-branch experiment.
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      github.event.workflow_run.conclusion == 'success'
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,4 +67,13 @@ jobs:
 
           Automatic: scripts/publish_social.py echoed new articles to the
           configured networks."
-          git push
+          # The posts have already gone out. Losing this file means the next
+          # run announces them again, so the push retries rather than failing.
+          for attempt in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected (attempt $attempt), rebasing on main"
+            git pull --rebase origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "could not push after 5 attempts — the next run may repeat these posts"
+          exit 1

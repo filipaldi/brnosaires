@@ -98,6 +98,14 @@ def convert(jobs, quality, dry_run):
     if dry_run:
         return [target for _source, target in jobs], []
     from PIL import Image
+    try:
+        # HEIC is what an iPhone hands you, and Pillow does not read it on its
+        # own. Optional so a checkout without it still converts everything else
+        # rather than failing at import.
+        import pillow_heif
+        pillow_heif.register_heif_opener()
+    except ImportError:
+        pass
 
     written, failed = [], []
     for source, target in jobs:
@@ -204,8 +212,16 @@ def main():
               f"({(1 - after / before) * 100:.0f}% smaller)" if before else "")
         print("  originals removed. Build and run scripts/check_links.py to verify.")
     if failed:
-        print(f"  {len(failed)} failed — left untouched")
-    return 1 if failed else 0
+        print(f"  {len(failed)} failed — left in place for a human:", file=sys.stderr)
+        for source, _exc in failed:
+            print(f"      {os.path.relpath(source, content_root)}", file=sys.stderr)
+    # Exit 0 whenever anything converted, even alongside failures. Otherwise one
+    # undecodable file fails the workflow step, the commit never runs, and the
+    # whole batch — already converted and already deleted in the workspace — is
+    # thrown away with it. And since the bad file stays in the repo, every
+    # subsequent run fails the same way: permanently red until a human
+    # intervenes. Only a run where nothing at all succeeded is an error.
+    return 1 if failed and not done else 0
 
 
 if __name__ == "__main__":

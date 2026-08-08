@@ -13,26 +13,40 @@ on:
   push:
     branches:
       - main
+    # GitHub path filters are case-sensitive and this repo already contains
+    # .JPEG and .JPG added by hand, so every extension the converter accepts is
+    # listed in both cases. A missing spelling means the original ships to
+    # every visitor, which is the exact thing this workflow exists to prevent.
     paths:
       - 'content/**.jpg'
-      - 'content/**.jpeg'
       - 'content/**.JPG'
+      - 'content/**.jpeg'
       - 'content/**.JPEG'
       - 'content/**.png'
       - 'content/**.PNG'
       - 'content/**.jfif'
+      - 'content/**.JFIF'
       - 'content/**.webp'
+      - 'content/**.WEBP'
       - 'content/**.heic'
+      - 'content/**.HEIC'
+      - 'content/**.heif'
+      - 'content/**.HEIF'
       - 'content/**.bmp'
+      - 'content/**.BMP'
       - 'content/**.tif'
+      - 'content/**.TIF'
       - 'content/**.tiff'
+      - 'content/**.TIFF'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# Shared with social.yml: both jobs commit to main, and a rebase race between
+# them costs either a lost conversion or a duplicate public post.
 concurrency:
-  group: convert-images
+  group: push-to-main
   cancel-in-progress: false
 
 jobs:
@@ -47,8 +61,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Pillow
-        run: pip install "pillow==12.3.0"
+      - name: Install
+        # pillow-heif is what makes .heic readable — Pillow does not decode it
+        # on its own, and HEIC is what an iPhone hands an editor.
+        run: pip install "pillow==12.3.0" "pillow-heif==1.5.0"
 
       - name: Convert
         run: python scripts/convert_images.py --quality 60
@@ -75,4 +91,15 @@ jobs:
 
           Automatic: scripts/convert_images.py converted the images added in
           ${{ github.sha }} and repointed the Markdown references at them."
-          git push
+          # This job started from an older SHA and takes minutes, so main has
+          # very likely moved. Without the rebase the push is rejected, the job
+          # goes red, and the conversion is thrown away — and because the paths
+          # filter only fires on image pushes, no later commit re-runs it.
+          for attempt in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected (attempt $attempt), rebasing on main"
+            git pull --rebase origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "could not push after 5 attempts"
+          exit 1

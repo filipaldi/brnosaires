@@ -46,6 +46,7 @@ import sys
 import time
 import urllib.request
 import xml.etree.ElementTree as ElementTree
+from datetime import datetime
 
 ATOM = "{http://www.w3.org/2005/Atom}"
 STATE_FILE = ".published-feeds.json"
@@ -107,7 +108,7 @@ def compose(entry):
 # ---------------------------------------------------------------- mastodon
 
 
-def post_mastodon(text, dry_run):
+def post_mastodon(text, dry_run, created_at=None):
     instance = (os.environ.get("MASTODON_INSTANCE") or "").rstrip("/")
     token = os.environ.get("MASTODON_TOKEN")
     if not instance or not token:
@@ -170,7 +171,25 @@ def _nostr_key():
     return bytes.fromhex(raw)
 
 
-def post_nostr(text, dry_run):
+def stable_created_at(published, now=None):
+    """A Nostr timestamp that is identical on every re-send of the same entry.
+
+    Derived from the article's own `published` date — not the clock — so a
+    repeat run days later still produces the same event id. Falls back to the
+    current time only when the feed gave no date, and is clamped to never be in
+    the future, which relays reject.
+    """
+    now = int(now if now is not None else time.time())
+    stamp = now
+    if published:
+        try:
+            stamp = int(datetime.fromisoformat(published).timestamp())
+        except ValueError:
+            pass
+    return min(stamp, now)
+
+
+def post_nostr(text, dry_run, created_at=None):
     secret = None
     try:
         secret = _nostr_key()
@@ -189,7 +208,13 @@ def post_nostr(text, dry_run):
 
     key = PrivateKey(secret)
     pubkey = key.public_key_xonly.format().hex()
-    created_at = int(time.time())
+    # NOT the clock. Nostr has no idempotency key: the event id hashes
+    # (pubkey, created_at, content), so a wall-clock timestamp makes a re-send
+    # a different event that every relay happily accepts a second time. Pinning
+    # it to the article's publication date means a repeat run — after a lost
+    # state file or a rejected push — produces the identical id, which relays
+    # already hold and drop.
+    created_at = int(created_at if created_at is not None else time.time())
 
     # NIP-01: the id is sha256 over a compact JSON array in exactly this shape.
     serialised = json.dumps([0, pubkey, created_at, 1, [], text],
@@ -283,9 +308,10 @@ def main():
     for entry in reversed(fresh):  # oldest first, so timelines read in order
         text = compose(entry)
         results = []
+        created_at = stable_created_at(entry.get("published"))
         for name, sender in (("Mastodon", post_mastodon), ("Nostr", post_nostr)):
             try:
-                outcome = sender(text, args.dry_run)
+                outcome = sender(text, args.dry_run, created_at)
             except Exception as exc:  # noqa: BLE001
                 log(f"{name} failed for {entry['url']}: {exc}")
                 outcome = False
