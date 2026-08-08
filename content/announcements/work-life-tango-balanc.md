@@ -1,12 +1,10 @@
 ---
-title: work-life-tango-balanc
+title: Tvůj plán na work-life-tango balanc
 date: 2026-01-27 01:00:00
 category: announcement
 preview_image: /images/announcements/milonga_rockwine.jpg
-description: Dvě milongy tento týden, 2 160 objetí. Objetím se nejde předávkovat, zlepšíš zdraví na těle i duši.
+description: Čtvrteční milonga v Rockwine, která nenaruší tvůj spánek. V 19h začínáme, ve 22h balíme, v pátek jsi čilý jako rybička.
 author: Lenka Platenikova
-
-# work-life-tango-balanc
 
 # Tvůj plán na work-life-tango balanc  
 Konečně týden, kdy se tvůj svět dostává do rovnováhy ⚖️  

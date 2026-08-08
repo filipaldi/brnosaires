@@ -4,7 +4,12 @@
     <img src="{{ SITEURL }}/{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
   </div>
   {% endif %}
-  <h3 class="event-card__title">{{ event.title }}</h3>
+  {# Cards normally sit directly under the page h1, so h2 is the correct next
+     step — an h3 there skips a level and screen-reader users lose the outline.
+     A caller that already opened an h2 section (the series hub in page.html)
+     sets card_heading_level = 3 before including this. #}
+  {% set _ch = card_heading_level | default(2, true) %}
+  <h{{ _ch }} class="event-card__title">{{ event.title }}</h{{ _ch }}>
   {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
   {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
   {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}

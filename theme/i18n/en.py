@@ -41,6 +41,8 @@ STRINGS = {
     "event_location_label": "Venue",
     # Screen readers otherwise announce the venue link as a bare address.
     "open_in_maps": "Open in maps",
+    "skip_to_content": "Skip to content",
+    "copied_status": "Link copied to clipboard",
     # localised event-type words (keyed by the raw event-type metadata value)
     "event_type_class": "Class",
     "event_type_milonga": "Milonga",

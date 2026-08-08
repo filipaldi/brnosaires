@@ -18,7 +18,7 @@ Under one roof, Brnos Aires brings together all of Brno's tango communities, sch
 
 We do this for the joy of it, and the day something stops being a joy, we stop doing it.
 
-### What you will find under that roof
+## What you will find under that roof
 
 You will never again be lost about when, where and at what time. Milongas, workshops, praktikas and events from all sorts of organisers, laid out clearly in one [calendar](/en/tango-kalendar-brno/), and broken out into [milongas in Brno](/en/tango-milongy-brno/) and [classes](/en/tango-lekce-brno/). Not sure what those words mean? [Start here](/en/tango-pro-zacatecniky-brno/).
 

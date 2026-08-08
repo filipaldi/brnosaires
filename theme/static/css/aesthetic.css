@@ -106,3 +106,49 @@ a.aesthetic-chip {
 .bg-gray-light-3 {
   background-color: var(--color-gray-light-3);
 }
+
+/* ============================================
+   FOCUS & SKIP LINK (a11y)
+   ============================================ */
+
+/* One visible focus ring for everything reachable by keyboard. Before this,
+   cards and chips relied on the UA default, which several of them cancelled
+   via `outline: none` or hid under a background — a keyboard user could not
+   see where they were. :focus-visible, not :focus, so a mouse click on a card
+   does not leave a ring behind. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  /* WCAG 2.2 focus appearance wants at least 2 CSS px; --border-width-s lands
+     under that on a small viewport, hence the max(). The outline follows the
+     element's own border-radius, so nothing is set here. */
+  outline: max(2px, calc(var(--size) * 3)) solid var(--color-accent-3);
+  outline-offset: var(--size-2xs);
+}
+
+/* Cards paint their own background, so the ring needs to sit clear of it. */
+.event-card:focus-visible,
+.aesthetic-chip:focus-visible {
+  outline-offset: var(--size-xs);
+}
+
+/* Off-screen until focused, then pinned to the top-left corner. */
+.skip-link {
+  position: absolute;
+  left: var(--size-s);
+  top: calc(var(--size-3xl) * -1);
+  z-index: 100;
+  padding: var(--size-xs) var(--size-s);
+  color: var(--color-gray-light-1);
+  background-color: var(--color-neutral-5);
+  text-decoration: none;
+  transition: top 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+  top: var(--size-s);
+}

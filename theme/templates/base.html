@@ -115,9 +115,13 @@
   {% endif %}
   {% set nav_list = _raw_nav.get(page_lang, _raw_nav.get('cs', [])) if _raw_nav is mapping else _raw_nav %}
 
+  {# First thing in the tab order: a keyboard user should not have to walk the
+     whole nav rail on every page to reach the content. Hidden until focused. #}
+  <a class="skip-link" href="#main">{{ 'skip_to_content' | t(page_lang) }}</a>
+
   <div class="layout-with-aside">
     <div class="el-stack stack-l">
-      <main role="main" class="padding-all-m padding-top-l">
+      <main id="main" role="main" class="padding-all-m padding-top-l">
         {% block content %}{% endblock %}
       </main>
       {% include 'components/footer.html' %}
@@ -184,6 +188,14 @@
           navigator.clipboard.writeText(url).then(function () {
             var original = link.textContent;
             link.textContent = '{{ "copied_prefix" | t(page_lang) }}' + original;
+            // The visible label change is invisible to a screen reader: it is
+            // not in a live region and focus has not moved. Announce it.
+            var block = link.closest('.el-stack');
+            var status = block && block.querySelector('[data-copy-status]');
+            if (status) {
+              status.textContent = '{{ "copied_status" | t(page_lang) }}';
+              setTimeout(function () { status.textContent = ''; }, 1800);
+            }
             setTimeout(function () { link.textContent = original; }, 1800);
           }).catch(function () {
             window.location.href = url;
