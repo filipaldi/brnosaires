@@ -17,3 +17,4 @@ v brněnském moři 💦🦶. Těšit se na to můžeš klidně už teď. Brnos 
 👉 Tango kamarádi s novými drby ze světa - nejen tangového....🤭
 👉 Parq café dodá letní drinky, místní stromy romantické šumění a občerstvující vánek. 
 Čili krom těch vln a soli nepoznáš rozdíl mezi Brnos Aires a světovou metropolí, která vyhrála moře.
+DJ Terka 🎧
