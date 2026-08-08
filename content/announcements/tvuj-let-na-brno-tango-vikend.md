@@ -21,5 +21,5 @@ Ty, kdo máš jiné než brněnské kořeny, už víš, kam poletíš na jarní 
 👉 Sobota i neděle - workshopy s lektory z Vídně (Gottfried Gehberger a Jorge Talquenca)
 👉 Sobota 26. 4. - Milonga u brněnského draka 🐉
 👉 Neděle 27. 4. - Monastery milonga na Josefské
-Podrobnosti a časy čti na [https://brnosaires.com/brno-tango-vikend](https://brnosaires.com/brno-tango-vikend)
+Podrobnosti a časy čti na [brnosaires.com/jarni-tango-vikend-v-brne](/jarni-tango-vikend-v-brne/)
 

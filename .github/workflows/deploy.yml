@@ -38,6 +38,12 @@ jobs:
         run: |
           PYTHONPATH=. pelican content -s publishconf.py
 
+      # Runs before the artifact upload on purpose: a broken reference must
+      # stop the deploy, not ship and get reported afterwards. `deploy` needs
+      # `build`, so a red check here leaves the previous site live.
+      - name: Check internal references
+        run: python scripts/check_links.py output
+
       - name: Add CNAME for custom domain
         run: echo "brnosaires.com" > output/CNAME
 
