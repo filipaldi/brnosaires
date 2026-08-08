@@ -36,6 +36,8 @@ STRINGS = {
     "event_instructor_label": "Lektoři",
     "event_organiser_label": "Pořadatel",
     "event_location_label": "Místo",
+    # Screen readers otherwise announce the venue link as a bare address.
+    "open_in_maps": "Otevřít v mapách",
     # localised event-type words (keyed by the raw event-type metadata value)
     "event_type_class": "Lekce",
     "event_type_milonga": "Milonga",
