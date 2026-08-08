@@ -2,7 +2,6 @@
 title: Nepotřebuješ názor
 date: 2025-04-07 02:00:00
 category: announcement
-preview_image: /images/7._4..avif
 description: Nepotřebuješ názor. Oznamy z Brnos Aires. Milongy a praktiky v Brně na brnosaires.com.
 author: Lenka Platenikova
 ---

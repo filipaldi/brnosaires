@@ -2,6 +2,9 @@
 # závislosti by se projevila až o hodiny později a bez upozornění.
 # Upgrade: změň verzi zde, pushni a zkontroluj, že Actions doběhly zeleně.
 pelican[markdown]==4.12.0
+# Pillow dekóduje AVIF nativně od 11.3; plugins/og_image.py z něj dělá
+# JPEG náhledy pro sdílení na sítích.
+pillow==12.3.0
 pelican-sitemap==1.2.2
 notion-client==3.1.0
 python-dateutil==2.9.0.post0

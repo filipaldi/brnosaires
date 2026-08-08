@@ -2,7 +2,6 @@
 title: Zaplň prostor svojí VIP osobností
 date: 2024-11-16 01:00:00
 category: announcement
-preview_image: /images/praktika.avif
 description: Zaplň prostor svojí VIP osobností. Praktiky a milongy v Brně. Parket čeká.
 author: Lenka Platenikova
 ---
