@@ -83,10 +83,12 @@ class _Harness(unittest.TestCase):
             json.dump({"published": list(ids)}, handle)
 
     def read_state(self):
+        """{entry id -> set of networks it went to}, or None if never written."""
         if not os.path.exists(self.state):
             return None
         with open(self.state, encoding="utf-8") as handle:
-            return set(json.load(handle)["published"])
+            published = json.load(handle)["published"]
+        return {key: set(value) for key, value in published.items()}
 
     def run_main(self, mastodon=True, nostr=False, argv=None):
         def fake_mastodon(text, dry_run, created_at=None):
@@ -157,29 +159,51 @@ class Guards(_Harness):
         self.run_main()
         self.assertEqual(len(self.sent), publish_social.MAX_PER_RUN)
 
-    def test_the_skipped_overflow_is_recorded_not_queued(self):
-        # Otherwise the next run posts the next five, and the one after that
-        # the next five — a slow-motion flood.
+    def test_the_overflow_waits_rather_than_being_dropped(self):
+        # An editor adding a month of milongas in one push is normal here. The
+        # overflow used to be recorded as sent and then never announced.
         self.write_feed(1)
         self.run_main()
-        self.write_feed(20)
+        self.write_feed(9)
         self.run_main()
-        self.sent.clear()
         self.run_main()
-        self.assertEqual(self.sent, [])
+        titles = sorted(t.split("\n")[0] for t in self.sent)
+        self.assertEqual(titles, sorted(f"Akce {n}" for n in range(2, 10)))
 
-    def test_no_network_configured_is_a_no_op_that_records_nothing(self):
+    def test_the_soonest_events_go_first(self):
+        # The feed is newest-first and "newest" here is the furthest-future
+        # event, so slicing it as-is announced the far ones and dropped the
+        # imminent ones.
+        self.write_feed(1)
+        self.run_main()
+        self.write_feed(9)
+        self.run_main()
+        self.assertEqual([t.split("\n")[0] for t in self.sent],
+                         [f"Akce {n}" for n in range(2, 7)])
+
+    def test_no_network_configured_sends_nothing(self):
         self.write_feed(3)
         self.run_main()
-        before = self.read_state()
         self.write_feed(4)
         self.assertEqual(self.run_main(mastodon=False), 0)
         self.assertEqual(self.sent, [])
-        self.assertEqual(self.read_state(), before,
-                         "recorded an article as published without sending it")
+
+    def test_an_unconfigured_network_does_not_starve_the_per_run_budget(self):
+        # Nostr is not configured here. Leaving it pending kept every entry
+        # "fresh" forever, so the five slots went to entries that had nothing
+        # left to do and the ones behind them were never announced.
+        self.write_feed(1)
+        self.run_main()
+        self.write_feed(9)
+        self.run_main()
+        self.run_main()
+        self.assertEqual(sorted(t.split("\n")[0] for t in self.sent),
+                         sorted(f"Akce {n}" for n in range(2, 10)))
 
 
 class Failure(_Harness):
+    ENTRY_2 = "tag:brnosaires.com,2026-01-02:/akce-2/"
+
     def test_a_failed_send_is_retried_next_run(self):
         self.write_feed(1)
         self.run_main()
@@ -197,23 +221,47 @@ class Failure(_Harness):
              mock.patch("sys.argv", ["publish_social.py", "--feed-url",
                                      self.feed_path, "--state", self.state]):
             publish_social.main()
-            self.assertNotIn("tag:brnosaires.com,2026-01-02:/akce-2/",
-                             self.read_state())
+            self.assertNotIn("Mastodon", self.read_state()[self.ENTRY_2],
+                             "a failed send was recorded as delivered")
             publish_social.main()
-        self.assertEqual(len(calls), 2)
-        self.assertIn("tag:brnosaires.com,2026-01-02:/akce-2/", self.read_state())
+        self.assertEqual(len(calls), 2, "the failed entry was not retried")
+        # Nostr is unconfigured in this harness and is recorded as settled.
+        self.assertIn("Mastodon", self.read_state()[self.ENTRY_2])
 
-    def test_partial_success_across_two_networks_is_not_marked_done(self):
+    def test_partial_success_is_recorded_per_network(self):
+        # "Mastodon took it, every Nostr relay was down" is a real state.
+        # Collapsing it to "not sent" made the next run post to Mastodon twice.
         self.write_feed(1)
         self.run_main()
         self.write_feed(2)
-        with mock.patch.object(publish_social, "post_mastodon", lambda t, d, c=None: True), \
-             mock.patch.object(publish_social, "post_nostr", lambda t, d, c=None: False), \
-             mock.patch.object(publish_social, "log", lambda message: None), \
-             mock.patch("sys.argv", ["publish_social.py", "--feed-url",
-                                     self.feed_path, "--state", self.state]):
-            publish_social.main()
-        self.assertNotIn("tag:brnosaires.com,2026-01-02:/akce-2/", self.read_state())
+        mastodon_calls = []
+
+        def mastodon(text, dry_run, created_at=None):
+            mastodon_calls.append(text)
+            return True
+
+        nostr_up = {"value": False}
+
+        def nostr(text, dry_run, created_at=None):
+            return nostr_up["value"]
+
+        def run():
+            with mock.patch.object(publish_social, "post_mastodon", mastodon), \
+                 mock.patch.object(publish_social, "post_nostr", nostr), \
+                 mock.patch.object(publish_social, "log", lambda message: None), \
+                 mock.patch("sys.argv", ["publish_social.py", "--feed-url",
+                                         self.feed_path, "--state", self.state]):
+                publish_social.main()
+
+        run()   # Nostr's relays are all down
+        self.assertEqual(self.read_state()[self.ENTRY_2], {"Mastodon"})
+        run()   # still down: nothing repeats on Mastodon
+        self.assertEqual(self.read_state()[self.ENTRY_2], {"Mastodon"})
+
+        nostr_up["value"] = True
+        run()   # back up: only the Nostr half is retried
+        self.assertEqual(len(mastodon_calls), 1, "posted to Mastodon more than once")
+        self.assertEqual(self.read_state()[self.ENTRY_2], {"Mastodon", "Nostr"})
 
     def test_dry_run_never_writes_state(self):
         self.write_feed(2)
@@ -238,9 +286,22 @@ class StableTimestamp(unittest.TestCase):
         self.assertLessEqual(
             publish_social.stable_created_at("2099-01-01T00:00:00+00:00", now=now), now)
 
-    def test_a_missing_or_unparseable_date_falls_back_to_now(self):
+    def test_a_future_date_falls_back_to_the_start_of_the_day(self):
+        # This site announces events before they happen, so `published` is
+        # usually in the future and relays reject a future timestamp. Clamping
+        # to `now` would move every second and defeat the point.
+        now = 1_000_000_000
+        first = publish_social.stable_created_at("2099-01-01T00:00:00+00:00", now=now)
+        second = publish_social.stable_created_at("2099-01-01T00:00:00+00:00",
+                                                  now=now + 3600)
+        self.assertEqual(first, second)
+        self.assertLessEqual(first, now)
+
+    def test_a_missing_or_unparseable_date_also_gets_a_stable_value(self):
+        now = 1_000_000_000
         for value in ("", None, "not a date"):
-            self.assertEqual(publish_social.stable_created_at(value, now=123), 123)
+            self.assertEqual(publish_social.stable_created_at(value, now=now),
+                             publish_social.stable_created_at(value, now=now + 60))
 
 
 class Bech32(unittest.TestCase):

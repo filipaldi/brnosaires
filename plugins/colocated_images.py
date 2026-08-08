@@ -67,7 +67,7 @@ def _blocking_field(content):
 
 def _iter_content(generator):
     buckets = ("articles", "translations", "drafts", "drafts_translations",
-               "hidden_articles", "hidden_translations",
+               "draft_translations", "hidden_articles", "hidden_translations",
                "pages", "hidden_pages", "draft_pages")
     for bucket in buckets:
         for content in getattr(generator, bucket, None) or []:
@@ -84,13 +84,16 @@ def _resolve(generator):
         source_path = getattr(content, "source_path", None)
         if not source_path:
             continue
-        source = os.path.join(os.path.dirname(source_path), name)
-        if not os.path.isfile(source):
+
+        # Checked before the file exists, so an author who did both wrong things
+        # is told the one that matters — the rule, not the typo.
+        blocker = _blocking_field(content)
+        if not blocker and not os.path.isfile(
+                os.path.join(os.path.dirname(source_path), name)):
             logger.warning("colocated_images: %s has preview_image: %s but no such "
                            "file sits beside it", source_path, name)
             continue
-
-        blocker = _blocking_field(content)
+        source = os.path.join(os.path.dirname(source_path), name)
         if blocker:
             logger.warning("colocated_images: %s sets '%s:', so its image cannot live "
                            "beside the .md — every occurrence would 404. Move %s to "

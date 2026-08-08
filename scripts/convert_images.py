@@ -107,11 +107,25 @@ def convert(jobs, quality, dry_run):
     except ImportError:
         pass
 
-    written, failed = [], []
+    from PIL import ImageOps
+
+    written, failed, skipped = [], [], []
     for source, target in jobs:
         try:
             with Image.open(source) as image:
+                if getattr(image, "n_frames", 1) > 1:
+                    # Pillow's AVIF writer keeps one frame. Converting would
+                    # silently drop the animation and then delete the original,
+                    # which is why .gif is excluded outright — animated .webp
+                    # and multi-page .tiff need the same protection.
+                    skipped.append(source)
+                    continue
                 image.load()
+                # Phone photos carry their rotation in EXIF rather than in the
+                # pixels. Nothing here writes EXIF onward, so without baking the
+                # rotation in the picture ends up sideways — and the original is
+                # deleted in the same run.
+                image = ImageOps.exif_transpose(image)
                 # AVIF carries alpha, so PNG transparency survives; anything
                 # exotic (CMYK, palette) is normalised first.
                 if image.mode in ("RGBA", "LA"):
@@ -124,6 +138,8 @@ def convert(jobs, quality, dry_run):
             written.append(target)
         except Exception as exc:  # noqa: BLE001 — report and carry on
             failed.append((source, exc))
+    for source in skipped:
+        failed.append((source, "animated or multi-page — left as it is"))
     return written, failed
 
 
@@ -142,7 +158,17 @@ def rewrite_markdown(content_root, mapping, dry_run):
             with open(path, encoding="utf-8") as handle:
                 text = original = handle.read()
             for old_rel, new_rel in ordered:
-                for old, new in zip(reference_spellings(old_rel), reference_spellings(new_rel)):
+                spellings = list(zip(reference_spellings(old_rel),
+                                     reference_spellings(new_rel)))
+                # An article may also reference an image sitting beside it by
+                # bare filename (`preview_image: poster.avif` — see
+                # plugins/colocated_images.py). Only for a .md in the image's
+                # own directory: elsewhere a bare basename means nothing, and
+                # replacing it would corrupt unrelated prose.
+                if os.path.dirname(os.path.join(content_root, old_rel)) == root:
+                    spellings.append((os.path.basename(old_rel),
+                                      os.path.basename(new_rel)))
+                for old, new in spellings:
                     if old in text:
                         replacements += text.count(old)
                         text = text.replace(old, new)
@@ -176,15 +202,19 @@ def main():
 
     jobs, conflicts = plan(sources, content_root)
     if conflicts:
-        print(f"convert_images: {len(conflicts)} conflict(s) — nothing was changed:",
-              file=sys.stderr)
+        # Only the conflicting sources are skipped. Failing the whole run let a
+        # single stray `cover.jpg` beside an existing `cover.avif` block every
+        # other image in the repo indefinitely — and that is also the state a
+        # crash between the rewrite and the delete leaves behind, so the run
+        # after a crash could never recover on its own.
+        print(f"convert_images: skipping {len(conflicts)} source(s):", file=sys.stderr)
         for line in conflicts:
             print(f"  {line}", file=sys.stderr)
-        print("\nRename the sources so each maps to its own .avif, then run again.",
-              file=sys.stderr)
-        return 1
+        print("Rename them so each maps to its own .avif.\n", file=sys.stderr)
+    if not jobs:
+        print("convert_images: nothing left to convert.")
+        return 1 if conflicts else 0
 
-    before = sum(os.path.getsize(s) for s, _t in jobs)
     written, failed = convert(jobs, args.quality, args.dry_run)
     for source, exc in failed:
         print(f"convert_images: could not convert {os.path.relpath(source, content_root)}: {exc}",
@@ -198,11 +228,21 @@ def main():
     touched, replacements = rewrite_markdown(content_root, mapping, args.dry_run)
 
     if not args.dry_run:
+        # Measured over what actually converted, not over every job — a run
+        # with failures used to report an inflated saving, and that number is
+        # what a human reads to sanity-check a run that deletes files.
+        before = sum(os.path.getsize(s) for s in done)
         for source in done:
             os.remove(source)
         after = sum(os.path.getsize(t) for t in done.values())
     else:
-        after = 0
+        before = after = 0
+
+    if done and not replacements:
+        print("convert_images: converted files but rewrote no reference at all — "
+              "refusing to delete the originals. Check how they are referenced.",
+              file=sys.stderr)
+        return 1
 
     verb = "would convert" if args.dry_run else "converted"
     print(f"convert_images: {verb} {len(done)} image(s) at quality {args.quality}")

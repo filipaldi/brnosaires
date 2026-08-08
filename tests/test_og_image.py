@@ -31,14 +31,20 @@ class Passthrough(unittest.TestCase):
 
 
 class DerivativePath(unittest.TestCase):
-    def test_mirrors_the_source_tree(self):
+    def test_mirrors_the_source_tree_and_keeps_the_source_extension(self):
         self.assertEqual(og_image._derivative_path("images/events/2026/a.avif"),
-                         os.path.join("og", "images/events/2026/a.jpg"))
+                         os.path.join("og", "images/events/2026/a.avif.jpg"))
 
     def test_same_basename_in_two_folders_does_not_collide(self):
         first = og_image._derivative_path("images/a/photo.avif")
         second = og_image._derivative_path("images/b/photo.avif")
         self.assertNotEqual(first, second)
+
+    def test_same_stem_different_extension_does_not_collide(self):
+        # foo.avif and foo.webp in one folder would otherwise share a single
+        # derivative, and two unrelated articles would share one social card.
+        self.assertNotEqual(og_image._derivative_path("images/foo.avif"),
+                            og_image._derivative_path("images/foo.webp"))
 
 
 class SourceResolution(unittest.TestCase):
@@ -110,11 +116,18 @@ class BuiltSite(unittest.TestCase):
         self.assertEqual(bad, [], f"undecodable og:image formats still shipped: {bad}")
 
     def test_every_og_image_exists_in_the_output_tree(self):
+        from urllib.parse import unquote
         prefix = "https://brnosaires.com/"
         missing = sorted({r for r in self.refs if r.startswith(prefix)
                           and not os.path.isfile(
-                              os.path.join(self.output, r[len(prefix):]))})
+                              os.path.join(self.output, unquote(r[len(prefix):])))})
         self.assertEqual(missing, [], f"og:image 404s: {missing}")
+
+    def test_no_og_image_url_carries_a_raw_space(self):
+        # A resolved-through-unquote path came back decoded and shipped a URL
+        # with a literal space, which Google's validator rejects.
+        bad = sorted({r for r in self.refs if " " in r})
+        self.assertEqual(bad, [], f"unencoded og:image URLs: {bad}")
 
     def test_most_pages_carry_one(self):
         self.assertGreater(len(self.refs), 300)

@@ -32,7 +32,7 @@ slug: 2026-05-16-milonga-u-draka       # v URL: brnosaires.com/<slug>/
 date: 2026-04-10 18:00:00              # datum PUBLIKACE, NE datum akce
 author: Tvé jméno
 description: Krátký popis (do ~200 znaků) pro Google a náhled na sítích.
-preview_image: /images/events/2026/milonga.avif  # 1200×630
+preview_image: /images/events/2026/milonga.jpg   # 1200×630; jakýkoli formát
 event-type: milonga                    # milonga | workshop | class | praktika | neolonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 22:30:00         # půlnoc = 00:00:00 dalšího dne, NIKDY 24:00:00

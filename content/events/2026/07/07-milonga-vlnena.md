@@ -1,3 +1,4 @@
+---
 title: Openclass a milonga na Vlněně
 slug: 2026-07-15-milonga-a-openclass-vlnena
 date: 2026-06-24 12:00:00              
@@ -9,6 +10,7 @@ event-start: 2026-07-15 18:00:00
 event-end: 2026-07-15 22:00:00         
 event-location: Vlněna, Přízova 216/18, Brno
 event-organiser: Tanecni studio Stolarna       
+---
 
 # Milonga na Vlněně s openclass pro veřejnost
 

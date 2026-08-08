@@ -49,7 +49,7 @@ derivatives are rebuilt every time; ~100 images cost a couple of seconds.
 """
 import logging
 import os
-from urllib.parse import unquote
+from urllib.parse import quote, unquote
 
 from pelican import signals
 
@@ -68,8 +68,11 @@ OG_DIR = "og"
 # weight nobody sees. Never upscale — a small source stays small.
 MAX_EDGE = 1200
 
-# Below this, scrapers fall back to a thumbnail card or skip the image
-# entirely. Worth a warning, not worth failing over.
+# Below this, scrapers refuse the large card and fall back to a thumbnail or to
+# nothing. Emitting one anyway contradicts the rule in base.html — no og:image
+# beats one that cannot be rendered — so a source this small is dropped, not
+# warned about. (The live case is an emoji, images/unnamed/1f642.avif, used as
+# an article's preview.)
 MIN_EDGE = 200
 
 JPEG_QUALITY = 82
@@ -85,6 +88,25 @@ def _colocated_sources():
     except ImportError:
         return {}
     return SOURCE_BY_REF
+
+
+def _too_small(source):
+    """True if the source cannot make a large card.
+
+    Checked here rather than at conversion time: by the time the derivative is
+    written the template has already emitted its URL, so declining then would
+    ship a 404 instead of nothing. Reads the header only — Pillow gives .size
+    without decoding the pixels.
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        return False
+    try:
+        with Image.open(source) as image:
+            return min(image.size) < MIN_EDGE
+    except Exception:  # noqa: BLE001 — a file we cannot open fails later anyway
+        return False
 
 
 def _passthrough(ref):
@@ -115,9 +137,14 @@ def _resolve_source(ref, content_root):
 
 
 def _derivative_path(rel):
-    """`images/a/b.avif` -> `og/images/a/b.jpg`, mirroring the source tree so
-    two files with the same basename in different folders cannot collide."""
-    return os.path.join(OG_DIR, os.path.splitext(rel)[0] + ".jpg")
+    """`images/a/b.avif` -> `og/images/a/b.avif.jpg`.
+
+    The source extension is kept, not replaced. Mirroring the tree alone stops
+    two files with the same basename in different folders colliding, but not
+    `foo.avif` and `foo.webp` in the SAME folder — those would have shared one
+    derivative, and two unrelated articles would have shared one social card.
+    """
+    return os.path.join(OG_DIR, rel + ".jpg")
 
 
 def _iter_content(generators):
@@ -129,7 +156,7 @@ def _iter_content(generators):
     buckets = (
         "articles", "translations", "drafts", "drafts_translations",
         "hidden_articles", "hidden_translations",
-        "pages", "hidden_pages", "draft_pages",
+        "pages", "hidden_pages", "draft_pages", "draft_translations",
     )
     for generator in generators:
         for bucket in buckets:
@@ -175,9 +202,18 @@ def _assign(generators):
             seen.add(ref)
             continue
 
+        if _too_small(source):
+            logger.warning("og_image: %s is under %dpx on its short edge — no "
+                           "social card for %s", ref, MIN_EDGE,
+                           getattr(content, "source_path", "?"))
+            continue
+
         out_rel = _derivative_path(rel)
         _JOBS[out_rel] = source
-        content.og_image = "/" + out_rel.replace(os.sep, "/")
+        # Percent-encoded: a value that resolved through the unquote fallback
+        # comes back decoded, and `content/images/events/2026/brunch
+        # milonga.avif` was shipping an og:image URL with a raw space in it.
+        content.og_image = "/" + quote(out_rel.replace(os.sep, "/"), safe="/")
 
     logger.info("og_image: %d derivative(s) queued, %d unresolved preview_image(s)",
                 len(_JOBS), missing)
@@ -215,11 +251,6 @@ def _convert(pelican):
 
                 if max(image.size) > MAX_EDGE:
                     image.thumbnail((MAX_EDGE, MAX_EDGE), Image.LANCZOS)
-                if min(image.size) < MIN_EDGE:
-                    logger.warning("og_image: %s is %dx%d — under the %dpx that "
-                                   "scrapers need for a large card",
-                                   out_rel, image.size[0], image.size[1], MIN_EDGE)
-
                 os.makedirs(os.path.dirname(destination), exist_ok=True)
                 image.save(destination, "JPEG", quality=JPEG_QUALITY,
                            optimize=True, progressive=True)

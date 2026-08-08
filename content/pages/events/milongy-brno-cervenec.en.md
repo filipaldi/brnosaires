@@ -1,3 +1,4 @@
+---
 title: Milongas in Brno in July — dance dates - Tango Brno
 date: 2026-01-17 18:00:00
 lang: en
@@ -6,6 +7,7 @@ slug: milongy-brno-cervenec
 description: Milongas in Brno in July: Argentine tango dance dates — milongas, practicas and neolongas with venue and time.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
+---
 
 Holiday pace — milongas move outdoors and the evenings stretch long. Below you'll find every Argentine tango dance floor in Brno and nearby for this month — milongas, practicas and neolongas, with venue and time. You don't need to bring a partner.
 

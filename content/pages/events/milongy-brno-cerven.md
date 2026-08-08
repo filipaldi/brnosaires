@@ -1,3 +1,4 @@
+---
 title: Milongy v Brně v červnu — termíny tančíren - Tango Brno
 date: 2026-01-17 18:00:00
 month: 6
@@ -5,6 +6,7 @@ slug: milongy-brno-cerven
 description: Milongy v Brně v červnu: termíny tančíren argentinského tanga, milongy, praktiky a neolongy s místem a časem.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
+---
 
 Začíná tango léto: open-air milongy, praktika v parku, živá hudba. Níže najdeš všechny tančírny argentinského tanga v Brně a okolí na tenhle měsíc — milongy, praktiky i neolongy, s místem a časem. Partnera s sebou nepotřebuješ.
 

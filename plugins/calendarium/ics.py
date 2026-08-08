@@ -2,7 +2,9 @@
 ICS file generation and filtering.
 """
 import os
-from datetime import datetime
+import re
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from recurring_events import _recurrence_to_rrule as recurrence_to_rrule
 from . import config
 from . import dates
@@ -110,6 +112,31 @@ def _format_ics_datetime(dt, timezone_name=None):
     return ("", None)
 
 
+_UNTIL_RE = re.compile(r"(UNTIL=)(\d{8}T\d{6})(?!Z)")
+
+
+def _until_to_utc(rule, timezone_name):
+    """Rewrite a floating UNTIL to UTC.
+
+    RFC 5545 3.3.10: when DTSTART carries a TZID, UNTIL must be UTC. This
+    writer emits `DTSTART;TZID=Europe/Prague:`, so a floating UNTIL makes the
+    VEVENT invalid — dateutil raises outright and strict clients drop the
+    event, which is the whole series gone from someone's calendar.
+    """
+    if not rule or not timezone_name or "UNTIL=" not in rule:
+        return rule
+
+    def to_utc(match):
+        local = datetime.strptime(match.group(2), "%Y%m%dT%H%M%S")
+        try:
+            aware = local.replace(tzinfo=ZoneInfo(timezone_name))
+        except Exception:  # noqa: BLE001 — unknown tz: leave it floating
+            return match.group(0)
+        return match.group(1) + aware.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+    return _UNTIL_RE.sub(to_utc, rule)
+
+
 def _event_rrule(metadata):
     """(RRULE string or None, series start date or None).
 
@@ -196,7 +223,7 @@ def build_ics(events, siteurl, timezone_name=None):
         if url:
             lines.append(f"URL:{url}")
         if rrule:
-            lines.append(f"RRULE:{rrule}")
+            lines.append(f"RRULE:{_until_to_utc(rrule, timezone_name)}")
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")
     return "\r\n".join(lines)

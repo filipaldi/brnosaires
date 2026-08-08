@@ -61,7 +61,7 @@ author: Jméno autora
 
 # ─── SILNĚ DOPORUČENO VŽDY ───
 description: Krátký popis (cca 160-200 znaků) pro Google a sociální kartičky.
-preview_image: /images/.../nahled.avif  # 1200×630; OG, Twitter, kalendář
+preview_image: /images/.../nahled.jpg   # 1200×630; jakýkoli formát
 
 # ─── JEN PRO AKCE (content/events/RRRR/MM/) ───
 event-type: milonga                # milonga | workshop | class | praktika | neolonga

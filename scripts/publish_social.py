@@ -98,11 +98,16 @@ def compose(entry):
     image the page already declares. Repeating that in the post text would show
     it twice.
     """
+    url = entry["url"]
+    room = MASTODON_LIMIT - len(url) - 2
+    if room < 1:
+        # Nothing sensible to say alongside a URL this long; the link is the
+        # payload, so send it alone rather than a post the server will reject.
+        return url
     title = entry["title"]
-    room = MASTODON_LIMIT - len(entry["url"]) - 2
     if len(title) > room:
-        title = title[: max(0, room - 1)].rstrip() + "…"
-    return f"{title}\n\n{entry['url']}"
+        title = title[: room - 1].rstrip() + "…"
+    return f"{title}\n\n{url}"
 
 
 # ---------------------------------------------------------------- mastodon
@@ -140,25 +145,48 @@ def post_mastodon(text, dry_run, created_at=None):
 _BECH32_CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
 
 
-def _bech32_decode_to_bytes(value):
-    """Minimal bech32 -> 32 raw bytes, enough to read an `nsec1...` key.
+def _bech32_polymod(values):
+    generator = (0x3B6A57B2, 0x26508E6D, 0x1EA119FA, 0x3D4233DD, 0x2A1462B3)
+    checksum = 1
+    for value in values:
+        top = checksum >> 25
+        checksum = ((checksum & 0x1FFFFFF) << 5) ^ value
+        for bit in range(5):
+            checksum ^= generator[bit] if ((top >> bit) & 1) else 0
+    return checksum
 
-    Not a general decoder: it skips the checksum check, because a malformed key
-    fails at signing anyway and a wrong key cannot be made right by validating
-    it more politely.
+
+def _bech32_decode_to_bytes(value):
+    """bech32 `nsec1...` -> 32 raw bytes, checksum verified.
+
+    The checksum is the whole point of bech32 and skipping it is not harmless:
+    a single mistyped character yields 32 different but perfectly valid key
+    bytes, so signing succeeds and every announcement goes out under a key
+    nobody controls and nobody can claim back. It looks like success in the log
+    and only surfaces months later, when someone opens the account.
     """
+    value = value.strip()
     if "1" not in value:
         raise ValueError("not bech32")
-    data = value.rsplit("1", 1)[1]
-    values = [_BECH32_CHARSET.index(c) for c in data[:-6]]
+    human_readable, data = value.rsplit("1", 1)
+    if len(data) < 7 or any(c not in _BECH32_CHARSET for c in data):
+        raise ValueError("not bech32")
+    values = [_BECH32_CHARSET.index(c) for c in data]
+    expanded = ([ord(c) >> 5 for c in human_readable] + [0]
+                + [ord(c) & 31 for c in human_readable])
+    if _bech32_polymod(expanded + values) != 1:
+        raise ValueError("bech32 checksum does not match — the key is mistyped")
+
     accumulator = bits = 0
     out = bytearray()
-    for value5 in values:
+    for value5 in values[:-6]:
         accumulator = (accumulator << 5) | value5
         bits += 5
         while bits >= 8:
             bits -= 8
             out.append((accumulator >> bits) & 0xFF)
+    if len(out) < 32:
+        raise ValueError("bech32 payload is too short for a key")
     return bytes(out[:32])
 
 
@@ -180,13 +208,33 @@ def stable_created_at(published, now=None):
     the future, which relays reject.
     """
     now = int(now if now is not None else time.time())
-    stamp = now
+    stamp = None
     if published:
         try:
             stamp = int(datetime.fromisoformat(published).timestamp())
         except ValueError:
-            pass
-    return min(stamp, now)
+            stamp = None
+    if stamp is not None and stamp <= now:
+        return stamp
+    # This site announces events BEFORE they happen, so `published` is usually
+    # in the future and relays reject a future timestamp. Clamping to `now`
+    # would move on every run and defeat the whole point, so fall back to the
+    # start of the current UTC day: stable across a day of retries, which is
+    # the window a retry actually happens in (the next push, or the 12-hour
+    # cron). A retry the day after does differ — that is the honest limit.
+    return now - (now % 86400)
+
+
+def _relay_accepted(reply, event_id):
+    """True only if the relay explicitly said it took this event."""
+    try:
+        message = json.loads(reply)
+    except (TypeError, ValueError):
+        return False
+    if not isinstance(message, list) or len(message) < 3:
+        return False  # a NOTICE, or anything else that is not an answer
+    return (message[0] == "OK" and message[1] == event_id
+            and message[2] is True)
 
 
 def post_nostr(text, dry_run, created_at=None):
@@ -241,11 +289,19 @@ def post_nostr(text, dry_run, created_at=None):
         try:
             connection = create_connection(relay, timeout=15)
             connection.send(json.dumps(["EVENT", event]))
-            connection.recv()  # relay replies with ["OK", id, true/false, msg]
+            reply = connection.recv()
             connection.close()
-            delivered += 1
         except Exception as exc:  # noqa: BLE001 — one bad relay is not a failure
-            log(f"relay {relay} refused: {exc}")
+            log(f"relay {relay} unreachable: {exc}")
+            continue
+        # NIP-01 answers ["OK", <id>, <accepted>, <reason>]. Discarding that
+        # boolean turned every rejection — rate limit, paid relay, spam filter,
+        # a key the relay does not admit — into a silent success: the entry was
+        # marked published and never retried, so it simply never appeared.
+        if _relay_accepted(reply, event["id"]):
+            delivered += 1
+        else:
+            log(f"relay {relay} rejected the event: {str(reply)[:200]}")
     # Nostr has no single authority; one relay that took it is published.
     return delivered > 0
 
@@ -254,17 +310,30 @@ def post_nostr(text, dry_run, created_at=None):
 
 
 def load_state(path):
+    """{entry id -> sorted list of networks it already went to}, or None.
+
+    The older shape was a flat list of ids. Both are read; the richer one is
+    what gets written, because "posted to Mastodon but Nostr's relays were all
+    down" is a real state and collapsing it to "not posted" made the next run
+    duplicate the Mastodon post.
+    """
     if not os.path.exists(path):
         return None
     with open(path, encoding="utf-8") as handle:
-        return set(json.load(handle).get("published", []))
+        raw = json.load(handle)
+    published = raw.get("published", [])
+    if isinstance(published, dict):
+        return {key: set(value) for key, value in published.items()}
+    return {entry_id: set() for entry_id in published}
 
 
-def save_state(path, ids, dry_run):
+def save_state(path, state, dry_run):
     if dry_run:
         return
     with open(path, "w", encoding="utf-8") as handle:
-        json.dump({"published": sorted(ids)}, handle, indent=2, ensure_ascii=False)
+        json.dump({"published": {key: sorted(value)
+                                 for key, value in sorted(state.items())}},
+                  handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
@@ -289,45 +358,63 @@ def main():
     known = load_state(args.state)
     if known is None:
         # First run. Record, do not post.
-        save_state(args.state, {e["id"] for e in entries}, args.dry_run)
+        save_state(args.state, {e["id"]: {"bootstrap"} for e in entries}, args.dry_run)
         log(f"first run — recorded {len(entries)} existing entries without posting. "
             "The next new article is the first one announced.")
         return 0
 
-    fresh = [e for e in entries if e["id"] not in known]
+    networks = {"Mastodon": post_mastodon, "Nostr": post_nostr}
+    fresh = [e for e in entries
+             if (networks.keys() - known.get(e["id"], set()))
+             and "bootstrap" not in known.get(e["id"], set())]
     if not fresh:
         log("nothing new since the last run.")
         return 0
+    # Oldest first. The feed is newest-first and on this site "newest" means the
+    # furthest-future event, so slicing it as-is posted the events furthest away
+    # and dropped the ones happening next — exactly backwards.
+    fresh.reverse()
     if len(fresh) > MAX_PER_RUN:
-        log(f"{len(fresh)} new entries, posting the newest {MAX_PER_RUN} "
-            f"and recording the rest — refusing to flood.")
-        known |= {e["id"] for e in fresh[MAX_PER_RUN:]}
+        log(f"{len(fresh)} new entries — posting {MAX_PER_RUN} now, the rest on "
+            f"the next run.")
+        # NOT marked as published: an editor adding a month of milongas in one
+        # push is normal here, and the overflow used to be recorded as sent and
+        # never announced at all.
         fresh = fresh[:MAX_PER_RUN]
 
     configured = False
-    for entry in reversed(fresh):  # oldest first, so timelines read in order
+    for entry in fresh:
         text = compose(entry)
         results = []
         created_at = stable_created_at(entry.get("published"))
-        for name, sender in (("Mastodon", post_mastodon), ("Nostr", post_nostr)):
+        already = set(known.get(entry["id"], set()))
+        for name, sender in networks.items():
+            if name in already:
+                continue  # this one already has it; only the other still owes
             try:
                 outcome = sender(text, args.dry_run, created_at)
             except Exception as exc:  # noqa: BLE001
                 log(f"{name} failed for {entry['url']}: {exc}")
                 outcome = False
             if outcome is None:
-                continue  # not configured
+                # Not configured. Recorded as settled rather than skipped: left
+                # pending, every entry stayed "fresh" forever and ate the
+                # per-run budget, so entries behind them were never announced.
+                # It also means switching a network on later does not backfill
+                # the archive, which is the behaviour you want.
+                already.add(name)
+                continue
             configured = True
             results.append(outcome)
+            if outcome:
+                already.add(name)
             log(f"{name}: {'ok' if outcome else 'FAILED'} — {entry['title']}")
 
-        if not results:
-            continue
-        if all(results):
-            known.add(entry["id"])
-        # A partial success is left unmarked on purpose: a duplicate on the
-        # network that already took it is a smaller harm than an announcement
-        # that silently never goes out.
+        # Recorded per network, so a retry after "Mastodon fine, every Nostr
+        # relay down" sends only the Nostr half. Written after each entry, not
+        # once at the end, so a job killed mid-run loses nothing it already did.
+        known[entry["id"]] = already
+        save_state(args.state, known, args.dry_run)
 
     if not configured:
         log("no network is configured (MASTODON_INSTANCE/MASTODON_TOKEN, "

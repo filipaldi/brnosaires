@@ -81,6 +81,14 @@ def _split_bounds(parts):
     while index < len(parts):
         token = parts[index]
         argument = parts[index + 1] if index + 1 < len(parts) else None
+        if token in ("from", "until", "count") and argument is None:
+            # `weekly monday until` with nothing after it. Left in `base` this
+            # made the pattern unrecognisable, so the whole rule was dropped and
+            # a 52-week class silently became a single date — on a green build,
+            # with no warning at all.
+            logger.warning("recurring_events: '%s' has no value — ignoring it", token)
+            index += 1
+            continue
         if token in ("from", "until") and argument is not None:
             parsed = _parse_date_str(argument)
             if parsed is None:
@@ -141,6 +149,13 @@ def _recurrence_to_rrule(meta):
         if day and ord_val != 0 and -1 <= ord_val <= 4:
             rule = f"FREQ=MONTHLY;BYDAY={ord_val}{day}"
     if rule is None:
+        # Reached by a typo'd keyword ("untill 2027-06-28"), which leaves a
+        # token in `base` that no pattern matches. Silence here is what turned
+        # a weekly class into one occurrence with nothing in the log.
+        logger.warning("recurring_events: recurrence %r is not a pattern I know — "
+                       "expected 'weekly <day>' or 'monthly <n> <day>', with "
+                       "optional 'from'/'until'/'count'. The event keeps its "
+                       "single date.", raw)
         return None, None
 
     if until_date is not None:

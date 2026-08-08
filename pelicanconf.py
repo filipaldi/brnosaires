@@ -63,7 +63,9 @@ TIMEZONE = "Europe/Prague"
 # would be a dozen URLs nobody asked for.
 FEED_ALL_ATOM = "feeds/all.atom.xml"
 FEED_ALL_RSS = "feeds/all.rss.xml"
-FEED_MAX_ITEMS = 30
+# Doubled on purpose: Pelican truncates to this BEFORE plugins/feed_one_language.py
+# drops the /en/ twins, and every article has exactly one twin, so ~30 survive.
+FEED_MAX_ITEMS = 60
 CATEGORY_FEED_ATOM = None
 CATEGORY_FEED_RSS = None
 AUTHOR_FEED_ATOM = None
@@ -344,7 +346,7 @@ PLUGIN_PATHS = ["plugins"]
 # colocated_images must come FIRST — widget_processor bakes preview_image into
 # the rendered widget HTML during the same signal, so the bare filename has to
 # be rewritten before it runs.
-PLUGINS = ["colocated_images", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+PLUGINS = ["colocated_images", "feed_one_language", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

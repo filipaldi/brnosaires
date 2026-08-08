@@ -1,3 +1,4 @@
+---
 title: Milongy v Brně v lednu — termíny tančíren - Tango Brno
 date: 2026-01-17 18:00:00
 month: 1
@@ -5,6 +6,7 @@ slug: milongy-brno-leden
 description: Milongy v Brně v lednu: termíny tančíren argentinského tanga, milongy, praktiky a neolongy s místem a časem.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
+---
 
 Po Novém roce se parket rozjíždí pomalu, ale jistě — ideální měsíc začít. Níže najdeš všechny tančírny argentinského tanga v Brně a okolí na tenhle měsíc — milongy, praktiky i neolongy, s místem a časem. Partnera s sebou nepotřebuješ.
 

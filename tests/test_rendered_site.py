@@ -78,10 +78,29 @@ class Headings(_Built):
 class SkipLink(_Built):
     def test_every_page_has_one_pointing_at_a_real_target(self):
         for path, html in self.pages:
-            found = re.search(r'<a class="skip-link" href="#([^"]+)"', html)
+            found = re.search(r'<a class="skip-link" href="([^"]+)"', html)
             self.assertIsNotNone(found, f"no skip link on {path}")
-            self.assertIn(f'id="{found.group(1)}"', html,
+            fragment = found.group(1).split("#")[-1]
+            self.assertIn(f'id="{fragment}"', html,
                           f"skip link on {path} points at a missing target")
+
+    def test_the_href_repeats_the_page_url(self):
+        # A bare "#main" resolves against <base href>, not the current
+        # document, so on every page but the homepage it navigated away to the
+        # homepage — the opposite of what a skip link is for.
+        for path, html in self.pages:
+            href = re.search(r'<a class="skip-link" href="([^"]+)"', html).group(1)
+            self.assertTrue(href.startswith("https://brnosaires.com/"),
+                            f"skip link on {path} is base-relative: {href}")
+            expected = "" if path == "index.html" else path[: -len("index.html")]
+            self.assertEqual(href, f"https://brnosaires.com/{expected}#main", path)
+
+    def test_the_target_can_take_focus(self):
+        # Safari will not focus a non-focusable fragment target; it scrolls and
+        # leaves focus on the link, so the next Tab returns to the nav.
+        for path, html in self.pages:
+            self.assertRegex(html, r'<main id="main"[^>]*tabindex="-1"',
+                             f"main on {path} cannot receive focus")
 
     def test_it_is_the_first_link_in_the_body(self):
         # A skip link that is not first in tab order skips nothing.
