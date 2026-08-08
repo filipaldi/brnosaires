@@ -5,7 +5,7 @@ date: 2026-01-17 18:00:00
 event-type: milonga
 event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00
-preview_image: /images/605635436_10241120531540882_4611790588703681234_n.avif
+preview_image: /images/unnamed/605635436_10241120531540882_4611790588703681234_n.avif
 description: Milonga Fuera del Nido. Domini Park, srdce Brna. Openclass od 18:00, milonga 19:00–22:30, DJ Kenan.
 author: Filip Paldia
 event-location: Stará radnice, Radnická 8, Brno

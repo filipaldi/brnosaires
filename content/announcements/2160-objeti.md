@@ -2,7 +2,7 @@
 title: 2160 objetí
 date: 2023-11-28 01:00:00
 category: announcement
-preview_image: /images/406052028_10231086857454385_5611693952212668786_n.avif
+preview_image: /images/unnamed/406052028_10231086857454385_5611693952212668786_n.avif
 description: Dvě milongy tento týden, 2 160 objetí. Objetím se nejde předávkovat, zlepšíš zdraví na těle i duši.
 author: Lenka Platenikova
 ---

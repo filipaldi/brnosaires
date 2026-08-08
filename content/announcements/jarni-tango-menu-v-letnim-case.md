@@ -2,7 +2,7 @@
 title: Jarní tango menu v letním čase
 date: 2025-03-24 01:00:00
 category: announcement
-preview_image: /images/485834845_10235550085552298_3633676179550573019_n.avif
+preview_image: /images/unnamed/485834845_10235550085552298_3633676179550573019_n.avif
 description: Jarní tání a letní čas. Kalendář na brnosaires.com a reminderů od tango přátel. Vyznej se v tom.
 author: Lenka Platenikova
 ---

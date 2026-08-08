@@ -2,7 +2,7 @@
 title: Zorientuj se a přiběhni na Skleněnku
 date: 2025-03-31 02:00:00
 category: announcement
-preview_image: /images/487955531_1179369970649245_5677506380867245445_n.avif
+preview_image: /images/unnamed/487955531_1179369970649245_5677506380867245445_n.avif
 description: Zorientuj se a přiběhni na Skleněnku. Milonga na Skleněnce, Brno. Přehled na brnosaires.com.
 author: Lenka Platenikova
 ---

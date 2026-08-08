@@ -2,7 +2,7 @@
 title: Nikdy tě neopustí 
 date: 2025-04-28 02:00:00
 category: announcement
-preview_image: /images/unnamed/nikdy_te_neopusti.jpg
+preview_image: /images/announcements/nikdy_te_neopusti.jpg
 description: Nikdy tě neopustí. Oznamy z Brnos Aires. Kalendář milong a praktik v Brně na brnosaires.com.
 author: Lenka Platenikova
 ---
