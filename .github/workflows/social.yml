@@ -1,0 +1,64 @@
+name: Echo to Mastodon and Nostr
+
+# Runs after a successful deploy, and reads the LIVE feed rather than a local
+# build: nothing gets announced that a reader cannot already open.
+#
+# With no secrets set this is a no-op that logs one line — which is its state
+# until someone picks the account this site posts as. Nothing here can fail the
+# site; the deploy has already finished by the time it starts.
+on:
+  workflow_run:
+    workflows: ["Build and Deploy"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social
+  cancel-in-progress: false
+
+jobs:
+  echo:
+    # `workflow_run` fires for failed runs too.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        run: pip install -r requirements-social.txt
+
+      - name: Publish
+        env:
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
+          NOSTR_SECRET_KEY: ${{ secrets.NOSTR_SECRET_KEY }}
+          NOSTR_RELAYS: ${{ vars.NOSTR_RELAYS }}
+        run: python scripts/publish_social.py
+
+      - name: Remember what went out
+        run: |
+          if [ -z "$(git status --porcelain .published-feeds.json)" ]; then
+            echo "Nothing new was announced."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .published-feeds.json
+          git commit -m "Record announced articles
+
+          Automatic: scripts/publish_social.py echoed new articles to the
+          configured networks."
+          git push
