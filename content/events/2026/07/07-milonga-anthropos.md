@@ -7,7 +7,7 @@ preview_image: /images/unnamed/anthropos_altanek.jpg
 event-type: milonga                    
 event-start: 2026-07-10 19:00:00
 event-end: 2026-07-10 22:O0:00         
-event-location: Park Anthropos Brno - Pisárky
+event-location: Park Anthropos, Pisárecká 5, Brno
 
 # OPEN AIR MILONGA - Anthropos
 

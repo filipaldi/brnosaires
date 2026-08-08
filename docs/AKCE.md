@@ -59,6 +59,34 @@ Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **
 
 ---
 
+## Adresa místa 📍
+
+`event-location` píš vždy ve tvaru **`Podnik, Ulice číslo, Brno-Čtvrť`** — tři části oddělené čárkami.
+
+```yaml
+event-location: Adrinela Cafe, Životského 14, Brno-Židenice   # ✅
+```
+
+Z téhle věty se skládá adresa pro Google a pro mapu v hlavičce akce. Web ji dělí podle čárek, takže **na pořadí záleží**: první část je název podniku, poslední je čtvrť, mezi tím ulice.
+
+| Špatně | Proč | Správně |
+|---|---|---|
+| `Přízova 216/18, Brno` | Bez názvu podniku se **ulice stane názvem místa** — Google pak tvrdí, že se tančí v podniku „Přízova 216/18". | `Vlněna, Přízova 216/18, Brno` |
+| `Sesamo Bakery, Brno` | Chybí ulice → v mapě není kam navigovat. | `Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole` |
+| `Dominikánská 264/2, 602 00 Brno-město` | PSČ se přilepí ke čtvrti a vyjde nesmyslná lokalita. | `…, Dominikánská 264/2, Brno-město` |
+| `Brno - Královo Pole` | Mezery kolem spojovníku — jiný zápis = pro web jiné místo. | `Brno-Královo Pole` |
+| `Sesamo bakery` vs `Sesamo Bakery` | Velikost písmen taky rozhoduje. | Jeden podnik = **jeden** zápis |
+
+Když akci píšeš i anglicky (`.en.md`), musí mít `event-location` **stejnou hodnotu** — adresa se nepřekládá.
+
+Než vymyslíš nový zápis, koukni, jak je podnik napsaný u starších akcí, a zkopíruj ho:
+
+```bash
+grep -rh "^event-location:" content/ | sort | uniq -c | sort -rn
+```
+
+---
+
 ## 4️⃣ Vyber správný `event-type`
 
 Špatný typ build **nerozbije**, ale zařadí akci do jiné kategorie — v kalendáři a filtrech se zobrazí jinde, než má.
@@ -137,7 +165,7 @@ Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../cont
 |---|---|---|
 | Datum / čas jednorázové akce | `event-start`, `event-end` | `date:` **neměň** — to je datum publikace, ne akce. Půlnoc v `event-end` = `00:00:00` dalšího dne, nikdy `24:00:00`. |
 | Cenu | `entry` | „zdarma" / „dobrovolné" → akce se označí jako bezplatná. |
-| Místo | `event-location` | Tvar `Místo, Ulice, Brno` (kvůli mapě/SEO). |
+| Místo | `event-location` | Tvar `Podnik, Ulice číslo, Brno-Čtvrť` — viz [Adresa místa](#adresa-místa-). |
 | Čas pravidelné lekce | `event-start`, `event-end` | Změní se na **všech** termínech. |
 | Den pravidelné lekce | `event-start` **i** `recurrence` | Musíš změnit **oba** — datum v `event-start` posuň na nový den a uprav `recurrence: weekly <den>`. Změna jen jednoho je nejčastější chyba. |
 

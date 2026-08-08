@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-06-03 18:00:00
 event-end: 2026-06-03 19:00:00
 event-organiser: Brnos Aires
-event-location: Sesamo Bakery, Brno
+event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
 entry: 15 €
 description: Z Buenos Aires do Brna. Open class s Elizabeth Cordone a Matíasem Rivasem z Tango Studio Recoleta. Cena 15€ na osobu.
 author: Michaela Lukavská

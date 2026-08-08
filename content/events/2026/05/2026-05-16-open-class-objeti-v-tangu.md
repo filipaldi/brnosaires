@@ -6,7 +6,7 @@ event-type: workshop
 event-start: 2026-05-16 18:00:00
 event-end: 2026-05-16 19:00:00
 event-organiser: Michaela Lukavská
-event-location: Sesamo Bakery, Brno
+event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
 description: Open class s Míšou Lukavskou o tom, jak hudba mění objetí v tangu. Od D'Arienza přes Caló po Puglieseho.
 author: Michaela Lukavská
 preview_image: /images/events/2026/misa_lukavska_preview.JPG
