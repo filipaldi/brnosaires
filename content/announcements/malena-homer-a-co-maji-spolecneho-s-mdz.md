@@ -9,7 +9,7 @@ author: Lenka Platenikova
 # Malena, Homér a co mají společného s MDŽ
 
 Jak to měla Malena s Homérem? 🤭 Jeden by řekl, že v tom bude nějaká milostná avantýra, nešťastná láska, zlomené srdce a podobné záležitosti, jak je v tangu zvykem 💘
-Tajemství nejkrásnějšího tanga všech dob čti na [https://brnosaires.com/tango.../malena-jak-to-mela-s-homerem](https://brnosaires.com/tango.../malena-jak-to-mela-s-homerem)
+Tajemství nejkrásnějšího tanga všech dob čti na [brnosaires.com/malena-jak-to-mela-s-homerem](/malena-jak-to-mela-s-homerem/)
 Až dočteš, nejspíš ti bude podezřelé, že "Den Maleny" je 2 dny před Mezinárodním dnem žen 🙃
 Malena a všechny ženy si zaslouží pořádnou oslavu 🥳. Ideálně v hlavním městě (nikoli Argentiny, zůstaňme při zemi...).
 👉 Udělej si 8. 3. výlet do Prahy na speciální milongu ve Fantově budově Hlavního nádraží. Od 19h.

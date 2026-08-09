@@ -42,7 +42,7 @@ The floor got rave reviews. Exceptional quality wood, the kind that makes every 
 There's also a balcony with seating and tables if you want to watch the floor from above. Sometimes the best view is from a distance.
 
 
-[More about the venue](/venue/)
+[More about the venue](/marathon-venue/)
 
 ### Cosy
 

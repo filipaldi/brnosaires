@@ -81,7 +81,14 @@ def discover_calendar_link_feeds(generator):
 def get_feed_id_for_tag_content(tag_content, feed_map):
     parsed_attrs = attrs.parse_calendar_link_attrs(tag_content)
     fp = _feed_fingerprint(parsed_attrs)
-    feed_id = feed_map.get(fp, "all")
+    # Falling back to the literal "all" produced a subscribe link to
+    # /calendars/all.ics, a file nothing ever writes. It happened whenever the
+    # widget sat in content that `discover_calendar_link_feeds` does not scan —
+    # it walks generator.pages and generator.articles, and content/llm/ is
+    # neither, so llms-full.txt told every LLM and calendar app to subscribe to
+    # a 404. Deriving the id the same way the writer names the file keeps the
+    # link pointing at the feed the widget actually asked for.
+    feed_id = feed_map.get(fp) or _derive_feed_id(parsed_attrs, fp)
     label = parsed_attrs.get("label")
     return feed_id, label
 
