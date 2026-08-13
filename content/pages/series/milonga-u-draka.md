@@ -3,7 +3,7 @@ title: Milonga u brněnského draka
 slug: milonga-u-draka
 date: 2026-05-16 00:00:00
 series: milonga-u-draka
-preview_image: /images/events/2026/milonga-u-draka-duben.jpg
+preview_image: /images/events/2026/milonga-u-draka-duben.avif
 description: Pravidelná milonga ve Staré radnici v Brně. Tango pod sochou brněnského draka.
 author: Filip Paldia
 ---

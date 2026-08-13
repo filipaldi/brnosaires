@@ -2,7 +2,7 @@
 title: Tvůj plán na work-life-tango balanc
 date: 2026-01-27 01:00:00
 category: announcement
-preview_image: /images/announcements/milonga_rockwine.jpg
+preview_image: /images/announcements/milonga_rockwine.avif
 description: Čtvrteční milonga v Rockwine, která nenaruší tvůj spánek. V 19h začínáme, ve 22h balíme, v pátek jsi čilý jako rybička.
 author: Lenka Platenikova
 

@@ -1,0 +1,76 @@
+name: Convert dropped images
+
+# Editors upload whatever their phone or Facebook handed them. This turns any
+# raster that lands in content/ into AVIF, repoints the Markdown references at
+# the new file, drops the original, and commits the result back.
+#
+# Manual only. It used to fire on any push that added a raster image, but a
+# runner per push is exactly the cost the owner ruled out. Run it from the
+# Actions tab when images have piled up; scripts/convert_images.py converts
+# whatever is in content/, so it does not matter how long it waits.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Shared with social.yml: both jobs commit to main, and a rebase race between
+# them costs either a lost conversion or a duplicate public post.
+concurrency:
+  group: push-to-main
+  cancel-in-progress: false
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        # pillow-heif is what makes .heic readable — Pillow does not decode it
+        # on its own, and HEIC is what an iPhone hands an editor.
+        run: pip install "pillow==12.3.0" "pillow-heif==1.5.0"
+
+      - name: Convert
+        run: python scripts/convert_images.py --quality 60
+
+      # Proof the rewrite did not orphan anything before the result is pushed.
+      # Needs a full build, since check_links resolves against output/.
+      - name: Verify every reference still resolves
+        run: |
+          pip install -r requirements.txt
+          PYTHONPATH=. pelican content -s publishconf.py
+          python scripts/check_links.py output
+          rm -rf output
+
+      - name: Commit
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing to convert."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Convert dropped images to AVIF
+
+          Automatic: scripts/convert_images.py converted the images added in
+          ${{ github.sha }} and repointed the Markdown references at them."
+          # This job started from an older SHA and takes minutes, so main has
+          # very likely moved. Without the rebase the push is rejected, the job
+          # goes red, and the conversion is thrown away — and because the paths
+          # filter only fires on image pushes, no later commit re-runs it.
+          for attempt in 1 2 3 4 5; do
+            git push && exit 0
+            echo "push rejected (attempt $attempt), rebasing on main"
+            git pull --rebase origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "could not push after 5 attempts"
+          exit 1

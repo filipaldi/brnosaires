@@ -2,7 +2,7 @@
 title: Hřejivé zdroje
 date: 2026-03-25 01:00:00
 category: announcement
-preview_image: /images/announcements/2026-03-hrejive-zdroje.jpg
+preview_image: /images/announcements/2026-03-hrejive-zdroje.avif
 description: Venku mrzne, ale ty máš vroucí zdroje lidského tepla. Milonga HEX, Milonga Fuera del Nido. Nedělní tango párty.
 author: Lenka Platenikova
 ---

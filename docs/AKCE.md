@@ -5,6 +5,7 @@ Nejčastější úkoly v kostce:
 - **Přidat jednorázovou akci** (milonga, workshop) → kroky 1-5 níže.
 - **Přidat pravidelnou lekci** (každý týden / měsíc) → [Pravidelná lekce přes `recurrence:`](#pravidelná-lekce-přes-recurrence).
 - **Upravit už existující akci/lekci** (datum, čas, cena) → [Upravit existující akci](#upravit-existující-akci).
+- **Zmenšit nahrané fotky** (nedělá se samo) → [Zmenšení obrázků do AVIF](#zmenšení-obrázků-do-avif).
 
 Detail všech polí hlavičky → [Pole v hlavičce](EDITING.md). Série (Milonga u Draka apod.) → [Série](SERIE.md). Anglická verze → [Anglická verze](ANGLICKA-VERZIA.md).
 
@@ -112,6 +113,10 @@ Soubor uložíš jedním ze dvou způsobů:
 
 Web se sestaví **automaticky dvakrát denně** (06:00 a 18:00 UTC). Potřebuješ rychleji? Vyžádej si ruční build u vývojáře.
 
+**Obrázky nahrávej v jakémkoli formátu, který máš po ruce** — `.jpg` z mobilu, `.png` ze screenshotu, `.heic` z iPhonu. Do `preview_image:` napiš přesně tu příponu, kterou nahráváš. Web si s tím poradí: sociální náhledy pro Facebook a spol. si vyrobí sám při každém buildu.
+
+Velké fotky se ale zmenšují **až na vyžádání**, ne samy — viz [Zmenšení obrázků](#zmenšení-obrázků-do-avif) níž. Do té doby se servíruje to, co jsi nahrál.
+
 ---
 
 ## Akce se neobjevila? Pět nejčastějších důvodů ❌
@@ -172,6 +177,24 @@ Dovětky jdou kombinovat (`from … until …`), jen `until` a `count` **nedáve
 **Kdy potřebuješ `from`.** U nové lekce ho nepotřebuješ — dej první termín rovnou do `event-start` a hotovo. `from` je na to, když už soubor existuje a ty ho nechceš rozbít: lekce jede každé pondělí od 19:00, přes léto pauza a v září se rozjede znovu. Místo přepisování `event-start` (ze kterého se bere čas začátku a konce **pro všechny** termíny) dopíšeš `from 2026-09-07` a série začne až tam. Časy zůstanou, jak byly.
 
 Když se v dovětku upíšeš (`until 2026-13-99`, `count 0`), web se nerozbije — dovětek se zahodí a série běží dál bez omezení. V logu GitHub Actions je pak varování, takže se to dá dohledat.
+
+## Zmenšení obrázků do AVIF
+
+Fotka z mobilu má běžně 3-5 MB. Naservíruje se každému návštěvníkovi tak, jak je, takže se to vyplatí zmenšit — do `.avif` se vejde zhruba ve čtvrtině velikosti.
+
+**Neděje se to samo.** Musí to někdo spustit:
+
+1. GitHub → záložka **Actions** → vlevo **„Convert dropped images"**
+2. vpravo **„Run workflow"** → tlačítko „Run workflow"
+3. za pár minut se v repu objeví **commit od robota**
+
+Ten commit převede každý obrázek v `content/`, přepíše na něj odkazy ve všech `.md` souborech a **původní soubor smaže**. Poprvé to zmate, ale je to správně — originál zůstává v historii gitu. Než robot doběhne, sáhne si na hotový web a ověří, že žádný odkaz nezůstal viset; když by měl, nic nepushne.
+
+Spusť to, kdykoli se fotky nahromadí. Na prodlevě nezáleží — skript převede, co v `content/` zrovna leží. Když to nikdo nespustí, web funguje dál, jen se obrázky servírují v původní velikosti.
+
+Sociální náhledy (Facebook, LinkedIn, WhatsApp) AVIF přečíst neumí. **Řešit to nemusíš** — web si při každém buildu vyrobí JPEG kopii jen pro ně. V repu ani v hlavičce ji nikde neuvidíš.
+
+---
 
 ## Upravit existující akci ✏️
 

@@ -4,7 +4,7 @@ slug: milonga-rockwine
 date: 2026-05-16 00:00:00
 lang: en
 series: milonga-rockwine
-preview_image: /images/announcements/milonga_rockwine_2.JPEG
+preview_image: /images/announcements/milonga_rockwine_2.avif
 description: A regular milonga at Rockwine on Vídeňská. A circular floor over Romanesque rotunda foundations, wine and tango.
 author: Lenka Pláteníková
 ---

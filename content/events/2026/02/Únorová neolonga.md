@@ -7,7 +7,7 @@ event-start: 2026-02-28 19:00:00
 event-end: 2026-02-28 23:30:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.jpg
+preview_image: /images/events/2026/neolonga.avif
 description: Další edice neolongy. Objevíš, co s tebou ladí. Prozkoumáš hranice svojí muzikality. DJ David
 author: Lenka Pláteníková
 ---

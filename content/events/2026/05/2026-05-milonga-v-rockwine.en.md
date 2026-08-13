@@ -10,7 +10,7 @@ event-location: Rockwine, Vídeňská 18, Brno
 event-organiser: Brnos Aires
 series: milonga-rockwine
 description: May milonga at Rockwine. The secret of the rotunda foundations, wine, cheese, olives and a circular dance floor.
-preview_image: /images/announcements/milonga_rockwine_2.JPEG
+preview_image: /images/announcements/milonga_rockwine_2.avif
 author: Lenka Pláteníková
 ---
 

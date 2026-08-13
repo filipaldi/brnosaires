@@ -2,7 +2,7 @@
 title: Neboj a rozhlídni se
 date: 2026-02-11 20:00:00
 category: announcement
-preview_image: /images/announcements/neboj_a_rozhlidni_se3.jpg
+preview_image: /images/announcements/neboj_a_rozhlidni_se3.avif
 description: Neboj se a rozhlídni se. Milonga v Rockwine. Vyspíš se. Valentýn na Stolárně. Praktika každou neděli.
 author: Lenka Platenikova
 ---

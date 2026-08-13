@@ -10,7 +10,7 @@ event-organiser: TangoLab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: A Zamba workshop with Iris for all levels. Brnos Aires Tango Weekend 2026.
 author: Filip Paldia
-preview_image: /images/classes/iris-zamba.jpg
+preview_image: /images/classes/iris-zamba.avif
 ---
 
 # Zamba (Iris) – everyone

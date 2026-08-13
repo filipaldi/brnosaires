@@ -22,6 +22,14 @@ Klikněte na složku, ve které soubor pro daný typ obsahu leží. Editovat bud
 | Odkazy v navigaci (hlavička / patička) | [content/navigation/](../content/navigation/) |
 | Obrázky | [content/images/](../content/images/) |
 
+## 🖼️ Obrázky — nahrajte cokoli
+
+Nahrajte obrázek v tom formátu, který máte (`.jpg` z mobilu, `.png` ze screenshotu, `.heic` z iPhonu). Do `preview_image:` napište přesně tu příponu, kterou nahráváte.
+
+Velké fotky se zmenšují do `.avif` (zhruba čtvrtinová velikost), ale **až když to někdo spustí** — Actions → „Convert dropped images" → „Run workflow". Postup i s tím, co ten robotí commit udělá, je v [Akce: zmenšení obrázků](AKCE.md#zmenšení-obrázků-do-avif). Dokud to nikdo nespustí, web funguje dál a servíruje původní soubor.
+
+Sociální náhledy (Facebook, LinkedIn, WhatsApp) AVIF přečíst neumí. **Řešit to nemusíte** — web si při každém buildu vyrobí JPEG kopii jen pro ně, do `/og/`. V repu ani v hlavičce ji nikde neuvidíte.
+
 ## 📋 Šablona hlavičky — všechna pole
 
 Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ obsahu nepotřebujete, a vyplňte hodnoty. Komentář na konci řádku říká, **pro který typ dokumentu řádek platí**.

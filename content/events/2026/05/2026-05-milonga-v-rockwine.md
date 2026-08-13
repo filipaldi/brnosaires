@@ -9,7 +9,7 @@ event-location: Rockwine, Vídeňská 18, Brno
 event-organiser: Brnos Aires
 series: milonga-rockwine
 description: Květnová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.
-preview_image: /images/announcements/milonga_rockwine_2.JPEG
+preview_image: /images/announcements/milonga_rockwine_2.avif
 author: Lenka Pláteníková
 ---
 

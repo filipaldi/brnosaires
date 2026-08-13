@@ -3,7 +3,7 @@ title: Milonga v Rockwine
 slug: milonga-rockwine
 date: 2026-05-16 00:00:00
 series: milonga-rockwine
-preview_image: /images/announcements/milonga_rockwine_2.JPEG
+preview_image: /images/announcements/milonga_rockwine_2.avif
 description: Pravidelná milonga v Rockwine na Vídeňské. Kruhový parket nad rotundovými základy, víno a tango.
 author: Lenka Pláteníková
 ---

@@ -9,7 +9,7 @@ event-organiser: Lenka a Filip
 event-location: Společenský sál na Staré radnici, Dominikánská 264/2, Brno-město
 description: Koncertní milonga s živou hudbou - soubor Petr Zámečník & Piastra hraje speciální program autorských aranží zlatých tangových orchestrů. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/events/2026/tango-piastra.jpeg
+preview_image: /images/events/2026/tango-piastra.avif
 ---
 
 # Slavnostní milonga s koncertem (Petr Zámečník & Piastra)
