@@ -48,6 +48,23 @@ from urllib.parse import quote
 CONVERTIBLE = (".jpg", ".jpeg", ".png", ".jfif", ".webp", ".heic", ".heif", ".bmp", ".tif", ".tiff")
 
 TARGET_EXTENSION = ".avif"
+
+# Měřeno na 101 obrázcích, které v repu byly, každý překódovaný nanovo:
+#
+#     originály   104,5 MB
+#     q60          25,7 MB   24,6 %
+#     q70          40,2 MB   38,5 %   +14,6 MB
+#     q80          59,3 MB   56,8 %   +33,7 MB
+#
+# Vyšší hodnota se nevyplatí, protože fotky na tomhle webu jsou skoro všechny
+# už jednou zkomprimované JPEGy: vyšší kvalita neuloží víc detailu, uloží
+# věrněji artefakty toho JPEGu. U portrétu vyjde q80 na 103K proti originálu
+# 124K — za osmdesát procent velikosti originálu dostaneš jeho vlastní šum.
+# Jediné, kde je q60 vidět, jsou tmavé plochy na fotkách ze slabého světla.
+#
+# Opačný případ jsou plakáty a grafika v PNG: tam originál nese megabajty a i
+# q80 je řádově menší. Kdyby jich v repu přibylo, stojí za to je převést zvlášť
+# s vyšší hodnotou přes --quality.
 DEFAULT_QUALITY = 60
 
 
