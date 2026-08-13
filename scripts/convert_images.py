@@ -65,6 +65,11 @@ TARGET_EXTENSION = ".avif"
 # Opačný případ jsou plakáty a grafika v PNG: tam originál nese megabajty a i
 # q80 je řádově menší. Kdyby jich v repu přibylo, stojí za to je převést zvlášť
 # s vyšší hodnotou přes --quality.
+#
+# Hodnota není nedotknutelná. Kdyby si někdo stěžoval na kvalitu obrázků,
+# zvedni ji tady a pusť konverzi znovu — převede se jen to, co je zrovna
+# rastrové, takže dřív převedené soubory to nesáhne. Přepočítat celý repo
+# na jinou hodnotu znamená vytáhnout originály z historie gitu.
 DEFAULT_QUALITY = 60
 
 
