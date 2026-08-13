@@ -105,7 +105,6 @@ Couples can register together; if one of you qualifies and the other doesn't, th
 
 <widget-articles
     link="false"
-    category="people"
     slugs="pavla-luzna lenka-platenikova filip-paldia"
     metadata="image title"
     columns="3"

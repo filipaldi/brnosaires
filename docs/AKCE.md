@@ -49,6 +49,8 @@ entry: 150 Kč                          # vstupné; "zdarma" / "dobrovolné" →
 
 Volitelně: `event-organiser`, `instructor`, `series` (jen u série, viz [Série](SERIE.md)).
 
+⚠️ **Do hlavičky nepiš komentáře.** Řádek začínající `#` ukončí čtení hlavičky a **všechno pod ním se tiše zahodí** — pole tam zůstane napsané, ale web se chová, jako by ho tam nebylo. Poznámku napiš do těla článku, ne do hlavičky.
+
 ⚠️ **Hlavičku ohranič `---` nahoře i dole**, jak je v bloku výše. Pelicanu je to jedno, ale formuláři na [/admin/](https://brnosaires.com/admin/) ne: bez ohraničení přečte celý soubor jako text, hlavičku ti ukáže uprostřed článku a při uložení ji přepíše prázdnou. Deset souborů v repu tuhle chybu mělo.
 
 ---

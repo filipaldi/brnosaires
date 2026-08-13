@@ -28,7 +28,7 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 ## Lidé za Brnos Aires
 
 <widget-articles 
-    category="people" 
+    slugs="filip-paldia lenka-platenikova pavla-luzna radek-sich martin-cerny irena-babilonova misa-lukavska steky-yaku" 
     metadata="description" 
     metadata="image title description" 
     card_size="m"

@@ -42,11 +42,23 @@ EN_LANG = "en"
 
 
 def _is_monolingual(content):
-    """True if this content opts out of translation (`translate: false` in
-    front-matter, e.g. injected for the marathon section via
-    EXTRA_PATH_METADATA) — no /en/ mirror should be synthesized for it."""
+    """True if this content opts out of translation — no /en/ mirror is
+    synthesized for it.
+
+    Both spellings of the flag count, and that is the point. EXTRA_PATH_METADATA
+    injects a real Python `False`, but a `translate: false` typed into a file's
+    own front matter arrives as the *string* "false": Pelican only coerces
+    metadata it knows about, and this field is ours. Testing `is False` alone
+    therefore honoured the path rule and silently ignored the per-file flag —
+    while docs/EDITING.md and docs/ANGLICKA-VERZIA.md both tell editors to write
+    exactly that. The file-level form is what a folder move or the CMS produces,
+    so it has to work.
+    """
     meta = getattr(content, "metadata", None) or {}
-    return meta.get("translate") is False
+    value = meta.get("translate")
+    if isinstance(value, bool):
+        return value is False
+    return str(value).strip().lower() in ("false", "no", "0")
 
 
 def _has_en_translation(content):

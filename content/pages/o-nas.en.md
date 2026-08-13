@@ -31,7 +31,7 @@ Anything you want to add, write to brnosaires-at-protonmail-dot-com.
 ## The people behind Brnos Aires
 
 <widget-articles 
-    category="people" 
+    slugs="filip-paldia lenka-platenikova pavla-luzna radek-sich martin-cerny irena-babilonova misa-lukavska steky-yaku" 
     metadata="description" 
     metadata="image title description" 
     card_size="m"
