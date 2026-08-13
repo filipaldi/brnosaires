@@ -1,6 +1,6 @@
 ---
 title: Víkendové workshopy pro začátečníky - neděle
-slug: vikendove workshopy zacatecnici-04-12-2026
+slug: vikendove-workshopy-zacatecnici-04-12-2026
 date: 2026-03-31 01:00:00
 instructor: Filip a Lenka
 event-start: 2026-04-12 13:00:00
