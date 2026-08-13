@@ -48,8 +48,26 @@
         <dd>{{ event_organiser }}</dd>
         {% endif %}
         {% if event_location %}
+        {# The address opens a map. OpenStreetMap on purpose: it is the only
+           target that is provider-neutral and works on iOS, Android and
+           desktop alike. A bare `geo:` URI would be the nicer hand-off to a
+           native app, but Safari has no handler for it, so on iPhone — the
+           device most likely to be tapping this — it is a dead link.
+           The query drops the venue name when a street is known: Nominatim
+           pins a street reliably, a venue name only if someone mapped it. #}
+        {% set _la = event_location | event_address %}
+        {% set _map_q = (_la.streetAddress ~ ', ' ~ (_la.addressLocality or 'Brno')) if _la.streetAddress else event_location %}
         <dt>{{ 'event_location_label' | t(page_lang) }}</dt>
-        <dd>{{ event_location }}</dd>
+        {# No venue name and no street means the value is a bare locality, and
+           the link would just drop the visitor on the whole city — a promise
+           the address cannot keep. Plain text there. #}
+        {% if _la.name or _la.streetAddress %}
+        <dd><a href="https://www.openstreetmap.org/search?query={{ (_map_q ~ ', Czechia') | urlencode }}"
+               target="_blank" rel="noopener"
+               aria-label="{{ 'open_in_maps' | t(page_lang) }}: {{ event_location | e }}">{{ event_location | e }}</a></dd>
+        {% else %}
+        <dd>{{ event_location | e }}</dd>
+        {% endif %}
         {% endif %}
         {% if event_entry %}
         <dt>{{ 'event_entry_label' | t(page_lang) }}</dt>

@@ -67,12 +67,12 @@ Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **
 event-location: Adrinela Cafe, Životského 14, Brno-Židenice   # ✅
 ```
 
-Z téhle věty se skládá adresa pro Google. Web ji dělí podle čárek, takže **na pořadí záleží**: první část je název podniku, poslední je čtvrť, mezi tím ulice.
+Z téhle věty se skládá adresa pro Google a pro mapu v hlavičce akce. Web ji dělí podle čárek, takže **na pořadí záleží**: první část je název podniku, poslední je čtvrť, mezi tím ulice.
 
 | Špatně | Proč | Správně |
 |---|---|---|
 | `Přízova 216/18, Brno` | Bez názvu podniku se **ulice stane názvem místa** — Google pak tvrdí, že se tančí v podniku „Přízova 216/18". | `Vlněna, Přízova 216/18, Brno` |
-| `Sesamo Bakery, Brno` | Chybí ulice → není kam navigovat. | `Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole` |
+| `Sesamo Bakery, Brno` | Chybí ulice → v mapě není kam navigovat. | `Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole` |
 | `Dominikánská 264/2, 602 00 Brno-město` | PSČ se přilepí ke čtvrti a vyjde nesmyslná lokalita. | `…, Dominikánská 264/2, Brno-město` |
 | `Brno - Královo Pole` | Mezery kolem spojovníku — jiný zápis = pro web jiné místo. | `Brno-Královo Pole` |
 | `Sesamo bakery` vs `Sesamo Bakery` | Velikost písmen taky rozhoduje. | Jeden podnik = **jeden** zápis |
