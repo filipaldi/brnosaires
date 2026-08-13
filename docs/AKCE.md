@@ -148,7 +148,7 @@ description: …
 author: Tvé jméno
 ```
 
-**Hodnoty `recurrence:`** — fungují jen tyhle dvě formy (jiné se tiše ignorují a zůstane jen jeden termín):
+**Hodnoty `recurrence:`** — základ musí být jedna z těchhle dvou forem (za ni se dají přidat dovětky, viz níž). Když se v základu upíšeš, zůstane akci jen jeden termín a v logu GitHub Actions je varování:
 
 | Zápis | Význam |
 |---|---|
@@ -156,6 +156,22 @@ author: Tvé jméno
 | `monthly <pořadí> <den>` | N-tý den v měsíci: `monthly 2 sunday` = každá 2. neděle; `monthly -1 friday` = poslední pátek (pořadí `1`-`4` nebo `-1`) |
 
 Dny **anglicky** a malými písmeny (`monday`…`sunday`). Den v `recurrence:` musí sedět se dnem, na který padá `event-start` — jinak se termíny rozjedou. Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
+
+### Kdy má série začít a skončit ⏳
+
+Bez dalšího údaje běží série **donekonečna**. Když víš, že kurz má deset lekcí nebo končí v prosinci, dopiš to za základní tvar:
+
+| Dovětek | Význam | Příklad |
+|---|---|---|
+| `until RRRR-MM-DD` | poslední termín je tenhle den (včetně) | `recurrence: weekly wednesday until 2026-12-16` |
+| `count N` | přesně N termínů | `recurrence: weekly monday count 10` |
+| `from RRRR-MM-DD` | první termín je až tenhle den | `recurrence: weekly monday from 2026-09-07` |
+
+Dovětky jdou kombinovat (`from … until …`), jen `until` a `count` **nedávej dohromady** — použije se `until`.
+
+**Kdy potřebuješ `from`.** U nové lekce ho nepotřebuješ — dej první termín rovnou do `event-start` a hotovo. `from` je na to, když už soubor existuje a ty ho nechceš rozbít: lekce jede každé pondělí od 19:00, přes léto pauza a v září se rozjede znovu. Místo přepisování `event-start` (ze kterého se bere čas začátku a konce **pro všechny** termíny) dopíšeš `from 2026-09-07` a série začne až tam. Časy zůstanou, jak byly.
+
+Když se v dovětku upíšeš (`until 2026-13-99`, `count 0`), web se nerozbije — dovětek se zahodí a série běží dál bez omezení. V logu GitHub Actions je pak varování, takže se to dá dohledat.
 
 ## Upravit existující akci ✏️
 
