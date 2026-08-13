@@ -322,7 +322,9 @@ JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filt
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body
 # (widget_processor only iterates generator.pages/articles, not translations).
-PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# og_image must come AFTER i18n_fallback — it stamps og_image onto the English
+# clones too, and those only exist once i18n_fallback has synthesized them.
+PLUGINS = ["calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

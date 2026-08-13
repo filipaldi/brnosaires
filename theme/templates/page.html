@@ -121,7 +121,9 @@
   {% endif %}"name": {{ page.title | tojson }},
   "description": {{ ((page.description or '') | striptags | truncate(300)) | tojson }},
   {% if SITEURL %}"url": "{{ SITEURL }}/{{ page.url }}",
-  {% endif %}{% if page.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ page.preview_image.lstrip('/') }}",
+  {# `og_image`, not `preview_image` — Google's structured data does not list
+     AVIF. See plugins/og_image.py. #}
+  {% endif %}{% if page.og_image and SITEURL %}"image": "{{ SITEURL }}/{{ page.og_image.lstrip('/') }}",
   {% endif %}"location": {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Brno", "addressCountry": "CZ"}}{% if series_events %},
   "subEvent": [
     {% for event in series_events %}{

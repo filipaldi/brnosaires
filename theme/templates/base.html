@@ -33,8 +33,15 @@
                   else page.description if page is defined and page.description
                   else _site_desc) | striptags | truncate(200) %}
   <meta name="description" content="{{ _desc }}">{# previously hardcoded sitewide — now per-page #}
-  {% set _img = article.preview_image if article is defined and article.preview_image
-                else page.preview_image if page is defined and page.preview_image
+  {# og:image / twitter:image read `og_image`, NOT `preview_image`. Link
+     scrapers do not decode AVIF, so plugins/og_image.py derives a JPEG twin of
+     every non-raster preview and points this at it.
+     No fallback to preview_image on purpose: the plugin sets og_image for
+     every preview_image that resolves, passthrough formats included, so a
+     missing og_image means the source file is not there — and no og:image
+     beats one that 404s. #}
+  {% set _img = article.og_image if article is defined and article.og_image
+                else page.og_image if page is defined and page.og_image
                 else '' %}
   {% set _type = 'article' if article is defined else 'website' %}
   {% set _abs_img = (SITEURL ~ '/' ~ _img.lstrip('/')) if _img and SITEURL else '' %}

@@ -134,7 +134,9 @@
   },
   {% if _free %}"isAccessibleForFree": true,
   {% endif %}{% endif %}{% if _hub.url and SITEURL %}"superEvent": {"@type": "EventSeries", "name": {{ _hub.title | tojson }}, "url": "{{ SITEURL }}/{{ _hub.url }}"},
-  {% endif %}{% if article.preview_image and SITEURL %}"image": "{{ SITEURL }}/{{ article.preview_image.lstrip('/') }}",
+  {# `og_image`, not `preview_image`: Google's structured-data docs list
+     jpg/png/gif/webp and AVIF is not among them. See plugins/og_image.py. #}
+  {% endif %}{% if article.og_image and SITEURL %}"image": "{{ SITEURL }}/{{ article.og_image.lstrip('/') }}",
   {% endif %}"url": "{{ SITEURL }}/{{ _ld_url }}"
 }
 </script>
