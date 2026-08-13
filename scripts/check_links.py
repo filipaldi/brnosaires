@@ -236,20 +236,22 @@ def _to_relative(url, base_dir):
 def _resolves(output_dir, rel):
     """True if `rel` is served by the finished tree.
 
-    Tries the literal spelling and the percent-decoded one: a filename may
-    legitimately contain `%`, and some values came out of the Notion import
-    already encoded.
+    Only the percent-decoded spelling counts, because that is the only one a
+    server ever looks up: the browser sends the reference as written, the
+    server decodes it once, and that is the filename it opens. Accepting the
+    literal spelling too used to pass content/images/dsa07433-kopie-%281%29_
+    optimized.avif — a file whose name really did contain `%28`, so the raw
+    string matched a real file while every visitor's browser asked for
+    `...-(1)_optimized.avif` and got nothing. A `%` that is not a valid escape
+    survives unquote() unchanged, so a filename with a bare `%` still resolves.
     """
     if rel == "..":
         return False
-    for candidate in dict.fromkeys((rel, unquote(rel))):
-        full = os.path.join(output_dir, candidate)
-        if os.path.isfile(full):
-            return True
-        # `/foo/` and `/foo` are both served as `/foo/index.html`.
-        if os.path.isfile(os.path.join(full, "index.html")):
-            return True
-    return False
+    full = os.path.join(output_dir, unquote(rel))
+    if os.path.isfile(full):
+        return True
+    # `/foo/` and `/foo` are both served as `/foo/index.html`.
+    return os.path.isfile(os.path.join(full, "index.html"))
 
 
 def _page_references(html):

@@ -1,0 +1,30 @@
+name: Tests
+
+# Manual only. No push and no pull_request trigger: a runner per commit is the
+# cost the owner ruled out. deploy.yml runs this same suite before it builds,
+# so the scheduled build is gated either way, and locally it is one command:
+#   python -m unittest discover -s tests -t .
+# Standard library `unittest`, no test-runner dependency.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Run
+        run: python -m unittest discover -s tests -t . -v
