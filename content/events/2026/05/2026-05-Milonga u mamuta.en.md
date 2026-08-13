@@ -6,7 +6,7 @@ lang: en
 event-type: milonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 23:00:00
-preview_image: /images/events/2026/2026-05-milonga-u-mamuta.jpg
+preview_image: /images/events/2026/2026-05-milonga-u-mamuta.avif
 description: Milonga at the Mammoth - Anthropos, Brno. Part of the Brno Museum Night.
 author: Lenka Platenikova
 event-location: Pavilon Anthropos, Pisárecká 5, Brno

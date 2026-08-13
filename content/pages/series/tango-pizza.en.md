@@ -4,7 +4,7 @@ slug: tango-pizza
 date: 2026-04-25 00:00:00
 lang: en
 series: tango-pizza
-preview_image: /images/events/2026/tango-pizza-sesamo.jpg
+preview_image: /images/events/2026/tango-pizza-sesamo.avif
 description: A Wednesday praktikolonga at Sesamo Bakery on Purkyňova. Tango, pizza, an open atmosphere.
 author: Filip Paldia
 ---

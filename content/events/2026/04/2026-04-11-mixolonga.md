@@ -7,7 +7,7 @@ event-start: 2026-04-11 19:00:00
 event-end: 2026-04-11 23:30:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.jpg
+preview_image: /images/events/2026/neolonga.avif
 description: Místo čisté neolongy vyzkoušej mixovanou mixolongu. Objevíš, co s tebou ladí. Prozkoumáš hranice svojí muzikality.
 author: Lenka Pláteníková
 ---

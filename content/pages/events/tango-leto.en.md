@@ -5,7 +5,7 @@ lang: en
 slug: tango-leto-v-brne-aneb-letni-tango-menu
 description: Tango is alive in summer. Open-air milongas, praktikas, live music and a festival of Argentine culture in Brno. The line-up for June to August.
 author: Filip Paldia
-preview_image: /images/events/2026/tango-leto-obecne.JPEG
+preview_image: /images/events/2026/tango-leto-obecne.avif
 ---
 
 # Tango Summer in Brno, or the Summer Tango Menu

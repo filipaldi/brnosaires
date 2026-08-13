@@ -4,7 +4,7 @@ slug: milonga-u-draka
 date: 2026-05-16 00:00:00
 lang: en
 series: milonga-u-draka
-preview_image: /images/events/2026/milonga-u-draka-duben.jpg
+preview_image: /images/events/2026/milonga-u-draka-duben.avif
 description: A regular milonga at the Old Town Hall in Brno. Tango under the statue of the Brno dragon.
 author: Filip Paldia
 ---

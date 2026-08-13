@@ -2,7 +2,7 @@
 title: Tvoje tango milníky
 date: 2026-05-02 01:00:00
 category: announcement
-preview_image: /images/announcements/tango-milniky.jpg
+preview_image: /images/announcements/tango-milniky.avif
 description: Přehled tangových milníků. Tango víkend. Střecha Vaňkovky. Rodrigo a Majo. Brnos Aires tango maraton.
 author: Lenka Platenikova
 ---

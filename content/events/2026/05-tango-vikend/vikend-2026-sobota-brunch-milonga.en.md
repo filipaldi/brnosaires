@@ -10,7 +10,7 @@ event-organiser: Michaela Lukavská
 event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
 description: A brunch milonga at Rosario's. Excellent food, Italian quality and Rosario's hospitality.
 author: Lenka Platenikova
-preview_image: /images/events/2026/brunch milonga.jpg
+preview_image: /images/events/2026/brunch milonga.avif
 ---
 
 # Brunch Milonga at Sesamo

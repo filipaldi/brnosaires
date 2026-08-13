@@ -2,7 +2,7 @@
 title: navzdory_vetru_desti
 date: 2025-06-27 01:00:00
 category: announcement
-preview_image: /images/announcements/letni_tango_menu_2025.jpg
+preview_image: /images/announcements/letni_tango_menu_2025.avif
 description: Navzdory bource Richard hraje. Filip ma napad a Monca informuje. Tango menu pro vsechny.
 author: Lenka Platenikova
 ---

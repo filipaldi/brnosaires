@@ -3,7 +3,7 @@ slug: 2026-07-15-milonga-a-openclass-vlnena
 date: 2026-06-24 12:00:00              
 author: Lenka Pláteníková
 description: Milonga v prostředí Vlněny. Openclass pro veřejnost.  
-preview_image: /images/events/2026/Vlnena.jpg
+preview_image: /images/events/2026/Vlnena.avif
 event-type: milonga                   
 event-start: 2026-07-15 18:00:00
 event-end: 2026-07-15 22:00:00         

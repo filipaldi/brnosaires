@@ -9,7 +9,7 @@ event-organiser: Tangolab Štěky
 event-location: HEX Gallery, Lidická 63a, Brno
 description: Milonga s živou hudbou. Hraje vídeňské duo: Helmuth a Miloš. Brnos Aires Tango víkend 2026.
 author: Filip Paldia
-preview_image: /images/events/2026/koncert-helmuth-milos.jpg
+preview_image: /images/events/2026/koncert-helmuth-milos.avif
 entry: 390 Kč / 16 €
 ---
 

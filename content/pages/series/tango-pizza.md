@@ -3,7 +3,7 @@ title: Tango & Pizza — středeční praktikolonga v Sesamo Bakery
 slug: tango-pizza
 date: 2026-04-25 00:00:00
 series: tango-pizza
-preview_image: /images/events/2026/tango-pizza-sesamo.jpg
+preview_image: /images/events/2026/tango-pizza-sesamo.avif
 description: Středeční praktikolonga v Sesamo Bakery na Purkyňové. Tango, pizza, otevřená atmosféra.
 author: Filip Paldia
 ---
