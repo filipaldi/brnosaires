@@ -1,3 +1,4 @@
+---
 title: Neotango workshopy s Cedricem a Pavlou
 slug: 2026-07-12-neotango-cedric-pavla
 date: 2026-07-02 18:00:00              
@@ -9,6 +10,7 @@ event-start: 2026-07-12 17:00:00
 event-end: 2026-07-12 20:00:00         
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 entry: 700 Kč
+---
 
 # NEOTANGO workshopy s Cedricem a Pavlou
 

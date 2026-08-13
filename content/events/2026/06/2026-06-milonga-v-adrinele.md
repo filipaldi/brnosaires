@@ -1,3 +1,4 @@
+---
 title: Milonga v Adrinele
 slug: 2026-06-18-milonga-v-adrinele      
 date: 2026-06-16 12:00:00              
@@ -9,6 +10,7 @@ event-start: 2026-06-18 20:30:00
 event-end: 2026-06-18 23:15:00         
 event-location: Adrinela Cafe, Životského 14, Brno-Židenice
 entry: 80 Kč  
+---
 
 # Milonga v Adrinele - červen
 

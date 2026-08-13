@@ -1,3 +1,4 @@
+---
 title: Open-air milonga v Anthroposu - srpen
 slug: 2026-08-07-milonga-antrhopos     
 date: 2026-06-24 12:00:00              
@@ -6,9 +7,10 @@ description: Open-air milonga v oblíbeném Anthroposu. Altánek, stromy, tráva
 preview_image: /images/unnamed/anthropos_altanek.avif
 event-type: milonga                    
 event-start: 2026-08-07 18:00:00
-event-end: 2026-08-07 22:O0:00         
+event-end: 2026-08-07 22:00:00         
 event-location: Park Anthropos, Pisárecká 5, Brno
 event-organiser: Taneční studio Stolárna
+---
 
 # OPEN AIR MILONGA - Anthropos
 
