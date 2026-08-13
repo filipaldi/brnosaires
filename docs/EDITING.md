@@ -51,6 +51,7 @@ event-url: https://...             # externí odkaz: vstupenky / registrace; zob
 series: milonga-u-draka            # jen pokud akce patří do série (slug hubu) — viz SERIE.md
 instructor: Jana Nováková          # více lektorů → každé jméno na vlastní řádek, odsazené (viz níže)
 recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT
+                                   # omezení série: "until RRRR-MM-DD", "count N", "from RRRR-MM-DD" — viz AKCE.md
 
 # ─── JEN PRO HUB PRAVIDELNÉ SÉRIE (content/pages/series/) — viz SERIE.md ───
 series: milonga-u-draka            # MUSÍ být stejné jako slug — tím se soubor pozná jako hub
