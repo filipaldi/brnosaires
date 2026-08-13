@@ -73,6 +73,7 @@ entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" → isA
 event-url: https://...             # externí odkaz: vstupenky / registrace; zobrazí se jako "Více info a vstupenky"
 series: milonga-u-draka            # jen pokud akce patří do série (slug hubu) — viz SERIE.md
 instructor: Jana Nováková          # více lektorů → každé jméno na vlastní řádek, odsazené (viz níže)
+instructor_slugs: jana-novakova             # nepovinné; slug(y) profilů z content/people/, oddělené čárkou
 recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT
                                    # omezení série: "until RRRR-MM-DD", "count N", "from RRRR-MM-DD" — viz AKCE.md
 
@@ -99,7 +100,22 @@ instructor: Šteky Yaku
     Jana Popelková
 ```
 
-Zobrazí se oddělené čárkou: „Šteky Yaku, Filip Šterc, Albert Mikó, Jana Popelková". Jeden lektor = jeden řádek. (Jména píšte tak, jak mají vypadat — do budoucna se z nich budou moct stát odkazy na profil lektora, pokud profil existuje.)
+Zobrazí se oddělené čárkou: „Šteky Yaku, Filip Šterc, Albert Mikó, Jana Popelková". Jeden lektor = jeden řádek. Jména pište tak, jak mají vypadat — `instructor` je to, co se na stránce vytiskne.
+
+### Propojení s profilem lektora — `instructor_slugs:`
+
+`instructor:` je volný text („Filip a Lenka"), takže se z něj nedá poznat, o koho jde. Nepovinné pole `instructor_slugs:` to doplňuje strojově — seznam **slugů** souborů z [content/people/](../content/people/), oddělený čárkou:
+
+```yaml
+instructor: Filip a Lenka
+instructor_slugs: filip-paldia, lenka-platenikova
+```
+
+Slug je název souboru bez `.md` — `content/people/pavla-luzna.md` → `pavla-luzna`.
+
+Co to udělá: na **stránce toho lektora** se objeví sekce „Nejbližší lekce a workshopy" s termíny, které učí. U pravidelné lekce se ukáže **nejbližší** termín, ne ten první z ledna. Na stránce akce se nemění nic.
+
+Slug, ke kterému neexistuje soubor, build nerozbije — jen se objeví varování v logu GitHub Actions a propojení nevznikne. Když profil neexistuje, pole prostě vynechte.
 
 ## 👀 Co se zobrazí kde, když publikujete
 

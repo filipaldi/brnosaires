@@ -88,6 +88,28 @@
     {% endif %}
     {% endif %}
 
+    {# A school page: `organiser: <exact event-organiser value>` in its front
+       matter, and plugins/people_links.py fills in the schedule. Empty on
+       every page that does not declare one. #}
+    {# The school's lecturers, derived from the events it organises rather than
+       from a list somebody has to keep in step. See plugins/people_links.py. #}
+    {% if page.organiser_people %}
+    <p class="text-s color-neutral-3">{{ 'school_lecturers' | t(page_lang) }}
+      {% for person in page.organiser_people %}<a href="{{ SITEURL }}/{{ person.url }}">{{ person.title | e }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
+
+    {% if page.organiser_events %}
+    <section class="el-stack stack-m" aria-label="{{ 'organiser_upcoming_aria' | t(page_lang) }}">
+      <h2>{{ 'organiser_upcoming_heading' | t(page_lang) }}</h2>
+      <div class="calendar" data-card-mode="solid" data-card-width="m" data-text-size="s" data-group-by="none">
+        <section class="week">
+          {% set card_heading_level = 3 %}
+          {% for event in page.organiser_events %}{% include 'components/event_card.html' %}{% endfor %}
+        </section>
+      </div>
+    </section>
+    {% endif %}
+
     {% set hub_series = page.metadata.get('series') if page.metadata else none %}
     {% if hub_series %}
     <section class="el-stack stack-m" aria-label="{{ 'series_upcoming_aria' | t(page_lang) }}">

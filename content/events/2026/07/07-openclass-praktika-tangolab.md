@@ -9,7 +9,7 @@ event-type: praktika
 event-start: 2026-07-21 18:00:00
 event-end: 2026-07-21 21:00:00         
 event-location: HEX Gallery, Lidická 63a, Brno
-event-organiser: TangoLab Steky
+event-organiser: TangoLab Štěky
 entry: 100 Kč        
 ---
 

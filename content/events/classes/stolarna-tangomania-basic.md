@@ -4,6 +4,7 @@ slug: stolarna-tangomania-basic
 date: 2026-01-16 01:00:00
 instructor: Pavla Lužná
     Ondra Martinák
+instructor_slugs: pavla-luzna
 event-start: 2026-01-08 17:45:00
 event-end: 2026-01-08 19:00:00
 recurrence: weekly monday

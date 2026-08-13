@@ -3,6 +3,7 @@ title: Víkendové workshopy pro začátečníky - neděle
 slug: vikendove-workshopy-zacatecnici-nedele
 date: 2026-06-01 
 instructor: Filip a Lenka
+instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-06-21 13:00:00
 event-end: 2026-06-21 17:15:00
 preview_image: /images/classes/class-lenka-filip.avif
