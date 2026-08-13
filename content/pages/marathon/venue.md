@@ -7,7 +7,7 @@ author: Filip Paldia
 preview_image: /images/marathon-photos/venue-floor/marathon-venue-10.avif
 ---
 
-## Two hundred<br>square metres
+# Two hundred<br>square metres
 
 In Brnos Aires, people dance in stylish, atmospheric venues with wooden floors.
 In Brnos Aires, you won’t be missing a thing. Our stylish hall, filled with a tango atmosphere, features a **200 m² wooden floor**.

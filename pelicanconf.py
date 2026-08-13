@@ -359,3 +359,14 @@ EXTRA_PATH_METADATA = {
 
 CALENDAR_ICS_OUTPUT_DIR = "calendars"
 CALENDAR_ICS_EXCLUDED_CATEGORIES = ["announcement", "curiosity"]
+# Pelican's built-in authors/archives/tags pages have no template in this
+# theme, so they rendered with an h2 where the h1 belongs and no page heading
+# at all. Nothing in the theme links to them either — they were orphans that
+# only the sitemap knew about. Off.
+DIRECT_TEMPLATES = ["index"]
+CATEGORIES_SAVE_AS = ""
+AUTHOR_SAVE_AS = ""
+AUTHORS_SAVE_AS = ""
+ARCHIVES_SAVE_AS = ""
+TAGS_SAVE_AS = ""
+TAG_SAVE_AS = ""

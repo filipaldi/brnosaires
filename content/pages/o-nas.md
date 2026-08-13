@@ -17,7 +17,7 @@ Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, 
 
 Děláme to pro radost a když z něčeho radost nemáme, tak to dělat nebudeme!
 
-### Co pod tou střechou najdeš?
+## Co pod tou střechou najdeš?
 
 Už nikdy nebudeš tápat, kdy, kde a v kolik. Milongy, workshopy, praktika a akce různých organizátorů najdeš přehledně v jednom [kalendáři](/tango-kalendar-brno/), zvlášť pak [milongy v Brně](/tango-milongy-brno/) a [lekce](/tango-lekce-brno/). Nevíš, co ty slova znamenají? [Začni tady](/tango-pro-zacatecniky-brno/).  
 Hudba, na kterou tančíš, má za sebou kopec příběhů. Tady ti je budeme postupně přinášet, pikošky, které způsobí, že na ty skladby už nikdy nebudeš tančit stejně.  

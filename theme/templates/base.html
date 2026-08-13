@@ -115,9 +115,28 @@
   {% endif %}
   {% set nav_list = _raw_nav.get(page_lang, _raw_nav.get('cs', [])) if _raw_nav is mapping else _raw_nav %}
 
+  {# First thing in the tab order: a keyboard user should not have to walk the
+     whole nav rail on every page to reach the content. Hidden until focused.
+
+     The href repeats this page's own URL on purpose. A bare "#main" resolves
+     against the DOCUMENT BASE, and this theme emits
+     <base href="https://brnosaires.com/">, so on every page but the homepage
+     the skip link navigated away to the homepage — the exact opposite of what
+     it is for. It is the only fragment link on the site, which is why the
+     trap had never been sprung before.
+     Built from `output_file`, not from `_page_url`: that one is only defined
+     for articles and pages, so category and paginated templates would still
+     have pointed at the homepage. Pelican sets `output_file` on every
+     template it renders. #}
+  {% set _self_url = (output_file | replace('index.html', '')) if output_file is defined else _page_url %}
+  <a class="skip-link" href="{{ SITEURL }}/{{ _self_url }}#main">{{ 'skip_to_content' | t(page_lang) }}</a>
+
   <div class="layout-with-aside">
     <div class="el-stack stack-l">
-      <main role="main" class="padding-all-m padding-top-l">
+      {# tabindex="-1" so the skip link actually moves focus. Safari will not
+         focus a non-focusable fragment target: it scrolls, focus stays on the
+         link, and the next Tab drops the visitor back into the nav rail. #}
+      <main id="main" tabindex="-1" role="main" class="padding-all-m padding-top-l">
         {% block content %}{% endblock %}
       </main>
       {% include 'components/footer.html' %}
@@ -184,6 +203,14 @@
           navigator.clipboard.writeText(url).then(function () {
             var original = link.textContent;
             link.textContent = '{{ "copied_prefix" | t(page_lang) }}' + original;
+            // The visible label change is invisible to a screen reader: it is
+            // not in a live region and focus has not moved. Announce it.
+            var block = link.closest('.el-stack');
+            var status = block && block.querySelector('[data-copy-status]');
+            if (status) {
+              status.textContent = '{{ "copied_status" | t(page_lang) }}';
+              setTimeout(function () { status.textContent = ''; }, 1800);
+            }
             setTimeout(function () { link.textContent = original; }, 1800);
           }).catch(function () {
             window.location.href = url;

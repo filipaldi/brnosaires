@@ -8,4 +8,8 @@
        {% if link.is_copy %}data-copy-url="{{ link.url }}"{% endif %}>{{ link.label }}</a>
     {% endfor %}
   </div>
+  {# The copy chip changes its own label on success, which a screen reader
+     never announces — the label is not in a live region and focus has not
+     moved. This is. Left empty so nothing is read on page load. #}
+  <p class="visually-hidden" role="status" aria-live="polite" data-copy-status></p>
 </div>

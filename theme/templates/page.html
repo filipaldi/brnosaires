@@ -100,6 +100,8 @@
         {% endif %}
       {% endfor %}
       {% if series_events %}
+      {# These cards live under the h2 opened above, so they are h3 here. #}
+      {% set card_heading_level = 3 %}
       <div class="calendar" data-card-mode="solid" data-card-width="m" data-text-size="s" data-group-by="none">
         <section class="week">
           <div class="day" role="list">
