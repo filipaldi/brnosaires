@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Brnos Aires — redakce</title>
+</head>
+<body>
+  <!-- Verze je připnutá i s otiskem obsahu (SRI), ne jen číslem. Tenhle skript
+       drží editorův přístupový token a má commit práva do repa, takže podvržený
+       balík z CDN by znamenal podvržené repo. Sveltia je před verzí 1.0 a vydává
+       zhruba release denně — bez připnutí by se editorské rozhraní měnilo pod
+       rukama a upgrade by nikdo neodsouhlasil.
+
+       UPGRADE: vyber novou verzi, spočítej otisk a přepiš oba řetězce:
+
+           V=0.190.0
+           curl -sL "https://unpkg.com/@sveltia/cms@$V/dist/sveltia-cms.js" \
+             | openssl dgst -sha384 -binary | openssl base64 -A
+
+       Když otisk nesedí, prohlížeč skript odmítne načíst a /admin/ zůstane
+       prázdné — je to tichá chyba jen v konzoli, tak na to pozor. -->
+  <script src="https://unpkg.com/@sveltia/cms@0.189.0/dist/sveltia-cms.js"
+          integrity="sha384-TNWPWNAx4FpaIDWLZSeviMTOBNiNsgQX/agGyhnswxmh9FLL6ac4QZL8lUvgSpMz"
+          crossorigin="anonymous"></script>
+</body>
+</html>

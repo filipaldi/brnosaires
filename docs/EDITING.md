@@ -2,6 +2,8 @@
 
 Referenční přehled metadat (frontmatteru) Markdown souborů. **Když jen přidáváš nebo upravuješ akci, jdi na [Akce: přidat a upravit](AKCE.md)** — provede tě postupem za 5 minut. Tenhle dokument je slovník všech polí pro případy, kdy potřebuješ detail.
 
+Většinu polí popsaných níž vůbec psát nemusíš: akce, oznámení, píkošky a profily lidí jdou zadat formulářem na **[brnosaires.com/admin](https://brnosaires.com/admin/)**. Ruční editace zůstává jako plnohodnotná záložní cesta — obě zapisují ty samé soubory.
+
 Související: série → [Série](SERIE.md), měsíční stránky milong → [Měsíční stránky](MESACNE-STRANKY.md), anglická verze → [Anglická verze](ANGLICKA-VERZIA.md), *proč* to funguje → [SEO](SEO.md), widgety → [Widgety](WIDGETS.md).
 
 ## 🗂️ Kam co patří — rychlé odkazy do repa
