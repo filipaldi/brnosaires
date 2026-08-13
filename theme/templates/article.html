@@ -110,6 +110,21 @@
     <div class="el-stack stack-xs">
       {{ article.content }}
     </div>
+
+    {# A lecturer's own page answering "when do they next teach?". Populated by
+       plugins/people_links.py from each event's `instructor_slugs:` list, so it is
+       empty on every page that is not a profile. #}
+    {% if article.instructor_events %}
+    <section class="el-stack stack-m" aria-label="{{ 'person_upcoming_aria' | t(page_lang) }}">
+      <h2>{{ 'person_upcoming_heading' | t(page_lang) }}</h2>
+      <div class="calendar" data-card-mode="solid" data-card-width="m" data-text-size="s" data-group-by="none">
+        <section class="week">
+          {% set card_heading_level = 3 %}
+          {% for event in article.instructor_events %}{% include 'components/event_card.html' %}{% endfor %}
+        </section>
+      </div>
+    </section>
+    {% endif %}
   </article>
 </div>
 

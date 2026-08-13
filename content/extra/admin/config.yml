@@ -165,6 +165,17 @@ collections:
         # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
         i18n: true
         hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
+      - name: instructor_slugs
+        label: Lektoři (odkaz na profil)
+        widget: relation
+        collection: people
+        multiple: true
+        required: false
+        i18n: duplicate
+        hint: >-
+          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
+          akce objevila na stránce toho lektora. Jméno, které se zobrazí
+          v hlavičce, se bere z pole „Lektoři" nad tímhle.
       - name: entry
         label: Vstupné
         widget: string
@@ -314,6 +325,17 @@ collections:
         # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
         i18n: true
         hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
+      - name: instructor_slugs
+        label: Lektoři (odkaz na profil)
+        widget: relation
+        collection: people
+        multiple: true
+        required: false
+        i18n: duplicate
+        hint: >-
+          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
+          akce objevila na stránce toho lektora. Jméno, které se zobrazí
+          v hlavičce, se bere z pole „Lektoři" nad tímhle.
       - name: entry
         label: Vstupné
         widget: string

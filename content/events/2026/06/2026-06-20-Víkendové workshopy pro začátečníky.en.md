@@ -4,6 +4,7 @@ slug: vikendove-workshopy-zacatecnici-sobota
 lang: en
 date: 2026-06-01
 instructor: Filip and Lenka
+instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-06-20 13:00:00
 event-end: 2026-06-20 17:15:00
 preview_image: /images/classes/class-lenka-filip.avif

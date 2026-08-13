@@ -329,7 +329,9 @@ PLUGIN_PATHS = ["plugins"]
 # colocated_images must come FIRST — widget_processor bakes preview_image into
 # the rendered widget HTML during the same signal, so the bare filename has to
 # be rewritten before it runs.
-PLUGINS = ["colocated_images", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# people_links must come AFTER i18n_fallback — it writes onto the English
+# clones, and those do not exist until i18n_fallback has synthesized them.
+PLUGINS = ["colocated_images", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "people_links", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

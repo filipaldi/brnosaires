@@ -9,7 +9,7 @@ event-type: milonga
 event-start: 2026-07-15 18:00:00
 event-end: 2026-07-15 22:00:00         
 event-location: Vlněna, Přízova 216/18, Brno
-event-organiser: Tanecni studio Stolarna       
+event-organiser: Taneční studio Stolárna
 ---
 
 # Milonga na Vlněně s openclass pro veřejnost

@@ -3,6 +3,7 @@ title: Tanguj za jeden den
 slug: tanguj-za-jeden-den-03-2026
 date: 2026-03-19 01:00:00
 instructor: Štěky Yaku
+instructor_slugs: steky-yaku
 event-start: 2026-03-22 15:00:00
 event-end: 2026-03-22 19:00:00
 preview_image: /images/classes/2026-03-tanguj-za-jeden-den.avif
