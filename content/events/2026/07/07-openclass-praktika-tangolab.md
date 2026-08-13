@@ -1,3 +1,4 @@
+---
 title: Openclass pro začátečníky a praktika
 slug: 2026-07-21-openclas-a-praktika
 date: 2026-06-24 12:00:00              
@@ -10,6 +11,7 @@ event-end: 2026-07-21 21:00:00
 event-location: HEX Gallery, Lidická 63a, Brno
 event-organiser: TangoLab Steky
 entry: 100 Kč        
+---
 
 # Openclass pro začátečníky a praktika
 

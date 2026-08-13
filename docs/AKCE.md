@@ -1,5 +1,19 @@
 # Přidat a upravit akci
 
+## Nejjednodušší cesta: formulář na [/admin/](https://brnosaires.com/admin/) 🖱️
+
+Otevři **[brnosaires.com/admin](https://brnosaires.com/admin/)** a klikni na **„Sign In Using Access Token"** — token si vygeneruješ podle odkazu přímo na přihlašovací obrazovce, stačí jednou.
+
+⚠️ Na obrazovce je i tlačítko **„Sign In with GitHub"**. To pro tenhle web **nefunguje** (potřebovalo by další server navíc) a nejde ho odtamtud odstranit. Použij to s tokenem.
+
+Rozhraní **je česky** — jazyk se bere z prohlížeče a dá se přepnout v nastavení (ikona účtu vpravo nahoře). Slovenština zatím není, tam se rozhraní vrátí k angličtině.
+
+Dostaneš formulář: typ akce vybereš ze seznamu, datum a čas naklikáš, místo vybereš z nabídky, obrázek nahraješ přetažením. Slug, datum publikace a formát hlavičky za tebe pohlídá formulář — nic z toho, co je popsané níž, psát nemusíš.
+
+Zbytek téhle stránky je **ruční cesta**: platí, když edituješ soubory přímo na GitHubu nebo v editoru, a hodí se jako referenční popis polí. Obě cesty zapisují ty samé soubory, takže se dají libovolně střídat.
+
+---
+
 Nejčastější úkoly v kostce:
 
 - **Přidat jednorázovou akci** (milonga, workshop) → kroky 1-5 níže.
@@ -18,6 +32,7 @@ Nový soubor patří do [content/events/](../content/events/) → podsložka `RR
 Zkopíruj celý blok, smaž řádky, které nepotřebuješ, vyplň hodnoty:
 
 ```yaml
+---
 title: Milonga u Draka
 slug: 2026-05-16-milonga-u-draka       # v URL: brnosaires.com/<slug>/
 date: 2026-04-10 18:00:00              # datum PUBLIKACE, NE datum akce
@@ -29,9 +44,12 @@ event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 22:30:00         # půlnoc = 00:00:00 dalšího dne, NIKDY 24:00:00
 event-location: Stará radnice, Radnická 8, Brno
 entry: 150 Kč                          # vstupné; "zdarma" / "dobrovolné" → akce zdarma
+---
 ```
 
-Volitelně: `event-organiser`, `instructor`, `series` (jen u série, viz [Série](SERIE.md)). Bez `---` ohraničení nahoře/dole — Pelican je nepoužívá.
+Volitelně: `event-organiser`, `instructor`, `series` (jen u série, viz [Série](SERIE.md)).
+
+⚠️ **Hlavičku ohranič `---` nahoře i dole**, jak je v bloku výše. Pelicanu je to jedno, ale formuláři na [/admin/](https://brnosaires.com/admin/) ne: bez ohraničení přečte celý soubor jako text, hlavičku ti ukáže uprostřed článku a při uložení ji přepíše prázdnou. Deset souborů v repu tuhle chybu mělo.
 
 ---
 

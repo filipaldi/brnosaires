@@ -1,3 +1,4 @@
+---
 title: Openclass a milonga na Střeše Vaňkovky - červenec
 slug: 2026-07-30-milonga-na-strese-vankovky     
 date: 2026-06-17 18:00:00             
@@ -9,6 +10,7 @@ event-start: 2026-07-30 18:00:00
 event-end: 2026-07-30 21:00:00        
 event-location: Střecha Vaňkovky, Brno
 entry: zdarma                        
+---
 
 
 # Openclass a milonga na Střeše Vaňkovky
