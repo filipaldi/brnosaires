@@ -56,6 +56,16 @@ collections:
     i18n: true
     summary: "{{title}} — {{event-start | date('D. M. YYYY')}}"
     sortable_fields: [event-start, title]
+    # Bez filtrů je to jeden nerozlišený seznam přes sto akcí a editor v něm
+    # hledá očima. Hodnoty musí sedět s options u pole event-type níž.
+    view_filters:
+      - { label: Milongy, field: event-type, pattern: milonga }
+      - { label: Neolongy, field: event-type, pattern: neolonga }
+      - { label: Workshopy, field: event-type, pattern: workshop }
+      - { label: Lekce, field: event-type, pattern: class }
+      - { label: Praktiky, field: event-type, pattern: praktika }
+    view_groups:
+      - { label: Typ akce, field: event-type }
     fields:
       - name: lang
         label: Jazyk
@@ -150,7 +160,10 @@ collections:
         label: Lektoři
         widget: list
         required: false
-        i18n: duplicate
+        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
+        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
+        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
+        i18n: true
         hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
       - name: entry
         label: Vstupné
@@ -179,6 +192,156 @@ collections:
           Jen u pravidelných lekcí. Tvar „weekly monday" nebo „monthly 1 sunday",
           volitelně + „from 2026-09-07", „until 2026-12-16" nebo „count 10".
           JEDEN soubor pokryje všechny termíny — nezakládej je ručně.
+      - name: body
+        label: Text
+        widget: markdown
+        modes: [raw]
+        i18n: true
+
+
+  # Pravidelné lekce jsou vlastní typ obsahu, ne podmnožina akcí: leží v
+  # content/events/classes/, v názvu nemají datum (dodá ho recurrence) a
+  # nepatří do struktury RRRR/MM/, podle které se zakládají jednorázové akce.
+  # Jako samostatná kolekce je editor najde v postranním panelu místo aby je
+  # lovil mezi stovkou akcí.
+  - name: classes
+    label: Pravidelné lekce
+    label_singular: Lekci
+    folder: content/events/classes
+    create: true
+    format: yaml-frontmatter
+    extension: md
+    i18n: true
+    summary: "{{title}} — {{recurrence}}"
+    sortable_fields: [title, event-start]
+    fields:
+      - name: lang
+        label: Jazyk
+        widget: hidden
+        # NOT optional. Pelican links a Czech file and its .en.md twin by slug
+        # + this field; without it both count as originals with the same slug
+        # and the build dies with FileOverwriteFailedError. Sveltia writes only
+        # declared fields, so leaving it out would also strip it from the 28
+        # existing .en.md events on their first save.
+        default: cs
+        i18n: translate
+      - { name: title, label: Název, widget: string, i18n: true }
+      - name: slug
+        label: Slug (v URL)
+        widget: string
+        i18n: duplicate
+        hint: Bez diakritiky, malými písmeny s pomlčkami. Česká i anglická verze mají stejný slug.
+      - name: date
+        label: Datum publikace
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+        hint: Kdy soubor zakládáš, NE kdy je akce. Datum akce patří do „Začátek".
+      - name: author
+        label: Autor
+        widget: select
+        i18n: duplicate
+        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
+      - name: description
+        label: Krátký popis
+        widget: text
+        i18n: true
+        hint: Do ~200 znaků. Jde do Googlu a do náhledu na sítích.
+      - name: preview_image
+        label: Náhledový obrázek
+        widget: image
+        required: false
+        i18n: duplicate
+        hint: 1200×630. Nahraj v jakémkoli formátu — robot ho převede na .avif.
+      - name: event-type
+        label: Typ akce
+        widget: select
+        i18n: duplicate
+        options: [milonga, neolonga, workshop, class, praktika]
+        default: class
+        hint: U pravidelné lekce skoro vždy „class“. Praktika má vlastní typ.
+      - name: event-start
+        label: Začátek
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+      - name: event-end
+        label: Konec
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        i18n: duplicate
+        hint: Půlnoc piš jako 00:00:00 dalšího dne.
+      - name: event-location
+        label: Místo
+        widget: select
+        i18n: duplicate
+        # Kanonický seznam míst. Volný text tady nejde zadat schválně —
+        # `event_address()` v pelicanconf.py z téhle věty skládá schema.org
+        # adresu podle čárek a odchylka od tvaru „Podnik, Ulice, Brno-Čtvrť"
+        # tiše degraduje strukturovaná data. Nové místo přidej sem.
+        options:
+          - Adrinela Cafe, Životského 14, Brno-Židenice
+          - Café Paměti národa, Radnická 10, Brno
+          - Dělnický dům, Jamborova 65, Brno
+          - Domini Park, Husova 14, Brno
+          - HEX Gallery, Lidická 63a, Brno
+          - i.D Yoga, Poštovská 3, Brno
+          - Kancelář ombudsmana (předsálí), Údolní 39, Brno
+          - Kavárna Hned vedle, Radnická 10, Brno
+          - Park Anthropos, Pisárecká 5, Brno
+          - Park Moravské náměstí, Brno
+          - Pavilon Anthropos, Pisárecká 5, Brno
+          - Rockwine, Vídeňská 18, Brno
+          - Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
+          - Skleněnka, Kounicova 23, Brno
+          - Škola Danza, Okružní 1, Brno
+          - Společenský sál na Staré radnici, Dominikánská 264/2, Brno-město
+          - Stará radnice, Radnická 8, Brno
+          - Střecha Vaňkovky, Brno
+          - Taneční studio Stolárna, Olomoucká 14, Brno
+          - Vlněna, Přízova 216/18, Brno
+      - name: event-organiser
+        label: Pořadatel
+        widget: string
+        required: false
+        i18n: duplicate
+      - name: instructor
+        label: Lektoři
+        widget: list
+        required: false
+        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
+        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
+        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
+        i18n: true
+        hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
+      - name: entry
+        label: Vstupné
+        widget: string
+        required: false
+        i18n: true
+        hint: '„zdarma" nebo „dobrovolné" označí akci jako bezplatnou.'
+      - name: event-url
+        label: Externí odkaz (vstupenky, registrace)
+        widget: string
+        required: false
+        i18n: duplicate
+      - name: series
+        label: Série
+        widget: select
+        required: false
+        i18n: duplicate
+        options: [milonga-adrinela, milonga-rockwine, milonga-u-draka, neolonga-na-stolarne, tango-pizza]
+        hint: Vyplň jen u akce, která patří do pravidelné série s vlastní hub-stránkou.
+      - name: recurrence
+        label: Opakování
+        widget: string
+        # Povinné: bez něj se z pravidelné lekce stane jeden termín.
+        required: true
+        i18n: duplicate
+        pattern: ['^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
+        hint: >-
+          Den musí sedět se dnem, na který padá Začátek. Konec série:
+          „weekly monday count 10“ nebo „weekly monday until 2026-12-16“.
       - name: body
         label: Text
         widget: markdown
