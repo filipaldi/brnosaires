@@ -336,6 +336,39 @@ class NostrEvent(unittest.TestCase):
         self.assertTrue(PublicKeyXOnly(bytes.fromhex(pubkey)).verify(
             signature, bytes.fromhex(event_id)))
 
+    def test_the_event_the_script_builds_hashes_its_own_tags(self):
+        """The id must cover the tags the event actually carries.
+
+        Built through publish_social.build_nostr_event rather than rebuilt
+        here: the other tests in this class hand-roll the serialisation, so
+        they would pass unchanged while the script hashed `[]` and shipped
+        tags — an id that does not match its own event, which every relay
+        rejects and no amount of local testing would show.
+        """
+        try:
+            from coincurve import PublicKeyXOnly
+        except ImportError:
+            self.skipTest("coincurve not installed (requirements-social.txt)")
+        import hashlib
+
+        import publish_social
+
+        event = publish_social.build_nostr_event(
+            "Milonga u Draka\n\nhttps://brnosaires.com/x/ — ěščř",
+            bytes.fromhex("11" * 32), created_at=1760000000)
+
+        self.assertEqual(event["tags"],
+                         [["t", t] for t in publish_social.NOSTR_HASHTAGS])
+        self.assertTrue(event["tags"], "an untagged note is invisible on Nostr")
+
+        recomputed = hashlib.sha256(json.dumps(
+            [0, event["pubkey"], event["created_at"], event["kind"],
+             event["tags"], event["content"]],
+            separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        self.assertEqual(event["id"], recomputed, "id does not cover the tags")
+        self.assertTrue(PublicKeyXOnly(bytes.fromhex(event["pubkey"])).verify(
+            bytes.fromhex(event["sig"]), bytes.fromhex(event["id"])))
+
     def test_serialisation_keeps_non_ascii_unescaped(self):
         # ensure_ascii=True would change the bytes hashed and every relay would
         # reject the event id.

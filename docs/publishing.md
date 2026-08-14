@@ -116,6 +116,7 @@ Po každém úspěšném nasazení `main` se pustí workflow **Echo to Mastodon 
 Co byste o tom měli vědět, až se to zapne:
 
 - **Posílá se titulek a odkaz. Nic víc.** Popisek ani obrázek se do textu nepíšou — každá síť si odkaz sama rozbalí do kartičky s titulkem, popiskem a obrázkem, které stránka už deklaruje. Psát to znovu by to ukázalo dvakrát.
+- **Na Nostr jdou navíc hashtagy `tango`, `milonga`, `brno`.** Ne jako text v příspěvku, ale jako tagy události, podle kterých se na Nostru vyhledává. Nostr nemá nic jako místní časovou osu ani adresář účtů, takže neotagovaný příspěvek uvidí jen ten, kdo daný klíč už sleduje — a nový klíč nesleduje nikdo. Jsou pevné, ne odvozené z článku: kategorie ve feedu jsou složky buildu (`07`, `classes`) a čtenáři neříkají nic. Změnit se dají v `scripts/publish_social.py`, konstanta `NOSTR_HASHTAGS`.
 - **Nejvýš pět příspěvků na jeden běh.** Když vypíšete měsíc milong najednou, půjde jich ven pět a zbytek při dalším nasazení. Nic se neztratí, jen se to rozloží.
 - **Pořadí je od nejbližší akce.** Feed má nahoře nejvzdálenější budoucí akci (řadí se podle `date`), takže by se jinak ohlásilo to nejvzdálenější a to nejbližší by vypadlo — přesně naopak, než dává smysl.
 - **Ohlásí se jen česká verze.** Anglická dvojčata se z feedu vyhazují, jinak by šel každý článek ven dvakrát.

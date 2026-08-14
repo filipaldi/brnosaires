@@ -53,6 +53,16 @@ STATE_FILE = ".published-feeds.json"
 DEFAULT_FEED = "https://brnosaires.com/feeds/all.atom.xml"
 DEFAULT_RELAYS = "wss://relay.damus.io,wss://nos.lol,wss://relay.nostr.band"
 
+# Nostr has no local timeline and no account directory: an untagged note is
+# reachable only by someone who already follows the key, and a new key is
+# followed by nobody. Without these the posts would be invisible by
+# construction — published, accepted by the relays, and read by no one.
+#
+# Fixed, not derived: the feed's categories are build folders ("07",
+# "classes", "2026-marathon") and say nothing to a reader. The site is about
+# one subject, so the subject is the same on every post.
+NOSTR_HASHTAGS = ("tango", "milonga", "brno")
+
 # Mastodon's default limit. Leave room for the URL and the separator.
 MASTODON_LIMIT = 500
 
@@ -237,6 +247,42 @@ def _relay_accepted(reply, event_id):
             and message[2] is True)
 
 
+def build_nostr_event(text, secret, created_at=None):
+    """The signed NIP-01 event, built in one place so the id can be tested.
+
+    The id is a hash over the tags as well as the content, so tags added to
+    the event dict but not to the hashed array produce an id that does not
+    match its own event — which every relay rejects, and which no test that
+    rebuilds the serialisation by hand would catch.
+    """
+    from coincurve import PrivateKey
+
+    key = PrivateKey(secret)
+    pubkey = key.public_key_xonly.format().hex()
+    # NOT the clock. Nostr has no idempotency key: the event id hashes
+    # (pubkey, created_at, content), so a wall-clock timestamp makes a re-send
+    # a different event that every relay happily accepts a second time. Pinning
+    # it to the article's publication date means a repeat run — after a lost
+    # state file or a rejected push — produces the identical id, which relays
+    # already hold and drop.
+    created_at = int(created_at if created_at is not None else time.time())
+    tags = [["t", tag] for tag in NOSTR_HASHTAGS]
+
+    # NIP-01: the id is sha256 over a compact JSON array in exactly this shape.
+    serialised = json.dumps([0, pubkey, created_at, 1, tags, text],
+                            separators=(",", ":"), ensure_ascii=False)
+    event_id = hashlib.sha256(serialised.encode()).hexdigest()
+    return {
+        "id": event_id,
+        "pubkey": pubkey,
+        "created_at": created_at,
+        "kind": 1,
+        "tags": tags,
+        "content": text,
+        "sig": key.sign_schnorr(bytes.fromhex(event_id)).hex(),
+    }
+
+
 def post_nostr(text, dry_run, created_at=None):
     secret = None
     try:
@@ -248,35 +294,14 @@ def post_nostr(text, dry_run, created_at=None):
         return None  # not configured
 
     try:
-        from coincurve import PrivateKey
+        from coincurve import PrivateKey  # noqa: F401 — build_nostr_event needs it
         from websocket import create_connection
     except ImportError:
         log("coincurve / websocket-client not installed — skipping Nostr")
         return False
 
-    key = PrivateKey(secret)
-    pubkey = key.public_key_xonly.format().hex()
-    # NOT the clock. Nostr has no idempotency key: the event id hashes
-    # (pubkey, created_at, content), so a wall-clock timestamp makes a re-send
-    # a different event that every relay happily accepts a second time. Pinning
-    # it to the article's publication date means a repeat run — after a lost
-    # state file or a rejected push — produces the identical id, which relays
-    # already hold and drop.
-    created_at = int(created_at if created_at is not None else time.time())
-
-    # NIP-01: the id is sha256 over a compact JSON array in exactly this shape.
-    serialised = json.dumps([0, pubkey, created_at, 1, [], text],
-                            separators=(",", ":"), ensure_ascii=False)
-    event_id = hashlib.sha256(serialised.encode()).hexdigest()
-    event = {
-        "id": event_id,
-        "pubkey": pubkey,
-        "created_at": created_at,
-        "kind": 1,
-        "tags": [],
-        "content": text,
-        "sig": key.sign_schnorr(bytes.fromhex(event_id)).hex(),
-    }
+    event = build_nostr_event(text, secret, created_at)
+    event_id = event["id"]
 
     relays = [r.strip() for r in
               (os.environ.get("NOSTR_RELAYS") or DEFAULT_RELAYS).split(",") if r.strip()]
