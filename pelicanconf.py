@@ -18,6 +18,12 @@ STATIC_PATHS = [
     "extra/humans.txt",
     "extra/ads.txt",
     "extra/ai.txt",
+    # NIP-05: maps a name on this domain to a Nostr public key, so clients
+    # show the identity as "brnosaires.com" instead of a bare npub. Empty
+    # `names` until a key exists — the file asserts nothing until then.
+    # Requires Access-Control-Allow-Origin: * (GitHub Pages sends it) and no
+    # redirect, so a static file is the whole implementation.
+    "extra/nostr.json",
 ]
 THEME_STATIC_PATHS = ["static"]
 
@@ -380,6 +386,7 @@ EXTRA_PATH_METADATA = {
     "extra/humans.txt": {"path": "humans.txt"},
     "extra/ads.txt": {"path": "ads.txt"},
     "extra/ai.txt": {"path": "ai.txt"},
+    "extra/nostr.json": {"path": ".well-known/nostr.json"},
 }
 
 CALENDAR_ICS_OUTPUT_DIR = "calendars"

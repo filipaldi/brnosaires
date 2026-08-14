@@ -132,6 +132,14 @@ python scripts/publish_social.py --dry-run
 
 Zapnutí je pak jen doplnění tajemství v repu (Settings → Secrets and variables → Actions): `MASTODON_INSTANCE`, `MASTODON_TOKEN` (potřebuje oprávnění `write:statuses`), `NOSTR_SECRET_KEY` a volitelně proměnná `NOSTR_RELAYS`. Síť bez přístupů se přeskočí, takže jde zapnout jen jedna.
 
+## Soubory v `.well-known/`
+
+Web servíruje pár souborů z adresáře `.well-known/` — zrcadla `llms.txt` a `llms-full.txt` pro AI asistenty a `nostr.json` pro ověření identity na Nostru ([NIP-05](https://nips.nostr.com/5)).
+
+**Pozor na jednu věc, kdyby se s tím někdy hýbalo.** Adresář začíná tečkou a `actions/upload-pages-artifact` od verze 4 balí archiv s `--exclude=.[^/]*`, takže tečkové soubory zahazuje. Proto má krok „Upload artifact" v [deploy.yml](../.github/workflows/deploy.yml) nastaveno `include-hidden-files: true`. Bez toho build soubory vyrobí, deploy projde zeleně a živý web na ně odpovídá 404 — přesně tak to bylo od května 2026 a nikde se to nehlásilo. Hlídá to test `WellKnown` v [tests/test_rendered_site.py](../tests/test_rendered_site.py), který kontroluje i ten příznak ve workflow, protože build sám o sobě je v pořádku a chyba vzniká až při nahrávání.
+
+`nostr.json` je zatím prázdný (`{"names": {}}`) — netvrdí nic. Až vznikne nostrový klíč, doplní se do něj hex podoba veřejného klíče pod jménem `_`, a klienti pak identitu ukazují jako `brnosaires.com` místo npub. Soubor leží v [content/extra/nostr.json](../content/extra/nostr.json) a na místo ho dostane `EXTRA_PATH_METADATA` v `pelicanconf.py`.
+
 ## Rollback (vrácení změny)
 
 GitHub Pages drží pouze poslední nasazenou verzi — neexistuje „one click rollback". Postup, když je potřeba něco rychle vrátit:
