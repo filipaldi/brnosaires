@@ -87,6 +87,8 @@
 }
 
 .card-xs {
+  --card-heading-size: var(--text-m);
+
   --card-font-size: var(--text-xs);
   --card-line-height: var(--size-s);
   --card-margin: var(--size-xs);
@@ -95,6 +97,8 @@
 }
 
 .card-s {
+  --card-heading-size: var(--text-l);
+
   --card-font-size: var(--text-s);
   --card-line-height: var(--size-s);
   --card-margin: var(--size-s);
@@ -103,6 +107,8 @@
 }
 
 .card-m {
+  --card-heading-size: var(--text-2xl);
+
   --card-font-size: var(--text-m);
   --card-line-height: var(--size-m);
   --card-margin: var(--size-m);
@@ -111,11 +117,28 @@
 }
 
 .card-l {
+  --card-heading-size: var(--text-2xl);
+
   --card-font-size: var(--text-l);
   --card-line-height: var(--size-l);
   --card-margin: var(--size-l);
   --card-inner-margin: var(--size-s);
   --card-min-width: var(--size-6xl);
+}
+
+/* A card heading is a label on a card, not a heading on a page. The markup is
+   a bare <h2>, so it inherited --text-3xl from typography.css — the same size
+   as a section title — at every card size. "Lenka Pláteníková" then ran out of
+   its card on /o-nas/ and every DJ name did the same on /marathon/ at card-s.
+   Sized off the card like every other line in it, and allowed to break: a long
+   surname has to wrap, never clip. */
+.aesthetic-card h2 {
+  font-size: var(--card-heading-size, var(--text-2xl));
+  line-height: var(--card-line-height);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 /* Cards in Cluster: flexible, grow and shrink */
