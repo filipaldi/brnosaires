@@ -107,6 +107,30 @@ Po významnější změně se hodí přejít přes pár stránek a podívat se, 
 
 Pro důkladnější procházku existuje subagent `ux-visual-once-over` (viz [.claude/CLAUDE.md](../.claude/CLAUDE.md)), který obejde web Playwrightem a vrátí per-stránku pass/fail report.
 
+## Ozvěna na sociální sítě (Mastodon a Nostr)
+
+Po každém úspěšném nasazení `main` se pustí workflow **Echo to Mastodon and Nostr**. Přečte živý feed webu a to, co v něm přibylo, ohlásí na nastavené sítě.
+
+**Dokud nejsou nastavené přístupy, neposílá to nikam a jen si to poznamená do logu.** To je jeho stav do chvíle, než se rozhodne, pod jakým účtem web vystupuje — viz [#40](https://github.com/filipaldi/brnosaires/issues/40). Nic z toho nemůže shodit web: deploy je v ten moment dávno hotový.
+
+Co byste o tom měli vědět, až se to zapne:
+
+- **Posílá se titulek a odkaz. Nic víc.** Popisek ani obrázek se do textu nepíšou — každá síť si odkaz sama rozbalí do kartičky s titulkem, popiskem a obrázkem, které stránka už deklaruje. Psát to znovu by to ukázalo dvakrát.
+- **Nejvýš pět příspěvků na jeden běh.** Když vypíšete měsíc milong najednou, půjde jich ven pět a zbytek při dalším nasazení. Nic se neztratí, jen se to rozloží.
+- **Pořadí je od nejbližší akce.** Feed má nahoře nejvzdálenější budoucí akci (řadí se podle `date`), takže by se jinak ohlásilo to nejvzdálenější a to nejbližší by vypadlo — přesně naopak, než dává smysl.
+- **Ohlásí se jen česká verze.** Anglická dvojčata se z feedu vyhazují, jinak by šel každý článek ven dvakrát.
+- **Poprvé se nic nepošle.** První běh si jen zapíše, co ve feedu už je, aby zapnutí nevysypalo třicet starých oznámení do cizí timeline. Ohlásí se až první další článek.
+- **Co už odešlo, se nepošle znovu.** Drží to soubor `.published-feeds.json` v kořeni repa, který workflow commituje zpátky do `main`. **Needitujte ho ručně** — když se z něj něco ztratí, ohlásí se to podruhé.
+- **Když síť selže, zkusí se to příště znovu.** Selhání se nezapíše jako odeslané.
+
+Vyzkoušet nanečisto se to dá kdykoliv, nic to neodešle:
+
+```bash
+python scripts/publish_social.py --dry-run
+```
+
+Zapnutí je pak jen doplnění tajemství v repu (Settings → Secrets and variables → Actions): `MASTODON_INSTANCE`, `MASTODON_TOKEN` (potřebuje oprávnění `write:statuses`), `NOSTR_SECRET_KEY` a volitelně proměnná `NOSTR_RELAYS`. Síť bez přístupů se přeskočí, takže jde zapnout jen jedna.
+
 ## Rollback (vrácení změny)
 
 GitHub Pages drží pouze poslední nasazenou verzi — neexistuje „one click rollback". Postup, když je potřeba něco rychle vrátit:
