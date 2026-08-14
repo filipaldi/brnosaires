@@ -63,7 +63,7 @@
 
 [class*="card-"] > * > h3,
 [class*="card-"] > * > p {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
@@ -127,12 +127,14 @@
 }
 
 /* A card heading is a label on a card, not a heading on a page. The markup is
-   a bare <h2>, so it inherited --text-3xl from typography.css — the same size
-   as a section title — at every card size. "Lenka Pláteníková" then ran out of
-   its card on /o-nas/ and every DJ name did the same on /marathon/ at card-s.
-   Sized off the card like every other line in it, and allowed to break: a long
-   surname has to wrap, never clip. */
+   a bare <h2>, so it took --font-display and --text-3xl from typography.css —
+   the display face at section-title size — at every card size. "Lenka
+   Pláteníková" then ran out of its card on /o-nas/ and every DJ name did the
+   same on /marathon/ at card-s. Set in the reading face and sized off the card
+   like every other line in it, and allowed to break: a long surname has to
+   wrap, never clip. */
 .aesthetic-card h2 {
+  font-family: var(--font-base);
   font-size: var(--card-heading-size, var(--text-2xl));
   line-height: var(--card-line-height);
   min-inline-size: 0;
@@ -308,7 +310,7 @@
 }
 
 .calendar .event-card__title {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-l);
   line-height: var(--size-m);
@@ -324,7 +326,7 @@
 .calendar .event-card__organiser,
 .calendar .event-card__location,
 .calendar .event-card__entry {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-size: var(--text-s);
   line-height: var(--size-s);
   margin: 0 var(--size-s) var(--size-2xs);
