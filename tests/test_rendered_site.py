@@ -113,6 +113,32 @@ class SkipLink(_Built):
         self.assertIn("Skip to content", en)
 
 
+class Monolingual(_Built):
+    """`translate: false` in a file's own front matter must suppress the /en/
+    clone, not just the EXTRA_PATH_METADATA form.
+
+    The marathon DJs used to get the flag from their folder path. Once they
+    moved into the single content/people/ folder the flag had to travel in the
+    front matter — where Pelican hands it over as the string "false", which the
+    plugin's `is False` test quietly ignored. The result was four English pages
+    duplicating an English-only sub-site.
+    """
+
+    DJS = ("balasz", "francesco", "veronika-kim", "vincent")
+
+    def test_a_marathon_dj_has_no_en_clone(self):
+        for slug in self.DJS:
+            self.assertFalse(
+                os.path.isdir(os.path.join(self.output, "en", slug)),
+                f"/en/{slug}/ exists — translate: false was not honoured")
+
+    def test_the_czech_route_still_exists(self):
+        # The flag suppresses the mirror, not the page itself.
+        for slug in self.DJS:
+            self.assertTrue(os.path.isfile(
+                os.path.join(self.output, slug, "index.html")), slug)
+
+
 class MapLinks(_Built):
     def test_every_venue_link_carries_a_non_empty_query_and_a_label(self):
         found = 0

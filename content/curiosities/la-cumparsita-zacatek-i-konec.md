@@ -3,7 +3,7 @@ title: La Cumparsita – Začátek i konec
 date: 2024-12-16 15:26:00
 preview_image: /images/la-cumparsita.avif
 category: curiosity
-description: La Cumparsita: poslední skladba milongy, nebo první na turecké svatbě Zlomené srdce, turecká svatba a tango.
+description: "La Cumparsita: poslední skladba milongy, nebo první na turecké svatbě Zlomené srdce, turecká svatba a tango."
 author: Lenka Platenikova
 llm_mirror: false
 ---

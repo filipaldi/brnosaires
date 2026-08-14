@@ -24,7 +24,7 @@ We're not just booking someone behind the decks. We're selecting DJs we've dance
 
 <widget-articles
     link="false" 
-    category="marathon-djs" 
+    slugs="balasz francesco veronika-kim vincent" 
     metadata="image title description" 
     columns="4"
     frame="1x1"
@@ -111,7 +111,6 @@ We're looking forward to your embrace.
 
 <widget-articles
     link="false" 
-    category="people" 
     slugs="pavla-luzna lenka-platenikova filip-paldia" 
     metadata="image title" 
     columns="3" 

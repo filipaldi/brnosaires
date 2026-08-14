@@ -46,7 +46,6 @@ Teachers from Vienna, a concert milonga with live music, and workshops for every
 
 <widget-articles
     link="false" 
-    category="people" 
     slugs="steky-yaku lenka-platenikova filip-paldia misa-lukavska" 
     metadata="image title" 
     columns="4" 

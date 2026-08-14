@@ -12,7 +12,7 @@ Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that he
 
 <widget-articles
     link="false" 
-    category="marathon-djs" 
+    slugs="balasz francesco veronika-kim vincent" 
     metadata="image title description" 
     columns="4"
     frame="1x1"

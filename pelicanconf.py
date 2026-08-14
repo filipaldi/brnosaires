@@ -356,7 +356,6 @@ EXTRA_PATH_METADATA = {
     # in three content folders, all flagged here. See docs/EDITING.md.
     "pages/marathon": {"section": "marathon", "translate": False},
     "events/2026-marathon": {"translate": False},
-    "people/marathon-djs": {"translate": False},
     "extra/admin/index.html": {"path": "admin/index.html"},
     "extra/admin/config.yml": {"path": "admin/config.yml"},
     "extra/marathon/llms.txt": {"path": "marathon/llms.txt"},
