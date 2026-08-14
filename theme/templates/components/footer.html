@@ -71,9 +71,13 @@
         <li><a href="/calendars/events.ics">{{ 'footer_ics_all' | t(_flang) }}</a></li>
         {# The feed is otherwise only in <head>, and no browser has surfaced
            autodiscovery since Chrome and Firefox dropped the RSS button, so
-           without this line a visitor cannot reach it by clicking at all. #}
-        {% if FEED_ALL_ATOM %}
-        <li><a href="/{{ FEED_ALL_ATOM }}">{{ 'footer_feed' | t(_flang) }}</a></li>
+           without this line a visitor cannot reach it by clicking at all.
+           Points at the RSS file, not the Atom one <head> advertises: this is
+           the link a person clicks, "RSS" is the word they know, and pointing
+           a link labelled RSS at an .atom file is a small lie for no gain.
+           Both files carry the same 32 entries. #}
+        {% if FEED_ALL_RSS %}
+        <li><a href="/{{ FEED_ALL_RSS }}">{{ 'footer_feed' | t(_flang) }}</a></li>
         {% endif %}
       </ul>
     </section>

@@ -74,7 +74,7 @@ STRINGS = {
     "footer_ics_milongas": "milongy .ics",
     "footer_ics_classes": "lekce .ics",
     "footer_ics_all": "vše .ics",
-    "footer_feed": "novinky .atom",
+    "footer_feed": "novinky RSS",
 
     # --- page.html: evergreen month pages (/milongy-brno-<měsíc>/) ---
     "month_page_empty": "Na tenhle měsíc zatím žádné milongy vypsané nejsou.",
