@@ -69,6 +69,12 @@
         <li><a href="/calendars/milongas.ics">{{ 'footer_ics_milongas' | t(_flang) }}</a></li>
         <li><a href="/calendars/classes.ics">{{ 'footer_ics_classes' | t(_flang) }}</a></li>
         <li><a href="/calendars/events.ics">{{ 'footer_ics_all' | t(_flang) }}</a></li>
+        {# The feed is otherwise only in <head>, and no browser has surfaced
+           autodiscovery since Chrome and Firefox dropped the RSS button, so
+           without this line a visitor cannot reach it by clicking at all. #}
+        {% if FEED_ALL_ATOM %}
+        <li><a href="/{{ FEED_ALL_ATOM }}">{{ 'footer_feed' | t(_flang) }}</a></li>
+        {% endif %}
       </ul>
     </section>
 
