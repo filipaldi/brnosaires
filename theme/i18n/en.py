@@ -77,6 +77,7 @@ STRINGS = {
     "footer_ics_milongas": "milongas .ics",
     "footer_ics_classes": "classes .ics",
     "footer_ics_all": "all .ics",
+    "footer_feed": "what's new RSS",
 
     # --- page.html: evergreen month pages (/milongy-brno-<month>/) ---
     "month_page_empty": "No milongas listed for this month yet.",

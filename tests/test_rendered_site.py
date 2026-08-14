@@ -172,5 +172,53 @@ class MapLinks(_Built):
                                  f"bare-city map link on {path}")
 
 
+class Feed(_Built):
+    """The feed is the only machine-readable answer to "what is new here".
+
+    Anything echoing this site downstream reads it, so a feed that is missing,
+    unparseable, or pointing at pages that are not in the build is worse than
+    no feed: the failure happens on someone else's server.
+
+    Parsed with the standard library on purpose. The input is the build this
+    test just produced from the repo, not anything a stranger can send, and the
+    suite deliberately needs nothing beyond the standard library.
+    """
+
+    def test_the_feed_exists_and_is_linked_from_every_page(self):
+        self.assertTrue(os.path.isfile(
+            os.path.join(self.output, "feeds", "all.atom.xml")))
+        for path, html in self.pages:
+            self.assertIn('type="application/atom+xml"', html, f"no feed link on {path}")
+
+    def test_the_feed_parses_and_its_links_resolve(self):
+        import xml.etree.ElementTree as ElementTree
+        atom = "{http://www.w3.org/2005/Atom}"
+        root = ElementTree.parse(
+            os.path.join(self.output, "feeds", "all.atom.xml")).getroot()
+        entries = root.findall(f"{atom}entry")
+        self.assertGreater(len(entries), 5)
+        for entry in entries:
+            href = entry.find(f"{atom}link").get("href")
+            relative = href.replace("https://brnosaires.com/", "").strip("/")
+            self.assertTrue(
+                os.path.isfile(os.path.join(self.output, relative, "index.html")),
+                f"feed links to a page that is not in the build: {href}")
+
+    def test_the_feed_carries_no_translated_twins(self):
+        # i18n_fallback synthesizes an /en/ clone of every article, and Pelican
+        # folds translations into the ALL feed regardless of
+        # TRANSLATION_FEED_ATOM. Without plugins/feed_one_language.py half the
+        # entries were the same article twice, which downstream reads as two
+        # separate announcements.
+        import xml.etree.ElementTree as ElementTree
+        atom = "{http://www.w3.org/2005/Atom}"
+        root = ElementTree.parse(
+            os.path.join(self.output, "feeds", "all.atom.xml")).getroot()
+        translated = [entry.find(f"{atom}link").get("href")
+                      for entry in root.findall(f"{atom}entry")
+                      if "/en/" in entry.find(f"{atom}link").get("href")]
+        self.assertEqual(translated, [], "translated twins in the feed")
+
+
 if __name__ == "__main__":
     unittest.main()

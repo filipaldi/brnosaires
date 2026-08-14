@@ -128,6 +128,7 @@ Slug, ke kterému neexistuje soubor, build nerozbije — jen se objeví varován
 | `event-location` | Hlavičce detailu akce, Google Event rich-result `location.address` |
 | `entry` | Hlavičce detailu akce („Vstupné: …"), kartě akce v kalendáři, Google Event rich-result `offers.price`/`isAccessibleForFree` |
 | `series:` | Kanonická URL ukazuje na hub, odznak „Součást pravidelné série", seznam „Nejbližší termíny série" na hubu |
+| `date` | Pořadím ve feedu „co je nového" (viz níže) — u akcí je to datum konání, ne datum napsání |
 
 ## Samostatné stránky
 
@@ -146,6 +147,20 @@ Použijte společná pole. Aktuálně:
 - Osoby se zobrazují na marathonové stránce DJs/teamu, když jsou tam odkazované.
 
 Žádný z těchto typů nevkládá JSON-LD Event strukturu (správně — nejsou to akce).
+
+## 📡 Feed „co je nového" (`/feeds/all.atom.xml`)
+
+Web vydává jeden feed pro všechno — akce, oznámení, píkošky i profily. Čtečky ho najdou samy, protože je odkázaný z hlavičky každé stránky; ručně se dá odebírat na [brnosaires.com/feeds/all.atom.xml](https://brnosaires.com/feeds/all.atom.xml) (nebo `all.rss.xml`, totéž ve starším formátu).
+
+**Nemusíte pro něj nic dělat.** Co publikujete, se do něj dostane samo při nejbližším buildu.
+
+Dvě věci ale stojí za to vědět, protože nejsou intuitivní:
+
+**Pořadí určuje pole `date`, ne kdy jste to napsali.** U akcí je `date` datum konání, takže akce naplánovaná na říjen sedí ve feedu nad oznámením napsaným dnes — a bude tam sedět až do října. Není to rozbité, jen to takhle vypadá. Feed drží posledních ~30 položek podle `date`; starší oznámení už v něm nejsou, nové vždycky přibude.
+
+**Do feedu jde jen česká verze.** Anglická dvojčata (`.en.md`) se z něj vyhazují, jinak by v něm byl každý článek dvakrát a odběratel by dostal všechno dupl. Řeší to [plugins/feed_one_language.py](../plugins/feed_one_language.py).
+
+Feed je zároveň zdroj pro budoucí automatické sdílení na sociální sítě ([#40](https://github.com/filipaldi/brnosaires/issues/40)) — až se zapne, bude se posílat to, co přibude ve feedu. Do té doby je to jen feed.
 
 ## 🤖 Soubory pro AI asistenty (`content/llm/`)
 
