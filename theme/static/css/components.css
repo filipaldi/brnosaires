@@ -63,7 +63,7 @@
 
 [class*="card-"] > * > h3,
 [class*="card-"] > * > p {
-  font-family: var(--font-base);
+  font-family: var(--font-body);
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
@@ -130,17 +130,15 @@
    a bare <h2>, so it took --font-display and --text-3xl from typography.css —
    the display face at section-title size — at every card size. "Lenka
    Pláteníková" then ran out of its card on /o-nas/ and every DJ name did the
-   same on /marathon/ at card-s. Set in the reading face and sized off the card
-   like every other line in it, and allowed to break: a long surname has to
-   wrap, never clip. */
+   same on /marathon/ at card-s. Set like the calendar's .event-card__title:
+   the reading face in bold, sized off the card. Brnos-Aires ships a single
+   400 weight, so bold has to come from Nunito's variable axis — asking the
+   display face for bold would only get a synthesised one. */
 .aesthetic-card h2 {
   font-family: var(--font-base);
+  font-weight: var(--font-weight-bold);
   font-size: var(--card-heading-size, var(--text-2xl));
   line-height: var(--card-line-height);
-  min-inline-size: 0;
-  max-inline-size: 100%;
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 /* Cards in Cluster: flexible, grow and shrink */
@@ -310,7 +308,7 @@
 }
 
 .calendar .event-card__title {
-  font-family: var(--font-base);
+  font-family: var(--font-body);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-l);
   line-height: var(--size-m);
@@ -326,7 +324,7 @@
 .calendar .event-card__organiser,
 .calendar .event-card__location,
 .calendar .event-card__entry {
-  font-family: var(--font-base);
+  font-family: var(--font-body);
   font-size: var(--text-s);
   line-height: var(--size-s);
   margin: 0 var(--size-s) var(--size-2xs);
