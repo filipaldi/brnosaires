@@ -33,6 +33,22 @@ for _directory in ("", "plugins", "scripts"):
 plugin_path = os.path.join(REPO_ROOT, "plugins")
 script_path = os.path.join(REPO_ROOT, "scripts")
 
+# The clock every build in this suite runs on, via BRNOSAIRES_NOW.
+#
+# `build_site()` builds the real content, so anything a test says about what is
+# "upcoming" is really a statement about today's date. Left on the wall clock
+# those assertions rot: the suite went red on 2026-08-21 because the last dated
+# workshop of a lecturer used as a fixture had slipped into the past the day
+# before. Nothing was broken; the test had simply outlived its content.
+#
+# Pinned, the built site is a function of the repo alone and stays that way.
+# The date sits inside the content's active period, so the fixtures have both
+# a lecturer with upcoming one-off dates and a running weekly class to find.
+#
+# Moving it is a deliberate act: it changes which events count as upcoming, and
+# the fixtures in test_people_links.py are written against this value.
+BUILD_CLOCK = "2026-08-01 12:00:00"
+
 _BUILD = {}
 
 
@@ -58,7 +74,8 @@ def build_site():
         raise unittest.SkipTest("pelican not installed")
 
     destination = tempfile.mkdtemp(prefix="brnosaires-build-")
-    environment = dict(os.environ, PYTHONPATH=REPO_ROOT)
+    environment = dict(os.environ, PYTHONPATH=REPO_ROOT,
+                       BRNOSAIRES_NOW=BUILD_CLOCK)
     result = subprocess.run(
         [sys.executable, "-m", "pelican", "content",
          "-s", "publishconf.py", "-o", destination],
