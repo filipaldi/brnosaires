@@ -64,6 +64,25 @@ pelican content -s pelicanconf.py --delete-output-directory      # wipe output/ 
 
 See [docs/local-testing.md](docs/local-testing.md) for port-41234 rationale, firewall/`cloudflared`/`ngrok` fallbacks, and Safari Web Inspector notes.
 
+### Tests
+
+```bash
+python -m unittest discover -s tests -t .       # what CI runs
+```
+
+The build has one source of "now", `NOW` in `pelicanconf.py`, and it decides
+which events count as upcoming. `BRNOSAIRES_NOW=YYYY-MM-DD` pins it:
+
+```bash
+BRNOSAIRES_NOW="2026-08-01" pelican content -s pelicanconf.py
+```
+
+The suite always pins it (`BUILD_CLOCK` in `tests/__init__.py`) so a build-based
+test depends on the repo, not on today's date. **A test that asserts something
+is "upcoming" must run on the pinned clock** — on the real one it goes red the
+day its fixture's last date passes, with nothing actually broken. Details in
+[docs/local-testing.md](docs/local-testing.md#hodiny-buildu--brnosaires_now).
+
 - `pelicanconf.py` — dev (`RELATIVE_URLS = True`)
 - `publishconf.py` — prod (`SITEURL = "https://brnosaires.com"`)
 - Deployment: GitHub Actions `.github/workflows/deploy.yml` → GitHub Pages

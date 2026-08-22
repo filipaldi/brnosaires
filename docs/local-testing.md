@@ -367,6 +367,36 @@ chmod +x test-build.sh
 ./test-build.sh
 ```
 
+### Hodiny buildu — `BRNOSAIRES_NOW`
+
+Build má jediný zdroj „teď": `NOW` v `pelicanconf.py`. Z něj čerpají pluginy
+(`settings["NOW"]`) i šablony (`JINJA_GLOBALS`, filtr `calendarium`). Určuje,
+která akce je nadcházející, a tím i co se objeví na profilu lektora, v kalendáři
+a v `.ics` feedech.
+
+Proměnná `BRNOSAIRES_NOW` ten čas zafixuje:
+
+```bash
+# Postav web, jako by bylo 1. srpna 2026
+BRNOSAIRES_NOW="2026-08-01 12:00:00" pelican content -s pelicanconf.py
+
+# Stačí i samotné datum
+BRNOSAIRES_NOW="2026-08-01" pelican content -s pelicanconf.py
+```
+
+Bere `YYYY-MM-DD` i `YYYY-MM-DD HH:MM:SS`. Nesmyslná hodnota build shodí
+schválně — tiché spadnutí zpět na systémový čas by vrátilo přesně tu
+nespolehlivost, kvůli které proměnná vznikla.
+
+**Testy si čas fixují vždy.** `tests/__init__.py` staví web s konstantou
+`BUILD_CLOCK`, takže výsledek závisí jen na obsahu repa, ne na dnešním datu.
+Bez toho testy hnijí: sada spadla 21. 8. 2026, protože lektorovi z fixture den
+předtím proběhl poslední termín. Na webu přitom nebylo nic rozbité.
+
+Když posouváš `BUILD_CLOCK`, měníš i to, které akce jsou nadcházející —
+očekávané počty v `tests/test_people_links.py` jsou psané proti té hodnotě.
+Produkce proměnnou nenastavuje a běží na skutečném čase.
+
 ## Checklist před nasazením
 
 Před publikací ověř:
