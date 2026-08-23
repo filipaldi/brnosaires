@@ -13,7 +13,7 @@ event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-organiser: Zdeňka a Radek Šichovi
 instructor: []
 instructor_slugs: []
-entry: ''
+entry: dobrovolné
 event-url: ''
 series: ''
 recurrence: ''
