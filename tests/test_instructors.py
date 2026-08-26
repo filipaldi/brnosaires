@@ -148,6 +148,41 @@ def event_ld(html):
     raise AssertionError("no Event JSON-LD on the page")
 
 
+# In an LLM mirror these three can hold a person's name without a teacher
+# being named at all — an organiser is sometimes a person, and matching one of
+# them would pass the teacher check on the strength of somebody else's name.
+MIRROR_NON_TEACHER_KEYS = ("title", "url", "event-organiser")
+
+
+def profile_title(slug):
+    """The `title:` of `content/people/<slug>.md` — the name a reader sees."""
+    with open(os.path.join(PEOPLE_DIR, f"{slug}.md"), encoding="utf-8") as handle:
+        block = front_matter(handle.read().split("\n")) or []
+    return fields(block).get("title", [""])[0]
+
+
+def mirror_front_matter(text):
+    """The fenced block `llm_ally` writes at the top of `<slug>/index.md`.
+
+    Not the shared parser: a mirror opens with the llms.txt marker line, so
+    the fence is not the first line of the file.
+    """
+    lines = text.split("\n")
+    try:
+        start = lines.index("---")
+        end = lines.index("---", start + 1)
+    except ValueError:
+        return None
+    return lines[start + 1:end]
+
+
+def teacher_text(block):
+    """The mirror front-matter lines in which a teacher could legitimately be named."""
+    return "\n".join(line for line in block
+                     if not any(line.startswith(f"{key}:")
+                                for key in MIRROR_NON_TEACHER_KEYS))
+
+
 class FreeText(unittest.TestCase):
     """G1 — `instructor:` exists nowhere any more, in the content or in the CMS."""
 
@@ -352,6 +387,65 @@ class OndraMartinak(unittest.TestCase):
                 self.assertIsNotNone(names, f"{slug}: no instructor row in the header")
                 self.assertIn("Ondra Martinák", names)
                 self.assertIn("Pavla Lužná", names)
+
+
+class LlmMirror(unittest.TestCase):
+    """G12 — the copy an LLM reads names the teachers, the way the page does.
+
+    `plugins/llm_ally.py` writes an LLM-readable mirror of every article to
+    `output/<slug>/index.md`, copying a chosen list of front-matter fields
+    into it. That list named the field this ticket deleted, so every event's
+    mirror quietly lost its teachers: the build stayed green, the suite stayed
+    green, and nothing in `tests/` looked at that plugin at all.
+
+    Names rather than slugs, because a slug in this corpus resolves to
+    nothing: every profile in `content/people/` carries `llm_mirror: false`,
+    so `output/filip-paldia/index.md` and its siblings are never written. Only
+    the marathon DJs are mirrored. A name needs no lookup.
+    """
+
+    # 18 Czech event files carry instructor slugs (the `.en.md` twins get no
+    # mirror of their own — the plugin writes one file per Czech article). The
+    # floor is below that so ordinary content edits do not trip it, and high
+    # enough that a broken source-to-mirror mapping cannot pass by checking
+    # almost nothing.
+    MINIMUM_CHECKED = 15
+
+    @classmethod
+    def setUpClass(cls):
+        cls.output = build_site()
+
+    def test_every_event_mirror_names_its_teachers_instead_of_their_slugs(self):
+        bad, checked = [], 0
+        for path, block in markdown_files():
+            if not path.startswith("content/events") or path.endswith(".en.md"):
+                continue
+            expected = slugs(block)
+            if not expected:
+                continue
+            slug = fields(block).get("slug", [""])[0]
+            mirror = os.path.join(self.output, slug, "index.md")
+            self.assertTrue(os.path.isfile(mirror),
+                            f"{path}: no LLM mirror at {slug}/index.md")
+            with open(mirror, encoding="utf-8") as handle:
+                front = mirror_front_matter(handle.read())
+            self.assertIsNotNone(front, f"{slug}/index.md carries no front matter")
+            text = teacher_text(front)
+            checked += 1
+            for person in expected:
+                if not profile_exists(person):
+                    bad.append(f"{slug}: no profile for {person!r} to take a name from")
+                    continue
+                name = profile_title(person)
+                if name not in text:
+                    bad.append(f"{slug}: does not name {name!r}")
+                if person in text:
+                    bad.append(f"{slug}: still emits the slug {person!r}")
+        self.assertGreaterEqual(
+            checked, self.MINIMUM_CHECKED,
+            f"only {checked} mirrors were checked; the mapping from source to "
+            f"mirror is broken and this test is guarding nothing")
+        self.assertEqual(bad, [], f"mirrors not naming their teachers: {bad[:6]}")
 
 
 if __name__ == "__main__":
