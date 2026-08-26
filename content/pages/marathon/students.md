@@ -2,7 +2,7 @@
 title: Brnos Aires | Students & Young Dancers | 16 – 18 Oct 2026
 date: 2026-06-09T10:59:00+00:00
 slug: marathon-students
-description: €30 full pass for full-time students, PhD candidates, and dancers under 26. Brnos Aires Tango Marathon, Brno, 16 – 18 Oct 2026.
+description: €30 full pass for students and PhD candidates without a full-time job, and anyone under 26. Brnos Aires Tango Marathon, Brno, 16 – 18 Oct 2026.
 author: Filip Paldia
 ---
 
@@ -10,7 +10,7 @@ author: Filip Paldia
 
 ## Full pass. <br>Three days. <br>Same marathon.
 
-If you're a full-time student, a PhD candidate, or you're under 26 — the full pass is **€30**.
+If you're studying with no full-time job behind it, or you're simply under 26, the full pass is **€30**.
 
 Not a side door. Not a watered-down ticket. The same floor, the same DJs, the same room as everyone else.
 
@@ -21,9 +21,10 @@ Not a side door. Not a watered-down ticket. The same floor, the same DJs, the sa
 
 **One of these is enough:**
 
-- Full-time student (bachelor, master, exchange — any field, any age)
-- PhD candidate
-- Under 26
+- A student, bachelor to PhD, exchange included, with no full-time job. Any field, any age. The discount follows the wallet, not the diploma.
+- Under 26, full stop. Student, employed, between things, doesn't matter. Younger than 26, you're in.
+
+Studying evenings next to a full-time job? Nice try, friend. The under-26 route or the regular price.
 
 You declare it in the registration form. That's it.
 
