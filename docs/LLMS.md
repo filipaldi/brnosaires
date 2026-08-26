@@ -47,7 +47,7 @@ output/tango-pizza-sesamo-2026-04-29/index.md     ← čisté Markdown zrcadlo
 Každý `.md` obsahuje:
 
 1. **Discovery marker ve stylu Mintlify** - `> For a complete page index, fetch {SITEURL}/llms.txt`. Říká LLM, který přistál na jediné stránce, kde najde index celého korpusu.
-2. **YAML frontmatter** - `title`, `date`, `url`, a u akcí navíc `event-type`, `event-start`, `event-end`, `event-location`, `event-organiser`, `instructor`, `recurrence`, `series` (pokud jsou vyplněné).
+2. **YAML frontmatter** - `title`, `date`, `url`, a u akcí navíc `event-type`, `event-start`, `event-end`, `event-location`, `event-organiser`, `instructor_slugs`, `recurrence`, `series`, `event-url` (pokud jsou vyplněné).
 3. **Tělo** - syrový Markdown ze `source_path`, kde se `<widget-*>` tagy vykreslí jako prosté textové bullety přes stejné Jinja šablony, co pohánějí HTML web (textoví sourozenci: `widget_calendar.txt.j2`, `widget_articles.txt.j2`, atd.).
 
 ### Jak vyřadit konkrétní obsah

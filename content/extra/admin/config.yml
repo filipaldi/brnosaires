@@ -443,10 +443,14 @@ collections:
         default: cs
         i18n: translate
       - { name: title, label: Jméno, widget: string, i18n: true }
-      # Not required: none of the eight existing profiles carries a slug, an
-      # author or a date, and marking them required makes every one of them
-      # un-saveable until the editor invents values.
-      - { name: slug, label: Slug (v URL), widget: string, required: false, i18n: duplicate }
+      # No `slug` field on purpose. A profile is addressed by its filename,
+      # and that filename is also what an event's `instructor_slugs` relation
+      # stores. A slug typed by hand would differ from it, and the event
+      # naming that profile would then stop the build. None of the profiles
+      # ever carried one, so nothing is lost by not offering it.
+      # Not required: no profile carries an author, and marking either field
+      # required would make every existing one un-saveable until the editor
+      # invents a value for it.
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', required: false, i18n: duplicate }
       - name: author
         label: Autor

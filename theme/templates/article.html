@@ -19,16 +19,11 @@
     {# Who teaches this. plugins/people_links.py resolves the event's
        `instructor_slugs:` against content/people/ and leaves one
        Instructor(name, url) per person here, so the header prints the same
-       name the profile does. The conjunction is a UI string, not data: the
-       Czech and English pages of one event differ only in this word. Three or
-       more names take commas before it ("X, Y a Z") — grammar, though no event
-       in the repo has three teachers to exercise it. #}
+       name the profile does and links to it. The conjunction is a UI string,
+       not data: the Czech and English pages of one event differ only in this
+       word. Three or more names take commas before it ("X, Y a Z") — grammar,
+       though no event in the repo has three teachers to exercise it. #}
     {% set instructors = article.instructors or [] %}
-    {% if instructors | length > 1 %}
-    {% set instructor_names = (instructors[:-1] | map(attribute='name') | join(', ')) ~ ('event_instructor_and' | t(page_lang)) ~ instructors[-1].name %}
-    {% else %}
-    {% set instructor_names = instructors | map(attribute='name') | join('') %}
-    {% endif %}
     {% set event_organiser = meta.get('event-organiser') %}
     {% set event_location = meta.get('event-location') %}
     {% set event_entry = meta.get('entry') %}
@@ -50,7 +45,7 @@
         {% endif %}
         {% if instructors %}
         <dt>{{ 'event_instructor_label' | t(page_lang) }}</dt>
-        <dd>{{ instructor_names }}</dd>
+        <dd>{% for person in instructors %}<a href="{{ SITEURL }}/{{ person.url }}">{{ person.name | e }}</a>{% if not loop.last %}{{ ('event_instructor_and' | t(page_lang)) if loop.revindex0 == 1 else ', ' }}{% endif %}{% endfor %}</dd>
         {% endif %}
         {% if event_organiser %}
         <dt>{{ 'event_organiser_label' | t(page_lang) }}</dt>
