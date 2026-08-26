@@ -183,6 +183,43 @@ def teacher_text(block):
                                 for key in MIRROR_NON_TEACHER_KEYS))
 
 
+THEME_TEMPLATES = os.path.join(REPO_ROOT, "theme", "templates")
+
+
+def instructor_row_template():
+    """The `<dd>` Jinja source of the header's instructor row, read from the theme.
+
+    Rendered as it is written rather than reimplemented here: a copy of the
+    join living in the test would agree with itself forever, which is the one
+    thing this comparison must not do.
+    """
+    found = []
+    for root, _dirs, files in os.walk(THEME_TEMPLATES):
+        for name in sorted(files):
+            if not name.endswith(".html"):
+                continue
+            with open(os.path.join(root, name), encoding="utf-8") as handle:
+                for line in handle:
+                    if "event_instructor_and" in line and "<dd>" in line:
+                        found.append(os.path.join(root, name) + ": " + line)
+    if len(found) != 1:
+        raise AssertionError(
+            "expected exactly one <dd> instructor row under theme/templates, "
+            f"found {len(found)}. If the row moved, move this anchor with it.")
+    line = found[0]
+    return line[line.index("<dd>"):line.index("</dd>") + len("</dd>")]
+
+
+def stripped(markup):
+    """Rendered markup as the plain text it stands for, separators intact.
+
+    Not `plain()`: that one leaves a space where a tag was, which is right
+    when comparing a name but turns `</a>, <a>` into ` , ` — and the
+    separators are exactly what this comparison is about.
+    """
+    return unescape(re.sub(r"<[^>]+>", "", markup)).replace("\u00a0", " ")
+
+
 class FreeText(unittest.TestCase):
     """G1 — `instructor:` exists nowhere any more, in the content or in the CMS."""
 
@@ -411,9 +448,37 @@ class LlmMirror(unittest.TestCase):
     # almost nothing.
     MINIMUM_CHECKED = 15
 
+    # The sweep below asks only whether each name is somewhere in the front
+    # matter and each slug is not. That is too little to be a guard: it cannot
+    # tell the real line from "Filip PaldiaLenka Pláteníková" with no
+    # separator, from an English conjunction on a Czech page, from a slash
+    # standing in for the i18n lookup, or from the right value written under
+    # `series:`. The whole line pins the key, the conjunction, the spacing and
+    # the quoting together, and no rewriting of the join survives it.
+    EXACT_LINES = {
+        # Two teachers, and the case every mutation above was built from.
+        "letni-intenzivni-workshopy-tango3-08-utery":
+            'instructor: "Filip Paldia a Lenka Pláteníková"',
+        # One teacher: the branch that must not reach for a conjunction at all.
+        "femme-fatale-tango-03-2026": 'instructor: "Šteky Yaku"',
+    }
+
     @classmethod
     def setUpClass(cls):
         cls.output = build_site()
+
+    def test_known_event_mirrors_pin_their_instructor_line_exactly(self):
+        for slug, expected in self.EXACT_LINES.items():
+            with self.subTest(slug):
+                path = os.path.join(self.output, slug, "index.md")
+                self.assertTrue(os.path.isfile(path), f"no LLM mirror at {slug}/index.md")
+                with open(path, encoding="utf-8") as handle:
+                    front = mirror_front_matter(handle.read())
+                self.assertIsNotNone(front, f"{slug}/index.md carries no front matter")
+                # A list, not a lookup: two instructor lines — a leftover
+                # `instructor_slugs:` beside the new one — is also a failure.
+                self.assertEqual([line for line in front
+                                  if line.startswith("instructor")], [expected])
 
     def test_every_event_mirror_names_its_teachers_instead_of_their_slugs(self):
         bad, checked = [], 0
@@ -446,6 +511,59 @@ class LlmMirror(unittest.TestCase):
             f"only {checked} mirrors were checked; the mapping from source to "
             f"mirror is broken and this test is guarding nothing")
         self.assertEqual(bad, [], f"mirrors not naming their teachers: {bad[:6]}")
+
+
+class JoinAgreement(unittest.TestCase):
+    """The comma-and-conjunction rule is written twice, and has to stay one rule.
+
+    `people_links.instructor_names()` joins the teachers into plain prose for
+    the LLM mirror. `article.html`'s instructor row joins the same people with
+    each name wrapped in a link to their profile. Neither can borrow the
+    other: a plugin returning markup would be a template, and a template
+    taking a finished string apart again to link its pieces would be worse. So
+    the rule is duplicated deliberately, and this is what stops the two copies
+    drifting — a comma added to one and not the other is a silent difference
+    between what a reader sees and what an LLM is told.
+
+    Unlike the rest of this file, it was green the day it was written: it pins
+    an agreement that already holds rather than describing work still to do.
+    """
+
+    LANGS = ("cs", "en")
+    # Real profiles, so the fixture is three names the site actually renders.
+    # Three is one more than any event has, which is the point: the "X, Y a Z"
+    # branch exists in both copies and nothing in the content reaches it.
+    FIXTURE_SLUGS = ("filip-paldia", "lenka-platenikova", "ondra-martinak")
+
+    def people(self, count):
+        return [type("Person", (), {"name": profile_title(slug), "url": f"{slug}/"})
+                for slug in self.FIXTURE_SLUGS[:count]]
+
+    def test_the_template_and_the_plugin_join_the_same_names_the_same_way(self):
+        try:
+            import jinja2
+        except ImportError:
+            raise unittest.SkipTest("jinja2 not installed")
+
+        tables = {"cs": i18n_cs.STRINGS, "en": i18n_en.STRINGS}
+        # `JINJA_ENVIRONMENT` in pelicanconf.py, and the `t` filter it installs
+        # including its fallback to Czech: the row has to render here the way
+        # it renders in the build, autoescaping and all.
+        environment = jinja2.Environment(extensions=["jinja2.ext.do"])
+        environment.filters["t"] = lambda key, lang: (
+            tables.get(lang, tables["cs"]).get(key, tables["cs"].get(key, key)))
+        row = environment.from_string(instructor_row_template())
+
+        for lang in self.LANGS:
+            for count in range(len(self.FIXTURE_SLUGS) + 1):
+                with self.subTest(lang=lang, names=count):
+                    people = self.people(count)
+                    rendered = stripped(row.render(
+                        instructors=people, page_lang=lang,
+                        SITEURL="https://brnosaires.com"))
+                    self.assertEqual(
+                        rendered, people_links.instructor_names(people, lang),
+                        "the header and the LLM mirror join these names differently")
 
 
 if __name__ == "__main__":
