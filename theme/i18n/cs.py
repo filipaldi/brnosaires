@@ -34,6 +34,11 @@ STRINGS = {
     "event_type_label": "Typ akce",
     "event_when_label": "Kdy",
     "event_instructor_label": "Lektoři",
+    # What goes between the last two teachers of an event. The spacing is part
+    # of the string because it is part of the language: Czech does not leave a
+    # one-letter conjunction at the end of a line, so the space after "a" is a
+    # hard one. Three or more names get commas before it — "X, Y a Z".
+    "event_instructor_and": " a\u00a0",
     "event_organiser_label": "Pořadatel",
     "event_location_label": "Místo",
     # Screen readers otherwise announce the venue link as a bare address.

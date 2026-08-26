@@ -1,30 +1,32 @@
 """
 people_links — connect an event to the profiles of the people teaching it.
 
-`instructor:` is free text and stays that way: it is what the header prints,
-and "Filip a Lenka" reads better than two links stapled together. Alongside it
-an event may now carry
+An event names its teachers exactly once, as a list of `content/people/` slugs:
 
-    instructor_slugs: [filip-paldia, lenka-platenikova]
+    instructor_slugs: filip-paldia, lenka-platenikova
 
-a list of `content/people/` slugs. That is the machine-readable half, and it is
-what lets a lecturer's own page answer the question the site could not answer
-before: *when does this person next teach?*
+That single field is both halves of the job. It puts the event on each
+lecturer's own page, and it is where the event header gets the names it prints.
 
-WHY NOT PARSE `instructor:`
----------------------------
-Because it cannot be parsed. The nineteen values in the repo include
-"Filip a Lenka", "Filip and Lenka" and "Ondra a Pavla" — two people in one
-string, in two languages, by first name, and one of those first names has no
-profile at all. Guessing would put words in real people's mouths. An explicit
-list of slugs cannot be wrong by accident, and a slug that matches no profile
-is a build warning rather than a silent miss.
+WHY A SLUG AND NOT A NAME
+-------------------------
+Events used to carry a second field, `instructor:`, free text, and it was what
+the header printed. Nothing kept the two in step. The nineteen values in the
+repo included "Filip a Lenka", "Filip and Lenka" and "Ondra a Pavla" — two
+people in one string, in two languages, by first name — and five files
+disagreed with their own slugs, so a real teacher was missing from three of his
+own workshops. A slug cannot be wrong by accident: it either names a profile or
+it stops the build.
 
 WHAT IT DOES
 ------------
-For every person article it sets `article.instructor_events`: the upcoming events
-that name them, soonest first, deduplicated across the /en/ mirror. Templates
-render that; nothing else changes. Events keep whatever `instructor:` says.
+For every event it sets `article.instructors`: one `Instructor(name, url)` per
+slug, taken from the profile in the reader's language. article.html joins those
+names with the conjunction from theme/i18n/ and lists them as `Person` entries
+in the event's structured data.
+
+For every person article it sets `article.instructor_events`: the upcoming
+events that name them, soonest first, deduplicated across the /en/ mirror.
 
 DELIBERATELY NOT HERE
 ---------------------
@@ -34,10 +36,20 @@ whether one can belong to several. Inventing that would be inventing facts
 about real people.
 """
 import logging
+from collections import namedtuple
 
 from pelican import signals
 
 logger = logging.getLogger(__name__)
+
+# One teacher as the templates want them: the name the profile prints, and the
+# address of that profile in the same language as the page asking.
+Instructor = namedtuple("Instructor", ("name", "url"))
+
+
+class UnknownInstructor(Exception):
+    """An `instructor_slugs:` entry that matches no file in content/people/."""
+
 
 # `content/people/` is an ARTICLE_PATH, so a person is an Article. This is how
 # one is recognised without hard-coding a path.
@@ -109,16 +121,69 @@ def _all_articles(generator):
             yield article
 
 
-def _on_articles(generator):
+def _profiles_by_slug(generator):
     people = {}
     for article in _all_articles(generator):
         if _is_person(article):
             people.setdefault(article.slug, []).append(article)
-    if not people:
-        return
+    return people
 
+
+def _in_language(profiles, lang):
+    """The profile written in `lang`, or the original when it has no twin.
+
+    A profile flagged `translate: false` exists in one language only, and one
+    address is still the right answer for it — better a Czech URL than none.
+    """
+    for profile in profiles:
+        if (getattr(profile, "lang", "") or "") == lang:
+            return profile
+    return profiles[0]
+
+
+def _attach_instructors(generator, people):
+    """Hang the resolved teachers on every event — and refuse the unknown ones.
+
+    An unknown slug used to be a warning. A warning scrolls past, and now that
+    the header is rendered from these profiles the cost of missing one has gone
+    up: the event would quietly lose a teacher rather than merely lose a link.
+    So it stops the build, and it says every slug it could not place, not just
+    the first — one build tells the author about all of them.
+    """
+    # Keyed by file as well as slug: an event and the /en/ clone synthesized
+    # for it are two objects over one source file, so the typo is reported
+    # once — but a hand-written .en.md twin is its own file with its own copy
+    # of the mistake, and the author has to fix both.
+    missing = set()
+    for article in _all_articles(generator):
+        if _is_person(article):
+            continue
+        resolved = []
+        for slug in _instructor_slugs(article):
+            profiles = people.get(slug)
+            if not profiles:
+                missing.add((getattr(article, "source_path", "?"), slug))
+                continue
+            profile = _in_language(profiles, getattr(article, "lang", "") or "")
+            resolved.append(Instructor(name=profile.title, url=profile.url))
+        if resolved:
+            article.instructors = resolved
+
+    if not missing:
+        return
+    for source_path, slug in sorted(missing):
+        logger.error("people_links: %s lists lector '%s', which is not a file "
+                     "in content/people/", source_path, slug)
+    raise UnknownInstructor(
+        "instructor_slugs names {} lector(s) with no profile in "
+        "content/people/: {}. Create the profile first, or fix the slug."
+        .format(len({slug for _source_path, slug in missing}),
+                ", ".join(f"'{slug}' in {source_path}"
+                          for source_path, slug in sorted(missing))))
+
+
+def _collect_upcoming(generator, people):
     by_person = {slug: [] for slug in people}
-    unknown = set()
     now = generator.settings.get("NOW") or generator.context.get("NOW")
     today = str(now)[:10] if now else "0000-00-00"
 
@@ -129,14 +194,8 @@ def _on_articles(generator):
         if start is None:
             continue
         for slug in _instructor_slugs(article):
-            if slug not in people:
-                if slug not in unknown:
-                    logger.warning(
-                        "people_links: %s lists lector '%s', which is not a "
-                        "file in content/people/",
-                        getattr(article, "source_path", "?"), slug)
-                    unknown.add(slug)
-                continue
+            # Every slug resolves by now — _attach_instructors stopped the
+            # build otherwise.
             by_person[slug].append(article)
 
     linked = 0
@@ -159,6 +218,12 @@ def _on_articles(generator):
     if linked:
         logger.info("people_links: %d upcoming event(s) linked to %d profile(s)",
                     linked, sum(1 for e in by_person.values() if e))
+
+
+def _on_articles(generator):
+    people = _profiles_by_slug(generator)
+    _attach_instructors(generator, people)
+    _collect_upcoming(generator, people)
 
 
 def register():

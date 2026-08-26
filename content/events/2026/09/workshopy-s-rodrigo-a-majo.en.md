@@ -11,7 +11,7 @@ event-start: 2026-09-19 13:00:00
 event-end: 2026-09-20 17:30:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-organiser: Pavla Lužná
-instructor: Rodrigo & Majo (Argentina)
+instructor_slugs: rodrigo-fonti, majo-martirena
 entry: 3200 CZK/135 euro
 event-url: https://form.jotform.com/261895377162367
 ---

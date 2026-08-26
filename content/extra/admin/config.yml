@@ -156,26 +156,17 @@ collections:
         widget: string
         required: false
         i18n: duplicate
-      - name: instructor
-        label: Lektoři
-        widget: list
-        required: false
-        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
-        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
-        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
-        i18n: true
-        hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
       - name: instructor_slugs
-        label: Lektoři (odkaz na profil)
+        label: Lektoři
         widget: relation
         collection: people
         multiple: true
         required: false
         i18n: duplicate
         hint: >-
-          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
-          akce objevila na stránce toho lektora. Jméno, které se zobrazí
-          v hlavičce, se bere z pole „Lektoři" nad tímhle.
+          Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
+          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
+          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string
@@ -316,26 +307,17 @@ collections:
         widget: string
         required: false
         i18n: duplicate
-      - name: instructor
-        label: Lektoři
-        widget: list
-        required: false
-        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
-        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
-        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
-        i18n: true
-        hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
       - name: instructor_slugs
-        label: Lektoři (odkaz na profil)
+        label: Lektoři
         widget: relation
         collection: people
         multiple: true
         required: false
         i18n: duplicate
         hint: >-
-          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
-          akce objevila na stránce toho lektora. Jméno, které se zobrazí
-          v hlavičce, se bere z pole „Lektoři" nad tímhle.
+          Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
+          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
+          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string
