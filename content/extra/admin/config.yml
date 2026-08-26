@@ -458,7 +458,10 @@ collections:
         required: false
         i18n: duplicate
         options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
-      - { name: description, label: Krátký popis, widget: text, i18n: true }
+      # Not required: three profiles carry no description, because nobody
+      # knows a true sentence to write about them yet. A required field would
+      # make those three un-saveable until the editor invents one.
+      - { name: description, label: Krátký popis, widget: text, required: false, i18n: true }
       - { name: preview_image, label: Fotka, widget: image, required: false, i18n: duplicate }
       - name: people
         label: Skupina

@@ -21,15 +21,29 @@ import re
 
 from pelican import signals
 
+# ORDER MATTERS: this reads `article.instructors`, which people_links attaches
+# during the same `article_generator_finalized` signal. Handlers fire in
+# PLUGINS order, so people_links must stay listed before llm_ally in
+# pelicanconf.py - the same rule i18n_fallback documents for widget_processor.
+import people_links
 import widget_processor
 
 
 _FRONTMATTER_RE = re.compile(r"\A---\s*\n.*?\n---\s*\n", re.DOTALL)
 _PELICAN_HEADER_RE = re.compile(r"\A([A-Za-z][A-Za-z0-9_-]*:\s.*\n)+\n", re.MULTILINE)
 
+# The one field here that no file carries. An event names its teachers by slug
+# in `instructor_slugs:`; the mirror prints the names those slugs resolve to,
+# under a key that says what the value is. A slug would be a dangling
+# reference in this corpus: every profile an event can point at sets
+# `llm_mirror: false`, so none of them is mirrored to resolve one against.
+# (Four profiles are mirrored - the marathon DJs - and no event teaches with
+# them.) A name needs no lookup either way.
+INSTRUCTOR_FIELD = "instructor"
+
 EVENT_FRONTMATTER_FIELDS = (
     "event-type", "event-start", "event-end", "event-location",
-    "event-organiser", "instructor_slugs", "recurrence", "series",
+    "event-organiser", INSTRUCTOR_FIELD, "recurrence", "series",
     "event-url",
 )
 
@@ -88,7 +102,12 @@ def _frontmatter(content_obj, settings):
 
     metadata = getattr(content_obj, "metadata", {}) or {}
     for field in EVENT_FRONTMATTER_FIELDS:
-        value = metadata.get(field)
+        if field == INSTRUCTOR_FIELD:
+            value = people_links.instructor_names(
+                getattr(content_obj, "instructors", None) or [],
+                getattr(content_obj, "lang", "") or "")
+        else:
+            value = metadata.get(field)
         if value is None or value == "":
             continue
         if hasattr(value, "isoformat"):

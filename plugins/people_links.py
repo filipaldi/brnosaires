@@ -82,6 +82,38 @@ def _instructor_slugs(content):
     return [str(part).strip().strip("'\"") for part in parts if str(part).strip()]
 
 
+def instructor_names(instructors, lang):
+    """The teachers as one line of plain prose: "Filip Paldia a Lenka Plateníková".
+
+    article.html builds the same sentence in Jinja, because there it wraps each
+    name in a link and so cannot use a finished string. The conjunction is the
+    one thing both take from theme/i18n; the comma rule is written twice, here
+    and at that template's instructor row, so a change to either wants the same
+    change in the other.
+
+    Plain prose, so the conjunction's hard space is normalised to an ordinary
+    one: that space is typography for a rendered line, and this string goes
+    into a YAML scalar where it would be an invisible character with no job.
+
+    Three or more names take commas before the conjunction - "X, Y a Z". No
+    event in the repo has three teachers, so nothing exercises it.
+    """
+    names = [person.name for person in instructors]
+    if len(names) < 2:
+        return names[0] if names else ""
+    # Imported here rather than at module scope because nothing else under
+    # plugins/ depends on theme/: keeping the one place that does inside the
+    # one function that needs it is the smaller coupling.
+    from theme import i18n
+    key = "event_instructor_and"
+    table = getattr(i18n, lang if lang in i18n.LANGS else "cs").STRINGS
+    # Falls back the way the `t` filter in pelicanconf.py does. A key renamed
+    # in one table should read oddly in both places, not render the page and
+    # kill the mirror.
+    conjunction = table.get(key) or i18n.cs.STRINGS.get(key, key)
+    return ", ".join(names[:-1]) + conjunction.replace("\u00a0", " ") + names[-1]
+
+
 def _event_start(content):
     return (getattr(content, "metadata", None) or {}).get("event-start")
 
