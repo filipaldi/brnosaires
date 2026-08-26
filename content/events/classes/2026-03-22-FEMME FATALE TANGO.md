@@ -15,5 +15,5 @@ author: Lenka Pláteníková
 
 # Femme fatale tango
 
-Milá ženo, miluješ tanec a líbí se ti argentinské tango? Štěky pro Tebe připravila intenzivní taneční odpoledne zaměřené na TANGO taneční techniku pro ženy.
+Milá ženo, miluješ tanec a líbí se ti argentinské tango? Šteky pro Tebe připravila intenzivní taneční odpoledne zaměřené na TANGO taneční techniku pro ženy.
 Více informací na: tangolabsteky.cz
