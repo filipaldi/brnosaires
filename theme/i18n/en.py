@@ -37,6 +37,9 @@ STRINGS = {
     "event_type_label": "Event type",
     "event_when_label": "When",
     "event_instructor_label": "Teachers",
+    # What goes between the last two teachers of an event; see cs.py on why the
+    # spacing lives in the string. Three or more names get commas before it.
+    "event_instructor_and": " and ",
     "event_organiser_label": "Organiser",
     "event_location_label": "Venue",
     # Screen readers otherwise announce the venue link as a bare address.

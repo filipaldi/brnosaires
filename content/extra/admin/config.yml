@@ -156,26 +156,17 @@ collections:
         widget: string
         required: false
         i18n: duplicate
-      - name: instructor
-        label: Lektoři
-        widget: list
-        required: false
-        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
-        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
-        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
-        i18n: true
-        hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
       - name: instructor_slugs
-        label: Lektoři (odkaz na profil)
+        label: Lektoři
         widget: relation
         collection: people
         multiple: true
         required: false
         i18n: duplicate
         hint: >-
-          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
-          akce objevila na stránce toho lektora. Jméno, které se zobrazí
-          v hlavičce, se bere z pole „Lektoři" nad tímhle.
+          Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
+          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
+          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string
@@ -316,26 +307,17 @@ collections:
         widget: string
         required: false
         i18n: duplicate
-      - name: instructor
-        label: Lektoři
-        widget: list
-        required: false
-        # `true`, ne `duplicate`. Dvě akce mají česky „Filip a Lenka" a
-        # anglicky „Filip and Lenka"; s `duplicate` by CMS obě verze srovnala
-        # na jednu hodnotu při prvním uložení a anglická spojka by zmizela.
-        i18n: true
-        hint: Text, který se zobrazí v hlavičce akce. Klidně „Filip a Lenka".
       - name: instructor_slugs
-        label: Lektoři (odkaz na profil)
+        label: Lektoři
         widget: relation
         collection: people
         multiple: true
         required: false
         i18n: duplicate
         hint: >-
-          Vyber z profilů v Lidé. Nikde se to nevypíše — slouží k tomu, aby se
-          akce objevila na stránce toho lektora. Jméno, které se zobrazí
-          v hlavičce, se bere z pole „Lektoři" nad tímhle.
+          Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
+          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
+          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string
@@ -461,10 +443,14 @@ collections:
         default: cs
         i18n: translate
       - { name: title, label: Jméno, widget: string, i18n: true }
-      # Not required: none of the eight existing profiles carries a slug, an
-      # author or a date, and marking them required makes every one of them
-      # un-saveable until the editor invents values.
-      - { name: slug, label: Slug (v URL), widget: string, required: false, i18n: duplicate }
+      # No `slug` field on purpose. A profile is addressed by its filename,
+      # and that filename is also what an event's `instructor_slugs` relation
+      # stores. A slug typed by hand would differ from it, and the event
+      # naming that profile would then stop the build. None of the profiles
+      # ever carried one, so nothing is lost by not offering it.
+      # Not required: no profile carries an author, and marking either field
+      # required would make every existing one un-saveable until the editor
+      # invents a value for it.
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', required: false, i18n: duplicate }
       - name: author
         label: Autor
@@ -472,7 +458,10 @@ collections:
         required: false
         i18n: duplicate
         options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
-      - { name: description, label: Krátký popis, widget: text, i18n: true }
+      # Not required: three profiles carry no description, because nobody
+      # knows a true sentence to write about them yet. A required field would
+      # make those three un-saveable until the editor invents one.
+      - { name: description, label: Krátký popis, widget: text, required: false, i18n: true }
       - { name: preview_image, label: Fotka, widget: image, required: false, i18n: duplicate }
       - name: people
         label: Skupina

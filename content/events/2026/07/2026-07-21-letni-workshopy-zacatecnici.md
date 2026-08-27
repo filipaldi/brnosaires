@@ -2,8 +2,7 @@
 title: Letní intenzivní workshopy pro začátečníky - úterý
 slug: letni-intenzivni-workshopy-zacatecnici-07-utery
 date: 2026-07-06 
-instructor: Ondra a Pavla
-instructor_slugs: pavla-luzna
+instructor_slugs: ondra-martinak, pavla-luzna
 event-start: 2026-07-21 17:45:00
 event-end: 2026-07-21 22:00:00
 preview_image: /images/events/2026/Ondra-Pavla.avif

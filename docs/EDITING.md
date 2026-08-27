@@ -72,8 +72,7 @@ event-organiser: Brno Tango Club   # kdo akci pořádá
 entry: 150 Kč                      # vstupné; "zdarma" / "dobrovolné" → isAccessibleForFree
 event-url: https://...             # externí odkaz: vstupenky / registrace; zobrazí se jako "Více info a vstupenky"
 series: milonga-u-draka            # jen pokud akce patří do série (slug hubu) — viz SERIE.md
-instructor: Jana Nováková          # více lektorů → každé jméno na vlastní řádek, odsazené (viz níže)
-instructor_slugs: jana-novakova             # nepovinné; slug(y) profilů z content/people/, oddělené čárkou
+instructor_slugs: pavla-luzna      # lektoři; slug(y) profilů z content/people/, oddělené čárkou (viz níže)
 recurrence: weekly friday          # jen šablonové opakující se akce; u milong NEPOUŽÍVAT
                                    # omezení série: "until RRRR-MM-DD", "count N", "from RRRR-MM-DD" — viz AKCE.md
 
@@ -89,33 +88,20 @@ translate: false                   # obsah bez anglické verze (marathon sub-web
 ---
 ```
 
-### Více lektorů na jedné akci
+### Lektoři akce — `instructor_slugs:`
 
-Každé jméno na vlastní řádek, druhé a další **odsazené** (4 mezery). Žádné hranaté závorky, žádné uvozovky:
-
-```yaml
-instructor: Šteky Yaku
-    Filip Šterc
-    Albert Mikó
-    Jana Popelková
-```
-
-Zobrazí se oddělené čárkou: „Šteky Yaku, Filip Šterc, Albert Mikó, Jana Popelková". Jeden lektor = jeden řádek. Jména pište tak, jak mají vypadat — `instructor` je to, co se na stránce vytiskne.
-
-### Propojení s profilem lektora — `instructor_slugs:`
-
-`instructor:` je volný text („Filip a Lenka"), takže se z něj nedá poznat, o koho jde. Nepovinné pole `instructor_slugs:` to doplňuje strojově — seznam **slugů** souborů z [content/people/](../content/people/), oddělený čárkou:
+Lektory nevypisujete jménem. Vybírají se **jen z profilů** v [content/people/](../content/people/) a zapisují se slugem — to je název souboru bez `.md`, tedy `content/people/pavla-luzna.md` → `pavla-luzna`. Víc lektorů oddělte čárkou, všechno na jednom řádku:
 
 ```yaml
-instructor: Filip a Lenka
 instructor_slugs: filip-paldia, lenka-platenikova
 ```
 
-Slug je název souboru bez `.md` — `content/people/pavla-luzna.md` → `pavla-luzna`.
+Co to udělá:
 
-Co to udělá: na **stránce toho lektora** se objeví sekce „Nejbližší lekce a workshopy" s termíny, které učí. U pravidelné lekce se ukáže **nejbližší** termín, ne ten první z ledna. Na stránce akce se nemění nic.
+- V **hlavičce akce** se vypíše `title` z profilu, ne zkrácené jméno: „Filip Paldia a Lenka Pláteníková". Každé jméno je odkaz na ten profil. Spojku doplní web sám a podle jazyka stránky — česky `a`, anglicky `and`, takže ji nikam nepíšete.
+- Na **stránce toho lektora** se objeví sekce „Nejbližší lekce a workshopy" s termíny, které učí. U pravidelné lekce se ukáže **nejbližší** termín, ne ten první z ledna.
 
-Slug, ke kterému neexistuje soubor, build nerozbije — jen se objeví varování v logu GitHub Actions a propojení nevznikne. Když profil neexistuje, pole prostě vynechte.
+Slug, ke kterému neexistuje profil, **shodí build** — v logu GitHub Actions je napsané, který to byl. Je to schválně: jinak by jméno z hlavičky tiše zmizelo a nikdo by si toho nevšiml. Chybí-li někdo v nabídce, **nejdřív mu založte profil v Lidech**, teprve pak ho přidejte k akci. Jinou cestou se jméno do hlavičky nedostane.
 
 ## 👀 Co se zobrazí kde, když publikujete
 
