@@ -51,7 +51,27 @@ from datetime import datetime
 ATOM = "{http://www.w3.org/2005/Atom}"
 STATE_FILE = ".published-feeds.json"
 DEFAULT_FEED = "https://brnosaires.com/feeds/all.atom.xml"
-DEFAULT_RELAYS = "wss://relay.damus.io,wss://nos.lol,wss://relay.nostr.band"
+# Eight, not three, and every one of them answered when this list was written
+# (2026-08-27). Three was too thin: on the first real send two of the three
+# were down at the same moment — relay.damus.io returned 503 and
+# relay.nostr.band refused the connection — and the post survived only because
+# nos.lol happened to be up. One relay is enough for the event to exist, so the
+# list is redundancy, not a broadcast requirement.
+#
+# It is also reach: Nostr has no global delivery, a reader's client pulls from
+# the relay list *they* configured, so the more well-populated relays carry the
+# event, the likelier an overlap. NOSTR_RELAYS overrides this whenever the list
+# rots — relays come and go, and this one is a snapshot, not a fact.
+DEFAULT_RELAYS = ",".join((
+    "wss://relay.damus.io",
+    "wss://nos.lol",
+    "wss://relay.primal.net",
+    "wss://nostr.mom",
+    "wss://offchain.pub",
+    "wss://nostr.oxtr.dev",
+    "wss://relay.nostrplebs.com",
+    "wss://nostr-pub.wellorder.net",
+))
 
 # Nostr has no local timeline and no account directory: an untagged note is
 # reachable only by someone who already follows the key, and a new key is
@@ -312,7 +332,10 @@ def post_nostr(text, dry_run, created_at=None):
     delivered = 0
     for relay in relays:
         try:
-            connection = create_connection(relay, timeout=15)
+            # 8s, not 15: in the probe every live relay answered inside 1.5s and the
+            # dead ones failed by 7s, so a longer wait only buys dead air —
+            # and it is paid per relay, per post.
+            connection = create_connection(relay, timeout=8)
             connection.send(json.dumps(["EVENT", event]))
             reply = connection.recv()
             connection.close()

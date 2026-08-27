@@ -140,6 +140,53 @@ Web servíruje pár souborů z adresáře `.well-known/` — zrcadla `llms.txt` 
 
 `nostr.json` je zatím prázdný (`{"names": {}}`) — netvrdí nic. Až vznikne nostrový klíč, doplní se do něj hex podoba veřejného klíče pod jménem `_`, a klienti pak identitu ukazují jako `brnosaires.com` místo npub. Soubor leží v [content/extra/nostr.json](../content/extra/nostr.json) a na místo ho dostane `EXTRA_PATH_METADATA` v `pelicanconf.py`.
 
+## Co smí a nesmí do repa
+
+Tenhle repozitář je **veřejný**, a veřejné jsou i logy GitHub Actions.
+
+**Do repa patří:**
+
+- hex podoba **veřejného** nostrového klíče a `npub` — to je adresa, ne tajemství; celý smysl NIP-05 je ji zveřejnit
+- seznam relayů
+- `.published-feeds.json` — jen id položek a kam už odešly; commituje ho samo workflow
+- skripty a workflow
+
+**Do repa nepatří nikdy — patří do Settings → Secrets and variables → Actions:**
+
+- `NOSTR_SECRET_KEY`
+- `MASTODON_TOKEN`
+
+**U nostrového klíče je to přísnější než u běžného tokenu.** Mastodonový token se dá na instanci zneplatnit a vydat nový. **Nostrový klíč zneplatnit nejde** — neexistuje revokace, obnova hesla ani podpora. Kdo ho má, je vámi, natrvalo. Jediná náprava je identitu opustit a seznam sledujících postavit od nuly.
+
+A git historii nesmažete: klíč jednou commitnutý a v dalším commitu „odstraněný" zůstává v historii, ve všech klonech a ve všech forcích. Proto se to nedá opravit, dá se to jen opustit.
+
+Skript sám klíč nikde nevypisuje. Jediné místo, kde o něm něco loguje, je hláška „not readable", a ta nese jen typ chyby, ne hodnotu (ověřeno na všech třech způsobech, jak klíč pokazit). GitHub navíc přesné hodnoty tajemství v logu maskuje — ale **odvozené tvary ne**, takže se nesmí tisknout ani npub odvozený z tajného klíče. `social.yml` běží na `workflow_run` a `workflow_dispatch`, ne na `pull_request`, takže PR z forku se k tajemstvím nedostane.
+
+### Finální tvar `.well-known/nostr.json`
+
+Až klíč vznikne, [content/extra/nostr.json](../content/extra/nostr.json) vypadá takhle — jméno `_` znamená „kořen domény", takže klienti identitu zobrazí jako `brnosaires.com`:
+
+```json
+{
+  "names": {
+    "_": "<64 znaků hex veřejného klíče>"
+  },
+  "relays": {
+    "<týž hex veřejný klíč>": [
+      "wss://relay.damus.io",
+      "wss://nos.lol",
+      "wss://relay.primal.net"
+    ]
+  }
+}
+```
+
+Do `relays` stačí pár nejpoužívanějších — je to ukazatel „kde mě hledat", ne úplný seznam. Skript sám posílá na osm relayů (`DEFAULT_RELAYS` v [scripts/publish_social.py](../scripts/publish_social.py), přebít jde proměnnou `NOSTR_RELAYS`).
+
+Proč osm a ne tři: při prvním ostrém odeslání byly dva ze tří relayů mimo ve stejnou chvíli — `relay.damus.io` vrátil 503 a `relay.nostr.band` odmítl spojení — a příspěvek prošel jen proto, že `nos.lol` zrovna běžel. Jeden relay stačí, aby událost existovala, takže ten seznam je redundance, ne požadavek na rozeslání. Zároveň je to dosah: Nostr nemá globální doručování, čtenářův klient tahá z relayů, které si nastavil **on**, takže čím víc obsazených relayů událost nese, tím spíš se ty seznamy potkají. Relaye vznikají a zanikají, takže je to momentka, ne fakt — ověřit se dá pár řádky, které otevřou spojení a pošlou `REQ`.
+
+`relays` je podle NIP-05 doporučené, ne povinné, a stojí za to ho vyplnit: Nostr nemá globální doručování, klient čte z vlastního seznamu relayů. Bez tohohle pole vás podle domény najde, ale nemusí mít odkud číst vaše příspěvky.
+
 ## Rollback (vrácení změny)
 
 GitHub Pages drží pouze poslední nasazenou verzi — neexistuje „one click rollback". Postup, když je potřeba něco rychle vrátit:
