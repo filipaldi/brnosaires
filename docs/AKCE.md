@@ -47,7 +47,7 @@ entry: 150 Kč                          # vstupné; "zdarma" / "dobrovolné" →
 ---
 ```
 
-Volitelně: `event-organiser`, `instructor`, `series` (jen u série, viz [Série](SERIE.md)).
+Volitelně: `event-organiser`, `instructor_slugs` (slugy profilů z `content/people/`, viz [EDITING.md](EDITING.md)), `series` (jen u série, viz [Série](SERIE.md)).
 
 ⚠️ **Do hlavičky nepiš komentáře.** Řádek začínající `#` ukončí čtení hlavičky a **všechno pod ním se tiše zahodí** — pole tam zůstane napsané, ale web se chová, jako by ho tam nebylo. Poznámku napiš do těla článku, ne do hlavičky.
 
@@ -167,11 +167,13 @@ event-end: 2026-06-01 19:00:00           # konec prvního termínu
 recurrence: weekly monday                # rozbalí na každé pondělí
 event-type: class                        # pravidelná lekce = class (NE workshop)
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
-instructor: "['Jana Habalová', 'Petr Truhlář']"
+instructor_slugs: pavla-luzna, ondra-martinak
 preview_image: /images/classes/class-stolarna.avif
 description: …
 author: Tvé jméno
 ```
+
+`instructor_slugs:` jsou slugy profilů z [content/people/](../content/people/) - název souboru bez `.md`, víc lektorů oddělených čárkou. Slug, ke kterému profil neexistuje, shodí build, takže jména z předlohy přepiš za svoje. Podrobnosti v [EDITING.md](EDITING.md).
 
 **Hodnoty `recurrence:`** — základ musí být jedna z těchhle dvou forem (za ni se dají přidat dovětky, viz níž). Když se v základu upíšeš, zůstane akci jen jeden termín a v logu GitHub Actions je varování:
 

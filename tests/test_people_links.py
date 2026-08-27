@@ -1,7 +1,7 @@
 """Linking an event to the profiles of the people teaching it."""
 import unittest
 
-from tests import build_site, plugin_path  # noqa: F401
+from tests import BUILD_CLOCK, build_site, plugin_path  # noqa: F401
 
 import people_links
 
@@ -55,15 +55,26 @@ class BuiltSite(unittest.TestCase):
             html = handle.read()
         return self.re.findall(r'<h3 class="event-card__title">([^<]*)</h3>', html)
 
+    # What the fixtures below expect, given the pinned clock. Counting exactly
+    # (rather than asserting "not empty") is what makes a lost pin legible: on
+    # the wall clock these pages drift to nothing as their dates pass, and the
+    # count says so instead of the assertion merely going false.
+    FILIP_ONE_OFFS = 6   # the six summer workshops still ahead of BUILD_CLOCK
+    PAVLA_WEEKLIES = 2   # Tangomania + Tangomania Basic, weekly, open-ended
+
     def test_a_lecturer_page_lists_their_upcoming_dates(self):
-        self.assertTrue(self.cards("filip-paldia"),
-                        "no upcoming events on a profile that teaches")
+        # Only one-off dated events, so this is the case that rots on a real
+        # clock: it was green until the last of them passed.
+        self.assertEqual(
+            len(self.cards("filip-paldia")), self.FILIP_ONE_OFFS,
+            f"upcoming one-off events changed; the build clock is {BUILD_CLOCK}")
 
     def test_a_weekly_class_counts_as_upcoming(self):
         # Its event-start is the FIRST session, months in the past. Filtering
         # on that value hid every class that is actually running.
-        self.assertTrue(self.cards("pavla-luzna"),
-                        "a running weekly class did not reach its lecturer's page")
+        self.assertEqual(
+            len(self.cards("pavla-luzna")), self.PAVLA_WEEKLIES,
+            "a running weekly class did not reach its lecturer's page")
 
     def test_a_profile_that_teaches_nothing_upcoming_shows_no_section(self):
         path = self.os.path.join(self.output, "irena-babilonova", "index.html")

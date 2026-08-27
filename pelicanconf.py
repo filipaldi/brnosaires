@@ -93,7 +93,36 @@ import pytz
 import sys
 import os
 
-NOW = datetime.now(pytz.timezone(TIMEZONE))
+# The build's single source of "now". Everything time-aware hangs off it:
+# `settings["NOW"]` reaches the plugins (people_links, calendarium's .ics
+# writer), `JINJA_GLOBALS` and the `calendarium` filter reach the templates.
+# Pinning this one value therefore pins the whole build.
+#
+# BRNOSAIRES_NOW exists so the test suite can do exactly that. A test that
+# builds the real content and asserts "this lecturer has an upcoming date" is
+# really asserting something about the wall clock, so it goes red the morning
+# the last of those dates passes — with nothing wrong in the site. Tests pin
+# the clock and become a function of the repo alone; production leaves the
+# variable unset and gets the real time.
+#
+# A malformed value raises instead of falling back: quietly reverting to the
+# wall clock would restore the very rot the pin removes, and hide it.
+_now_override = os.environ.get("BRNOSAIRES_NOW", "").strip()
+if _now_override:
+    _pinned = None
+    for _fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"):
+        try:
+            _pinned = datetime.strptime(_now_override, _fmt)
+            break
+        except ValueError:
+            continue
+    if _pinned is None:
+        raise ValueError(
+            f"BRNOSAIRES_NOW={_now_override!r} is not a date; expected "
+            "YYYY-MM-DD or YYYY-MM-DD HH:MM:SS")
+    NOW = pytz.timezone(TIMEZONE).localize(_pinned)
+else:
+    NOW = datetime.now(pytz.timezone(TIMEZONE))
 
 
 # Date-only format strings, keyed by language; the time ("HH:MM") is appended

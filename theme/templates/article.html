@@ -16,15 +16,19 @@
     {% set event_type = meta.get('event-type') %}
     {% set event_start = meta.get('event-start') %}
     {% set event_end = meta.get('event-end') %}
-    {% set instructor = meta.get('instructor') %}
-    {# instructor may be a list (multiline metadata) or a single string; normalise to a list of names #}
-    {% if instructor is string %}{% set instructor_list = [instructor] %}{% else %}{% set instructor_list = instructor or [] %}{% endif %}
-    {% set instructor_names = instructor_list | join(', ') %}
+    {# Who teaches this. plugins/people_links.py resolves the event's
+       `instructor_slugs:` against content/people/ and leaves one
+       Instructor(name, url) per person here, so the header prints the same
+       name the profile does and links to it. The conjunction is a UI string,
+       not data: the Czech and English pages of one event differ only in this
+       word. Three or more names take commas before it ("X, Y a Z") — grammar,
+       though no event in the repo has three teachers to exercise it. #}
+    {% set instructors = article.instructors or [] %}
     {% set event_organiser = meta.get('event-organiser') %}
     {% set event_location = meta.get('event-location') %}
     {% set event_entry = meta.get('entry') %}
     {% set event_url = meta.get('event-url') %}
-    {% if event_type or event_start or event_end or instructor or event_organiser or event_location or event_entry or event_url %}
+    {% if event_type or event_start or event_end or instructors or event_organiser or event_location or event_entry or event_url %}
     {# localised event-type word; falls back to the raw value when no i18n key exists #}
     {% set _type_key = 'event_type_' ~ (event_type | string | lower) %}
     {% set _type_word = _type_key | t(page_lang) %}
@@ -39,9 +43,9 @@
         <dt>{{ 'event_when_label' | t(page_lang) }}</dt>
         <dd><time datetime="{{ event_start | event_iso8601 }}">{{ event_start | format_event_datetime(page_lang) }}</time>{% if event_end %} – <time datetime="{{ event_end | event_iso8601 }}">{{ event_end | format_event_datetime(page_lang) }}</time>{% endif %}</dd>
         {% endif %}
-        {% if instructor %}
+        {% if instructors %}
         <dt>{{ 'event_instructor_label' | t(page_lang) }}</dt>
-        <dd>{{ instructor_names }}</dd>
+        <dd>{% for person in instructors %}<a href="{{ SITEURL }}/{{ person.url }}">{{ person.name | e }}</a>{% if not loop.last %}{{ ('event_instructor_and' | t(page_lang)) if loop.revindex0 == 1 else ', ' }}{% endif %}{% endfor %}</dd>
         {% endif %}
         {% if event_organiser %}
         <dt>{{ 'event_organiser_label' | t(page_lang) }}</dt>
@@ -156,7 +160,11 @@
     }{% else %}"address": {{ event_location | tojson }}{% endif %}
   },
   {% endif %}{% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},
-  {% endif %}{% if instructor %}"performer": [{% for name in instructor_list %}{"@type": "Person", "name": {{ name | tojson }}}{% if not loop.last %}, {% endif %}{% endfor %}],
+  {% endif %}
+  {#- One Person per human, each pointing at their own profile. The free text
+      this replaced produced a single Person called "Filip a Lenka". The `-`
+      markers keep the block chained tight, like every sibling above. -#}
+  {% if instructors %}"performer": [{% for person in instructors %}{"@type": "Person", "name": {{ person.name | tojson }}{% if SITEURL %}, "url": {{ (SITEURL ~ '/' ~ person.url) | tojson }}{% endif %}}{% if not loop.last %}, {% endif %}{% endfor %}],
   {% endif %}{% if _entry %}"offers": {
     "@type": "Offer",
     "price": {{ ('0' if _free else (_entry | string | trim)) | tojson }},
