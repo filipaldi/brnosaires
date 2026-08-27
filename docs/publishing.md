@@ -181,9 +181,13 @@ Až klíč vznikne, [content/extra/nostr.json](../content/extra/nostr.json) vypa
 }
 ```
 
-Do `relays` stačí pár nejpoužívanějších — je to ukazatel „kde mě hledat", ne úplný seznam. Skript sám posílá na osm relayů (`DEFAULT_RELAYS` v [scripts/publish_social.py](../scripts/publish_social.py), přebít jde proměnnou `NOSTR_RELAYS`).
+Do `relays` patří týž seznam, na který skript posílá — `DEFAULT_RELAYS` v [scripts/publish_social.py](../scripts/publish_social.py), přebít jde proměnnou `NOSTR_RELAYS`.
 
-Proč osm a ne tři: při prvním ostrém odeslání byly dva ze tří relayů mimo ve stejnou chvíli — `relay.damus.io` vrátil 503 a `relay.nostr.band` odmítl spojení — a příspěvek prošel jen proto, že `nos.lol` zrovna běžel. Jeden relay stačí, aby událost existovala, takže ten seznam je redundance, ne požadavek na rozeslání. Zároveň je to dosah: Nostr nemá globální doručování, čtenářův klient tahá z relayů, které si nastavil **on**, takže čím víc obsazených relayů událost nese, tím spíš se ty seznamy potkají. Relaye vznikají a zanikají, takže je to momentka, ne fakt — ověřit se dá pár řádky, které otevřou spojení a pošlou `REQ`.
+**Proč čtyři a ne dvacet.** [NIP-65](https://nips.nostr.com/65) říká: *„Clients SHOULD guide users to keep `kind:10002` lists small (2-4 relays of each category)."* Objevování totiž funguje přes tzv. outbox model — čtenář si nejdřív načte váš seznam write relayů a pak se ptá **jen jich**, nehledá vás naslepo po celé síti. Rozeslat příspěvek na každý relay, který odpoví, tedy dosah nezvýší; jen se uloží kopie, které nikdo nečte.
+
+**Proč čtyři a ne dva.** Dostupnost je reálný problém: při prvním ostrém odeslání byly dva ze tří relayů mimo ve stejnou chvíli (`relay.damus.io` vrátil 503, `relay.nostr.band` odmítl spojení) a příspěvek prošel jen díky `nos.lol`. Stačí, když událost přijme jediný relay. Čtyři jsou tedy redundance uvnitř velikosti, kterou doporučuje spec — ne rozesílka.
+
+Relaye vznikají a zanikají, takže ten seznam je momentka. Ověřit se dá pár řádky, které otevřou spojení a pošlou `REQ`.
 
 `relays` je podle NIP-05 doporučené, ne povinné, a stojí za to ho vyplnit: Nostr nemá globální doručování, klient čte z vlastního seznamu relayů. Bez tohohle pole vás podle domény najde, ale nemusí mít odkud číst vaše příspěvky.
 

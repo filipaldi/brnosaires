@@ -51,26 +51,23 @@ from datetime import datetime
 ATOM = "{http://www.w3.org/2005/Atom}"
 STATE_FILE = ".published-feeds.json"
 DEFAULT_FEED = "https://brnosaires.com/feeds/all.atom.xml"
-# Eight, not three, and every one of them answered when this list was written
-# (2026-08-27). Three was too thin: on the first real send two of the three
-# were down at the same moment — relay.damus.io returned 503 and
-# relay.nostr.band refused the connection — and the post survived only because
-# nos.lol happened to be up. One relay is enough for the event to exist, so the
-# list is redundancy, not a broadcast requirement.
+# Four. NIP-65 is explicit: "Clients SHOULD guide users to keep kind:10002
+# lists small (2-4 relays of each category)", because discovery is the outbox
+# model — a reader fetches an author's write-relay list and then queries only
+# those relays. Blasting a note at every relay that answers does not widen
+# reach, it just stores copies nobody reads.
 #
-# It is also reach: Nostr has no global delivery, a reader's client pulls from
-# the relay list *they* configured, so the more well-populated relays carry the
-# event, the likelier an overlap. NOSTR_RELAYS overrides this whenever the list
-# rots — relays come and go, and this one is a snapshot, not a fact.
+# Four rather than two because availability is real: on the first live send two
+# of three relays were down at the same moment (relay.damus.io 503,
+# relay.nostr.band refused) and only nos.lol carried it. One relay accepting is
+# enough for the event to exist, so this is redundancy inside the size the spec
+# asks for — not a broadcast. All four answered when the list was written
+# (2026-08-27); relays come and go, so NOSTR_RELAYS overrides it.
 DEFAULT_RELAYS = ",".join((
     "wss://relay.damus.io",
     "wss://nos.lol",
     "wss://relay.primal.net",
-    "wss://nostr.mom",
     "wss://offchain.pub",
-    "wss://nostr.oxtr.dev",
-    "wss://relay.nostrplebs.com",
-    "wss://nostr-pub.wellorder.net",
 ))
 
 # Nostr has no local timeline and no account directory: an untagged note is
