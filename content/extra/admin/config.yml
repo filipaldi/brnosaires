@@ -52,6 +52,12 @@ collections:
     label: Akce
     label_singular: Akci
     folder: content/events
+    # Absolutní cesta, ne dědění globálního nastavení. Bez ní Sveltia nahrála
+    # obrázek do složky podle `path:` vedle .md a do front matteru dala cestu
+    # `<slug>/<soubor>`; `colocated_images` bere jen holé jméno souboru, takže
+    # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
+    media_folder: /content/images/events
+    public_folder: /images/events
     # Marathon je anglický sub-web s `translate: false` (EXTRA_PATH_METADATA).
     # Přes tuhle dvojjazyčnou kolekci by dostal /en/ dvojče, které mít nesmí.
     filter: { field: translate, value: null }
@@ -189,6 +195,10 @@ collections:
         widget: string
         required: false
         i18n: duplicate
+        # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
+        # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
+        # mířilo na neexistující stránku.
+        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
@@ -221,6 +231,12 @@ collections:
     label: Pravidelné lekce
     label_singular: Lekci
     folder: content/events/classes
+    # Absolutní cesta, ne dědění globálního nastavení. Bez ní Sveltia nahrála
+    # obrázek do složky podle `path:` vedle .md a do front matteru dala cestu
+    # `<slug>/<soubor>`; `colocated_images` bere jen holé jméno souboru, takže
+    # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
+    media_folder: /content/images/events
+    public_folder: /images/events
     create: true
     format: yaml-frontmatter
     extension: md
@@ -343,6 +359,10 @@ collections:
         widget: string
         required: false
         i18n: duplicate
+        # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
+        # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
+        # mířilo na neexistující stránku.
+        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
@@ -370,6 +390,12 @@ collections:
     label: Oznámení
     label_singular: Oznámení
     folder: content/announcements
+    # Absolutní cesta, ne dědění globálního nastavení. Bez ní Sveltia nahrála
+    # obrázek do složky podle `path:` vedle .md a do front matteru dala cestu
+    # `<slug>/<soubor>`; `colocated_images` bere jen holé jméno souboru, takže
+    # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
+    media_folder: /content/images/announcements
+    public_folder: /images/announcements
     create: true
     format: yaml-frontmatter
     extension: md
@@ -404,6 +430,12 @@ collections:
     label: Píkošky
     label_singular: Píkošku
     folder: content/curiosities
+    # Absolutní cesta, ne dědění globálního nastavení. Bez ní Sveltia nahrála
+    # obrázek do složky podle `path:` vedle .md a do front matteru dala cestu
+    # `<slug>/<soubor>`; `colocated_images` bere jen holé jméno souboru, takže
+    # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
+    media_folder: /content/images/curiosities
+    public_folder: /images/curiosities
     create: true
     format: yaml-frontmatter
     extension: md
@@ -447,6 +479,12 @@ collections:
     label: Lidé
     label_singular: Osobu
     folder: content/people
+    # Absolutní cesta, ne dědění globálního nastavení. Bez ní Sveltia nahrála
+    # obrázek do složky podle `path:` vedle .md a do front matteru dala cestu
+    # `<slug>/<soubor>`; `colocated_images` bere jen holé jméno souboru, takže
+    # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
+    media_folder: /content/images/brnos-aires-people
+    public_folder: /images/brnos-aires-people
     create: true
     format: yaml-frontmatter
     extension: md

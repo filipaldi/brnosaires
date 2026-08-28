@@ -15,7 +15,7 @@ instructor_slugs:
     - filip-paldia
     - lenka-platenikova
 entry: 1840 CZK (students discount 20%)
-event-url: www.studiostolarna.cz
+event-url: https://www.studiostolarna.cz
 ---
 
 Don't have time to attend regular dance lessons during the week?
