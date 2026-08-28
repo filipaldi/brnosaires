@@ -1,5 +1,5 @@
 ---
-lang: cs
+lang: en
 title: Summer Intensive Tango Workshops 2 - Wednesday
 slug: letni-intenzivni-workshopy-tango2-09-streda
 date: 2026-08-27 20:20:00
@@ -12,12 +12,10 @@ event-end: 2026-09-09 22:15:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-organiser: Taneční studio Stolárna
 instructor_slugs:
-  - filip-paldia
-  - lenka-platenikova
+    - filip-paldia
+    - lenka-platenikova
 entry: 1840 CZK (students discount 20%)
 event-url: www.studiostolarna.cz
-series: ''
-recurrence: ''
 ---
 
 Don't have time to attend regular dance lessons during the week?

@@ -109,6 +109,71 @@ class YamlSafety(unittest.TestCase):
                if line.startswith("\t")]
         self.assertEqual(bad, [], f"tab-indented front matter: {bad[:5]}")
 
+    def test_no_value_is_a_bare_pair_of_quotes(self):
+        # Sveltia writes `series: ''` for an empty optional field. Pelican's
+        # reader does not unquote, so the site gets the two-character string
+        # `''` and renders it as a real value — a link to /series/''. The CMS
+        # is told to leave empty optional fields out entirely
+        # (`omit_empty_optional_fields`), and this keeps it that way.
+        bad = []
+        for path, lines in entries():
+            for offset, line in enumerate(front_matter(lines) or []):
+                match = KEY_LINE.match(line)
+                if match and match.group(2).strip() in ("''", '""'):
+                    bad.append(f"{path}:{offset + 2} -> {match.group(1)}")
+        self.assertEqual(bad, [], f"empty quotes as a value: {bad[:5]}")
+
+
+class Sequences(unittest.TestCase):
+    """A YAML list has to be indented by four spaces, not two.
+
+    Pelican reads metadata with Markdown's `meta` extension, whose
+    continuation pattern is `^[ ]{4,}`. A two-space list item matches neither
+    that nor a `key: value` line, so parsing *stops there* — the remaining
+    keys never become metadata and leak into the page body instead. Sveltia
+    indents by `output.yaml.indent_size`, which is why that option is 4.
+    """
+
+    def test_every_continuation_line_is_indented_four_spaces(self):
+        bad = []
+        for path, lines in entries():
+            for offset, line in enumerate(front_matter(lines) or []):
+                if not line.strip() or KEY_LINE.match(line):
+                    continue
+                if len(line) - len(line.lstrip(" ")) < 4:
+                    bad.append(f"{path}:{offset + 2} -> {line!r}")
+        self.assertEqual(bad, [], f"under-indented front matter: {bad[:5]}")
+
+
+class Language(unittest.TestCase):
+    """`lang:` is what pairs a file with its translation.
+
+    Pelican links `foo.md` and `foo.en.md` by slug plus `lang`. When the
+    English twin claims `lang: cs` both count as originals with the same slug,
+    and the build dies with FileOverwriteFailedError before it writes a single
+    page. The CMS produced exactly that for five entries, because a hidden
+    field can only carry one default — hence `default: '{{locale}}'`.
+    """
+
+    def language(self, lines):
+        for line in front_matter(lines) or []:
+            match = KEY_LINE.match(line)
+            if match and match.group(1) == "lang":
+                return match.group(2).strip()
+        return None
+
+    def test_every_english_entry_says_english(self):
+        bad = [f"{path} -> {self.language(lines)!r}"
+               for path, lines in entries()
+               if path.endswith(".en.md") and self.language(lines) != "en"]
+        self.assertEqual(bad, [], f"English files not declaring lang: en: {bad[:5]}")
+
+    def test_no_other_entry_says_english(self):
+        # The mirror image: a Czech file marked `en` would collide the same way.
+        bad = [path for path, lines in entries()
+               if not path.endswith(".en.md") and self.language(lines) == "en"]
+        self.assertEqual(bad, [], f"Czech files declaring lang: en: {bad[:5]}")
+
 
 if __name__ == "__main__":
     unittest.main()

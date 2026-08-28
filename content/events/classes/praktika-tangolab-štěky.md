@@ -13,8 +13,6 @@ event-location: HEX Gallery, Lidická 63a, Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: 80Kč
-event-url: ''
-series: ''
 recurrence: weekly tuesday
 ---
 

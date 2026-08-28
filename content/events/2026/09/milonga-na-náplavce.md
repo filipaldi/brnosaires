@@ -13,9 +13,6 @@ event-location: HEX Gallery, Lidická 63a, Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: dobrovolné
-event-url: ''
-series: ''
-recurrence: ''
 ---
 
 Nový školní rok začni tancem, setkáním a hezkým večerem u řeky.

@@ -29,9 +29,17 @@ media_folder: content/images
 public_folder: /images
 
 output:
+  # Prázdné nepovinné pole se nezapisuje. Sveltia jinak uloží `series: ''`
+  # a Pelican uvozovky nesundává, takže web dostane dvouznakový řetězec `''`
+  # a udělá z něj skutečnou hodnotu — odkaz na /series/''.
+  omit_empty_optional_fields: true
   yaml:
     quote: none
-    indent_size: 2
+    # NENÍ to kosmetika. Pelican čte metadata rozšířením `meta` z Markdownu
+    # a to pokračuje v hodnotě jen na řádku odsazeném 4+ mezerami. Při 2
+    # se parsování zastaví na první položce seznamu (`instructor_slugs`)
+    # a všechna pole pod ní tiše vypadnou z metadat do těla stránky.
+    indent_size: 4
 
 i18n:
   structure: multiple_files
@@ -75,7 +83,10 @@ collections:
         # and the build dies with FileOverwriteFailedError. Sveltia writes only
         # declared fields, so leaving it out would also strip it from the 28
         # existing .en.md events on their first save.
-        default: cs
+        # `{{locale}}` rather than a literal: a hidden field has one default
+        # for every locale, so `cs` was written into the .en.md twin as well
+        # and brought the build down in exactly the way described above.
+        default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
       - name: slug
@@ -225,7 +236,10 @@ collections:
         # and the build dies with FileOverwriteFailedError. Sveltia writes only
         # declared fields, so leaving it out would also strip it from the 28
         # existing .en.md events on their first save.
-        default: cs
+        # `{{locale}}` rather than a literal: a hidden field has one default
+        # for every locale, so `cs` was written into the .en.md twin as well
+        # and brought the build down in exactly the way described above.
+        default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
       - name: slug
@@ -369,7 +383,10 @@ collections:
         # and the build dies with FileOverwriteFailedError. Sveltia writes only
         # declared fields, so leaving it out would also strip it from the 28
         # existing .en.md events on their first save.
-        default: cs
+        # `{{locale}}` rather than a literal: a hidden field has one default
+        # for every locale, so `cs` was written into the .en.md twin as well
+        # and brought the build down in exactly the way described above.
+        default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', i18n: duplicate }
@@ -403,7 +420,10 @@ collections:
         # and the build dies with FileOverwriteFailedError. Sveltia writes only
         # declared fields, so leaving it out would also strip it from the 28
         # existing .en.md events on their first save.
-        default: cs
+        # `{{locale}}` rather than a literal: a hidden field has one default
+        # for every locale, so `cs` was written into the .en.md twin as well
+        # and brought the build down in exactly the way described above.
+        default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', i18n: duplicate }
@@ -440,7 +460,10 @@ collections:
         # and the build dies with FileOverwriteFailedError. Sveltia writes only
         # declared fields, so leaving it out would also strip it from the 28
         # existing .en.md events on their first save.
-        default: cs
+        # `{{locale}}` rather than a literal: a hidden field has one default
+        # for every locale, so `cs` was written into the .en.md twin as well
+        # and brought the build down in exactly the way described above.
+        default: '{{locale}}'
         i18n: translate
       - { name: title, label: Jméno, widget: string, i18n: true }
       # No `slug` field on purpose. A profile is addressed by its filename,
