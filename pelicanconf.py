@@ -377,7 +377,10 @@ PLUGIN_PATHS = ["plugins"]
 # be rewritten before it runs.
 # people_links must come AFTER i18n_fallback — it writes onto the English
 # clones, and those do not exist until i18n_fallback has synthesized them.
-PLUGINS = ["colocated_images", "feed_one_language", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "people_links", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# title_as_h1 comes after both, for the same reason and one more: a widget can
+# render a heading, so it has to see the body the reader will get. Before
+# llm_ally, whose mirror is built from that body.
+PLUGINS = ["colocated_images", "feed_one_language", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "people_links", "title_as_h1", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",
