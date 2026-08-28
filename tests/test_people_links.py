@@ -66,7 +66,12 @@ class BuiltSite(unittest.TestCase):
     # (rather than asserting "not empty") is what makes a lost pin legible: on
     # the wall clock these pages drift to nothing as their dates pass, and the
     # count says so instead of the assertion merely going false.
-    FILIP_ONE_OFFS = 6   # the six summer workshops still ahead of BUILD_CLOCK
+    #
+    # Filip is now over the cap: nine one-off workshops sit ahead of
+    # BUILD_CLOCK — six from the summer, three added for September — and the
+    # page stops at MAX_EVENTS_PER_PERSON. Taken from the constant rather than
+    # written out, so raising the cap does not need this number changed too.
+    FILIP_ONE_OFFS = people_links.MAX_EVENTS_PER_PERSON
     PAVLA_WEEKLIES = 2   # Tangomania + Tangomania Basic, weekly, open-ended
 
     def test_a_lecturer_page_lists_their_upcoming_dates(self):
