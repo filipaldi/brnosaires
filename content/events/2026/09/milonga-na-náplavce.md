@@ -5,7 +5,7 @@ slug: milonga-naplavka-09-2026
 date: 2026-08-28 19:34:00
 author: Lenka Pláteníková
 description: Léto nekončí, brněnská Náplavka žije. Tentokrát tangem.
-preview_image: milonga-na-náplavce/Baner Náplavka.png
+preview_image: /images/events/2026/2026-09-milonga-naplavka.png
 event-type: milonga
 event-start: 2026-09-01 17:30:00
 event-end: 2026-09-01 20:30:00

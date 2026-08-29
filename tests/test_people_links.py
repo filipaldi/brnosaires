@@ -48,6 +48,14 @@ class Recognition(unittest.TestCase):
 
 
 class BuiltSite(unittest.TestCase):
+    """A profile shows what its body says, and nothing the build added.
+
+    Profiles used to grow a list of upcoming events on their own. It is gone:
+    an author decides what stands on a profile, the same way they decide it on
+    any other page. What is left to check is that the removal is complete —
+    a leftover section would be invisible here and obvious on the live site.
+    """
+
     @classmethod
     def setUpClass(cls):
         import os
@@ -62,42 +70,20 @@ class BuiltSite(unittest.TestCase):
             html = handle.read()
         return self.re.findall(r'<h3 class="event-card__title">([^<]*)</h3>', html)
 
-    # What the fixtures below expect, given the pinned clock. Counting exactly
-    # (rather than asserting "not empty") is what makes a lost pin legible: on
-    # the wall clock these pages drift to nothing as their dates pass, and the
-    # count says so instead of the assertion merely going false.
-    FILIP_ONE_OFFS = 6   # the six summer workshops still ahead of BUILD_CLOCK
-    PAVLA_WEEKLIES = 2   # Tangomania + Tangomania Basic, weekly, open-ended
+    def test_a_profile_lists_no_events_of_its_own(self):
+        # Filip teaches nine events ahead of BUILD_CLOCK and his body mentions
+        # none of them, so anything here came from the build.
+        self.assertEqual(self.cards("filip-paldia"), [],
+                         f"a profile is still generating its own list; clock {BUILD_CLOCK}")
 
-    def test_a_lecturer_page_lists_their_upcoming_dates(self):
-        # Only one-off dated events, so this is the case that rots on a real
-        # clock: it was green until the last of them passed.
-        self.assertEqual(
-            len(self.cards("filip-paldia")), self.FILIP_ONE_OFFS,
-            f"upcoming one-off events changed; the build clock is {BUILD_CLOCK}")
+    def test_the_english_twin_lists_none_either(self):
+        self.assertEqual(self.cards("en/filip-paldia"), [])
 
-    def test_a_weekly_class_counts_as_upcoming(self):
-        # Its event-start is the FIRST session, months in the past. Filtering
-        # on that value hid every class that is actually running.
-        self.assertEqual(
-            len(self.cards("pavla-luzna")), self.PAVLA_WEEKLIES,
-            "a running weekly class did not reach its lecturer's page")
-
-    def test_a_profile_that_teaches_nothing_upcoming_shows_no_section(self):
-        path = self.os.path.join(self.output, "irena-babilonova", "index.html")
-        with open(path, encoding="utf-8") as handle:
-            self.assertNotIn("Nejbližší lekce a workshopy", handle.read())
-
-    def test_the_english_twin_gets_the_same_list(self):
-        cs = self.cards("filip-paldia")
-        en = self.cards("en/filip-paldia")
-        self.assertEqual(len(cs), len(en))
-
-    def test_each_event_appears_once_despite_the_en_mirror(self):
-        cards = self.cards("filip-paldia")
-        self.assertEqual(len(cards), len(set(cards)), f"duplicated: {cards}")
-
-    def test_ordinary_articles_are_untouched(self):
-        path = self.os.path.join(self.output, "2160-objeti", "index.html")
-        with open(path, encoding="utf-8") as handle:
-            self.assertNotIn("Nejbližší lekce a workshopy", handle.read())
+    def test_the_heading_of_the_old_section_is_gone_from_the_site(self):
+        # Both language tables lost the key; this catches a hard-coded copy.
+        for slug in ("filip-paldia", "pavla-luzna", "en/filip-paldia"):
+            path = self.os.path.join(self.output, slug, "index.html")
+            with open(path, encoding="utf-8") as handle:
+                html = handle.read()
+            self.assertNotIn("Nejbližší lekce a workshopy", html, slug)
+            self.assertNotIn("Upcoming classes and workshops", html, slug)

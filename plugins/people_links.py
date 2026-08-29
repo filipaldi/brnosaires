@@ -5,8 +5,7 @@ An event names its teachers exactly once, as a list of `content/people/` slugs:
 
     instructor_slugs: filip-paldia, lenka-platenikova
 
-That single field is both halves of the job. It puts the event on each
-lecturer's own page, and it is where the event header gets the names it prints.
+That field is where the event header gets the names it prints.
 
 WHY A SLUG AND NOT A NAME
 -------------------------
@@ -25,11 +24,13 @@ slug, taken from the profile in the reader's language. article.html joins those
 names with the conjunction from theme/i18n/ and lists them as `Person` entries
 in the event's structured data.
 
-For every person article it sets `article.instructor_events`: the upcoming
-events that name them, soonest first, deduplicated across the /en/ mirror.
-
 DELIBERATELY NOT HERE
 ---------------------
+The other direction, event → profile. A profile used to grow a section of
+"upcoming classes and workshops" on its own, assembled from every event naming
+that person. It is gone on purpose: what a profile shows is the author's call,
+written in the body like any other content, not something the build decides.
+
 Schools. `school:` / `schools:` is the other half of the ticket and it needs an
 answer this repo does not contain — which lecturer belongs to which school, and
 whether one can belong to several. Inventing that would be inventing facts
@@ -58,9 +59,6 @@ class UnknownInstructor(Exception):
 # `content/people/` is an ARTICLE_PATH, so a person is an Article. This is how
 # one is recognised without hard-coding a path.
 PEOPLE_PATH_MARKER = "/people/"
-
-# Events further out than this are not "upcoming", they are a wall of text.
-MAX_EVENTS_PER_PERSON = 8
 
 
 def _is_person(content):
@@ -119,32 +117,6 @@ def instructor_names(instructors, lang):
     # kill the mirror.
     conjunction = table.get(key) or i18n.cs.STRINGS.get(key, key)
     return ", ".join(names[:-1]) + conjunction.replace("\u00a0", " ") + names[-1]
-
-
-def _event_start(content):
-    return (getattr(content, "metadata", None) or {}).get("event-start")
-
-
-def _next_occurrence(event, today):
-    """The next date this event actually happens, as a card-ready Occurrence.
-
-    A weekly class carries the date of its FIRST session in `event-start`, so
-    filtering on that value alone hides every class that started before today —
-    which is every class that is actually running. Expanding the recurrence
-    gives the next real date, and shows it on the card instead of January.
-
-    Returns None when the event is over.
-    """
-    from recurring_events import expand_recurring, _normalize_event
-
-    metadata = getattr(event, "metadata", None) or {}
-    if metadata.get("recurrence") or metadata.get("event-rrule"):
-        horizon = f"{int(today[:4]) + 1}{today[4:]}"
-        occurrences = expand_recurring([event], today, horizon)
-        return occurrences[0] if occurrences else None
-    if str(metadata.get("event-start"))[:10] < today:
-        return None
-    return _normalize_event(event)
 
 
 def _all_articles(generator):
@@ -221,48 +193,9 @@ def _attach_instructors(generator, people):
                           for source_path, slug in sorted(missing))))
 
 
-def _collect_upcoming(generator, people):
-    by_person = {slug: [] for slug in people}
-    now = generator.settings.get("NOW") or generator.context.get("NOW")
-    today = str(now)[:10] if now else "0000-00-00"
-
-    for article in _all_articles(generator):
-        if _is_person(article):
-            continue
-        start = _event_start(article)
-        if start is None:
-            continue
-        for slug in _instructor_slugs(article):
-            # Every slug resolves by now — _attach_instructors stopped the
-            # build otherwise.
-            by_person[slug].append(article)
-
-    linked = 0
-    for slug, events in by_person.items():
-        seen, upcoming = set(), []
-        for event in events:
-            # One event and its /en/ twin are two Articles with one slug; the
-            # person's page should list the date once.
-            if event.slug in seen:
-                continue
-            seen.add(event.slug)
-            occurrence = _next_occurrence(event, today)
-            if occurrence is not None:
-                upcoming.append(occurrence)
-        upcoming.sort(key=lambda o: o.date)
-        for profile in people[slug]:
-            profile.instructor_events = upcoming[:MAX_EVENTS_PER_PERSON]
-        linked += len(upcoming)
-
-    if linked:
-        logger.info("people_links: %d upcoming event(s) linked to %d profile(s)",
-                    linked, sum(1 for e in by_person.values() if e))
-
-
 def _on_articles(generator):
     people = _profiles_by_slug(generator)
     _attach_instructors(generator, people)
-    _collect_upcoming(generator, people)
 
 
 def register():

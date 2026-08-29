@@ -99,7 +99,7 @@ instructor_slugs: filip-paldia, lenka-platenikova
 Co to udělá:
 
 - V **hlavičce akce** se vypíše `title` z profilu, ne zkrácené jméno: „Filip Paldia a Lenka Pláteníková". Každé jméno je odkaz na ten profil. Spojku doplní web sám a podle jazyka stránky — česky `a`, anglicky `and`, takže ji nikam nepíšete.
-- Na **stránce toho lektora** se objeví sekce „Nejbližší lekce a workshopy" s termíny, které učí. U pravidelné lekce se ukáže **nejbližší** termín, ne ten první z ledna.
+Na **stránce lektora** se z toho nedělá nic. Profil ukazuje jen to, co má v těle — akce si tam přidáte sama widgetem, stejně jako na kterékoli jiné stránce. Dřív si profil seznam nejbližších termínů skládal sám; to už neplatí.
 
 Slug, ke kterému neexistuje profil, **shodí build** — v logu GitHub Actions je napsané, který to byl. Je to schválně: jinak by jméno z hlavičky tiše zmizelo a nikdo by si toho nevšiml. Chybí-li někdo v nabídce, **nejdřív mu založte profil v Lidech**, teprve pak ho přidejte k akci. Jinou cestou se jméno do hlavičky nedostane.
 
