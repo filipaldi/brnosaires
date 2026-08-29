@@ -44,8 +44,6 @@ STRINGS = {
     "event_location_label": "Venue",
     # Screen readers otherwise announce the venue link as a bare address.
     "open_in_maps": "Open in maps",
-    "person_upcoming_heading": "Upcoming classes and workshops",
-    "person_upcoming_aria": "Upcoming dates taught by this person",
     "skip_to_content": "Skip to content",
     "copied_status": "Link copied to clipboard",
     # localised event-type words (keyed by the raw event-type metadata value)
