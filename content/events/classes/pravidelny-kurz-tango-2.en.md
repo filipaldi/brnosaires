@@ -21,6 +21,6 @@ recurrence: weekly monday
 ---
 
 Regular course every Monday. For all graduates of the Tango 1 course.
-Teachers Petr Truhlář and Jana Habalová.
+
 It is also possible to pay for individual lessons.
 If you register in advance, you do not need your own partner.

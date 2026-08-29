@@ -21,6 +21,5 @@ recurrence: weekly monday
 ---
 
 Pravidelný kurz každé pondělí. Pro všechny absolventy kurzu Tango 1. 
-Lektoři Petr Truhlář a Jana Habalová. 
 Je možné si zaplatit i jednotlivé lekce. 
 Když se registruješ předem, nepotřebuješ vlastního partnera.
