@@ -13,8 +13,8 @@ event-street: Olomoucká 14
 event-locality: Brno
 event-organiser: Taneční studio Stolárna
 instructor_slugs:
-    - lenka-platenikova
-    - filip-paldia
+    - jana-habalova
+    - petr-truhlar
 entry: 1920 Kč/8 lekcí
 event-url: https://www.sportimea.com/cs/event/965143?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
 recurrence: weekly monday
