@@ -136,6 +136,71 @@ class Place(unittest.TestCase):
                                      f"{field} is back on a fixed list of options")
 
 
+class Slug(unittest.TestCase):
+    """The URL is decided once, at creation, and never by hand.
+
+    A slug typed into a form is a URL typed into a form: a diacritic or a
+    capital makes an ugly address, and editing it later moves a page that is
+    already linked from elsewhere. So nobody has to fill it in — it is optional
+    and stands last, under the body, where it can be ignored. A new entry
+    leaves it empty, the empty optional field is not written, and Pelican falls
+    back to the filename (`SLUGIFY_SOURCE = "basename"`), which Sveltia writes
+    once at creation from the collection's slug template and never rewrites
+    when the title is corrected later.
+
+    Filling it in still wins, and that is the escape hatch: someone who knows
+    what they are doing sets the address by hand. The field also has to stay
+    *declared* even though it is meant to be left blank — Sveltia writes only
+    the fields a collection declares, so removing it would strip `slug:` from
+    the 178 files that carry one the moment their author saves them, and every
+    one of those pages would move.
+    """
+
+    def test_nobody_has_to_fill_the_slug_in(self):
+        bad = [f"config.yml:{number}" for number, block in field_blocks("slug")
+               if not any(re.match(r"^\s*required:\s*false\s*$", line) for line in block)]
+        self.assertEqual(bad, [], f"slug is a required field: {bad}")
+
+    def test_the_slug_stands_last_so_it_can_be_ignored(self):
+        # Under the body, out of the path an editor takes through the form.
+        collection = None
+        last_field = {}
+        for line in lines():
+            match = re.match(r"^  - name: (\S+)\s*$", line)
+            if match:
+                collection = match.group(1)
+                continue
+            match = re.match(r"^      - \{?\s*name: ([\w-]+)", line)
+            if match and collection:
+                last_field[collection] = match.group(1)
+        # The two event collections are the ones that declare a slug at all.
+        bad = [f"{name}: last field is {last_field.get(name)}"
+               for name in ("events", "classes") if last_field.get(name) != "slug"]
+        self.assertEqual(bad, [], f"slug is not the last field: {bad}")
+
+    def test_the_slug_field_is_still_declared_where_it_was(self):
+        # Undeclared means erased on save. Both event collections carry files
+        # with a hand-written slug, so both have to keep declaring it.
+        self.assertEqual(len(list(field_blocks("slug"))), 2,
+                         "a collection stopped declaring slug; its files would lose theirs")
+
+    def test_a_new_entry_gets_its_url_from_a_template(self):
+        # Without one the filename is the bare title, and two milongas of the
+        # same name in different months would claim one address.
+        templates = [line for line in lines() if re.match(r"^    slug:\s*\S", line)]
+        self.assertEqual(len(templates), 2, f"expected a slug template per event collection: {templates}")
+        self.assertTrue(any("event-start" in line for line in templates),
+                        "the events template must include the date, or same-named events collide")
+
+    def test_generated_slugs_are_ascii(self):
+        # Otherwise the address reads /milonga-na-náplavce/ — the filenames in
+        # the repo already look like that, they are just overridden today.
+        self.assertTrue(any(re.match(r"^\s*encoding:\s*ascii\s*$", line) for line in lines()),
+                        "slug.encoding must be ascii")
+        self.assertTrue(any(re.match(r"^\s*clean_accents:\s*true\s*$", line) for line in lines()),
+                        "slug.clean_accents must be true")
+
+
 class Recurrence(unittest.TestCase):
     """One file with `recurrence:` becomes many pages, so its grammar is load-bearing."""
 

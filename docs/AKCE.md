@@ -34,7 +34,8 @@ Zkopíruj celý blok, smaž řádky, které nepotřebuješ, vyplň hodnoty:
 ```yaml
 ---
 title: Milonga u Draka
-slug: 2026-05-16-milonga-u-draka       # v URL: brnosaires.com/<slug>/
+slug: 2026-05-16-milonga-u-draka       # NEPOVINNÉ — bez něj se adresa vezme
+                                       # ze jména souboru
 date: 2026-04-10 18:00:00              # datum PUBLIKACE, NE datum akce
 author: Tvé jméno
 description: Krátký popis (do ~200 znaků) pro Google a náhled na sítích.
@@ -76,7 +77,7 @@ Hlavička výše tohle neřeší — název souboru si musíš ohlídat sám. **
 | Řádek | Na co si dát pozor |
 |---|---|
 | `date:` | Datum, kdy soubor **publikuješ**, ne kdy je akce. Datum akce patří jen do `event-start`. Formát `RRRR-MM-DD HH:MM:SS`. Datum v budoucnu = stránka se nezobrazí ve správném pořadí. |
-| `slug:` | Unikátní, bez diakritiky, malými písmeny s pomlčkami. Dva soubory se stejným slugem se při buildu přepíšou — jeden tiše zmizí. |
+| `slug:` | **Nepovinné.** Bez něj se adresa vezme ze jména souboru, které formulář vyrobí z názvu — to je běžný případ. Když ho vyplníš: unikátní, bez diakritiky, malými písmeny s pomlčkami. Dva soubory se stejnou adresou se při buildu přepíšou, jeden tiše zmizí. |
 | `event-end:` | Vždy vyplněné. Půlnoc piš jako `00:00:00` **dalšího dne** (`2026-05-17 00:00:00`), nikdy `24:00:00` — to Python neumí a akce se nepublikuje. |
 | `event-type:` | Musí sedět druh akce — viz krok 4. |
 
@@ -240,7 +241,7 @@ Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../cont
 | Čas pravidelné lekce | `event-start`, `event-end` | Změní se na **všech** termínech. |
 | Den pravidelné lekce | `event-start` **i** `recurrence` | Musíš změnit **oba** — datum v `event-start` posuň na nový den a uprav `recurrence: weekly <den>`. Změna jen jednoho je nejčastější chyba. |
 
-Co **neměnit**, pokud nechceš změnit URL: `slug:`. Změna slugu = nová URL, stará přestane fungovat (rozbité odkazy, ztracené SEO).
+Co **neměnit**, pokud nechceš změnit URL: `slug:` a jméno souboru. Obojí určuje adresu — jméno souboru tehdy, když `slug:` chybí. Změna = nová URL, stará přestane fungovat (rozbité odkazy, ztracené SEO). Opravit název akce je bezpečné: adresu to nehne.
 
 Po úpravě commitni stejně jako u nové akce (krok 5). Pokud se změna neprojeví, projdi [Akce se neobjevila?](#akce-se-neobjevila-pět-nejčastějších-důvodů) výše.
 
