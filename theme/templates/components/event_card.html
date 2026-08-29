@@ -13,7 +13,7 @@
   {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
   {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
   {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
-  {% set event_location = event.metadata.get('event-location') if event.metadata else none %}
+  {% set event_location = (event.metadata | event_place).line if event.metadata else none %}
   {% set event_entry = event.metadata.get('entry') if event.metadata else none %}
   {% if event_start %}
     <p class="event-card__date">{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>

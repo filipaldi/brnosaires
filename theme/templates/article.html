@@ -25,10 +25,12 @@
        though no event in the repo has three teachers to exercise it. #}
     {% set instructors = article.instructors or [] %}
     {% set event_organiser = meta.get('event-organiser') %}
-    {% set event_location = meta.get('event-location') %}
+    {# Venue, street and locality are three fields; `event_place` reads them
+       into the schema.org shape plus `.line`, the one string a reader sees. #}
+    {% set _la = meta | event_place %}
     {% set event_entry = meta.get('entry') %}
     {% set event_url = meta.get('event-url') %}
-    {% if event_type or event_start or event_end or instructors or event_organiser or event_location or event_entry or event_url %}
+    {% if event_type or event_start or event_end or instructors or event_organiser or _la.line or event_entry or event_url %}
     {# localised event-type word; falls back to the raw value when no i18n key exists #}
     {% set _type_key = 'event_type_' ~ (event_type | string | lower) %}
     {% set _type_word = _type_key | t(page_lang) %}
@@ -51,7 +53,7 @@
         <dt>{{ 'event_organiser_label' | t(page_lang) }}</dt>
         <dd>{{ event_organiser }}</dd>
         {% endif %}
-        {% if event_location %}
+        {% if _la.line %}
         {# The address opens a map. OpenStreetMap on purpose: it is the only
            target that is provider-neutral and works on iOS, Android and
            desktop alike. A bare `geo:` URI would be the nicer hand-off to a
@@ -59,8 +61,7 @@
            device most likely to be tapping this — it is a dead link.
            The query drops the venue name when a street is known: Nominatim
            pins a street reliably, a venue name only if someone mapped it. #}
-        {% set _la = event_location | event_address %}
-        {% set _map_q = (_la.streetAddress ~ ', ' ~ (_la.addressLocality or 'Brno')) if _la.streetAddress else event_location %}
+        {% set _map_q = (_la.streetAddress ~ ', ' ~ (_la.addressLocality or 'Brno')) if _la.streetAddress else _la.line %}
         <dt>{{ 'event_location_label' | t(page_lang) }}</dt>
         {# No venue name and no street means the value is a bare locality, and
            the link would just drop the visitor on the whole city — a promise
@@ -68,9 +69,9 @@
         {% if _la.name or _la.streetAddress %}
         <dd><a href="https://www.openstreetmap.org/search?query={{ (_map_q ~ ', Czechia') | urlencode }}"
                target="_blank" rel="noopener"
-               aria-label="{{ 'open_in_maps' | t(page_lang) }}: {{ event_location | e }}">{{ event_location | e }}</a></dd>
+               aria-label="{{ 'open_in_maps' | t(page_lang) }}: {{ _la.line | e }}">{{ _la.line | e }}</a></dd>
         {% else %}
-        <dd>{{ event_location | e }}</dd>
+        <dd>{{ _la.line | e }}</dd>
         {% endif %}
         {% endif %}
         {% if event_entry %}
@@ -121,7 +122,7 @@
 {% if event_start %}
 {# url/@id follow the same canonical rule as base.html: a series instance points at its hub. #}
 {% set _ld_url = _hub.url if _hub.url else article.url %}
-{% set _addr = event_location | event_address %}
+{% set _addr = meta | event_place %}
 {% set _entry = meta.get('entry') %}
 {% set _free = _entry and (_entry | string | lower | trim) in ('zdarma', 'free', '0', '0 kč', 'dobrovolné', 'dobrovolne') %}
 <script type="application/ld+json">
@@ -135,7 +136,7 @@
   {% if event_end %}"endDate": "{{ event_end | event_iso8601 }}",{% endif %}
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  {% if event_location %}"location": {
+  {% if _addr.line %}"location": {
     "@type": "Place",
     {% if _addr.name %}"name": {{ _addr.name | tojson }},
     {% endif %}{% if _addr.streetAddress or _addr.addressLocality %}"address": {
@@ -143,7 +144,7 @@
       {% if _addr.streetAddress %}"streetAddress": {{ _addr.streetAddress | tojson }},
       {% endif %}"addressLocality": {{ (_addr.addressLocality or 'Brno') | tojson }},
       "addressCountry": "CZ"
-    }{% else %}"address": {{ event_location | tojson }}{% endif %}
+    }{% else %}"address": {{ _addr.line | tojson }}{% endif %}
   },
   {% endif %}{% if event_organiser %}"organizer": {"@type": "Organization", "name": {{ event_organiser | tojson }}},
   {% endif %}

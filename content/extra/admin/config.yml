@@ -139,35 +139,30 @@ collections:
         format: YYYY-MM-DD HH:mm:ss
         i18n: duplicate
         hint: Půlnoc piš jako 00:00:00 dalšího dne.
-      - name: event-location
-        label: Místo
-        widget: select
+      # Místo bylo jedno pole, „Podnik, Ulice, Brno-Čtvrť", a adresa se z něj
+      # louskala podle čárek. Tvar toho řetězce tak nesl celou váhu: bez čárky
+      # vznikl podnik bez adresy a nikdo se to nedozvěděl. Aby byl tvar jistý,
+      # nabízel se zamčený seznam dvaceti míst — a akce na jednadvacátém tím
+      # pádem nešla založit vůbec. Tři pole to řeší obojí naráz: nic se
+      # neparsuje a nic nemusí být na seznamu.
+      - name: event-venue
+        label: Podnik nebo sál
+        widget: string
+        required: false
         i18n: duplicate
-        # Kanonický seznam míst. Volný text tady nejde zadat schválně —
-        # `event_address()` v pelicanconf.py z téhle věty skládá schema.org
-        # adresu podle čárek a odchylka od tvaru „Podnik, Ulice, Brno-Čtvrť"
-        # tiše degraduje strukturovaná data. Nové místo přidej sem.
-        options:
-          - Adrinela Cafe, Životského 14, Brno-Židenice
-          - Café Paměti národa, Radnická 10, Brno
-          - Dělnický dům, Jamborova 65, Brno
-          - Domini Park, Husova 14, Brno
-          - HEX Gallery, Lidická 63a, Brno
-          - i.D Yoga, Poštovská 3, Brno
-          - Kancelář ombudsmana (předsálí), Údolní 39, Brno
-          - Kavárna Hned vedle, Radnická 10, Brno
-          - Park Anthropos, Pisárecká 5, Brno
-          - Park Moravské náměstí, Brno
-          - Pavilon Anthropos, Pisárecká 5, Brno
-          - Rockwine, Vídeňská 18, Brno
-          - Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
-          - Skleněnka, Kounicova 23, Brno
-          - Škola Danza, Okružní 1, Brno
-          - Společenský sál na Staré radnici, Dominikánská 264/2, Brno-město
-          - Stará radnice, Radnická 8, Brno
-          - Střecha Vaňkovky, Brno
-          - Taneční studio Stolárna, Olomoucká 14, Brno
-          - Vlněna, Přízova 216/18, Brno
+        hint: 'Např. „HEX Gallery". Nech prázdné, když se koná prostě „v Brně".'
+      - name: event-street
+        label: Ulice a číslo
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: 'Např. „Lidická 63a". Bez ulice se místo ukáže, ale neodkáže na mapu.'
+      - name: event-locality
+        label: Obec nebo čtvrť
+        widget: string
+        default: Brno
+        i18n: duplicate
+        hint: 'Např. „Brno" nebo „Brno-Židenice".'
       - name: event-organiser
         label: Pořadatel
         widget: string
@@ -182,8 +177,8 @@ collections:
         i18n: duplicate
         hint: >-
           Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
-          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
-          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
+          jak ho má profil, a odkáže na něj. Kdo v nabídce chybí, musí nejdřív
+          dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string
@@ -215,6 +210,7 @@ collections:
           Jen u pravidelných lekcí. Tvar „weekly monday" nebo „monthly 1 sunday",
           volitelně + „from 2026-09-07", „until 2026-12-16" nebo „count 10".
           JEDEN soubor pokryje všechny termíny — nezakládej je ručně.
+        pattern: ['^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
       - name: body
         label: Text
         widget: markdown
@@ -303,35 +299,30 @@ collections:
         format: YYYY-MM-DD HH:mm:ss
         i18n: duplicate
         hint: Půlnoc piš jako 00:00:00 dalšího dne.
-      - name: event-location
-        label: Místo
-        widget: select
+      # Místo bylo jedno pole, „Podnik, Ulice, Brno-Čtvrť", a adresa se z něj
+      # louskala podle čárek. Tvar toho řetězce tak nesl celou váhu: bez čárky
+      # vznikl podnik bez adresy a nikdo se to nedozvěděl. Aby byl tvar jistý,
+      # nabízel se zamčený seznam dvaceti míst — a akce na jednadvacátém tím
+      # pádem nešla založit vůbec. Tři pole to řeší obojí naráz: nic se
+      # neparsuje a nic nemusí být na seznamu.
+      - name: event-venue
+        label: Podnik nebo sál
+        widget: string
+        required: false
         i18n: duplicate
-        # Kanonický seznam míst. Volný text tady nejde zadat schválně —
-        # `event_address()` v pelicanconf.py z téhle věty skládá schema.org
-        # adresu podle čárek a odchylka od tvaru „Podnik, Ulice, Brno-Čtvrť"
-        # tiše degraduje strukturovaná data. Nové místo přidej sem.
-        options:
-          - Adrinela Cafe, Životského 14, Brno-Židenice
-          - Café Paměti národa, Radnická 10, Brno
-          - Dělnický dům, Jamborova 65, Brno
-          - Domini Park, Husova 14, Brno
-          - HEX Gallery, Lidická 63a, Brno
-          - i.D Yoga, Poštovská 3, Brno
-          - Kancelář ombudsmana (předsálí), Údolní 39, Brno
-          - Kavárna Hned vedle, Radnická 10, Brno
-          - Park Anthropos, Pisárecká 5, Brno
-          - Park Moravské náměstí, Brno
-          - Pavilon Anthropos, Pisárecká 5, Brno
-          - Rockwine, Vídeňská 18, Brno
-          - Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
-          - Skleněnka, Kounicova 23, Brno
-          - Škola Danza, Okružní 1, Brno
-          - Společenský sál na Staré radnici, Dominikánská 264/2, Brno-město
-          - Stará radnice, Radnická 8, Brno
-          - Střecha Vaňkovky, Brno
-          - Taneční studio Stolárna, Olomoucká 14, Brno
-          - Vlněna, Přízova 216/18, Brno
+        hint: 'Např. „HEX Gallery". Nech prázdné, když se koná prostě „v Brně".'
+      - name: event-street
+        label: Ulice a číslo
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: 'Např. „Lidická 63a". Bez ulice se místo ukáže, ale neodkáže na mapu.'
+      - name: event-locality
+        label: Obec nebo čtvrť
+        widget: string
+        default: Brno
+        i18n: duplicate
+        hint: 'Např. „Brno" nebo „Brno-Židenice".'
       - name: event-organiser
         label: Pořadatel
         widget: string
@@ -346,8 +337,8 @@ collections:
         i18n: duplicate
         hint: >-
           Vyber z profilů v Lidé. Jméno v hlavičce akce se vypíše přesně tak,
-          jak ho má profil, a akce se zároveň objeví na stránce toho lektora.
-          Kdo v nabídce chybí, musí nejdřív dostat profil v Lidech.
+          jak ho má profil, a odkáže na něj. Kdo v nabídce chybí, musí nejdřív
+          dostat profil v Lidech.
       - name: entry
         label: Vstupné
         widget: string

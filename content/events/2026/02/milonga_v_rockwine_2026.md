@@ -5,7 +5,9 @@ date: 2026-02-12 19:00:00
 event-type: milonga
 event-start: 2026-02-12 19:00:00
 event-end: 2026-02-12 22:00:00
-event-location: Rockwine, Vídeňská 18, Brno
+event-venue: Rockwine
+event-street: Vídeňská 18
+event-locality: Brno
 series: milonga-rockwine
 preview_image: /images/rockwine-kveten-2025-6.avif
 description: Únorová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.

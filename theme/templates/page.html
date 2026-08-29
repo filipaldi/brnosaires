@@ -74,9 +74,8 @@
         {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
         {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
         {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
-        {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
-        {% set _la = _loc | event_address %}
-        {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+                {% set _la = event.metadata | event_place %}
+        {% if _la.line %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _la.line | tojson }}{% endif %}},{% endif %}
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
         "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
@@ -157,9 +156,8 @@
       {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
       {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
       {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
-      {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
-      {% set _la = _loc | event_address %}
-      {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+            {% set _la = event.metadata | event_place %}
+      {% if _la.line %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _la.line | tojson }}{% endif %}},{% endif %}
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
       "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}
@@ -191,9 +189,8 @@
         {% set _ee = event.metadata.get('event-end') if event.metadata else none %}
         {% if _es %}"startDate": "{{ _es | event_iso8601 }}",{% endif %}
         {% if _ee %}"endDate": "{{ _ee | event_iso8601 }}",{% endif %}
-        {% set _loc = event.metadata.get('event-location') if event.metadata else none %}
-        {% set _la = _loc | event_address %}
-        {% if _loc %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _loc | tojson }}{% endif %}},{% endif %}
+                {% set _la = event.metadata | event_place %}
+        {% if _la.line %}"location": {"@type": "Place"{% if _la.name %}, "name": {{ _la.name | tojson }}{% endif %}{% if _la.streetAddress or _la.addressLocality %}, "address": {"@type": "PostalAddress"{% if _la.streetAddress %}, "streetAddress": {{ _la.streetAddress | tojson }}{% endif %}, "addressLocality": {{ (_la.addressLocality or 'Brno') | tojson }}, "addressCountry": "CZ"}{% else %}, "address": {{ _la.line | tojson }}{% endif %}},{% endif %}
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"{% if SITEURL %},
         "url": "{{ SITEURL }}/{{ event.url }}"{% endif %}

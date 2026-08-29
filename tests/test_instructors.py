@@ -299,7 +299,9 @@ class UnknownSlug(unittest.TestCase):
                     f"instructor_slugs: {self.BOGUS}\n"
                     "event-start: 2026-09-10 19:00:00\n"
                     "event-type: workshop\n"
-                    "event-location: Taneční studio Stolárna, Olomoucká 14, Brno\n"
+                    "event-venue: Taneční studio Stolárna\n"
+                    "event-street: Olomoucká 14\n"
+                    "event-locality: Brno\n"
                     "---\n\n# Akce s neznámým lektorem\n\nTělo.\n")
             result = subprocess.run(
                 [sys.executable, "-m", "pelican", content,

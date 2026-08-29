@@ -22,16 +22,16 @@
 {%- if parts | length == 2 and parts[0] | lower == 'weekly' -%}
 {%- set weekday = parts[1] | capitalize -%}
 {%- set time_str = event.date.strftime('%H:%M') if event.date else '' -%}
-- weekly {{ weekday }} {{ time_str }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+- weekly {{ weekday }} {{ time_str }} — {{ event.title }}{% if event.metadata and (event.metadata | event_place).line %} — {{ (event.metadata | event_place).line }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
 {% elif rec -%}
-- {{ rec }} {{ event.date.strftime('%H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+- {{ rec }} {{ event.date.strftime('%H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and (event.metadata | event_place).line %} — {{ (event.metadata | event_place).line }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
 {% else -%}
-- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and (event.metadata | event_place).line %} — {{ (event.metadata | event_place).line }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
 {% endif -%}
 {%- endif -%}
 {%- endfor -%}
 {%- else -%}
 {%- for event in display_events %}
-- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and event.metadata.get('event-location') %} — {{ event.metadata.get('event-location') }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
+- {{ event.date.strftime('%Y-%m-%d %H:%M') if event.date else '' }} — {{ event.title }}{% if event.metadata and (event.metadata | event_place).line %} — {{ (event.metadata | event_place).line }}{% endif %} ({{ siteurl.rstrip('/') }}/{{ event.slug }}/)
 {% endfor -%}
 {%- endif -%}

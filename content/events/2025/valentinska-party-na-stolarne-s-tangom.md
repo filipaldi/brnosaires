@@ -8,7 +8,9 @@ event-end: 2026-02-14 23:00:00
 preview_image: /images/photo_2026-01-08_20.54.24.avif
 description: Valentýnská párty na Stolárně s tangem. Únor 2026, Olomoucká 14.
 author: Filip Paldia
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 ---
 
 # Valentínska párty na stolárne s tangom

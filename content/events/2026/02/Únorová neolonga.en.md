@@ -6,7 +6,9 @@ lang: en
 event-type: milonga
 event-start: 2026-02-28 19:00:00
 event-end: 2026-02-28 23:30:00
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 series: neolonga-na-stolarne
 preview_image: /images/events/2026/neolonga.avif
 description: Another edition of the Stolárna neolonga. Discover what resonates with you. Explore the limits of your musicality. DJ David.

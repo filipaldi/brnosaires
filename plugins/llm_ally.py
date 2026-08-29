@@ -42,7 +42,8 @@ _PELICAN_HEADER_RE = re.compile(r"\A([A-Za-z][A-Za-z0-9_-]*:\s.*\n)+\n", re.MULT
 INSTRUCTOR_FIELD = "instructor"
 
 EVENT_FRONTMATTER_FIELDS = (
-    "event-type", "event-start", "event-end", "event-location",
+    "event-type", "event-start", "event-end",
+    "event-venue", "event-street", "event-locality",
     "event-organiser", INSTRUCTOR_FIELD, "recurrence", "series",
     "event-url",
 )

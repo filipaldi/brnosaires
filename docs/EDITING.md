@@ -65,7 +65,9 @@ preview_image: /images/.../nahled.jpg   # 1200×630; OG, Twitter, kalendář
 event-type: milonga                # milonga | workshop | class | praktika | neolonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 22:30:00     # půlnoc = další den 00:00:00, NIKDY 24:00:00
-event-location: Stará radnice, Radnická 8, Brno
+event-venue: Stará radnice            # podnik nebo sál
+event-street: Radnická 8              # ulice a číslo
+event-locality: Brno                  # obec nebo čtvrť
 
 # ─── VOLITELNÉ PRO AKCE ───
 event-organiser: Brno Tango Club   # kdo akci pořádá
@@ -99,7 +101,7 @@ instructor_slugs: filip-paldia, lenka-platenikova
 Co to udělá:
 
 - V **hlavičce akce** se vypíše `title` z profilu, ne zkrácené jméno: „Filip Paldia a Lenka Pláteníková". Každé jméno je odkaz na ten profil. Spojku doplní web sám a podle jazyka stránky — česky `a`, anglicky `and`, takže ji nikam nepíšete.
-Na **stránce lektora** se z toho nedělá nic. Profil ukazuje jen to, co má v těle — akce si tam přidáte sama widgetem, stejně jako na kterékoli jiné stránce. Dřív si profil seznam nejbližších termínů skládal sám; to už neplatí.
+- Na **stránce lektora** se z toho nedělá nic. Profil ukazuje jen to, co má v těle — akce si tam přidáte sama widgetem, stejně jako na kterékoli jiné stránce. Dřív si profil seznam nejbližších termínů skládal sám; to už neplatí.
 
 Slug, ke kterému neexistuje profil, **shodí build** — v logu GitHub Actions je napsané, který to byl. Je to schválně: jinak by jméno z hlavičky tiše zmizelo a nikdo by si toho nevšiml. Chybí-li někdo v nabídce, **nejdřív mu založte profil v Lidech**, teprve pak ho přidejte k akci. Jinou cestou se jméno do hlavičky nedostane.
 
@@ -111,7 +113,7 @@ Slug, ke kterému neexistuje profil, **shodí build** — v logu GitHub Actions 
 | `description` | Snippetu ve výsledku Googlu, popisu náhledu na sociálních sítích (pokud nenastavíte, použije se prvních ~50 slov těla) |
 | `preview_image` | Kartičce akce/článku na webu, náhledu na Facebooku/iMessage/Slacku, velké kartičce na Twitteru/X |
 | `event-start` + `event-end` | Kalendáři (`/kalendar/`), hlavičce detailu akce, Google Event rich-result snippetu, `.ics` feedu |
-| `event-location` | Hlavičce detailu akce, Google Event rich-result `location.address` |
+| `event-venue` + `event-street` + `event-locality` | Hlavičce detailu akce, Google Event rich-result `location.address` |
 | `entry` | Hlavičce detailu akce („Vstupné: …"), kartě akce v kalendáři, Google Event rich-result `offers.price`/`isAccessibleForFree` |
 | `series:` | Kanonická URL ukazuje na hub, odznak „Součást pravidelné série", seznam „Nejbližší termíny série" na hubu |
 | `date` | Pořadím ve feedu „co je nového" (viz níže) — u akcí je to datum konání, ne datum napsání |

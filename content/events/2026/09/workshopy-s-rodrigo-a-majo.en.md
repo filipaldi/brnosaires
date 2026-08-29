@@ -9,7 +9,9 @@ preview_image: Rodrigo_Majo_workshopy.avif
 event-type: workshop
 event-start: 2026-09-19 13:00:00
 event-end: 2026-09-20 17:30:00
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 event-organiser: Pavla Lužná
 instructor_slugs: rodrigo-fonti, majo-martirena
 entry: 3200 CZK/135 euro

@@ -6,6 +6,9 @@ import re
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from recurring_events import _recurrence_to_rrule as recurrence_to_rrule
+# The same reading of the three place fields the templates get through the
+# `event_place` filter — LOCATION here has to say what the page says.
+from event_place import place
 from . import config
 from . import dates
 from . import filter as filter_module
@@ -189,7 +192,7 @@ def build_ics(events, siteurl, timezone_name=None):
             uid = f"{uid}@{netloc}"
         summary = _ics_escape(getattr(event, "title", "") or "Event")
         desc = _ics_escape(meta.get("description") or getattr(event, "summary", "") or "")
-        location = _ics_escape(meta.get("event-location") or "")
+        location = _ics_escape(place(meta).get("line", ""))
         url = (siteurl or "").rstrip("/") + "/" + (getattr(event, "slug", "") or "").strip("/") + "/"
         if url and url != "/":
             url = _ics_escape(url)
