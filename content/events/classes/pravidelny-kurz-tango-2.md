@@ -1,6 +1,6 @@
 ---
 lang: cs
-title: Pravidelný kurz - Tango 2
+title: Kurz Tango 2
 date: 2026-08-29 19:41:00
 author: Lenka Pláteníková
 description: Pravidelný kurz pro absolventy kurzu Tango 1. s Petrem a Janou.
@@ -21,5 +21,6 @@ recurrence: weekly monday
 ---
 
 Pravidelný kurz každé pondělí. Pro všechny absolventy kurzu Tango 1. 
+Lektoři Petr Truhlář a Jana Habalová. 
 Je možné si zaplatit i jednotlivé lekce. 
 Když se registruješ předem, nepotřebuješ vlastního partnera.
