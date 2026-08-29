@@ -1,7 +1,6 @@
 ---
 lang: cs
 title: Milonga na Náplavce
-slug: milonga-naplavka-09-2026
 date: 2026-08-28 19:34:00
 author: Lenka Pláteníková
 description: Léto nekončí, brněnská Náplavka žije. Tentokrát tangem.
@@ -9,12 +8,12 @@ preview_image: /images/events/2026/2026-09-milonga-naplavka.png
 event-type: milonga
 event-start: 2026-09-01 17:30:00
 event-end: 2026-09-01 20:30:00
-event-venue: HEX Gallery
-event-street: Lidická 63a
+event-venue: Brněnská Náplavka
+event-street: Rullerovo nábřeží
 event-locality: Brno
 event-organiser: TangoLab Štěky
-instructor_slugs: []
 entry: dobrovolné
+slug: milonga-naplavka-09-2026
 ---
 
 Nový školní rok začni tancem, setkáním a hezkým večerem u řeky.
