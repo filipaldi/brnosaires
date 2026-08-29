@@ -8,7 +8,9 @@ event-end: 2025-12-11 23:00:00
 preview_image: /images/milonga-hned-vedle.avif
 description: Milonga v kavárně Hned vedle. Centrum Brna, u Staré radnice, 1. patro. DJ Zsofie.
 author: Filip Paldia
-event-location: Kavárna Hned vedle, Radnická 10, Brno
+event-venue: Kavárna Hned vedle
+event-street: Radnická 10
+event-locality: Brno
 ---
 
 # Milonga v kavárně Hned vedle (dříve Paměti národa)

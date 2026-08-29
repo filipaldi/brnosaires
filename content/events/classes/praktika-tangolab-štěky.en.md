@@ -9,7 +9,9 @@ preview_image: /images/Baner HEX praktika.png
 event-type: praktika
 event-start: 2026-09-15 19:00:00
 event-end: 2026-09-15 21:00:00
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: 80 CZK

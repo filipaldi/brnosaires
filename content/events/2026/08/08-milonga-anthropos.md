@@ -8,7 +8,9 @@ preview_image: /images/unnamed/anthropos_altanek.avif
 event-type: milonga                    
 event-start: 2026-08-07 18:00:00
 event-end: 2026-08-07 22:00:00         
-event-location: Park Anthropos, Pisárecká 5, Brno
+event-venue: Park Anthropos
+event-street: Pisárecká 5
+event-locality: Brno
 event-organiser: Taneční studio Stolárna
 ---
 

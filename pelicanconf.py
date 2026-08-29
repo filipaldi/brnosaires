@@ -288,36 +288,6 @@ def event_iso8601(value):
     return tz.localize(dt).isoformat()
 
 
-def event_address(value):
-    """Parse a canonical 'Venue, Street, Brno-District' event-location string into a
-    schema.org address dict. Degrades gracefully — never returns a half-built PostalAddress:
-
-      "Adrinela Cafe, Životského 14, Brno-Židenice"
-        -> {"name": "Adrinela Cafe", "streetAddress": "Životského 14", "addressLocality": "Brno-Židenice"}
-      "Sono Centrum, Brno"        -> {"name": "Sono Centrum", "addressLocality": "Brno"}   # 2 parts: venue + locality
-      "Brno"                      -> {"addressLocality": "Brno"}                              # bare locality floor
-      "Nějaký sál"                -> {"name": "Nějaký sál"}                                   # bare venue, no address
-      None / ""                   -> {}
-
-    article.html turns the dict into a Place (`name`) wrapping a PostalAddress
-    (`streetAddress`/`addressLocality`), or just one of them, whatever is present.
-    `addressCountry` ("CZ") is added by the template, not here.
-    """
-    if value is None:
-        return {}
-    parts = [p.strip() for p in str(value).split(",") if p.strip()]
-    if not parts:
-        return {}
-    if len(parts) == 1:
-        only = parts[0]
-        # A bare "Brno" / "Brno-District" is a locality, not a venue name.
-        return {"addressLocality": only} if only == "Brno" or only.startswith("Brno-") or only.startswith("Brno ") else {"name": only}
-    if len(parts) == 2:
-        return {"name": parts[0], "addressLocality": parts[1]}
-    # 3+ parts: name, then everything-but-last is the street, last is the locality.
-    return {"name": parts[0], "streetAddress": ", ".join(parts[1:-1]), "addressLocality": parts[-1]}
-
-
 _TAG_RE = re.compile(r"<[^>]+>")
 _FAQ_PAIR_RE = re.compile(
     r"<p>\s*<strong>(.*?)</strong>\s*(.*?)</p>", re.S | re.I
@@ -352,6 +322,9 @@ from calendarium.attrs import parse_widget_attrs
 from recurring_events import expand_recurring, date_add
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images
+# Not a plugin — a shared reading of the three place fields, used here
+# for the templates and directly by calendarium/ics.py.
+from event_place import place as event_place
 from theme.i18n import cs as _i18n_cs, en as _i18n_en
 
 # Per-language UI string tables. `t(key, lang)` is the template helper:
@@ -365,7 +338,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_address": event_address, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body

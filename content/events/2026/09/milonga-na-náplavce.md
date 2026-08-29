@@ -9,7 +9,9 @@ preview_image: /images/events/2026/2026-09-milonga-naplavka.png
 event-type: milonga
 event-start: 2026-09-01 17:30:00
 event-end: 2026-09-01 20:30:00
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: dobrovolné

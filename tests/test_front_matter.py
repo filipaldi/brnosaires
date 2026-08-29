@@ -173,6 +173,38 @@ class References(unittest.TestCase):
         self.assertEqual(bad, [], f"external links without https://: {bad[:5]}")
 
 
+class Place(unittest.TestCase):
+    """The address is three fields, and none of them is parsed.
+
+    `event-location` held "HEX Gallery, Lidická 63a, Brno" and the address was
+    recovered by splitting on commas, so the shape of one string carried the
+    whole weight — and to keep that shape safe the CMS froze the venue list at
+    twenty, which made the twenty-first event impossible to create. A file that
+    brings the old field back reintroduces both problems at once.
+    """
+
+    def test_no_entry_still_carries_the_old_single_field(self):
+        bad = [f"{path}:{offset + 2}"
+               for path, lines in entries()
+               for offset, line in enumerate(front_matter(lines) or [])
+               if line.startswith("event-location:")]
+        self.assertEqual(bad, [], f"event-location is gone; split it: {bad[:5]}")
+
+    def test_an_event_that_names_a_venue_says_where_it_is(self):
+        # A venue with no locality renders as a bare name and gives the map
+        # link nothing to point at.
+        bad = []
+        for path, lines in entries():
+            fields = {}
+            for line in front_matter(lines) or []:
+                match = KEY_LINE.match(line)
+                if match:
+                    fields[match.group(1)] = match.group(2).strip()
+            if fields.get("event-venue") and not fields.get("event-locality"):
+                bad.append(path)
+        self.assertEqual(bad, [], f"venue without a locality: {bad[:5]}")
+
+
 class Language(unittest.TestCase):
     """`lang:` is what pairs a file with its translation.
 

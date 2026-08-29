@@ -107,6 +107,46 @@ class Uploads(unittest.TestCase):
                          f"{len(collections)} collections, {len(pinned)} with a media folder")
 
 
+class Place(unittest.TestCase):
+    """Deterministic shape, open set.
+
+    The venue list used to be twenty options frozen in this file, because the
+    single `event-location` string had to keep the shape its comma parser
+    expected. Three fields make the shape safe without a list, so the editor
+    can name a place nobody has used before.
+    """
+
+    def test_the_frozen_venue_list_is_gone(self):
+        self.assertEqual([line for line in lines() if "event-location" in line], [],
+                         "event-location is split into venue/street/locality")
+
+    def test_all_three_place_fields_are_offered_everywhere(self):
+        # Both event collections, or one of them writes an address the site
+        # cannot assemble.
+        for field in ("event-venue", "event-street", "event-locality"):
+            with self.subTest(field):
+                self.assertEqual(len(list(field_blocks(field))), 2,
+                                 f"{field} is missing from an event collection")
+
+    def test_no_place_field_is_a_closed_list(self):
+        for field in ("event-venue", "event-street", "event-locality"):
+            for number, block in field_blocks(field):
+                with self.subTest(f"{field}:{number}"):
+                    self.assertFalse(any(re.match(r"^\s*options:", line) for line in block),
+                                     f"{field} is back on a fixed list of options")
+
+
+class Recurrence(unittest.TestCase):
+    """One file with `recurrence:` becomes many pages, so its grammar is load-bearing."""
+
+    def test_both_collections_validate_the_grammar(self):
+        blocks = list(field_blocks("recurrence"))
+        self.assertTrue(blocks, "no recurrence field in the CMS config at all")
+        bad = [f"config.yml:{number}" for number, block in blocks
+               if not any("pattern:" in line for line in block)]
+        self.assertEqual(bad, [], f"recurrence fields accepting anything: {bad}")
+
+
 class ExternalLink(unittest.TestCase):
     """`event-url` is printed straight into an href."""
 

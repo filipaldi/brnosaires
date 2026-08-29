@@ -7,7 +7,9 @@ event-end: 2026-01-08 20:15:00
 recurrence: weekly wednesday
 preview_image: /images/classes/class-javier.avif
 event-organiser: Javier Antar
-event-location: Kancelář ombudsmana (předsálí), Údolní 39, Brno
+event-venue: Kancelář ombudsmana (předsálí)
+event-street: Údolní 39
+event-locality: Brno
 event-type: class
 event-url: https://forms.gle/kUqPhscNTnJWRBth7
 description: Kurz argentinského tanga pro středně pokročilé a pokročilé. Vede profesionální tanečník a učitel JAVIER ANTAR. Přes léto v kanceláři ombudsmana, Brno.

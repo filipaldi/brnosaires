@@ -7,7 +7,9 @@ event-start: 2026-08-20 17:45:00
 event-end: 2026-08-20 20:30:00
 preview_image: /images/classes/class-lenka-filip.avif
 event-organiser: Taneční studio Stolárna
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 event-type: workshop
 event-url: https://www.sportimea.com/cs/event/940422?plugin=1&save_dest=1&ptype=fitness-by-day&time=1787140535
 description: Letní intenzivní workshopy pro všechny začátečníky - poznej argentinské tango během 3 večerů.

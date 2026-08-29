@@ -5,7 +5,9 @@ date: 2026-03-25 18:00:00
 event-type: praktika
 event-start: 2026-03-25 18:00:00
 event-end: 2026-03-25 22:00:00
-event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
+event-venue: Sesamo Bakery
+event-street: Purkyňova 97c
+event-locality: Brno-Královo Pole
 series: tango-pizza
 preview_image: /images/events/2026/tango-pizza-sesamo.avif
 description: Nejlepší pizza jako doplněk k nejlepšímu tanci. Tangp&pizza - otevřená praktikolonga každou středu.

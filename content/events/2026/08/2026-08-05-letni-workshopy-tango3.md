@@ -7,7 +7,9 @@ event-start: 2026-08-05 17:45:00
 event-end: 2026-08-05 22:00:00
 preview_image: /images/classes/class-lenka-filip.avif
 event-organiser: Taneční studio Stolárna
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 event-type: workshop
 event-url: https://www.sportimea.com/cs/event/940313?plugin=1&save_dest=1&ptype=fitness-by-day&time=1785760743
 description: Letní intenzivní workshopy pro všechny (mírně) pokročilejší tanečníky.

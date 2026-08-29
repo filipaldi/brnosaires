@@ -8,7 +8,8 @@ preview_image: /images/events/2026/stay-fit-by-vankovka.avif
 event-type: milonga                    
 event-start: 2026-07-30 18:00:00
 event-end: 2026-07-30 21:00:00        
-event-location: Střecha Vaňkovky, Brno
+event-venue: Střecha Vaňkovky
+event-locality: Brno
 entry: zdarma                        
 ---
 

@@ -6,7 +6,9 @@ event-type: milonga
 event-start: 2026-10-16 19:00:00
 event-end: 2026-10-17 01:00:00
 event-organiser: Brnos Aires
-event-location: Dělnický dům, Jamborova 65, Brno
+event-venue: Dělnický dům
+event-street: Jamborova 65
+event-locality: Brno
 description: Opening milonga of Brnos Aires Tango Marathon 2026. Welcome to three days of continuous dancing.
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-01.avif
