@@ -43,8 +43,6 @@ STRINGS = {
     "event_location_label": "Místo",
     # Screen readers otherwise announce the venue link as a bare address.
     "open_in_maps": "Otevřít v mapách",
-    "person_upcoming_heading": "Nejbližší lekce a workshopy",
-    "person_upcoming_aria": "Nejbližší termíny tohoto lektora",
     "skip_to_content": "Přeskočit na obsah",
     "copied_status": "Odkaz zkopírován do schránky",
     # localised event-type words (keyed by the raw event-type metadata value)

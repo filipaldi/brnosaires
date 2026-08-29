@@ -145,6 +145,34 @@ class Sequences(unittest.TestCase):
         self.assertEqual(bad, [], f"under-indented front matter: {bad[:5]}")
 
 
+class References(unittest.TestCase):
+    """Two values that point outside the file, and both shapes the site can follow.
+
+    `preview_image` is either a path under the media folder or a bare filename
+    sitting next to the .md — `colocated_images` recognises nothing in between,
+    so an editor upload landing in a sub-folder resolved to a 404 nobody saw
+    until the link checker ran. `event-url` is printed straight into an href,
+    where a value without a scheme is a relative link into our own site.
+    """
+
+    def values(self, key):
+        for path, lines in entries():
+            for offset, line in enumerate(front_matter(lines) or []):
+                match = KEY_LINE.match(line)
+                if match and match.group(1) == key and match.group(2).strip():
+                    yield f"{path}:{offset + 2}", match.group(2).strip()
+
+    def test_every_preview_image_is_absolute_or_a_bare_filename(self):
+        bad = [f"{where} -> {value}" for where, value in self.values("preview_image")
+               if not value.startswith("/images/") and "/" in value]
+        self.assertEqual(bad, [], f"preview images the site cannot resolve: {bad[:5]}")
+
+    def test_every_event_url_carries_its_scheme(self):
+        bad = [f"{where} -> {value}" for where, value in self.values("event-url")
+               if not value.startswith("https://")]
+        self.assertEqual(bad, [], f"external links without https://: {bad[:5]}")
+
+
 class Language(unittest.TestCase):
     """`lang:` is what pairs a file with its translation.
 

@@ -83,5 +83,40 @@ class Output(unittest.TestCase):
                         "output.omit_empty_optional_fields must be true")
 
 
+class Uploads(unittest.TestCase):
+    """Where an uploaded image lands, and whether the site can find it again.
+
+    Left to inherit the global setting, Sveltia put the file in a folder named
+    after the entry and wrote `<slug>/<file>` into the front matter, which
+    `colocated_images` does not recognise — the page linked an image that was
+    never copied into the output. An absolute path has only one reading.
+    """
+
+    def test_every_collection_pins_an_absolute_media_folder(self):
+        bad = []
+        for line in lines():
+            match = re.match(r"^\s{4}(media_folder|public_folder):\s*(\S+)\s*$", line)
+            if match and not match.group(2).startswith("/"):
+                bad.append(line.strip())
+        self.assertEqual(bad, [], f"relative media paths: {bad}")
+
+    def test_no_collection_leaves_the_media_folder_to_the_default(self):
+        collections = [line for line in lines() if re.match(r"^  - name: \S+\s*$", line)]
+        pinned = [line for line in lines() if re.match(r"^\s{4}media_folder:", line)]
+        self.assertEqual(len(pinned), len(collections),
+                         f"{len(collections)} collections, {len(pinned)} with a media folder")
+
+
+class ExternalLink(unittest.TestCase):
+    """`event-url` is printed straight into an href."""
+
+    def test_every_event_url_field_demands_a_scheme(self):
+        blocks = list(field_blocks("event-url"))
+        self.assertTrue(blocks, "no event-url field in the CMS config at all")
+        bad = [f"config.yml:{number}" for number, block in blocks
+               if not any("'^https://'" in line for line in block)]
+        self.assertEqual(bad, [], f"event-url fields accepting anything: {bad}")
+
+
 if __name__ == "__main__":
     unittest.main()
