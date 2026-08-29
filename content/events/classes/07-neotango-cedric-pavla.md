@@ -8,7 +8,9 @@ preview_image: /images/classes/neotango-cedric-pavla.avif
 event-type: class                    
 event-start: 2026-07-12 17:00:00
 event-end: 2026-07-12 20:00:00         
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 entry: 700 Kč
 ---
 

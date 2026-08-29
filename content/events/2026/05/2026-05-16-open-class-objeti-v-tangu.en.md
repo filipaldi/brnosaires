@@ -7,7 +7,9 @@ event-type: workshop
 event-start: 2026-05-16 18:00:00
 event-end: 2026-05-16 19:00:00
 event-organiser: Michaela Lukavská
-event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
+event-venue: Sesamo Bakery
+event-street: Purkyňova 97c
+event-locality: Brno-Královo Pole
 description: An open class with Míša Lukavská about how music changes the embrace in tango. From D'Arienzo through Caló to Pugliese.
 author: Michaela Lukavská
 preview_image: /images/events/2026/misa_lukavska_preview.avif

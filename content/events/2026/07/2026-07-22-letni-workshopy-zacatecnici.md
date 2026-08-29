@@ -7,7 +7,9 @@ event-start: 2026-07-22 17:45:00
 event-end: 2026-07-22 22:00:00
 preview_image: /images/events/2026/Ondra-Pavla.avif
 event-organiser: Taneční studio Stolárna
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 event-type: workshop
 event-url: https://www.sportimea.com/cs/event/940246?plugin=1&save_dest=1&ptype=fitness-by-day&time=1784551143
 description: Letní intenzivní workshopy pro všechny začátečníky - poznej argentinské tango během 3 večerů.

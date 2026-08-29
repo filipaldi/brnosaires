@@ -6,7 +6,9 @@ lang: en
 event-type: milonga
 event-start: 2026-05-28 20:30:00
 event-end: 2026-05-28 23:15:00
-event-location: Adrinela Cafe, Životského 14, Brno-Židenice
+event-venue: Adrinela Cafe
+event-street: Životského 14
+event-locality: Brno-Židenice
 series: milonga-adrinela
 preview_image: /images/adrinela_people.avif
 description: May milonga at Café Adrinela. Cakes, Mrs Lada, little fish and tango.

@@ -8,7 +8,9 @@ preview_image: /images/events/2026/Tangolab-zacatecnici.avif
 event-type: praktika                   
 event-start: 2026-07-21 18:00:00
 event-end: 2026-07-21 21:00:00         
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 event-organiser: TangoLab Štěky
 entry: 100 Kč        
 ---

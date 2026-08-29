@@ -8,7 +8,9 @@ preview_image: /images/adrinela_people.avif
 event-type: milonga                    
 event-start: 2026-06-18 20:30:00
 event-end: 2026-06-18 23:15:00         
-event-location: Adrinela Cafe, Životského 14, Brno-Židenice
+event-venue: Adrinela Cafe
+event-street: Životského 14
+event-locality: Brno-Židenice
 entry: 80 Kč  
 ---
 

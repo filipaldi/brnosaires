@@ -8,7 +8,9 @@ event-end: 2025-12-04 23:00:00
 preview_image: /images/unnamed/580991553_122158118156623559_2496394537702891900_n.avif
 description: Promítání o Argentině a milonga v Galerii Hex. Prosinec 2025, Brno.
 author: Filip Paldia
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 ---
 
 # Promítání o Argentině + milonga v Galerii Hex

@@ -9,7 +9,9 @@ preview_image: /images/classes/class-lenka-filip.avif
 event-type: workshop
 event-start: 2026-09-10 18:00:00
 event-end: 2026-09-10 20:45:00
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 event-organiser: Taneční studio Stolárna
 instructor_slugs:
     - filip-paldia

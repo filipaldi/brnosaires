@@ -8,7 +8,9 @@ event-end: 2025-11-27 23:00:00
 preview_image: /images/rockwine-kveten-2025-10.avif
 description: Speciální milonga v Rockwine s hostujícím DJ Jose Iglesias. Buenos Aires a Varšava našly Brno.
 author: Filip Paldia
-event-location: Rockwine, Vídeňská 18, Brno
+event-venue: Rockwine
+event-street: Vídeňská 18
+event-locality: Brno
 ---
 
 # Speciální milonga v Rockwine s hostujícím DJ Jose Iglesias

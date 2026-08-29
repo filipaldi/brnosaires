@@ -6,7 +6,9 @@ event-type: milonga
 event-start: 2026-05-23 11:00:00
 event-end: 2026-05-23 15:00:00
 event-organiser: Michaela Lukavská
-event-location: Sesamo Bakery, Purkyňova 97c, Brno-Královo Pole
+event-venue: Sesamo Bakery
+event-street: Purkyňova 97c
+event-locality: Brno-Královo Pole
 description: Brunch milonga u Rosaria. Výborné občerstvení - italská kvalita a Rosariova pohostinnost.
 author: Lenka Platenikova
 preview_image: /images/events/2026/brunch milonga.avif

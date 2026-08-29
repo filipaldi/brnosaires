@@ -5,7 +5,9 @@ date: 2026-02-27 01:00:00
 event-type: workshop
 event-start: 2026-02-27 01:00:00
 event-end: 2026-03-01 01:00:00
-event-location: Škola Danza, Okružní 1, Brno
+event-venue: Škola Danza
+event-street: Okružní 1
+event-locality: Brno
 event-organiser: Movement & Dance Dialogue
 preview_image: /images/Javier_2024-19.avif
 description: Kontaktango workshop s Javierem Curou z Argentiny. Energie, flow, odpor a transformace. Únor–březen 2026, Brno.

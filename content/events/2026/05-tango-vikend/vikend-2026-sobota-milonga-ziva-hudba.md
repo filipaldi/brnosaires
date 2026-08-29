@@ -6,7 +6,9 @@ event-type: milonga
 event-start: 2026-05-23 19:00:00
 event-end: 2026-05-23 01:00:00
 event-organiser: TangoLab Štěky
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 description: "Milonga s živou hudbou. Hraje vídeňské duo: Helmuth a Miloš. Brnos Aires Tango víkend 2026."
 author: Filip Paldia
 preview_image: /images/events/2026/koncert-helmuth-milos.avif

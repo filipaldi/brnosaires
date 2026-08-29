@@ -8,7 +8,9 @@ event-end: 2025-12-07 23:00:00
 preview_image: /images/unnamed/1f642.avif
 description: Vedená praktika na Stolárně s moderní hudbou. Beze strachu z pravidel. Prosinec 2025.
 author: Filip Paldia
-event-location: Taneční studio Stolárna, Olomoucká 14, Brno
+event-venue: Taneční studio Stolárna
+event-street: Olomoucká 14
+event-locality: Brno
 ---
 
 # Vedená praktika na Stolárně s moderní hudbou a beze strachu z pravidel

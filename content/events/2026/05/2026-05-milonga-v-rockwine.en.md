@@ -6,7 +6,9 @@ lang: en
 event-type: milonga
 event-start: 2026-05-14 19:00:00
 event-end: 2026-05-14 22:00:00
-event-location: Rockwine, Vídeňská 18, Brno
+event-venue: Rockwine
+event-street: Vídeňská 18
+event-locality: Brno
 event-organiser: Brnos Aires
 series: milonga-rockwine
 description: May milonga at Rockwine. The secret of the rotunda foundations, wine, cheese, olives and a circular dance floor.

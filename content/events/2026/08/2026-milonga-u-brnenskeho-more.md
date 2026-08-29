@@ -8,7 +8,8 @@ preview_image: /images/events/2026/milonga-u-brnenskeho-more.avif
 event-type: milonga                    
 event-start: 2026-08-25 18:00:00
 event-end: 2026-08-25 22:00:00         
-event-location: Park Moravské náměstí, Brno
+event-venue: Park Moravské náměstí
+event-locality: Brno
 ---
 
 # Milonga u brněnského moře

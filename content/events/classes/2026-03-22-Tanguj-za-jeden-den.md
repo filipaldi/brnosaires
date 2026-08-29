@@ -7,7 +7,9 @@ event-start: 2026-03-22 15:00:00
 event-end: 2026-03-22 19:00:00
 preview_image: /images/classes/2026-03-tanguj-za-jeden-den.avif
 event-organiser: TangoLab Štěky
-event-location: HEX Gallery, Lidická 63a, Brno
+event-venue: HEX Gallery
+event-street: Lidická 63a
+event-locality: Brno
 event-type: class
 event-url: https://tangolabsteky.webnode.cz/registrace-tangolab/
 description: Tango pro začátečníky. Krok za krokem. Naučíš se dost. 
