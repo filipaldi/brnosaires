@@ -41,6 +41,13 @@ output:
     # a všechna pole pod ní tiše vypadnou z metadat do těla stránky.
     indent_size: 4
 
+# Adresy se generují z názvu, takže musí být bez diakritiky a bez
+# velkých písmen. Jména souborů v repu dnes diakritiku mají — jen je
+# přebíjí ručně napsaný `slug:` ve frontmatteru.
+slug:
+  encoding: ascii
+  clean_accents: true
+
 i18n:
   structure: multiple_files
   locales: [cs, en]
@@ -64,6 +71,7 @@ collections:
     # Rok a měsíc se berou z data KONÁNÍ, ne z data publikace — repo je
     # tříděné podle měsíce akce.
     path: "{{event-start | date('YYYY')}}/{{event-start | date('MM')}}/{{slug}}"
+    slug: "{{title}}-{{event-start | date('MM-YYYY')}}"
     create: true
     format: yaml-frontmatter
     extension: md
@@ -95,11 +103,6 @@ collections:
         default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
-      - name: slug
-        label: Slug (v URL)
-        widget: string
-        i18n: duplicate
-        hint: Bez diakritiky, malými písmeny s pomlčkami. Česká i anglická verze mají stejný slug.
       - name: date
         label: Datum publikace
         widget: datetime
@@ -193,7 +196,7 @@ collections:
         # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
         # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
         # mířilo na neexistující stránku.
-        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
+        pattern: ['^$|^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
@@ -210,12 +213,32 @@ collections:
           Jen u pravidelných lekcí. Tvar „weekly monday" nebo „monthly 1 sunday",
           volitelně + „from 2026-09-07", „until 2026-12-16" nebo „count 10".
           JEDEN soubor pokryje všechny termíny — nezakládej je ručně.
-        pattern: ['^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
+        pattern: ['^$|^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
       - name: body
         label: Text
         widget: markdown
         modes: [raw]
         i18n: true
+      # Poslední pole schválně: nevyplňuje se. Adresu stránky nese jméno
+      # souboru, které Sveltia vyrobí při založení ze `slug:` šablony kolekce
+      # a při pozdější opravě názvu ho nepřejmenuje — adresa je tím zmrazená.
+      # Prázdné nepovinné pole se nezapisuje, takže Pelican vezme jméno
+      # souboru (SLUGIFY_SOURCE = "basename").
+      #
+      # Vyplněné to přebije, a to je ten únikový východ: kdo ví, co dělá, si
+      # adresu určí sám. Pole ale MUSÍ zůstat deklarované, i kdyby ho nikdo
+      # nikdy nevyplnil — Sveltia zapisuje jen deklarovaná pole, takže smazat
+      # ho celé by při první úpravě vymazalo `slug:` ze 178 souborů, které si
+      # ho nesou, a všechny ty stránky by se přestěhovaly.
+      - name: slug
+        label: Vlastní adresa (nepovinné)
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: >-
+          Nech prázdné — adresa se vyrobí z názvu sama. Vyplň jen když
+          potřebuješ jinou: bez diakritiky, malými písmeny s pomlčkami.
+          Česká i anglická verze musí mít stejnou.
 
 
   # Pravidelné lekce jsou vlastní typ obsahu, ne podmnožina akcí: leží v
@@ -233,6 +256,9 @@ collections:
     # z toho byl 404. Vede lomítko = od kořene repa, žádná jiná interpretace.
     media_folder: /content/images/events
     public_folder: /images/events
+    # Bez data, na rozdíl od akcí: lekce se neopakuje v kalendáři jako nová
+    # položka každý měsíc, jede pořád ta samá pod `recurrence:`.
+    slug: "{{title}}"
     create: true
     format: yaml-frontmatter
     extension: md
@@ -254,11 +280,6 @@ collections:
         default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
-      - name: slug
-        label: Slug (v URL)
-        widget: string
-        i18n: duplicate
-        hint: Bez diakritiky, malými písmeny s pomlčkami. Česká i anglická verze mají stejný slug.
       - name: date
         label: Datum publikace
         widget: datetime
@@ -353,7 +374,7 @@ collections:
         # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
         # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
         # mířilo na neexistující stránku.
-        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
+        pattern: ['^$|^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
@@ -376,6 +397,26 @@ collections:
         widget: markdown
         modes: [raw]
         i18n: true
+      # Poslední pole schválně: nevyplňuje se. Adresu stránky nese jméno
+      # souboru, které Sveltia vyrobí při založení ze `slug:` šablony kolekce
+      # a při pozdější opravě názvu ho nepřejmenuje — adresa je tím zmrazená.
+      # Prázdné nepovinné pole se nezapisuje, takže Pelican vezme jméno
+      # souboru (SLUGIFY_SOURCE = "basename").
+      #
+      # Vyplněné to přebije, a to je ten únikový východ: kdo ví, co dělá, si
+      # adresu určí sám. Pole ale MUSÍ zůstat deklarované, i kdyby ho nikdo
+      # nikdy nevyplnil — Sveltia zapisuje jen deklarovaná pole, takže smazat
+      # ho celé by při první úpravě vymazalo `slug:` ze 178 souborů, které si
+      # ho nesou, a všechny ty stránky by se přestěhovaly.
+      - name: slug
+        label: Vlastní adresa (nepovinné)
+        widget: string
+        required: false
+        i18n: duplicate
+        hint: >-
+          Nech prázdné — adresa se vyrobí z názvu sama. Vyplň jen když
+          potřebuješ jinou: bez diakritiky, malými písmeny s pomlčkami.
+          Česká i anglická verze musí mít stejnou.
 
   - name: announcements
     label: Oznámení

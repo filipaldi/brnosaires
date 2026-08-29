@@ -53,7 +53,8 @@ Zkopírujte celý blok do nového souboru, smažte řádky, které pro daný typ
 ---
 # ─── POVINNÉ VŽDY (akce, stránka, hub, oznámení, píkoška, osoba) ───
 title: Název dokumentu
-slug: nazev-dokumentu              # zobrazí se v URL: brnosaires.com/<slug>/
+slug: nazev-dokumentu              # NEPOVINNÉ. Bez něj se adresa vezme ze jména
+                                   # souboru. Vyplň jen když chceš jinou.
 date: 2026-04-10 18:00:00          # datum PUBLIKACE souboru, NE datum akce
 author: Jméno autora
 

@@ -136,6 +136,71 @@ class Place(unittest.TestCase):
                                      f"{field} is back on a fixed list of options")
 
 
+class Slug(unittest.TestCase):
+    """The URL is decided once, at creation, and never by hand.
+
+    A slug typed into a form is a URL typed into a form: a diacritic or a
+    capital makes an ugly address, and editing it later moves a page that is
+    already linked from elsewhere. So nobody has to fill it in — it is optional
+    and stands last, under the body, where it can be ignored. A new entry
+    leaves it empty, the empty optional field is not written, and Pelican falls
+    back to the filename (`SLUGIFY_SOURCE = "basename"`), which Sveltia writes
+    once at creation from the collection's slug template and never rewrites
+    when the title is corrected later.
+
+    Filling it in still wins, and that is the escape hatch: someone who knows
+    what they are doing sets the address by hand. The field also has to stay
+    *declared* even though it is meant to be left blank — Sveltia writes only
+    the fields a collection declares, so removing it would strip `slug:` from
+    the 178 files that carry one the moment their author saves them, and every
+    one of those pages would move.
+    """
+
+    def test_nobody_has_to_fill_the_slug_in(self):
+        bad = [f"config.yml:{number}" for number, block in field_blocks("slug")
+               if not any(re.match(r"^\s*required:\s*false\s*$", line) for line in block)]
+        self.assertEqual(bad, [], f"slug is a required field: {bad}")
+
+    def test_the_slug_stands_last_so_it_can_be_ignored(self):
+        # Under the body, out of the path an editor takes through the form.
+        collection = None
+        last_field = {}
+        for line in lines():
+            match = re.match(r"^  - name: (\S+)\s*$", line)
+            if match:
+                collection = match.group(1)
+                continue
+            match = re.match(r"^      - \{?\s*name: ([\w-]+)", line)
+            if match and collection:
+                last_field[collection] = match.group(1)
+        # The two event collections are the ones that declare a slug at all.
+        bad = [f"{name}: last field is {last_field.get(name)}"
+               for name in ("events", "classes") if last_field.get(name) != "slug"]
+        self.assertEqual(bad, [], f"slug is not the last field: {bad}")
+
+    def test_the_slug_field_is_still_declared_where_it_was(self):
+        # Undeclared means erased on save. Both event collections carry files
+        # with a hand-written slug, so both have to keep declaring it.
+        self.assertEqual(len(list(field_blocks("slug"))), 2,
+                         "a collection stopped declaring slug; its files would lose theirs")
+
+    def test_a_new_entry_gets_its_url_from_a_template(self):
+        # Without one the filename is the bare title, and two milongas of the
+        # same name in different months would claim one address.
+        templates = [line for line in lines() if re.match(r"^    slug:\s*\S", line)]
+        self.assertEqual(len(templates), 2, f"expected a slug template per event collection: {templates}")
+        self.assertTrue(any("event-start" in line for line in templates),
+                        "the events template must include the date, or same-named events collide")
+
+    def test_generated_slugs_are_ascii(self):
+        # Otherwise the address reads /milonga-na-náplavce/ — the filenames in
+        # the repo already look like that, they are just overridden today.
+        self.assertTrue(any(re.match(r"^\s*encoding:\s*ascii\s*$", line) for line in lines()),
+                        "slug.encoding must be ascii")
+        self.assertTrue(any(re.match(r"^\s*clean_accents:\s*true\s*$", line) for line in lines()),
+                        "slug.clean_accents must be true")
+
+
 class Recurrence(unittest.TestCase):
     """One file with `recurrence:` becomes many pages, so its grammar is load-bearing."""
 
@@ -147,15 +212,52 @@ class Recurrence(unittest.TestCase):
         self.assertEqual(bad, [], f"recurrence fields accepting anything: {bad}")
 
 
+class OptionalPatterns(unittest.TestCase):
+    """A pattern is checked even when the field is blank.
+
+    So `required: false` plus a pattern that does not match the empty string
+    is a field nobody can leave empty — the form refuses to save with a
+    validation error under an untouched input. That is what happened to
+    `event-url` and to `recurrence` on events: an ordinary milonga has neither,
+    and could not be saved at all.
+    """
+
+    def optional_patterns(self):
+        """(where, regex) for every field that has a pattern and is optional."""
+        for name in ("event-url", "recurrence", "slug", "event-venue",
+                     "event-street", "event-locality", "entry", "event-organiser"):
+            for number, block in field_blocks(name):
+                if not any(re.match(r"^\s*required:\s*false\s*$", line) for line in block):
+                    continue
+                for line in block:
+                    match = re.match(r"^\s*pattern:\s*\['(.*?)',\s*'", line)
+                    if match:
+                        yield f"{name} (config.yml:{number})", match.group(1)
+
+    def test_every_optional_pattern_accepts_an_empty_value(self):
+        bad = [where for where, pattern in self.optional_patterns()
+               if not re.match(pattern, "")]
+        self.assertEqual(bad, [], f"optional fields that cannot be left blank: {bad}")
+
+
 class ExternalLink(unittest.TestCase):
     """`event-url` is printed straight into an href."""
 
     def test_every_event_url_field_demands_a_scheme(self):
+        # Asserted by behaviour, not by the literal regex: the pattern also has
+        # to accept an empty value, and pinning its exact text made the two
+        # requirements fight over one string.
         blocks = list(field_blocks("event-url"))
         self.assertTrue(blocks, "no event-url field in the CMS config at all")
-        bad = [f"config.yml:{number}" for number, block in blocks
-               if not any("'^https://'" in line for line in block)]
-        self.assertEqual(bad, [], f"event-url fields accepting anything: {bad}")
+        for number, block in blocks:
+            with self.subTest(f"config.yml:{number}"):
+                pattern = next((re.match(r"^\s*pattern:\s*\['(.*?)',\s*'", line).group(1)
+                                for line in block
+                                if re.match(r"^\s*pattern:\s*\['", line)), None)
+                self.assertIsNotNone(pattern, "event-url accepts anything")
+                self.assertIsNone(re.match(pattern, "www.studiostolarna.cz"),
+                                  "a link without a scheme is accepted")
+                self.assertIsNotNone(re.match(pattern, "https://www.studiostolarna.cz"))
 
 
 if __name__ == "__main__":
