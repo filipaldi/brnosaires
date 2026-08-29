@@ -212,15 +212,52 @@ class Recurrence(unittest.TestCase):
         self.assertEqual(bad, [], f"recurrence fields accepting anything: {bad}")
 
 
+class OptionalPatterns(unittest.TestCase):
+    """A pattern is checked even when the field is blank.
+
+    So `required: false` plus a pattern that does not match the empty string
+    is a field nobody can leave empty — the form refuses to save with a
+    validation error under an untouched input. That is what happened to
+    `event-url` and to `recurrence` on events: an ordinary milonga has neither,
+    and could not be saved at all.
+    """
+
+    def optional_patterns(self):
+        """(where, regex) for every field that has a pattern and is optional."""
+        for name in ("event-url", "recurrence", "slug", "event-venue",
+                     "event-street", "event-locality", "entry", "event-organiser"):
+            for number, block in field_blocks(name):
+                if not any(re.match(r"^\s*required:\s*false\s*$", line) for line in block):
+                    continue
+                for line in block:
+                    match = re.match(r"^\s*pattern:\s*\['(.*?)',\s*'", line)
+                    if match:
+                        yield f"{name} (config.yml:{number})", match.group(1)
+
+    def test_every_optional_pattern_accepts_an_empty_value(self):
+        bad = [where for where, pattern in self.optional_patterns()
+               if not re.match(pattern, "")]
+        self.assertEqual(bad, [], f"optional fields that cannot be left blank: {bad}")
+
+
 class ExternalLink(unittest.TestCase):
     """`event-url` is printed straight into an href."""
 
     def test_every_event_url_field_demands_a_scheme(self):
+        # Asserted by behaviour, not by the literal regex: the pattern also has
+        # to accept an empty value, and pinning its exact text made the two
+        # requirements fight over one string.
         blocks = list(field_blocks("event-url"))
         self.assertTrue(blocks, "no event-url field in the CMS config at all")
-        bad = [f"config.yml:{number}" for number, block in blocks
-               if not any("'^https://'" in line for line in block)]
-        self.assertEqual(bad, [], f"event-url fields accepting anything: {bad}")
+        for number, block in blocks:
+            with self.subTest(f"config.yml:{number}"):
+                pattern = next((re.match(r"^\s*pattern:\s*\['(.*?)',\s*'", line).group(1)
+                                for line in block
+                                if re.match(r"^\s*pattern:\s*\['", line)), None)
+                self.assertIsNotNone(pattern, "event-url accepts anything")
+                self.assertIsNone(re.match(pattern, "www.studiostolarna.cz"),
+                                  "a link without a scheme is accepted")
+                self.assertIsNotNone(re.match(pattern, "https://www.studiostolarna.cz"))
 
 
 if __name__ == "__main__":

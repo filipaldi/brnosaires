@@ -196,7 +196,7 @@ collections:
         # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
         # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
         # mířilo na neexistující stránku.
-        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
+        pattern: ['^$|^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
@@ -213,7 +213,7 @@ collections:
           Jen u pravidelných lekcí. Tvar „weekly monday" nebo „monthly 1 sunday",
           volitelně + „from 2026-09-07", „until 2026-12-16" nebo „count 10".
           JEDEN soubor pokryje všechny termíny — nezakládej je ručně.
-        pattern: ['^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
+        pattern: ['^$|^(weekly (monday|tuesday|wednesday|thursday|friday|saturday|sunday)|monthly (-1|[1-4]) (monday|tuesday|wednesday|thursday|friday|saturday|sunday))( (from|until) \d{4}-\d{2}-\d{2}| count \d+)*$', 'Tvar „weekly monday“ nebo „monthly 1 sunday“, dny anglicky. Volitelně „until 2026-12-16“, „count 10“, „from 2026-09-07“.']
       - name: body
         label: Text
         widget: markdown
@@ -374,7 +374,7 @@ collections:
         # Hodnota jde rovnou do href. Bez schématu (`www.studiostolarna.cz`)
         # je to relativní odkaz do našeho webu, ne ven — šest akcí takhle
         # mířilo na neexistující stránku.
-        pattern: ['^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
+        pattern: ['^$|^https://', 'Musí začínat https:// — zkopíruj celou adresu z prohlížeče.']
       - name: series
         label: Série
         widget: select
