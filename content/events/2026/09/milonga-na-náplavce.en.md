@@ -1,5 +1,5 @@
 ---
-lang: cs
+lang: en
 title: Milonga on the "Naplavka"
 slug: milonga-naplavka-09-2026
 date: 2026-08-28 19:34:00
@@ -13,9 +13,6 @@ event-location: HEX Gallery, Lidická 63a, Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: Free voluntary
-event-url: ''
-series: ''
-recurrence: ''
 ---
 
 Start the new school year with dancing, meeting and a nice evening by the river.

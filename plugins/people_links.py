@@ -36,11 +36,15 @@ whether one can belong to several. Inventing that would be inventing facts
 about real people.
 """
 import logging
+import re
 from collections import namedtuple
 
 from pelican import signals
 
 logger = logging.getLogger(__name__)
+
+# The `- ` of a YAML list item, which Pelican's metadata reader leaves in place.
+_SEQUENCE_MARKER = re.compile(r"^-(\s+|$)")
 
 # One teacher as the templates want them: the name the profile prints, and the
 # address of that profile in the same language as the page asking.
@@ -68,8 +72,10 @@ def _instructor_slugs(content):
     """The `instructor_slugs:` value as a list of slugs, however it was written.
 
     Pelican hands multi-line metadata back as a list and a single line as a
-    string; a YAML-style `[a, b]` arrives as one string with brackets. All
-    three spellings appear in real front matter, so all three are accepted.
+    string; a YAML-style `[a, b]` arrives as one string with brackets; and the
+    CMS writes a real YAML sequence, whose `- ` markers survive into the list
+    because Pelican's reader is not a YAML parser. All four spellings appear in
+    real front matter, so all four are accepted.
     """
     raw = (getattr(content, "metadata", None) or {}).get("instructor_slugs")
     if not raw:
@@ -79,7 +85,8 @@ def _instructor_slugs(content):
         parts = raw.replace(";", ",").split(",")
     else:
         parts = list(raw)
-    return [str(part).strip().strip("'\"") for part in parts if str(part).strip()]
+    slugs = (_SEQUENCE_MARKER.sub("", str(part).strip()).strip("'\"") for part in parts)
+    return [slug for slug in slugs if slug]
 
 
 def instructor_names(instructors, lang):

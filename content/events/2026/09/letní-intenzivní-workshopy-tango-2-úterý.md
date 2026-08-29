@@ -12,12 +12,10 @@ event-end: 2026-09-08 22:15:00
 event-location: Taneční studio Stolárna, Olomoucká 14, Brno
 event-organiser: Taneční studio Stolárna
 instructor_slugs:
-  - filip-paldia
-  - lenka-platenikova
+    - filip-paldia
+    - lenka-platenikova
 entry: 1840 Kč (studenti sleva 20 %)
 event-url: www.studiostolarna.cz
-series: ''
-recurrence: ''
 ---
 
 Nemáte čas navštěvovat běžné taneční lekce přes týden?

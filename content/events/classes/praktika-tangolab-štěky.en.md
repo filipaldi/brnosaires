@@ -1,5 +1,5 @@
 ---
-lang: cs
+lang: en
 title: Practise TangoLab Steky
 slug: praktika_tangolab_utery
 date: 2026-08-27 20:30:00
@@ -13,8 +13,6 @@ event-location: HEX Gallery, Lidická 63a, Brno
 event-organiser: TangoLab Štěky
 instructor_slugs: []
 entry: 80 CZK
-event-url: ''
-series: ''
 recurrence: weekly tuesday
 ---
 

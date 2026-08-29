@@ -7,7 +7,7 @@ import people_links
 
 
 class Slugs(unittest.TestCase):
-    """`instructor_slugs:` arrives from Pelican in three different shapes."""
+    """`instructor_slugs:` arrives from Pelican in four different shapes."""
 
     def parse(self, value):
         return people_links._instructor_slugs(type("C", (), {"metadata": {"instructor_slugs": value}}))
@@ -27,8 +27,15 @@ class Slugs(unittest.TestCase):
         self.assertEqual(self.parse(["filip-paldia", "lenka-platenikova"]),
                          ["filip-paldia", "lenka-platenikova"])
 
+    def test_a_yaml_sequence_keeps_its_dashes(self):
+        # What the CMS writes. Pelican's metadata reader does not strip the
+        # list marker, so the raw lines arrive verbatim — with the empty first
+        # element left over from the `instructor_slugs:` line itself.
+        self.assertEqual(self.parse(["", "- filip-paldia", "- lenka-platenikova"]),
+                         ["filip-paldia", "lenka-platenikova"])
+
     def test_empty_is_empty(self):
-        for value in ("", None, []):
+        for value in ("", None, [], ["", "-", "- "]):
             self.assertEqual(self.parse(value), [])
 
 
