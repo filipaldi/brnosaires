@@ -19,4 +19,5 @@ event-url: https://tangolabsteky.webnode.cz/
 recurrence: weekly wednesday
 ---
 
-Argentine tango for all graduates of beginner lessons who want to develop their dancing further.
+It focuses on fluid movement, the joy of dancing, and more sophisticated technique for dancing at milonga.
+Advance registration required.

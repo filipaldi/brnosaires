@@ -19,4 +19,5 @@ event-url: https://tangolabsteky.webnode.cz/
 recurrence: weekly wednesday
 ---
 
-Argentinské tango pro všechny absolventy lekcí pro začátečníky, kteří chtějí rozvíjet svůj tanec dál.
+Zaměřuje se na plynulý pohyb, radost z tance a propracovanější techniku pro tanec na milonze.
+Nutná registrace předem.
