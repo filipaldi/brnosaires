@@ -33,12 +33,59 @@ clone added only to `translations` would otherwise keep raw `<widget-*>` tags).
 Achieved by listing `i18n_fallback` after `widget_processor` in PLUGINS.
 """
 import logging
+import os
 
 from pelican import signals
+from pelican.utils import slugify
 
 logger = logging.getLogger(__name__)
 
 EN_LANG = "en"
+EN_SUFFIX = ".en.md"
+
+
+def _slugify(value, settings):
+    """Pelican's own slug, with Pelican's own settings.
+
+    The three keyword arguments are the ones `Content.__init__` passes; this
+    has to agree with that call exactly, because the whole point is to land on
+    the slug the Czech file next door was given.
+    """
+    return slugify(
+        value,
+        regex_subs=settings.get("SLUG_REGEX_SUBSTITUTIONS", []),
+        preserve_case=settings.get("SLUGIFY_PRESERVE_CASE", False),
+        use_unicode=settings.get("SLUGIFY_USE_UNICODE", False),
+    )
+
+
+def pair_by_filename(content):
+    """`x.en.md` takes the slug of `x.md`, so the two are one article.
+
+    Translations are paired by slug (see above), and under
+    `SLUGIFY_SOURCE = "basename"` a file that declares none is named after its
+    filename — which for the English half still contains the `.en`. Pelican
+    slugifies `kurz-tango-1.en` into `kurz-tango-1en` and the pair becomes two
+    unrelated articles: the English text at an address nothing links to, and
+    the Czech text served in its place under `/en/` by the fallback below.
+
+    It stayed hidden because it breaks nothing loudly. Every page is written,
+    the build is green, and the only complaint comes from `calendars/*.ics`
+    pointing at a `/kurz-tango-1en/` that was never written — three days and
+    eleven files later.
+
+    A declared `slug:` still wins: 63 pairs in the repo name one, and taking
+    that away from them would move 63 published addresses. This only fills in
+    the silence, which since the CMS stopped writing the field (#97) is what
+    every new entry arrives with.
+    """
+    source = getattr(content, "source_path", None) or ""
+    if not source.endswith(EN_SUFFIX):
+        return
+    if "slug" in (getattr(content, "metadata", None) or {}):
+        return
+    stem = os.path.basename(source)[: -len(EN_SUFFIX)]
+    content.slug = _slugify(stem, getattr(content, "settings", None) or {})
 
 
 def _is_monolingual(content):
@@ -139,5 +186,8 @@ def _on_articles(article_generator):
 
 
 def register():
+    # Fires at the end of every Content.__init__, so the slug is corrected
+    # long before `process_translations` groups anything by it.
+    signals.content_object_init.connect(pair_by_filename)
     signals.page_generator_finalized.connect(_on_pages)
     signals.article_generator_finalized.connect(_on_articles)
