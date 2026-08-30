@@ -19,4 +19,5 @@ recurrence: weekly wednesday
 ---
 
 Argentine tango from the very basics to the dance floor.
-Advance registration required
+We focus on natural movement and connection in a couple.
+Advance registration required.
