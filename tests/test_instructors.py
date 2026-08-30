@@ -22,6 +22,12 @@ import unittest
 from html import unescape
 from urllib.parse import urlsplit
 
+# Pelican's own slug rule, not a copy of it: `source_slug` below has to give
+# a slugless file the same address the build gives it, and the two drifting
+# apart is precisely the failure it exists to stop.
+from pelican.settings import DEFAULT_CONFIG
+from pelican.utils import slugify
+
 from tests import BUILD_CLOCK, REPO_ROOT, build_site, plugin_path  # noqa: F401
 # The fence parser is shared rather than copied: if the front-matter convention
 # ever moves, both suites move with it instead of one quietly going blind.
@@ -58,8 +64,14 @@ GUEST_EVENTS = (
 # already names both people, so the only thing that changes about it is where
 # the header gets the names from.
 SAMPLE_PAGE = "letni-intenzivni-workshopy-tango3-08-utery"
-SAMPLE_PEOPLE = {"filip-paldia": "Filip Paldia",
-                 "lenka-platenikova": "Lenka Pláteníková"}
+# Slugs, never names. A name belongs to the person it names and they rename
+# themselves: `ondra-martinak` became "Ondřej" in the CMS and three tests went
+# red over a spelling nobody in this repository gets to decide, with the whole
+# deploy behind them. What the site owes a teacher is that the header, the
+# JSON-LD and the LLM mirror all say whatever their profile says — so every
+# name this file expects is read back out of `content/people/`, and the only
+# words typed here are the ones the theme owns.
+SAMPLE_PEOPLE = ("filip-paldia", "lenka-platenikova")
 
 # `event_instructor_label` in theme/i18n/{cs,en}.py — the <dt> the names sit under.
 INSTRUCTOR_LABEL = {"cs": "Lektoři", "en": "Teachers"}
@@ -159,6 +171,39 @@ def profile_title(slug):
     with open(os.path.join(PEOPLE_DIR, f"{slug}.md"), encoding="utf-8") as handle:
         block = front_matter(handle.read().split("\n")) or []
     return fields(block).get("title", [""])[0]
+
+
+def joined(people, conjunction):
+    """The profile titles as one line, the way the site joins them.
+
+    `people_links.instructor_names` and article.html's instructor row both
+    write this sentence; the comma rule ("X, Y a Z") is theirs and repeated
+    here on purpose, so a change to the join has to be made in the test too.
+    The conjunction is passed in rather than read from theme/i18n: which word
+    sits in which table is `Conjunction`'s business, and a test that took the
+    word from the same table the page did would agree with any word at all.
+    """
+    names = [profile_title(slug) for slug in people]
+    if len(names) < 2:
+        return names[0] if names else ""
+    return f"{', '.join(names[:-1])} {conjunction} {names[-1]}"
+
+
+def source_slug(path, block):
+    """The address Pelican gives a source file, with or without `slug:`.
+
+    Reading a missing `slug:` as `""` pointed every slugless entry at
+    `output/index.md` — the homepage mirror, a file that exists, so nothing
+    failed until an assertion about its contents did and blamed the events.
+    Since the CMS stopped writing the field (#97) most new entries carry none,
+    which is exactly when the test has to know the rule instead of the value:
+    `SLUGIFY_SOURCE = "basename"`, borrowed from Pelican rather than retyped.
+    """
+    explicit = fields(block).get("slug")
+    if explicit and explicit[0]:
+        return explicit[0]
+    stem = os.path.splitext(os.path.basename(path))[0]
+    return slugify(stem, regex_subs=DEFAULT_CONFIG["SLUG_REGEX_SUBSTITUTIONS"])
 
 
 def mirror_front_matter(text):
@@ -355,12 +400,12 @@ class Header(unittest.TestCase):
     def test_the_czech_header_joins_the_profile_titles_with_a(self):
         self.assertEqual(
             instructor_names(read(self.output, SAMPLE_PAGE), "cs"),
-            "Filip Paldia a Lenka Pláteníková")
+            joined(SAMPLE_PEOPLE, "a"))
 
     def test_the_english_header_joins_the_profile_titles_with_and(self):
         self.assertEqual(
             instructor_names(read(self.output, "en", SAMPLE_PAGE), "en"),
-            "Filip Paldia and Lenka Pláteníková")
+            joined(SAMPLE_PEOPLE, "and"))
 
 
 class StructuredData(unittest.TestCase):
@@ -381,7 +426,8 @@ class StructuredData(unittest.TestCase):
         self.assertEqual([entry.get("@type") for entry in performer],
                          ["Person", "Person"], f"performer: {performer}")
         self.assertEqual([entry.get("name") for entry in performer],
-                         list(SAMPLE_PEOPLE.values()), f"performer: {performer}")
+                         [profile_title(slug) for slug in SAMPLE_PEOPLE],
+                         f"performer: {performer}")
 
     def test_each_performer_links_to_that_person_s_profile(self):
         performer = event_ld(read(self.output, SAMPLE_PAGE)).get("performer") or []
@@ -424,8 +470,8 @@ class OndraMartinak(unittest.TestCase):
             with self.subTest(slug):
                 names = instructor_names(read(self.output, slug), "cs")
                 self.assertIsNotNone(names, f"{slug}: no instructor row in the header")
-                self.assertIn("Ondra Martinák", names)
-                self.assertIn("Pavla Lužná", names)
+                self.assertIn(profile_title("ondra-martinak"), names)
+                self.assertIn(profile_title("pavla-luzna"), names)
 
 
 class LlmMirror(unittest.TestCase):
@@ -460,9 +506,9 @@ class LlmMirror(unittest.TestCase):
     EXACT_LINES = {
         # Two teachers, and the case every mutation above was built from.
         "letni-intenzivni-workshopy-tango3-08-utery":
-            'instructor: "Filip Paldia a Lenka Pláteníková"',
+            ("filip-paldia", "lenka-platenikova"),
         # One teacher: the branch that must not reach for a conjunction at all.
-        "femme-fatale-tango-03-2026": 'instructor: "Šteky Yaku"',
+        "femme-fatale-tango-03-2026": ("steky-yaku",),
     }
 
     @classmethod
@@ -470,7 +516,8 @@ class LlmMirror(unittest.TestCase):
         cls.output = build_site()
 
     def test_known_event_mirrors_pin_their_instructor_line_exactly(self):
-        for slug, expected in self.EXACT_LINES.items():
+        for slug, people in self.EXACT_LINES.items():
+            expected = f'instructor: "{joined(people, "a")}"'
             with self.subTest(slug):
                 path = os.path.join(self.output, slug, "index.md")
                 self.assertTrue(os.path.isfile(path), f"no LLM mirror at {slug}/index.md")
@@ -490,7 +537,7 @@ class LlmMirror(unittest.TestCase):
             expected = slugs(block)
             if not expected:
                 continue
-            slug = fields(block).get("slug", [""])[0]
+            slug = source_slug(path, block)
             mirror = os.path.join(self.output, slug, "index.md")
             self.assertTrue(os.path.isfile(mirror),
                             f"{path}: no LLM mirror at {slug}/index.md")
