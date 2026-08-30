@@ -1,0 +1,22 @@
+---
+lang: en
+title: Tango for intermediate
+date: 2026-08-30 19:04:00
+author: Lenka Pláteníková
+description: Argentine tango for those who have already started and want to continue.
+preview_image: /images/events/tangolab-mirne-pokrocili.png
+event-type: class
+event-start: 2026-09-16 18:00:00
+event-end: 2026-09-16 19:15:00
+event-venue: i:D Yoga studio
+event-street: Poštovská 3
+event-locality: Brno
+event-organiser: TangoLab Štěky
+instructor_slugs:
+    - albert-miko
+    - steky-yaku
+event-url: https://tangolabsteky.webnode.cz/
+recurrence: weekly wednesday
+---
+
+Argentine tango for those who have passed the beginner's course and want to continue.
