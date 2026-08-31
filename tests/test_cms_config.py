@@ -328,6 +328,13 @@ class AuthorFromPeople(unittest.TestCase):
             self.assertIn("collection: people", text)
             self.assertIn("value_field: title", text)
 
+    def test_every_relation_on_people_searches_the_same_way(self):
+        blocks = [b for _n, b in field_blocks("author")] + \
+                 [b for _n, b in field_blocks("instructor_slugs")]
+        bad = ["\n".join(b)[:60] for b in blocks
+               if not any(re.match(r"^\s*dropdown_threshold:\s*1\s*$", l) for l in b)]
+        self.assertEqual(bad, [], f"a people relation falls back to checkboxes: {bad}")
+
     def test_no_relation_forces_the_dropdown_with_zero(self):
         # dropdown_threshold: 0 renders the dropdown and then drops whatever is
         # picked in it; 1 renders the same dropdown and keeps the selection.

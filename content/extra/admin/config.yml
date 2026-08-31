@@ -186,6 +186,7 @@ collections:
         widget: relation
         collection: people
         multiple: true
+        dropdown_threshold: 1
         required: false
         i18n: duplicate
         hint: >-
