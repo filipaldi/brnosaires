@@ -88,5 +88,17 @@ STRINGS = {
     "month_page_other_months_label": "Milongas month by month:",
 
     # --- base.html: copy-link confirmation prefix ---
+
+    # --- a repeating event, said out loud on its own page ---
+    "event_every_monday": "every Monday",
+    "event_every_tuesday": "every Tuesday",
+    "event_every_wednesday": "every Wednesday",
+    "event_every_thursday": "every Thursday",
+    "event_every_friday": "every Friday",
+    "event_every_saturday": "every Saturday",
+    "event_every_sunday": "every Sunday",
+    "event_series_from": "from",
+    "event_series_until": "until",
+
     "copied_prefix": "✓ ",
 }

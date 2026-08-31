@@ -170,6 +170,49 @@ def _recurrence_to_rrule(meta):
     return rule, from_date
 
 
+WEEKDAY_TO_INDEX = {
+    "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
+    "friday": 4, "saturday": 5, "sunday": 6,
+}
+
+
+def recurrence_parts(metadata):
+    """The rule as pieces, for whoever has to say it out loud.
+
+    `_recurrence_to_rrule` answers the calendar's question — which dates does
+    this event fall on. A page and a schema.org block ask a different one:
+    what do I tell a reader, and in which language. Neither can be answered
+    from an RRULE string without parsing it back, so the parsing happens once,
+    here, and both callers get the same pieces.
+
+    Returns None for an event that does not repeat, and for a rule the build
+    itself does not recognise: the page must never promise a repetition the
+    calendar will not deliver. That is the failure this whole area keeps
+    producing — a file saying one thing and the site another.
+    """
+    raw = ((metadata or {}).get("recurrence")
+           or (metadata or {}).get("Recurrence") or "")
+    raw = str(raw).strip()
+    if not raw:
+        return None
+    parts, from_date, until_date, count = _split_bounds(raw.lower().split())
+    if len(parts) == 2 and parts[0] == "weekly" and parts[1] in WEEKDAY_TO_INDEX:
+        result = {"freq": "weekly", "weekday": WEEKDAY_TO_INDEX[parts[1]]}
+    elif len(parts) == 3 and parts[0] == "monthly" and parts[2] in WEEKDAY_TO_INDEX:
+        try:
+            ordinal = int(parts[1])
+        except (ValueError, TypeError):
+            return None
+        if not (-1 <= ordinal <= 4) or ordinal == 0:
+            return None
+        result = {"freq": "monthly", "weekday": WEEKDAY_TO_INDEX[parts[2]],
+                  "ordinal": ordinal}
+    else:
+        return None
+    result.update(start=from_date, until=until_date, count=count)
+    return result
+
+
 def _naive(dt):
     if dt is None:
         return None
