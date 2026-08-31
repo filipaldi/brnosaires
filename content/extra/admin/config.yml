@@ -104,17 +104,6 @@ collections:
         default: '{{locale}}'
         i18n: translate
       - { name: title, label: Název, widget: string, i18n: true }
-      - name: date
-        label: Datum publikace
-        widget: datetime
-        format: YYYY-MM-DD HH:mm:ss
-        i18n: duplicate
-        hint: Kdy soubor zakládáš, NE kdy je akce. Datum akce patří do „Začátek".
-      - name: author
-        label: Autor
-        widget: select
-        i18n: duplicate
-        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
       - name: description
         label: Krátký popis
         widget: text
@@ -149,6 +138,26 @@ collections:
       # nabízel se zamčený seznam dvaceti míst — a akce na jednadvacátém tím
       # pádem nešla založit vůbec. Tři pole to řeší obojí naráz: nic se
       # neparsuje a nic nemusí být na seznamu.
+      - name: recurrence
+        label: Opakování
+        widget: select
+        required: false
+        i18n: duplicate
+        options:
+          - { label: Neopakuje se, value: '' }
+          - { label: Každý týden, value: weekly }
+          - { label: Každý měsíc, value: monthly }
+        hint: >-
+          Den se vezme ze Začátku, nikde ho nevypisuj. JEDEN soubor pokryje
+          všechny termíny — nezakládej je ručně.
+      - name: recurrence-until
+        label: Opakovat do
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        required: false
+        i18n: duplicate
+        hint: Nech prázdné, pokud série nemá konec.
       - name: event-venue
         label: Podnik nebo sál
         widget: string
@@ -205,26 +214,6 @@ collections:
         i18n: duplicate
         options: [milonga-adrinela, milonga-rockwine, milonga-u-draka, neolonga-na-stolarne, tango-pizza]
         hint: Vyplň jen u akce, která patří do pravidelné série s vlastní hub-stránkou.
-      - name: recurrence
-        label: Opakování
-        widget: select
-        required: false
-        i18n: duplicate
-        options:
-          - { label: Neopakuje se, value: '' }
-          - { label: Každý týden, value: weekly }
-          - { label: Každý měsíc, value: monthly }
-        hint: >-
-          Den se vezme ze Začátku, nikde ho nevypisuj. JEDEN soubor pokryje
-          všechny termíny — nezakládej je ručně.
-      - name: recurrence-until
-        label: Opakovat do
-        widget: datetime
-        type: date
-        format: YYYY-MM-DD
-        required: false
-        i18n: duplicate
-        hint: Nech prázdné, pokud série nemá konec.
       - name: body
         label: Text
         widget: markdown
@@ -241,6 +230,24 @@ collections:
       # nikdy nevyplnil — Sveltia zapisuje jen deklarovaná pole, takže smazat
       # ho celé by při první úpravě vymazalo `slug:` ze 178 souborů, které si
       # ho nesou, a všechny ty stránky by se přestěhovaly.
+      - name: date
+        label: Datum publikace
+        widget: datetime
+        format: YYYY-MM-DD HH:mm:ss
+        default: '{{now}}'
+        i18n: duplicate
+        hint: Nech být. Vyplní se samo.
+      - name: author
+        label: Autor
+        widget: relation
+        collection: people
+        value_field: title
+        dropdown_threshold: 1
+        display_fields: [title]
+        search_fields: [title]
+        default: Lenka Pláteníková
+        required: false
+        i18n: duplicate
       - name: slug
         label: Vlastní adresa (nepovinné)
         widget: string
@@ -282,9 +289,14 @@ collections:
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', i18n: duplicate }
       - name: author
         label: Autor
-        widget: select
+        widget: relation
+        collection: people
+        value_field: title
+        dropdown_threshold: 1
+        display_fields: [title]
+        search_fields: [title]
+        default: Lenka Pláteníková
         i18n: duplicate
-        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
       - { name: category, label: Kategorie, widget: hidden, default: announcement, i18n: duplicate }
       - { name: description, label: Krátký popis, widget: text, i18n: true }
       - { name: preview_image, label: Náhledový obrázek, widget: image, required: false, i18n: duplicate }
@@ -325,9 +337,14 @@ collections:
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', i18n: duplicate }
       - name: author
         label: Autor
-        widget: select
+        widget: relation
+        collection: people
+        value_field: title
+        dropdown_threshold: 1
+        display_fields: [title]
+        search_fields: [title]
+        default: Lenka Pláteníková
         i18n: duplicate
-        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
       - { name: category, label: Kategorie, widget: hidden, default: curiosity, i18n: duplicate }
       - { name: description, label: Krátký popis, widget: text, i18n: true }
       - { name: preview_image, label: Náhledový obrázek, widget: image, required: false, i18n: duplicate }
@@ -379,10 +396,15 @@ collections:
       - { name: date, label: Datum publikace, widget: datetime, format: 'YYYY-MM-DD HH:mm:ss', required: false, i18n: duplicate }
       - name: author
         label: Autor
-        widget: select
+        widget: relation
+        collection: people
+        value_field: title
+        dropdown_threshold: 1
+        display_fields: [title]
+        search_fields: [title]
+        default: Lenka Pláteníková
         required: false
         i18n: duplicate
-        options: [Lenka Pláteníková, Filip Paldia, Michaela Lukavská]
       # Not required: three profiles carry no description, because nobody
       # knows a true sentence to write about them yet. A required field would
       # make those three un-saveable until the editor invents one.

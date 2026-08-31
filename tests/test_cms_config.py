@@ -308,3 +308,34 @@ class ExternalLink(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AuthorFromPeople(unittest.TestCase):
+
+    def blocks(self):
+        return [block for _number, block in field_blocks("author")]
+
+    def test_no_author_is_a_typed_out_list_of_names(self):
+        bad = ["\n".join(b) for b in self.blocks() if any("options:" in l for l in b)]
+        self.assertEqual(bad, [], "an author field still carries a fixed list of names")
+
+    def test_every_author_reads_the_people_collection(self):
+        blocks = self.blocks()
+        self.assertTrue(blocks, "no author field in the CMS config at all")
+        for block in blocks:
+            text = "\n".join(block)
+            self.assertIn("widget: relation", text)
+            self.assertIn("collection: people", text)
+            self.assertIn("value_field: title", text)
+
+    def test_no_relation_forces_the_dropdown_with_zero(self):
+        # dropdown_threshold: 0 renders the dropdown and then drops whatever is
+        # picked in it; 1 renders the same dropdown and keeps the selection.
+        bad = [l.strip() for l in lines()
+               if re.match(r"^\s*dropdown_threshold:\s*0\s*$", l)]
+        self.assertEqual(bad, [], "dropdown_threshold: 0 loses the selection")
+
+    def test_the_author_is_offered_as_a_searchable_dropdown(self):
+        bad = ["\n".join(b) for b in self.blocks()
+               if not any(re.match(r"^\s*dropdown_threshold:\s*[1-9]", l) for l in b)]
+        self.assertEqual(bad, [], "an author field falls back to radio buttons")
