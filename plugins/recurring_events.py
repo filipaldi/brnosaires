@@ -117,6 +117,40 @@ def _split_bounds(parts):
     return base, from_date, until_date, count
 
 
+def _ordinal_in_month(dt):
+    return (dt.day - 1) // 7 + 1
+
+
+def _fill_in_from_start(parts, meta):
+    """`weekly` / `monthly` alone: the day is the one `event-start` falls on."""
+    if len(parts) != 1 or parts[0] not in ("weekly", "monthly"):
+        return parts
+    start = _parse_event_datetime(meta, "event-start") or _parse_event_datetime(meta, "Event-start")
+    if start is None:
+        return parts
+    day = list(WEEKDAY_TO_BYDAY)[start.weekday()]
+    if parts[0] == "weekly":
+        return ["weekly", day]
+    return ["monthly", str(_ordinal_in_month(start)), day]
+
+
+def _until_field(meta, from_the_rule):
+    """`recurrence-until:`, which beats the same word written inside the rule."""
+    raw = (meta or {}).get("recurrence-until") or (meta or {}).get("Recurrence-until")
+    if raw is None or not str(raw).strip():
+        return from_the_rule
+    parsed = _parse_date_str(str(raw).strip())
+    if parsed is None:
+        logger.warning("recurring_events: ignoring 'recurrence-until: %s' — "
+                       "not a YYYY-MM-DD date", raw)
+        return from_the_rule
+    if from_the_rule is not None and from_the_rule != parsed:
+        logger.warning("recurring_events: 'recurrence-until: %s' and 'until %s' "
+                       "in the rule disagree — using the field",
+                       parsed.strftime("%Y-%m-%d"), from_the_rule.strftime("%Y-%m-%d"))
+    return parsed
+
+
 def _recurrence_to_rrule(meta):
     """Turn a `recurrence:` value into (RRULE string, series start date).
 
@@ -134,6 +168,8 @@ def _recurrence_to_rrule(meta):
     if not raw:
         return None, None
     parts, from_date, until_date, count = _split_bounds(raw.lower().split())
+    parts = _fill_in_from_start(parts, meta)
+    until_date = _until_field(meta, until_date)
 
     rule = None
     if len(parts) == 2 and parts[0] == "weekly":
@@ -184,6 +220,8 @@ def recurrence_parts(metadata):
     if not raw:
         return None
     parts, from_date, until_date, count = _split_bounds(raw.lower().split())
+    parts = _fill_in_from_start(parts, metadata)
+    until_date = _until_field(metadata, until_date)
     if len(parts) == 2 and parts[0] == "weekly" and parts[1] in WEEKDAY_TO_INDEX:
         result = {"freq": "weekly", "weekday": WEEKDAY_TO_INDEX[parts[1]]}
     elif len(parts) == 3 and parts[0] == "monthly" and parts[2] in WEEKDAY_TO_INDEX:

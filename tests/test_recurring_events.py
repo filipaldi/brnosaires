@@ -24,9 +24,9 @@ class _Event:
 
 
 def expand(recurrence, start="2026-09-07 19:00:00", end="2026-09-07 21:00:00",
-           window=("2026-09-01", "2027-03-31")):
+           window=("2026-09-01", "2027-03-31"), **extra):
     event = _Event(**{"event-start": start, "event-end": end,
-                      "recurrence": recurrence})
+                      "recurrence": recurrence, **extra})
     return [o.date.strftime("%Y-%m-%d %H:%M") for o in
             re_.expand_recurring([event], *window)]
 
@@ -50,6 +50,61 @@ class BaseGrammar(unittest.TestCase):
 
     def test_no_recurrence_yields_the_single_occurrence(self):
         self.assertEqual(expand(""), ["2026-09-07 19:00"])
+
+
+class DayFromTheStart(unittest.TestCase):
+
+    def test_weekly_alone_takes_the_day_from_event_start(self):
+        self.assertEqual(expand("weekly"), expand("weekly monday"))
+
+    def test_weekly_alone_follows_event_start_when_it_moves(self):
+        wednesday = "2026-09-09 19:00:00"
+        self.assertEqual(expand("weekly", start=wednesday),
+                         expand("weekly wednesday", start=wednesday))
+
+    def test_monthly_alone_takes_the_ordinal_and_day_from_event_start(self):
+        self.assertEqual(expand("monthly", window=("2026-09-01", "2026-12-31")),
+                         expand("monthly 1 monday", window=("2026-09-01", "2026-12-31")))
+
+    def test_monthly_alone_counts_which_weekday_of_the_month_it_is(self):
+        third_wednesday = "2026-09-16 19:00:00"
+        self.assertEqual(
+            expand("monthly", start=third_wednesday, window=("2026-09-01", "2026-12-31")),
+            expand("monthly 3 wednesday", start=third_wednesday,
+                   window=("2026-09-01", "2026-12-31")))
+
+    def test_a_named_day_still_wins(self):
+        self.assertEqual(expand("weekly friday")[0], "2026-09-11 19:00")
+
+    def test_bounds_still_apply_without_a_day(self):
+        dates = expand("weekly until 2026-09-28")
+        self.assertEqual(dates[-1], "2026-09-28 19:00")
+        self.assertEqual(len(dates), 4)
+
+
+class UntilAsItsOwnField(unittest.TestCase):
+
+    def test_the_field_ends_the_series(self):
+        dates = expand("weekly", **{"recurrence-until": "2026-09-28"})
+        self.assertEqual(dates[-1], "2026-09-28 19:00")
+        self.assertEqual(len(dates), 4)
+
+    def test_an_empty_field_is_no_end_at_all(self):
+        for value in ("", None):
+            self.assertEqual(len(expand("weekly", **{"recurrence-until": value})), 30)
+
+    def test_the_field_and_the_word_agree_or_the_field_wins(self):
+        dates = expand("weekly until 2027-01-01", **{"recurrence-until": "2026-09-28"})
+        self.assertEqual(dates[-1], "2026-09-28 19:00")
+
+    def test_a_contradiction_is_said_out_loud(self):
+        with self.assertLogs("recurring_events", level="WARNING"):
+            expand("weekly until 2027-01-01", **{"recurrence-until": "2026-09-28"})
+
+    def test_a_date_nobody_can_read_is_ignored_not_obeyed(self):
+        with self.assertLogs("recurring_events", level="WARNING"):
+            dates = expand("weekly", **{"recurrence-until": "prosinec"})
+        self.assertEqual(len(dates), 30)
 
 
 class Until(unittest.TestCase):
