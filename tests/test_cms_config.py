@@ -107,6 +107,29 @@ class Uploads(unittest.TestCase):
                          f"{len(collections)} collections, {len(pinned)} with a media folder")
 
 
+class OneCollection(unittest.TestCase):
+    """Everything with a date is an event; there is no second list of them."""
+
+    def collections(self):
+        return [re.match(r"^  - name: (\S+)", line).group(1)
+                for line in lines() if re.match(r"^  - name: \S+\s*$", line)]
+
+    def test_regular_lessons_are_not_a_collection_of_their_own(self):
+        self.assertNotIn("classes", self.collections())
+
+    def test_the_one_event_collection_holds_the_lot(self):
+        self.assertIn("events", self.collections())
+        folders = [line.strip() for line in lines()
+                   if re.match(r"^    folder:\s*content/events", line)]
+        self.assertEqual(folders, ["folder: content/events"])
+
+    def test_the_editor_can_still_pick_out_the_regular_ones(self):
+        filters = [line for line in lines() if "view_filters" in line or
+                   re.match(r"^      - \{ label:", line)]
+        self.assertTrue(any("recurrence" in line for line in filters),
+                        "no way to list just the repeating entries")
+
+
 class Place(unittest.TestCase):
     """Deterministic shape, open set.
 
@@ -121,12 +144,10 @@ class Place(unittest.TestCase):
                          "event-location is split into venue/street/locality")
 
     def test_all_three_place_fields_are_offered_everywhere(self):
-        # Both event collections, or one of them writes an address the site
-        # cannot assemble.
         for field in ("event-venue", "event-street", "event-locality"):
             with self.subTest(field):
-                self.assertEqual(len(list(field_blocks(field))), 2,
-                                 f"{field} is missing from an event collection")
+                self.assertEqual(len(list(field_blocks(field))), 1,
+                                 f"{field} is missing from the event collection")
 
     def test_no_place_field_is_a_closed_list(self):
         for field in ("event-venue", "event-street", "event-locality"):
@@ -173,24 +194,23 @@ class Slug(unittest.TestCase):
             match = re.match(r"^      - \{?\s*name: ([\w-]+)", line)
             if match and collection:
                 last_field[collection] = match.group(1)
-        # The two event collections are the ones that declare a slug at all.
         bad = [f"{name}: last field is {last_field.get(name)}"
-               for name in ("events", "classes") if last_field.get(name) != "slug"]
+               for name in ("events",) if last_field.get(name) != "slug"]
         self.assertEqual(bad, [], f"slug is not the last field: {bad}")
 
     def test_the_slug_field_is_still_declared_where_it_was(self):
         # Undeclared means erased on save. Both event collections carry files
         # with a hand-written slug, so both have to keep declaring it.
-        self.assertEqual(len(list(field_blocks("slug"))), 2,
-                         "a collection stopped declaring slug; its files would lose theirs")
+        self.assertEqual(len(list(field_blocks("slug"))), 1,
+                         "the collection stopped declaring slug; its files would lose theirs")
 
     def test_a_new_entry_gets_its_url_from_a_template(self):
         # Without one the filename is the bare title, and two milongas of the
         # same name in different months would claim one address.
         templates = [line for line in lines() if re.match(r"^    slug:\s*\S", line)]
-        self.assertEqual(len(templates), 2, f"expected a slug template per event collection: {templates}")
-        self.assertTrue(any("event-start" in line for line in templates),
-                        "the events template must include the date, or same-named events collide")
+        self.assertEqual(len(templates), 1, f"expected one slug template: {templates}")
+        self.assertIn("event-start", templates[0],
+                      "the template must include the date, or same-named events collide")
 
     def test_generated_slugs_are_ascii(self):
         # Otherwise the address reads /milonga-na-náplavce/ — the filenames in
@@ -202,14 +222,40 @@ class Slug(unittest.TestCase):
 
 
 class Recurrence(unittest.TestCase):
-    """One file with `recurrence:` becomes many pages, so its grammar is load-bearing."""
+    """One file with `recurrence:` becomes many pages, so its shape is load-bearing."""
 
-    def test_both_collections_validate_the_grammar(self):
+    def block(self):
         blocks = list(field_blocks("recurrence"))
-        self.assertTrue(blocks, "no recurrence field in the CMS config at all")
-        bad = [f"config.yml:{number}" for number, block in blocks
-               if not any("pattern:" in line for line in block)]
-        self.assertEqual(bad, [], f"recurrence fields accepting anything: {bad}")
+        self.assertEqual(len(blocks), 1, "expected one recurrence field")
+        return blocks[0][1]
+
+    def test_the_editor_picks_from_a_list_and_types_nothing(self):
+        self.assertTrue(any(re.match(r"^\s*widget:\s*select\s*$", line)
+                            for line in self.block()),
+                        "recurrence is not a dropdown")
+
+    def test_the_list_is_exactly_the_three_answers(self):
+        values = [re.search(r"value:\s*('' |'')|value:\s*(\w+)", line)
+                  for line in self.block() if "value:" in line]
+        found = [(m.group(1) or m.group(2) or "").strip().strip("'")
+                 for m in values if m]
+        self.assertEqual(found, ["", "weekly", "monthly"])
+
+    def test_nobody_writes_a_weekday(self):
+        # The day is in `event-start`. Offering it again is the contradiction
+        # `stolarna-tangomania.md` carried for months.
+        for day in ("monday", "tuesday", "wednesday", "thursday",
+                    "friday", "saturday", "sunday"):
+            self.assertNotIn(day, "\n".join(self.block()).lower(),
+                             f"the form still asks for a weekday ({day})")
+
+    def test_the_end_of_a_series_is_a_date_picker(self):
+        blocks = list(field_blocks("recurrence-until"))
+        self.assertEqual(len(blocks), 1, "no end-of-series field")
+        block = "\n".join(blocks[0][1])
+        self.assertIn("widget: datetime", block)
+        self.assertIn("format: YYYY-MM-DD", block)
+        self.assertIn("required: false", block)
 
 
 class OptionalPatterns(unittest.TestCase):
