@@ -185,6 +185,14 @@
   line-height: var(--size-l);
 }
 
+.calendar .weekday-name {
+  font-size: var(--text-m);
+  line-height: var(--size-m);
+  font-weight: var(--font-weight-medium);
+  margin-block-end: var(--size-xs);
+  padding-inline-start: var(--size-m);
+}
+
 .calendar .month-name {
   font-size: var(--text-m);
   line-height: var(--size-m);

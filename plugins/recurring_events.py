@@ -170,6 +170,37 @@ def _recurrence_to_rrule(meta):
     return rule, from_date
 
 
+WEEKDAY_TO_INDEX = {
+    "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
+    "friday": 4, "saturday": 5, "sunday": 6,
+}
+
+
+def recurrence_parts(metadata):
+    """The recurrence rule as pieces, or None if there is no rule I know."""
+    raw = ((metadata or {}).get("recurrence")
+           or (metadata or {}).get("Recurrence") or "")
+    raw = str(raw).strip()
+    if not raw:
+        return None
+    parts, from_date, until_date, count = _split_bounds(raw.lower().split())
+    if len(parts) == 2 and parts[0] == "weekly" and parts[1] in WEEKDAY_TO_INDEX:
+        result = {"freq": "weekly", "weekday": WEEKDAY_TO_INDEX[parts[1]]}
+    elif len(parts) == 3 and parts[0] == "monthly" and parts[2] in WEEKDAY_TO_INDEX:
+        try:
+            ordinal = int(parts[1])
+        except (ValueError, TypeError):
+            return None
+        if not (-1 <= ordinal <= 4) or ordinal == 0:
+            return None
+        result = {"freq": "monthly", "weekday": WEEKDAY_TO_INDEX[parts[2]],
+                  "ordinal": ordinal}
+    else:
+        return None
+    result.update(start=from_date, until=until_date, count=count)
+    return result
+
+
 def _naive(dt):
     if dt is None:
         return None

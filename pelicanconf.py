@@ -319,13 +319,77 @@ sys.path.insert(0, os.path.dirname(__file__))  # so `theme.i18n` is importable
 from calendarium.filter import make_calendar_filter
 from calendarium.grouping import group_events
 from calendarium.attrs import parse_widget_attrs
-from recurring_events import expand_recurring, date_add
+from recurring_events import expand_recurring, date_add, recurrence_parts
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images
 # Not a plugin — a shared reading of the three place fields, used here
 # for the templates and directly by calendarium/ics.py.
 from event_place import place as event_place
 from theme.i18n import cs as _i18n_cs, en as _i18n_en
+
+_WEEKDAY_KEY = ("monday", "tuesday", "wednesday", "thursday",
+                "friday", "saturday", "sunday")
+
+
+def _as_datetime(value):
+    """A metadata value as a datetime, whatever shape it arrived in."""
+    if value is None:
+        return None
+    if hasattr(value, "strftime"):
+        return value
+    s = str(value).strip()
+    for cut, fmt in ((19, "%Y-%m-%d %H:%M:%S"), (10, "%Y-%m-%d")):
+        try:
+            return datetime.strptime(s[:cut], fmt)
+        except (ValueError, TypeError):
+            continue
+    return None
+
+
+def recurrence_line(metadata, lang="cs"):
+    """The date row of a weekly event, or "" for anything else."""
+    parts = recurrence_parts(metadata)
+    if not parts or parts["freq"] != "weekly":
+        return ""
+    start = _as_datetime((metadata or {}).get("event-start"))
+    if start is None:
+        return ""
+    end = _as_datetime((metadata or {}).get("event-end"))
+    first = parts.get("start") or start
+    line = t("event_every_" + _WEEKDAY_KEY[parts["weekday"]], lang)
+    line += " " + start.strftime("%H:%M")
+    if end is not None:
+        line += " – " + end.strftime("%H:%M")
+    line += ", " + t("event_series_from", lang) + " " + _fmt_dt(first.date(), lang)
+    if parts.get("until"):
+        line += " " + t("event_series_until", lang) + " " + _fmt_dt(parts["until"].date(), lang)
+    return line
+
+
+def event_schedule(metadata):
+    """The event's schema.org `eventSchedule`, or None if it does not repeat."""
+    parts = recurrence_parts(metadata)
+    if not parts or parts["freq"] != "weekly":
+        return None
+    start = _as_datetime((metadata or {}).get("event-start"))
+    if start is None:
+        return None
+    end = _as_datetime((metadata or {}).get("event-end"))
+    first = parts.get("start") or start
+    schedule = {
+        "@type": "Schedule",
+        "repeatFrequency": "P1W",
+        "byDay": "https://schema.org/" + _WEEKDAY_KEY[parts["weekday"]].capitalize(),
+        "startDate": first.strftime("%Y-%m-%d"),
+        "startTime": start.strftime("%H:%M"),
+        "scheduleTimezone": TIMEZONE,
+    }
+    if end is not None:
+        schedule["endTime"] = end.strftime("%H:%M")
+    if parts.get("until"):
+        schedule["endDate"] = parts["until"].strftime("%Y-%m-%d")
+    return schedule
+
 
 # Per-language UI string tables. `t(key, lang)` is the template helper:
 #   {{ 'no_upcoming_dates' | t(page_lang) }}
@@ -338,7 +402,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "recurrence_line": recurrence_line, "event_schedule": event_schedule, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body

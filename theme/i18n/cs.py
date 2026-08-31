@@ -87,5 +87,17 @@ STRINGS = {
     "month_page_other_months_label": "Milongy po měsících:",
 
     # --- base.html: copy-link confirmation prefix ---
+
+    # --- a repeating event, said out loud on its own page ---
+    "event_every_monday": "každé pondělí",
+    "event_every_tuesday": "každé úterý",
+    "event_every_wednesday": "každou středu",
+    "event_every_thursday": "každý čtvrtek",
+    "event_every_friday": "každý pátek",
+    "event_every_saturday": "každou sobotu",
+    "event_every_sunday": "každou neděli",
+    "event_series_from": "od",
+    "event_series_until": "do",
+
     "copied_prefix": "✓ ",
 }

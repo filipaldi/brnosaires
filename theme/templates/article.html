@@ -43,7 +43,12 @@
         {% endif %}
         {% if event_start %}
         <dt>{{ 'event_when_label' | t(page_lang) }}</dt>
+        {% set _repeats = meta | recurrence_line(page_lang) %}
+        {% if _repeats %}
+        <dd>{{ _repeats }}</dd>
+        {% else %}
         <dd><time datetime="{{ event_start | event_iso8601 }}">{{ event_start | format_event_datetime(page_lang) }}</time>{% if event_end %} – <time datetime="{{ event_end | event_iso8601 }}">{{ event_end | format_event_datetime(page_lang) }}</time>{% endif %}</dd>
+        {% endif %}
         {% endif %}
         {% if instructors %}
         <dt>{{ 'event_instructor_label' | t(page_lang) }}</dt>
@@ -134,6 +139,9 @@
   "description": {{ ((article.description or article.summary or '') | striptags | truncate(300)) | tojson }},
   "startDate": "{{ event_start | event_iso8601 }}",
   {% if event_end %}"endDate": "{{ event_end | event_iso8601 }}",{% endif %}
+  {% set _schedule = meta | event_schedule %}
+  {% if _schedule %}"eventSchedule": {{ _schedule | tojson }},
+  {% endif %}
   "eventStatus": "https://schema.org/EventScheduled",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   {% if _addr.line %}"location": {

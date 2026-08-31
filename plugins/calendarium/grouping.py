@@ -2,6 +2,7 @@
 Event grouping utilities.
 """
 from datetime import datetime, timedelta
+from recurring_events import recurrence_parts
 from . import config
 from . import dates
 
@@ -197,10 +198,40 @@ def group_events_nested(events, group_by_tokens, lang, hide_empty=False):
     return result
 
 
+def group_events_by_weekday(events, lang):
+    """Every repeating event once, under the day of the week it runs on."""
+    lang = (lang or "cs").lower()[:2]
+    if lang not in ("cs", "en"):
+        lang = "cs"
+    earliest = {}
+    for event in events or []:
+        metadata = getattr(event, "metadata", None)
+        start = dates._parse_event_start(metadata)
+        if start is None or recurrence_parts(metadata) is None:
+            continue
+        key = getattr(event, "slug", None) or id(event)
+        if key not in earliest or start < earliest[key][0]:
+            earliest[key] = (start, event)
+    buckets = {}
+    for start, event in earliest.values():
+        buckets.setdefault(start.weekday(), []).append((start, event))
+    result = []
+    for index in sorted(buckets):
+        rows = sorted(buckets[index],
+                      key=lambda pair: (pair[0].hour, pair[0].minute,
+                                        getattr(pair[1], "title", "") or ""))
+        result.append((dates._headline_weekday(index, lang),
+                       [event for _start, event in rows],
+                       {"is_nested": False, "group_levels": ["weekday"]}))
+    return result
+
+
 def group_events(events, group_by, lang, hide_empty=False):
     if not events:
         return []
     tokens = str(group_by).lower().split()
+    if tokens == ["weekday"]:
+        return group_events_by_weekday(events, lang)
     if len(tokens) == 2:
         return group_events_nested(events, tokens, lang, hide_empty)
     if group_by not in ("day", "week", "month"):
