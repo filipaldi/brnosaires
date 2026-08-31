@@ -17,7 +17,7 @@ instructor_slugs:
     - jana-habalova
 entry: 1920 Kč/8 lekcí
 event-url: https://www.sportimea.com/cs/event/965271?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
-recurrence: weekly tuesday
+recurrence: weekly
 ---
 
 V kurzu pro začátečníky vás krok za krokem naučíme základy tanga, práci s vedením i první jednoduché kombinace. Lekce probíhají v příjemné a klidné atmosféře, takže nejsou potřeba žádné předchozí zkušenosti :-)

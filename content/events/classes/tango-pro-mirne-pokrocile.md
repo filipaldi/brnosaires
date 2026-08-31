@@ -16,7 +16,7 @@ instructor_slugs:
     - albert-miko
     - steky-yaku
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly wednesday
+recurrence: weekly
 ---
 
 Zaměřuje se na plynulý pohyb, radost z tance a propracovanější techniku pro tanec na milonze.

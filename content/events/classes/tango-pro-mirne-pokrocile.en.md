@@ -16,7 +16,7 @@ instructor_slugs:
     - albert-miko
     - steky-yaku
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly wednesday
+recurrence: weekly
 ---
 
 It focuses on fluid movement, the joy of dancing, and more sophisticated technique for dancing at milonga.

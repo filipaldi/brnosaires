@@ -14,7 +14,7 @@ event-locality: Brno
 event-organiser: TangoLab Štěky
 entry: 80Kč
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly tuesday
+recurrence: weekly
 slug: praktika_tangolab_utery
 ---
 

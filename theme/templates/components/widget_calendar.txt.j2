@@ -17,7 +17,7 @@
 {%- for event in display_events -%}
 {%- if event.slug not in ns.seen -%}
 {%- set _ = ns.seen.append(event.slug) -%}
-{%- set rec = (event.metadata.get('recurrence') if event.metadata else none) -%}
+{%- set rec = (event.metadata | recurrence_rule) if event.metadata else none -%}
 {%- set parts = (rec | string).split() if rec else [] -%}
 {%- if parts | length == 2 and parts[0] | lower == 'weekly' -%}
 {%- set weekday = parts[1] | capitalize -%}

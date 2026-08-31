@@ -5,7 +5,7 @@ date: 2026-02-01 20:00:00
 event-type: praktika
 event-start: 2026-07-06 20:15:00
 event-end: 2026-07-06 22:30:00
-recurrence: weekly monday
+recurrence: weekly
 preview_image: /images/classes/praktika-stolarna.avif
 description: Praktikomilonga na Stolárně se přesouvá přes léto na každé pondělí. Začátečníci i pokročilí.
 author: Filip Paldia

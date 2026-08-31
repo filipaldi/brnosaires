@@ -26,6 +26,7 @@ from pelican import signals
 # PLUGINS order, so people_links must stay listed before llm_ally in
 # pelicanconf.py - the same rule i18n_fallback documents for widget_processor.
 import people_links
+import recurring_events
 import widget_processor
 
 
@@ -107,6 +108,8 @@ def _frontmatter(content_obj, settings):
             value = people_links.instructor_names(
                 getattr(content_obj, "instructors", None) or [],
                 getattr(content_obj, "lang", "") or "")
+        elif field == "recurrence":
+            value = recurring_events.recurrence_rule(metadata)
         else:
             value = metadata.get(field)
         if value is None or value == "":

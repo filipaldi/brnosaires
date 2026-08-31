@@ -319,7 +319,8 @@ sys.path.insert(0, os.path.dirname(__file__))  # so `theme.i18n` is importable
 from calendarium.filter import make_calendar_filter
 from calendarium.grouping import group_events
 from calendarium.attrs import parse_widget_attrs
-from recurring_events import expand_recurring, date_add, recurrence_parts
+from recurring_events import (expand_recurring, date_add, recurrence_parts,
+                              recurrence_rule)
 from article_filter import parse_article_attrs, article_filter
 from gallery_widget import get_gallery_images
 # Not a plugin — a shared reading of the three place fields, used here
@@ -402,7 +403,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "recurrence_line": recurrence_line, "event_schedule": event_schedule, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "recurrence_line": recurrence_line, "recurrence_rule": recurrence_rule, "event_schedule": event_schedule, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body

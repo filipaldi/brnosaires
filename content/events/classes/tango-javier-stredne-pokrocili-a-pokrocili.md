@@ -4,7 +4,7 @@ slug: tango-javier-stredne-pokrocili-a-pokrocili
 date: 2026-02-28 01:00:00
 event-start: 2026-03-04 19:00:00
 event-end: 2026-01-08 20:15:00
-recurrence: weekly wednesday
+recurrence: weekly
 preview_image: /images/classes/class-javier.avif
 event-organiser: Javier Antar
 event-venue: Kancelář ombudsmana (předsálí)

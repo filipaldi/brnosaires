@@ -239,6 +239,25 @@ def recurrence_parts(metadata):
     return result
 
 
+def recurrence_rule(metadata):
+    """The rule with the day spelled out, or "" if the event does not repeat."""
+    parts = recurrence_parts(metadata)
+    if parts is None:
+        return ""
+    day = list(WEEKDAY_TO_BYDAY)[parts["weekday"]]
+    if parts["freq"] == "weekly":
+        rule = f"weekly {day}"
+    else:
+        rule = f"monthly {parts['ordinal']} {day}"
+    if parts.get("start"):
+        rule += " from " + parts["start"].strftime("%Y-%m-%d")
+    if parts.get("until"):
+        rule += " until " + parts["until"].strftime("%Y-%m-%d")
+    elif parts.get("count"):
+        rule += f" count {parts['count']}"
+    return rule
+
+
 def _naive(dt):
     if dt is None:
         return None

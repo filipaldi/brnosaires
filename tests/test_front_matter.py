@@ -237,3 +237,49 @@ class Language(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Recurrence(unittest.TestCase):
+    """The rule and `event-start` are one fact, and used to be two.
+
+    `stolarna-tangomania.md` said `weekly monday` with a Thursday start: the
+    file disagreed with the page for months, on a green build.
+    """
+
+    WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday",
+                "friday", "saturday", "sunday")
+
+    def values(self, key):
+        for path, lines in entries():
+            block = front_matter(lines) or []
+            found = {}
+            for line in block:
+                match = KEY_LINE.match(line)
+                if match:
+                    found.setdefault(match.group(1), match.group(2).strip())
+            if found.get(key):
+                yield path, found
+
+    def test_a_named_weekday_matches_the_day_the_event_starts_on(self):
+        from datetime import datetime
+        bad = []
+        for path, found in self.values("recurrence"):
+            named = [word for word in found["recurrence"].lower().split()
+                     if word in self.WEEKDAYS]
+            start = found.get("event-start", "")
+            if not named or not start:
+                continue
+            try:
+                weekday = datetime.strptime(start[:19], "%Y-%m-%d %H:%M:%S").weekday()
+            except ValueError:
+                continue
+            if named[0] != self.WEEKDAYS[weekday]:
+                bad.append(f"{path}: rule says {named[0]}, event-start is a "
+                           f"{self.WEEKDAYS[weekday]} ({start})")
+        self.assertEqual(bad, [], f"the file disagrees with itself: {bad}")
+
+    def test_the_end_of_a_series_is_a_date(self):
+        bad = [f"{path}: {found['recurrence-until']!r}"
+               for path, found in self.values("recurrence-until")
+               if not re.match(r"^\d{4}-\d{2}-\d{2}$", found["recurrence-until"])]
+        self.assertEqual(bad, [], f"unreadable end of series: {bad}")
