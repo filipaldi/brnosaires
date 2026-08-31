@@ -1,7 +1,6 @@
 ---
 lang: en
 title: Tango Argentino workshops with Rodrigo & Majo in Brno
-slug: rodrigo_majo_workshopy_2026_09
 date: 2026-08-23 19:25:00
 author: Lenka Pláteníková
 description: Rodrigo Fonti & Majo Martirena (Argentina) in Brno - weekend workshops and milonga with DJ Daniel (Prague).
@@ -13,9 +12,11 @@ event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
 event-organiser: Pavla Lužná
-instructor_slugs: rodrigo-fonti, majo-martirena
+instructor_slugs:
+    - rodrigo-fonti, majo-martirena
 entry: 3200 CZK/135 euro
 event-url: https://form.jotform.com/261895377162367
+slug: rodrigo_majo_workshopy_2026_09
 ---
 
 # Tango Argentino workshops with Rodrigo & Majo in Brno

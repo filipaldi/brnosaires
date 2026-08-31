@@ -1,7 +1,6 @@
 ---
 lang: cs
 title: Workshopy s Rodrigo a Majo
-slug: rodrigo_majo_workshopy_2026_09
 date: 2026-08-23 19:25:00
 author: Lenka Pláteníková
 description: Rodrigo Fonti & Majo Martirena (Argentina) v Brně - víkendové workshopy a milonga s DJ Danielem (Praha).
@@ -13,9 +12,11 @@ event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
 event-organiser: Pavla Lužná
-instructor_slugs: rodrigo-fonti, majo-martirena
+instructor_slugs:
+    - rodrigo-fonti, majo-martirena
 entry: 3200 Kč/135 euro za osobu
 event-url: https://form.jotform.com/261895377162367
+slug: rodrigo_majo_workshopy_2026_09
 ---
 
 # Workshopy s Rodrigo a Majo
