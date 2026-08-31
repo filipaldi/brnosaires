@@ -332,7 +332,7 @@ _WEEKDAY_KEY = ("monday", "tuesday", "wednesday", "thursday",
 
 
 def _as_datetime(value):
-    """A metadata value as a datetime, whatever shape Pelican handed over."""
+    """A metadata value as a datetime, whatever shape it arrived in."""
     if value is None:
         return None
     if hasattr(value, "strftime"):
@@ -347,19 +347,7 @@ def _as_datetime(value):
 
 
 def recurrence_line(metadata, lang="cs"):
-    """The `Kdy` row of an event that repeats, or "" for one that does not.
-
-    Built here rather than in the plugin because the two halves belong to
-    different owners: `recurring_events` knows the rule, this file knows the
-    language and the date format. The plugin hands over the pieces and never
-    learns a Czech word.
-
-    Only weekly is spelled out. Every `recurrence:` in the repository is
-    weekly, and a monthly one would need Czech ordinals declined with the
-    weekday ("každou první neděli", "každý druhý čtvrtek") — grammar for a
-    case nothing exercises. A monthly event keeps the plain date row it has
-    today, which is no worse than before and no invention.
-    """
+    """The date row of a weekly event, or "" for anything else."""
     parts = recurrence_parts(metadata)
     if not parts or parts["freq"] != "weekly":
         return ""
@@ -367,8 +355,6 @@ def recurrence_line(metadata, lang="cs"):
     if start is None:
         return ""
     end = _as_datetime((metadata or {}).get("event-end"))
-    # `from` moves the first occurrence; without one the series starts where
-    # `event-start` says, which is what the calendar does too.
     first = parts.get("start") or start
     line = t("event_every_" + _WEEKDAY_KEY[parts["weekday"]], lang)
     line += " " + start.strftime("%H:%M")
@@ -381,12 +367,7 @@ def recurrence_line(metadata, lang="cs"):
 
 
 def event_schedule(metadata):
-    """The event's `eventSchedule`, or None when it does not repeat.
-
-    schema.org/Schedule is how a repeating event is stated. Without it the
-    page offers one `startDate` and a weekly course is indexed as the single
-    evening it happens to start on.
-    """
+    """The event's schema.org `eventSchedule`, or None if it does not repeat."""
     parts = recurrence_parts(metadata)
     if not parts or parts["freq"] != "weekly":
         return None

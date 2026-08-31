@@ -199,21 +199,7 @@ def group_events_nested(events, group_by_tokens, lang, hide_empty=False):
 
 
 def group_events_by_weekday(events, lang):
-    """A schedule: every repeating event once, under the day it runs on.
-
-    Not a window over the calendar. `group_by="week day"` answers "what is on
-    in these seven days", which is the wrong question for a page listing the
-    regular classes in town — a course starting in a fortnight is still a
-    regular class, and it was simply absent. Widening the window does not help
-    either: it repeats the same grid once per week in the span.
-
-    So the occurrences arrive as usual and collapse back into the events they
-    came from, keeping the earliest of each. Only repeating events take part.
-    A one-off lesson filed under "Úterý" would read as a weekly commitment
-    that does not exist, and the rule has to be one the build itself
-    recognises — a schedule may not promise dates the calendar will not
-    produce.
-    """
+    """Every repeating event once, under the day of the week it runs on."""
     lang = (lang or "cs").lower()[:2]
     if lang not in ("cs", "en"):
         lang = "cs"
@@ -231,9 +217,6 @@ def group_events_by_weekday(events, lang):
         buckets.setdefault(start.weekday(), []).append((start, event))
     result = []
     for index in sorted(buckets):
-        # By the clock, not by the date: a course running since March and one
-        # starting in September share a Wednesday, and a reader of a schedule
-        # reads down the evening, not down the calendar.
         rows = sorted(buckets[index],
                       key=lambda pair: (pair[0].hour, pair[0].minute,
                                         getattr(pair[1], "title", "") or ""))

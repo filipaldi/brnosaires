@@ -190,12 +190,6 @@ WEEKDAY_NAME = {
 
 
 def _headline_weekday(index, lang):
-    """"Úterý" — the heading of a schedule row, not of a date.
-
-    Full names, unlike the Po/Út/St above: those label a cell in a week grid
-    where the date next to them says the rest, and here the day is the whole
-    statement.
-    """
     names = WEEKDAY_NAME.get(lang, WEEKDAY_NAME["cs"])
     return names[index % 7]
 

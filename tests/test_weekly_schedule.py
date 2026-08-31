@@ -1,20 +1,4 @@
-"""The weekly schedule: every regular class once, under the day it runs on.
-
-The page section is called „Pravidelné lekce" and showed a six-day window of
-the calendar. A course starting in a fortnight was therefore absent from the
-list of courses, which is how six of Lenka's classes could be created, built
-and published without appearing anywhere a reader looks for classes.
-
-Widening the window does not fix it: with `group_by="week day"` a longer span
-repeats the same grid for every week in it. A schedule is not a window. It
-answers a different question — which classes run, and on which day — so it
-groups by day of the week, shows each class once, and ignores dates beyond
-the one it needs to know the class is still running.
-
-That is what `group_by="weekday"` is. Only repeating events take part: a
-one-off lesson under „Úterý" would read as a weekly commitment that is not
-there.
-"""
+"""The weekly schedule: every regular class once, under the day it runs on."""
 import os
 import re
 import unittest
@@ -26,8 +10,6 @@ from calendarium.grouping import group_events
 
 LESSONS_PAGE = "tango-lekce-brno"
 
-# Every `recurrence:` in content/events with `event-type: class`, at the clock
-# the suite builds on. The schedule has to show all of them, once each.
 RECURRING_CLASSES = {
     "kurz-tango-1": "Úterý",
     "kurz-tango-2-3": "Neděle",
@@ -40,9 +22,7 @@ RECURRING_CLASSES = {
     "stolarna-tangomania-basic": "Pondělí",
     "tango-4-a-vys-moderni-variace-09-2026": "Čtvrtek",
 }
-# `event-type: class` but no `recurrence:` — a one-off, and not a schedule row.
 ONE_OFF_CLASSES = ("07-neotango-cedric-pavla", "tanguj-za-jeden-den")
-
 
 class _Event:
     def __init__(self, slug, start, recurrence=None):
@@ -50,7 +30,6 @@ class _Event:
         self.metadata = {"event-start": start}
         if recurrence:
             self.metadata["recurrence"] = recurrence
-
 
 class Grouping(unittest.TestCase):
     def group(self, events, lang="cs"):
@@ -78,7 +57,6 @@ class Grouping(unittest.TestCase):
         self.assertEqual(len(grouped), 1)
 
     def test_one_card_per_class_however_many_occurrences_arrive(self):
-        # What the calendar hands over: the same course, once per week.
         grouped = self.group([
             _Event("kurz", "2026-09-15 19:15:00", "weekly tuesday"),
             _Event("kurz", "2026-09-22 19:15:00", "weekly tuesday"),
@@ -108,9 +86,6 @@ class Grouping(unittest.TestCase):
         self.assertEqual([event.slug for event in grouped[0][1]], ["early", "late"])
 
     def test_the_hour_orders_the_day_even_when_the_courses_started_months_apart(self):
-        # A course running since March and one starting in September share a
-        # Wednesday. Sorting by the occurrence puts March first whatever the
-        # clock says; a reader of a schedule reads down the evening.
         grouped = self.group([
             _Event("since-march", "2026-03-04 19:00:00", "weekly wednesday"),
             _Event("from-september", "2026-09-16 18:00:00", "weekly wednesday"),
@@ -126,9 +101,7 @@ class Grouping(unittest.TestCase):
         self.assertEqual(self.group([]), [])
         self.assertEqual(self.group([_Event("a", "2026-09-15 19:15:00")]), [])
 
-
 class BuiltPage(unittest.TestCase):
-    """The section a reader actually opens."""
 
     @classmethod
     def setUpClass(cls):
@@ -161,7 +134,6 @@ class BuiltPage(unittest.TestCase):
             with self.subTest(slug):
                 self.assertEqual(self.links(slug), 0,
                                  "a one-off reads as a weekly commitment")
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -177,19 +177,7 @@ WEEKDAY_TO_INDEX = {
 
 
 def recurrence_parts(metadata):
-    """The rule as pieces, for whoever has to say it out loud.
-
-    `_recurrence_to_rrule` answers the calendar's question — which dates does
-    this event fall on. A page and a schema.org block ask a different one:
-    what do I tell a reader, and in which language. Neither can be answered
-    from an RRULE string without parsing it back, so the parsing happens once,
-    here, and both callers get the same pieces.
-
-    Returns None for an event that does not repeat, and for a rule the build
-    itself does not recognise: the page must never promise a repetition the
-    calendar will not deliver. That is the failure this whole area keeps
-    producing — a file saying one thing and the site another.
-    """
+    """The recurrence rule as pieces, or None if there is no rule I know."""
     raw = ((metadata or {}).get("recurrence")
            or (metadata or {}).get("Recurrence") or "")
     raw = str(raw).strip()

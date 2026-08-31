@@ -185,8 +185,6 @@
   line-height: var(--size-l);
 }
 
-/* A schedule row: the day of the week is the whole heading, so it carries the
-   same weight as a week heading rather than the lighter month one. */
 .calendar .weekday-name {
   font-size: var(--text-m);
   line-height: var(--size-m);

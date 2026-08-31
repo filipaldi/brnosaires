@@ -1,18 +1,4 @@
-"""What a repeating event tells a reader, and what it tells a search engine.
-
-`recurrence: weekly tuesday` reaches the calendar, the `.ics` feed and the LLM
-mirror. It never reached the event's own page, which printed `event-start` and
-stopped:
-
-    Kdy: 15. 09. 2026 19:15 – 15. 09. 2026 20:30
-
-A weekly course reads as a single evening in September. The structured data
-says the same thing to Google — one `startDate`, no schedule — so a course
-that runs every Tuesday until Christmas is indexed as an evening that has
-already passed the week after it starts.
-
-The rule is in the file. These tests are about saying it out loud.
-"""
+"""What a repeating event says on its own page and in its structured data."""
 import json
 import os
 import re
@@ -24,17 +10,12 @@ from tests import REPO_ROOT, build_site, plugin_path  # noqa: F401
 import pelicanconf
 import recurring_events
 
-# A weekly class in both languages: `recurrence: weekly tuesday`, starting
-# Tuesday 15 September 2026 at 19:15.
 WEEKLY = "kurz-tango-1"
-# No `recurrence:` at all — the row it prints today must not change.
 ONE_OFF = "milonga-naplavka-09-2026"
-
 
 def read(output, *parts):
     with open(os.path.join(output, *parts, "index.html"), encoding="utf-8") as handle:
         return handle.read()
-
 
 def when_row(html, label):
     match = re.search(r"<dt>\s*" + re.escape(label) + r"\s*</dt>\s*<dd>(.*?)</dd>",
@@ -42,7 +23,6 @@ def when_row(html, label):
     if match is None:
         return None
     return " ".join(unescape(re.sub(r"<[^>]+>", " ", match.group(1))).split())
-
 
 def event_ld(html):
     for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
@@ -52,9 +32,7 @@ def event_ld(html):
             return data
     return None
 
-
 class Parts(unittest.TestCase):
-    """The rule, read into the pieces a sentence and a schema need."""
 
     def parts(self, value):
         return recurring_events.recurrence_parts({"recurrence": value})
@@ -74,8 +52,6 @@ class Parts(unittest.TestCase):
             self.assertIsNone(self.parts(value))
 
     def test_a_rule_nobody_recognises_is_nothing(self):
-        # Same answer as the calendar gives it: the event keeps its one date,
-        # and the page must not invent a repetition the build does not honour.
         self.assertIsNone(self.parts("kazdy tyden v utery"))
 
     def test_a_monthly_rule_is_read_but_not_weekly(self):
@@ -83,18 +59,13 @@ class Parts(unittest.TestCase):
         self.assertIsNotNone(parts)
         self.assertEqual(parts["freq"], "monthly")
 
-
 class Sentence(unittest.TestCase):
-    """The line a reader gets instead of a single date."""
 
     def line(self, value, lang="cs", start="2026-09-15 19:15:00", end="2026-09-15 20:30:00"):
         return pelicanconf.recurrence_line(
             {"recurrence": value, "event-start": start, "event-end": end}, lang)
 
     def test_czech_names_the_weekday_in_the_right_case(self):
-        # "každé úterý" but "každou středu": Czech weekday nouns differ in
-        # gender, so the whole phrase lives in the string table rather than
-        # being assembled from a word and a template.
         self.assertEqual(self.line("weekly tuesday"),
                          "každé úterý 19:15 – 20:30, od 15. 09. 2026")
         self.assertTrue(self.line("weekly wednesday").startswith("každou středu"))
@@ -113,9 +84,7 @@ class Sentence(unittest.TestCase):
     def test_a_rule_the_build_ignores_gets_no_line(self):
         self.assertEqual(self.line("monthly 1 sunday"), "")
 
-
 class Schedule(unittest.TestCase):
-    """The schema.org shape for a repeating event."""
 
     def schedule(self, value):
         return pelicanconf.event_schedule({
@@ -139,7 +108,6 @@ class Schedule(unittest.TestCase):
 
     def test_an_event_that_does_not_repeat_gets_none(self):
         self.assertIsNone(self.schedule(None))
-
 
 class BuiltSite(unittest.TestCase):
     @classmethod
@@ -166,7 +134,6 @@ class BuiltSite(unittest.TestCase):
         row = when_row(html, "Kdy")
         self.assertIsNotNone(row, f"{ONE_OFF} lost its date row")
         self.assertRegex(row, r"^\d{1,2}\. \d{2}\. \d{4}")
-
 
 if __name__ == "__main__":
     unittest.main()
