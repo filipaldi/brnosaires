@@ -2,6 +2,7 @@
 Event grouping utilities.
 """
 from datetime import datetime, timedelta
+from recurring_events import recurrence_parts
 from . import config
 from . import dates
 
@@ -197,10 +198,57 @@ def group_events_nested(events, group_by_tokens, lang, hide_empty=False):
     return result
 
 
+def group_events_by_weekday(events, lang):
+    """A schedule: every repeating event once, under the day it runs on.
+
+    Not a window over the calendar. `group_by="week day"` answers "what is on
+    in these seven days", which is the wrong question for a page listing the
+    regular classes in town — a course starting in a fortnight is still a
+    regular class, and it was simply absent. Widening the window does not help
+    either: it repeats the same grid once per week in the span.
+
+    So the occurrences arrive as usual and collapse back into the events they
+    came from, keeping the earliest of each. Only repeating events take part.
+    A one-off lesson filed under "Úterý" would read as a weekly commitment
+    that does not exist, and the rule has to be one the build itself
+    recognises — a schedule may not promise dates the calendar will not
+    produce.
+    """
+    lang = (lang or "cs").lower()[:2]
+    if lang not in ("cs", "en"):
+        lang = "cs"
+    earliest = {}
+    for event in events or []:
+        metadata = getattr(event, "metadata", None)
+        start = dates._parse_event_start(metadata)
+        if start is None or recurrence_parts(metadata) is None:
+            continue
+        key = getattr(event, "slug", None) or id(event)
+        if key not in earliest or start < earliest[key][0]:
+            earliest[key] = (start, event)
+    buckets = {}
+    for start, event in earliest.values():
+        buckets.setdefault(start.weekday(), []).append((start, event))
+    result = []
+    for index in sorted(buckets):
+        # By the clock, not by the date: a course running since March and one
+        # starting in September share a Wednesday, and a reader of a schedule
+        # reads down the evening, not down the calendar.
+        rows = sorted(buckets[index],
+                      key=lambda pair: (pair[0].hour, pair[0].minute,
+                                        getattr(pair[1], "title", "") or ""))
+        result.append((dates._headline_weekday(index, lang),
+                       [event for _start, event in rows],
+                       {"is_nested": False, "group_levels": ["weekday"]}))
+    return result
+
+
 def group_events(events, group_by, lang, hide_empty=False):
     if not events:
         return []
     tokens = str(group_by).lower().split()
+    if tokens == ["weekday"]:
+        return group_events_by_weekday(events, lang)
     if len(tokens) == 2:
         return group_events_nested(events, tokens, lang, hide_empty)
     if group_by not in ("day", "week", "month"):

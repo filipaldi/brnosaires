@@ -183,6 +183,23 @@ def _headline_day(key_ymd, lang):
     return _format_date_day(dt, lang)
 
 
+WEEKDAY_NAME = {
+    "cs": ("Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota", "Neděle"),
+    "en": ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
+}
+
+
+def _headline_weekday(index, lang):
+    """"Úterý" — the heading of a schedule row, not of a date.
+
+    Full names, unlike the Po/Út/St above: those label a cell in a week grid
+    where the date next to them says the rest, and here the day is the whole
+    statement.
+    """
+    names = WEEKDAY_NAME.get(lang, WEEKDAY_NAME["cs"])
+    return names[index % 7]
+
+
 def _headline_day_short(key_ymd, lang):
     parts = key_ymd.split("-")
     if len(parts) != 3:
