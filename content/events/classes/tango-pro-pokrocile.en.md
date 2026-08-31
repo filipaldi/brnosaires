@@ -15,7 +15,7 @@ event-organiser: TangoLab Štěky
 instructor_slugs:
     - steky-yaku
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly wednesday
+recurrence: weekly
 ---
 
 You are constantly working on and improving your technique, learning more complex variations and more demanding sequences, breaking down the old and learning new possibilities.

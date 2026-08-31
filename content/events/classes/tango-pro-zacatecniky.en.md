@@ -15,7 +15,7 @@ event-organiser: TangoLab Štěky
 instructor_slugs:
     - steky-yaku
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly wednesday
+recurrence: weekly
 ---
 
 Argentine tango from the very basics to the dance floor.

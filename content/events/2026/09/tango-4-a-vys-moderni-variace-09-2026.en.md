@@ -17,7 +17,7 @@ instructor_slugs:
     - pavla-luzna
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965439?plugin=1&ptype=fitness-by-day&time=1789922442
-recurrence: weekly thursday
+recurrence: weekly
 ---
 
 The Modern Variations course will cover specific topics in depth. It will focus on technical details and practice.

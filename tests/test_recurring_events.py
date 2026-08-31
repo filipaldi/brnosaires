@@ -107,6 +107,30 @@ class UntilAsItsOwnField(unittest.TestCase):
         self.assertEqual(len(dates), 30)
 
 
+class ResolvedRule(unittest.TestCase):
+
+    def rule(self, recurrence, start="2026-09-07 19:00:00", **extra):
+        return re_.recurrence_rule({"event-start": start,
+                                    "recurrence": recurrence, **extra})
+
+    def test_a_day_less_rule_comes_back_with_its_day(self):
+        self.assertEqual(self.rule("weekly"), "weekly monday")
+
+    def test_a_written_day_comes_back_unchanged(self):
+        self.assertEqual(self.rule("weekly friday"), "weekly friday")
+
+    def test_monthly_comes_back_with_ordinal_and_day(self):
+        self.assertEqual(self.rule("monthly"), "monthly 1 monday")
+
+    def test_the_end_of_the_series_is_carried_along(self):
+        self.assertEqual(self.rule("weekly", **{"recurrence-until": "2026-12-16"}),
+                         "weekly monday until 2026-12-16")
+
+    def test_no_rule_is_an_empty_string(self):
+        self.assertEqual(self.rule(""), "")
+        self.assertEqual(self.rule("kazdy tyden"), "")
+
+
 class Until(unittest.TestCase):
     def test_until_is_inclusive_of_the_named_day(self):
         dates = expand("weekly monday until 2026-09-28")

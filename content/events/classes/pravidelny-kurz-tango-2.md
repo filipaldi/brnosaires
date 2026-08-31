@@ -17,7 +17,7 @@ instructor_slugs:
     - petr-truhlar
 entry: 1920 Kč/8 lekcí
 event-url: https://www.sportimea.com/cs/event/965143?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
-recurrence: weekly monday
+recurrence: weekly
 ---
 
 Pravidelný kurz každé pondělí. Pro všechny absolventy kurzu Tango 1. 
