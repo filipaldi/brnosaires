@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 Kč/8 lekcí
 event-url: https://www.sportimea.com/cs/event/965503?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
 recurrence: weekly
+recurrence-until: 2026-11-08
 ---
 
 Kurz pro všechny mírně pokročilé tanečníky. Podmínka je mít absolvovaný kurz Tango 1, případně Tango 2 nebo 3. 

@@ -4,7 +4,7 @@ date: 2026-03-05 02:00:00
 category: announcement
 preview_image: /images/announcements/2026-03-vikend-snu.avif
 description: Tango krůčky Sercana a Zeynep míří na Brno. Workshopy a milonga na Stolárně. Milonga s Cyrilem a Metodějem na Velehradě.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # První víkend snů roku 2026

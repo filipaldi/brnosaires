@@ -3,7 +3,7 @@ title: Lenka píše oznamy o argentinském tangu v Brně - Tango Brno
 date: 2026-01-17 18:00:00
 slug: lenka-pise-oznamy
 description: Legendární Lenčiny oznamy. Kronika tangového Brna, aby všichni věděli, co se kde šustne.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 preview_image: /images/milonga-hned-vedle.avif
 ---
 

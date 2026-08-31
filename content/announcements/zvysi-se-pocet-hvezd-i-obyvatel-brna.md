@@ -4,7 +4,7 @@ date: 2024-10-26 02:00:00
 category: announcement
 preview_image: /images/brno_tango_vkend2.avif
 description: Brno tango weekend 8.–10. 11. Hvězdy tangového nebe, hvězdárna, drak a afterpárty. Buď u toho.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Zvýší se počet hvězd i obyvatel Brna

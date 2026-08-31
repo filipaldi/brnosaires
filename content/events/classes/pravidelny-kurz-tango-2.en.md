@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965143?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
 recurrence: weekly
+recurrence-until: 2026-11-02
 ---
 
 Regular course every Monday. For all graduates of the Tango 1 course.

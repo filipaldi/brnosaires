@@ -4,7 +4,7 @@ date: 2026-01-16 01:00:00
 category: announcement
 preview_image: /images/announcements/kam_zmizely_ctvrtky.avif
 description: Čtvrtky si oblékly sobotní  kabátek. Nesmrtelné a oblíbené milongy s bonusem sobotní milongy "mimo hnízdo". Mají draci hnízda?
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 # Kam zmizely čtvrtky?  
 Ptáš se, proč v novém roce zmizely čtvrtky? 👀

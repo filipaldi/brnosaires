@@ -4,7 +4,7 @@ date: 2025-03-16 13:39:00
 preview_image: dvacet-let-s-blancou.avif
 category: curiosity
 description: Bahía Blanca. Carlos Di Sarli, dvacet let notička k notičce, óda na rodné město. Ducha argentinského tanga.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 llm_mirror: false
 ---
 

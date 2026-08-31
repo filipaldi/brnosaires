@@ -4,7 +4,7 @@ date: 2024-05-06 02:00:00
 category: announcement
 preview_image: /images/unnamed/481450399_942268131391331_4743431483983927978_n.avif
 description: Záruka kvalitního úsměvu. Milongy a praktiky v Brně. Tango, které tě nezkazí.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Záruka kvalitního úsměvu

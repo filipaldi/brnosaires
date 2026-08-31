@@ -283,3 +283,31 @@ class Recurrence(unittest.TestCase):
                for path, found in self.values("recurrence-until")
                if not re.match(r"^\d{4}-\d{2}-\d{2}$", found["recurrence-until"])]
         self.assertEqual(bad, [], f"unreadable end of series: {bad}")
+
+
+class Author(unittest.TestCase):
+    """`author:` is picked from `content/people/`, so it has to name one."""
+
+    def profile_titles(self):
+        titles = set()
+        for path, lines in entries():
+            if not path.startswith(os.path.join("content", "people")):
+                continue
+            for line in front_matter(lines) or []:
+                match = KEY_LINE.match(line)
+                if match and match.group(1) == "title":
+                    titles.add(match.group(2).strip())
+        return titles
+
+    def test_every_author_is_a_profile_the_cms_can_offer(self):
+        titles = self.profile_titles()
+        self.assertTrue(titles, "no profiles found to check against")
+        bad = []
+        for path, lines in entries():
+            for line in front_matter(lines) or []:
+                match = KEY_LINE.match(line)
+                if match and match.group(1) == "author" and match.group(2).strip():
+                    value = match.group(2).strip()
+                    if value not in titles:
+                        bad.append(f"{path}: {value!r}")
+        self.assertEqual(bad, [], f"authors with no profile: {bad[:5]}")

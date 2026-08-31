@@ -3,7 +3,7 @@ title: Hřejivá objetí v únoru
 date: 2025-02-21 01:00:00
 category: announcement
 description: Hřejivá objetí v únoru. Monastery milonga, praktika na Stolárně s Ondrou a Janou. Přehledně na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Hřejivá objetí v únoru

@@ -4,7 +4,7 @@ date: 2024-04-29 02:00:00
 category: announcement
 preview_image: /images/lsky_asy.avif
 description: Tango je lásky čas. Milongy a praktiky v Brně. Přehled na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tango je lásky čas

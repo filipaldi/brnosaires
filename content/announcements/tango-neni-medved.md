@@ -4,7 +4,7 @@ date: 2024-11-26 01:00:00
 category: announcement
 preview_image: /images/tango_nen_medvd.avif
 description: Tango není medvěd. Oznamy z tangového Brna. Milongy a praktiky na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tango není medvěd

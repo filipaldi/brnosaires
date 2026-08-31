@@ -4,7 +4,7 @@ date: 2024-11-12 01:00:00
 category: announcement
 preview_image: /images/image.avif
 description: Buď jako oni. Dvě příležitosti týdně, milonga v Adrinele a tango doplňky. 20 let a budeš tam.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Buď jako oni!

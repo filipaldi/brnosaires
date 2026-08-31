@@ -11,7 +11,7 @@ event-venue: Sesamo Bakery
 event-street: Purkyňova 97c
 event-locality: Brno-Královo Pole
 description: An open class with Míša Lukavská about how music changes the embrace in tango. From D'Arienzo through Caló to Pugliese.
-author: Michaela Lukavská
+author: Lenka Pláteníková
 preview_image: /images/events/2026/misa_lukavska_preview.avif
 ---
 

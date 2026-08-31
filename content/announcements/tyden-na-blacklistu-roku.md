@@ -4,7 +4,7 @@ date: 2024-10-07 02:00:00
 category: announcement
 preview_image: /images/image.avif
 description: Týden na blacklistu roku. Oznamy z tangového Brna. Přehled, abys nic nepropásl.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Týden na blacklistu roku!

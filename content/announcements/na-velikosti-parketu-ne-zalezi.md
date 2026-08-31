@@ -3,7 +3,7 @@ title: Na velikosti parketu (ne)záleží
 date: 2025-03-04 01:00:00
 category: announcement
 description: Na velikosti parketu (ne)záleží. Oznamy z Brnos Aires. Milongy v Brně na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Na velikosti parketu (ne)záleží

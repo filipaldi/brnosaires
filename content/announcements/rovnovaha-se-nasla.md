@@ -4,7 +4,7 @@ date: 2024-06-17 02:00:00
 category: announcement
 preview_image: /images/unnamed/417514070_10232180110105018_1259441569760239763_n.avif
 description: Rovnováha se našla. Čtvrteční milongy v Adrinele. Tango v Brně, přehled na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Rovnováha se našla!

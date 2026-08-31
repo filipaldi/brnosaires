@@ -12,7 +12,7 @@ event-street: Purkyňova 97c
 event-locality: Brno-Královo Pole
 entry: 15 EUR
 description: From Buenos Aires to Brno. Open class with Elizabeth Cordone and Matías Rivas from Tango Studio Recoleta. 15 EUR per person.
-author: Michaela Lukavská
+author: Lenka Pláteníková
 preview_image: /images/events/2026/elisabeth_matias.avif
 ---
 

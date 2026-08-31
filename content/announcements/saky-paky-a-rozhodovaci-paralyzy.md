@@ -4,7 +4,7 @@ date: 2025-05-13 02:00:00
 category: announcement
 preview_image: /images/announcements/saky_paky.avif
 description: Saky paky a rozhodovací paralýzy. Oznamy z Brnos Aires. Kalendář milong v Brně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Saky paky a rozhodovací paralýzy

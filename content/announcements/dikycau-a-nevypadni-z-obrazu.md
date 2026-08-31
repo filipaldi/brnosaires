@@ -4,7 +4,7 @@ date: 2024-06-24 02:00:00
 category: announcement
 preview_image: /images/dikycau.avif
 description: Díky a čau Adrinelo, ahoj léto. Rozloučení s dortíky a rybičkami, přípitek a objetí zdarma.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Díkyčau a nevypadni z obrazu

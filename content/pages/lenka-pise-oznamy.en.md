@@ -4,7 +4,7 @@ date: 2026-01-17 18:00:00
 lang: en
 slug: lenka-pise-oznamy
 description: Lenka's legendary announcements. A chronicle of tango Brno, so everyone knows what is stirring and where.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 preview_image: /images/milonga-hned-vedle.avif
 ---
 

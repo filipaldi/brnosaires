@@ -4,7 +4,7 @@ date: 2024-09-23 02:00:00
 category: announcement
 preview_image: /images/dechberouc_tandy.avif
 description: Kde zažiješ dechberoucí tandy. Minulý týden moc milong, tento málo. Hlavu vzhůru, přehled na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Kde zažiješ dechberoucí tandy?
