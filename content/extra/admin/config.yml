@@ -242,9 +242,6 @@ collections:
         widget: relation
         collection: people
         value_field: title
-        dropdown_threshold: 1
-        display_fields: [title]
-        search_fields: [title]
         default: Lenka Pláteníková
         required: false
         i18n: duplicate
@@ -292,9 +289,6 @@ collections:
         widget: relation
         collection: people
         value_field: title
-        dropdown_threshold: 1
-        display_fields: [title]
-        search_fields: [title]
         default: Lenka Pláteníková
         i18n: duplicate
       - { name: category, label: Kategorie, widget: hidden, default: announcement, i18n: duplicate }
@@ -340,9 +334,6 @@ collections:
         widget: relation
         collection: people
         value_field: title
-        dropdown_threshold: 1
-        display_fields: [title]
-        search_fields: [title]
         default: Lenka Pláteníková
         i18n: duplicate
       - { name: category, label: Kategorie, widget: hidden, default: curiosity, i18n: duplicate }
@@ -399,9 +390,6 @@ collections:
         widget: relation
         collection: people
         value_field: title
-        dropdown_threshold: 1
-        display_fields: [title]
-        search_fields: [title]
         default: Lenka Pláteníková
         required: false
         i18n: duplicate

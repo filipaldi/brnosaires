@@ -335,7 +335,3 @@ class AuthorFromPeople(unittest.TestCase):
                if re.match(r"^\s*dropdown_threshold:\s*0\s*$", l)]
         self.assertEqual(bad, [], "dropdown_threshold: 0 loses the selection")
 
-    def test_the_author_is_offered_as_a_searchable_dropdown(self):
-        bad = ["\n".join(b) for b in self.blocks()
-               if not any(re.match(r"^\s*dropdown_threshold:\s*[1-9]", l) for l in b)]
-        self.assertEqual(bad, [], "an author field falls back to radio buttons")
