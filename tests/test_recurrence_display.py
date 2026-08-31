@@ -109,6 +109,26 @@ class Schedule(unittest.TestCase):
     def test_an_event_that_does_not_repeat_gets_none(self):
         self.assertIsNone(self.schedule(None))
 
+class SameThingTwoWays(unittest.TestCase):
+
+    OLD = {"recurrence": "weekly tuesday until 2026-12-16",
+           "event-start": "2026-09-15 19:15:00",
+           "event-end": "2026-09-15 20:30:00"}
+    NEW = {"recurrence": "weekly", "recurrence-until": "2026-12-16",
+           "event-start": "2026-09-15 19:15:00",
+           "event-end": "2026-09-15 20:30:00"}
+
+    def test_both_shapes_give_the_reader_the_same_line(self):
+        for lang in ("cs", "en"):
+            with self.subTest(lang):
+                self.assertEqual(pelicanconf.recurrence_line(self.NEW, lang),
+                                 pelicanconf.recurrence_line(self.OLD, lang))
+
+    def test_both_shapes_give_a_search_engine_the_same_schedule(self):
+        self.assertEqual(pelicanconf.event_schedule(self.NEW),
+                         pelicanconf.event_schedule(self.OLD))
+
+
 class BuiltSite(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
