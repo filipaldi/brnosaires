@@ -56,6 +56,8 @@ STRINGS = {
     # --- category.html ---
     "category_announcement": "Announcements",
     "category_curiosity": "Curiosities",
+    "category_event": "Events",
+    "category_people": "People",
     "pagination_aria": "Pagination",
     "pagination_prev": "← Previous",
     "pagination_next": "Next →",

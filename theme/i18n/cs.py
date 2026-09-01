@@ -55,6 +55,8 @@ STRINGS = {
     # --- category.html ---
     "category_announcement": "Oznámení",
     "category_curiosity": "Pikošky",
+    "category_event": "Akce",
+    "category_people": "Lidé",
     "pagination_aria": "Stránkování",
     "pagination_prev": "← Předchozí",
     "pagination_next": "Další →",
