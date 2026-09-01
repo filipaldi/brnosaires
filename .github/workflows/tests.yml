@@ -24,7 +24,12 @@ jobs:
           python-version: '3.11'
 
       - name: Install
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          # The Nostr signing tests skip themselves without these; installing
+          # them here means they actually run. Not in requirements.txt on
+          # purpose: the site build must not depend on them.
+          pip install -r requirements-social.txt
 
       - name: Run
         run: python -m unittest discover -s tests -t . -v

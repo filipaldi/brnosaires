@@ -60,6 +60,14 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: output
+          # Since v4 this action tars with `--exclude=.[^/]*`, so every
+          # dotfile is dropped — including the whole `.well-known/` directory
+          # that plugins/llm_ally.py has been writing since May. The build
+          # produced it, the deploy succeeded, and the live site answered 404;
+          # nothing anywhere reported a problem. `.well-known` is also where
+          # NIP-05 and any webfinger file have to live, so this is a
+          # precondition for those, not just a lost mirror.
+          include-hidden-files: true
 
   deploy:
     environment:

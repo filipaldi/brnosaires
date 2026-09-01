@@ -220,5 +220,39 @@ class Feed(_Built):
         self.assertEqual(translated, [], "translated twins in the feed")
 
 
+class WellKnown(_Built):
+    """Everything under `.well-known/` has to survive the build *and* the upload.
+
+    It went missing for months without a single error: the build wrote the
+    directory, the deploy went green, and the live site answered 404, because
+    actions/upload-pages-artifact has tarred with `--exclude=.[^/]*` since v4.
+    A build-only assertion would have passed throughout, so the workflow flag
+    is asserted here too.
+    """
+
+    def test_the_well_known_files_are_built(self):
+        for name in ("llms.txt", "llms-full.txt", "nostr.json"):
+            self.assertTrue(
+                os.path.isfile(os.path.join(self.output, ".well-known", name)),
+                f".well-known/{name} is not in the build")
+
+    def test_the_nip05_file_is_valid_json_with_a_names_object(self):
+        import json
+        with open(os.path.join(self.output, ".well-known", "nostr.json"),
+                  encoding="utf-8") as handle:
+            document = json.load(handle)
+        # NIP-05 requires `names`; an empty one is a valid "no claim yet".
+        self.assertIsInstance(document.get("names"), dict)
+
+    def test_the_deploy_uploads_hidden_files(self):
+        from tests import REPO_ROOT
+        with open(os.path.join(REPO_ROOT, ".github", "workflows", "deploy.yml"),
+                  encoding="utf-8") as handle:
+            workflow = handle.read()
+        self.assertIn("include-hidden-files: true", workflow,
+                      "without this the whole .well-known directory is dropped "
+                      "from the artifact and every file above 404s")
+
+
 if __name__ == "__main__":
     unittest.main()
