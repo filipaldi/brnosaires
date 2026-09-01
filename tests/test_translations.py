@@ -96,7 +96,7 @@ class Rule(unittest.TestCase):
             self.settings = DEFAULT_CONFIG
 
     def test_an_english_file_without_a_slug_takes_its_czech_twin_s(self):
-        content = self._Content("content/events/classes/kurz-tango-1.en.md",
+        content = self._Content("content/events/2026/09/kurz-tango-1.en.md",
                                 "kurz-tango-1en")
         i18n_fallback.pair_by_filename(content)
         self.assertEqual(content.slug, "kurz-tango-1")
@@ -104,13 +104,13 @@ class Rule(unittest.TestCase):
     def test_a_declared_slug_is_left_alone(self):
         # 63 pairs in the repo name the same slug in both files. Overriding
         # them would move 63 published pages.
-        content = self._Content("content/events/classes/x.en.md", "chosen",
+        content = self._Content("content/events/2026/09/x.en.md", "chosen",
                                 {"slug": "chosen"})
         i18n_fallback.pair_by_filename(content)
         self.assertEqual(content.slug, "chosen")
 
     def test_a_czech_file_is_left_alone(self):
-        content = self._Content("content/events/classes/kurz-tango-1.md",
+        content = self._Content("content/events/2026/09/kurz-tango-1.md",
                                 "kurz-tango-1")
         i18n_fallback.pair_by_filename(content)
         self.assertEqual(content.slug, "kurz-tango-1")

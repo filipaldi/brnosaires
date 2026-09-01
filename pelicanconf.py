@@ -8,7 +8,7 @@ DEFAULT_LANG = "cs"
 
 PATH = "content"
 PAGE_PATHS = ["pages"]
-ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]
+ARTICLE_PATHS = ["announcements", "events", "curiosities", "people"]
 STATIC_PATHS = [
     "images",
     # Sveltia CMS: a static admin SPA + its config, served at /admin/.

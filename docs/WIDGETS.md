@@ -507,7 +507,7 @@ def _filter_by_category(articles, category):
     return out
 ```
 
-Tohle navazuje na Pelican konfiguraci `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]`, kde se každý podadresář stává kategorií.
+Tohle navazuje na Pelican konfiguraci `ARTICLE_PATHS = ["announcements", "events", "curiosities", "people"]`, kde se každý podadresář stává kategorií.
 
 ### Práce s daty
 

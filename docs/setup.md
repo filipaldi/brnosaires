@@ -108,7 +108,7 @@ Produkční konfigurace:
 Konfigurováno v [pelicanconf.py](../pelicanconf.py):
 
 - `PAGE_PATHS = ["pages"]` – statické stránky
-- `ARTICLE_PATHS = ["announcements", "events", "classes", "curiosities", "people"]` – článkový obsah
+- `ARTICLE_PATHS = ["announcements", "events", "curiosities", "people"]` – článkový obsah
 - `STATIC_PATHS = [...]` – statické soubory (obrázky atd.)
 
 ## Stránkování
