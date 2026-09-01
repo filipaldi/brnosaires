@@ -1,9 +1,9 @@
 ---
-title: Neolonga at Stolárna
-slug: neolonga-na-stolarne-2026-05-30
-date: 2026-05-25 18:00:00
 lang: en
-event-type: milonga
+title: Neolonga at Stolárna
+description: Another edition of the irregularly regular Stolárna neolonga series. Discover what resonates with you. Explore the limits of your musicality.
+preview_image: /images/events/2026/neolonga.avif
+event-type: neolonga
 event-start: 2026-05-30 20:00:00
 event-end: 2026-05-31 01:00:00
 event-venue: Taneční studio Stolárna
@@ -11,10 +11,11 @@ event-street: Olomoucká 14
 event-locality: Brno
 entry: 150 CZK
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.avif
-description: Another edition of the irregularly regular Stolárna neolonga series. Discover what resonates with you. Explore the limits of your musicality.
+date: 2026-05-26 18:00:00
 author: Lenka Pláteníková
+slug: neolonga-na-stolarne-2026-05-30
 ---
+
 # Neolonga at Stolárna
 
 Come and explore the limits of your (tango) musicality 🎶.
