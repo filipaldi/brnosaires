@@ -2,6 +2,7 @@
 title: Milonga v Café Paměti národa
 slug: milonga-v-cafe-pameti-naroda
 date: 2025-05-06 19:51:00
+category: event
 event-start: 2025-05-06 19:51:00
 preview_image: /images/image.avif
 event-type: milonga

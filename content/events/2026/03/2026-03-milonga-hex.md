@@ -2,6 +2,7 @@
 title: Milonga v HEX Gallery
 slug: milonga-hex-gallery
 date: 2026-03-20 19:00:00
+category: event
 event-type: milonga
 event-start: 2026-03-26 19:00:00
 event-end: 2026-03-26 22:30:00

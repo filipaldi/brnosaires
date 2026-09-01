@@ -2,6 +2,7 @@
 title: Workshop - Sabine & Thomas Mayr, Rakousko
 slug: workshop-sabine-thomas-mayr-rakousko
 date: 2025-12-13 09:00:00
+category: event
 event-type: workshop
 event-start: 2025-12-13 09:00:00
 event-end: 2025-12-14 14:00:00

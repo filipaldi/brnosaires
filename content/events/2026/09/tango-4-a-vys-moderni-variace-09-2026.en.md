@@ -2,6 +2,7 @@
 lang: en
 title: Tango course 4 and up - modern variations
 date: 2026-08-30 18:41:00
+category: event
 author: Lenka Pláteníková
 description: Course for graduates of Tango 3 and above.
 preview_image: /images/events/2026/Ondra-Pavla.avif

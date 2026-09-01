@@ -2,6 +2,7 @@
 lang: en
 title: Practise TangoLab Steky
 date: 2026-08-27 20:30:00
+category: event
 author: Lenka Pláteníková
 description: From 6pm to 7pm, open class on a specific topic, then open training for all dancers.
 preview_image: /images/Baner HEX praktika.png

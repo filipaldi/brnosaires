@@ -2,6 +2,7 @@
 title: Milonga u brněnského draka
 slug: milonga-u-draka-2026-04-18
 date: 2026-04-10 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-04-18 19:00:00
 event-end: 2026-04-18 22:30:00

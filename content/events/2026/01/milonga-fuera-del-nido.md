@@ -2,6 +2,7 @@
 title: Milonga Fuera del Nido
 slug: milonga-fuera-del-nido
 date: 2026-01-17 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-01-17 18:00:00
 event-end: 2026-01-17 22:30:00

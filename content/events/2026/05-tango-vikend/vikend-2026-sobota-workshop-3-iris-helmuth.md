@@ -2,6 +2,7 @@
 title: Workshop 3 / Iris a Helmuth
 slug: vikend-2026-sobota-workshop-3-iris-helmuth
 date: 2026-05-23 16:00:00
+category: event
 event-type: workshop
 event-start: 2026-05-23 16:00:00
 event-end: 2026-05-23 17:15:00

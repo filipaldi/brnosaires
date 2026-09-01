@@ -2,6 +2,7 @@
 title: Andrea Giurizzato & Rafael Luna in Brno 
 slug: Andrea-and-Rafael-in-Brno
 date: 2026-02-28 13:00:00
+category: event
 event-type: workshop
 event-start: 2026-03-28 13:00:00
 event-end: 2026-03-29 17:30:00

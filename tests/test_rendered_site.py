@@ -139,6 +139,33 @@ class Monolingual(_Built):
                 os.path.join(self.output, slug, "index.html")), slug)
 
 
+class Categories(_Built):
+    """A category is a section of the site, not a leftover of the folder tree.
+
+    Pelican names the category after the deepest folder whenever the front
+    matter does not, so the shape of `content/` leaks into public URLs. After
+    events moved into `events/RRRR/MM/` that produced `/category/01/` through
+    `/category/12/` — indexable, in the sitemap, linked from nothing.
+
+    `/category/announcement/` is the one a reader actually reaches:
+    content/pages/lenka-pise-oznamy.md links straight at it.
+    """
+
+    SECTIONS = {"announcement", "curiosity", "event", "people"}
+
+    def built(self):
+        root = os.path.join(self.output, "category")
+        return {name for name in os.listdir(root)
+                if os.path.isdir(os.path.join(root, name))}
+
+    def test_none_is_a_leftover_folder_name(self):
+        self.assertEqual(sorted(self.built() - self.SECTIONS), [])
+
+    def test_the_one_the_site_links_to_is_built(self):
+        self.assertTrue(os.path.isfile(os.path.join(
+            self.output, "category", "announcement", "index.html")))
+
+
 class MapLinks(_Built):
     def test_every_venue_link_carries_a_non_empty_query_and_a_label(self):
         found = 0

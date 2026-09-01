@@ -2,6 +2,7 @@
 title: Workshop 2 / Iris and Helmuth (advanced)
 slug: vikend-2026-sobota-workshop-2-iris-helmuth
 date: 2026-05-23 14:30:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-23 14:30:00

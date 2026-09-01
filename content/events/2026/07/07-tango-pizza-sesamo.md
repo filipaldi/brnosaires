@@ -2,6 +2,7 @@
 title: Tango a pizza v Sesamu
 slug: 2026-07-02-tango-pizza-sesamo      
 date: 2026-06-19 12:00:00              
+category: event
 author: Lenka Pláteníková
 description: Neformální párty v Sesamo bakery. Nejlepší pizza v Brně. Tanečníci, kteří si letos začali s tangem i ti, co tančí roky.
 preview_image: /images/events/2026/2026-03-milonga-sesamo.avif

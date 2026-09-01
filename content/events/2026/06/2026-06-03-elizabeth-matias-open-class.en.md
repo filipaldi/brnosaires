@@ -2,6 +2,7 @@
 title: Open Class - Elizabeth Cordone and Matías Rivas
 slug: 2026-06-03-elizabeth-matias-open-class
 date: 2026-06-03 18:00:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-06-03 18:00:00

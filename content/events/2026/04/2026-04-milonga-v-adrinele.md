@@ -2,6 +2,7 @@
 title: Milonga v Adrinele - duben
 slug: milonga-v-adrinele-2026-04-16
 date: 2026-03-25 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-04-16 20:30:00
 event-end: 2026-04-16 23:15:00

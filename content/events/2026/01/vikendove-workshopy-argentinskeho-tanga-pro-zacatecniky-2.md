@@ -2,6 +2,7 @@
 title: Víkendové workshopy argentinského tanga pro začátečníky (2)
 slug: vikendove-workshopy-argentinskeho-tanga-pro-zacatecniky-2
 date: 2026-01-18 12:30:00
+category: event
 event-type: workshop
 event-start: 2026-01-18 12:30:00
 event-end: 2026-01-18 16:45:00

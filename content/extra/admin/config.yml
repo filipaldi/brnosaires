@@ -221,6 +221,12 @@ collections:
         widget: markdown
         modes: [raw]
         i18n: true
+      # Skryté, jako u oznámení a píkošek. Bez něj si Pelican kategorii odvodí
+      # z nejhlubší složky pod ARTICLE_PATHS — a od chvíle, kdy akce leží
+      # v events/RRRR/MM/, je tou složkou číslo měsíce. Vzniklo z toho
+      # /category/01/ až /category/12/: v sitemapě, indexovatelné, a nevede
+      # na ně nic.
+      - { name: category, label: Kategorie, widget: hidden, default: event, i18n: duplicate }
       # Poslední pole schválně: nevyplňuje se. Adresu stránky nese jméno
       # souboru, které Sveltia vyrobí při založení ze `slug:` šablony kolekce
       # a při pozdější opravě názvu ho nepřejmenuje — adresa je tím zmrazená.

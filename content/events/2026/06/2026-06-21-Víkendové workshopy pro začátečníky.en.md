@@ -3,6 +3,7 @@ title: Weekend workshops for beginners - Sunday
 slug: vikendove-workshopy-zacatecnici-nedele
 lang: en
 date: 2026-06-01
+category: event
 instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-06-21 13:00:00
 event-end: 2026-06-21 17:15:00

@@ -2,6 +2,7 @@
 title: Open Class - The Embrace in Tango
 slug: 2026-05-16-open-class-objeti-v-tangu
 date: 2026-05-03 18:00:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-16 18:00:00

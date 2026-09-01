@@ -3,6 +3,7 @@ lang: cs
 title: Letní intenzivní workshopy Tango 2 - středa
 slug: letni-intenzivni-workshopy-tango2-09-streda
 date: 2026-08-27 20:20:00
+category: event
 author: Lenka Pláteníková
 description: Letní intenzivní workshopy pro ty, kteří absolvovali kurz Tango I.
 preview_image: /images/classes/class-lenka-filip.avif

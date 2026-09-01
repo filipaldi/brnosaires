@@ -2,6 +2,7 @@
 title: Milonga Sesamo
 slug: milonga-sesamo-03-2026
 date: 2026-03-21 20:00:00
+category: event
 event-type: milonga
 event-start: 2026-03-21 20:00:00
 event-end: 2026-03-22 01:00:00

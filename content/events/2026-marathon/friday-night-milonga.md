@@ -2,6 +2,7 @@
 title: Friday Night Milonga
 slug: marathon-2026-friday-night-milonga
 date: 2026-10-16 19:00:00
+category: event
 event-type: milonga
 event-start: 2026-10-16 19:00:00
 event-end: 2026-10-17 01:00:00

@@ -16,8 +16,7 @@ import unittest
 
 from tests import REPO_ROOT
 
-# Mirrors `folder:` in content/extra/admin/config.yml. `classes` sits inside
-# `events`, so walking `events` covers it.
+# Mirrors `folder:` in content/extra/admin/config.yml.
 COLLECTION_FOLDERS = (
     "content/events",
     "content/announcements",
@@ -49,6 +48,38 @@ def front_matter(lines):
         if line.strip() == "---":
             return lines[1:index]
     return None
+
+
+class Category(unittest.TestCase):
+    """An event names its category. It does not inherit one from a folder.
+
+    Pelican falls back to the deepest folder under ARTICLE_PATHS when the front
+    matter names no category. Announcements and curiosities have always named
+    theirs — the CMS writes it as a hidden field — so nobody noticed that events
+    did not, until #103 moved them into `events/RRRR/MM/` and the category of
+    every event silently became the number of a month. Seventeen category pages
+    landed in the sitemap, `/category/01/` through `/category/12/` plus two
+    stray folder names, reachable by Google and by nothing else on the site.
+    """
+
+    def declared(self):
+        for path, lines in entries():
+            if not path.startswith("content/events" + os.sep):
+                continue
+            block = front_matter(lines) or []
+            values = [line.split(":", 1)[1].strip() for line in block
+                      if line.startswith("category:")]
+            yield path, values
+
+    def test_every_event_declares_one(self):
+        missing = [path for path, values in self.declared() if not values]
+        self.assertEqual(missing, [],
+                         f"category comes from the folder name here: {missing[:5]}")
+
+    def test_they_all_declare_the_same_one(self):
+        odd = [(path, values) for path, values in self.declared()
+               if values and values != ["event"]]
+        self.assertEqual(odd, [], f"expected `category: event`: {odd[:5]}")
 
 
 class Delimiters(unittest.TestCase):

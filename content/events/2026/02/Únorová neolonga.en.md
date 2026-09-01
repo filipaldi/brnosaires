@@ -11,6 +11,7 @@ event-street: Olomoucká 14
 event-locality: Brno
 series: neolonga-na-stolarne
 date: 2026-02-24 18:00:00
+category: event
 author: Lenka Pláteníková
 slug: neolonga-na-stolarne-2026-02-28
 ---

@@ -2,6 +2,7 @@
 title: Sharing Dreams through our Feet – Musicality in motion through contact-tango
 slug: sharing-dreams-through-our-feet-musicality-in-motion-through-contact-tango
 date: 2025-11-21 18:00:00
+category: event
 event-type: workshop
 event-start: 2025-11-21 18:00:00
 event-end: 2025-11-23 14:00:00

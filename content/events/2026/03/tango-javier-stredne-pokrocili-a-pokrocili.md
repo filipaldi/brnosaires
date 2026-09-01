@@ -2,6 +2,7 @@
 title: Tango Javier Antar - pro každého, kdo chce dobře tančit
 slug: tango-javier-stredne-pokrocili-a-pokrocili
 date: 2026-02-28 01:00:00
+category: event
 event-start: 2026-03-04 19:00:00
 event-end: 2026-01-08 20:15:00
 recurrence: weekly

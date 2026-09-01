@@ -2,6 +2,7 @@
 lang: cs
 title: Kurz Tango 2 - 3
 date: 2026-08-29 20:22:00
+category: event
 author: Lenka Pláteníková
 description: Kurz pro všechny mírně pokročilé tanečníky - absolventy Tango 1 i pokročilejší absolventy Tango 2 a výš.
 preview_image: /images/classes/class-lenka-filip.avif

@@ -2,6 +2,7 @@
 title: Vedená praktika na Stolárně s moderní hudbou a beze strachu z pravidel
 slug: vedena-praktika-na-stolarne-s-moderni-hudbou-a-beze-strachu-z-pravidel
 date: 2025-12-07 20:00:00
+category: event
 event-type: workshop
 event-start: 2025-12-07 20:00:00
 event-end: 2025-12-07 23:00:00

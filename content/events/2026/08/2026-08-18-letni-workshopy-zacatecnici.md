@@ -2,6 +2,7 @@
 title: Letní intenzivní workshopy pro začátečníky - úterý 08
 slug: letni-intenzivni-workshopy-zacatecnici-08-utery
 date: 2026-07-08 
+category: event
 instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-08-18 17:45:00
 event-end: 2026-08-18 22:00:00

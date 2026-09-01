@@ -2,6 +2,7 @@
 lang: cs
 title: Tango pro začátečníky
 date: 2026-08-30 19:10:00
+category: event
 author: Lenka Pláteníková
 description: Argentinské tango pro všechny začátečníky.
 preview_image: /images/events/2026/Tangolab-zacatecnici.avif

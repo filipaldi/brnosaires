@@ -2,6 +2,7 @@
 title: Milonga v Adrinele - březen
 slug: milonga-v-adrinele-2026-03-19
 date: 2026-03-19 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-03-19 20:30:00
 event-end: 2026-03-19 23:15:00

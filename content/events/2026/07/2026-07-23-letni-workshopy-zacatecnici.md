@@ -2,6 +2,7 @@
 title: Letní intenzivní workshopy pro začátečníky - čtvrtek
 slug: letni-intenzivni-workshopy-zacatecnici-07-ctvrtek
 date: 2026-07-06 
+category: event
 instructor_slugs: ondra-martinak, pavla-luzna
 event-start: 2026-07-23 17:45:00
 event-end: 2026-07-23 20:30:00

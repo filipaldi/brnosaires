@@ -2,6 +2,7 @@
 title: Tango & Pizza - středa v Sesamo Bakery
 slug: tango-pizza-sesamo-2026-04-15
 date: 2026-04-04 18:00:00
+category: event
 event-type: praktika
 event-start: 2026-04-15 18:00:00
 event-end: 2026-04-15 22:00:00

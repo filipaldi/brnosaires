@@ -2,6 +2,7 @@
 title: Workshop 3 / Lenka and Filip (beginners)
 slug: vikend-2026-sobota-workshop-3-lenka-filip
 date: 2026-05-23 16:00:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-23 16:00:00

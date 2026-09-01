@@ -2,6 +2,7 @@
 lang: en
 title: Tango for intermediate
 date: 2026-08-30 19:15:00
+category: event
 author: Lenka Pláteníková
 description: Argentine tango for those who have started and want to continue.
 preview_image: /images/events/tangolab-mirne-pokrocili.png

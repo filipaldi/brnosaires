@@ -2,6 +2,7 @@
 lang: cs
 title: Tango pro mírně pokročilé
 date: 2026-08-30 19:15:00
+category: event
 author: Lenka Pláteníková
 description: Argentinské tango pro ty, kteří mají začátky za sebou a chtějí pokračovat.
 preview_image: /images/events/tangolab-mirne-pokrocili.png

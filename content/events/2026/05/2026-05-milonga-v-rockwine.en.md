@@ -2,6 +2,7 @@
 title: Milonga at Rockwine - May
 slug: 2026-05-milonga-v-rockwine
 date: 2026-05-14 18:00:00
+category: event
 lang: en
 event-type: milonga
 event-start: 2026-05-14 19:00:00

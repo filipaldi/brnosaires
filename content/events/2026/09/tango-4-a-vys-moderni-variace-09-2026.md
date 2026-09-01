@@ -2,6 +2,7 @@
 lang: cs
 title: Tango 4 a výš - moderní variace
 date: 2026-08-30 18:41:00
+category: event
 author: Lenka Pláteníková
 description: Kurz pro absolventy Tango 3 a výš.
 preview_image: /images/events/2026/Ondra-Pavla.avif

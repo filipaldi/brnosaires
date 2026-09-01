@@ -2,6 +2,7 @@
 title: Milonga na Skleněnce - výjimečný termín
 slug: milonga-na-sklenence-2026-04-10
 date: 2026-04-10 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-04-10 18:00:00
 event-end: 2026-04-10 22:00:00

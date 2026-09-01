@@ -2,6 +2,7 @@
 lang: en
 title: Milonga on the "Naplavka"
 date: 2026-08-28 19:34:00
+category: event
 author: Lenka Pláteníková
 description: Summer is not over, Brno's Náplavka is alive. This time with tango.
 preview_image: /images/events/2026/2026-09-milonga-naplavka.png

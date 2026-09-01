@@ -2,6 +2,7 @@
 lang: cs
 title: Openclass a praktika TangoLab Štěky
 date: 2026-08-27 20:30:00
+category: event
 author: Lenka Pláteníková
 description: Od 18h do 19h openclass na určité téma, poté otevřený trénink pro všechny tanečníky.
 preview_image: /images/Baner HEX praktika.png

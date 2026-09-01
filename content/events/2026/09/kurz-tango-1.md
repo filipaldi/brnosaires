@@ -2,6 +2,7 @@
 lang: cs
 title: Kurz - Tango 1
 date: 2026-08-29 20:35:00
+category: event
 author: Lenka Pláteníková
 description: Argentinské tango pro začátečníky s Petrem a Janou.
 preview_image: /images/events/praktika Stolarna.jpeg

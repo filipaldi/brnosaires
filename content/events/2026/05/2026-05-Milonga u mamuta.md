@@ -2,6 +2,7 @@
 title: Milonga u mamuta - Anthropos
 slug: 2026-05-milonga-u-mamuta
 date: 2026-03-21 20:00:00
+category: event
 event-type: milonga
 event-start: 2026-05-16 19:00:00
 event-end: 2026-05-16 23:00:00

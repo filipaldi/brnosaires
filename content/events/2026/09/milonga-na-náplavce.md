@@ -2,6 +2,7 @@
 lang: cs
 title: Milonga na Náplavce
 date: 2026-08-28 19:34:00
+category: event
 author: Lenka Pláteníková
 description: Léto nekončí, brněnská Náplavka žije. Tentokrát tangem.
 preview_image: /images/events/2026/2026-09-milonga-naplavka.png

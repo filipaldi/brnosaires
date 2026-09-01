@@ -2,6 +2,7 @@
 lang: en
 title: Course Tango 2 + 3
 date: 2026-08-29 20:22:00
+category: event
 author: Lenka Pláteníková
 description: Course for all intermediate dancers - Tango 1 graduates and more advanced Tango 2 graduates and above.
 preview_image: /images/classes/class-lenka-filip.avif

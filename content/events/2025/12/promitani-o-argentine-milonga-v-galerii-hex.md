@@ -2,6 +2,7 @@
 title: Promítání o Argentině + milonga v Galerii Hex
 slug: promitani-o-argentine-milonga-v-galerii-hex
 date: 2025-12-04 18:00:00
+category: event
 event-type: milonga
 event-start: 2025-12-04 18:00:00
 event-end: 2025-12-04 23:00:00

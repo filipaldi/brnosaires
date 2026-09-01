@@ -2,6 +2,7 @@
 title: Openclass a milonga na Střeše Vaňkovky - srpen
 slug: 2026-08-12-milonga-na-strese-vankovky   
 date: 2026-06-17 18:00:00             
+category: event
 author: Lenka Pláteníková
 description: Openclass a milonga na Střeše Vaňkovky v rámci festivalu Stay fit by Vaňkovka
 preview_image: /images/events/2026/stay-fit-by-vankovka.avif

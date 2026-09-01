@@ -2,6 +2,7 @@
 title: Letní intenzivní workshopy Tango 3 - středa
 slug: letni-intenzivni-workshopy-tango3-08-streda
 date: 2026-07-06 
+category: event
 instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-08-05 17:45:00
 event-end: 2026-08-05 22:00:00

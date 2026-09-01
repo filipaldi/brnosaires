@@ -2,6 +2,7 @@
 title: Zamba (Iris) – everyone
 slug: vikend-2026-sobota-zamba-iris
 date: 2026-05-23 19:00:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-23 19:00:00

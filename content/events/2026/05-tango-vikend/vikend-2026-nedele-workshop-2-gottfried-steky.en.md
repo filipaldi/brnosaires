@@ -2,6 +2,7 @@
 title: Workshop 2 / Gottfried and Štěky (intermediate)
 slug: vikend-2026-nedele-workshop-2-gottfried-steky
 date: 2026-05-24 14:15:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-24 14:15:00

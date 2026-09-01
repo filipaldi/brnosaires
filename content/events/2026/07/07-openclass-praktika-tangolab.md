@@ -2,6 +2,7 @@
 title: Openclass pro začátečníky a praktika
 slug: 2026-07-21-openclas-a-praktika
 date: 2026-06-24 12:00:00              
+category: event
 author: Lenka Pláteníková
 description: Openclass pro začátečníky a praktika - tréninková tančírna pro všechny začátečníky i pokročilé.
 preview_image: /images/events/2026/Tangolab-zacatecnici.avif

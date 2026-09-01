@@ -2,6 +2,7 @@
 title: Workshop 1 / Gottfried a Štěky 
 slug: vikend-2026-nedele-chacarera-gottfried-steky
 date: 2026-05-24 13:00:00
+category: event
 event-type: workshop
 event-start: 2026-05-24 13:00:00
 event-end: 2026-05-24 14:15:00

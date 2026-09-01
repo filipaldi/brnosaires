@@ -2,6 +2,7 @@
 title: Open-air milonga v Anthroposu - srpen
 slug: 2026-08-07-milonga-antrhopos     
 date: 2026-06-24 12:00:00              
+category: event
 author: Lenka Pláteníková
 description: Open-air milonga v oblíbeném Anthroposu. Altánek, stromy, tráva, dřevěný parket. 
 preview_image: /images/unnamed/anthropos_altanek.avif

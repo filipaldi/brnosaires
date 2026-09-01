@@ -2,6 +2,7 @@
 title: Workshop 1 / Lenka and Filip (beginners)
 slug: vikend-2026-nedele-workshop-1-lenka-filip
 date: 2026-05-24 13:00:00
+category: event
 lang: en
 event-type: workshop
 event-start: 2026-05-24 13:00:00

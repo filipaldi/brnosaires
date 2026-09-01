@@ -2,6 +2,7 @@
 lang: en
 title: Course - Tango 1
 date: 2026-08-29 20:35:00
+category: event
 author: Lenka Pláteníková
 description: Argentine tango for beginners with Petr and Jana.
 preview_image: /images/events/praktika Stolarna.jpeg

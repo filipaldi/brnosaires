@@ -2,6 +2,7 @@
 lang: en
 title: Tango Argentino workshops with Rodrigo & Majo in Brno
 date: 2026-08-23 19:25:00
+category: event
 author: Lenka Pláteníková
 description: Rodrigo Fonti & Majo Martirena (Argentina) in Brno - weekend workshops and milonga with DJ Daniel (Prague).
 preview_image: Rodrigo_Majo_workshopy.avif

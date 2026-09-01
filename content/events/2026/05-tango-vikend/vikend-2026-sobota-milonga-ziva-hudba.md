@@ -2,6 +2,7 @@
 title: HEX Milonga s živou hudbou
 slug: vikend-2026-sobota-milonga-ziva-hudba
 date: 2026-05-23 20:30:00
+category: event
 event-type: milonga
 event-start: 2026-05-23 19:00:00
 event-end: 2026-05-23 01:00:00

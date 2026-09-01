@@ -2,6 +2,7 @@
 title: Workshop 1 / Lenka a Filip (začátečníci)
 slug: vikend-2026-sobota-workshop-1-lenka-filip
 date: 2026-05-23 13:00:00
+category: event
 event-type: workshop
 event-start: 2026-05-23 13:00:00
 event-end: 2026-05-23 14:15:00

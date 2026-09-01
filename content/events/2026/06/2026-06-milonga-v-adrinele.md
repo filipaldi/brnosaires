@@ -2,6 +2,7 @@
 title: Milonga v Adrinele
 slug: 2026-06-18-milonga-v-adrinele      
 date: 2026-06-16 12:00:00              
+category: event
 author: Lenka Pláteníková
 description: Předprázdninová milonga v Café Adrinela. Dortíky, paní Lada, rybičky a tango.
 preview_image: /images/adrinela_people.avif

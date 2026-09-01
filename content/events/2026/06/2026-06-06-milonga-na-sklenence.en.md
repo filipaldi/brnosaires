@@ -2,6 +2,7 @@
 title: Milonga at Skleněnka - June
 slug: milonga-na-sklenence-2026-06-06
 date: 2026-06-06 18:00:00
+category: event
 lang: en
 event-type: milonga
 event-start: 2026-06-06 18:00:00

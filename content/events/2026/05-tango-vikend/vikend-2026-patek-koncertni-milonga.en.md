@@ -2,6 +2,7 @@
 title: Gala Milonga with a Concert - Petr Zámečník & Piastra
 slug: vikend-2026-patek-koncertni-milonga
 date: 2026-05-22 21:00:00
+category: event
 lang: en
 event-type: milonga
 event-start: 2026-05-22 21:00:00

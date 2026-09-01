@@ -2,6 +2,7 @@
 title: Workshopy Gottfried - pro pokročilé (středně pokročilé)
 slug: workshopy-gottfried-pro-pokrocile-stredne-pokrocile
 date: 2026-01-10 13:00:00
+category: event
 event-type: workshop
 event-start: 2026-01-10 13:00:00
 event-end: 2026-01-10 17:45:00

@@ -2,6 +2,7 @@
 title: Saturday Night Milonga
 slug: marathon-2026-saturday-night-milonga
 date: 2026-10-17 19:00:00
+category: event
 event-type: milonga
 event-start: 2026-10-17 19:00:00
 event-end: 2026-10-18 01:00:00

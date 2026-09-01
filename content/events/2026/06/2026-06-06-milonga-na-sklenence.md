@@ -2,6 +2,7 @@
 title: Milonga na Skleněnce - červen
 slug: milonga-na-sklenence-2026-06-06
 date: 2026-06-06 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-06-06 18:00:00
 event-end: 2026-06-06 22:00:00

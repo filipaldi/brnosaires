@@ -2,6 +2,7 @@
 title: Brunch milonga v Sesamu
 slug: vikend-2026-sobota-brunch-milonga
 date: 2026-03-28 20:30:00
+category: event
 event-type: milonga
 event-start: 2026-05-23 11:00:00
 event-end: 2026-05-23 15:00:00

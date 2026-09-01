@@ -2,6 +2,7 @@
 title: Neotango workshopy s Cedricem a Pavlou
 slug: 2026-07-12-neotango-cedric-pavla
 date: 2026-07-02 18:00:00              
+category: event
 author: Lenka Pláteníková
 description: Workshop neotanga s francouzským lektorem Cedricem Tellierem a Pavlou Lužnou.
 preview_image: /images/classes/neotango-cedric-pavla.avif

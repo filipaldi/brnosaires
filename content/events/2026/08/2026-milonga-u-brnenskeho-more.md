@@ -2,6 +2,7 @@
 title: Milonga u brněnského moře
 slug: 2026-08-25-milonga-u-brnenskeho-more      
 date: 2026-06-20 12:00:00              
+category: event
 author: Lenka Pláteníková
 description: Brnenske more na konci leta aneb tango tecka za prazdninovym dobrodruzstvim
 preview_image: /images/events/2026/milonga-u-brnenskeho-more.avif

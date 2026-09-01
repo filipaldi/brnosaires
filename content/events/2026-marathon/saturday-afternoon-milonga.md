@@ -2,6 +2,7 @@
 title: Saturday Afternoon Milonga
 slug: marathon-2026-saturday-afternoon-milonga
 date: 2026-10-17 13:00:00
+category: event
 event-type: milonga
 event-start: 2026-10-17 13:00:00
 event-end: 2026-10-17 19:00:00

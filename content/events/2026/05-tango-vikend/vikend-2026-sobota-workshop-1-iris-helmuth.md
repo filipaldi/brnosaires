@@ -2,6 +2,7 @@
 title: Workshop 1 / Iris a Helmuth (středně pokročilí)
 slug: vikend-2026-sobota-workshop-1-iris-helmuth
 date: 2026-05-23 13:00:00
+category: event
 event-type: workshop
 event-start: 2026-05-23 13:00:00
 event-end: 2026-05-23 14:15:00

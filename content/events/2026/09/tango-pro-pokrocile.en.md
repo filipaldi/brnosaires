@@ -2,6 +2,7 @@
 lang: en
 title: Tango for advanced
 date: 2026-08-30 19:18:00
+category: event
 author: Lenka Pláteníková
 description: Argentine tango for all advanced dancers who want to move further in their dance.
 preview_image: /images/events/tangolab-pokrocili.png

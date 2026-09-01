@@ -2,6 +2,7 @@
 title: Milonga v Rockwine - únor
 slug: milonga-v-rockwine-2026-02-12
 date: 2026-02-12 19:00:00
+category: event
 event-type: milonga
 event-start: 2026-02-12 19:00:00
 event-end: 2026-02-12 22:00:00

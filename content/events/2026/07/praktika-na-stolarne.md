@@ -2,6 +2,7 @@
 title: Praktika na Stolárně 
 slug: praktika-na-stolarne
 date: 2026-02-01 20:00:00
+category: event
 event-type: praktika
 event-start: 2026-07-06 20:15:00
 event-end: 2026-07-06 22:30:00

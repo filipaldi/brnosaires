@@ -2,6 +2,7 @@
 lang: cs
 title: Workshopy s Rodrigo a Majo
 date: 2026-08-23 19:25:00
+category: event
 author: Lenka Pláteníková
 description: Rodrigo Fonti & Majo Martirena (Argentina) v Brně - víkendové workshopy a milonga s DJ Danielem (Praha).
 preview_image: Rodrigo_Majo_workshopy.avif

@@ -2,6 +2,7 @@
 lang: en
 title: Birthday milonga in Pohořelice
 date: 2026-08-22 16:24:00
+category: event
 author: Lenka Pláteníková
 description: Birthday milonga in Pohořelice. Organized by Zdenka and Radek Šich.
 preview_image: /images/Milonga_Pohoelice.avif

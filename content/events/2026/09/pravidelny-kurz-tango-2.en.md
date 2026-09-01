@@ -2,6 +2,7 @@
 lang: en
 title: Tango 2
 date: 2026-08-29 19:41:00
+category: event
 author: Lenka Pláteníková
 description: Regular course for graduates of the Tango 1 course with Petr and Jana.
 preview_image: /images/events/praktika Stolarna.jpeg

@@ -2,6 +2,7 @@
 lang: cs
 title: Narozeninová milonga v Pohořelicích
 date: 2026-08-22 16:24:00
+category: event
 author: Lenka Pláteníková
 description: Narozeninová milonga v Pohořelicích. Organizuje Zdeňka a Radek Šichovi.
 preview_image: /images/Milonga_Pohoelice.avif

@@ -2,6 +2,7 @@
 title: Víkendové workshopy pro začátečníky - sobota
 slug: vikendove-workshopy-zacatecnici-sobota
 date: 2026-06-01 
+category: event
 instructor_slugs: filip-paldia, lenka-platenikova
 event-start: 2026-06-20 13:00:00
 event-end: 2026-06-20 17:15:00

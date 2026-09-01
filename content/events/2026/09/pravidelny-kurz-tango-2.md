@@ -2,6 +2,7 @@
 lang: cs
 title: Kurz Tango 2
 date: 2026-08-29 19:41:00
+category: event
 author: Lenka Pláteníková
 description: Pravidelný kurz pro absolventy kurzu Tango 1. s Petrem a Janou.
 preview_image: /images/events/praktika Stolarna.jpeg

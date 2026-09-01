@@ -2,6 +2,7 @@
 title: Milonga at the Mammoth - Anthropos
 slug: 2026-05-milonga-u-mamuta
 date: 2026-03-21 20:00:00
+category: event
 lang: en
 event-type: milonga
 event-start: 2026-05-16 19:00:00

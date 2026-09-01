@@ -2,6 +2,7 @@
 title: Milonga v Adrinele - květen
 slug: milonga-v-adrinele-2026-05-28
 date: 2026-05-28 18:00:00
+category: event
 event-type: milonga
 event-start: 2026-05-28 20:30:00
 event-end: 2026-05-28 23:15:00

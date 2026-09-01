@@ -2,6 +2,7 @@
 title: HEX Milonga with Live Music
 slug: vikend-2026-sobota-milonga-ziva-hudba
 date: 2026-05-23 20:30:00
+category: event
 lang: en
 event-type: milonga
 event-start: 2026-05-23 19:00:00
