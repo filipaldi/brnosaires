@@ -105,6 +105,34 @@ Conventions for this project:
 - Git refuses to check out the same branch in two worktrees — that's a built-in safety, not a bug.
 - When testing always open new tab and keep it open for user review.
 
+## Planning: what gets worked on next
+
+Priority lives in two repo-owned places. Both are visible to anyone who can see the repo — no invitations, no project board, no personal account it dies with.
+
+- **Up to three pinned issues** — what is next. GitHub caps pinning at three; the cap is the point.
+- **One open milestone** — the current month's box. What is in it gets done, what is not waits.
+
+Everything else carries no priority at all, deliberately. This repo lands about three developer commits in five weeks, so ranking twenty issues sorts sixteen nobody reaches. Ordering P2 against P3 is maintenance, not planning.
+
+Rotate when the milestone closes: pick the next three, pin them, open the next month. Closed issues leave both by themselves — neither has to be edited.
+
+```bash
+gh issue list --milestone 'Září 2026'            # this month's box
+gh api repos/filipaldi/brnosaires/milestones     # state of every box
+```
+
+Pinning has no `gh` command, only the GraphQL mutation:
+
+```bash
+gh issue view <n> --json id --jq .id             # node id
+gh api graphql -f query='mutation { pinIssue(input: {issueId: "<node-id>"}) { issue { number } } }'
+```
+
+Two things not to reintroduce:
+
+- **A prose issue carrying the priority table.** That was #52. It went stale the moment ten of its eleven items closed, because keeping it current meant editing markdown on every merge.
+- **`p0`/`p1`/`p2` labels.** Add a label when a filter is genuinely missing, never to express rank.
+
 ## Project Structure
 
 ```

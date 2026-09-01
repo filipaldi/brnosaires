@@ -68,7 +68,7 @@ Workflow je „build manuálně, prohlížeč ručně refreshni" — žádný au
 
 Nápady, chyby a plán rozvoje se vedou v **GitHub Issues**. Kdokoli s GitHub účtem může otevřít nový issue nebo komentovat existující.
 
-- **Kanban board:** [Brnos Aires - Plán rozvoje](https://github.com/users/filipaldi/projects/2) - sloupce *Nápady* / *Pracuje se* / *Hotovo*.
+- **Co se dělá teď:** tři [připnuté issues](https://github.com/filipaldi/brnosaires/issues) nahoře v seznamu, plus [aktuální milestone](https://github.com/filipaldi/brnosaires/milestones). Zbytek pořadí nemá schválně — proč, viz [AGENTS.md](AGENTS.md#planning-what-gets-worked-on-next).
 - **Seznam issues:** [github.com/filipaldi/brnosaires/issues](https://github.com/filipaldi/brnosaires/issues)
 - **Nový nápad / bug:** [otevřít issue](https://github.com/filipaldi/brnosaires/issues/new)
 
