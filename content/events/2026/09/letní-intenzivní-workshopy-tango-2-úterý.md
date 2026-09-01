@@ -1,6 +1,6 @@
 ---
 lang: cs
-title: Letní intenzivní workshopy Tango 2 - 8. - 10. 9.
+title: Letní intenzivní workshopy Tango 2
 description: Letní intenzivní workshopy pro ty, kteří absolvovali kurz Tango I.
 preview_image: /images/classes/class-lenka-filip.avif
 event-type: workshop
