@@ -5,15 +5,15 @@ date: 2026-05-26 00:00:00
 lang: en
 series: neolonga-na-stolarne
 preview_image: /images/events/2026/neolonga.avif
-description: An irregular-regular neolonga series at Stolárna in Brno. Classic tango, nuevo and other genres depending on the DJ — traditional tanda and cortina structure.
+description: Neolongas in Brno: tango nuevo, neo tango and contemporary music at Stolárna. An irregularly regular series with classic tanda and cortina structure.
 author: Lenka Pláteníková
 ---
 
 # Neolonga at Stolárna
 
-Neolonga at Stolárna is a series of irregularly recurring neolongas at **Taneční studio Stolárna** (Olomoucká 14, Brno). Regular in spirit, unpredictable in dates — worth watching the calendar for.
+Neolongas in Brno have their address: **Taneční studio Stolárna**, Olomoucká 14. Regular in spirit, unpredictable in dates, so the calendar is worth watching.
 
-The music depends on the DJ and every evening is different: classic tango, contemporary tango, nuevo, and other genres — rock ballads, blues, film music, or whatever simply works on the floor. Come and find out what moves you.
+Tango nuevo in Brno, neo tango, contemporary tango and genres nobody expects to hear at a milonga: rock ballads, blues, film music, whatever works on the floor. The music depends on the DJ, so every evening is different. Come and find out what moves you.
 
 ## What to expect
 
