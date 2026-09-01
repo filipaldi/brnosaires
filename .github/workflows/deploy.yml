@@ -1,6 +1,8 @@
 name: Build and Deploy
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '0 6,18 * * *'
   workflow_dispatch:
@@ -17,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.tests.outcome }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -31,9 +35,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Same suite as tests.yml, run here too so a broken build cannot reach
-      # Pages by way of the cron or a manual dispatch.
       - name: Run tests
+        id: tests
+        continue-on-error: true
         run: python -m unittest discover -s tests -t .
 
       - name: Build with Pelican
@@ -67,3 +71,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  report:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always() && needs.build.outputs.tests == 'failure'
+    steps:
+      - name: The suite failed
+        run: |
+          echo "The site is published. The suite is red - fix it."
+          exit 1
