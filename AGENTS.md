@@ -122,7 +122,7 @@ The `pages/` subdirs are organisational only — Pelican routes pages by `Slug:`
 
 All in `plugins/`, registered in `pelicanconf.py`:
 - `calendarium/` — event filtering, grouping, `.ics` feed generation
-- `recurring_events.py` — expands `recurrence: weekly sunday` metadata into multiple instances
+- `recurring_events.py` — expands `recurrence: weekly` (weekday taken from `event-start`) into multiple instances, bounded by `recurrence-until`
 - `article_filter.py` — powers `<widget-articles>`
 - `widget_processor.py` — renders `<widget-*>` tags in Markdown via Jinja (processes both `generator.pages`/`articles` and `generator.translations`)
 - `gallery_widget.py` — scans image folders for alt text

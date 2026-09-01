@@ -20,28 +20,34 @@ Produkční nasazení běží přes **GitHub Actions → GitHub Pages**. Workflo
 
 Build se spouští:
 
-- **Automaticky dvakrát denně** podle cronu: `0 6,18 * * *` (06:00 a 18:00 UTC, tj. 07:00/08:00 a 19:00/20:00 v Brně podle zimního/letního času).
+- **Při každém pushi do `main`** — merge pull requestu i commit z /admin/ se nasadí do pár minut.
+- **Automaticky dvakrát denně** podle cronu: `0 6,18 * * *` (06:00 a 18:00 UTC, tj. 07:00/08:00 a 19:00/20:00 v Brně podle zimního/letního času). Cron je tu kvůli akcím, které mají v kalendáři propadnout — web se přestaví, i když do repozitáře nikdo nesáhl.
 - **Ručně na vyžádání** přes `workflow_dispatch` — vývojář může build spustit kdykoli z GitHub UI (Actions → *Build and Deploy* → *Run workflow*) nebo přes `gh workflow run`.
-
-**Push do `main` build neaktivuje sám o sobě** — změna se zveřejní až při dalším naplánovaném buildu (max ~12 hodin), nebo když někdo workflow spustí ručně.
 
 ## Co workflow dělá
 
-Soubor [.github/workflows/deploy.yml](../.github/workflows/deploy.yml) má dva joby:
+Soubor [.github/workflows/deploy.yml](../.github/workflows/deploy.yml) má tři joby:
 
 ### Job 1: `build`
 
-1. **Checkout** repozitáře (`actions/checkout@v4`).
-2. **Setup Python 3.11** (`actions/setup-python@v5`).
+1. **Checkout** repozitáře.
+2. **Setup Python 3.11**.
 3. **Instalace závislostí**: `pip install -r requirements.txt`.
-4. **Build s Pelicanem**: `PYTHONPATH=. pelican content -s publishconf.py` — produkční konfigurace s `SITEURL = "https://brnosaires.com"` a `RELATIVE_URLS = False`.
-5. **CNAME pro vlastní doménu**: `echo "brnosaires.com" > output/CNAME` (GitHub Pages tak ví, na jaké doméně web běží).
-6. **Setup Pages** (`actions/configure-pages@v4`).
-7. **Upload artefaktu** — obsah `output/` se nahraje jako GitHub Pages artefakt (`actions/upload-pages-artifact@v3`).
+4. **Testy**: `python -m unittest discover -s tests -t .` — běží s `continue-on-error`, takže **web nezastaví**. Proč, viz níž.
+5. **Build s Pelicanem**: `PYTHONPATH=. pelican content -s publishconf.py` — produkční konfigurace s `SITEURL = "https://brnosaires.com"` a `RELATIVE_URLS = False`.
+6. **Kontrola odkazů**: `python scripts/check_links.py output` — tohle deploy **zastaví**. Měří se na tom, co se chystá ven.
+7. **CNAME pro vlastní doménu**: `echo "brnosaires.com" > output/CNAME`.
+8. **Setup Pages** a **upload artefaktu** — obsah `output/` se nahraje jako GitHub Pages artefakt.
 
 ### Job 2: `deploy`
 
-Po úspěšném buildu (`needs: build`) se artefakt nasadí na GitHub Pages přes `actions/deploy-pages@v4`. URL nasazené verze (`https://brnosaires.com`) se zobrazí jako výstup workflow.
+Po úspěšném buildu (`needs: build`) se artefakt nasadí na GitHub Pages. URL nasazené verze (`https://brnosaires.com`) se zobrazí jako výstup workflow.
+
+### Job 3: `report`
+
+Běží až po nasazení a **označí běh za červený, když spadly testy**. Web je v tu chvíli venku.
+
+Zní to obráceně, ale je to schválně. Sada testů z velké části nekontroluje web, ale kód a obsah — když spadne test formuláře pro editorku nebo se v profilu opraví pravopis jména, o dnešním webu to neříká nic. Než se to rozdělilo, stálo takové zčervenání celý web na tři dny a nikdo se to nedozvěděl: editorka publikuje do prázdna a Actions nečte. Deploy proto blokuje jen build a kontrola odkazů; zbytek se hlásí červeným během **po** nasazení.
 
 ## Když potřebuješ rychlejší nasazení
 

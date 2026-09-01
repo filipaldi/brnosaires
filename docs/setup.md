@@ -67,9 +67,8 @@ pip install -r requirements.txt
 ```
 brnos-aires-web/
 ├── content/
-│   ├── events/
-│   │   ├── YYYY/MM/        # jednorázové akce
-│   │   └── classes/        # pravidelné lekce
+│   │   └── YYYY/MM/        # akce podle měsíce konání; pravidelná lekce
+│   │                       # patří k měsíci PRVNÍHO termínu
 │   ├── pages/              # statické stránky včetně rozcestníků sérií a měsíčních stránek
 │   ├── announcements/      # oznámení
 │   ├── curiosities/        # kuriozity

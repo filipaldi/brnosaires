@@ -22,6 +22,7 @@ backend:
   name: github
   repo: filipaldi/brnosaires
   branch: main
+  auth_methods: [token]
   # Commituje rovnou do main — web se od té chvíle staví při každém pushi
   # (.github/workflows/deploy.yml), takže změna je venku za pár minut.
 

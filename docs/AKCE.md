@@ -2,9 +2,7 @@
 
 ## Nejjednodušší cesta: formulář na [/admin/](https://brnosaires.com/admin/) 🖱️
 
-Otevři **[brnosaires.com/admin](https://brnosaires.com/admin/)** a klikni na **„Sign In Using Access Token"** — token si vygeneruješ podle odkazu přímo na přihlašovací obrazovce, stačí jednou.
-
-⚠️ Na obrazovce je i tlačítko **„Sign In with GitHub"**. To pro tenhle web **nefunguje** (potřebovalo by další server navíc) a nejde ho odtamtud odstranit. Použij to s tokenem.
+Otevři **[brnosaires.com/admin](https://brnosaires.com/admin/)** a klikni na **„Sign In Using Access Token"** — token si vygeneruješ podle odkazu přímo na přihlašovací obrazovce, stačí jednou. Celý postup i s tím, jak se editor přidává, je v [Přístup do /admin/](PRISTUP.md).
 
 Rozhraní **je česky** — jazyk se bere z prohlížeče a dá se přepnout v nastavení (ikona účtu vpravo nahoře). Slovenština zatím není, tam se rozhraní vrátí k angličtině.
 
@@ -164,52 +162,55 @@ Stále nic? Build mohl spadnout úplně (typicky špatné pořadí data v názvu
 
 ## Pravidelná lekce přes `recurrence:` 🔁
 
-Lekce, která se opakuje každý týden nebo měsíc, je **jeden soubor**, ne dvanáct. Pole `recurrence:` ho při buildu rozbalí na všechny termíny. Soubory pravidelných lekcí leží v [content/events/classes/](../content/events/classes/) a v názvu **nemají datum** (datum dodá `event-start` + `recurrence`).
+Lekce, která se opakuje každý týden nebo měsíc, je **jeden soubor**, ne dvanáct. Pole `recurrence:` ho při buildu rozbalí na všechny termíny.
 
-Vezmi existující lekci ze složky jako předlohu. Hlavička vypadá takhle:
+Soubor leží tam, kde všechny ostatní akce: `content/events/RRRR/MM/` podle měsíce **prvního** termínu. Vlastní složku pravidelné lekce nemají — ve formuláři jsou to taky jen akce a v seznamu je vyfiltruješ přepínačem „Pravidelné".
+
+Vezmi existující lekci jako předlohu. Hlavička vypadá takhle:
 
 ```yaml
 title: Tango II.
-slug: stolarna-tango-ii-monday          # bez data; unikátní
 event-start: 2026-06-01 17:45:00         # PRVNÍ termín (datum + čas začátku)
 event-end: 2026-06-01 19:00:00           # konec prvního termínu
-recurrence: weekly monday                # rozbalí na každé pondělí
+recurrence: weekly                       # každý týden ve stejný den jako Začátek
+recurrence-until: 2026-12-14             # nepovinné; bez něj série běží dál
 event-type: class                        # pravidelná lekce = class (NE workshop)
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
-instructor_slugs: pavla-luzna, ondra-martinak
+instructor_slugs:
+    - pavla-luzna
+    - ondra-martinak
 preview_image: /images/classes/class-stolarna.avif
 description: …
-author: Tvé jméno
+author: Lenka Pláteníková
 ```
 
 `instructor_slugs:` jsou slugy profilů z [content/people/](../content/people/) - název souboru bez `.md`, víc lektorů oddělených čárkou. Slug, ke kterému profil neexistuje, shodí build, takže jména z předlohy přepiš za svoje. Podrobnosti v [EDITING.md](EDITING.md).
 
-**Hodnoty `recurrence:`** — základ musí být jedna z těchhle dvou forem (za ni se dají přidat dovětky, viz níž). Když se v základu upíšeš, zůstane akci jen jeden termín a v logu GitHub Actions je varování:
+**Hodnoty `recurrence:`** — jedna ze dvou, nic víc. Když se upíšeš, zůstane akci jen jeden termín a v logu GitHub Actions je varování:
 
 | Zápis | Význam |
 |---|---|
-| `weekly <den>` | každý týden: `weekly monday`, `weekly friday` … `weekly sunday` |
-| `monthly <pořadí> <den>` | N-tý den v měsíci: `monthly 2 sunday` = každá 2. neděle; `monthly -1 friday` = poslední pátek (pořadí `1`-`4` nebo `-1`) |
+| `weekly` | každý týden ve stejný den, na jaký padá `event-start` |
+| `monthly` | každý měsíc ve stejný den — třetí středa zůstane třetí středou |
 
-Dny **anglicky** a malými písmeny (`monday`…`sunday`). Den v `recurrence:` musí sedět se dnem, na který padá `event-start` — jinak se termíny rozjedou. Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
+**Den se nikam nepíše.** Vezme se z `event-start`, protože tam už jednou stojí. Dokud se psal dvakrát, rozešel se: `stolarna-tangomania.md` měla půl roku v pravidlu pondělí a v `event-start` čtvrtek, takže soubor tvrdil jedno a kalendář ukazoval druhé. Chceš lekci přesunout na jiný den? Změň `event-start` a nic dalšího.
+
+Čas se bere z `event-start`/`event-end` a platí pro všechny termíny.
 
 ### Kdy má série začít a skončit ⏳
 
-Bez dalšího údaje běží série **donekonečna**. Když víš, že kurz má deset lekcí nebo končí v prosinci, dopiš to za základní tvar:
+Bez dalšího údaje běží série **donekonečna**. Kurz o osmi lekcích tak slibuje hodiny, které se nekonají, a v kalendáři visí napořád.
 
-| Dovětek | Význam | Příklad |
-|---|---|---|
-| `until RRRR-MM-DD` | poslední termín je tenhle den (včetně) | `recurrence: weekly wednesday until 2026-12-16` |
-| `count N` | přesně N termínů | `recurrence: weekly monday count 10` |
-| `from RRRR-MM-DD` | první termín je až tenhle den | `recurrence: weekly monday from 2026-09-07` |
+```yaml
+recurrence: weekly
+recurrence-until: 2026-11-03      # poslední termín, včetně
+```
 
-Dovětky jdou kombinovat (`from … until …`), jen `until` a `count` **nedávej dohromady** — použije se `until`.
+Ve formuláři je to políčko „Opakovat do" hned pod „Opakování"; prázdné znamená bez konce. Datum, které se nedá přečíst, se zahodí a série běží dál — v logu GitHub Actions je pak varování, takže se to dá dohledat.
 
-**Kdy potřebuješ `from`.** U nové lekce ho nepotřebuješ — dej první termín rovnou do `event-start` a hotovo. `from` je na to, když už soubor existuje a ty ho nechceš rozbít: lekce jede každé pondělí od 19:00, přes léto pauza a v září se rozjede znovu. Místo přepisování `event-start` (ze kterého se bere čas začátku a konce **pro všechny** termíny) dopíšeš `from 2026-09-07` a série začne až tam. Časy zůstanou, jak byly.
-
-Když se v dovětku upíšeš (`until 2026-13-99`, `count 0`), web se nerozbije — dovětek se zahodí a série běží dál bez omezení. V logu GitHub Actions je pak varování, takže se to dá dohledat.
+**Starší zápis** `weekly monday until 2026-12-16` (den i dovětky `until` / `count` / `from` uvnitř jednoho řádku) web pořád přečte, takže starý soubor nemusíš přepisovat. Psát ho ale nemusíš a formulář ho nenabízí.
 
 ## Zmenšení obrázků do AVIF
 
@@ -231,7 +232,7 @@ Sociální náhledy (Facebook, LinkedIn, WhatsApp) AVIF přečíst neumí. **Ře
 
 ## Upravit existující akci ✏️
 
-Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../content/events/) pro jednorázové, [content/events/classes/](../content/events/classes/) pro pravidelné lekce) a uprav jen ten řádek:
+Soubor už existuje, jen měníš hodnotu. Otevři ho v [content/events/RRRR/MM/](../content/events/) podle měsíce konání (u pravidelné lekce podle **prvního** termínu) a uprav jen ten řádek:
 
 | Co měníš | Řádek | Pozor |
 |---|---|---|
@@ -239,7 +240,7 @@ Soubor už existuje, jen měníš hodnotu. Otevři ho ([content/events/](../cont
 | Cenu | `entry` | „zdarma" / „dobrovolné" → akce se označí jako bezplatná. |
 | Místo | `event-venue`, `event-street`, `event-locality` | Tři pole, ne jeden řádek — viz [Adresa místa](#adresa-místa-). |
 | Čas pravidelné lekce | `event-start`, `event-end` | Změní se na **všech** termínech. |
-| Den pravidelné lekce | `event-start` **i** `recurrence` | Musíš změnit **oba** — datum v `event-start` posuň na nový den a uprav `recurrence: weekly <den>`. Změna jen jednoho je nejčastější chyba. |
+| Den pravidelné lekce | jen `event-start` | Posuň datum na nový den. `recurrence: weekly` si den vezme odtamtud, takže se nedá rozejít. |
 
 Co **neměnit**, pokud nechceš změnit URL: `slug:` a jméno souboru. Obojí určuje adresu — jméno souboru tehdy, když `slug:` chybí. Změna = nová URL, stará přestane fungovat (rozbité odkazy, ztracené SEO). Opravit název akce je bezpečné: adresu to nehne.
 

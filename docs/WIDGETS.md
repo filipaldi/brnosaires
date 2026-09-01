@@ -368,7 +368,7 @@ Widgety očekávají, že akce použijí standardizovaný formát metadat:
 ### Volitelná pole
 
 - `event-end`: Datum a čas konce akce (formát: `YYYY-MM-DD HH:MM:SS`)
-- `recurrence`: Opakující se akce se ve widgetu kalendáře rozbalí na více instancí. Použij jednoduchou frázi: `recurrence: weekly sunday` (každou neděli), `recurrence: monthly 1 saturday` (první sobota v měsíci). Pro pokročilé použití je podporované i syrové RRULE přes volitelný `event-rrule`.
+- `recurrence`: Opakující se akce se ve widgetu kalendáře rozbalí na více instancí. Hodnota je `weekly` nebo `monthly`; den se bere z `event-start`, konec série z nepovinného `recurrence-until`. Podrobně v [AKCE.md](AKCE.md#pravidelná-lekce-přes-recurrence). Pro pokročilé použití je podporované i syrové RRULE přes volitelný `event-rrule`.
 
 ### Vzor přístupu v šabloně
 

@@ -4,12 +4,13 @@
 
 | Chci… | Jdi sem |
 |---|---|
-| ✏️ **Upravit** existující akci/lekci (datum, čas, cenu) | Najdi soubor → [content/events/](content/events/) (jednorázové) nebo [content/events/classes/](content/events/classes/) (pravidelné lekce). Co měnit a na co bacha → [Akce: přidat a upravit](docs/AKCE.md#upravit-existující-akci). |
+| ✏️ **Upravit** existující akci/lekci (datum, čas, cenu) | Nejjednodušeji ve formuláři na [/admin/](https://brnosaires.com/admin/) → **Akce**. Ručně: [content/events/RRRR/MM/](content/events/) podle měsíce konání. Co měnit a na co bacha → [Akce: přidat a upravit](docs/AKCE.md#upravit-existující-akci). |
 | ➕ **Přidat** milongu, workshop nebo jednorázovou akci | [Akce: přidat a upravit](docs/AKCE.md) — postup za 5 minut. |
 | 🔁 **Přidat / upravit pravidelnou lekci** (každý týden / měsíc) | [Pravidelná lekce přes `recurrence:`](docs/AKCE.md#pravidelná-lekce-přes-recurrence) — jeden soubor, ne dvanáct. |
 | 🔗 Přidat termín do **série** (Milonga u Draka, Tango & Pizza) | [Série](docs/SERIE.md). |
 | 📄 Upravit běžnou **stránku** (o nás, milongy, lekce, FAQ) | [content/pages/](content/pages/) — viz tabulka „Nejčastěji upravované stránky" níže. |
 | 🌍 Napsat **anglickou** verzi stránky | [Anglická verze](docs/ANGLICKA-VERZIA.md). |
+| 🔑 Dostat se poprvé do **/admin/** nebo přidat dalšího editora | [Přístup do /admin/](docs/PRISTUP.md). |
 | 📦 Něco jiného (oznámení, pikoška, obrázky, navigace…) | Tabulka [Kam co patří](#kam-co-patří-méně-časté-typy) níže. |
 
 🛠️ Vývojář (build, struktura, nasazení)? Skoč na [Pro vývojáře](#pro-vývojáře).
