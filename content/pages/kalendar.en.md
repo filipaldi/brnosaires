@@ -16,7 +16,7 @@ Not sure what a milonga or a praktika is, or where to start with tango? [Have a 
 
 <widget-calendar-link 
     cal_file_name="events" 
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     filter_by_path="events" 
     label="📆 Subscribe to events in your calendar" 
     label_webcal="Apple" 
@@ -29,7 +29,7 @@ Not sure what a milonga or a praktika is, or where to start with tango? [Have a 
     start="this-week"
     group_by="week day"
     headers="week day"
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     days="120"
     hide_empty_days="true">
 </widget-calendar>

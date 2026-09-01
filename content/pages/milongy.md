@@ -13,7 +13,7 @@ Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj 
 
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
@@ -28,7 +28,7 @@ Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj 
     group_by="week day"
     headers="week day"
     days="40"
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     hide_empty_days="true">
 </widget-calendar>
 

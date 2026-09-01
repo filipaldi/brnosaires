@@ -18,7 +18,7 @@ Spring is knocking and the dance-floor calendar gets busier with it. Below you'l
 </widget-calendar>
 
 <widget-calendar-link
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas"
     filter_by_path="events"
     label="📆 Subscribe to milongas in your calendar"

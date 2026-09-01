@@ -17,7 +17,7 @@ Začíná tango léto: open-air milongy, praktika v parku, živá hudba. Níže 
 </widget-calendar>
 
 <widget-calendar-link
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas"
     filter_by_path="events"
     label="📆 Odebírej milongy do svého kalendáře"

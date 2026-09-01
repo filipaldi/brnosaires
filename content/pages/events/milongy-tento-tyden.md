@@ -12,13 +12,13 @@ preview_image: /images/milonga-hned-vedle.avif
 Tento týden se v Brně tančí milonga tady: níže najdeš všechny tančírny argentinského tanga v Brně a okolí na nejbližší dny, s místem a časem. Užívej a tancuj.
 
 <widget-calendar
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     days="8"
     hide_empty_days="true">
 </widget-calendar>
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
