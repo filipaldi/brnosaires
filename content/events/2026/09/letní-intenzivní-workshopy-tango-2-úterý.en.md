@@ -1,15 +1,11 @@
 ---
 lang: en
-title: Summer Intensive Tango Workshops 2 - Tuesday
-slug: letni-intenzivni-workshopy-tango2-09-utery
-date: 2026-08-27 20:08:00
-category: event
-author: Lenka Pláteníková
+title: Summer Intensive Tango Workshops 2
 description: Summer intensive workshops for those who have completed the Tango I course.
 preview_image: /images/classes/class-lenka-filip.avif
 event-type: workshop
 event-start: 2026-09-08 18:00:00
-event-end: 2026-09-08 22:15:00
+event-end: 2026-09-10 20:45:00
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
@@ -19,6 +15,10 @@ instructor_slugs:
     - lenka-platenikova
 entry: 1840 CZK (students discount 20%)
 event-url: https://www.studiostolarna.cz
+category: event
+date: 2026-08-27 20:08:00
+author: Lenka Pláteníková
+slug: letni-intenzivni-workshopy-tango2-09-utery
 ---
 
 Don't have time to attend regular dance lessons during the week?
@@ -35,5 +35,3 @@ SCHEDULE:
 Tuesday 18:00 - 22:15 (3 lessons)
 Wednesday 18:00 - 22:15 (3 lessons)
 Thursday 18:00 - 20:45 (2 lessons)
-
-It is also possible to attend individual lessons, but we recommend that you take into account that the content of the lessons will gradually build on and develop.
