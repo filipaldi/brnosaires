@@ -83,7 +83,8 @@ def _instructor_slugs(content):
         parts = raw.replace(";", ",").split(",")
     else:
         parts = list(raw)
-    slugs = (_SEQUENCE_MARKER.sub("", str(part).strip()).strip("'\"") for part in parts)
+    cleaned = (_SEQUENCE_MARKER.sub("", str(part).strip()).strip("'\"") for part in parts)
+    slugs = (slug.strip() for part in cleaned for slug in part.replace(";", ",").split(","))
     return [slug for slug in slugs if slug]
 
 

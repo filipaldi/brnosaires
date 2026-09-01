@@ -13,7 +13,8 @@ event-street: Olomoucká 14
 event-locality: Brno
 event-organiser: Pavla Lužná
 instructor_slugs:
-    - rodrigo-fonti, majo-martirena
+    - rodrigo-fonti
+    - majo-martirena
 entry: 3200 Kč/135 euro za osobu
 event-url: https://form.jotform.com/261895377162367
 slug: rodrigo_majo_workshopy_2026_09

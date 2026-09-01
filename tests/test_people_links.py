@@ -34,6 +34,13 @@ class Slugs(unittest.TestCase):
         self.assertEqual(self.parse(["", "- filip-paldia", "- lenka-platenikova"]),
                          ["filip-paldia", "lenka-platenikova"])
 
+    def test_two_slugs_typed_into_one_list_item(self):
+        # What stopped the build on 1 September: both teachers were written
+        # into a single `- ` line, so the whole string was read as one slug
+        # that matches no profile.
+        self.assertEqual(self.parse(["", "- rodrigo-fonti, majo-martirena"]),
+                         ["rodrigo-fonti", "majo-martirena"])
+
     def test_empty_is_empty(self):
         for value in ("", None, [], ["", "-", "- "]):
             self.assertEqual(self.parse(value), [])
