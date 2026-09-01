@@ -4,7 +4,7 @@ date: 2025-06-24 01:00:00
 category: announcement
 preview_image: /images/milonga_stehlik_cerven_2025.avif
 description: Konec června to nemá lehký. Budou se dít věci. Vítat i loučit.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Lepší být popředu než pozadu

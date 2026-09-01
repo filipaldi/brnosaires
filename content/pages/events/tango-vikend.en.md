@@ -4,7 +4,7 @@ date: 2026-01-17 18:00:00
 lang: en
 slug: jarni-tango-vikend-v-brne
 description: A three-day tango weekend in Brno. Live music from Argentina, workshops with teachers from Vienna, milongas at the best venues. 22-24 May 2026.
-author: Lenka Pláteniková, Filip Paldia, Šteky Yaku, Míša Lukavská, 
+author: Lenka Pláteníková
 preview_image: /images/milonga-hned-vedle.avif
 ---
 

@@ -10,7 +10,7 @@ event-street: Husova 14
 event-locality: Brno
 preview_image: /images/events/2026/Andrea-and-Rafael.avif
 description: Andrea Giurizzato & Rafael Luna v Brně. 
-author: Lenka Plateniková
+author: Lenka Pláteníková
 ---
 
 # Andrea Giurizzato & Rafael Luna in Brno

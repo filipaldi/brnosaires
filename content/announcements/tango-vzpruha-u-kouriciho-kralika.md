@@ -4,7 +4,7 @@ date: 2025-04-02 02:00:00
 category: announcement
 preview_image: /images/unnamed/488503855_10235665863006662_2967120335504846429_n.avif
 description: Tango vzpruha U kouřícího králíka. Milonga v jazz baru, Brno. Historicky první tango tam.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tango vzpruha U kouřícího králíka

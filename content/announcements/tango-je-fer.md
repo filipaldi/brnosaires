@@ -4,7 +4,7 @@ date: 2024-10-14 02:00:00
 category: announcement
 preview_image: /images/tango_je_fr.avif
 description: Tango je fér. Oznamy z tangového Brna. Milongy a praktiky na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tango je fér

@@ -3,7 +3,7 @@ title: Tvůj tango-bio-rytmus je zpět!
 date: 2024-06-17 02:00:00
 category: announcement
 description: Tvůj tango-bio-rytmus je zpět. Přehled akcí v Brně. Kalendář na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tvůj tango-bio-rytmus je zpět!

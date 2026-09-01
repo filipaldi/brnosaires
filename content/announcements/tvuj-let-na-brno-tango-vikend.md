@@ -4,7 +4,7 @@ date: 2025-04-14 02:00:00
 category: announcement
 preview_image: /images/ELE814be5_P202002100432901.avif
 description: Tvůj let na Brno tango víkend. Workshopy, milongy, hvězdy. Přehled a registrace.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tvůj let na Brno tango víkend

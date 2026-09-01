@@ -4,7 +4,7 @@ date: 2024-07-18 02:00:00
 category: announcement
 preview_image: /images/but_first_coffee.avif
 description: Zatemněná mysl. Kafe první, tango potom. Oznamy z Brnos Aires, abys měl jasno.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Zatemněná mysl

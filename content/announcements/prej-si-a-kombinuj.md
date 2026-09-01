@@ -4,7 +4,7 @@ date: 2024-06-10 02:00:00
 category: announcement
 preview_image: /images/stehlk.avif
 description: Přej si a kombinuj. Milongy v Brně, Stehlík a další. Přehled na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Přej si a kombinuj

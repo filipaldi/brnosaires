@@ -3,7 +3,7 @@ title: Malena, Homér a co mají společného s MDŽ
 date: 2025-02-28 01:00:00
 category: announcement
 description: Malena, Homér a co mají společného s MDŽ. Oznamy z Brnos Aires. Pikošky a tango v Brně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Malena, Homér a co mají společného s MDŽ

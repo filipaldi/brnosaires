@@ -3,7 +3,7 @@ title: Jak to budeš mít v lednu podruhé
 date: 2025-01-09 01:00:00
 category: announcement
 description: "Adrinela zamčeno, tangový deficit vytancuj na Stolárně. Středa: první milonga u Kouřícího králíka. Bdělost zkouška."
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Jak to budeš mít v lednu podruhé

@@ -4,7 +4,7 @@ date: 2025-07-04 01:00:00
 category: announcement
 preview_image: /images/announcements/praktika_velky_sal.avif
 description: Praktika s openclass v sále č. 1. Habaděj místa. Velké osobnosti
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 # Sama velka osobnost
 

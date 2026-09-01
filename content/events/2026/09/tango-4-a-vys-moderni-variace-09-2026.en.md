@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965439?plugin=1&ptype=fitness-by-day&time=1789922442
 recurrence: weekly
+recurrence-until: 2026-11-05
 ---
 
 The Modern Variations course will cover specific topics in depth. It will focus on technical details and practice.

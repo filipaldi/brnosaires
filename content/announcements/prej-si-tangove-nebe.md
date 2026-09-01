@@ -4,7 +4,7 @@ date: 2024-06-10 02:00:00
 category: announcement
 preview_image: /images/unnamed/448025858_10232135736595708_3333189860846473013_n.avif
 description: Přej si tangové nebe. Oznamy z Brnos Aires. Milongy a workshopy v Brně na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Přej si tangové nebe!

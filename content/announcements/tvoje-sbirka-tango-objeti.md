@@ -3,7 +3,7 @@ title: Tvoje sbírka tango objetí
 date: 2024-12-16 01:00:00
 category: announcement
 description: Tvoje sbírka tango objetí. Milongy a praktiky v Brně. Posbírej je na brnosaires.com.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Tvoje sbírka tango objetí

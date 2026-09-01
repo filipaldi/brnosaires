@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 Kč/8 lekcí
 event-url: https://www.sportimea.com/cs/event/965439?plugin=1&ptype=fitness-by-day&time=1789922442
 recurrence: weekly
+recurrence-until: 2026-11-05
 ---
 
 Kurz moderní variace se bude věnovat specifickým tématům do hloubky. Zaměří se na technické detaily a procvičování. 

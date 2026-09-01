@@ -4,7 +4,7 @@ date: 2025-06-02 02:00:00
 category: announcement
 preview_image: /images/announcements/milonga_rockwine_2.avif
 description: Skalní jistoty. Adrinela, Skleněnka, Stolárna. Přehled tangových akcí v Brně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Skalní jistoty

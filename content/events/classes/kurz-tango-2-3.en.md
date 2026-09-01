@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965503?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
 recurrence: weekly
+recurrence-until: 2026-11-08
 ---
 
 A course for all intermediate dancers. You need to have completed the Tango 1 course, or Tango 2 or 3.

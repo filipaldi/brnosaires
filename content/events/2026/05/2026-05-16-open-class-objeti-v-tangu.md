@@ -10,7 +10,7 @@ event-venue: Sesamo Bakery
 event-street: Purkyňova 97c
 event-locality: Brno-Královo Pole
 description: Open class s Míšou Lukavskou o tom, jak hudba mění objetí v tangu. Od D'Arienza přes Caló po Puglieseho.
-author: Michaela Lukavská
+author: Lenka Pláteníková
 preview_image: /images/events/2026/misa_lukavska_preview.avif
 ---
 

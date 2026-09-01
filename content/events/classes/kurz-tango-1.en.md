@@ -18,6 +18,7 @@ instructor_slugs:
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965271?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
 recurrence: weekly
+recurrence-until: 2026-11-03
 ---
 
 In the beginners course we will teach you the basics of tango, working with a leader and the first simple combinations step by step. The lessons take place in a pleasant and calm atmosphere, so no previous experience is necessary :-)

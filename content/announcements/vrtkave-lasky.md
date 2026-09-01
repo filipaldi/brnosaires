@@ -4,7 +4,7 @@ date: 2025-05-13 02:00:00
 category: announcement
 preview_image: /images/announcements/vrtkave_lasky.avif
 description: Májové lásky vrtkavé, KáPéZetka tě zachrání. Milongy u draka a u mamuta v Anthroposu. Přeběhni od draka k mamutovi.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Vrtkavé lásky

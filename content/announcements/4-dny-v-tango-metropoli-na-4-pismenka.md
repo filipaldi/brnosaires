@@ -4,7 +4,7 @@ date: 2024-11-05 01:00:00
 category: announcement
 preview_image: /images/brno_tango_vkend.avif
 description: Čtyři dny tanga v Brně. Adrinela, milongy, praktiky. Metropole na čtyři písmena, 57 šancí na tandu.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # 4 dny v tango metropoli na 4 písmenka

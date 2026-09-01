@@ -4,7 +4,7 @@ date: 2025-05-13 02:00:00
 category: announcement
 preview_image: /images/announcements/Sklenenka.avif
 description: Hlas pro tvoji přítomnost na brněnském tango životě 2026. Milonga na Skleněnce. Nuevo milonga na Stolárně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 # Stošedesát osm předsevzetí  
 

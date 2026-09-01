@@ -4,7 +4,7 @@ date: 2026-01-17 18:00:00
 lang: en
 slug: tango-pikosky
 description: Curious tidbits from tango. Short stories and oddities we gather and add to over time.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 preview_image: /images/curiosities/smutne-obdobi-drogovych-dealeru.avif
 ---
 

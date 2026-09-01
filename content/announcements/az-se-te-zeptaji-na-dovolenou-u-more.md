@@ -3,7 +3,7 @@ title: Až se tě zeptají na dovolenou u moře…
 date: 2024-08-08 02:00:00
 category: announcement
 description: Až se tě zeptají na dovolenou u moře, řekni Brno. Tango, milongy a zážitky, o kterých se mluví.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Až se tě zeptají na dovolenou u moře…

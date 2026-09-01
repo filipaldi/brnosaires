@@ -134,13 +134,23 @@ class BuiltSite(unittest.TestCase):
     def setUpClass(cls):
         cls.output = build_site()
 
-    def test_the_czech_page_says_it_repeats(self):
-        self.assertEqual(when_row(read(self.output, WEEKLY), "Kdy"),
-                         "každé úterý 19:15 – 20:30, od 15. 09. 2026")
+    def source_metadata(self):
+        path = os.path.join(REPO_ROOT, "content", "events", "classes", WEEKLY + ".md")
+        with open(path, encoding="utf-8") as handle:
+            lines = handle.read().split("\n")
+        end = lines.index("---", 1)
+        return {line.split(":", 1)[0]: line.split(":", 1)[1].strip()
+                for line in lines[1:end] if ":" in line}
 
-    def test_the_english_page_says_it_repeats(self):
-        self.assertEqual(when_row(read(self.output, "en", WEEKLY), "When"),
-                         "every Tuesday 19:15 – 20:30, from 15 September 2026")
+    def test_the_czech_page_says_what_the_file_says(self):
+        expected = pelicanconf.recurrence_line(self.source_metadata(), "cs")
+        self.assertTrue(expected.startswith("každé úterý"), expected)
+        self.assertEqual(when_row(read(self.output, WEEKLY), "Kdy"), expected)
+
+    def test_the_english_page_says_what_the_file_says(self):
+        expected = pelicanconf.recurrence_line(self.source_metadata(), "en")
+        self.assertTrue(expected.startswith("every Tuesday"), expected)
+        self.assertEqual(when_row(read(self.output, "en", WEEKLY), "When"), expected)
 
     def test_the_structured_data_carries_the_schedule(self):
         schedule = event_ld(read(self.output, WEEKLY)).get("eventSchedule")

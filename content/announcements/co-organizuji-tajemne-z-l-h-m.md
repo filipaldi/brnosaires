@@ -3,7 +3,7 @@ title: Co organizují tajemné Z.L.H.M.?
 date: 2024-09-09 02:00:00
 category: announcement
 description: Co organizují tajemné z L. H. M. Oznamy a tipy na tango v Brně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Co organizují tajemné Z.L.H.M.?

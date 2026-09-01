@@ -3,7 +3,7 @@ title: Je přece léto!
 date: 2024-07-23 02:00:00
 category: announcement
 description: Je přece léto. Vlněna venkovní milonga, Stolárna milonga a praktiky. Ondra s Pavlou, Tangolab Štěky.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Je přece léto!

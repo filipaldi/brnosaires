@@ -11,7 +11,7 @@ event-venue: Sesamo Bakery
 event-street: Purkyňova 97c
 event-locality: Brno-Královo Pole
 description: A brunch milonga at Rosario's. Excellent food, Italian quality and Rosario's hospitality.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 preview_image: /images/events/2026/brunch milonga.avif
 ---
 

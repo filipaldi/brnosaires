@@ -4,7 +4,7 @@ date: 2025-12-16 02:00:00
 category: announcement
 preview_image: /images/announcements/zivotni_strategie_medvidka_Pu.avif
 description: Inspirující životní strategie Medvídka Pů. Zásobárna tangového objetí. Vánoční milongy všude možně.
-author: Lenka Platenikova
+author: Lenka Pláteníková
 ---
 
 # Životní strategie Medvídka Pů  
