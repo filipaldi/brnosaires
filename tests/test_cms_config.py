@@ -342,3 +342,33 @@ class AuthorFromPeople(unittest.TestCase):
                if re.match(r"^\s*dropdown_threshold:\s*0\s*$", l)]
         self.assertEqual(bad, [], "dropdown_threshold: 0 loses the selection")
 
+
+
+class Structure(unittest.TestCase):
+    """A config that does not parse is a CMS that does not open.
+
+    Moving a field out of the form left its `hint:` line hanging under the
+    field above it. Sveltia answered `YAMLParseError: Sequence item without -
+    indicator`, /admin/ showed an error instead of the editor, and the whole
+    suite stayed green — every other check in this file reads the config as
+    lines and a dead config reads as fine.
+
+    Not a YAML parser, which would cost the project a dependency it has done
+    without. One rule instead, the one that broke: a field written on a single
+    line owns nothing after it.
+    """
+
+    FLOW_ITEM = re.compile(r"^(\s*)-\s*\{.*\}\s*$")
+
+    def test_nothing_hangs_under_a_one_line_field(self):
+        bad = []
+        owner = None
+        for number, line in enumerate(lines(), start=1):
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            if owner is not None and len(line) - len(line.lstrip()) > owner:
+                bad.append(f"config.yml:{number}: {stripped[:60]}")
+            match = self.FLOW_ITEM.match(line)
+            owner = len(match.group(1)) if match else None
+        self.assertEqual(bad, [], f"lines hanging under a one-line field: {bad}")
