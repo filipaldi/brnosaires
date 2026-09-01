@@ -4,16 +4,18 @@
 
 | Chci… | Jdi sem |
 |---|---|
-| ✏️ **Upravit** existující akci/lekci (datum, čas, cenu) | Nejjednodušeji ve formuláři na [/admin/](https://brnosaires.com/admin/) → **Akce**. Ručně: [content/events/RRRR/MM/](content/events/) podle měsíce konání. Co měnit a na co bacha → [Akce: přidat a upravit](docs/AKCE.md#upravit-existující-akci). |
-| ➕ **Přidat** milongu, workshop nebo jednorázovou akci | [Akce: přidat a upravit](docs/AKCE.md) — postup za 5 minut. |
-| 🔁 **Přidat / upravit pravidelnou lekci** (každý týden / měsíc) | [Pravidelná lekce přes `recurrence:`](docs/AKCE.md#pravidelná-lekce-přes-recurrence) — jeden soubor, ne dvanáct. |
+| ✏️ **Upravit** existující akci nebo lekci (datum, čas, cenu) | Formulář na [/admin/](https://brnosaires.com/admin/) → **Akce**. Na co bacha → [Akce: přidat a upravit](docs/AKCE.md#upravit-existující-akci). |
+| ➕ **Přidat** milongu, workshop nebo jednorázovou akci | Formulář na [/admin/](https://brnosaires.com/admin/) → **Akce** → **New**. Podrobně → [Akce: přidat a upravit](docs/AKCE.md). |
+| 🔁 **Přidat / upravit pravidelnou lekci** (každý týden / měsíc) | Tentýž formulář, jen v poli **Opakování** vybereš „Každý týden". Proč jeden soubor a ne dvanáct → [Pravidelná lekce](docs/AKCE.md#pravidelná-lekce-přes-recurrence). |
 | 🔗 Přidat termín do **série** (Milonga u Draka, Tango & Pizza) | [Série](docs/SERIE.md). |
 | 📄 Upravit běžnou **stránku** (o nás, milongy, lekce, FAQ) | [content/pages/](content/pages/) — viz tabulka „Nejčastěji upravované stránky" níže. |
 | 🌍 Napsat **anglickou** verzi stránky | [Anglická verze](docs/ANGLICKA-VERZIA.md). |
 | 🔑 Dostat se poprvé do **/admin/** nebo přidat dalšího editora | [Přístup do /admin/](docs/PRISTUP.md). |
 | 📦 Něco jiného (oznámení, pikoška, obrázky, navigace…) | Tabulka [Kam co patří](#kam-co-patří-méně-časté-typy) níže. |
 
-🛠️ Vývojář (build, struktura, nasazení)? Skoč na [Pro vývojáře](#pro-vývojáře).
+Všechno výš se dělá ve formuláři na [/admin/](https://brnosaires.com/admin/). Poprvé tam potřebuješ přístup — [jak na to](docs/PRISTUP.md).
+
+🛠️ Vývojář (build, struktura, nasazení)? Skoč na [Pro vývojáře](#pro-vývojáře). Soubory jde upravovat i ručně v repozitáři, ale je to cesta pro vývojáře: formulář hlídá tvar hlavičky a jméno souboru, ruční zápis nehlídá nic.
 
 ---
 

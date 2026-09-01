@@ -8,7 +8,9 @@ Rozhraní **je česky** — jazyk se bere z prohlížeče a dá se přepnout v n
 
 Dostaneš formulář: typ akce vybereš ze seznamu, datum a čas naklikáš, místo vybereš z nabídky, obrázek nahraješ přetažením. Slug, datum publikace a formát hlavičky za tebe pohlídá formulář — nic z toho, co je popsané níž, psát nemusíš.
 
-Zbytek téhle stránky je **ruční cesta**: platí, když edituješ soubory přímo na GitHubu nebo v editoru, a hodí se jako referenční popis polí. Obě cesty zapisují ty samé soubory, takže se dají libovolně střídat.
+Zbytek téhle stránky je **ruční cesta a je pro vývojáře**: psaní souborů přímo na GitHubu nebo v editoru. Jako editorka ji nepotřebuješ — formulář hlídá tvar hlavičky, jméno souboru i adresu stránky, ruční zápis nehlídá nic a chybu poznáš, až když akce nevyjde.
+
+Obě cesty zapisují ty samé soubory, takže vývojář může kdykoli sáhnout do repozitáře, aniž by tím formulář rozbil.
 
 ---
 
