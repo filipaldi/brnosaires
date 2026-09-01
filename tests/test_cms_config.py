@@ -372,3 +372,42 @@ class Structure(unittest.TestCase):
             match = self.FLOW_ITEM.match(line)
             owner = len(match.group(1)) if match else None
         self.assertEqual(bad, [], f"lines hanging under a one-line field: {bad}")
+
+
+class Reach(unittest.TestCase):
+    """A file the collection cannot see is a file the editor cannot edit.
+
+    Sveltia turns `path:` into a regex in which every `{{…}}` matches `[^/]+?`
+    — no slashes. A template of three segments therefore lists only files
+    exactly three levels under `folder:`, and everything shallower drops out of
+    the CMS without a word. Merging the two event collections did that to
+    thirty-six files, the regular classes among them.
+    """
+
+    def path_depth(self):
+        for line in lines():
+            match = re.match(r"^    path:\s*\"(.+)\"\s*$", line)
+            if match:
+                return match.group(1).count("/")
+        return None
+
+    def test_the_config_still_pins_a_path(self):
+        self.assertIsNotNone(self.path_depth(), "no path template to check against")
+
+    def test_every_event_sits_where_the_collection_looks(self):
+        depth = self.path_depth()
+        root = os.path.join(REPO_ROOT, "content", "events")
+        bad = []
+        for folder, _dirs, files in os.walk(root):
+            for name in sorted(files):
+                if not name.endswith(".md"):
+                    continue
+                relative = os.path.relpath(os.path.join(folder, name), root)
+                if relative.count(os.sep) == depth:
+                    continue
+                # The marathon sub-site declares `translate: false` and the
+                # collection filters it out anyway; it was never editable.
+                if relative.split(os.sep)[0] == "2026-marathon":
+                    continue
+                bad.append(relative)
+        self.assertEqual(bad, [], f"events the CMS cannot list: {bad[:6]}")

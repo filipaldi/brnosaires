@@ -135,7 +135,9 @@ class BuiltSite(unittest.TestCase):
         cls.output = build_site()
 
     def source_metadata(self):
-        path = os.path.join(REPO_ROOT, "content", "events", "classes", WEEKLY + ".md")
+        path = next(os.path.join(root, name)
+                    for root, _dirs, files in os.walk(os.path.join(REPO_ROOT, "content", "events"))
+                    for name in files if name == WEEKLY + ".md")
         with open(path, encoding="utf-8") as handle:
             lines = handle.read().split("\n")
         end = lines.index("---", 1)
