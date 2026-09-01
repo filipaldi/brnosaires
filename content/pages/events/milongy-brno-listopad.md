@@ -17,7 +17,7 @@ Listopad zve dovnitř: dlouhé večery, teplé sály, hodně tanga. Níže najde
 </widget-calendar>
 
 <widget-calendar-link
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas"
     filter_by_path="events"
     label="📆 Odebírej milongy do svého kalendáře"

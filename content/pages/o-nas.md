@@ -36,7 +36,7 @@ Cokoli chceš dodat, piš na brnosaires-zavináč-protonmail-tečka-com.
 </widget-articles>
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 

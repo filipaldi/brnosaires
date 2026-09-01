@@ -17,7 +17,7 @@ Před svátky se ještě stihne pár milong — a možná i silvestrovská tanč
 </widget-calendar>
 
 <widget-calendar-link
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     cal_file_name="milongas"
     filter_by_path="events"
     label="📆 Odebírej milongy do svého kalendáře"

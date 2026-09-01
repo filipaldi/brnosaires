@@ -22,13 +22,13 @@ Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar
 
 <widget-calendar
     start="this-week"
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     days="7">
 </widget-calendar>
 
 <widget-calendar-link 
     cal_file_name="events" 
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 

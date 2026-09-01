@@ -24,13 +24,13 @@ Looking for where tango is danced in Brno? Have a look at the [calendar](/en/tan
 
 <widget-calendar
     start="this-week"
-    filter_by_type="milonga praktika"
+    filter_by_type="milonga praktika neolonga"
     days="7">
 </widget-calendar>
 
 <widget-calendar-link 
     cal_file_name="events" 
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     filter_by_path="events" 
     label="📆 Subscribe to events in your calendar" 
     label_webcal="Apple" 

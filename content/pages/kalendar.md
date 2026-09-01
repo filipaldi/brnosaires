@@ -15,7 +15,7 @@ Nevíš, co je milonga nebo praktika a kde s tangem začít? [Mrkni sem](/tango-
 
 <widget-calendar-link 
     cal_file_name="events" 
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
@@ -28,7 +28,7 @@ Nevíš, co je milonga nebo praktika a kde s tangem začít? [Mrkni sem](/tango-
     start="this-week"
     group_by="week day"
     headers="week day"
-    filter_by_type="milonga praktika workshop"
+    filter_by_type="milonga praktika workshop neolonga"
     days="120"
     hide_empty_days="true">
 </widget-calendar>
