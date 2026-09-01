@@ -1,19 +1,20 @@
 ---
-title: February Neolonga at Stolárna
-slug: neolonga-na-stolarne-2026-02-28
-date: 2026-02-24 18:00:00
 lang: en
-event-type: milonga
+title: February Neolonga at Stolárna
+description: Another edition of the Stolárna neolonga. Discover what resonates with you. Explore the limits of your musicality. DJ David.
+preview_image: /images/events/2026/neolonga.avif
+event-type: neolonga
 event-start: 2026-02-28 19:00:00
 event-end: 2026-02-28 23:30:00
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
 series: neolonga-na-stolarne
-preview_image: /images/events/2026/neolonga.avif
-description: Another edition of the Stolárna neolonga. Discover what resonates with you. Explore the limits of your musicality. DJ David.
+date: 2026-02-24 18:00:00
 author: Lenka Pláteníková
+slug: neolonga-na-stolarne-2026-02-28
 ---
+
 # February Neolonga at Stolárna
 
 Come and explore the limits of your (tango) musicality 🎶.
