@@ -410,12 +410,6 @@ collections:
       # make those three un-saveable until the editor invents one.
       - { name: description, label: Krátký popis, widget: text, required: false, i18n: true }
       - { name: preview_image, label: Fotka, widget: image, required: false, i18n: duplicate }
-      - name: people
-        label: Skupina
-        widget: string
-        required: false
-        i18n: duplicate
-        hint: Např. marathon-dj. Seskupuje profily na stránce maratonu.
       - name: llm_mirror
         label: Zrcadlit pro LLM
         widget: boolean
