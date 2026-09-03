@@ -18,11 +18,13 @@ Ondra
 
 Albert Mikó
 
-Filip & Terka
+Filip Šterc & Terka Štercová
 
 Jana Habalová
 
 Petr Truhlář
+
+Gabriela & Petr Nečasovi
 
 A neat Gottfried initiative for younger dancers
 

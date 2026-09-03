@@ -17,11 +17,13 @@ Ondra
 
 Albert Mikó
 
-Filip a Terka
+Filip Šterc a Terka Štercová
 
 Jana Habalová
 
 Petr Truhlář
+
+Gabriela a Petr Nečasovi
 
 Zaujímavá Gottfriedová iniciatíva pre mladých
 
