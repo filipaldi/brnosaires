@@ -10,7 +10,7 @@ import unittest
 from html import unescape
 from urllib.parse import parse_qs, urlsplit
 
-from tests import build_site
+from tests import REPO_ROOT, build_site
 
 HEADING = re.compile(r"<h([1-6])\b", re.IGNORECASE)
 SCRIPT_OR_STYLE = re.compile(r"<(script|style)\b.*?</\1>", re.DOTALL | re.IGNORECASE)
@@ -245,6 +245,159 @@ class Feed(_Built):
                       for entry in root.findall(f"{atom}entry")
                       if "/en/" in entry.find(f"{atom}link").get("href")]
         self.assertEqual(translated, [], "translated twins in the feed")
+
+
+class MarathonNavSourceCarriesStudents(unittest.TestCase):
+    """content/navigation/marathon.md is the single source of the marathon
+    sub-site nav (read by plugins/nav_from_docs.py). Issue #107: a Students
+    line, pointing at the existing marathon-students page, has to land
+    exactly once, unhighlighted, immediately before Registration — without
+    disturbing any of the other eight lines already there. Every one of
+    those is a property of the *file*, so it is cheaper and more precise to
+    check here than after a full Pelican build.
+    """
+
+    MARATHON_NAV_PATH = os.path.join(REPO_ROOT, "content", "navigation", "marathon.md")
+
+    SLUG = "marathon-students"
+    LABEL = "Students"
+    NAV_LINES_AFTER = 9
+    STUDENTS_INDEX = 7
+    REGISTRATION_INDEX = 8
+
+    # The 8 labels the nav carries today, in order, with Students filtered
+    # out — i.e. what must still be there, unmoved, once Students lands.
+    EXISTING_LABELS_IN_ORDER = [
+        "Home", "DJs", "Venue", "Gallery", "Schedule", "Travel", "City",
+        "Registration",
+    ]
+
+    @classmethod
+    def setUpClass(cls):
+        with open(cls.MARATHON_NAV_PATH, encoding="utf-8") as handle:
+            raw_lines = [line.strip() for line in handle if line.strip()
+                        and not line.lstrip().startswith("#")]
+        cls.fields = [[field.strip() for field in line.split(",")]
+                     for line in raw_lines]
+        cls.labels = [f[0] for f in cls.fields if f and f[0]]
+        cls.targets = [f[1] if len(f) > 1 else None for f in cls.fields]
+
+    def _students_line(self):
+        matches = [f for f in self.fields if len(f) > 1 and f[1] == self.SLUG]
+        self.assertEqual(
+            len(matches), 1,
+            f"expected exactly one line targeting {self.SLUG!r}, found "
+            f"{len(matches)}: {self.fields}")
+        return matches[0]
+
+    def test_the_file_has_nine_non_empty_lines(self):
+        self.assertEqual(
+            len(self.fields), self.NAV_LINES_AFTER,
+            f"expected {self.NAV_LINES_AFTER} nav lines, found "
+            f"{len(self.fields)}: {self.labels}")
+
+    def test_marathon_students_is_declared_exactly_once(self):
+        count = self.targets.count(self.SLUG)
+        self.assertEqual(
+            count, 1,
+            f"expected exactly one line targeting {self.SLUG!r}, found "
+            f"{count}: {self.fields}")
+
+    def test_its_label_is_exactly_students(self):
+        self.assertEqual(self._students_line()[0], self.LABEL)
+
+    def test_it_declares_no_primary_flag_or_icon(self):
+        # Exactly label + target — a 3rd or 4th field would be `primary`
+        # and/or an icon, which would highlight it like DJs/Venue/Registration.
+        line = self._students_line()
+        self.assertEqual(
+            len(line), 2,
+            f"expected exactly 2 fields (label, target), got {line}")
+
+    def test_it_stands_immediately_before_registration(self):
+        self.assertIn(self.LABEL, self.labels,
+                      f"no {self.LABEL} line in the nav yet: {self.labels}")
+        self.assertIn("Registration", self.labels, self.labels)
+        students_at = self.labels.index(self.LABEL)
+        registration_at = self.labels.index("Registration")
+        self.assertEqual(
+            students_at, self.STUDENTS_INDEX,
+            f"Students at index {students_at}, expected "
+            f"{self.STUDENTS_INDEX}: {self.labels}")
+        self.assertEqual(
+            registration_at, self.REGISTRATION_INDEX,
+            f"Registration at index {registration_at}, expected "
+            f"{self.REGISTRATION_INDEX}: {self.labels}")
+        self.assertEqual(
+            registration_at, students_at + 1,
+            f"Students and Registration are not adjacent: {self.labels}")
+
+    def test_the_other_eight_labels_and_their_order_are_unchanged(self):
+        self.assertIn(self.LABEL, self.labels,
+                      f"no {self.LABEL} line in the nav yet: {self.labels}")
+        others = [label for label in self.labels if label != self.LABEL]
+        self.assertEqual(others, self.EXISTING_LABELS_IN_ORDER)
+
+
+# The 8 marathon pages that must each carry the Students nav chip — the
+# homepage's own inline price-block link (content/pages/marathon/index.md:101,
+# "[Details](/marathon-students/)") is a *different* route to the same page
+# and does not satisfy this: the contract is the nav, on every marathon page.
+MARATHON_PAGES_WITH_NAV = {
+    "Home": "marathon/index.html",
+    "DJs": "marathon-djs-team/index.html",
+    "Venue": "marathon-venue/index.html",
+    "Gallery": "marathon-gallery/index.html",
+    "Schedule": "marathon-schedule/index.html",
+    "Travel": "marathon-getting-to-brno/index.html",
+    "City": "marathon-stay-in-brno/index.html",
+    "Students": "marathon-students/index.html",
+}
+
+# The exact anchor theme/templates/components/navigation.html emits for a
+# resolved, internal (non-external) nav_from_docs item with no `primary`
+# flag and no icon — byte-for-byte the same shape as the Gallery/Schedule/
+# Travel/City chips already in the nav today. nav_page.url comes straight
+# from Pelican's own page.url (PAGE_URL = "{slug}/") with no leading slash;
+# the theme relies on <base href="https://brnosaires.com/"> in <head> to
+# resolve it, the same as every other internal nav link on the site.
+MARATHON_STUDENTS_NAV_ANCHOR = (
+    '<a href="marathon-students/" class="aesthetic-chip chip-m">Students</a>')
+
+STUDENTS_ANCHOR_HREF = re.compile(
+    r'<a href="([^"]+)" class="aesthetic-chip chip-m">Students</a>')
+
+
+class MarathonNavStudentsLink(_Built):
+    """The Students nav item (issue #107) has to actually appear in the
+    built HTML of every marathon page — not just be declared in the source —
+    and it has to point at a page that really exists in the build.
+    """
+
+    def test_it_renders_in_the_nav_of_every_marathon_page(self):
+        by_path = dict(self.pages)
+        for label, relpath in MARATHON_PAGES_WITH_NAV.items():
+            with self.subTest(page=relpath):
+                html = by_path.get(relpath)
+                self.assertIsNotNone(html, f"{relpath} was not built")
+                # assertTrue, not assertIn: assertIn's failure message dumps
+                # the whole (multi-KB) page HTML, which drowns the signal.
+                self.assertTrue(
+                    MARATHON_STUDENTS_NAV_ANCHOR in html,
+                    f"Students nav chip missing from the {label} page "
+                    f"({relpath})")
+
+    def test_the_rendered_link_target_is_not_a_404(self):
+        html = dict(self.pages)["marathon/index.html"]
+        match = STUDENTS_ANCHOR_HREF.search(html)
+        self.assertIsNotNone(
+            match, "no Students nav chip on the marathon homepage — cannot "
+                   "check where it points")
+        target_dir = match.group(1).strip("/")
+        self.assertTrue(
+            os.path.isfile(os.path.join(self.output, target_dir, "index.html")),
+            f"Students nav link href={match.group(1)!r} does not resolve "
+            f"to a built page")
 
 
 if __name__ == "__main__":
