@@ -15,6 +15,7 @@ import unittest
 from tests import REPO_ROOT
 
 CONFIG = os.path.join(REPO_ROOT, "content", "extra", "admin", "config.yml")
+DJS_TEAM = os.path.join(REPO_ROOT, "content", "pages", "marathon", "djs-team.md")
 
 
 def lines():
@@ -411,3 +412,144 @@ class Reach(unittest.TestCase):
                     continue
                 bad.append(relative)
         self.assertEqual(bad, [], f"events the CMS cannot list: {bad[:6]}")
+
+
+class People(unittest.TestCase):
+    """A field with no reader is a trap for the next edit, not a feature.
+
+    `people` / label „Skupina" on the people collection has no profile that
+    sets it, no plugin that reads it, and no template that mentions it — the
+    Marathon DJs page groups its cards with a hardcoded `slugs=` attribute
+    instead (content/pages/marathon/djs-team.md). `people` is also the name
+    of the collection itself and the relation target every `author` field
+    points at, so a delete that matches on the bare name is a bug waiting to
+    happen: every assertion below anchors on `label: Skupina` or on a
+    field's position, never on the bare string `people`.
+    """
+
+    def collection_lines(self):
+        """The `people` collection's own lines: header to the next top-level
+        collection, or end of file. Scoping to this slice is what keeps
+        `field_block` below from ever matching another collection's field of
+        the same name."""
+        all_lines = lines()
+        start = None
+        end = len(all_lines)
+        for index, line in enumerate(all_lines):
+            match = re.match(r"^  - name: (\S+)\s*$", line)
+            if not match:
+                continue
+            if match.group(1) == "people":
+                start = index
+                continue
+            if start is not None:
+                end = index
+                break
+        self.assertIsNotNone(start, "no `people` collection in the CMS config at all")
+        return all_lines[start:end]
+
+    def field_names(self):
+        """Ordered field names declared directly on the people collection,
+        block-style or flow-style."""
+        names = []
+        for line in self.collection_lines():
+            match = re.match(r"^      - \{?\s*name: ([\w-]+)", line)
+            if match:
+                names.append(match.group(1))
+        return names
+
+    def field_block(self, name):
+        """Lines of the `- name: <name>` block among the people collection's
+        OWN fields. Never call this with "people" — the collection's own
+        header also reads `- name: people` and sits first in
+        `collection_lines()`, so it would win the match instead of the field."""
+        block_lines = self.collection_lines()
+        start_re = re.compile(rf"^(\s*)-\s*\{{?\s*name:\s*{re.escape(name)}\b")
+        for index, line in enumerate(block_lines):
+            match = start_re.match(line)
+            if not match:
+                continue
+            indent = len(match.group(1))
+            block = [line]
+            for following in block_lines[index + 1:]:
+                if following.strip() and (len(following) - len(following.lstrip())) <= indent:
+                    break
+                block.append(following)
+            return block
+        return None
+
+    def test_the_dead_skupina_field_is_removed(self):
+        labels = [line for line in self.collection_lines()
+                  if re.match(r"^\s*label:\s*Skupina\s*$", line)]
+        self.assertEqual(labels, [], f"a people field still carries label: Skupina: {labels}")
+        text = "\n".join(lines())
+        self.assertNotIn("Skupina", text, "Skupina still appears in the raw config text")
+
+    def test_only_that_field_went(self):
+        fields = self.field_names()
+        self.assertEqual(fields[:1], ["lang"], f"the shared lang field moved too: {fields}")
+        self.assertEqual(
+            fields[1:],
+            ["title", "date", "author", "description", "preview_image", "llm_mirror", "body"],
+            f"the people collection's fields no longer match, in order: {fields}",
+        )
+
+    def test_the_survivors_kept_their_shape(self):
+        # The delete sits between these two — a slipped brace or a clipped
+        # line here is exactly how a neighbour loses part of itself.
+        preview = self.field_block("preview_image")
+        mirror = self.field_block("llm_mirror")
+        self.assertIsNotNone(preview, "preview_image missing from the people collection")
+        self.assertIsNotNone(mirror, "llm_mirror missing from the people collection")
+        preview_text = "\n".join(preview)
+        mirror_text = "\n".join(mirror)
+        for expected in ("widget: image", "required: false", "i18n: duplicate"):
+            self.assertIn(expected, preview_text, f"preview_image lost: {expected}")
+        for expected in ("widget: boolean", "required: false", "i18n: duplicate"):
+            self.assertIn(expected, mirror_text, f"llm_mirror lost: {expected}")
+
+    def test_the_people_collection_itself_survived(self):
+        # The dead field and the collection share the literal name "people";
+        # a delete broad enough to match both would still pass every other
+        # test here, so the collection's own survival gets its own check.
+        names = [re.match(r"^  - name: (\S+)", line).group(1) for line in lines()
+                 if re.match(r"^  - name: \S+\s*$", line)]
+        self.assertIn("people", names, "the people collection is gone, not just the field")
+        self.assertIn("title", self.field_names(), "the people collection lost its title field")
+
+    def test_the_relation_target_survived(self):
+        # Every author field on every collection points `collection:` at
+        # this same name — the second ambiguous reading of "people".
+        block = self.field_block("author")
+        self.assertIsNotNone(block, "the people collection lost its author field")
+        self.assertIn("collection: people", "\n".join(block),
+                      "the people collection's own author field lost its relation target")
+
+    def test_the_marathon_djs_grouping_is_untouched(self):
+        # The page that used to be this field's only imaginable consumer
+        # groups its cards by a hardcoded slugs= attribute, not by this
+        # field — deleting the field must leave this line alone.
+        with open(DJS_TEAM, encoding="utf-8") as handle:
+            text = handle.read()
+        self.assertIn('slugs="balasz francesco veronika-kim vincent"', text,
+                      "the Marathon DJs page's hardcoded grouping moved")
+
+    def test_the_config_around_the_deletion_still_parses(self):
+        # A real YAML parser isn't a dependency this suite carries (see the
+        # module docstring), so this reuses Structure's own rule — a field
+        # written on one line owns nothing after it — scoped to the people
+        # collection, which is the only place this edit can touch. A 6-line
+        # delete that clips unevenly leaves a line hanging under
+        # preview_image's one-liner; this catches it the same way Structure
+        # would, without needing the whole file to already be broken.
+        bad = []
+        owner = None
+        for line in self.collection_lines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            if owner is not None and len(line) - len(line.lstrip()) > owner:
+                bad.append(stripped[:60])
+            match = re.match(r"^(\s*)-\s*\{.*\}\s*$", line)
+            owner = len(match.group(1)) if match else None
+        self.assertEqual(bad, [], f"lines hanging under a one-line field: {bad}")
