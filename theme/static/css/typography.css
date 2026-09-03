@@ -149,6 +149,10 @@ label {
   font-family: var(--font-display);
 }
 
+.logo:hover {
+  text-decoration: none;
+}
+
 /* ============================================
    LINKS
    ============================================ */
