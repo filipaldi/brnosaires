@@ -12,6 +12,8 @@ event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
 event-organiser: Javier Antar
+instructor_slugs:
+    - javier-antar
 entry: 350 CZK/1 lesson
 event-url: https://forms.gle/kUqPhscNTnJWRBth7
 category: event
