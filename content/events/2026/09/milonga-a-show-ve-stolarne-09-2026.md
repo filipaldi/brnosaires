@@ -4,7 +4,7 @@ title: Milonga a show ve Stolárně
 description: |-
     Slavnostní milonga v rámci víkendových workshopů s Rodrigo & Majo s vystoupením lektorů. 
     DJ Daniel z Prahy.
-preview_image: /images/events/milonga-rodrigo-majo.jpg
+preview_image: /images/events/milonga-rodrigo-majo-jpg.png
 event-type: milonga
 event-start: 2026-09-19 21:00:00
 event-end: 2026-09-20 01:00:00

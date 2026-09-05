@@ -4,7 +4,7 @@ title: Milonga and show at Stolárna
 description: |-
     Festive milonga as part of weekend workshops with Rodrigo & Majo with performances by lecturers.
     DJ Daniel from Prague.
-preview_image: /images/events/milonga-rodrigo-majo.jpg
+preview_image: /images/events/milonga-rodrigo-majo-jpg.png
 event-type: milonga
 event-start: 2026-09-19 21:00:00
 event-end: 2026-09-20 01:00:00
