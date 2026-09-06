@@ -5,7 +5,7 @@ date: 2026-08-26 12:00:00
 author: Lenka Pláteníková
 category: announcement
 description: Thank the weather for not raining. Thank you for being there. Holiday gossip passed on.
-preview_image: /images/announcements/milonga-u-more-lenka.jpeg
+preview_image: /images/announcements/milonga-u-more.jpg
 ---
 
 👀 At first, it looked like we were going to get rained out and have to call it off — guess luck hasn't been on our side this year 🌧️

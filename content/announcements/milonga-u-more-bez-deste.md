@@ -5,7 +5,7 @@ date: 2026-08-26 12:00:00
 author: Lenka Pláteníková
 category: announcement
 description: Děkujeme počasí, že nepršelo. Děkujeme vám, že jste tam byli. Prázdninové drby předány.
-preview_image: /images/announcements/milonga-u-more-lenka.jpeg
+preview_image: /images/announcements/milonga-u-more.jpg
 ---
 
 #Ad Milonga u brněnského moře 🏖️
