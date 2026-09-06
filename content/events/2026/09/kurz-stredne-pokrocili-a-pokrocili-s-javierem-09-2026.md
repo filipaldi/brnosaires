@@ -1,6 +1,6 @@
 ---
 lang: cs
-title: Kurz středně pokročilí a pokročilí s Javierem
+title: Javier - Kurz středně pokročilí a pokročilí
 description: Kurz argentinského tanga pro středně pokročilé a pokročilé, které vede profesionální tanečník a učitel JAVIER ANTAR.
 preview_image: /images/classes/class-javier.avif
 event-type: class

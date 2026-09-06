@@ -1,6 +1,6 @@
 ---
 lang: en
-title: Intermediate and advanced course with Javier
+title: Javier - Intermediate and advanced course
 description: Argentine tango course for intermediate and advanced, led by professional dancer and teacher JAVIER ANTAR.
 preview_image: /images/classes/class-javier.avif
 event-type: class
