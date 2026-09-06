@@ -1,14 +1,12 @@
 ---
 lang: cs
-title: Tango pro začátečníky
-date: 2026-08-30 19:10:00
-category: event
-author: Lenka Pláteníková
+title: TangoLab - Tango pro začátečníky
 description: Argentinské tango pro všechny začátečníky.
 preview_image: /images/events/2026/Tangolab-zacatecnici.avif
 event-type: class
 event-start: 2026-09-16 18:00:00
 event-end: 2026-09-16 19:15:00
+recurrence: weekly
 event-venue: i:D Yoga studiu
 event-street: Poštovská 3
 event-locality: Brno
@@ -16,7 +14,9 @@ event-organiser: TangoLab Štěky
 instructor_slugs:
     - steky-yaku
 event-url: https://tangolabsteky.webnode.cz/
-recurrence: weekly
+category: event
+date: 2026-08-30 19:10:00
+author: Lenka Pláteníková
 ---
 
 Argentinské tango od úplných základů až na taneční parket.
