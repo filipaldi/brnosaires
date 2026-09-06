@@ -1,20 +1,22 @@
 ---
-title: Tangomania
-slug: stolarna-tangomania
-date: 2026-01-16 01:00:00
-category: event
-instructor_slugs: pavla-luzna, ondra-martinak
+lang: cs
+title: TS Stolárna - Tangomania
+description: Tangomania. Pavla Lužná a Ondra Martinák, Stolárna. Pondělí 19:00, Olomoucká 14.
+preview_image: /images/classes/tangomania.avif
+event-type: class
 event-start: 2026-01-12 19:00:00
 event-end: 2026-01-12 20:15:00
 recurrence: weekly
-preview_image: /images/classes/tangomania.avif
-event-organiser: Taneční studio Stolárna
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
-event-type: class
-description: Tangomania. Pavla Lužná a Ondra Martinák, Stolárna. Pondělí 19:00, Olomoucká 14.
+event-organiser: Taneční studio Stolárna
+instructor_slugs:
+    - pavla-luzna, ondra-martinak
+category: event
+date: 2026-01-16 01:00:00
 author: Filip Paldia
+slug: stolarna-tangomania
 ---
 
 # Tangomania
