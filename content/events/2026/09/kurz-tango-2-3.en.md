@@ -1,14 +1,13 @@
 ---
 lang: en
-title: Course Tango 2 + 3
-date: 2026-08-29 20:22:00
-category: event
-author: Lenka Pláteníková
+title: TS Stolárna -  Tango 2 + 3
 description: Course for all intermediate dancers - Tango 1 graduates and more advanced Tango 2 graduates and above.
 preview_image: /images/classes/class-lenka-filip.avif
 event-type: class
 event-start: 2026-09-20 18:45:00
 event-end: 2026-09-20 20:00:00
+recurrence: weekly
+recurrence-until: 2026-11-08
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
@@ -18,8 +17,9 @@ instructor_slugs:
     - lenka-platenikova
 entry: 1920 CZK/8 lessons
 event-url: https://www.sportimea.com/cs/event/965503?plugin=1&save_dest=1&ptype=fitness-by-day&time=1789839557
-recurrence: weekly
-recurrence-until: 2026-11-08
+category: event
+date: 2026-08-29 20:22:00
+author: Lenka Pláteníková
 ---
 
 A course for all intermediate dancers. You need to have completed the Tango 1 course, or Tango 2 or 3.
