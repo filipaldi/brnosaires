@@ -1,6 +1,6 @@
 ---
 lang: en
-title: Necasovi - Tango for beginners
+title: Necasovi - Tango for beginners (Thursday)
 description: Course for beginners - teachers Gabina and Petr Necas.
 preview_image: /images/classes/class-necasovi.avif
 event-type: class
@@ -18,5 +18,7 @@ category: event
 date: 2026-09-06 16:59:00
 author: Lenka Pláteníková
 ---
+
+#Necasovi - Tango for beginners (Thursday)
 
 For all those interested in tango. Also for those who want to improve on the basics or are not quite sure about some of the steps. In the lessons, you will learn the position in tango, the principle of movement in figures and on the dance floor, the perception of music. The individual elements that are used in tango are also an integral part - paso basico, sacada, parada, giro, ocho, barida, etc. You will learn all these elements and at the same time combine them into several figures, which you can then use for your own dance in classes or milongas.
