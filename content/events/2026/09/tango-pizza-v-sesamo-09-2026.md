@@ -1,7 +1,7 @@
 ---
 lang: cs
 title: Tango & Pizza v Sesamo
-description: Neformální milonga každý druhý čtvrtek v Sesamo Bakery.
+description: Neformální milonga každý druhý čtvrtek v Sesamo Bakery. Na taneční úrovni nezáleží.
 preview_image: /images/events/tango-pizza-sesamo.jpg
 event-type: milonga
 event-start: 2026-09-10 19:00:00
