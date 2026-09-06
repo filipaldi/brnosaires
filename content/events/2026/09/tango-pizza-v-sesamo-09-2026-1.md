@@ -10,7 +10,7 @@ event-venue: Sesamo Bakery
 event-street: Purkyňova 97c
 event-locality: Brno
 event-organiser: Rosario Colletti
-entry: dobrovolné
+entry: 100 Kč
 category: event
 date: 2026-09-05 17:32:00
 author: Lenka Pláteníková
