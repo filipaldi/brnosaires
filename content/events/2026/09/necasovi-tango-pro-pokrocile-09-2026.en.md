@@ -1,6 +1,6 @@
 ---
 lang: en
-title: Necasovi - tango for advanced
+title: Necasovi - tango for advanced (Thursday)
 description: Lessons for advanced dancers. Teachers Gabina and Petr Necas.
 preview_image: /images/classes/class-necasovi.avif
 event-type: class
@@ -19,6 +19,6 @@ date: 2026-09-06 17:03:00
 author: Lenka Pláteníková
 ---
 
-#Nečasovi - tango for advanced students
+#Nečasovi - tango for advanced students (Thursday)
 
 In these lessons, time is dedicated to the principles of movement that you will use in dancing. We also focus on movement technique, communication in a couple and steps. Individual new variations require knowledge of the basic elements of Argentine tango. Each lesson is focused on a certain direction that will allow you to move your dancing skills further.

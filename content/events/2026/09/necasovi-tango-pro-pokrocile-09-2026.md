@@ -1,6 +1,6 @@
 ---
 lang: cs
-title: Nečasovi - Tango pro pokročilé
+title: Nečasovi - Tango pro pokročilé (čtvrtek)
 description: Lekce pro pokročilé tanečníky pod vedením Gábiny a Petra Nečasových.
 preview_image: /images/classes/class-necasovi.avif
 event-type: class
@@ -19,6 +19,6 @@ date: 2026-09-06 17:03:00
 author: Lenka Pláteníková
 ---
 
-#Nečasovi - tango pro pokročilé
+#Nečasovi - tango pro pokročilé (čtvrtek)
 
 V těchto lekcích je čas věnován principům pohybu, které využijete v tanci. Dále se věnujeme technice pohybu, komunikace v páru a krokům. Jednotlivé nové variace vyžadují znalost základních prvků argentinského tanga. Každá lekce je zaměřena určitým směrem, který Vám umožní taneční dovednosti posunout zase dál.
