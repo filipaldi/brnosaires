@@ -1,6 +1,6 @@
 ---
 lang: en
-title: Beginners and intermediate course with Javier
+title: Javier - Beginners and intermediate course
 description: Argentine tango course for beginners and intermediates, led by professional dancer and teacher JAVIER ANTAR.
 preview_image: /images/classes/class-javier.avif
 event-type: class
