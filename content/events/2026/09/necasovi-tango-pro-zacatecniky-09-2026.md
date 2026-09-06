@@ -1,6 +1,6 @@
 ---
 lang: cs
-title: Nečasovi - tango pro začátečníky
+title: Nečasovi - Tango pro začátečníky
 description: Kurz pro začátečníky pod vedením Gábiny a Petra Nečasových.
 preview_image: /images/classes/class-necasovi.avif
 event-type: class
