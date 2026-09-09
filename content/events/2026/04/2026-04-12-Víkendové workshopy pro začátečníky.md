@@ -1,20 +1,22 @@
 ---
-title: Víkendové workshopy pro začátečníky - neděle
-slug: vikendove-workshopy-zacatecnici-04-12-2026
-date: 2026-03-31 01:00:00
-category: event
-instructor_slugs: filip-paldia, lenka-platenikova
-event-start: 2026-04-12 13:00:00
-event-end: 2026-04-12 17:15:00
+lang: cs
+title: Víkendové workshopy pro začátečníky
+description: Víkendové workshopy pro všechny začátečníky, které kdy lákalo argentinské tango. Studenti 50 % sleva.
 preview_image: /images/classes/class-lenka-filip.avif
-event-organiser: Taneční studio Stolárna
+event-type: class
+event-start: 2026-04-11 13:00:00
+event-end: 2026-04-12 17:15:00
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
-event-type: class
+event-organiser: Taneční studio Stolárna
+instructor_slugs:
+    - filip-paldia, lenka-platenikova
 event-url: https://www.sportimea.com/enrollment/25981
-description: Víkendové workshopy pro všechny začátečníky, které kdy lákalo argentinské tango. Studenti 50 % sleva. 
+category: event
+date: 2026-03-31 01:00:00
 author: Lenka Pláteníková
+slug: vikendove-workshopy-zacatecnici-04-12-2026
 ---
 
 # Víkendové workshopy argentinského tanga pro začátečníky
