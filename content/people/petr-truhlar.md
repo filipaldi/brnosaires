@@ -4,7 +4,7 @@ title: Petr Truhlář
 date: 2026-08-29 20:13:00
 author: Lenka Pláteníková
 description: Učí v TS Stolárna tango a zouk.
-preview_image: /images/brnos-aires-people/Petr Truhlar.jpg
+preview_image: /images/brnos-aires-people/petr-a-jana.jfif
 llm_mirror: false
 ---
 
