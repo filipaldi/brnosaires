@@ -4,7 +4,7 @@ title: Jana Habalová
 date: 2026-08-29 20:03:00
 author: Lenka Pláteníková
 description: V TS Stolárna učí zouk a tango.
-preview_image: /images/brnos-aires-people/Jana Habalova.jpg
+preview_image: /images/brnos-aires-people/petr-a-jana.jfif
 llm_mirror: false
 ---
 
