@@ -1,25 +1,25 @@
 ---
-title: Sunday Afternoon Milonga
+title: Sunday Afternoon Milonga with DJ Vincent
 slug: marathon-2026-sunday-afternoon-milonga
 date: 2026-10-18 13:00:00
 category: event
 event-type: milonga
 event-start: 2026-10-18 13:00:00
-event-end: 2026-10-18 21:00:00
+event-end: 2026-10-18 19:00:00
 event-organiser: Brnos Aires
 event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
-description: Closing milonga at Brnos Aires Tango Marathon 2026. The final embrace before we say goodbye.
+description: Sunday afternoon milonga at Brnos Aires Tango Marathon 2026. The last marathon-only stretch.
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-04.avif
-
 ---
 
-# Sunday Afternoon Milonga
+# Sunday Afternoon Milonga with DJ Vincent
 
-The final embrace before we say goodbye. Until next time.
+The last marathon-only stretch. Make every tanda count.
 
-**When:** Sunday 18 October 2026, 13:00–21:00  
+**DJ:** Vincent  
+**When:** Sunday 18 October 2026, 13:00–19:00  
 **Where:** Dělnický dům, Jamborova 3323/65, Brno  
 **Organisers:** Brnos Aires
