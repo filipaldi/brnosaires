@@ -39,6 +39,9 @@ CALENDAR_DEFAULTS = {
     'card_width': 's',
     'text_size': 's',
     'image_ratio': '1x1',
+    'link': None,
+    'hide': None,
+    'description': None,
 }
 
 ATTR_PATTERN = re.compile(r'(\w+)="([^"]*)"')

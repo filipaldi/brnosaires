@@ -1,4 +1,8 @@
+{% if card_link is defined and not card_link %}
+<div class="event-card" role="listitem">
+{% else %}
 <a href="{{ SITEURL }}/{{ event.url }}" class="event-card" role="listitem">
+{% endif %}
   {% if event.preview_image %}
   <div class="event-card__image el-frame-{{ image_ratio | default('1x1', true) }}">
     <img src="{{ SITEURL }}/{{ event.preview_image.lstrip('/') }}" alt="{{ event.preview_image_alt|default(event.title) }}" />
@@ -15,13 +19,19 @@
   {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
   {% set event_location = (event.metadata | event_place).line if event.metadata else none %}
   {% set event_entry = event.metadata.get('entry') if event.metadata else none %}
+  {% set event_description = event.metadata.get('description') if event.metadata else none %}
   {% if event_start %}
     <p class="event-card__date">{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>
     {% set event_time_str = event_start.strftime('%H:%M') %}
     {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
     {% if event_time_str %}<p class="event-card__time">{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
   {% endif %}
-  {% if event_organiser %}<p class="event-card__organiser">{{ event_organiser }}</p>{% endif %}
-  {% if event_location %}<p class="event-card__location">{{ event_location }}</p>{% endif %}
+  {% if event_organiser and 'organiser' not in card_hide|default([]) %}<p class="event-card__organiser">{{ event_organiser }}</p>{% endif %}
+  {% if event_location and 'location' not in card_hide|default([]) %}<p class="event-card__location">{{ event_location }}</p>{% endif %}
   {% if event_entry %}<p class="event-card__entry">{{ 'event_entry_label' | t(page_lang | default('cs', true)) }} {{ event_entry }}</p>{% endif %}
+  {% if card_description|default(false) and event_description %}<p class="event-card__description">{{ event_description }}</p>{% endif %}
+{% if card_link is defined and not card_link %}
+</div>
+{% else %}
 </a>
+{% endif %}

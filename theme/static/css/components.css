@@ -331,7 +331,8 @@
 .calendar .event-card__time,
 .calendar .event-card__organiser,
 .calendar .event-card__location,
-.calendar .event-card__entry {
+.calendar .event-card__entry,
+.calendar .event-card__description {
   font-family: var(--font-body);
   font-size: var(--text-s);
   line-height: var(--size-s);
@@ -347,14 +348,14 @@
   font-size: var(--text-m);
   line-height: var(--size-s);
 }
-.calendar[data-text-size="xs"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry) {
+.calendar[data-text-size="xs"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry, .event-card__description) {
   font-size: var(--text-xs);
 }
 .calendar[data-text-size="m"] .event-card__title {
   font-size: var(--text-xl);
   line-height: var(--size-l);
 }
-.calendar[data-text-size="m"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry) {
+.calendar[data-text-size="m"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry, .event-card__description) {
   font-size: var(--text-m);
 }
 

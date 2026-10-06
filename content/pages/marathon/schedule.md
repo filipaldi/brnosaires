@@ -18,9 +18,11 @@ In Buenos Aires, they dance all night while reasonable Europeans sleep. We love 
     end="2026-10-18"
     group_by="week day"
     headers="day"
-    hide_empty_days="true">
+    hide_empty_days="true"
+    link="false" hide="organiser location" description="true">
 </widget-calendar>
 
+**Where:** Dělnický dům, Jamborova 3323/65, Brno, Czech Republic. [See the venue](/marathon-venue/).
 
 ## No Scheduled Pauses,<br> Civilised Hours
 

@@ -19,4 +19,6 @@ Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that he
     card_size="s">
 </widget-articles>
 
+[See when they play](/marathon-schedule/)
+
 We handpicked these DJs. Not just for their technical skill, though they've got plenty, but because they're friends. People we trust, admire, and genuinely want to share a dance floor with.
