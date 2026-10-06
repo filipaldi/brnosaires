@@ -20,5 +20,3 @@ Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that he
 </widget-articles>
 
 We handpicked these DJs. Not just for their technical skill, though they've got plenty, but because they're friends. People we trust, admire, and genuinely want to share a dance floor with.
-
-They know how to read a room, when to build tension, and when to give you that vals you didn't know you needed. Here's who will keep your feet moving:
