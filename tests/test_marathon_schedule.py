@@ -33,15 +33,22 @@ class MarathonSchedule(unittest.TestCase):
         self.assertEqual(LINKED_CARD.findall(self.schedule), [])
 
     def test_each_card_names_its_dj(self):
-        # The Sunday evening card adds ". Open to everyone" after the name,
+        # The Sunday afterparty card carries more text after the name,
         # so this is a look inside the descriptions, not an equality.
         described = " | ".join(DESCRIPTION.findall(self.schedule))
         for dj in DJS:
             self.assertIn(dj, described, f"no card description says {dj}")
 
+    def test_one_card_per_slot(self):
+        # The Sunday evening slot once had two events: a marathon file and the
+        # afterparty entered through the CMS. Five slots, five cards.
+        self.assertEqual(self.schedule.count('class="event-card"'), 5)
+
     def test_the_venue_is_said_once_under_the_widget_not_per_card(self):
         self.assertNotIn("event-card__location", self.schedule)
         self.assertNotIn("event-card__organiser", self.schedule)
+        self.assertNotIn("event-card__date", self.schedule)
+        self.assertIn("el-frame-2x1", self.schedule)
         self.assertIn("Jamborova 3323/65", self.schedule)
 
     def test_every_other_calendar_still_links_its_cards(self):
