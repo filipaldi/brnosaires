@@ -133,6 +133,10 @@ Two things not to reintroduce:
 - **A prose issue carrying the priority table.** That was #52. It went stale the moment ten of its eleven items closed, because keeping it current meant editing markdown on every merge.
 - **`p0`/`p1`/`p2` labels.** Add a label when a filter is genuinely missing, never to express rank.
 
+## Agent workflow
+
+- **No AI attribution.** Commits, PR descriptions and code carry no agent signature: no `Co-Authored-By`, no session links, no "Generated with …" lines.
+
 ## Project Structure
 
 ```
