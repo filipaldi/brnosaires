@@ -24,20 +24,24 @@ Jednotka **dielik** = šírka formátu / počet stĺpcov.
 
 ### Formát
 
+V rozhraní pod `420 × 594 mm · Grid 8 ▾`, spolu s mriežkou a predvoľbou.
+
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
 | Šírka × výška | číslo + jednotka (mm / px) | Predvoľby A2, A3, IG, web sú len skratky |
 | DPI | číslo | Len pri mm, pre PNG |
-| Spadávka | mm | Technická, pre tlač |
+| Spadávka | mm | Technická, pre tlač. Na plátne je vždy jemne vyznačená. |
 
 ### Mriežka
 
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
-| Stĺpce (N) | celé číslo | Dielik = šírka / N, štvorcový |
+| Grid (N stĺpcov) | celé číslo | Dielik = šírka / N, štvorcový |
 | Zvyšok výšky | okraje / natiahnutie / presah a orez | Keď výška nie je násobkom dielika. Volí sa podľa potreby. |
 
 ### Kresba
+
+V rozhraní pod `Parametre ▾`, spolu s farbami a kompozíciou.
 
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
@@ -54,7 +58,13 @@ Polomery, veľkosť kvapky a šírka štrbiny sa odvodia z Weight a Contrast. Vz
 | Variácia | 0–100 % | 0 % = všetky tvary rovnako veľké, 100 % = celý rozsah |
 | Rozloženie | rovnomerne / veľa malých a pár veľkých / len krajné hodnoty | Pomer malých a veľkých tvarov |
 | Typy | výber z 10 typov | Ktoré tvary sa smú použiť |
-| Seed | číslo alebo text | Na webe slug akcie |
+| Rozmiestnenie | voľné / dlaždice | Voľné = kompozícia s výrezom, dlaždice = vzor v mriežke |
+
+### Variant (seed)
+
+| Parameter | Hodnoty | Poznámka |
+|---|---|---|
+| Seed | číslo alebo text | Z neho sa odvodí náhodné rozmiestnenie. Rovnaký seed = rovnaký obrázok. V rozhraní sa volá **Variant**. Na webe je to slug akcie. |
 
 ### Farby
 
@@ -70,7 +80,7 @@ Spoločné pre každú zónu:
 
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
-| Typ | text / fotka | |
+| Typ | text / fotka | Určí sa obsahom: začneš písať = text, pretiahneš fotku = fotka |
 | Poloha a veľkosť | v dielikoch | Prichytené na mriežku |
 | Správanie | prázdna / presah vlasovou linkou / okraj | Ako sa k zóne správa pattern |
 
@@ -143,16 +153,14 @@ proporcie.json + predvoľby ──► jadro ──┬─► webové rozhranie �
                                        └─► build webu ───────► náhľady, pozadia
 ```
 
-### Plagát
+### Postup
 
-1. Formát, mriežka, kresba, kompozícia.
-2. Zóny nakreslené myšou na plátne.
+1. Formát a grid, potom parametre (alebo predvoľba).
+2. Zóny ťahaním na gride.
 3. Generátor rozmiestni tvary okolo zón.
 4. Ďalší seed = ďalší variant. Predvoľba sa dá použiť pre celú sériu.
 
-### Vzor (dlaždice)
-
-Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
+**Rozmiestnenie dlaždice:** tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania. Zóny fungujú rovnako.
 
 ### Web
 
@@ -162,99 +170,77 @@ Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
 
 ## Rozhranie
 
-Jedna stránka pre počítač, mobil sa nerieši. Ovládanie je rozdelené podľa toho, ako často sa na vec siaha. Pri bežnej práci je na obrazovke len plátno a to, čo sa práve mení.
+Jedna stránka pre počítač, mobil sa nerieši. Hore jedna lišta, pod ňou plátno. Žiadne bočné panely, žiadne režimy.
 
-| Ako často | Čo | Kde |
+```
+┌───────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 420 × 594 mm · Grid 8 ▾     Parametre ▾          ◀ Variant 42 ▶ ⟳          75 %      Export   │
+├───────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                               │
+│                 ┌────────────────────────────────────────────────────────────┐                │
+│                 │ · ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ · · · ◜◝ · · · · · · · ·  │                │
+│                 │ · ┃ MILONGA DE OTOÑO|          ┃ · · · ▌▐ · · · · · · · ·  │                │
+│                 │ · ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ · · · ▌▐ · · · · · · · ·  │                │
+│                 │ · ╭─────────────────────────────────────╮ · · · · · · ·    │                │
+│                 │ · │ Brnos A. ▾ 1,5 ▾ ⫷ ≡ ⫸  ● ○ ○   ✕   │ · · · · · · ·    │                │
+│                 │ · ╰─────────────────────────────────────╯ · · · · · · ·    │                │
+│                 │ ·  ▌▌ · · · ┌───────────────┐ · · · ● · · · · · · · ·      │                │
+│                 │ ·   ◝ · · · │ FOTKA (maska) │ · · · · · · ◢ · · · · ·      │                │
+│                 │ · · · · · · └───────────────┘ · · · · · ◢▌ · · · · ·       │                │
+│                 │ · · ┌┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐ · · · · · · · ·      │                │
+│                 │ · · ┆ Píš text alebo pretiahni fotku ┆ · · · · · · · ·     │                │
+│                 │ · · └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘ · · · · · · · ·      │                │
+│                 └────────────────────────────────────────────────────────────┘                │
+│                                                                                               │
+└───────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Lišta
+
+Zľava doprava v poradí, v akom sa pri práci používa:
+
+| Položka | Ako často | Obsah |
 |---|---|---|
-| Raz na začiatku | režim (Plagát / Vzor / Tvary), predvoľba, formát, spadávka, DPI, mriežka, zvyšok výšky | Vľavo hore len súhrn, napr. „Plagát · A2 · 8 stĺpcov ▾“. Kliknutím sa otvorí nastavenie, potom sa zavrie. |
-| Občas | Kresba a kompozícia: Weight, Contrast, inverzia, veľkosť, variácia, rozloženie, typy | Rozbaľovací panel. Po doladení ostane zavretý, nastavenie sa uloží do predvoľby. |
-| Neustále | seed, zóny | Dole v strede seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší) a nástroje zón ([T] text, [▣] fotka). Nastavenie zóny priamo na plátne. Vždy viditeľné. |
-| Raz na konci | export | Vpravo hore |
+| `420 × 594 mm · Grid 8 ▾` | raz na začiatku | Po kliknutí: predvoľba (načítať / uložiť), rozmer a jednotka, DPI, spadávka, Grid, zvyšok výšky |
+| `Parametre ▾` | občas | Weight, Contrast, inverzia, veľkosť, variácia, rozloženie, typy, rozmiestnenie (voľné / dlaždice) |
+| `◀ Variant 42 ▶ ⟳` | neustále | Predchádzajúci, číslo variantu (dá sa prepísať), ďalší, náhodný |
+| `75 %` | podľa potreby | Zoom plátna |
+| `Export` | raz na konci | SVG / PNG / AVIF, text upraviteľný alebo v krivkách |
 
-Zobrazenie (▦ mriežka, ☐ spadávka, zoom) výsledok nemení. Je drobne vpravo dole a na skratkách.
+V rozhraní sa píšu slová, nie symboly. Slovo „seed“ sa v rozhraní nepoužíva, je to **Variant**.
 
-### Plagát
+### Plátno
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│  Plagát · A2 · 8 stĺpcov ▾                Kresba a kompozícia ▾    ⇩ Export     │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                 │
-│          ┌────────────────────────────────────────────────────────────┐         │
-│          │ · ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ · · · ◜◝ · · · · · · · ·  │         │
-│          │ · ┃ MILONGA DE OTOÑO|          ┃ · · · ▌▐ · · · · · · · ·  │         │
-│          │ · ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ · · · ▌▐ · · · · · · · ·  │         │
-│          │ · ╭─────────────────────────────────────╮ · · · · · · ·    │         │
-│          │ · │ Brnos A. ▾ 1,5 ▾ ⫷ ≡ ⫸  ● ○ ○   ✕   │ · · · · · · ·    │         │
-│          │ · ╰─────────────────────────────────────╯ · · · · · · ·    │         │
-│          │ ·  ▌▌ · · · ┌───────────────┐ · · · ● · · · · · · · ·      │         │
-│          │ ·   ◝ · · · │ FOTKA (maska) │ · · · · · · ◢ · · · · ·      │         │
-│          │ · · · · · · └───────────────┘ · · · · · ◢▌ · · · · ·       │         │
-│          │ · · ┌────────────────────────────────┐ · · · · · · · ·     │         │
-│          │ · · │ 17. 10. · 20:00 · BRNO         │ · · · · · · · ·     │         │
-│          │ · · └────────────────────────────────┘ · · · · · · · ·     │         │
-│          └────────────────────────────────────────────────────────────┘         │
-│                                                                                 │
-│             [T] [▣]        ◀   ⟳  42  ▶              ▦  ☐  75 %                 │
-└─────────────────────────────────────────────────────────────────────────────────┘
-```
+- **Nová zóna:** ťahaním po prázdnom mieste. Prichytáva sa na dieliky. Prázdna zóna ukáže výzvu „Píš text alebo pretiahni fotku“.
+  - Začneš písať → textová zóna.
+  - Pretiahneš fotku do zóny → fotková zóna.
+  - Pretiahneš fotku na prázdne miesto → fotková zóna vznikne tam, na veľkosť dielikov pod kurzorom.
+- **Presun a zmena veľkosti:** ťahaním zóny a jej rohov.
+- **Fotka:** dvojklik prepne na posun a zoom fotky.
+- **Vybraná zóna** má pod sebou malú plávajúcu lištu: pri texte písmo, veľkosť, zarovnanie a správanie (prázdna / presah / okraj), pri fotke režim (rámik / maska / prekrytie). ✕ zónu zmaže.
+- **Čiary gridu** sa ukážu samy, keď ťaháš zónu. Inak sú skryté, prepínač netreba.
+- **Spadávka** je vždy jemne vyznačená.
 
-- **Postup:** raz nastavíš formát, raz kresbu a kompozíciu (alebo vyberieš predvoľbu), potom už len točíš seed a hýbeš zónami.
-- **Zóny na plátne:**
-  - Nová zóna: vyber nástroj a ťahaj na plátne. Prichytáva sa na dieliky.
-  - Presun a zmena veľkosti: ťahaním zóny a jej rohov.
-  - Text sa píše priamo do zóny.
-  - Fotka sa pretiahne do fotkovej zóny. Dvojklik prepne na posun a zoom fotky.
-  - Vybraná zóna má pod sebou malú plávajúcu lištu: pri texte písmo, veľkosť, zarovnanie a správanie (prázdna / presah / okraj), pri fotke režim (rámik / maska / prekrytie). ✕ zónu zmaže.
-- **Skratky:** ← → seed, `R` náhodný seed, `G` mriežka, `B` spadávka, `I` inverzia, `E` export, `Esc` zavrie lištu alebo panel.
+### Skratky
 
-### Vzor
+← → variant, `R` náhodný variant, `I` inverzia, `E` export, `Esc` zavrie lištu alebo ponuku, `T` prehliadač tvarov.
 
-Rovnaké rozhranie ako Plagát, bez nástrojov zón. Plátno ukazuje dlaždice.
+### Prehliadač tvarov
 
-### Tvary
+Nástroj na ladenie tvarov a `proporcie.json` (fáza 1), nie bežná práca. Otvára sa skratkou `T` cez celé okno.
 
-Prehliadač jednotlivých typov (fáza 1). Slúži na ladenie tvarov a `proporcie.json`.
-
-```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│  BRNOS AIRES · GENERÁTOR        Plagát   Vzor  [ Tvary ]                         │
-├──────────────────┬───────────────────────────────────────────────────────────────┤
-│ TYP              │                                                               │
-│ ○ Noha           │      ┌───────────────────┐   ┌───────────────────┐            │
-│ ● Oblúk          │      │                   │   │                   │            │
-│ ○ Vrchol         │      │      ╭─────╮      │   │   (písmo pre      │            │
-│ ○ Koleno         │      │      │     ▐█     │   │    porovnanie)    │            │
-│ ○ Hmota so štrb. │      │      │     ▐█     │   │                   │            │
-│ ○ Háčik s kvap.  │      │      │     ▐█     │   │        n          │            │
-│ ○ Nota           │      │      ╵     ▐█     │   │                   │            │
-│ ○ Kvapka         │      └───────────────────┘   └───────────────────┘            │
-│ ○ Kruh           │        tvar z generátora       vzorka písma                   │
-│ ○ Bod            │                                                               │
-│                  │   ☐ prekryť písmom  ☐ body napojenia  ▦ mriežka               │
-│ KRESBA           │                                                               │
-│ Weight   ──●──   │   Všetky typy naraz:                                          │
-│ Contrast ────●─  │   ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐                    │
-│                  │   │▌ ││∩ ││Λ ││┌ ││U ││ʃ ││♪ ││● ││○ ││· │                    │
-│ PARAMETRE TYPU   │   └──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘                    │
-│ Šírka    2 diel. │                                                               │
-│ Výška    3 diel. │                                                               │
-│ Plná noha vpravo │                                                               │
-└──────────────────┴───────────────────────────────────────────────────────────────┘
-```
-
-- **Vľavo:** výber typu, Weight a Contrast, parametre vybraného typu.
-- **Stred:** tvar z generátora vedľa vzorky písma. Prepínač „prekryť písmom“ ich položí cez seba, aby bolo vidno rozdiel v krivkách.
-- **Dole:** všetky typy naraz pri aktuálnom Weight a Contrast.
+- Vybraný typ z generátora vedľa vzorky písma. Prepínač „prekryť písmom“ ich položí cez seba, aby bolo vidno rozdiel v krivkách.
+- Posuvníky Weight, Contrast a parametrov vybraného typu.
+- Pod tým všetkých 10 typov naraz pri aktuálnom Weight a Contrast.
 
 ## Fázy
 
 | # | Výsledok | Odhad |
 |---|---|---|
-| 1 | Všetkých 10 typov v kóde, prehliadač s posuvníkmi Weight, Contrast a parametrov typu, porovnanie s písmom | 1–2 sedenia |
-| 2 | Plagát: formát, mriežka, kompozícia, seed, export SVG/PNG, predvoľby | 1 sedenie |
+| 1 | Všetkých 10 typov v kóde, prehliadač tvarov s posuvníkmi a porovnaním s písmom | 1–2 sedenia |
+| 2 | Lišta a plátno: formát, grid, parametre, variant, voľné rozmiestnenie, export SVG/PNG, predvoľby | 1 sedenie |
 | 3 | Zóny: text so sadzbou, fotka (rámik + maska) | 1–2 sedenia |
-| 4 | Vzor (dlaždice) | 1 sedenie |
+| 4 | Rozmiestnenie dlaždice | 1 sedenie |
 | 5 | CLI a build webu: náhľady akcií, pozadia | 1 sedenie |
 | 6 | Animácia a export videa | neskôr |
 
