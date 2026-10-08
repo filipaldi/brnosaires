@@ -63,7 +63,7 @@
 
 [class*="card-"] > * > h3,
 [class*="card-"] > * > p {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
@@ -316,7 +316,7 @@
 }
 
 .calendar .event-card__title {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-weight: var(--font-weight-bold);
   font-size: var(--text-l);
   line-height: var(--size-m);
@@ -333,7 +333,7 @@
 .calendar .event-card__location,
 .calendar .event-card__entry,
 .calendar .event-card__description {
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-size: var(--text-s);
   line-height: var(--size-s);
   margin: 0 var(--size-s) var(--size-2xs);
