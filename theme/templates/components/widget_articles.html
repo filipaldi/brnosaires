@@ -12,7 +12,11 @@
 
 {% if items %}
 <div class="widget-articles">
+  {% if cfg.columns %}
+  <div class="el-grid-{{ cfg.columns }}">
+  {% else %}
   <div class="el-cluster">
+  {% endif %}
     {% for item in items %}
     {% if link_enabled %}
     <a href="{{ item.article.slug }}/" class="aesthetic-card card-{{ cfg.card_size | default('m') }}">
