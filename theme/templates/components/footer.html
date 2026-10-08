@@ -84,7 +84,7 @@
 
     <section>
       <h2>{{ 'footer_months_label' | t(_flang) }}</h2>
-      <ul class="el-cluster gap-xs text-s">
+      <ul class="el-cluster site-footer__months gap-xs text-s">
         {% for m in range(1, 13) %}
         <li><a href="{{ m | month_page_url(_flang) }}">{{ m | month_name(_flang) }}</a></li>
         {% endfor %}

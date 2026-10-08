@@ -536,4 +536,11 @@ input[type="checkbox"]:checked + span {
   grid-template-columns: repeat(auto-fit, minmax(var(--size-2xl), 1fr));
 }
 
+/* Months sit in a narrow auto-fit column, so the cluster's flex-wrap breaks
+   the Czech names at odd spots. Two equal columns keep each name whole. */
+.site-footer__months {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 
