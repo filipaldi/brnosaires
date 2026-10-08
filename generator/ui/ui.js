@@ -790,7 +790,7 @@ attachPopover($('#btn-format'), (pop) => {
     row('DPI', numberInput(f.dpi, { min: 18, max: 2400, step: 1 }, (v) => { spec.format.dpi = v; })),
     row('Spadávka', numberInput(f.spadavka, { min: 0, max: 50, step: 0.5 }, (v) => { spec.format.spadavka = v; })),
     h3b,
-    row('Grid', numberInput(g.stlpce, { min: 1, max: 200, step: 1 }, (v) => { spec.grid.stlpce = v; })),
+    row('Grid', numberInput(g.stlpce, { min: 1, max: 100, step: 1 }, (v) => { spec.grid.stlpce = v; })),
     row('Zvyšok výšky', selectInput(
       [['okraje', 'okraje'], ['natiahnutie', 'natiahnutie'], ['orez', 'presah a orez']],
       g.zvysok, (v) => { spec.grid.zvysok = v; })),

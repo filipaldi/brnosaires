@@ -97,7 +97,7 @@ test('prázdna fotková zóna bez zdroja kreslí šedý placeholder', () => {
 test('normalizujSpec doplní všetky predvolené polia', () => {
   const spec = normalizujSpec({});
   assert.equal(spec.format.sirka, 420);
-  assert.equal(spec.grid.stlpce, 8);
+  assert.equal(spec.grid.stlpce, 20);
   assert.equal(spec.kompozicia.rozlozenie, 'rovnomerne');
   assert.equal(spec.variant, '1');
   assert.deepEqual(spec.zony, []);
@@ -123,7 +123,7 @@ test('neplatný spec skončí na ValidationError so slovenskou správou', () => 
     [{ variant: true }, /variant/],
     [{ inverzia: 'nie' }, /inverzia/],
     [{ zony: [{ typ: 'text', x: 1, y: 1, w: 99, h: 2 }] }, /presahuje šírku/],
-    [{ zony: [{ typ: 'fotka', x: 1, y: 10, w: 2, h: 4 }] }, /presahuje výšku/],
+    [{ zony: [{ typ: 'fotka', x: 1, y: 26, w: 2, h: 4 }] }, /presahuje výšku/],
     [{ zony: [{ typ: 'text', x: 0, y: 0, w: 2, h: 1, pismo: 'Comic Sans' }] }, /pismo/],
     [{ zony: [{ typ: 'fotka', x: 0, y: 0, w: 2, h: 1, rezim: 'vyrez' }] }, /rezim/],
     [{ neviem: 1 }, /Neznáme pole/],
