@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generátor Brnos Aires</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="ui.css">
+  <script type="module" src="ui.js"></script>
+</head>
+<body>
+
+  <header id="topbar">
+    <button id="btn-format" class="bar-btn" aria-haspopup="true" aria-expanded="false">Formát</button>
+    <button id="btn-parametre" class="bar-btn" aria-haspopup="true" aria-expanded="false">Parametre ▾</button>
+
+    <div id="variant-group">
+      <button id="variant-prev" class="bar-btn icon" title="Predchádzajúci variant">◀</button>
+      <input id="variant-input" title="Variant" value="42" spellcheck="false" autocomplete="off">
+      <button id="variant-next" class="bar-btn icon" title="Ďalší variant">▶</button>
+      <button id="variant-random" class="bar-btn icon" title="Náhodný variant">⟳</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <span id="stub-note" hidden>náhradný engine</span>
+
+    <label id="zoom-group">
+      <span class="sr-only">Zoom</span>
+      <select id="zoom" title="Zoom plátna"></select>
+    </label>
+
+    <button id="btn-export" class="bar-btn" aria-haspopup="true" aria-expanded="false">Export</button>
+  </header>
+
+  <main id="stage">
+    <div id="sheet">
+      <div id="svg-host"></div>
+      <div id="overlay">
+        <div id="bleed-mark" title="Spadávka"></div>
+        <div id="grid-lines" hidden></div>
+        <div id="zones"></div>
+        <div id="zone-bar" hidden></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" hidden></div>
+
+  <section id="viewer" hidden aria-label="Prehliadač tvarov">
+    <header id="viewer-bar">
+      <strong>Prehliadač tvarov</strong>
+      <span class="spacer"></span>
+      <button id="viewer-close" class="bar-btn">Zavrieť</button>
+    </header>
+    <div id="viewer-body">
+      <div id="viewer-main">
+        <div id="viewer-preview"></div>
+        <div id="viewer-axes"></div>
+        <div id="viewer-params"></div>
+      </div>
+      <div id="viewer-strip"></div>
+    </div>
+  </section>
+
+  <input type="file" id="predvolba-file" accept="application/json,.json" hidden>
+
+</body>
+</html>
