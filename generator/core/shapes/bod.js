@@ -1,22 +1,16 @@
-// bod — a filled circle. Default diameter is derived (1.2 · heavy) when the
-// parameter is left out (null).
+// bod — a filled disc (a ring whose thickness equals its radius).
 
-import { circleSegments } from '../geometry.js';
+import { prstenec } from '../primitives/index.js';
 
 export const id = 'bod';
 export const name = 'Bod';
 
 export const params = {
-  priemer: {
-    label: 'priemer (null = 1,2 · heavy)',
-    type: 'number', min: 0.01, max: 20, nullable: true,
-  },
+  priemer: { label: 'priemer', type: 'number', min: 0.01, max: 20, nullable: true },
 };
 
-export function build(p, axes) {
-  const d = p.priemer ?? axes.heavy * 1.2;
-  return {
-    subpaths: [{ segs: circleSegments(d / 2, d / 2, d / 2) }],
-    joints: [],
-  };
+export function build(p, axes, prop) {
+  const d = p.priemer ?? axes.heavy * prop.proporcie.bod.priemer;
+  const R = d / 2;
+  return { subpaths: prstenec({ cx: R, cy: R, R, t: R }), joints: [] };
 }

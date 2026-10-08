@@ -1,42 +1,39 @@
-// koleno — a heavy L-shaped corner, like the top-left corner of E or F: a
-// vertical arm going down and a horizontal arm going right. Arm ends are cut
-// square; the outer corner is widely rounded, the inner corner only slightly.
+// koleno — the perpendicular half-ring join, after the designer's reference:
+// a hairline half ring (left half, open to the right) + a heavy block flush
+// with the ring's outer left edge below it. Left of the ring centre the block
+// starts at the ring centre with the inner disc cut out; right of it the block
+// starts where the inner circle ends. Optional hairline arm from the ring top.
 
-import { roundedPolygon } from '../geometry.js';
-import { ValidationError } from '../errors.js';
+import { obdlznik, prstenec } from '../primitives/index.js';
 
 export const id = 'koleno';
 export const name = 'Koleno';
 
 export const params = {
-  ramenoX: { label: 'rameno X', type: 'number', min: 0.1, max: 20 },
-  ramenoY: { label: 'rameno Y', type: 'number', min: 0.1, max: 20 },
+  polomer: { label: 'polomer', type: 'number', min: 0.05, max: 20 },
+  sirka: { label: 'šírka bloku', type: 'number', min: 0.05, max: 20 },
+  dlzka: { label: 'dĺžka bloku', type: 'number', min: 0.05, max: 40 },
+  ramenoX: { label: 'rameno', type: 'number', min: 0, max: 40 },
+  zaoblenie: { label: 'zaoblenie', type: 'number', min: 0, max: 1 },
 };
 
-export function build(p, axes, prop) {
-  const pr = prop.proporcie.koleno;
-  const t = axes.heavy;
-
-  if (p.ramenoX <= t + 0.01 || p.ramenoY <= t + 0.01) {
-    throw new ValidationError(
-      `Koleno: ramená musia byť dlhšie ako hrúbka (${t.toFixed(3)}). Zväčči ramenoX/ramenoY alebo zníž Weight.`);
-  }
-
-  const pts = [
-    { x: 0, y: p.ramenoY },      // bottom of the vertical arm
-    { x: 0, y: 0 },              // outer corner
-    { x: p.ramenoX, y: 0 },      // end of the horizontal arm
-    { x: p.ramenoX, y: t },      // arm end, inner side
-    { x: t, y: t },              // inner corner
-    { x: t, y: p.ramenoY },      // end of the vertical arm, inner side
+export function build(p, axes) {
+  const h = axes.hair;
+  const P = p.polomer;
+  const r = Math.max(P - h, 0);
+  const B = p.sirka;
+  const bottom = P + p.dlzka;
+  const subpaths = [
+    ...prstenec({ cx: P, cy: P, R: P, t: h, start: 90, sweep: 180 }),
+    // block under the counter, full width, rounded top-right corner
+    obdlznik({ x: 0, y: P + r, w: B, h: bottom - P - r, radii: [0, p.zaoblenie, 0, 0] }),
+    // block beside the counter: from the ring centre down, inner circle notched in
+    obdlznik({ x: 0, y: P, w: Math.min(P, B), h: p.dlzka, vyrez: { cx: P, r } }),
   ];
-  const radii = [0, pr.outerRadius * t, 0, 0, pr.innerRadius * t, 0];
-
-  return {
-    subpaths: [{ segs: roundedPolygon(pts, radii) }],
-    joints: [
-      { x: p.ramenoX, y: t / 2, dir: 'right' },
-      { x: t / 2, y: p.ramenoY, dir: 'down' },
-    ],
-  };
+  const joints = [{ x: B / 2, y: bottom, dir: 'down' }];
+  if (p.ramenoX > 0) {
+    subpaths.push(obdlznik({ x: P, y: 0, w: p.ramenoX, h }));
+    joints.push({ x: P + p.ramenoX, y: h / 2, dir: 'right' });
+  }
+  return { subpaths, joints };
 }

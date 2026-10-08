@@ -1,0 +1,12 @@
+{
+  "_comment": "Pevné krivky nakreslené autorom písma. Generátor ich neprekresľuje, len interpoluje medzi mastrami, škáluje, otáča a posúva.",
+  "kvapka": {
+    "_comment": "Krk vstupuje na ľavej hrane: x = 0, od y = 0 po y = hrúbka krku, smer doprava. Kvapka je v oboch mastroch rovnaká, mení sa len krk.",
+    "viewBox": [0, 0, 246, 228],
+    "vyska": 228,
+    "masters": [
+      { "neck": 10, "path": "M113,175c0,77,133,73,133-23c0-91-85-152-246-152v10c101,0,163,22,163,58c0,47-50,52-50,107Z" },
+      { "neck": 40, "path": "M113,175c0,77,133,73,133-23c0-91-85-152-246-152v40c101,0,163,27,163,51c0,25-50,29-50,84Z" }
+    ]
+  }
+}

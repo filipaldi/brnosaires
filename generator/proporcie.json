@@ -8,56 +8,74 @@
   },
   "parametre": {
     "_comment": "Predvolené hodnoty parametrov tvarov. null znamená automaticky (viď príslušný tvar).",
-    "noha": { "dlzka": 3, "hrubka": "plna", "zaoblenie": 0.3 },
-    "oblouk": { "sirka": 2, "vyska": 2, "plnaStrana": "vpravo" },
-    "vrchol": { "uholVlavo": 20, "uholVpravo": 20, "vyska": 3 },
-    "koleno": { "ramenoX": 2, "ramenoY": 2 },
-    "hmotaSoStrbinou": { "dlzka": 3, "sirka": null },
-    "hacikSKvapkou": { "vyska": 3, "polomer": 0.6, "kvapka": 1, "hrubka": "plna" },
-    "nota": { "dlzka": 3, "pocet": 2, "rozostup": 1, "kvapka": 1, "strana": "vpravo", "hrubka": "plna" },
-    "kvapka": { "velkost": 1.2, "smer": 315 },
-    "kruh": { "priemer": 0.6, "hrubka": "vlas" },
-    "bod": { "priemer": null }
-  },
-  "proporcie": {
-    "_comment": "Geometrické pomery tvarov. Pokiaľ nie je povedané inak, násobky heavy alebo hair.",
+    "noha": {
+      "dlzka": 3,
+      "hrubka": "plna",
+      "zaoblenie": 0.3
+    },
     "oblouk": {
-      "_comment": "archRatio: výška polovice elipsy oblúka z celej výšky; innerTopBias: hrúbka temena (1 = presný priemer hair a heavy); endOuter/endInner: zaoblenie pätiok nôh ako podiel hrúbky nohy.",
-      "archRatio": 0.4,
-      "innerTopBias": 1,
-      "endOuter": 0.5,
-      "endInner": 0.15
+      "sirka": 2,
+      "vyska": 2,
+      "plnaStrana": "vpravo"
     },
     "vrchol": {
-      "_comment": "wedgeRatio: vodorovná šírka klinu na základni (× heavy); wedgeStartDrop: kde sa vnútorná hrana klinu odpája od vlasovej nohy (× heavy pod vrcholom); apexRadius: zaoblenie vrcholu (× hair); counterRadius: zaoblenie ústia protikresu (× hair).",
-      "wedgeRatio": 1.15,
-      "wedgeStartDrop": 0.5,
-      "apexRadius": 1.5,
-      "counterRadius": 1
+      "vyska": 3,
+      "uholVlavo": 20,
+      "uholVpravo": 20
     },
     "koleno": {
-      "_comment": "Vonkajší a vnútorný polomer lakťa (× heavy). Konce ramien sú hranaté.",
-      "outerRadius": 0.9,
-      "innerRadius": 0.2
+      "polomer": 0.5,
+      "sirka": 1,
+      "dlzka": 3,
+      "ramenoX": 1.5,
+      "zaoblenie": 0.3
     },
     "hmotaSoStrbinou": {
-      "_comment": "Zaoblenie vonkajších rohov: spodné a vrchné (× heavy). Štrbina má šírku hair, dno hrúbku heavy.",
-      "bottomCorner": 0.6,
-      "topCorner": 0.15
+      "dlzka": 3
     },
     "hacikSKvapkou": {
-      "_comment": "armTop/armBottom: dĺžka hornej/dolnej hrany ramena za ohybom (× polomer kvapky); centerDX: ťažisko kvapky za koncom hornej hrany (× r); dropRatio: kvapka visí pod osou ramena (× r).",
-      "armTop": 0.75,
-      "armBottom": 0.1,
-      "centerDX": 0.95,
-      "dropRatio": 0.4
+      "vyska": 3,
+      "polomer": 0.5,
+      "kvapka": 1.6,
+      "hrubka": "vlas"
+    },
+    "nota": {
+      "dlzka": 3,
+      "pocet": 2,
+      "rozostup": 1,
+      "kvapka": 1.6,
+      "strana": "vpravo",
+      "hrubka": "plna"
     },
     "kvapka": {
-      "_comment": "Spoločné pre všetky kvapky: tail: dĺžka chvosta od kruhu (× r); tipRadius: zaoblenie špičky (× hair); notaOffset/notaOffsetAngle: stred kvapky noty od špičky na nohe (× r, stupne pod vodorovnicou).",
-      "tail": 1.3,
-      "tipRadius": 0.5,
-      "notaOffset": 1.15,
-      "notaOffsetAngle": 15
+      "vyska": 1.6
+    },
+    "kruh": {
+      "priemer": 0.6,
+      "hrubka": "vlas"
+    },
+    "bod": {
+      "priemer": null
+    }
+  },
+  "proporcie": {
+    "_comment": "Geometrické pomery. Zaoblenia rohov sú podiel z polovice kratšej strany obdĺžnika (0 ostrý, 1 úplne guľatý), ostatné násobky hair alebo heavy.",
+    "oblouk": {
+      "_comment": "Zaoblenie päty vlasovej nohy (oba rohy) a vonkajšieho spodného rohu plnej nohy.",
+      "patkaVlas": 0.5,
+      "patkaPlna": 0.3
+    },
+    "hmotaSoStrbinou": {
+      "_comment": "Zaoblenie vonkajších horných rohov nôh.",
+      "hornyRoh": 0.15
+    },
+    "vrchol": {
+      "_comment": "Zaoblenie vrcholu (× hair).",
+      "apexRadius": 1.5
+    },
+    "bod": {
+      "_comment": "Predvolený priemer bodu (× heavy).",
+      "priemer": 1.2
     },
     "pismo": {
       "_comment": "xHeightRatio: výška malých písmen v em. Podľa nej sa referenčný glif vo vzorkovníku škáluje na x-height približne 2 dieliky.",
