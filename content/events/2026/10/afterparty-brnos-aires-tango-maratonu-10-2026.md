@@ -1,7 +1,7 @@
 ---
 lang: cs
 title: Afterparty Brnos Aires tango maratonu
-description: Nedělní afterparty otevřená všem.
+description: DJ Mačka. Nedělní afterparty otevřená všem.
 preview_image: /images/marathon-photos/gallery-2025/marathon-2025-00084.avif
 event-type: milonga
 event-start: 2026-10-18 19:00:00

@@ -13,6 +13,9 @@
 {% set card_width = cfg.card_width or 's' %}
 {% set text_size = cfg.text_size or 's' %}
 {% set image_ratio = cfg.image_ratio or '1x1' %}
+{% set card_link = cfg.link is none or (cfg.link | lower) not in ['false', 'no', '0'] %}
+{% set card_hide = (cfg.hide or '').split() %}
+{% set card_description = (cfg.description | lower) in ['true', 'yes', '1'] %}
 
 {% set _lang = page_lang | default(DEFAULT_LANG, true) %}
 {% set display_events = all_articles | calendarium(filter_by_type=event_type, days=days, start=start_date, end=end_date, month=month, sort=sort, limit=limit) %}

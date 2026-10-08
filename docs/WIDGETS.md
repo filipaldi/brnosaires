@@ -135,6 +135,9 @@ Zobrazuje filtrované seznamy akcí z [`content/events/`](../content/events/).
 - `card_mode="solid|scaling"` (volitelné) - Režim šířky karty. Výchozí: `solid` (fixní šířka podle tokenu, stejně velká kartička napříč webem). `scaling` = šířka jako zlomek kontejneru (peek další karty jako swipe affordance). Většinou nech `solid`.
 - `card_width="xs|s|m|l"` (volitelné) - Velikost kartičky v rámci zvoleného režimu. V `solid` režimu: token velikosti (`xs` ≈ 180px, `s` ≈ 240px (výchozí), `m` ≈ 320px, `l` ≈ 400px). V `scaling` režimu: zlomek kontejneru (`s` = 50%, `m` = 70% (výchozí), `l` = 90%).
 - `text_size="xs|s|m"` (volitelné) - Velikost textu uvnitř karty. Výchozí: `s`. Mění typografii (velikost písma, řádkování), neovlivňuje layout. Hodí se kombinovat s `card_width` nezávisle (např. malé karty s ještě menším textem: `card_width="xs" text_size="xs"`).
+- `link="true|false"` (volitelné) - Jestli karta proklikává na stránku akce. Výchozí je proklik; `false`/`no`/`0` vyrenderují kartu jako `<div>` bez odkazu (stejná logika jako `link` u `widget-articles`).
+- `hide="organiser location"` (volitelné) - Slova oddělená mezerou, které se v kartě nezobrazí. Podporované: `date`, `organiser`, `location`. Výchozí: nezobrazuje se nic navíc.
+- `description="true"` (volitelné) - Zobrazí v kartě popis akce z metadat `description`. Zapíná se `true`/`yes`/`1`; výchozí je `false` (popis skrytý).
 
 **Filtrování podle data:**
 - `days="7"` = příštích 7 dnů od dneška
@@ -334,6 +337,9 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 | `card_mode` | string | Ne | `solid`, `scaling` | Režim šířky karty (výchozí: `solid` — fixní, konzistentní napříč webem). `scaling` = zlomek kontejneru (swipe reel s peek). |
 | `card_width` | string | Ne | `xs`, `s`, `m`, `l` | Velikost karty v rámci `card_mode`. V solid: token velikosti. V scaling: zlomek kontejneru (50/70/90 %). Výchozí: `s` (solid). |
 | `text_size` | string | Ne | `xs`, `s`, `m` | Velikost textu v kartě (výchozí: `s`). Mění typografii, neovlivňuje layout. |
+| `link` | string | Ne | `true`, `false`, `yes`, `no`, `0` | Jestli karta proklikává na stránku akce (výchozí: ano). `false`/`no`/`0` vyrenderují kartu bez odkazu. |
+| `hide` | string | Ne | `date`, `organiser`, `location` | Slova oddělená mezerou, které se v kartě nezobrazí |
+| `description` | string | Ne | `true`, `yes`, `1` | Zobrazit v kartě popis z metadat `description` (výchozí: skryté) |
 
 ### Atributy widget-articles
 

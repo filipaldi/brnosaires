@@ -1,5 +1,5 @@
 ---
-title: Saturday Afternoon Milonga with DJ Balazs
+title: Saturday Afternoon Milonga
 slug: marathon-2026-saturday-afternoon-milonga
 date: 2026-10-17 13:00:00
 category: event
@@ -10,16 +10,15 @@ event-organiser: Brnos Aires
 event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
-description: Afternoon milonga at Brnos Aires Tango Marathon 2026. Keep dancing through the day.
+description: DJ Balázs Gyenis
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-05.avif
 ---
 
-# Saturday Afternoon Milonga with DJ Balazs
+# Saturday Afternoon Milonga
 
 Keep dancing through the day.
 
-**DJ:** Balazs  
 **When:** Saturday 17 October 2026, 13:00–19:00  
 **Where:** Dělnický dům, Jamborova 3323/65, Brno  
 **Organisers:** Brnos Aires

@@ -1,5 +1,5 @@
 ---
-title: Friday Night Milonga with DJ Veronika
+title: Friday Night Milonga
 slug: marathon-2026-friday-night-milonga
 date: 2026-10-16 19:00:00
 category: event
@@ -10,16 +10,15 @@ event-organiser: Brnos Aires
 event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
-description: Opening milonga of Brnos Aires Tango Marathon 2026. Welcome to three days of continuous dancing.
+description: DJ Veronika Kim
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-01.avif
 ---
 
-# Friday Night Milonga with DJ Veronika
+# Friday Night Milonga
 
 Welcome to Brnos Aires Tango Marathon 2026. Let the dancing begin.
 
-**DJ:** Veronika  
 **When:** Friday 16 October 2026, 19:00–01:00  
 **Where:** Dělnický dům, Jamborova 3323/65, Brno  
 **Organisers:** Brnos Aires

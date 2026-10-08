@@ -30,7 +30,7 @@ You declare it in the registration form. That's it.
 
 ### What €30 actually gets you
 
-The full marathon. 26 hours of dancing across Friday, Saturday, Sunday. 200 m² of warm wood floor. The TDJs we curated for the main event.
+The full marathon. 24 hours of dancing across Friday, Saturday, Sunday. 200 m² of warm wood floor. The TDJs we curated for the main event.
 
 At the venue, throughout the marathon: seasonal fruit, vegetables, snacks, water, tea, freshly brewed coffee — included.
 
