@@ -170,46 +170,45 @@ Jedna stránka, tri záložky. Rozhranie je pre počítač, mobil sa nerieši.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│  BRNOS AIRES · GENERÁTOR      [ Plagát ]  Vzor   Tvary      Predvoľba: A2 ▾ ⇩   │
-├──────────────────┬───────────────────────────────────────────┬──────────────────┤
-│ FORMÁT           │  Seed [ 42 ]  ◀  ⟳  ▶   ▦ mriežka         │ ZÓNA: Text 1     │
-│ 420 × 594 mm     │  ☐ spadávka  ◐ inverzia                   │                  │
-│ DPI 300 · 3 mm   │ ┌───────────────────────────────────────┐ │ Poloha 1,1  6×2  │
-│                  │ │ · · · · · · · · · · · · · · · · · · · │ │ Správanie        │
-│ MRIEŽKA          │ │ ·┌──────────────────────┐ · · ◜◝ · · ·│ │ ● prázdna        │
-│ Stĺpce   [ 8 ]   │ │ ·│ MILONGA DE OTOÑO     │ · · ▌▐ · · ·│ │ ○ presah vlasom  │
-│ Zvyšok  okraje ▾ │ │ ·└──────────────────────┘ · · ▌▐ · · ·│ │ ○ okraj          │
-│                  │ │ ·  ◟▌ · · · · · · · · · · · ▌▐ · · ·  │ │                  │
-│ KRESBA           │ │ ·  ▌▌ · ┌───────────────┐ · · · · · · │ │ Text             │
-│ Weight   ──●──   │ │ ·  ▌▌ · │               │ · · ● · · · │ │ [MILONGA DE OTO] │
-│ Contrast ────●─  │ │ ·   ◝ · │     FOTKA     │ · · · · ◢ · │ │ Písmo Brnos A. ▾ │
-│                  │ │ · · · · │    (maska)    │ · · · ◢▌ ·  │ │ Veľkosť 1,5      │
-│ KOMPOZÍCIA       │ │ · · · · └───────────────┘ · · · · · · │ │ Zarovnanie ⫷ ≡ ⫸ │
-│ Veľkosť  1 – 6   │ │ · · ┌────────────────────────────┐ · ·│ │ Riadkovanie 1,1  │
-│ Variácia ───●─   │ │ · · │ 17. 10. · 20:00 · BRNO     │ · ·│ │                  │
-│ Rozloženie    ▾  │ │ · · └────────────────────────────┘ · ·│ │ [ Zmazať zónu ]  │
-│ Typy ▣▣▣▣▣▣▣▣▣▣  │ │ · · · · · · · · · · · · · · · · · · · │ │                  │
-│                  │ └───────────────────────────────────────┘ │                  │
-│ ZÓNY             │                                           │                  │
-│ [+ Text][+ Fotka]│  História seedov                          │                  │
-│ [⇪ Šablóna SVG]  │  ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐            │                  │
-│                  │  │38│ │39│ │40│ │41│ │42│ │  │            │                  │
-│ EXPORT           │  └──┘ └──┘ └──┘ └──┘ └──┘ └──┘            │                  │
-│ SVG ▾ · krivky ▾ │                                           │                  │
-│ [ Exportovať ]   │                                           │                  │
-└──────────────────┴───────────────────────────────────────────┴──────────────────┘
+│  BRNOS AIRES · GENERÁTOR      [ Plagát ]  Vzor   Tvary     Predvoľba: A2 ▾ ⇩    │
+├──────────────────┬──────────────────────────────────────────────────────────────┤
+│ FORMÁT           │  Seed [ 42 ] ◀ ⟳ ▶   [T] [▣] [⇪]   ▦ mriežka ☐ spadávka ◐    │
+│ 420 × 594 mm     │  ┌────────────────────────────────────────────────────────┐  │
+│ DPI 300 · 3 mm   │  │ · · · · · · · · · · · · · · · · · · · · · · · · · · ·  │  │
+│                  │  │ · ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ · · · ◜◝ · · · · · · ·│  │
+│ MRIEŽKA          │  │ · ┃ MILONGA DE OTOÑO|          ┃ · · · ▌▐ · · · · · · ·│  │
+│ Stĺpce   [ 8 ]   │  │ · ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ · · · ▌▐ · · · · · · ·│  │
+│ Zvyšok  okraje ▾ │  │ · ╭─────────────────────────────────────────╮ · · · · ·│  │
+│                  │  │ · │ Brnos A. ▾  1,5 ▾  ⫷ ≡ ⫸  ● ○ ○  ✕        │ · · · ·│  │
+│ KRESBA           │  │ · ╰─────────────────────────────────────────╯ · · · · ·│  │
+│ Weight   ──●──   │  │ ·  ▌▌ · · · ┌───────────────┐ · · · · ● · · · · · · ·  │  │
+│ Contrast ────●─  │  │ ·   ◝ · · · │     FOTKA     │ · · · · · · ◢ · · · · ·  │  │
+│                  │  │ · · · · · · │    (maska)    │ · · · · · ◢▌ · · · · · · │  │
+│ KOMPOZÍCIA       │  │ · · · · · · └───────────────┘ · · · · · · · · · · · ·  │  │
+│ Veľkosť  1 – 6   │  │ · · ┌────────────────────────────────┐ · · · · · · · · │  │
+│ Variácia ───●─   │  │ · · │ 17. 10. · 20:00 · BRNO         │ · · · · · · · · │  │
+│ Rozloženie    ▾  │  │ · · └────────────────────────────────┘ · · · · · · · · │  │
+│ Typy ▣▣▣▣▣▣▣▣▣▣  │  │ · · · · · · · · · · · · · · · · · · · · · · · · · · ·  │  │
+│                  │  └────────────────────────────────────────────────────────┘  │
+│ EXPORT           │                                                              │
+│ SVG ▾ · krivky ▾ │                                                              │
+│ [ Exportovať ]   │                                                              │
+└──────────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
-- **Ľavý panel:** všetky parametre v poradí z tabuľky Parametre.
-- **Stred:** plátno s mriežkou. Zóny sa kreslia ťahaním a presúvajú myšou, prichytávajú sa na dieliky.
-- **Lišta nad plátnom:** seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší), prepínače mriežky, spadávky a inverzie.
-- **História seedov:** náhľady posledných variantov, kliknutím sa k variantu vrátiš.
-- **Pravý panel:** vlastnosti vybranej zóny. Bez výberu je prázdny.
+- **Ľavý panel:** parametre celej kompozície v poradí z tabuľky Parametre. Je to jediný panel.
+- **Lišta nad plátnom:** seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší), nástroje zón ([T] text, [▣] fotka, [⇪] šablóna z Affinity), prepínače mriežky, spadávky a inverzie (◐).
+- **Plátno:** všetko okolo zón sa robí priamo tu.
+  - Nová zóna: vyber nástroj a ťahaj na plátne. Prichytáva sa na dieliky.
+  - Presun a zmena veľkosti: ťahaním zóny a jej rohov.
+  - Text sa píše priamo do zóny.
+  - Fotka sa pretiahne do fotkovej zóny. Dvojklik prepne na posun a zoom fotky.
+  - Vybraná zóna má pod sebou malú plávajúcu lištu so svojimi nastaveniami: pri texte písmo, veľkosť, zarovnanie a správanie (prázdna / presah / okraj), pri fotke režim (rámik / maska / prekrytie). ✕ zónu zmaže.
 - **Predvoľba (vpravo hore):** načítanie a uloženie celého nastavenia okrem seedu.
 
 ### Záložka Vzor
 
-Rovnaké rozloženie ako Plagát, bez zón a bez pravého panelu. Plátno ukazuje dlaždice.
+Rovnaké rozloženie ako Plagát, bez nástrojov zón. Plátno ukazuje dlaždice.
 
 ### Záložka Tvary
 
