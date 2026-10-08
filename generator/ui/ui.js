@@ -929,7 +929,11 @@ attachPopover($('#btn-parametre'), (pop) => {
     nahlad.className = 'nahlad';
     nahlad.setAttribute('aria-label', t.name);
     try {
-      nahlad.innerHTML = kresli(buildShape(t.id, defaultParams(t.id), osi), { pxPerDielik: 60, margin: 0.12 })
+      // pätky default to the smallest radius; draw them as they appear in
+      // a composition, with a radius of one dielik
+      const params = defaultParams(t.id);
+      if ('polomer' in params && params.polomer === null && t.id !== 'bod') params.polomer = 1;
+      nahlad.innerHTML = kresli(buildShape(t.id, params, osi), { pxPerDielik: 60, margin: 0.12 })
         .replace(/ width="[^"]*" height="[^"]*"/, '');
     } catch {
       nahlad.textContent = t.name;
