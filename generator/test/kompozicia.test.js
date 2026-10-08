@@ -155,3 +155,12 @@ test('tvary sa reťazia cez spoje rovnakej hrúbky', async () => {
   const bez = komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenie: 0 } });
   assert.equal(bez.tvary.filter((t) => t.spoje.length).length, 0);
 });
+
+test('dĺžka reťaze [min, max] sa dá zadať a overuje sa', () => {
+  const spec = JSON.parse(readFileSync(new URL('../priklady/plagat-a2.json', import.meta.url), 'utf8'));
+  const jeden = komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenieDlzka: [1, 1] } });
+  assert.equal(jeden.tvary.filter((t) => t.spoje.length).length, 0);
+  assert.throws(
+    () => komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenieDlzka: [5, 2] } }),
+    /retazenieDlzka/);
+});

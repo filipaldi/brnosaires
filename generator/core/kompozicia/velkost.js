@@ -37,7 +37,6 @@ export function drawSize(rng, { velkost, variacia, rozlozenie, koeficienty }) {
 // mapping documented here:
 //   noha, hmotaSoStrbinou  one length parameter equals s
 //   oblouk                 vyska = s, sirka = max(1, round(s · sirkaPomer))
-//   koleno                 dlzka = s, rameno scales with s; block width = heavy
 //   hacikSKvapkou          vyska = s
 //   nota                   dlzka = s, pocet = round(s · pocetPomer), rozostup
 //                          = max(rozostupMin, s / pocet)
@@ -48,9 +47,6 @@ export function paramsFor(type, s, defaults, cfg) {
   const c = cfg[type] || {};
   for (const key of c.zVelkosti || []) p[key] = s;
   if (type === 'oblouk') p.sirka = Math.max(1, Math.round(s * c.sirkaPomer));
-  if (type === 'koleno') {
-    p.ramenoX = Math.max(0, snapHalf(s * c.ramenoPomer));
-  }
   if (type === 'nota') {
     p.pocet = clamp(Math.round(s * c.pocetPomer), 1, 12);
     p.rozostup = Math.max(c.rozostupMin, snapHalf(s / p.pocet));
@@ -58,7 +54,7 @@ export function paramsFor(type, s, defaults, cfg) {
   // fixed accents and fixed values — numbers other than the
   // named ratios are plain parameter values
   for (const [key, value] of Object.entries(c)) {
-    if (['zVelkosti', 'sirkaPomer', 'ramenoPomer', 'pocetPomer', 'rozostupMin'].includes(key)) continue;
+    if (['zVelkosti', 'sirkaPomer', 'pocetPomer', 'rozostupMin'].includes(key)) continue;
     if (key in p || value === null) p[key] = value;
   }
   // bod with no explicit priemer keeps null (auto from heavy)

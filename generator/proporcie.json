@@ -19,12 +19,6 @@
       "plnaStrana": "vpravo",
       "hrubnutie": "stala"
     },
-    "koleno": {
-      "polomer": null,
-      "sirka": null,
-      "dlzka": 3,
-      "ramenoX": 1.5
-    },
     "hmotaSoStrbinou": {
       "dlzka": 3
     },
@@ -96,7 +90,6 @@
         "typy": [
           "noha",
           "oblouk",
-          "koleno",
           "hmotaSoStrbinou",
           "hacikSKvapkou",
           "nota",
@@ -105,7 +98,11 @@
           "bod"
         ],
         "rozmiestnenie": "volne",
-        "retazenie": 80
+        "retazenie": 80,
+        "retazenieDlzka": [
+          3,
+          9
+        ]
       },
       "variant": "1",
       "inverzia": false,
@@ -143,12 +140,6 @@
         ],
         "sirkaPomer": 0.6
       },
-      "koleno": {
-        "zVelkosti": [
-          "dlzka"
-        ],
-        "ramenoPomer": 0.5
-      },
       "hmotaSoStrbinou": {
         "zVelkosti": [
           "dlzka"
@@ -185,7 +176,6 @@
       "_comment": "Orientačný podiel plochy, ktorú tvar vyplní vo svojom bboxe. Používa sa len na výpočet hustoty (cieľ pokrytia), nie na kreslenie: noha je tenká tyčka, bod plný disk.",
       "noha": 0.95,
       "oblouk": 0.4,
-      "koleno": 0.7,
       "hmotaSoStrbinou": 0.75,
       "hacikSKvapkou": 0.2,
       "nota": 0.5,
@@ -200,10 +190,6 @@
       "maxPokusov": 1500,
       "skok": 0.5,
       "retazenie": {
-        "dlzka": [
-          3,
-          9
-        ],
         "pokusy": 24,
         "dotyk": 0.002,
         "neuspechov": 60

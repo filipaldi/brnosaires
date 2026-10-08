@@ -40,16 +40,6 @@ Bez `--png` stačí Node; pri `--png` sa hľadá Playwright v globálnych
 `node_modules` (`npm root -g`) a prehliadač v `PLAYWRIGHT_BROWSERS_PATH`.
 Chýbajúci Playwright alebo Chromium nezhavaruje beh — SVG sa zapíše vždy.
 
-## Porovnanie s referenciou
-
-`scripts/porovnaj-koleno.js` položí referenčné koleno návrhára (červené,
-polopriehľadné) na naše koleno v rovnakej mierke a vypíše maximálnu
-odchýlku obrysov:
-
-```sh
-node generator/scripts/porovnaj-koleno.js --out /tmp/koleno.svg --png
-```
-
 ## Testy
 
 ```sh
@@ -72,5 +62,5 @@ node generator/cli.js kompozicia --spec generator/priklady/plagat-a2.json --vari
 
 `--variant` prepíše variant zo súboru. Rovnaký súbor a variant dajú vždy
 rovnaký obrázok. Hustotu, medzery a prevod veľkosti na parametre tvarov
-ladíš v `proporcie.json` v časti `kompozicia`. Webové rozhranie volá to isté
+ladíš v `proporcie.json` v časti `kompozicia`. `kompozicia.retazenie` je pravdepodobnosť napojenia (0–100) a `kompozicia.retazenieDlzka` je [min, max] počet tvarov v jednej reťazi. Webové rozhranie volá to isté
 jadro, viď [`ui/README.md`](ui/README.md).

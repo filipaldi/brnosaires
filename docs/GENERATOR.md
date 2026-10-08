@@ -135,15 +135,14 @@ Každý tvar je poskladaný z troch prvkov:
 |---|---|---|
 | 1 | Noha | dĺžka, vlas / plná |
 | 2 | Oblúk | šírka, výška, strana plnej nohy, hrubnutie (stála / plynulá) |
-| 3 | Koleno | polomer, šírka a dĺžka bloku, rameno |
-| 4 | Hmota so štrbinou | dĺžka |
-| 5 | Háčik s kvapkou | výška, polomer ohybu, veľkosť kvapky, noha vlas / plná |
-| 6 | Nota | dĺžka nohy, počet kvapiek, rozostup, veľkosť kvapiek, strana, noha vlas / plná |
-| 7 | Kvapka | veľkosť |
-| 8 | Kruh | priemer, obrys vlas / plný |
-| 9 | Bod | priemer |
+| 3 | Hmota so štrbinou | dĺžka |
+| 4 | Háčik s kvapkou | výška, polomer ohybu, veľkosť kvapky, noha vlas / plná |
+| 5 | Nota | dĺžka nohy, počet kvapiek, rozostup, veľkosť kvapiek, strana, noha vlas / plná |
+| 6 | Kvapka | veľkosť |
+| 7 | Kruh | priemer, obrys vlas / plný |
+| 8 | Bod | priemer |
 
-Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre.
+Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samostatný typ: vzniká pri skladaní napojením hranola (nohy) na oblúk.
 
 ### Pravidlá skladania
 

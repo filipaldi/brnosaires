@@ -2,7 +2,6 @@
 
 import * as noha from './noha.js';
 import * as oblouk from './oblouk.js';
-import * as koleno from './koleno.js';
 import * as hmotaSoStrbinou from './hmotaSoStrbinou.js';
 import * as hacikSKvapkou from './hacikSKvapkou.js';
 import * as nota from './nota.js';
@@ -11,7 +10,7 @@ import * as kruh from './kruh.js';
 import * as bod from './bod.js';
 
 export const SHAPES = [
-  noha, oblouk, koleno, hmotaSoStrbinou, hacikSKvapkou,
+  noha, oblouk, hmotaSoStrbinou, hacikSKvapkou,
   nota, kvapka, kruh, bod,
 ];
 

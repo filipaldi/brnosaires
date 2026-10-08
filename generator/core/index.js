@@ -85,7 +85,7 @@ export function buildShape(type, params, axes) {
   const merged = { ...defaultParams(type), ...rest };
   validateParams(shape, merged);
 
-  // Which joint ids exist can depend on the parameters (koleno's arm), so the
+  // Which joint ids exist can depend on the parameters (oblouk's legs), so the
   // shape is built once to learn them; with any spoje it is rebuilt with the
   // joined ends kept square.
   let built = shape.build(merged, axes, proporcie);

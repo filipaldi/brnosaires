@@ -56,7 +56,15 @@ const zoneBar = $('#zone-bar');
 function loadSpec() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) return engine.normalizujSpec(JSON.parse(raw));
+    if (raw) {
+      const saved = JSON.parse(raw);
+      // types dropped from the set (e.g. koleno) must not discard the saved state
+      const typy = saved?.kompozicia?.typy;
+      if (Array.isArray(typy)) {
+        saved.kompozicia.typy = typy.filter((t) => TYPES.some((x) => x.id === t));
+      }
+      return engine.normalizujSpec(saved);
+    }
   } catch (err) {
     console.warn('Uložený stav sa nepodarilo načítať, začínam odznova.', err);
   }
@@ -862,6 +870,21 @@ attachPopover($('#btn-parametre'), (pop) => {
     Object.assign(document.createElement('span'), { textContent: 'dielikov' }),
   );
 
+  const chainWrap = document.createElement('div');
+  chainWrap.className = 'grow';
+  chainWrap.append(
+    numberInput(c.retazenieDlzka[0], { min: 1, max: 50, step: 1 }, (v) => {
+      c.retazenieDlzka[0] = v;
+      if (c.retazenieDlzka[1] < v) c.retazenieDlzka[1] = v;
+    }),
+    Object.assign(document.createElement('span'), { textContent: '–' }),
+    numberInput(c.retazenieDlzka[1], { min: 1, max: 50, step: 1 }, (v) => {
+      c.retazenieDlzka[1] = v;
+      if (c.retazenieDlzka[0] > v) c.retazenieDlzka[0] = v;
+    }),
+    Object.assign(document.createElement('span'), { textContent: 'tvarov' }),
+  );
+
   const typesGrid = document.createElement('div');
   typesGrid.className = 'types';
   for (const t of TYPES) {
@@ -897,6 +920,8 @@ attachPopover($('#btn-parametre'), (pop) => {
     mkH('Kompozícia'),
     row('Veľkosť', sizeWrap),
     sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
+    sliderRow('Reťazenie', c.retazenie, (v) => { spec.kompozicia.retazenie = v; }),
+    row('Dĺžka reťaze', chainWrap),
     row('Rozloženie', selectInput(ROZLOZENIE, c.rozlozenie, (v) => { spec.kompozicia.rozlozenie = v; })),
     row('Rozmiestnenie', selectInput(
       [['volne', 'voľné'], ['dlazdice', 'dlaždice']],
