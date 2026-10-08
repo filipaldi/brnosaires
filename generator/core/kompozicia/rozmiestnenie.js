@@ -171,7 +171,7 @@ export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
   velkost: velkostCfg, variacia, rozlozenie, rozlozenieKoef,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenie, retazenieDlzka, retazeniePokusy, dotyk, neuspechov, kvapka,
+  retazenie, retazenieDlzka, retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
@@ -188,7 +188,8 @@ export function placeShapes(rng, {
     maSpoje[typ] = build(typ, defaultsOf(typ), axes).joints.length > 0;
   }
   const typyRetezi = typy.filter((t) => maSpoje[t]);
-  const typyZakladne = typyRetezi.filter((t) => t !== 'kvapka');
+  // connectors (spojky) only ever grow out of another shape's open joint
+  const typyZakladne = typyRetezi.filter((t) => t !== 'kvapka' && !spojky.includes(t));
   const typyAkcentov = typy.filter((t) => !maSpoje[t] || t === 'kvapka');
 
   const ctx = {

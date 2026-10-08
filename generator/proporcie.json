@@ -19,6 +19,12 @@
       "plnaStrana": "vpravo",
       "hrubnutie": "stala"
     },
+    "obloukPata": {
+      "polomer": null
+    },
+    "stvrtoblouk": {
+      "polomer": null
+    },
     "hmotaSoStrbinou": {
       "dlzka": 3
     },
@@ -90,6 +96,8 @@
         "typy": [
           "noha",
           "oblouk",
+          "obloukPata",
+          "stvrtoblouk",
           "hmotaSoStrbinou",
           "hacikSKvapkou",
           "nota",
@@ -140,6 +148,8 @@
         ],
         "sirkaPomer": 0.6
       },
+      "obloukPata": {},
+      "stvrtoblouk": {},
       "hmotaSoStrbinou": {
         "zVelkosti": [
           "dlzka"
@@ -176,6 +186,8 @@
       "_comment": "Orientačný podiel plochy, ktorú tvar vyplní vo svojom bboxe. Používa sa len na výpočet hustoty (cieľ pokrytia), nie na kreslenie: noha je tenká tyčka, bod plný disk.",
       "noha": 0.95,
       "oblouk": 0.4,
+      "obloukPata": 0.6,
+      "stvrtoblouk": 0.6,
       "hmotaSoStrbinou": 0.75,
       "hacikSKvapkou": 0.2,
       "nota": 0.5,
@@ -192,7 +204,12 @@
       "retazenie": {
         "pokusy": 24,
         "dotyk": 0.002,
-        "neuspechov": 60
+        "neuspechov": 60,
+        "spojky": [
+          "obloukPata",
+          "stvrtoblouk"
+        ],
+        "_comment": "spojky: typy, ktoré reťaz nikdy nezačínajú, objavia sa len napojené na iný tvar."
       }
     },
     "svg": {
