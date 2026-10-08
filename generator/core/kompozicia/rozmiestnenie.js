@@ -188,7 +188,7 @@ export function placeShapes(rng, {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
   // Ink-weighted coverage: a bare bbox area counts empty space, so sparse
-  // shapes (nota, oblouk) would hit the target while the canvas stays empty.
+  // shapes (hacikSKvapkou, oblouk) would hit the target while the canvas stays empty.
   const pokrytie = (typ, box) => box.w * box.h * (vahyTvaru[typ] ?? 1);
   const target = hustota * freeArea;
 

@@ -139,12 +139,11 @@ Každý tvar je poskladaný z troch prvkov:
 | 4 | Štvrťoblúk s pätkou | polomer (auto = heavy); vlas zhora prechádza štvrťkruhom do plnej pätky |
 | 5 | Hmota so štrbinou | dĺžka |
 | 6 | Háčik s kvapkou | výška, polomer ohybu, veľkosť kvapky, noha vlas / plná |
-| 7 | Nota | dĺžka nohy, počet kvapiek, rozostup, veľkosť kvapiek, strana, noha vlas / plná |
-| 8 | Kvapka | veľkosť |
-| 9 | Kruh | priemer, obrys vlas / plný |
-| 10 | Bod | priemer |
+| 7 | Kvapka | veľkosť |
+| 8 | Kruh | priemer, obrys vlas / plný |
+| 9 | Bod | priemer |
 
-Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samostatný typ: vzniká pri skladaní napojením hranola (nohy) na oblúk.
+Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samostatný typ: vzniká pri skladaní napojením hranola (nohy) na oblúk. Nota tiež vypadla: kvapky sa napájajú len na konce ťahov, nikdy zboku.
 
 ### Pravidlá skladania
 

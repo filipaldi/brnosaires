@@ -36,16 +36,6 @@
       "kvapkaVyska": 50,
       "krk": 0
     },
-    "nota": {
-      "dlzka": 3,
-      "pocet": 2,
-      "rozostup": 1,
-      "strana": "vpravo",
-      "hrubka": "plna",
-      "chvost": 50,
-      "kvapkaVyska": 50,
-      "krk": 0
-    },
     "kvapka": {
       "chvost": 50,
       "vyska": 50,
@@ -100,7 +90,6 @@
           "stvrtoblouk",
           "hmotaSoStrbinou",
           "hacikSKvapkou",
-          "nota",
           "kvapka",
           "kruh",
           "bod"
@@ -168,13 +157,6 @@
           "vyska"
         ]
       },
-      "nota": {
-        "zVelkosti": [
-          "dlzka"
-        ],
-        "pocetPomer": 0.5,
-        "rozostupMin": 1
-      },
       "kvapka": {},
       "kruh": {
         "priemer": 0.8
@@ -198,7 +180,6 @@
       "stvrtoblouk": 0.6,
       "hmotaSoStrbinou": 0.75,
       "hacikSKvapkou": 0.2,
-      "nota": 0.5,
       "kvapka": 0.45,
       "kruh": 0.3,
       "bod": 1
