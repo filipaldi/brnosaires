@@ -1,0 +1,10 @@
+{
+  "name": "brnos-aires-generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Generátor grafiky z komponentov písma Brnos Aires — fáza 1: jadro a CLI.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
