@@ -105,7 +105,6 @@ function normalizujKompozicia(raw) {
     throw new ValidationError('kompozicia.velkost[0] musí byť menšia alebo rovná velkost[1].');
   }
   cislo(komp.variacia, 'kompozicia.variacia', { min: 0, max: 100 });
-  cislo(komp.retazenie, 'kompozicia.retazenie', { min: 0, max: 100 });
   if (!Array.isArray(komp.retazenieDlzka) || komp.retazenieDlzka.length !== 2) {
     throw new ValidationError('kompozicia.retazenieDlzka musí byť pole [min, max] tvarov v reťazi, napr. [5, 20].');
   }
@@ -264,7 +263,6 @@ export function komponuj(input, { fontUrls } = {}) {
     hustota: KOMP.rozmiestnenie.hustota,
     maxPokusov: KOMP.rozmiestnenie.maxPokusov,
     skok: KOMP.rozmiestnenie.skok,
-    retazenie: komp.retazenie,
     retazenieDlzka: komp.retazenieDlzka,
     akcentyNaRetaz: komp.akcentyNaRetaz,
     retazeniePokusy: KOMP.rozmiestnenie.retazenie.pokusy,

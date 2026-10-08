@@ -183,7 +183,7 @@ export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
   velkost: velkostCfg, variacia, rozlozenie, rozlozenieKoef,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenie, retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
+  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
@@ -217,9 +217,9 @@ export function placeShapes(rng, {
   const chains = [];
   let area = 0;
   // A chain shorter than the minimum length is taken back off the canvas, so
-  // with min > 1 no lone shape is left over. With retazenie 0 nothing joins
+  // with min > 1 no lone shape is left over.
   // and the minimum does not apply.
-  const minDlzka = retazenie > 0 ? retazenieDlzka[0] : 1;
+  const minDlzka = retazenieDlzka[0];
   const uzavri = (chain) => {
     chain.closed = true;
     if (chain.members.length >= minDlzka) return;
@@ -251,8 +251,7 @@ export function placeShapes(rng, {
   };
 
   // Phase 1 — chains, one at a time: a new chain grows until it reaches its
-  // drawn length or runs out of open ends. Below the minimum it always tries
-  // to grow; above it, each further shape joins with probability `retazenie`.
+  // drawn length (from retazenieDlzka [min, max]) or runs out of open ends.
   // Phase 1 stops after `neuspechov` failures in a row, so the leftover space
   // still gets its accents.
   let zlyhania = 0;
@@ -265,10 +264,6 @@ export function placeShapes(rng, {
     const chain = chains[chains.length - 1];
     while (!chain.closed && ctx.pokusov < maxPokusov) {
       if (!chain.open.length || chain.members.length >= chain.target) {
-        uzavri(chain);
-        break;
-      }
-      if (chain.members.length >= minDlzka && rng() >= retazenie / 100) {
         uzavri(chain);
         break;
       }

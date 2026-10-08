@@ -59,6 +59,8 @@ function loadSpec() {
     if (raw) {
       const saved = JSON.parse(raw);
       // types dropped from the set (e.g. koleno) must not discard the saved state
+      // settings dropped from the spec (retazenie) are ignored
+      if (saved?.kompozicia) delete saved.kompozicia.retazenie;
       const typy = saved?.kompozicia?.typy;
       if (Array.isArray(typy)) {
         saved.kompozicia.typy = typy.filter((t) => TYPES.some((x) => x.id === t));
@@ -830,6 +832,7 @@ $('#predvolba-file').addEventListener('change', async (e) => {
   if (!file) return;
   try {
     const loaded = JSON.parse(await file.text());
+    if (loaded?.kompozicia) delete loaded.kompozicia.retazenie; // dropped setting
     spec = engine.normalizujSpec({
       ...loaded,
       variant: spec.variant, // a preset never touches the variant
@@ -939,7 +942,6 @@ attachPopover($('#btn-parametre'), (pop) => {
     mkH('Kompozícia'),
     row('Veľkosť', sizeWrap),
     sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
-    sliderRow('Reťazenie', c.retazenie, (v) => { spec.kompozicia.retazenie = v; }),
     row('Dĺžka reťaze', chainWrap),
     row('Krúžky a body', accentWrap),
     row('Rozloženie', selectInput(ROZLOZENIE, c.rozlozenie, (v) => { spec.kompozicia.rozlozenie = v; })),

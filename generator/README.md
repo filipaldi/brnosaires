@@ -62,5 +62,5 @@ node generator/cli.js kompozicia --spec generator/priklady/plagat-a2.json --vari
 
 `--variant` prepíše variant zo súboru. Rovnaký súbor a variant dajú vždy
 rovnaký obrázok. Hustotu, medzery a prevod veľkosti na parametre tvarov
-ladíš v `proporcie.json` v časti `kompozicia`. `kompozicia.retazenie` je pravdepodobnosť napojenia (0–100) a `kompozicia.retazenieDlzka` je [min, max] počet tvarov v jednej reťazi. Webové rozhranie volá to isté
+ladíš v `proporcie.json` v časti `kompozicia`. `kompozicia.retazenieDlzka` je [min, max] počet tvarov v jednej reťazi a `kompozicia.akcentyNaRetaz` [min, max] krúžkov a bodov pri nej. Webové rozhranie volá to isté
 jadro, viď [`ui/README.md`](ui/README.md).

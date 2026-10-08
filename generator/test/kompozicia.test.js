@@ -152,8 +152,6 @@ test('tvary sa reťazia cez spoje rovnakej hrúbky', async () => {
       assert.ok(partner, `spoj ${t.typ}.${id} má protikus`);
     }
   }
-  const bez = komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenie: 0 } });
-  assert.equal(bez.tvary.filter((t) => t.spoje.length).length, 0);
 });
 
 test('dĺžka reťaze [min, max] sa dá zadať a overuje sa', () => {
