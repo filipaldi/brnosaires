@@ -77,7 +77,7 @@ function normalizujGrid(raw) {
   const d = KOMP.predvolene.grid;
   const grid = { ...d, ...raw };
   if (raw) polia(raw, Object.keys(d), 'grid');
-  cislo(grid.stlpce, 'grid.stlpce', { min: 1, max: 64, cele: true });
+  cislo(grid.stlpce, 'grid.stlpce', { min: 1, max: 200, cele: true });
   moznosti(grid.zvysok, 'grid.zvysok', ZVYSOK);
   return grid;
 }
