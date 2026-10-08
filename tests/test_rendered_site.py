@@ -199,6 +199,37 @@ class MapLinks(_Built):
                                  f"bare-city map link on {path}")
 
 
+class WidgetArticleDescriptions(_Built):
+    """Every `<widget-articles>` card truncates its description (issue #71):
+    an unbounded paragraph runs across the whole card grid. Truncation lives
+    in the template, so a regression is only visible in the built HTML.
+
+    The template asks for 250 characters. Jinja's truncate lets a string up
+    to five characters over that through untouched (its default leeway), so
+    the longest legitimate paragraph is 255 characters.
+    """
+
+    LIMIT = 255
+    DESCRIPTION = re.compile(
+        r'<p class="widget-articles__description">(.*?)</p>', re.DOTALL)
+
+    def descriptions(self):
+        for path, html in self.pages:
+            for match in self.DESCRIPTION.finditer(html):
+                yield path, unescape(match.group(1))
+
+    def test_descriptions_are_still_rendered(self):
+        # Guards against the regex (or the widget itself) rotting to a
+        # silent zero-match pass.
+        found = sum(1 for _ in self.descriptions())
+        self.assertGreater(found, 10, "widget article descriptions disappeared")
+
+    def test_no_description_exceeds_the_limit(self):
+        bad = [f"{path}: {len(text)} chars" for path, text in self.descriptions()
+               if len(text) > self.LIMIT]
+        self.assertEqual(bad, [], f"descriptions over {self.LIMIT} chars: {bad[:5]}")
+
+
 class Feed(_Built):
     """The feed is the only machine-readable answer to "what is new here".
 

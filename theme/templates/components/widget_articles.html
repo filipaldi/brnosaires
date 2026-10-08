@@ -26,7 +26,7 @@
         <h2>{{ item.article.title }}</h2>
         {% endif %}
         {% if 'description' in fields and item.article.description %}
-        <p class="widget-articles__description">{{ item.article.description }}</p>
+        <p class="widget-articles__description">{{ item.article.description | truncate(250) }}</p>
         {% endif %}
         {% for key, value in item.extra_metadata.items() %}
         {% if key not in ['title', 'description', 'image'] %}
@@ -47,7 +47,7 @@
         <h2>{{ item.article.title }}</h2>
         {% endif %}
         {% if 'description' in fields and item.article.description %}
-        <p class="widget-articles__description">{{ item.article.description }}</p>
+        <p class="widget-articles__description">{{ item.article.description | truncate(250) }}</p>
         {% endif %}
         {% for key, value in item.extra_metadata.items() %}
         {% if key not in ['title', 'description', 'image'] %}
