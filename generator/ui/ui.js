@@ -186,7 +186,7 @@ function drawOverlay() {
     if (z.typ === 'prazdna') {
       const hint = document.createElement('span');
       hint.className = 'hint';
-      hint.textContent = 'Píš text alebo pretiahni fotku';
+      hint.textContent = 'Dvojklik pre text alebo pretiahni fotku';
       div.append(hint);
     }
     if (i === selected) {
@@ -472,6 +472,8 @@ overlay.addEventListener('dblclick', (e) => {
   if (!z) return;
   if (z.typ === 'text') {
     openEditor(i);
+  } else if (z.typ === 'prazdna') {
+    zoneToText(i, 'Enter');
   } else if (z.typ === 'fotka') {
     photoPan = !photoPan;
     drawOverlay();
@@ -569,13 +571,6 @@ function openEditor(i) {
       // Clicking a control in the zone bar must not close the editor.
       if (e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('#zone-bar')) return;
       closeEditor();
-    });
-    ta.addEventListener('keydown', (e) => {
-      e.stopPropagation();
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        closeEditor();
-      }
     });
     overlay.append(ta);
   }
@@ -704,9 +699,18 @@ function numberInput(value, attrs, onInput) {
   input.type = 'number';
   for (const [k, v] of Object.entries(attrs)) input.setAttribute(k, String(v));
   input.value = String(value);
+  // fields with step 1 take whole numbers only: a typed decimal is rounded
+  const cele = String(attrs.step) === '1';
+  if (cele) input.setAttribute('inputmode', 'numeric');
   input.addEventListener('input', () => {
-    const n = Number(input.value);
-    if (Number.isFinite(n)) { onInput(n); scheduleRender(); }
+    let n = Number(input.value);
+    if (!Number.isFinite(n) || input.value === '') return;
+    if (cele && !Number.isInteger(n)) {
+      n = Math.round(n);
+      input.value = String(n);
+    }
+    onInput(n);
+    scheduleRender();
   });
   return input;
 }
@@ -788,7 +792,7 @@ attachPopover($('#btn-format'), (pop) => {
     row('Predvoľba', presets),
     row('Rozmer', sizeWrap),
     row('DPI', numberInput(f.dpi, { min: 18, max: 2400, step: 1 }, (v) => { spec.format.dpi = v; })),
-    row('Spadávka', numberInput(f.spadavka, { min: 0, max: 50, step: 0.5 }, (v) => { spec.format.spadavka = v; })),
+    row('Spadávka', numberInput(f.spadavka, { min: 0, max: 50, step: 1 }, (v) => { spec.format.spadavka = v; })),
     h3b,
     row('Grid', numberInput(g.stlpce, { min: 1, max: 100, step: 1 }, (v) => { spec.grid.stlpce = v; })),
     row('Zvyšok výšky', selectInput(
@@ -858,12 +862,12 @@ attachPopover($('#btn-parametre'), (pop) => {
   const sizeWrap = document.createElement('div');
   sizeWrap.className = 'grow';
   sizeWrap.append(
-    numberInput(c.velkost[0], { min: 0.2, max: 40, step: 0.5 }, (v) => {
+    numberInput(c.velkost[0], { min: 1, max: 40, step: 1 }, (v) => {
       c.velkost[0] = v;
       if (c.velkost[1] < v) c.velkost[1] = v;
     }),
     Object.assign(document.createElement('span'), { textContent: '–' }),
-    numberInput(c.velkost[1], { min: 0.2, max: 40, step: 0.5 }, (v) => {
+    numberInput(c.velkost[1], { min: 1, max: 40, step: 1 }, (v) => {
       c.velkost[1] = v;
       if (c.velkost[0] > v) c.velkost[0] = v;
     }),
@@ -883,6 +887,21 @@ attachPopover($('#btn-parametre'), (pop) => {
       if (c.retazenieDlzka[0] > v) c.retazenieDlzka[0] = v;
     }),
     Object.assign(document.createElement('span'), { textContent: 'tvarov' }),
+  );
+
+  const accentWrap = document.createElement('div');
+  accentWrap.className = 'grow';
+  accentWrap.append(
+    numberInput(c.akcentyNaRetaz[0], { min: 0, max: 50, step: 1 }, (v) => {
+      c.akcentyNaRetaz[0] = v;
+      if (c.akcentyNaRetaz[1] < v) c.akcentyNaRetaz[1] = v;
+    }),
+    Object.assign(document.createElement('span'), { textContent: '–' }),
+    numberInput(c.akcentyNaRetaz[1], { min: 0, max: 50, step: 1 }, (v) => {
+      c.akcentyNaRetaz[1] = v;
+      if (c.akcentyNaRetaz[0] > v) c.akcentyNaRetaz[0] = v;
+    }),
+    Object.assign(document.createElement('span'), { textContent: 'na reťaz' }),
   );
 
   const typesGrid = document.createElement('div');
@@ -922,6 +941,7 @@ attachPopover($('#btn-parametre'), (pop) => {
     sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
     sliderRow('Reťazenie', c.retazenie, (v) => { spec.kompozicia.retazenie = v; }),
     row('Dĺžka reťaze', chainWrap),
+    row('Krúžky a body', accentWrap),
     row('Rozloženie', selectInput(ROZLOZENIE, c.rozlozenie, (v) => { spec.kompozicia.rozlozenie = v; })),
     row('Rozmiestnenie', selectInput(
       [['volne', 'voľné'], ['dlazdice', 'dlaždice']],
@@ -1042,51 +1062,8 @@ function toast(message, ms = 3200) {
   toastTimer = setTimeout(() => { el.hidden = true; }, ms);
 }
 
-// ---------- keyboard shortcuts ----------
-
 const viewer = createViewer(spec.kresba);
-
-function isTypingTarget(e) {
-  return e.target.closest('input, textarea, select, [contenteditable="true"], #zone-bar');
-}
-
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (viewer.isOpen()) { viewer.close(); return; }
-    if (editorOpen) { closeEditor(); return; }
-    if (popovers.some((p) => p.isOpen())) { closePopovers(); return; }
-    if (selected >= 0) { selected = -1; photoPan = false; drawOverlay(); }
-    return;
-  }
-  if (viewer.isOpen() || isTypingTarget(e) || e.metaKey || e.ctrlKey || e.altKey) return;
-
-  switch (e.key) {
-    case 'ArrowLeft': stepVariant(-1); e.preventDefault(); break;
-    case 'ArrowRight': stepVariant(1); e.preventDefault(); break;
-    case 'r': case 'R': setVariant(1 + Math.floor(Math.random() * 999)); break;
-    case 'i': case 'I':
-      spec.inverzia = !spec.inverzia;
-      scheduleRender();
-      break;
-    case 'e': case 'E':
-      exportPopover.toggle();
-      break;
-    case 't': case 'T':
-      viewer.toggle();
-      break;
-    case 'Delete': case 'Backspace':
-      if (selected >= 0) { deleteZone(selected); e.preventDefault(); }
-      break;
-    default:
-      // Typing over an empty zone turns it into a text zone.
-      if (e.key.length === 1 || e.key === 'Enter') {
-        if (selected >= 0 && spec.zony[selected]?.typ === 'prazdna') {
-          e.preventDefault();
-          zoneToText(selected, e.key);
-        }
-      }
-  }
-});
+$('#btn-tvary').addEventListener('click', () => viewer.toggle());
 
 // ---------- boot ----------
 

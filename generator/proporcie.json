@@ -110,6 +110,10 @@
         "retazenieDlzka": [
           5,
           20
+        ],
+        "akcentyNaRetaz": [
+          1,
+          10
         ]
       },
       "variant": "1",
@@ -148,8 +152,12 @@
         ],
         "sirkaPomer": 0.6
       },
-      "obloukPata": {},
-      "stvrtoblouk": {},
+      "obloukPata": {
+        "polomerPomer": 0.5
+      },
+      "stvrtoblouk": {
+        "polomerPomer": 0.5
+      },
       "hmotaSoStrbinou": {
         "zVelkosti": [
           "dlzka"

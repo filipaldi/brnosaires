@@ -124,18 +124,28 @@ function umiestni(k, box) {
 
 // Try to attach one shape to an open joint of a chain. Returns the placed
 // entry (with the joint it used) or null when no candidate fits.
-function prirast(rng, chain, ctx, pokusy) {
+function prirast(rng, chain, ctx, pokusy, minDlzka = 1) {
   const otvoren = chain.open[rngInt(rng, chain.open.length)];
-  for (let i = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov; i++) {
-    ctx.pokusov++;
+  chain.posledny = otvoren;
+  // a drawn type with no joint of the open end's thickness cannot attach at
+  // all; such draws are skipped without spending an attempt
+  for (let i = 0, tahov = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov && tahov < pokusy * 8; tahov++) {
     const typ = rngPick(rng, ctx.typyRetezi);
     const r0 = potiahniRozmer(rng, typ, ctx);
+    const spoje0 = orientuj(r0, ORIENTACIE[0], ctx).shape.joints;
+    if (!spoje0.some((j) => Math.abs(j.t - otvoren.j.t) < 1e-9)) continue;
+    // a shape with a single joint (kvapka, háčik…) ends the chain on this
+    // side; the last open end of a chain still below its minimum length
+    // must keep growing
+    if (spoje0.length < 2 && chain.open.length < 2 && chain.members.length + 1 < minDlzka) continue;
+    i++;
+    ctx.pokusov++;
     // a chain winds through the space left between other figures: when the
     // drawn size does not fit, the same type is tried smaller, down to the
     // minimum size
     const sMin = ctx.velkost[0];
     const rozmery = [r0, ...[0.6, 0.35].map((k) => r0.s * k).filter((s) => s > sMin)
-      .map((s) => potiahniRozmer(rng, typ, ctx, Math.round(s * 2) / 2)), potiahniRozmer(rng, typ, ctx, sMin)];
+      .map((s) => potiahniRozmer(rng, typ, ctx, Math.round(s))), potiahniRozmer(rng, typ, ctx, sMin)];
     for (const r of rozmery) {
       // every orientation of the drawn shape, in PRNG order, and every joint of
       // it that fits the open end: opposite direction, same stroke thickness
@@ -152,7 +162,9 @@ function prirast(rng, chain, ctx, pokusy) {
           };
           if (!voFormate(box, ctx)) continue;
           if (ctx.zony.some((z) => vZone(box, z))) continue;
-          if (ctx.placed.some((p) => (p === otvoren.entry
+          // within its own chain a shape only must not overlap (a tiny pätka
+          // leaves no room for the gap); other figures keep the normal gap
+          if (ctx.placed.some((p) => (chain.members.includes(p)
             ? prekryv(box, p.bbox, ctx.dotyk)
             : blizsieAko(box, p.bbox, ctx.medzera)))) continue;
           const entry = umiestni(k, box);
@@ -171,7 +183,7 @@ export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
   velkost: velkostCfg, variacia, rozlozenie, rozlozenieKoef,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenie, retazenieDlzka, retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
+  retazenie, retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
@@ -190,7 +202,9 @@ export function placeShapes(rng, {
   const typyRetezi = typy.filter((t) => maSpoje[t]);
   // connectors (spojky) only ever grow out of another shape's open joint
   const typyZakladne = typyRetezi.filter((t) => t !== 'kvapka' && !spojky.includes(t));
-  const typyAkcentov = typy.filter((t) => !maSpoje[t] || t === 'kvapka');
+  // accents are the types with no joints (kruh, bod); a kvapka only ever
+  // ends a chain, it never floats alone
+  const typyAkcentov = typy.filter((t) => !maSpoje[t]);
 
   const ctx = {
     build, axes, defaultsOf, velkostTvaru, velkost: velkostCfg, variacia, rozlozenie,
@@ -202,6 +216,20 @@ export function placeShapes(rng, {
   ctx.placed = placed;
   const chains = [];
   let area = 0;
+  // A chain shorter than the minimum length is taken back off the canvas, so
+  // with min > 1 no lone shape is left over. With retazenie 0 nothing joins
+  // and the minimum does not apply.
+  const minDlzka = retazenie > 0 ? retazenieDlzka[0] : 1;
+  const uzavri = (chain) => {
+    chain.closed = true;
+    if (chain.members.length >= minDlzka) return;
+    for (const m of chain.members) {
+      placed.splice(placed.indexOf(m), 1);
+      area -= pokrytie(m.typ, m.bbox);
+    }
+    chain.members = [];
+    chain.open = [];
+  };
 
   const zacniRetaz = () => {
     const k = potiahni(rng, rngPick(rng, typyZakladne), ctx);
@@ -222,46 +250,76 @@ export function placeShapes(rng, {
     return true;
   };
 
-  // Phase 1 — chains: each drawn shape either continues a chain (probability
-  // `retazenie`) or starts a new one.
+  // Phase 1 — chains, one at a time: a new chain grows until it reaches its
+  // drawn length or runs out of open ends. Below the minimum it always tries
+  // to grow; above it, each further shape joins with probability `retazenie`.
   // Phase 1 stops after `neuspechov` failures in a row, so the leftover space
   // still gets its accents.
   let zlyhania = 0;
   while (area < target && ctx.pokusov < maxPokusov && zlyhania < neuspechov && typyZakladne.length) {
-    const rastuce = chains.filter((c) => !c.closed && c.open.length && c.members.length < c.target);
-    if (rastuce.length && rng() < retazenie / 100) {
-      const chain = rastuce[rngInt(rng, rastuce.length)];
-      const vysledok = prirast(rng, chain, ctx, retazeniePokusy);
+    ctx.pokusov++;
+    if (!zacniRetaz()) {
+      zlyhania++;
+      continue;
+    }
+    const chain = chains[chains.length - 1];
+    while (!chain.closed && ctx.pokusov < maxPokusov) {
+      if (!chain.open.length || chain.members.length >= chain.target) {
+        uzavri(chain);
+        break;
+      }
+      if (chain.members.length >= minDlzka && rng() >= retazenie / 100) {
+        uzavri(chain);
+        break;
+      }
+      const vysledok = prirast(rng, chain, ctx, retazeniePokusy, minDlzka);
       if (!vysledok) {
-        chain.closed = true;
-        zlyhania++;
+        // this end is blocked; the chain stops only when no open end is left
+        chain.open = chain.open.filter((o) => o !== chain.posledny);
         continue;
       }
-      zlyhania = 0;
       const { entry, spoj, otvoren } = vysledok;
       placed.push(entry);
       area += pokrytie(entry.typ, entry.bbox);
       chain.members.push(entry);
       chain.open = chain.open.filter((o) => o !== otvoren);
       chain.open.push(...entry.joints.filter((j) => j.id !== spoj.id).map((j) => ({ entry, j })));
-      if (chain.members.length >= chain.target) chain.closed = true;
-    } else {
-      ctx.pokusov++;
-      zlyhania = zacniRetaz() ? 0 : zlyhania + 1;
     }
+    zlyhania = chain.members.length ? 0 : zlyhania + 1;
   }
 
-  // Phase 2 — accents in the leftover space, with the normal gap.
-  let akcentov = 0;
-  while (area < target && akcentov < maxPokusov && typyAkcentov.length) {
-    akcentov++;
-    const k = potiahni(rng, rngPick(rng, typyAkcentov), ctx);
-    const bb = k.shape.bbox;
-    if (bb.w > stlpce + 1e-9 || bb.h > bandH + 1e-9) continue;
-    const box = nahodnaPozicia(rng, bb, { stlpce, bandY, bandH, zony, placed, medzera, skok });
-    if (!box) continue;
-    placed.push(umiestni(k, box));
-    area += pokrytie(k.typ, box);
+  for (const chain of chains) if (!chain.closed) uzavri(chain);
+
+  // Phase 2 — accents (kruh, bod) never stand alone: each finished chain gets
+  // between akcentyNaRetaz[0] and [1] of them, each placed beside one of its
+  // members with the normal gap.
+  const [aMin, aMax] = akcentyNaRetaz;
+  for (const chain of chains) {
+    if (!chain.members.length || !typyAkcentov.length) continue;
+    const pocet = aMin + rngInt(rng, aMax - aMin + 1);
+    for (let n = 0; n < pocet; n++) {
+      for (let pokus = 0; pokus < 40; pokus++) {
+        const m = chain.members[rngInt(rng, chain.members.length)].bbox;
+        const k = potiahni(rng, rngPick(rng, typyAkcentov), ctx);
+        const bb = k.shape.bbox;
+        const strana = rngInt(rng, 4);
+        const g = medzera;
+        const box = { w: bb.w, h: bb.h };
+        if (strana < 2) {
+          box.x = m.x + rng() * m.w - bb.w / 2;
+          box.y = strana === 0 ? m.y - g - bb.h : m.y + m.h + g;
+        } else {
+          box.y = m.y + rng() * m.h - bb.h / 2;
+          box.x = strana === 2 ? m.x - g - bb.w : m.x + m.w + g;
+        }
+        if (!voFormate(box, ctx)) continue;
+        if (zony.some((z) => vZone(box, z))) continue;
+        if (placed.some((p) => blizsieAko(box, p.bbox, medzera))) continue;
+        placed.push(umiestni(k, box));
+        area += pokrytie(k.typ, box);
+        break;
+      }
+    }
   }
 
   const varovania = [];

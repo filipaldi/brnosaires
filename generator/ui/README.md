@@ -19,22 +19,23 @@ repozitára, takže jadro (`/generator/core/`) aj fonty
 |---|---|
 | `serve.js` | malý statický server (port 41235) |
 | `index.html`, `ui.css` | kostra stránky a štýl (čierno-biely) |
-| `ui.js` | lišta, popovery, plátno, zóny, skratky, ukladanie stavu |
+| `ui.js` | lišta, popovery, plátno, zóny, ukladanie stavu |
 | `engine.js` | adapter: natiahne `core/kompozicia`, kým neexistuje, použije `stub.js` |
 | `stub.js` | náhradný engine (rovnaké API, náhodné rozmiestnenie so seedom) |
-| `viewer.js` | prehliadač tvarov (skratka `T`) |
+| `viewer.js` | prehliadač tvarov (tlačidlo Tvary) |
 | `export.js` | SVG priamo, PNG/AVIF cez canvas s vloženými fontmi |
 | `smoke.mjs` | smoke test cez Playwright so štyrmi screenshotmi |
 
 ## Práca s rozhraním
 
-- **Zóna:** potiahni po prázdnom mieste, prichytáva sa na dieliky. Začni
-  písať → textová zóna; pretiahni fotku → fotková zóna. Presun ťahaním,
+- **Zóna:** potiahni po prázdnom mieste, prichytáva sa na dieliky. Dvojklik
+  → textová zóna; pretiahni fotku → fotková zóna. Presun ťahaním,
   veľkosť za rohy. Vybraná zóna má pod sebou lištu s parametrami.
 - **Fotka:** dvojklik prepne posun a zoom (ťahaj, koliesko), ďalší dvojklik
-  alebo `Esc` ukončí.
-- **Skratky:** ← → variant, `R` náhodný variant, `I` inverzia, `E` export,
-  `T` prehliadač tvarov, `Delete` zmaže vybranú zónu, `Esc` zavrie.
+  ukončí.
+- **Bez klávesových skratiek:** všetko sa ovláda klikom. Prehliadač tvarov
+  otvára tlačidlo Tvary, zónu maže ✕ v jej lište.
+- **Čísla** v ponukách sú celé, desatinné sa zaokrúhlia.
 - **Predvoľba** (v ponuke formátu): uloží/načíta parametre bez variantu a
   bez zón ako JSON.
 

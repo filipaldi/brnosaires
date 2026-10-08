@@ -99,8 +99,8 @@ function normalizujKompozicia(raw) {
   if (!Array.isArray(komp.velkost) || komp.velkost.length !== 2) {
     throw new ValidationError('kompozicia.velkost musí byť pole [min, max] v dielikoch, napr. [1, 6].');
   }
-  cislo(komp.velkost[0], 'kompozicia.velkost[0]', { min: 0.1, max: 40 });
-  cislo(komp.velkost[1], 'kompozicia.velkost[1]', { min: 0.1, max: 40 });
+  cislo(komp.velkost[0], 'kompozicia.velkost[0]', { min: 1, max: 40, cele: true });
+  cislo(komp.velkost[1], 'kompozicia.velkost[1]', { min: 1, max: 40, cele: true });
   if (komp.velkost[0] > komp.velkost[1]) {
     throw new ValidationError('kompozicia.velkost[0] musí byť menšia alebo rovná velkost[1].');
   }
@@ -111,6 +111,14 @@ function normalizujKompozicia(raw) {
   }
   cislo(komp.retazenieDlzka[0], 'kompozicia.retazenieDlzka[0]', { min: 1, max: 50, cele: true });
   cislo(komp.retazenieDlzka[1], 'kompozicia.retazenieDlzka[1]', { min: 1, max: 50, cele: true });
+  if (!Array.isArray(komp.akcentyNaRetaz) || komp.akcentyNaRetaz.length !== 2) {
+    throw new ValidationError('kompozicia.akcentyNaRetaz musí byť pole [min, max] krúžkov a bodov pri jednej reťazi, napr. [1, 10].');
+  }
+  cislo(komp.akcentyNaRetaz[0], 'kompozicia.akcentyNaRetaz[0]', { min: 0, max: 50, cele: true });
+  cislo(komp.akcentyNaRetaz[1], 'kompozicia.akcentyNaRetaz[1]', { min: 0, max: 50, cele: true });
+  if (komp.akcentyNaRetaz[0] > komp.akcentyNaRetaz[1]) {
+    throw new ValidationError('kompozicia.akcentyNaRetaz[0] musí byť menšia alebo rovná akcentyNaRetaz[1].');
+  }
   if (komp.retazenieDlzka[0] > komp.retazenieDlzka[1]) {
     throw new ValidationError('kompozicia.retazenieDlzka[0] musí byť menšia alebo rovná retazenieDlzka[1].');
   }
@@ -258,6 +266,7 @@ export function komponuj(input, { fontUrls } = {}) {
     skok: KOMP.rozmiestnenie.skok,
     retazenie: komp.retazenie,
     retazenieDlzka: komp.retazenieDlzka,
+    akcentyNaRetaz: komp.akcentyNaRetaz,
     retazeniePokusy: KOMP.rozmiestnenie.retazenie.pokusy,
     dotyk: KOMP.rozmiestnenie.retazenie.dotyk,
     neuspechov: KOMP.rozmiestnenie.retazenie.neuspechov,

@@ -153,6 +153,11 @@ Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samost
 
 Body napojenia vyplývajú z geometrie (konce nôh, päty oblúka), netreba ich kresliť.
 
+- **Reťaz** sa skladá z tvarov napojených spojmi rovnakej hrúbky. Dĺžka reťaze je [min, max] tvarov (predvolene 5–20). Reťaz kratšia ako minimum sa zahodí, takže samostatné tvary nevznikajú.
+- **Samostatne** smie stáť len krúžok alebo bod, a aj to len pri reťazi: každá reťaz dostane [min, max] krúžkov a bodov (predvolene 1–10), s bežnou medzerou od niektorého svojho tvaru. Kvapka samostatne nestojí, len ukončuje reťaz.
+- **Pätky** (oblúk a štvrťoblúk s pätkou) reťaz nezačínajú, len sa napájajú. Ich polomer rastie s veľkosťou tvaru, pätka ostáva široká ako plná noha.
+- **Veľkosti** tvarov sú celé dieliky.
+
 ## Ako to funguje
 
 ```
@@ -219,7 +224,7 @@ V rozhraní sa píšu slová, nie symboly. Slovo „seed“ sa v rozhraní nepou
 
 ### Plátno
 
-- **Nová zóna:** ťahaním po prázdnom mieste. Prichytáva sa na dieliky. Prázdna zóna ukáže výzvu „Píš text alebo pretiahni fotku“.
+- **Nová zóna:** ťahaním po prázdnom mieste. Prichytáva sa na dieliky. Prázdna zóna ukáže výzvu „Dvojklik pre text alebo pretiahni fotku“.
   - Začneš písať → textová zóna.
   - Pretiahneš fotku do zóny → fotková zóna.
   - Pretiahneš fotku na prázdne miesto → fotková zóna vznikne tam, na veľkosť dielikov pod kurzorom.
@@ -229,13 +234,13 @@ V rozhraní sa píšu slová, nie symboly. Slovo „seed“ sa v rozhraní nepou
 - **Čiary gridu** sa ukážu samy, keď ťaháš zónu. Inak sú skryté, prepínač netreba.
 - **Spadávka** je vždy jemne vyznačená.
 
-### Skratky
+### Bez klávesových skratiek
 
-← → variant, `R` náhodný variant, `I` inverzia, `E` export, `Esc` zavrie lištu alebo ponuku, `T` prehliadač tvarov.
+Všetko sa ovláda klikom, klávesové skratky nie sú. Číselné polia berú len celé čísla.
 
 ### Prehliadač tvarov
 
-Nástroj na ladenie tvarov a `proporcie.json`, nie bežná práca. Vo fáze 1 ho nahrádzajú vzorkovníky z CLI. Otvára sa skratkou `T` cez celé okno.
+Nástroj na ladenie tvarov a `proporcie.json`, nie bežná práca. Vo fáze 1 ho nahrádzajú vzorkovníky z CLI. Otvára sa tlačidlom Tvary v lište cez celé okno.
 
 - Vybraný typ vo veľkom.
 - Posuvníky Weight, Contrast, Zaoblenie a parametrov vybraného typu.

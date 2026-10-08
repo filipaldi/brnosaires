@@ -29,7 +29,7 @@ export function drawSize(rng, { velkost, variacia, rozlozenie, koeficienty }) {
   } else {
     s = rngRange(rng, lo, hi); // rovnomerne
   }
-  return clamp(snapHalf(s), min, max);
+  return clamp(Math.round(s), min, max);
 }
 
 // Size s → parameters for one type. Ratios live in proporcie.json
@@ -38,6 +38,7 @@ export function drawSize(rng, { velkost, variacia, rozlozenie, koeficienty }) {
 //   noha, hmotaSoStrbinou  one length parameter equals s
 //   oblouk                 vyska = s, sirka = max(1, round(s · sirkaPomer))
 //   hacikSKvapkou          vyska = s
+//   obloukPata, stvrtoblouk  polomer = s · polomerPomer (foot stays heavy)
 //   nota                   dlzka = s, pocet = round(s · pocetPomer), rozostup
 //                          = max(rozostupMin, s / pocet)
 //   kvapka, kruh, bod      accents — fixed sizes from proporcie (bod stays
@@ -47,6 +48,8 @@ export function paramsFor(type, s, defaults, cfg) {
   const c = cfg[type] || {};
   for (const key of c.zVelkosti || []) p[key] = s;
   if (type === 'oblouk') p.sirka = Math.max(1, Math.round(s * c.sirkaPomer));
+  // pätky: the arc radius grows with s, the foot stays heavy
+  if (c.polomerPomer) p.polomer = snapHalf(s * c.polomerPomer);
   if (type === 'nota') {
     p.pocet = clamp(Math.round(s * c.pocetPomer), 1, 12);
     p.rozostup = Math.max(c.rozostupMin, snapHalf(s / p.pocet));
@@ -54,7 +57,7 @@ export function paramsFor(type, s, defaults, cfg) {
   // fixed accents and fixed values — numbers other than the
   // named ratios are plain parameter values
   for (const [key, value] of Object.entries(c)) {
-    if (['zVelkosti', 'sirkaPomer', 'pocetPomer', 'rozostupMin'].includes(key)) continue;
+    if (['zVelkosti', 'sirkaPomer', 'polomerPomer', 'pocetPomer', 'rozostupMin'].includes(key)) continue;
     if (key in p || value === null) p[key] = value;
   }
   // bod with no explicit priemer keeps null (auto from heavy)
