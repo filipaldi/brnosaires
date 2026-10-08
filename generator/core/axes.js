@@ -9,12 +9,13 @@
 // Zaoblenie (0–100 %) is the global corner rounding: every free corner of
 // every shape is rounded by this fraction of half its stroke thickness.
 
-import { readFileSync } from 'node:fs';
+import PROPORCIE from '../proporcie.json' with { type: 'json' };
 import { ValidationError } from './errors.js';
 
+// Returns a fresh copy, so callers may tweak values without affecting others.
+// Imported as a JSON module, so the core runs in Node and in the browser.
 export function loadProporcie() {
-  const url = new URL('../proporcie.json', import.meta.url);
-  return JSON.parse(readFileSync(url, 'utf8'));
+  return structuredClone(PROPORCIE);
 }
 
 export function validateAxis(name, value) {

@@ -2,10 +2,9 @@
 // interpolated point by point between its masters and placed by its anchor.
 // The curve itself is never redrawn or smoothed.
 
-import { readFileSync } from 'node:fs';
+import ASSETS from '../../assets.json' with { type: 'json' };
 import { moveTo, lineTo, curveTo, closePath, clamp } from '../geometry.js';
 
-const ASSETS = JSON.parse(readFileSync(new URL('../../assets.json', import.meta.url), 'utf8'));
 
 // Minimal SVG path parser: M L H V C S Z (absolute and relative) to absolute
 // segments in the geometry.js model.
