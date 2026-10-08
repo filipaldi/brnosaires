@@ -37,7 +37,6 @@ export function drawSize(rng, { velkost, variacia, rozlozenie, koeficienty }) {
 // mapping documented here:
 //   noha, hmotaSoStrbinou  one length parameter equals s
 //   oblouk                 vyska = s, sirka = max(1, round(s · sirkaPomer))
-//   hacikSKvapkou          vyska = s
 //   obloukPata, stvrtoblouk  polomer = s · polomerPomer (foot stays heavy)
 //   kvapka, kruh, bod      accents — fixed sizes from proporcie (bod stays
 //                          automatic, derived from heavy)

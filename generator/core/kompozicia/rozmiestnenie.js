@@ -134,7 +134,7 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
     const r0 = potiahniRozmer(rng, typ, ctx);
     const spoje0 = orientuj(r0, ORIENTACIE[0], ctx).shape.joints;
     if (!spoje0.some((j) => Math.abs(j.t - otvoren.j.t) < 1e-9)) continue;
-    // a shape with a single joint (kvapka, háčik…) ends the chain on this
+    // a shape with a single joint (kvapka) ends the chain on this
     // side; the last open end of a chain still below its minimum length
     // must keep growing
     if (spoje0.length < 2 && chain.open.length < 2 && chain.members.length + 1 < minDlzka) continue;
@@ -188,7 +188,7 @@ export function placeShapes(rng, {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
   // Ink-weighted coverage: a bare bbox area counts empty space, so sparse
-  // shapes (hacikSKvapkou, oblouk) would hit the target while the canvas stays empty.
+  // shapes (kvapka, oblouk) would hit the target while the canvas stays empty.
   const pokrytie = (typ, box) => box.w * box.h * (vahyTvaru[typ] ?? 1);
   const target = hustota * freeArea;
 
