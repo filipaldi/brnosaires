@@ -27,14 +27,14 @@
       {% endif %}
       <div>
         {% if 'title' in fields %}
-        <h2>{{ item.article.title }}</h2>
+        <h2>{{ item.article.title | nbsp_prepositions }}</h2>
         {% endif %}
         {% if 'description' in fields and item.article.description %}
-        <p class="widget-articles__description">{{ item.article.description | truncate(250) }}</p>
+        <p class="widget-articles__description">{{ item.article.description | truncate(250) | nbsp_prepositions }}</p>
         {% endif %}
         {% for key, value in item.extra_metadata.items() %}
         {% if key not in ['title', 'description', 'image'] %}
-        <p class="widget-articles__meta">{{ value }}</p>
+        <p class="widget-articles__meta">{{ value | nbsp_prepositions }}</p>
         {% endif %}
         {% endfor %}
       </div>
@@ -48,14 +48,14 @@
       {% endif %}
       <div>
         {% if 'title' in fields %}
-        <h2>{{ item.article.title }}</h2>
+        <h2>{{ item.article.title | nbsp_prepositions }}</h2>
         {% endif %}
         {% if 'description' in fields and item.article.description %}
-        <p class="widget-articles__description">{{ item.article.description | truncate(250) }}</p>
+        <p class="widget-articles__description">{{ item.article.description | truncate(250) | nbsp_prepositions }}</p>
         {% endif %}
         {% for key, value in item.extra_metadata.items() %}
         {% if key not in ['title', 'description', 'image'] %}
-        <p class="widget-articles__meta">{{ value }}</p>
+        <p class="widget-articles__meta">{{ value | nbsp_prepositions }}</p>
         {% endif %}
         {% endfor %}
       </div>

@@ -10,11 +10,21 @@
    column and so can never cause horizontal page scroll on a < 320px screen);
    on wide screens 43vw wins (the desktop measure column beside the nav rail).
    `:not([class*="card-"] *)` keeps this off card/widget internals, which set
-   their own (smaller) measure. overflow-wrap / word-break / hyphens let long
+   their own (smaller) measure. overflow-wrap / word-break let long
    unbreakable tokens — bare URLs, long Czech display-font words in headings —
-   break instead of jutting out past the viewport (DEFAULT_LANG="cs" → real
-   Czech hyphenation when the element is inside <html lang="cs">). */
-:where(h1, h2, h3, p):not([class*="card-"] *) {
+   break instead of jutting out past the viewport. Paragraphs hyphenate too
+   (DEFAULT_LANG="cs" → real Czech hyphenation when the element is inside
+   <html lang="cs">); headings do not (#70): they are short, their words are
+   chosen, and auto-hyphenation tore "Tango léto v Brně aneb Letní tango
+   menu" apart. Keeping a lone preposition off the line end is not CSS's to
+   do — plugins/czech_typography.py glues those with &nbsp;. */
+:where(h1, h2, h3):not([class*="card-"] *) {
+  max-inline-size: max(20rem, 63ch);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+:where(p):not([class*="card-"] *) {
   max-inline-size: max(20rem, 63ch);
   overflow-wrap: anywhere;
   word-break: break-word;

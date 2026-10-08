@@ -1,4 +1,5 @@
-"""Invariants of the rendered HTML: structure, accessibility, structured data.
+"""Invariants of the rendered HTML: structure, accessibility, structured
+data, Czech line-breaking.
 
 These are the things that only break in the output — no template diff shows
 them, and nobody notices until a screen reader user cannot navigate or Google
@@ -248,6 +249,72 @@ class WidgetArticlesColumns(_Built):
         html = dict(self.pages)["tango-pikosky/index.html"]
         self.assertNotIn("el-grid-", html,
                          "a widget without columns grew a grid wrapper")
+
+
+class CzechLineBreaks(_Built):
+    """A lone one-letter preposition never ends a line (issue #70).
+
+    The Czech one-letter words — a, i, k, o, s, u, v, z — mean nothing
+    alone, so plugins/czech_typography.py glues each to the word after it:
+    as a Jinja filter where a title is visible text, and as a pass over
+    every rendered body. What those two own is the page's content, so the
+    invariant walks <main>. The chrome around it (nav rail, top-chip menu,
+    footer, language switcher) renders labels from theme/i18n and
+    content/navigation, which no title filter reaches — six strings live
+    there today, and they are this issue's residue, not its regression.
+
+    <head>, scripts, styles, pre and code are not visible prose and are
+    skipped. Entities are decoded first, so a joined pair ("v&nbsp;Brně")
+    does not count as a breakable space; an apostrophe does not start a
+    word, so "it's" and "Brno's" on the English pages are not prepositions
+    however their last letter reads.
+    """
+
+    NOT_PROSE = re.compile(r"<(script|style|pre|code)\b.*?</\1>",
+                           re.DOTALL | re.IGNORECASE)
+    MAIN = re.compile(r"<main\b.*</main>", re.DOTALL | re.IGNORECASE)
+    TAG = re.compile(r"<[^>]+>")
+    LONE_PREPOSITION = re.compile(r"(?<![\w'’])([aikousvzAIKOUSVZ]) (?=\S)")
+    CARD_TITLE = re.compile(r'event-card__title">([^<]*)')
+    BARE_AMPERSAND = re.compile(r"&(?!#\d+;|#x[0-9a-fA-F]+;|[A-Za-z][A-Za-z0-9]*;)")
+
+    def test_no_visible_preposition_is_left_breakable(self):
+        bad = []
+        for path, html in self.pages:
+            main = self.MAIN.search(html)
+            if not main:
+                continue
+            prose = unescape(self.TAG.sub(
+                " ", self.NOT_PROSE.sub(" ", main.group(0))))
+            hit = self.LONE_PREPOSITION.search(prose)
+            if hit:
+                where = prose[max(0, hit.start() - 30):hit.end() + 30]
+                bad.append(f"{path}: …{where.replace(chr(10), ' ')}…")
+        self.assertEqual(
+            bad, [],
+            f"a lone preposition the browser may strand at a line end: {bad[:5]}")
+
+    def test_no_card_title_carries_a_bare_ampersand(self):
+        # The filter wraps its answer in Markup, which silences Jinja's own
+        # escaping — so it has to escape a plain title itself, or "Tango &
+        # Pizza" reaches the browser with a raw & and a "<" would inject
+        # HTML outright. Card titles are where a plain-text title meets the
+        # filter, so they are where the slip would show first.
+        found = 0
+        bad = []
+        for path, html in self.pages:
+            for match in self.CARD_TITLE.finditer(html):
+                found += 1
+                if self.BARE_AMPERSAND.search(match.group(1)):
+                    bad.append(f"{path}: {match.group(1)}")
+        self.assertGreater(found, 10, "event card titles disappeared")
+        self.assertEqual(bad, [], f"bare & in an event-card__title: {bad[:5]}")
+
+    def test_the_join_is_actually_in_the_build(self):
+        # An invariant that matches nothing passes trivially, so the fix has
+        # to show up too: the whole site is full of these, Czech being Czech.
+        joined = sum(html.count("&nbsp;") for _path, html in self.pages)
+        self.assertGreater(joined, 100, "the &nbsp; join vanished from the build")
 
 
 class Feed(_Built):

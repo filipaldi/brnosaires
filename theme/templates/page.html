@@ -32,7 +32,7 @@
     </div>
     {% endif %}
     <div class="el-stack stack-xs">
-      {% if month_num %}<h1>{{ month_h1 }}</h1>{% endif %}
+      {% if month_num %}<h1>{{ month_h1 | nbsp_prepositions }}</h1>{% endif %}
       {{ page.content }}
     </div>
 

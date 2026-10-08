@@ -13,7 +13,7 @@
      A caller that already opened an h2 section (the series hub in page.html)
      sets card_heading_level = 3 before including this. #}
   {% set _ch = card_heading_level | default(2, true) %}
-  <h{{ _ch }} class="event-card__title">{{ event.title }}</h{{ _ch }}>
+  <h{{ _ch }} class="event-card__title">{{ event.title | nbsp_prepositions }}</h{{ _ch }}>
   {% set event_start = event.metadata.get('event-start') if event.metadata else none %}
   {% set event_end = event.metadata.get('event-end') if event.metadata else none %}
   {% set event_organiser = event.metadata.get('event-organiser') if event.metadata else none %}
@@ -26,10 +26,10 @@
     {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
     {% if event_time_str %}<p class="event-card__time">{{ event_time_str }}{% if event_end and event_end_time_str %}–{{ event_end_time_str }}{% endif %}</p>{% endif %}
   {% endif %}
-  {% if event_organiser and 'organiser' not in card_hide|default([]) %}<p class="event-card__organiser">{{ event_organiser }}</p>{% endif %}
+  {% if event_organiser and 'organiser' not in card_hide|default([]) %}<p class="event-card__organiser">{{ event_organiser | nbsp_prepositions }}</p>{% endif %}
   {% if event_location and 'location' not in card_hide|default([]) %}<p class="event-card__location">{{ event_location }}</p>{% endif %}
   {% if event_entry %}<p class="event-card__entry">{{ 'event_entry_label' | t(page_lang | default('cs', true)) }} {{ event_entry }}</p>{% endif %}
-  {% if card_description|default(false) and event_description %}<p class="event-card__description">{{ event_description }}</p>{% endif %}
+  {% if card_description|default(false) and event_description %}<p class="event-card__description">{{ event_description | nbsp_prepositions }}</p>{% endif %}
 {% if card_link is defined and not card_link %}
 </div>
 {% else %}
