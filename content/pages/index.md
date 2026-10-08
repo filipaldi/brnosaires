@@ -3,7 +3,7 @@ title: Brnos Aires
 date: 2026-01-17 18:00:00
 url: 
 save_as: index.html
-description: Přehledně a aktuálně o argentinském tangu v Brně. Kalendář milong, lekcí a workshopů.
+description: Kde se v Brně tančí milonga? Kalendář milong na tento týden, nejbližší lekce a workshopy argentinského tanga. Vše na jednom místě, vždy aktuální.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---

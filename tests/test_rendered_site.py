@@ -317,6 +317,39 @@ class CzechLineBreaks(_Built):
         self.assertGreater(joined, 100, "the &nbsp; join vanished from the build")
 
 
+class HomepageMetaDescription(_Built):
+    """The homepage meta description is the snippet Google is supposed to
+    show — and the old one it refused to use (issue #84). "Přehledně a
+    aktuálně o argentinském tangu v Brně" said nothing about what the page
+    actually leads with, so Google stitched its own snippet out of the intro
+    paragraph and the first event card's price. The rewrite names it: milongas
+    this week, the nearest lessons and workshops.
+
+    What the build has to guarantee is that index.html carries the front
+    matter's `description:` verbatim, exactly once. The source of truth stays
+    content/pages/index.md, read here rather than restated, so the written
+    copy and the served tag cannot drift apart silently.
+    """
+
+    SOURCE = os.path.join(REPO_ROOT, "content", "pages", "index.md")
+    META = re.compile(r'<meta name="description" content="([^"]*)">')
+
+    def front_matter_description(self):
+        with open(self.SOURCE, encoding="utf-8") as handle:
+            line = next(l for l in handle if l.startswith("description:"))
+        return line[len("description:"):].strip()
+
+    def test_the_homepage_carries_exactly_one_meta_description(self):
+        found = self.META.findall(dict(self.pages)["index.html"])
+        self.assertEqual(
+            len(found), 1,
+            f"expected one meta description tag, found {len(found)}")
+
+    def test_it_is_the_front_matter_description_verbatim(self):
+        found = self.META.findall(dict(self.pages)["index.html"])
+        self.assertEqual(found, [self.front_matter_description()])
+
+
 class Feed(_Built):
     """The feed is the only machine-readable answer to "what is new here".
 
