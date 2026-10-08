@@ -16,7 +16,8 @@
     "oblouk": {
       "sirka": 2,
       "vyska": 2,
-      "plnaStrana": "vpravo"
+      "plnaStrana": "vpravo",
+      "hrubnutie": "stala"
     },
     "vrchol": {
       "vyska": 3,
