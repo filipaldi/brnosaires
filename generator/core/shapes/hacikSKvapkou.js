@@ -21,7 +21,10 @@ export function build(p, axes) {
   const t = p.hrubka === 'vlas' ? h : H;
   const legH = Math.max(p.vyska - P, 0.001);
   const subpaths = [
-    obdlznik({ x: 0, y: P, w: t, h: legH, vyrez: t > h ? { cx: P, r: Math.max(P - h, 0) } : null }),
+    obdlznik({
+      x: 0, y: P, w: t, h: legH, zaoblenie: axes.zaoblenie, rohy: [false, false, true, true],
+      vyrez: t > h ? { cx: P, r: Math.max(P - h, 0) } : null,
+    }),
     ...prstenec({ cx: P, cy: P, R: P, t: h, start: 180, sweep: 90 }),
     kvapka({ x: P, y: 0, hair: h, vyska: p.kvapka * H }),
   ];

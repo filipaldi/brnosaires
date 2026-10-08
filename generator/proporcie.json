@@ -1,17 +1,17 @@
 {
   "_comment": "Proporce generátora Brnos Aires. Všetko, čo nie je priamo parameter tvaru, je tu ako pomer. Ladí sa ručne, kód hodnoty iba číta.",
   "osi": {
-    "_comment": "Prepočet osí na hrúbky v dielikoch: heavy = wMin + (wMax − wMin) · Weight/100, hair = heavy − (heavy − hairMin) · Contrast/100.",
+    "_comment": "Prepočet osí na hrúbky v dielikoch: heavy = wMin + (wMax − wMin) · Weight/100, hair = heavy − (heavy − hairMin) · Contrast/100. Zaoblenie (0–100 %) je predvolené globálne zaoblenie rohov: podiel z polovice hrúbky ťahu.",
     "wMin": 0.04,
     "wMax": 0.5,
-    "hairMin": 0.012
+    "hairMin": 0.012,
+    "zaoblenie": 30
   },
   "parametre": {
     "_comment": "Predvolené hodnoty parametrov tvarov. null znamená automaticky (viď príslušný tvar).",
     "noha": {
       "dlzka": 3,
-      "hrubka": "plna",
-      "zaoblenie": 0.3
+      "hrubka": "plna"
     },
     "oblouk": {
       "sirka": 2,
@@ -19,17 +19,11 @@
       "plnaStrana": "vpravo",
       "hrubnutie": "stala"
     },
-    "vrchol": {
-      "vyska": 3,
-      "uholVlavo": 20,
-      "uholVpravo": 20
-    },
     "koleno": {
       "polomer": 0.5,
       "sirka": 1,
       "dlzka": 3,
-      "ramenoX": 1.5,
-      "zaoblenie": 0.3
+      "ramenoX": 1.5
     },
     "hmotaSoStrbinou": {
       "dlzka": 3
@@ -60,20 +54,7 @@
     }
   },
   "proporcie": {
-    "_comment": "Geometrické pomery. Zaoblenia rohov sú podiel z polovice kratšej strany obdĺžnika (0 ostrý, 1 úplne guľatý), ostatné násobky hair alebo heavy.",
-    "oblouk": {
-      "_comment": "Zaoblenie päty vlasovej nohy (oba rohy) a vonkajšieho spodného rohu plnej nohy.",
-      "patkaVlas": 0.5,
-      "patkaPlna": 0.3
-    },
-    "hmotaSoStrbinou": {
-      "_comment": "Zaoblenie vonkajších horných rohov nôh.",
-      "hornyRoh": 0.15
-    },
-    "vrchol": {
-      "_comment": "Zaoblenie vrcholu (× hair).",
-      "apexRadius": 1.5
-    },
+    "_comment": "Geometrické pomery tvarov (násobky hair alebo heavy). Zaoblenie rohov je globálne, v osi.zaoblenie.",
     "bod": {
       "_comment": "Predvolený priemer bodu (× heavy).",
       "priemer": 1.2
@@ -87,7 +68,6 @@
     "_comment": "Referenčný glif každého tvaru pre vzorkovník s --pismo.",
     "noha": "l",
     "oblouk": "n",
-    "vrchol": "A",
     "koleno": "F",
     "hmotaSoStrbinou": "U",
     "hacikSKvapkou": "r",

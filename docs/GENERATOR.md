@@ -123,24 +123,31 @@ Vlasová linka nikdy nie je tenšia ako 1 px výstupu, pri tlači 0,1 mm. Jedin�
 
 Rozmery sú v dielikoch. Hrúbky berú z Weight a Contrast, pri každom tvare sa len volí, či je časť vlasová alebo plná. Všetky typy sa dajú otočiť o 90° a zrkadliť.
 
+Každý tvar je poskladaný z troch prvkov:
+
+1. **Obdĺžnik** so zaoblenými rohmi.
+2. **Prstenec** so stálou hrúbkou (štvrť, polkruh, celý kruh). Napája sa na obdĺžniky pozdĺž (polkruh spája dve rovnobežné nohy) alebo kolmo v rohu (plný blok priložený k jeho vonkajšej hrane, vnútorný kruh vyrezaný z bloku).
+3. **Krivka** od dizajnéra, zatiaľ kvapka. Má dva mastre (krk 10 a 40 jednotiek) a interpoluje sa tak, aby krk mal hrúbku vlasovej čiary.
+
+**Zaoblenie** je globálna os ako Weight a Contrast (0–100 %, podiel z polovice hrúbky ťahu). Zaobľuje sa každý viditeľný roh, vonkajší aj vnútorný. Ostré ostávajú len miesta, kde sa dva prvky napájajú, lebo tam roh nie je vidieť.
+
 | # | Typ | Parametre |
 |---|---|---|
-| 1 | Noha | dĺžka, vlas / plná, zaoblenie konca |
-| 2 | Oblúk | šírka, výška, strana plnej nohy |
-| 3 | Vrchol | uhol každej nohy (aj zvislá), šírka klinu |
-| 4 | Koleno | vonkajší a vnútorný polomer |
-| 5 | Hmota so štrbinou | dĺžka, šírka |
-| 6 | Háčik s kvapkou | výška, polomer ohybu, veľkosť kvapky, noha vlas / plná |
-| 7 | Nota | dĺžka nohy, počet kvapiek, rozostup, veľkosť kvapiek, strana |
-| 8 | Kvapka | veľkosť, smer špičky |
-| 9 | Kruh | priemer, obrys vlas / plný |
-| 10 | Bod | priemer |
+| 1 | Noha | dĺžka, vlas / plná |
+| 2 | Oblúk | šírka, výška, strana plnej nohy, hrubnutie (stála / plynulá) |
+| 3 | Koleno | polomer, šírka a dĺžka bloku, rameno |
+| 4 | Hmota so štrbinou | dĺžka |
+| 5 | Háčik s kvapkou | výška, polomer ohybu, veľkosť kvapky, noha vlas / plná |
+| 6 | Nota | dĺžka nohy, počet kvapiek, rozostup, veľkosť kvapiek, strana, noha vlas / plná |
+| 7 | Kvapka | veľkosť |
+| 8 | Kruh | priemer, obrys vlas / plný |
+| 9 | Bod | priemer |
 
-**Kvapka a prechod oblúka** z vlasovej linky do plnej nohy majú ručne ladené krivky. Ak ich geometria z kódu nepriblíži dosť verne, prenesú sa z písma presne ako krivka a parametre ich budú len posúvať a škálovať.
+Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre.
 
 ### Pravidlá skladania
 
-- **Napojenie:** tvary sa dotýkajú a plynulo prechádzajú (noha + oblúk, vrchol so zvislou nohou).
+- **Napojenie:** tvary sa dotýkajú a plynulo prechádzajú (noha + oblúk).
 - **Odsadenie:** tvar stojí nad druhým s medzerou (kruh nad nohou).
 
 Body napojenia vyplývajú z geometrie (konce nôh, päty oblúka), netreba ich kresliť.

@@ -2,6 +2,7 @@
 export { obdlznik } from './obdlznik.js';
 export { prstenec } from './prstenec.js';
 export { kvapka } from './krivka.js';
+export { vnutornyRoh } from './fillet.js';
 
 // Mirror a list of subpaths horizontally around x = axis (for shapes whose
 // heavy side is a parameter; the generic `mirror` transform stays separate).

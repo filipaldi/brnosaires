@@ -36,10 +36,10 @@ function usage() {
 
 Použitie:
   ${SCRIPT} typy
-  ${SCRIPT} tvar --typ <id> [--weight <0-100>] [--contrast <0-100>]
+  ${SCRIPT} tvar --typ <id> [--weight <0-100>] [--contrast <0-100>] [--zaoblenie <0-100>]
             [--param kľúč=hodnota]... [--rotate 0|90|180|270] [--mirror]
             --out <súbor.svg> [--png]
-  ${SCRIPT} vzorkovnik [--typ <id|all>] [--weight 20,40,60,80] [--contrast 70]
+  ${SCRIPT} vzorkovnik [--typ <id|all>] [--weight 20,40,60,80] [--contrast 70] [--zaoblenie <0-100>]
             [--pismo] [--embed-font] [--spoje] --out <súbor.svg> [--png]
 
 Zoznam typov a ich parametrov: ${SCRIPT} typy`);
@@ -153,6 +153,7 @@ function cmdTvar(args) {
     typ: { type: 'string' },
     weight: { type: 'string', default: '60' },
     contrast: { type: 'string', default: '70' },
+    zaoblenie: { type: 'string', default: String(proporcie.osi.zaoblenie) },
     param: { type: 'string', multiple: true, default: [] },
     rotate: { type: 'string', default: '0' },
     mirror: { type: 'boolean', default: false },
@@ -170,7 +171,8 @@ function cmdTvar(args) {
   const axes = computeAxes(
     parseAxisNumber(opts.weight, 'Weight'),
     parseAxisNumber(opts.contrast, 'Contrast'),
-    proporcie);
+    proporcie,
+    parseAxisNumber(opts.zaoblenie, 'Zaoblenie'));
   const params = { ...parseParams(typ, opts.param), rotate, mirror: opts.mirror };
   const shape = buildShape(typ, params, axes);
   const svg = renderShapeSvg(shape, { pxPerDielik: 100, margin: 0.25 });
@@ -204,6 +206,7 @@ function cmdVzorkovnik(args) {
     typ: { type: 'string', default: 'all' },
     weight: { type: 'string', default: '20,40,60,80' },
     contrast: { type: 'string', default: '70' },
+    zaoblenie: { type: 'string', default: String(proporcie.osi.zaoblenie) },
     pismo: { type: 'boolean', default: false },
     'embed-font': { type: 'boolean', default: false },
     spoje: { type: 'boolean', default: false },
@@ -217,6 +220,7 @@ function cmdVzorkovnik(args) {
     : opts.typ.split(',').map((s) => s.trim()).filter(Boolean).map(resolveType);
   const weights = parseAxisList(opts.weight, 'Weight');
   const contrasts = parseAxisList(opts.contrast, 'Contrast');
+  const zaoblenie = parseAxisNumber(opts.zaoblenie, 'Zaoblenie');
 
   const colHeaders = weights.map((w) => `Weight ${fmtSk(w)}`);
   if (opts.pismo) colHeaders.push('Písmo');
@@ -230,7 +234,7 @@ function cmdVzorkovnik(args) {
       .join(' · ');
     for (const c of contrasts) {
       const cells = weights.map((w) => ({
-        shape: buildShape(typ, defaultParams(typ), computeAxes(w, c, proporcie)),
+        shape: buildShape(typ, defaultParams(typ), computeAxes(w, c, proporcie, zaoblenie)),
       }));
       const label = TYPES.find((t) => t.id === typ).name
         + (contrasts.length > 1 ? ` · C ${fmtSk(c)}` : '');

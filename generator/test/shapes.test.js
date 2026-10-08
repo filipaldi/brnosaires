@@ -74,9 +74,10 @@ test('kruh má vonkajšiu aj vnútornú cestu', () => {
   assert.equal(s.paths.length, 2);
 });
 
-test('nota má nohu + kvapky', () => {
+test('nota má nohu, kvapky a zaoblené vnútorné rohy', () => {
   const s = buildShape('nota', defaultParams('nota'), axesFor(60, 70));
-  assert.equal(s.paths.length, 3);
+  // leg + 2 drops + 3 inner corners (the top drop has only the lower one)
+  assert.equal(s.paths.length, 6);
 });
 
 test('defaultParams vracia nezávislú kópiu', () => {
