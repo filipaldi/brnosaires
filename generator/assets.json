@@ -1,12 +1,56 @@
 {
   "_comment": "Pevné krivky nakreslené autorom písma. Generátor ich neprekresľuje, len interpoluje medzi mastrami, škáluje, otáča a posúva.",
   "kvapka": {
-    "_comment": "Krk vstupuje na ľavej hrane: x = 0, od y = 0 po y = hrúbka krku, smer doprava. Kvapka je v oboch mastroch rovnaká, mení sa len krk.",
-    "viewBox": [0, 0, 246, 228],
-    "vyska": 228,
+    "_comment": "Osem mastrov v troch osiach: chvost (0 krátky, šírka 150 → 1 dlhý, 300), vyska (0 nízka → 1 vysoká) a krk (10 alebo 40 jednotiek). Krk vstupuje na ľavej hrane: x = 0, od y = 0 po y = krk, smer doprava. Kvapka sa škáluje tak, aby krk mal presne hrúbku ťahu, na ktorý sa napája: tenký krk = veľká kvapka, hrubý krk = malá.",
     "masters": [
-      { "neck": 10, "path": "M113,175c0,77,133,73,133-23c0-91-85-152-246-152v10c101,0,163,22,163,58c0,47-50,52-50,107Z" },
-      { "neck": 40, "path": "M113,175c0,77,133,73,133-23c0-91-85-152-246-152v40c101,0,163,27,163,51c0,25-50,29-50,84Z" }
+      {
+        "chvost": 1,
+        "vyska": 0,
+        "path": "M166,153c0,77,134,69,134-27c0-79-113-126-300-126v10c134,0,224,22,224,62c0,30-58,33-58,81Z",
+        "krk": 10
+      },
+      {
+        "chvost": 0,
+        "vyska": 0,
+        "path": "M16,153c0,77,134,69,134-27c0-76-60-126-150-126v10c44,0,74,20,74,48c0,38-58,40-58,95Z",
+        "krk": 10
+      },
+      {
+        "chvost": 1,
+        "vyska": 1,
+        "path": "M165,195c0,85,135,67,135-25c0-111-94-170-300-170v10c114-1,224,27,224,58c0,44-59,66-59,127Z",
+        "krk": 10
+      },
+      {
+        "chvost": 0,
+        "vyska": 1,
+        "path": "M14,195c0,85,135,67,135-45c0-80-58-150-149-150v10c42,0,73,18,73,48c0,54-59,76-59,137Z",
+        "krk": 10
+      },
+      {
+        "chvost": 1,
+        "vyska": 0,
+        "krk": 40,
+        "path": "M166,151c0,85,134,70,134-25c0-79-112-126-300-126v40c106,0,218,24,218,47c0,20-52,17-52,64Z"
+      },
+      {
+        "chvost": 0,
+        "vyska": 0,
+        "krk": 40,
+        "path": "M15,151c0,78,135,69,135-25c0-76-58-126-150-126v40c41,0,68,17,68,31c0,24-53,33-53,80Z"
+      },
+      {
+        "chvost": 1,
+        "vyska": 1,
+        "krk": 40,
+        "path": "M166,194c0,85,134,70,134-36c0-104-112-158-300-158v40c130,0,218,24,218,70c0,36-52,36-52,84Z"
+      },
+      {
+        "chvost": 0,
+        "vyska": 1,
+        "krk": 40,
+        "path": "M15,194c0,85,135,70,135-46c0-94-72-148-150-148v40c35,0,67,24,67,54c1,44-52,41-52,100Z"
+      }
     ]
   }
 }

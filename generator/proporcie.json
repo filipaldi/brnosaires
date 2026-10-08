@@ -20,8 +20,8 @@
       "hrubnutie": "stala"
     },
     "koleno": {
-      "polomer": 0.5,
-      "sirka": 1,
+      "polomer": null,
+      "sirka": null,
       "dlzka": 3,
       "ramenoX": 1.5
     },
@@ -31,19 +31,26 @@
     "hacikSKvapkou": {
       "vyska": 3,
       "polomer": 0.5,
-      "kvapka": 1.6,
-      "hrubka": "vlas"
+      "hrubka": "vlas",
+      "chvost": 50,
+      "kvapkaVyska": 50,
+      "krk": 0
     },
     "nota": {
       "dlzka": 3,
       "pocet": 2,
       "rozostup": 1,
-      "kvapka": 1.6,
       "strana": "vpravo",
-      "hrubka": "plna"
+      "hrubka": "plna",
+      "chvost": 50,
+      "kvapkaVyska": 50,
+      "krk": 0
     },
     "kvapka": {
-      "vyska": 1.6
+      "chvost": 50,
+      "vyska": 50,
+      "krk": 0,
+      "hrubka": "vlas"
     },
     "kruh": {
       "priemer": 0.6,
@@ -75,7 +82,7 @@
         "zvysok": "okraje"
       },
       "kresba": {
-        "weight": 60,
+        "weight": 20,
         "contrast": 70,
         "zaoblenie": 30
       },
@@ -97,7 +104,8 @@
           "kruh",
           "bod"
         ],
-        "rozmiestnenie": "volne"
+        "rozmiestnenie": "volne",
+        "retazenie": 80
       },
       "variant": "1",
       "inverzia": false,
@@ -139,9 +147,7 @@
         "zVelkosti": [
           "dlzka"
         ],
-        "sirkaPomer": 0.45,
-        "ramenoPomer": 0.5,
-        "polomer": 0.5
+        "ramenoPomer": 0.5
       },
       "hmotaSoStrbinou": {
         "zVelkosti": [
@@ -160,9 +166,7 @@
         "pocetPomer": 0.5,
         "rozostupMin": 1
       },
-      "kvapka": {
-        "vyska": 1.6
-      },
+      "kvapka": {},
       "kruh": {
         "priemer": 0.8
       },
@@ -190,12 +194,20 @@
       "bod": 1
     },
     "rozmiestnenie": {
-      "_comment": "voľné rozmiestnenie: medzera medzi bboxmi tvarov (dieliky), hustota = cieľové pokrytie voľnej plochy (vážené podľa vahyTvaru), maxPokusov = strop potiahnutých tvarov, skok = mriežka kandidátových pozícií, davka = koľko tvarov sa naraz potiahne a umiestňuje od najväčšieho.",
+      "_comment": "voľné rozmiestnenie: medzera medzi bboxmi tvarov (dieliky), hustota = cieľové pokrytie voľnej plochy (vážené podľa vahyTvaru), maxPokusov = strop potiahnutých tvarov, skok = mriežka kandidátových pozícií. retazenie: dlzka = [min, max] počet tvarov jednej reťaze, pokusy = koľko kandidátov sa skúsi na jeden otvorený spoj, neuspechov = po koľkých neúspechoch za sebou sa reťaze vzdajú a zvyšok miesta dostanú akcenty, dotyk = tolerancia prekryvu bboxov priamo spojenej dvojice (dieliky).",
       "medzera": 0.25,
       "hustota": 0.7,
       "maxPokusov": 1500,
       "skok": 0.5,
-      "davka": 16
+      "retazenie": {
+        "dlzka": [
+          3,
+          9
+        ],
+        "pokusy": 24,
+        "dotyk": 0.002,
+        "neuspechov": 60
+      }
     },
     "svg": {
       "_comment": "riadokPrvy = prvá účelová linka textu odhora (násobok veľkosti písma), okraj bieleho okolo zóny so správaním okraj = 1 dielik.",
@@ -208,6 +220,21 @@
     "png": {
       "_comment": "Export PNG z CLI: maxSirka v px, väčšie plátno sa zmenší (pomer strán sa zachová).",
       "maxSirka": 2400
+    },
+    "kvapka": {
+      "_comment": "V kompozícii sa chvost, výška a hrúbka krku kvapky ťahajú náhodne z týchto rozsahov (%), aby kvapky neboli rovnaké.",
+      "chvost": [
+        0,
+        100
+      ],
+      "vyska": [
+        0,
+        100
+      ],
+      "krk": [
+        0,
+        100
+      ]
     }
   }
 }

@@ -105,6 +105,7 @@ function normalizujKompozicia(raw) {
     throw new ValidationError('kompozicia.velkost[0] musí byť menšia alebo rovná velkost[1].');
   }
   cislo(komp.variacia, 'kompozicia.variacia', { min: 0, max: 100 });
+  cislo(komp.retazenie, 'kompozicia.retazenie', { min: 0, max: 100 });
   moznosti(komp.rozlozenie, 'kompozicia.rozlozenie', ROZLOZENIE);
   if (!Array.isArray(komp.typy) || !komp.typy.length) {
     throw new ValidationError('kompozicia.typy musí byť neprázdny zoznam typov tvarov.');
@@ -247,14 +248,22 @@ export function komponuj(input, { fontUrls } = {}) {
     hustota: KOMP.rozmiestnenie.hustota,
     maxPokusov: KOMP.rozmiestnenie.maxPokusov,
     skok: KOMP.rozmiestnenie.skok,
-    davka: KOMP.rozmiestnenie.davka,
+    retazenie: komp.retazenie,
+    retazenieDlzka: KOMP.rozmiestnenie.retazenie.dlzka,
+    retazeniePokusy: KOMP.rozmiestnenie.retazenie.pokusy,
+    dotyk: KOMP.rozmiestnenie.retazenie.dotyk,
+    neuspechov: KOMP.rozmiestnenie.retazenie.neuspechov,
+    kvapka: KOMP.kvapka,
   });
   varovania.push(...varovaniaUmiestnenia);
 
   // Rebuild accepted shapes and bake the translation into their path data —
   // the pattern layer is one compound path without per-shape transforms.
+  // `spoje` names the ends joined to a neighbour, rebuilt square.
   const tvary = placed.map((p) => {
-    const shape = buildShape(p.typ, { ...p.params, rotate: p.rotate, mirror: p.mirror }, axes);
+    const shape = buildShape(p.typ, {
+      ...p.params, rotate: p.rotate, mirror: p.mirror, spoje: p.spoje,
+    }, axes);
     return {
       ...p,
       bbox: { x: p.x, y: p.y, w: p.bbox.w, h: p.bbox.h },

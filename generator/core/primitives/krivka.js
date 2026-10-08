@@ -65,7 +65,7 @@ function masters(id) {
   if (!parsed[id]) {
     const asset = ASSETS[id];
     if (!asset) throw new Error(`Neznáma krivka „${id}“.`);
-    parsed[id] = { ...asset, masters: asset.masters.map((m) => ({ neck: m.neck, segs: parsePath(m.path) })) };
+    parsed[id] = { ...asset, masters: asset.masters.map((m) => ({ ...m, segs: parsePath(m.path) })) };
   }
   return parsed[id];
 }
@@ -83,23 +83,31 @@ function mapSegs(segs, fn) {
 }
 
 // The teardrop terminal. (x, y) is where the top of the neck lands; the neck
-// heads right (before rotate/mirror) and is exactly `hair` thick as long as
-// the masters allow it. `vyska` is the drop height in dielik units.
+// heads right (before rotate/mirror) and is exactly `t` thick (the stroke it
+// hangs from). Eight masters span three axes, interpolated trilinearly:
+// `chvost` (0 short tail, 1 long), `vyska` (0 low, 1 tall) and `krk`
+// (0 = 10-unit neck, 1 = 40-unit neck). The drop is scaled so the neck equals
+// `t`, so a thick neck gives a small drop relative to its stroke. All three
+// are clamped to 0–1.
 //   rotate: 0/90/180/270 clockwise around the anchor; mirror: flip horizontally
 //   around the anchor (neck then heads left).
-export function kvapka({ x, y, hair, vyska, rotate = 0, mirror = false, part = 'krivka' }) {
+export function kvapka({
+  x, y, t, chvost = 0.5, vyska = 0.5, krk = 0, rotate = 0, mirror = false, part = 'krivka',
+}) {
   const a = masters('kvapka');
-  const [m0, m1] = a.masters;
-  const scale = vyska / a.vyska;
-  const n = hair / scale;
-  // Outside the masters' range the nearest master is used, never extrapolated.
-  const f = clamp((n - m0.neck) / (m1.neck - m0.neck), 0, 1);
+  const at = (c, v, n) => a.masters.find((m) => m.chvost === c && m.vyska === v && m.krk === n).segs;
+  const fc = clamp(chvost, 0, 1);
+  const fv = clamp(vyska, 0, 1);
+  const fk = clamp(krk, 0, 1);
+  const rovina = (n) => lerpSegs(lerpSegs(at(0, 0, n), at(1, 0, n), fc), lerpSegs(at(0, 1, n), at(1, 1, n), fc), fv);
+  const segs0 = lerpSegs(rovina(10), rovina(40), fk);
+  const scale = t / (10 + 30 * fk);
   const rad = (rotate * Math.PI) / 180;
   const cos = Math.round(Math.cos(rad)), sin = Math.round(Math.sin(rad));
-  const segs = mapSegs(lerpSegs(m0.segs, m1.segs, f), (p) => {
+  const segs = mapSegs(segs0, (p) => {
     let px = p.x * scale, py = p.y * scale;
     if (mirror) px = -px;
     return { x: x + px * cos - py * sin, y: y + px * sin + py * cos };
   });
-  return { segs, part, neck: (m0.neck + (m1.neck - m0.neck) * f) * scale };
+  return { segs, part, neck: t };
 }

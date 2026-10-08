@@ -39,19 +39,23 @@ export function build(p, axes) {
   const z = axes.zaoblenie;
   const plynula = p.hrubnutie === 'plynula';
   const ir = Math.max((p.sirka - h - H) / 2, 0); // inner radius when it thickens
+  // joined feet keep their two corners sharp (ids name the physical leg)
+  const spoj = (id) => (p.spoje || []).includes(id);
+  const nohaVlasova = [false, false, !spoj('vlasova'), !spoj('vlasova')];
+  const nohaPlna = [false, false, !spoj('plna'), !spoj('plna')];
   let subpaths = [
-    obdlznik({ x: 0, y: cy, w: h, h: legH, zaoblenie: z, rohy: [false, false, true, true] }),
+    obdlznik({ x: 0, y: cy, w: h, h: legH, zaoblenie: z, rohy: nohaVlasova }),
     ...(plynula
       ? [polkruhPlynuly(R, cy, R, h + ir, ir)]
       : prstenec({ cx: R, cy, R, t: h, start: 180, sweep: 180 })),
     obdlznik({
-      x: p.sirka - H, y: cy, w: H, h: legH, zaoblenie: z, rohy: [false, false, true, true],
+      x: p.sirka - H, y: cy, w: H, h: legH, zaoblenie: z, rohy: nohaPlna,
       vyrez: plynula ? null : { cx: R, r: R - h },
     }),
   ];
   let joints = [
-    { x: h / 2, y: p.vyska, dir: 'down' },
-    { x: p.sirka - H / 2, y: p.vyska, dir: 'down' },
+    { x: h / 2, y: p.vyska, dir: 'down', id: 'vlasova', t: h },
+    { x: p.sirka - H / 2, y: p.vyska, dir: 'down', id: 'plna', t: H },
   ];
   if (p.plnaStrana === 'vlavo') {
     subpaths = zrkadliX(subpaths, R);

@@ -16,15 +16,22 @@ export function build(p, axes) {
   const R = W / 2;
   const cy = Math.max(p.dlzka - R, 0);
   const z = axes.zaoblenie;
+  const spoj = (id) => (p.spoje || []).includes(id);
   return {
     subpaths: [
-      obdlznik({ x: 0, y: 0, w: H, h: cy, zaoblenie: z, rohy: [true, true, false, false] }),
-      obdlznik({ x: W - H, y: 0, w: H, h: cy, zaoblenie: z, rohy: [true, true, false, false] }),
+      obdlznik({
+        x: 0, y: 0, w: H, h: cy, zaoblenie: z,
+        rohy: [!spoj('vlavo'), !spoj('vlavo'), false, false],
+      }),
+      obdlznik({
+        x: W - H, y: 0, w: H, h: cy, zaoblenie: z,
+        rohy: [!spoj('pravo'), !spoj('pravo'), false, false],
+      }),
       ...prstenec({ cx: R, cy, R, t: H, start: 0, sweep: 180 }),
     ],
     joints: [
-      { x: H / 2, y: 0, dir: 'up' },
-      { x: W - H / 2, y: 0, dir: 'up' },
+      { x: H / 2, y: 0, dir: 'up', id: 'vlavo', t: H },
+      { x: W - H / 2, y: 0, dir: 'up', id: 'pravo', t: H },
     ],
   };
 }

@@ -136,3 +136,22 @@ test('neplatný spec skončí na ValidationError so slovenskou správou', () => 
     }, JSON.stringify(spec));
   }
 });
+
+test('tvary sa reťazia cez spoje rovnakej hrúbky', async () => {
+  const { komponuj } = await import('../core/kompozicia/index.js');
+  const spec = JSON.parse(readFileSync(new URL('../priklady/plagat-a2.json', import.meta.url), 'utf8'));
+  const { tvary } = komponuj(spec);
+  const spojene = tvary.filter((t) => t.spoje.length);
+  assert.ok(spojene.length >= 2, 'aspoň jedna reťaz');
+  const OPAK = { down: 'up', up: 'down', left: 'right', right: 'left' };
+  for (const t of spojene) {
+    for (const id of t.spoje) {
+      const j = t.joints.find((q) => q.id === id);
+      const partner = tvary.some((u) => u !== t && u.joints.some((q) => u.spoje.includes(q.id)
+        && Math.hypot(q.x - j.x, q.y - j.y) < 1e-6 && Math.abs(q.t - j.t) < 1e-9 && OPAK[q.dir] === j.dir));
+      assert.ok(partner, `spoj ${t.typ}.${id} má protikus`);
+    }
+  }
+  const bez = komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenie: 0 } });
+  assert.equal(bez.tvary.filter((t) => t.spoje.length).length, 0);
+});

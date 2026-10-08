@@ -74,15 +74,31 @@ export function buildShape(type, params, axes) {
     throw new ValidationError(
       `Neznámy typ tvaru „${type}“. Platné typy: ${SHAPES.map((s) => s.id).join(', ')}.`);
   }
-  const { rotate = 0, mirror = false, ...rest } = params || {};
+  const { rotate = 0, mirror = false, spoje = [], ...rest } = params || {};
   validateRotate(rotate);
   if (typeof mirror !== 'boolean') {
     throw new ValidationError('mirror musí byť true/false.');
   }
+  if (!Array.isArray(spoje) || spoje.some((id) => typeof id !== 'string')) {
+    throw new ValidationError('spoje musí byť pole názvov koncov ťahu, napr. ["dole"].');
+  }
   const merged = { ...defaultParams(type), ...rest };
   validateParams(shape, merged);
 
-  const built = shape.build(merged, axes, proporcie);
+  // Which joint ids exist can depend on the parameters (koleno's arm), so the
+  // shape is built once to learn them; with any spoje it is rebuilt with the
+  // joined ends kept square.
+  let built = shape.build(merged, axes, proporcie);
+  const ids = built.joints.map((j) => j.id);
+  for (const id of spoje) {
+    if (!ids.includes(id)) {
+      throw new ValidationError(
+        `Neznámy spoj „${id}“ pre typ ${shape.id}. Platné spoje: ${ids.join(', ') || 'žiadne'}.`);
+    }
+  }
+  if (spoje.length) {
+    built = shape.build({ ...merged, spoje }, axes, proporcie);
+  }
   const transformed = normalizeWindings(transformShape(built, { rotate, mirror }));
 
   const pts = transformed.subpaths.flatMap((s) => subpathPoints(s.segs));
