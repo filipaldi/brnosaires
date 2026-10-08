@@ -227,7 +227,7 @@ V rozhraní sa píšu slová, nie symboly. Slovo „seed“ sa v rozhraní nepou
 
 ### Prehliadač tvarov
 
-Nástroj na ladenie tvarov a `proporcie.json` (fáza 1), nie bežná práca. Otvára sa skratkou `T` cez celé okno.
+Nástroj na ladenie tvarov a `proporcie.json`, nie bežná práca. Vo fáze 1 ho nahrádzajú vzorkovníky z CLI. Otvára sa skratkou `T` cez celé okno.
 
 - Vybraný typ z generátora vedľa vzorky písma. Prepínač „prekryť písmom“ ich položí cez seba, aby bolo vidno rozdiel v krivkách.
 - Posuvníky Weight, Contrast a parametrov vybraného typu.
@@ -235,18 +235,22 @@ Nástroj na ladenie tvarov a `proporcie.json` (fáza 1), nie bežná práca. Otv
 
 ## Fázy
 
+Najprv jadro a CLI, rozhranie až potom. Tvary sa ladia cez vzorkovníky: obrázok, kde je tvar v sérii hodnôt vedľa seba (napr. Weight 0, 25, 50, 75, 100 %) a vedľa vzorky písma.
+
 | # | Výsledok | Odhad |
 |---|---|---|
-| 1 | Všetkých 10 typov v kóde, prehliadač tvarov s posuvníkmi a porovnaním s písmom | 1–2 sedenia |
-| 2 | Lišta a plátno: formát, grid, parametre, variant, voľné rozmiestnenie, export SVG/PNG, predvoľby | 1 sedenie |
-| 3 | Zóny: text so sadzbou, fotka (rámik + maska) | 1–2 sedenia |
-| 4 | Rozmiestnenie dlaždice | 1 sedenie |
-| 5 | CLI a build webu: náhľady akcií, pozadia | 1 sedenie |
+| 1 | Jadro s 10 typmi a CLI: vzorkovníky, porovnanie s písmom, PNG/SVG | 1–2 sedenia |
+| 2 | CLI kompozícia: formát, grid, parametre, variant, zóny zo súboru, voľné rozmiestnenie | 1–2 sedenia |
+| 3 | Build webu: náhľady akcií, pozadia | 1 sedenie |
+| 4 | UI: lišta a plátno, zóny ťahaním, prehliadač tvarov | 2 sedenia |
+| 5 | Rozmiestnenie dlaždice | 1 sedenie |
 | 6 | Animácia a export videa | neskôr |
+
+**Zóny v CLI** sa zadávajú súborom (JSON) s polohou a veľkosťou v dielikoch, napr. text „MILONGA“ v stĺpci 1, riadku 1, veľkosť 6 × 2. Rozhranie vo fáze 4 vytvára ten istý súbor myšou.
 
 ## Na neskôr
 
 Nebránia začať, riešia sa až pri príslušnej fáze.
 
-- Na ktorých stránkach budú pozadia a dekorácie (fáza 5).
-- Adresa webového rozhrania (fáza 5).
+- Na ktorých stránkach budú pozadia a dekorácie (fáza 3).
+- Adresa webového rozhrania (fáza 4).
