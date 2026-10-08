@@ -23,12 +23,6 @@ const FORMAT_PRESETS = {
   web: { sirka: 1200, vyska: 630, jednotka: 'px', dpi: 72, spadavka: 0 },
 };
 
-const ROZLOZENIE = [
-  ['rovnomerne', 'rovnomerne'],
-  ['malePlusVelke', 'veľa malých a pár veľkých'],
-  ['krajne', 'len krajné hodnoty'],
-];
-
 const SPRAVANIE = [
   ['prazdna', 'prázdna'],
   ['presah', 'presah'],
@@ -58,13 +52,9 @@ function loadSpec() {
     const raw = localStorage.getItem(LS_KEY);
     if (raw) {
       const saved = JSON.parse(raw);
-      // types dropped from the set (e.g. koleno) must not discard the saved state
-      // settings dropped from the spec (retazenie) are ignored
-      if (saved?.kompozicia) delete saved.kompozicia.retazenie;
-      const typy = saved?.kompozicia?.typy;
-      if (Array.isArray(typy)) {
-        saved.kompozicia.typy = typy.filter((t) => TYPES.some((x) => x.id === t));
-      }
+      // types and settings dropped from the set (koleno, bod, retazenie,
+      // rozlozenie) must not discard the saved state
+      if (saved?.kompozicia) zahodZastarane(saved.kompozicia);
       return engine.normalizujSpec(saved);
     }
   } catch (err) {
@@ -730,6 +720,18 @@ function selectInput(options, value, onInput) {
   return select;
 }
 
+// drops settings and types the generator no longer knows; older `typy`
+// lists are converted to pomery by the core
+function zahodZastarane(k) {
+  delete k.retazenie;
+  delete k.rozlozenie;
+  const zname = (t) => TYPES.some((x) => x.id === t);
+  if (Array.isArray(k.typy)) k.typy = k.typy.filter(zname);
+  if (k.pomery && typeof k.pomery === 'object') {
+    k.pomery = Object.fromEntries(Object.entries(k.pomery).filter(([t]) => zname(t)));
+  }
+}
+
 function sliderRow(label, value, onInput) {
   const div = document.createElement('div');
   div.className = 'row';
@@ -754,6 +756,57 @@ function sliderRow(label, value, onInput) {
   div.append(l, wrap);
   wrap.append(range, num);
   return div;
+}
+
+// dual-thumb slider: two overlaid ranges share one track; `value` ([lo, hi])
+// is updated in place and the thumbs push each other instead of crossing
+function rangeSlider(value, { min, max }, onChange) {
+  const mkRange = () => {
+    const r = document.createElement('input');
+    r.type = 'range';
+    r.min = String(min);
+    r.max = String(max);
+    r.step = '1';
+    return r;
+  };
+  const lo = mkRange(), hi = mkRange();
+  value[0] = clamp(value[0], min, max);
+  value[1] = clamp(value[1], value[0], max);
+  const track = document.createElement('div');
+  track.className = 'range2';
+  const num = document.createElement('span');
+  num.className = 'num';
+  const sync = () => {
+    lo.value = String(value[0]);
+    hi.value = String(value[1]);
+    num.textContent = `${value[0]}–${value[1]}`;
+    const frac = (v) => (v - min) / (max - min);
+    track.style.setProperty('--lo', String(frac(value[0])));
+    track.style.setProperty('--hi', String(frac(value[1])));
+  };
+  const changed = () => {
+    sync();
+    if (onChange) onChange();
+    scheduleRender();
+  };
+  lo.addEventListener('input', () => {
+    value[0] = Math.min(Number(lo.value), value[1]);
+    changed();
+  });
+  hi.addEventListener('input', () => {
+    value[1] = Math.max(Number(hi.value), value[0]);
+    changed();
+  });
+  // the grabbed thumb moves above the other so it can be pulled apart again
+  const raise = (top, other) => { top.style.zIndex = '2'; other.style.zIndex = '1'; };
+  lo.addEventListener('pointerdown', () => raise(lo, hi));
+  hi.addEventListener('pointerdown', () => raise(hi, lo));
+  sync();
+  track.append(lo, hi);
+  const wrap = document.createElement('div');
+  wrap.className = 'range2-row';
+  wrap.append(track, num);
+  return wrap;
 }
 
 // ----- format popover -----
@@ -832,7 +885,7 @@ $('#predvolba-file').addEventListener('change', async (e) => {
   if (!file) return;
   try {
     const loaded = JSON.parse(await file.text());
-    if (loaded?.kompozicia) delete loaded.kompozicia.retazenie; // dropped setting
+    if (loaded?.kompozicia) zahodZastarane(loaded.kompozicia);
     spec = engine.normalizujSpec({
       ...loaded,
       variant: spec.variant, // a preset never touches the variant
@@ -849,6 +902,7 @@ $('#predvolba-file').addEventListener('change', async (e) => {
 // ----- parametre popover -----
 
 attachPopover($('#btn-parametre'), (pop) => {
+  pop.classList.add('wide');
   const k = spec.kresba, c = spec.kompozicia;
 
   const invLabel = document.createElement('label');
@@ -862,48 +916,17 @@ attachPopover($('#btn-parametre'), (pop) => {
   });
   invLabel.append(invBox, 'Inverzia (biele na čiernom)');
 
-  const sizeWrap = document.createElement('div');
-  sizeWrap.className = 'grow';
-  sizeWrap.append(
-    numberInput(c.velkost[0], { min: 1, max: 40, step: 1 }, (v) => {
-      c.velkost[0] = v;
-      if (c.velkost[1] < v) c.velkost[1] = v;
-    }),
-    Object.assign(document.createElement('span'), { textContent: '–' }),
-    numberInput(c.velkost[1], { min: 1, max: 40, step: 1 }, (v) => {
-      c.velkost[1] = v;
-      if (c.velkost[0] > v) c.velkost[0] = v;
-    }),
-    Object.assign(document.createElement('span'), { textContent: 'dielikov' }),
-  );
-
   const chainWrap = document.createElement('div');
   chainWrap.className = 'grow';
   chainWrap.append(
-    numberInput(c.retazenieDlzka[0], { min: 1, max: 50, step: 1 }, (v) => {
-      c.retazenieDlzka[0] = v;
-      if (c.retazenieDlzka[1] < v) c.retazenieDlzka[1] = v;
-    }),
-    Object.assign(document.createElement('span'), { textContent: '–' }),
-    numberInput(c.retazenieDlzka[1], { min: 1, max: 50, step: 1 }, (v) => {
-      c.retazenieDlzka[1] = v;
-      if (c.retazenieDlzka[0] > v) c.retazenieDlzka[0] = v;
-    }),
+    rangeSlider(c.retazenieDlzka, { min: 1, max: 50 }),
     Object.assign(document.createElement('span'), { textContent: 'tvarov' }),
   );
 
   const accentWrap = document.createElement('div');
   accentWrap.className = 'grow';
   accentWrap.append(
-    numberInput(c.akcentyNaRetaz[0], { min: 0, max: 50, step: 1 }, (v) => {
-      c.akcentyNaRetaz[0] = v;
-      if (c.akcentyNaRetaz[1] < v) c.akcentyNaRetaz[1] = v;
-    }),
-    Object.assign(document.createElement('span'), { textContent: '–' }),
-    numberInput(c.akcentyNaRetaz[1], { min: 0, max: 50, step: 1 }, (v) => {
-      c.akcentyNaRetaz[1] = v;
-      if (c.akcentyNaRetaz[0] > v) c.akcentyNaRetaz[0] = v;
-    }),
+    rangeSlider(c.akcentyNaRetaz, { min: 0, max: 50 }),
     Object.assign(document.createElement('span'), { textContent: 'na reťaz' }),
   );
 
@@ -914,15 +937,30 @@ attachPopover($('#btn-parametre'), (pop) => {
   // at this size (only Zaoblenie follows the drawing)
   const osi = computeAxes(70, 85, proporcie, spec.kresba.zaoblenie);
   const kresli = engine.renderShapeSvg || engine.renderShapeSvgFallback;
-  for (const t of TYPES) {
+  const cap = (text) => Object.assign(document.createElement('span'), { className: 'cap', textContent: text });
+  // connectors (the pätka quarter) switch on by themselves with contrast
+  const spojky = proporcie.kompozicia.rozmiestnenie.retazenie.spojky;
+  for (const t of TYPES.filter((x) => !spojky.includes(x.id))) {
     const l = document.createElement('label');
     l.title = t.name;
-    const box = document.createElement('input');
-    box.type = 'checkbox';
-    box.checked = c.typy.includes(t.id);
-    box.addEventListener('change', () => {
-      if (box.checked && !c.typy.includes(t.id)) c.typy.push(t.id);
-      if (!box.checked) c.typy = c.typy.filter((x) => x !== t.id);
+    // the slider sets the type's share; 0 leaves it out
+    const pomer = c.pomery[t.id] ?? 0;
+    const range = document.createElement('input');
+    range.type = 'range';
+    range.min = '0';
+    range.max = '100';
+    range.step = '1';
+    range.value = String(pomer);
+    range.setAttribute('aria-label', t.name);
+    const num = document.createElement('span');
+    num.className = 'num';
+    num.textContent = String(pomer);
+    l.classList.toggle('vypnuty', pomer === 0);
+    range.addEventListener('input', () => {
+      const v = Number(range.value);
+      c.pomery[t.id] = v;
+      num.textContent = String(v);
+      l.classList.toggle('vypnuty', v === 0);
       scheduleRender();
     });
     const nahlad = document.createElement('span');
@@ -934,7 +972,18 @@ attachPopover($('#btn-parametre'), (pop) => {
     } catch {
       nahlad.textContent = t.name;
     }
-    l.append(box, nahlad);
+    const pomerRow = document.createElement('div');
+    pomerRow.className = 'subrow';
+    pomerRow.append(cap('pomer'), range, num);
+    l.append(nahlad, pomerRow);
+    // kvapka's size is not used, so it gets no slider of its own
+    if (t.id !== 'kvapka') {
+      if (!c.velkosti[t.id]) c.velkosti[t.id] = [1, 6];
+      const sizeRow = document.createElement('div');
+      sizeRow.className = 'subrow';
+      sizeRow.append(cap('veľkosť'), rangeSlider(c.velkosti[t.id], { min: 1, max: 40 }));
+      l.append(sizeRow);
+    }
     typesGrid.append(l);
   }
 
@@ -955,11 +1004,9 @@ attachPopover($('#btn-parametre'), (pop) => {
     sliderRow('Zaoblenie', k.zaoblenie, (v) => { spec.kresba.zaoblenie = v; }),
     row('Farby', invLabel),
     mkH('Kompozícia'),
-    row('Veľkosť', sizeWrap),
     sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
     row('Dĺžka reťaze', chainWrap),
-    row('Krúžky a body', accentWrap),
-    row('Rozloženie', selectInput(ROZLOZENIE, c.rozlozenie, (v) => { spec.kompozicia.rozlozenie = v; })),
+    row('Krúžky a kvapky', accentWrap),
     row('Rozmiestnenie', selectInput(
       [['volne', 'voľné'], ['dlazdice', 'dlaždice']],
       c.rozmiestnenie, (v) => { spec.kompozicia.rozmiestnenie = v; })),

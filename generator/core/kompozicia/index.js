@@ -107,6 +107,12 @@ function normalizujKompozicia(raw) {
     const { velkost, ...zvysok } = raw;
     raw = { ...zvysok, velkosti: Object.fromEntries(Object.keys(d.velkosti).map((t) => [t, velkost.slice()])) };
   }
+  // `typy` is derived from pomery; a spec that went through normalisation
+  // once carries it and must pass again
+  if (raw && raw.pomery && 'typy' in raw) {
+    const { typy, ...zvysok } = raw;
+    raw = zvysok;
+  }
   if (raw && 'rozlozenie' in raw) {
     // dropped setting: sizes are spread evenly over the range
     const { rozlozenie, ...zvysok } = raw;
