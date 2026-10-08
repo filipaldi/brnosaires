@@ -69,6 +69,18 @@ test('spoj sa nachádza v bboxe tvaru', () => {
   }
 });
 
+test('parts zodpovedajú paths a každá má názov primitívy', () => {
+  for (const { id } of TYPES) {
+    const s = buildShape(id, defaultParams(id), axesFor(60, 70));
+    assert.equal(s.parts.length, s.paths.length, `${id}: parts iná dĺžka ako paths`);
+    assert.deepEqual(s.parts.map((p) => p.d), s.paths, `${id}: d v parts nesedí na paths`);
+    for (const p of s.parts) {
+      assert.equal(typeof p.part, 'string', `${id}: part nie je reťazec`);
+      assert.equal(typeof p.hole, 'boolean', `${id}: hole nie je boolean`);
+    }
+  }
+});
+
 test('kruh má vonkajšiu aj vnútornú cestu', () => {
   const s = buildShape('kruh', defaultParams('kruh'), axesFor(60, 70));
   assert.equal(s.paths.length, 2);

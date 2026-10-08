@@ -25,15 +25,30 @@ node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/obl
 ```
 
 Vzorkovník — mriežka typov × Weight, voliteľne so značením spojov
-(`--spoje`) a PNG (`--png`):
+(`--spoje`), pohľadom na skladbu z primitív (`--primitivy`) a PNG (`--png`):
 
 ```sh
 node generator/cli.js vzorkovnik --spoje --out /tmp/vzorkovnik.svg --png
 ```
 
+`--primitivy` kreslí každý diel tvaru osobitne vo farbe svojej primitívy
+(obdĺžnik, prstenec, krivka, vnútorný roh — legenda je v hlavičke listu),
+polopriehľadne, takže prekryvy primitív sú viditeľné a diery sú vyseknuté
+bielo.
+
 Bez `--png` stačí Node; pri `--png` sa hľadá Playwright v globálnych
 `node_modules` (`npm root -g`) a prehliadač v `PLAYWRIGHT_BROWSERS_PATH`.
 Chýbajúci Playwright alebo Chromium nezhavaruje beh — SVG sa zapíše vždy.
+
+## Porovnanie s referenciou
+
+`scripts/porovnaj-koleno.js` položí referenčné koleno návrhára (červené,
+polopriehľadné) na naše koleno v rovnakej mierke a vypíše maximálnu
+odchýlku obrysov:
+
+```sh
+node generator/scripts/porovnaj-koleno.js --out /tmp/koleno.svg --png
+```
 
 ## Testy
 

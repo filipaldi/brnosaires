@@ -3,23 +3,18 @@
 //
 //   node generator/cli.js typy
 //   node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/o.svg
-//   node generator/cli.js vzorkovnik --spoje --out /tmp/v.svg --png
+//   node generator/cli.js vzorkovnik --spoje --primitivy --out /tmp/v.svg --png
 //
 // Only node:util parseArgs, no CLI libraries. Exit codes: 0 ok, 1 bad input.
 
 import { parseArgs } from 'node:util';
-import { createRequire } from 'node:module';
-import { execSync } from 'node:child_process';
-import {
-  existsSync, readdirSync, statSync, writeFileSync,
-} from 'node:fs';
-import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { writeFileSync } from 'node:fs';
 
 import { TYPES, defaultParams, paramSpec, buildShape, proporcie } from './core/index.js';
 import { computeAxes } from './core/axes.js';
 import { renderShapeSvg, renderSheetSvg } from './core/svg.js';
 import { ValidationError } from './core/errors.js';
+import { renderPng, pngPathFor } from './png.js';
 
 const SCRIPT = 'node generator/cli.js';
 
@@ -37,7 +32,7 @@ Použitie:
             [--param kľúč=hodnota]... [--rotate 0|90|180|270] [--mirror]
             --out <súbor.svg> [--png]
   ${SCRIPT} vzorkovnik [--typ <id|all>] [--weight 20,40,60,80] [--contrast 70] [--zaoblenie <0-100>]
-            [--spoje] --out <súbor.svg> [--png]
+            [--spoje] [--primitivy] --out <súbor.svg> [--png]
 
 Zoznam typov a ich parametrov: ${SCRIPT} typy`);
 }
@@ -179,10 +174,6 @@ function cmdTvar(args) {
 
 // --- vzorkovnik ------------------------------------------------------------
 
-function pngPathFor(svgFile) {
-  return svgFile.replace(/\.svg$/i, '') + '.png';
-}
-
 function cmdVzorkovnik(args) {
   const opts = parse('vzorkovnik', args, {
     typ: { type: 'string', default: 'all' },
@@ -190,6 +181,7 @@ function cmdVzorkovnik(args) {
     contrast: { type: 'string', default: '70' },
     zaoblenie: { type: 'string', default: String(proporcie.osi.zaoblenie) },
     spoje: { type: 'boolean', default: false },
+    primitivy: { type: 'boolean', default: false },
     out: { type: 'string' },
     png: { type: 'boolean', default: false },
   });
@@ -226,64 +218,10 @@ function cmdVzorkovnik(args) {
     colHeaders,
     rows,
     showJoints: opts.spoje,
+    primitivy: opts.primitivy,
   });
   writeOut(opts.out, svg);
   if (opts.png) return renderPng(opts.out, pngPathFor(opts.out));
-}
-
-// --- PNG rendering ---------------------------------------------------------
-
-function findChromium() {
-  const root = process.env.PLAYWRIGHT_BROWSERS_PATH;
-  if (!root || !existsSync(root)) return null;
-  const dirs = readdirSync(root).sort().reverse(); // newest chromium-* first
-  const candidates = [];
-  for (const d of dirs) {
-    const base = path.join(root, d);
-    candidates.push(
-      path.join(base, 'chrome-linux', 'chrome'),
-      path.join(base, 'chrome-linux', 'headless_shell'),
-    );
-  }
-  return candidates.find((p) => existsSync(p) && statSync(p).isFile()) || null;
-}
-
-async function renderPng(svgFile, pngFile) {
-  let chromium = null;
-  try {
-    const globalRoot = execSync('npm root -g', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-    const require = createRequire(path.join(globalRoot, 'noop.js'));
-    chromium = require('playwright').chromium;
-  } catch {
-    // handled below
-  }
-  if (!chromium) {
-    console.error('Pozor: Playwright sa nenašiel v globálnych node_modules (npm root -g), PNG nebol vygenerovaný. SVG zostáva zapísané.');
-    return;
-  }
-
-  let browser = null;
-  try {
-    browser = await chromium.launch();
-  } catch {
-    const exe = findChromium();
-    if (!exe) {
-      console.error('Pozor: nenašiel sa prehliadač Chromium (PLAYWRIGHT_BROWSERS_PATH), PNG nebol vygenerovaný. SVG zostáva zapísané.');
-      return;
-    }
-    browser = await chromium.launch({ executablePath: exe });
-  }
-
-  try {
-    const page = await browser.newPage({ deviceScaleFactor: 2 });
-    await page.goto(pathToFileURL(path.resolve(svgFile)).href);
-    const el = await page.$('svg');
-    if (!el) throw new Error('v SVG chýba koreňový element <svg>');
-    await el.screenshot({ path: pngFile });
-    console.log(`Zapísané: ${pngFile}`);
-  } finally {
-    await browser.close();
-  }
 }
 
 // --- main ------------------------------------------------------------------

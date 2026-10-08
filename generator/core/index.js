@@ -3,7 +3,7 @@
 //   TYPES          list of { id, name } in sheet order
 //   defaultParams  clone of a type's default parameters (values live in
 //                  proporcie.json, so the type designer tunes them there)
-//   buildShape     (type, params, axes) → { paths, bbox, joints }
+//   buildShape     (type, params, axes) → { paths, parts, bbox, joints }
 //
 // `params` may also carry `rotate` (0/90/180/270) and `mirror` (boolean);
 // they are applied generically here, never inside individual shapes.
@@ -87,9 +87,14 @@ export function buildShape(type, params, axes) {
 
   const pts = transformed.subpaths.flatMap((s) => subpathPoints(s.segs));
   const bbox = bboxOfPoints(pts);
-  const paths = transformed.subpaths.map((s) => serializeSubpath(s.segs));
+  // `parts` keeps what `paths` drops: which primitive built each subpath and
+  // whether it is a hole, so a renderer can show the construction.
+  const parts = transformed.subpaths.map((s) => ({
+    d: serializeSubpath(s.segs), part: s.part, hole: Boolean(s.hole),
+  }));
+  const paths = parts.map((p) => p.d);
 
-  return { paths, bbox, joints: transformed.joints };
+  return { paths, parts, bbox, joints: transformed.joints };
 }
 
 export function paramSpec(type) {
