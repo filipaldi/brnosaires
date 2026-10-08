@@ -173,8 +173,10 @@ Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
 | 5 | CLI a build webu: náhľady akcií, pozadia | 1 sedenie |
 | 6 | Animácia a export videa | neskôr |
 
-## Otvorené otázky
+## Na neskôr
 
-- Na ktorých stránkach budú pozadia a dekorácie.
-- Adresa webového rozhrania (skrytá, `noindex`).
-- Overiť, ako Affinity načíta SVG masku, pred prvým ostrým plagátom.
+Nebránia začať, riešia sa až pri príslušnej fáze.
+
+- Na ktorých stránkach budú pozadia a dekorácie (fáza 5).
+- Adresa webového rozhrania (fáza 5).
+- Ako Affinity načíta SVG masku, doladí sa pri prvom ostrom plagáte.
