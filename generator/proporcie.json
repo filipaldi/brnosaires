@@ -25,8 +25,13 @@
     "stvrtoblouk": {
       "polomer": null
     },
-    "hmotaSoStrbinou": {
-      "dlzka": 3
+    "polkruh": {
+      "polomer": 1,
+      "hrubka": "vlas"
+    },
+    "stvrtkruh": {
+      "polomer": 1,
+      "hrubka": "vlas"
     },
     "kvapka": {
       "chvost": 50,
@@ -80,7 +85,8 @@
           "oblouk",
           "obloukPata",
           "stvrtoblouk",
-          "hmotaSoStrbinou",
+          "polkruh",
+          "stvrtkruh",
           "kvapka",
           "kruh",
           "bod"
@@ -137,10 +143,11 @@
       "stvrtoblouk": {
         "polomerPomer": 0.5
       },
-      "hmotaSoStrbinou": {
-        "zVelkosti": [
-          "dlzka"
-        ]
+      "polkruh": {
+        "polomerPomer": 0.5
+      },
+      "stvrtkruh": {
+        "polomerPomer": 0.5
       },
       "kvapka": {},
       "kruh": {
@@ -163,7 +170,8 @@
       "oblouk": 0.4,
       "obloukPata": 0.6,
       "stvrtoblouk": 0.6,
-      "hmotaSoStrbinou": 0.75,
+      "polkruh": 0.3,
+      "stvrtkruh": 0.3,
       "kvapka": 0.45,
       "kruh": 0.3,
       "bod": 1

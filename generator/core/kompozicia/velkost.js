@@ -35,9 +35,10 @@ export function drawSize(rng, { velkost, variacia, rozlozenie, koeficienty }) {
 // Size s → parameters for one type. Ratios live in proporcie.json
 // (kompozicia.velkostTvaru); this function only reads them, with the per-type
 // mapping documented here:
-//   noha, hmotaSoStrbinou  one length parameter equals s
+//   noha                   one length parameter equals s
 //   oblouk                 vyska = s, sirka = max(1, round(s · sirkaPomer))
 //   obloukPata, stvrtoblouk  polomer = s · polomerPomer (foot stays heavy)
+//   polkruh, stvrtkruh     polomer = s · polomerPomer
 //   kvapka, kruh, bod      accents — fixed sizes from proporcie (bod stays
 //                          automatic, derived from heavy)
 export function paramsFor(type, s, defaults, cfg) {
@@ -45,7 +46,7 @@ export function paramsFor(type, s, defaults, cfg) {
   const c = cfg[type] || {};
   for (const key of c.zVelkosti || []) p[key] = s;
   if (type === 'oblouk') p.sirka = Math.max(1, Math.round(s * c.sirkaPomer));
-  // pätky: the arc radius grows with s, the foot stays heavy
+  // arcs and pätky: the radius grows with s (a pätka's foot stays heavy)
   if (c.polomerPomer) p.polomer = snapHalf(s * c.polomerPomer);
   // fixed accents and fixed values — numbers other than the
   // named ratios are plain parameter values

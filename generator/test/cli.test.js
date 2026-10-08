@@ -17,7 +17,7 @@ const NODE = process.execPath;
 test('typy vypíše katalóg tvarov', async () => {
   const { stdout } = await exec(NODE, [CLI, 'typy']);
   assert.match(stdout, /noha — Noha/);
-  assert.match(stdout, /hmotaSoStrbinou — Hmota so štrbinou/);
+  assert.match(stdout, /polkruh — Polooblúk/);
   assert.match(stdout, /dlzka/);
 });
 
