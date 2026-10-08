@@ -236,9 +236,9 @@ V rozhraní sa píšu slová, nie symboly. Slovo „seed“ sa v rozhraní nepou
 
 Nástroj na ladenie tvarov a `proporcie.json`, nie bežná práca. Vo fáze 1 ho nahrádzajú vzorkovníky z CLI. Otvára sa skratkou `T` cez celé okno.
 
-- Vybraný typ z generátora vedľa vzorky písma. Prepínač „prekryť písmom“ ich položí cez seba, aby bolo vidno rozdiel v krivkách.
-- Posuvníky Weight, Contrast a parametrov vybraného typu.
-- Pod tým všetkých 10 typov naraz pri aktuálnom Weight a Contrast.
+- Vybraný typ vo veľkom.
+- Posuvníky Weight, Contrast, Zaoblenie a parametrov vybraného typu.
+- Pod tým všetky typy naraz pri aktuálnych osiach.
 
 ## Fázy
 
@@ -246,7 +246,7 @@ Najprv jadro a CLI, rozhranie až potom. Tvary sa ladia cez vzorkovníky: obráz
 
 | # | Výsledok | Odhad |
 |---|---|---|
-| 1 | Jadro s 10 typmi a CLI: vzorkovníky, porovnanie s písmom, PNG/SVG | 1–2 sedenia |
+| 1 | Jadro s typmi a CLI: vzorkovníky, PNG/SVG | 1–2 sedenia |
 | 2 | CLI kompozícia: formát, grid, parametre, variant, zóny zo súboru, voľné rozmiestnenie | 1–2 sedenia |
 | 3 | Build webu: náhľady akcií, pozadia | 1 sedenie |
 | 4 | UI: lišta a plátno, zóny ťahaním, prehliadač tvarov | 2 sedenia |

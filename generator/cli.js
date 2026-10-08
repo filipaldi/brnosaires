@@ -3,7 +3,7 @@
 //
 //   node generator/cli.js typy
 //   node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/o.svg
-//   node generator/cli.js vzorkovnik --pismo --spoje --out /tmp/v.svg --png
+//   node generator/cli.js vzorkovnik --spoje --out /tmp/v.svg --png
 //
 // Only node:util parseArgs, no CLI libraries. Exit codes: 0 ok, 1 bad input.
 
@@ -11,10 +11,10 @@ import { parseArgs } from 'node:util';
 import { createRequire } from 'node:module';
 import { execSync } from 'node:child_process';
 import {
-  existsSync, readdirSync, readFileSync, statSync, unlinkSync, writeFileSync,
+  existsSync, readdirSync, statSync, writeFileSync,
 } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { pathToFileURL } from 'node:url';
 
 import { TYPES, defaultParams, paramSpec, buildShape, proporcie } from './core/index.js';
 import { computeAxes } from './core/axes.js';
@@ -22,9 +22,6 @@ import { renderShapeSvg, renderSheetSvg } from './core/svg.js';
 import { ValidationError } from './core/errors.js';
 
 const SCRIPT = 'node generator/cli.js';
-const FONT_FILE = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)), '..',
-  'theme/static/fonts/brnos-aires.woff2');
 
 function die(msg) {
   console.error(`Chyba: ${msg}`);
@@ -40,7 +37,7 @@ Použitie:
             [--param kľúč=hodnota]... [--rotate 0|90|180|270] [--mirror]
             --out <súbor.svg> [--png]
   ${SCRIPT} vzorkovnik [--typ <id|all>] [--weight 20,40,60,80] [--contrast 70] [--zaoblenie <0-100>]
-            [--pismo] [--embed-font] [--spoje] --out <súbor.svg> [--png]
+            [--spoje] --out <súbor.svg> [--png]
 
 Zoznam typov a ich parametrov: ${SCRIPT} typy`);
 }
@@ -186,29 +183,12 @@ function pngPathFor(svgFile) {
   return svgFile.replace(/\.svg$/i, '') + '.png';
 }
 
-function fontDefinition(outFile, embed) {
-  if (!existsSync(FONT_FILE)) {
-    console.error('Pozor: nenašiel sa theme/static/fonts/brnos-aires.woff2, referenčné písmo sa nezobrazí.');
-    return null;
-  }
-  let src;
-  if (embed) {
-    const buf = readFileSync(FONT_FILE);
-    src = `data:font/woff2;base64,${buf.toString('base64')}`;
-  } else {
-    src = path.relative(path.dirname(path.resolve(outFile)), FONT_FILE).split(path.sep).join('/');
-  }
-  return `@font-face{font-family:'Brnos Aires';src:url('${src}') format('woff2');}`;
-}
-
 function cmdVzorkovnik(args) {
   const opts = parse('vzorkovnik', args, {
     typ: { type: 'string', default: 'all' },
     weight: { type: 'string', default: '20,40,60,80' },
     contrast: { type: 'string', default: '70' },
     zaoblenie: { type: 'string', default: String(proporcie.osi.zaoblenie) },
-    pismo: { type: 'boolean', default: false },
-    'embed-font': { type: 'boolean', default: false },
     spoje: { type: 'boolean', default: false },
     out: { type: 'string' },
     png: { type: 'boolean', default: false },
@@ -223,7 +203,6 @@ function cmdVzorkovnik(args) {
   const zaoblenie = parseAxisNumber(opts.zaoblenie, 'Zaoblenie');
 
   const colHeaders = weights.map((w) => `Weight ${fmtSk(w)}`);
-  if (opts.pismo) colHeaders.push('Písmo');
 
   const rows = [];
   for (const typ of types) {
@@ -238,44 +217,18 @@ function cmdVzorkovnik(args) {
       }));
       const label = TYPES.find((t) => t.id === typ).name
         + (contrasts.length > 1 ? ` · C ${fmtSk(c)}` : '');
-      if (opts.pismo) cells.push({ glyph: propPismo(typ) });
       rows.push({ label, sub: summary, cells, jointDots: true });
     }
   }
 
-  const xHeightRatio = proporcie.proporcie.pismo.xHeightRatio;
-  const fontDef = opts.pismo ? fontDefinition(opts.out, opts['embed-font']) : null;
   const svg = renderSheetSvg({
     title: 'Vzorkovník tvarov · Brnos Aires',
     colHeaders,
     rows,
     showJoints: opts.spoje,
-    fontDef,
-    glyphFontSize: Math.round((2 / xHeightRatio) * 52),
   });
   writeOut(opts.out, svg);
-
-  if (opts.png) {
-    // render the PNG from a copy with the font embedded, so the reference
-    // glyph shows even when the output SVG keeps a relative URL
-    const embedded = opts.pismo && !opts['embed-font']
-      ? renderSheetSvg({
-        title: 'Vzorkovník tvarov · Brnos Aires',
-        colHeaders,
-        rows,
-        showJoints: opts.spoje,
-        fontDef: fontDefinition(opts.out, true),
-        glyphFontSize: Math.round((2 / xHeightRatio) * 52),
-      })
-      : null;
-    return renderPng(opts.out, pngPathFor(opts.out), { overrideSvg: embedded });
-  }
-}
-
-function propPismo(typ) {
-  const glyph = proporcie.pismo[typ];
-  if (!glyph) die(`V proporcie.json chýba referenčný glif pre typ ${typ} (sekcia „pismo“).`);
-  return glyph;
+  if (opts.png) return renderPng(opts.out, pngPathFor(opts.out));
 }
 
 // --- PNG rendering ---------------------------------------------------------
@@ -295,7 +248,7 @@ function findChromium() {
   return candidates.find((p) => existsSync(p) && statSync(p).isFile()) || null;
 }
 
-async function renderPng(svgFile, pngFile, { overrideSvg = null } = {}) {
+async function renderPng(svgFile, pngFile) {
   let chromium = null;
   try {
     const globalRoot = execSync('npm root -g', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
@@ -309,16 +262,12 @@ async function renderPng(svgFile, pngFile, { overrideSvg = null } = {}) {
     return;
   }
 
-  const renderFile = overrideSvg ? `${pngFile}.render.svg` : svgFile;
-  if (overrideSvg) writeFileSync(renderFile, overrideSvg, 'utf8');
-
   let browser = null;
   try {
     browser = await chromium.launch();
   } catch {
     const exe = findChromium();
     if (!exe) {
-      if (overrideSvg) unlinkSync(renderFile);
       console.error('Pozor: nenašiel sa prehliadač Chromium (PLAYWRIGHT_BROWSERS_PATH), PNG nebol vygenerovaný. SVG zostáva zapísané.');
       return;
     }
@@ -327,17 +276,13 @@ async function renderPng(svgFile, pngFile, { overrideSvg = null } = {}) {
 
   try {
     const page = await browser.newPage({ deviceScaleFactor: 2 });
-    await page.goto(pathToFileURL(path.resolve(renderFile)).href);
-    await page.evaluate(() => document.fonts.ready);
+    await page.goto(pathToFileURL(path.resolve(svgFile)).href);
     const el = await page.$('svg');
     if (!el) throw new Error('v SVG chýba koreňový element <svg>');
     await el.screenshot({ path: pngFile });
     console.log(`Zapísané: ${pngFile}`);
   } finally {
     await browser.close();
-    if (overrideSvg) {
-      try { unlinkSync(renderFile); } catch { /* best effort */ }
-    }
   }
 }
 

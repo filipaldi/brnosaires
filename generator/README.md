@@ -24,11 +24,11 @@ Jeden tvar do tesne orezaného SVG (1 dielik = 100 px, okraj 0,25 dielika):
 node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/oblouk.svg
 ```
 
-Vzorkovník — mriežka typov × Weight, voliteľne s referenčným písmom
-(`--pismo`), značením spojov (`--spoje`) a PNG (`--png`):
+Vzorkovník — mriežka typov × Weight, voliteľne so značením spojov
+(`--spoje`) a PNG (`--png`):
 
 ```sh
-node generator/cli.js vzorkovnik --pismo --spoje --out /tmp/vzorkovnik.svg --png
+node generator/cli.js vzorkovnik --spoje --out /tmp/vzorkovnik.svg --png
 ```
 
 Bez `--png` stačí Node; pri `--png` sa hľadá Playwright v globálnych

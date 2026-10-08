@@ -58,22 +58,6 @@
     "bod": {
       "_comment": "Predvolený priemer bodu (× heavy).",
       "priemer": 1.2
-    },
-    "pismo": {
-      "_comment": "xHeightRatio: výška malých písmen v em. Podľa nej sa referenčný glif vo vzorkovníku škáluje na x-height približne 2 dieliky.",
-      "xHeightRatio": 0.55
     }
-  },
-  "pismo": {
-    "_comment": "Referenčný glif každého tvaru pre vzorkovník s --pismo.",
-    "noha": "l",
-    "oblouk": "n",
-    "koleno": "F",
-    "hmotaSoStrbinou": "U",
-    "hacikSKvapkou": "r",
-    "nota": "f",
-    "kvapka": "r",
-    "kruh": "i",
-    "bod": "."
   }
 }

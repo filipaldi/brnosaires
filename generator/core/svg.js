@@ -1,7 +1,7 @@
 // SVG serialization: every shape is filled outlines (fill only, no stroke)
 // on a white background. Output is fully deterministic — same input, same
-// bytes. The sheet also draws column headers, cell labels, the optional
-// reference-glyph column and (in specimens only) red joint markers.
+// bytes. The sheet also draws column headers, cell labels and (in specimens
+// only) red joint markers.
 
 import { fmt } from './geometry.js';
 
@@ -49,15 +49,13 @@ export function renderShapeSvg(shape, { pxPerDielik = 100, margin = 0.25, showJo
 }
 
 // Specimen sheet: a grid of cells (one column per Weight value, one row per
-// type × Contrast), labels under each cell, optional last column with the
-// reference glyph from the real font.
+// type × Contrast) and labels under each cell.
 //
 //   colHeaders  ['Weight 20', ...]
-//   rows        [{ label, sub, cells: [{ shape } | { glyph }], jointDots }]
-//   fontDef     <style> string with the @font-face, or null
+//   rows        [{ label, sub, cells: [{ shape }], jointDots }]
 export function renderSheetSvg({
   title, colHeaders, rows, cellW = 200, cellH = 252, pxPerDielik = 52,
-  fontDef = null, showJoints = false, glyphFontSize,
+  showJoints = false,
 }) {
   const pad = 18;
   const headerH = 64;
@@ -70,7 +68,6 @@ export function renderSheetSvg({
 
   out.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="sans-serif">`);
   out.push(`<rect width="${W}" height="${H}" fill="${WHITE}"/>`);
-  if (fontDef) out.push(`<defs><style>${fontDef}</style></defs>`);
 
   out.push(
     `<text x="${pad}" y="30" font-size="17" font-weight="bold" fill="${BLACK}">${esc(title)}</text>`);
@@ -87,20 +84,15 @@ export function renderSheetSvg({
     row.cells.forEach((cell, c) => {
       const left = pad + c * cellW;
       const baseline = top + cellH - labelH - 14;
-      if (cell.glyph !== undefined) {
-        out.push(
-          `<text x="${left + cellW / 2}" y="${baseline}" font-size="${glyphFontSize}" text-anchor="middle" fill="${BLACK}" font-family="Brnos Aires">${esc(cell.glyph)}</text>`);
-      } else {
-        const shape = cell.shape;
-        const contentH = cellH - labelH - 34;
-        const scale = pxPerDielik * Math.min(1, contentH / Math.max(shape.bbox.h * pxPerDielik, 1));
-        const wPx = shape.bbox.w * scale;
-        const x = left + (cellW - wPx) / 2 - shape.bbox.x * scale;
-        const y = baseline - (shape.bbox.y + shape.bbox.h) * scale;
-        out.push(shapeGroup(shape, {
-          x, y, scale, showJoints: showJoints && row.jointDots, jointR: 5,
-        }));
-      }
+      const shape = cell.shape;
+      const contentH = cellH - labelH - 34;
+      const scale = pxPerDielik * Math.min(1, contentH / Math.max(shape.bbox.h * pxPerDielik, 1));
+      const wPx = shape.bbox.w * scale;
+      const x = left + (cellW - wPx) / 2 - shape.bbox.x * scale;
+      const y = baseline - (shape.bbox.y + shape.bbox.h) * scale;
+      out.push(shapeGroup(shape, {
+        x, y, scale, showJoints: showJoints && row.jointDots, jointR: 5,
+      }));
       const labelX = left + cellW / 2;
       out.push(
         `<text x="${labelX}" y="${top + cellH - labelH + 16}" font-size="12" text-anchor="middle" fill="${BLACK}">${esc(row.label)}</text>`);
