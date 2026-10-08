@@ -3,7 +3,7 @@
 // through the composition engine (debounced) and persists to localStorage.
 
 import * as engine from './engine.js';
-import { TYPES } from '../core/index.js';
+import { TYPES, buildShape, defaultParams, computeAxes, proporcie } from '../core/index.js';
 import { createViewer } from './viewer.js';
 import {
   exportSvgFile, exportPngFile, exportAvifFile, avifSupported,
@@ -909,8 +909,14 @@ attachPopover($('#btn-parametre'), (pop) => {
 
   const typesGrid = document.createElement('div');
   typesGrid.className = 'types';
+  // each type shows as a small drawing in the current Weight / Contrast /
+  // Zaoblenie; the name stays as the tooltip
+  const kresba = spec.kresba;
+  const osi = computeAxes(kresba.weight, kresba.contrast, proporcie, kresba.zaoblenie);
+  const kresli = engine.renderShapeSvg || engine.renderShapeSvgFallback;
   for (const t of TYPES) {
     const l = document.createElement('label');
+    l.title = t.name;
     const box = document.createElement('input');
     box.type = 'checkbox';
     box.checked = c.typy.includes(t.id);
@@ -919,7 +925,16 @@ attachPopover($('#btn-parametre'), (pop) => {
       if (!box.checked) c.typy = c.typy.filter((x) => x !== t.id);
       scheduleRender();
     });
-    l.append(box, t.name);
+    const nahlad = document.createElement('span');
+    nahlad.className = 'nahlad';
+    nahlad.setAttribute('aria-label', t.name);
+    try {
+      nahlad.innerHTML = kresli(buildShape(t.id, defaultParams(t.id), osi), { pxPerDielik: 60, margin: 0.12 })
+        .replace(/ width="[^"]*" height="[^"]*"/, '');
+    } catch {
+      nahlad.textContent = t.name;
+    }
+    l.append(box, nahlad);
     typesGrid.append(l);
   }
 
