@@ -206,7 +206,7 @@
       "maxSirka": 2400
     },
     "kvapka": {
-      "_comment": "V kompozícii sa chvost, výška a hrúbka krku kvapky ťahajú náhodne z týchto rozsahov (%), aby kvapky neboli rovnaké.",
+      "_comment": "V kompozícii sa chvost a výška kvapky ťahajú náhodne z týchto rozsahov (%). sirka = rozsah šírky kvapky v dielikoch: hrúbka krku sa dopočíta tak, aby kvapka mala túto šírku pri hrdle hrúbky ťahu, na ktorý sa napája (pri nízkom kontraste sa inak plné hrdlá nafúkli do obrích kvapiek).",
       "chvost": [
         0,
         100
@@ -215,9 +215,9 @@
         0,
         100
       ],
-      "krk": [
-        0,
-        100
+      "sirka": [
+        0.6,
+        1.6
       ]
     }
   }

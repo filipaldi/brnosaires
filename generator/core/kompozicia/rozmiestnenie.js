@@ -89,9 +89,17 @@ function potiahniRozmer(rng, typ, ctx, sPevne = null) {
   if ('chvost' in params) params.chvost = Math.round(c0 + rng() * (c1 - c0));
   if ('kvapkaVyska' in params) params.kvapkaVyska = Math.round(v0 + rng() * (v1 - v0));
   if (typ === 'kvapka') params.vyska = Math.round(v0 + rng() * (v1 - v0));
-  const [k0, k1] = ctx.kvapka.krk;
-  if ('krk' in params) params.krk = Math.round(k0 + rng() * (k1 - k0));
-  if (typ === 'kvapka') params.hrubka = rng() < 0.5 ? 'vlas' : 'plna';
+  if (typ === 'kvapka') {
+    params.hrubka = rng() < 0.5 ? 'vlas' : 'plna';
+    // the drop's size follows its neck (scale = t / (10 + 30 · krk)), so a
+    // heavy neck would blow it up; instead a width is drawn and the neck
+    // master blend (krk) solved for it: width = (150 + 150 · chvost) · scale
+    const t = params.hrubka === 'plna' ? ctx.axes.heavy : ctx.axes.hair;
+    const [w0, w1] = ctx.kvapka.sirka;
+    const sirka = w0 + rng() * (w1 - w0);
+    const k = ((150 + 150 * params.chvost / 100) * t / sirka - 10) / 30;
+    params.krk = Math.round(Math.min(Math.max(k, 0), 1) * 100);
+  }
   return { typ, s, params };
 }
 
