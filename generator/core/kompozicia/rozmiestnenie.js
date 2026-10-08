@@ -139,6 +139,9 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
   // all; such draws are skipped without spending an attempt
   for (let i = 0, tahov = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov && tahov < pokusy * 8; tahov++) {
     const typ = rngPick(rng, typy);
+    // some pairs never join directly (a half ring onto another half ring)
+    if (ctx.zakazanePary.some(([a, b]) => (a === typ && b === otvoren.entry.typ)
+      || (b === typ && a === otvoren.entry.typ))) continue;
     const r0 = potiahniRozmer(rng, typ, ctx);
     const spoje0 = orientuj(r0, ORIENTACIE[0], ctx).shape.joints;
     if (!spoje0.some((j) => Math.abs(j.t - otvoren.j.t) < 1e-9)) continue;
@@ -191,7 +194,7 @@ export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
   velkost: velkostCfg, variacia, rozlozenie, rozlozenieKoef,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], kvapka,
+  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], zakazanePary = [], kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
@@ -218,7 +221,7 @@ export function placeShapes(rng, {
   const ctx = {
     build, axes, defaultsOf, velkostTvaru, velkost: velkostCfg, variacia, rozlozenie,
     rozlozenieKoef, stlpce, bandY, bandH, zony, medzera, dotyk, pokusov: 0, maxPokusov,
-    typyRetezi, placed: null, kvapka,
+    typyRetezi, placed: null, kvapka, zakazanePary,
   };
 
   const placed = [];

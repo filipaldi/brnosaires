@@ -179,3 +179,18 @@ test('každá čiara končí slzou: tvar reťaze má obsadené všetky spoje', (
     assert.equal(t.spoje.length, t.joints.length, `${t.typ} má voľný koniec`);
   }
 });
+
+test('polooblúk sa nenapája priamo na ďalší polooblúk', () => {
+  for (const variant of ['1', '7', '42']) {
+    const { tvary } = komponuj({ variant });
+    const polkruhy = tvary.filter((t) => t.typ === 'polkruh');
+    for (const a of polkruhy) {
+      for (const id of a.spoje) {
+        const j = a.joints.find((q) => q.id === id);
+        const susedia = polkruhy.filter((b) => b !== a
+          && b.joints.some((q) => b.spoje.includes(q.id) && Math.hypot(q.x - j.x, q.y - j.y) < 1e-6));
+        assert.equal(susedia.length, 0, `variant ${variant}: polkruh na polkruhu`);
+      }
+    }
+  }
+});

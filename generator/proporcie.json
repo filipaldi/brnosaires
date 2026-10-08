@@ -190,7 +190,13 @@
           "obloukPata",
           "stvrtoblouk"
         ],
-        "_comment": "spojky: typy, ktoré reťaz nikdy nezačínajú, objavia sa len napojené na iný tvar."
+        "_comment": "spojky: typy, ktoré reťaz nikdy nezačínajú, objavia sa len napojené na iný tvar. zakazanePary: dvojice typov, ktoré sa nesmú napojiť priamo na seba.",
+        "zakazanePary": [
+          [
+            "polkruh",
+            "polkruh"
+          ]
+        ]
       }
     },
     "svg": {

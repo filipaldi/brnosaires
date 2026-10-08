@@ -7,7 +7,7 @@
     "spadavka": 3
   },
   "grid": {
-    "stlpce": 8,
+    "stlpce": 24,
     "zvysok": "okraje"
   },
   "kresba": {
@@ -40,36 +40,36 @@
   "zony": [
     {
       "typ": "text",
-      "x": 1,
-      "y": 1,
-      "w": 6,
-      "h": 4,
+      "x": 3,
+      "y": 3,
+      "w": 18,
+      "h": 12,
       "spravanie": "prazdna",
       "text": "MILONGA\nDE OTOÑO",
       "pismo": "Brnos Aires",
-      "velkost": 1.0,
+      "velkost": 3.0,
       "zarovnanie": "vlavo",
       "riadkovanie": 1.1
     },
     {
       "typ": "text",
-      "x": 1,
-      "y": 5,
-      "w": 5,
-      "h": 1,
+      "x": 3,
+      "y": 15,
+      "w": 15,
+      "h": 3,
       "spravanie": "prazdna",
       "text": "sobota 25. októbra 2026, 20:00",
       "pismo": "Nunito",
-      "velkost": 0.3,
+      "velkost": 0.9,
       "zarovnanie": "vlavo",
       "riadkovanie": 1.2
     },
     {
       "typ": "fotka",
-      "x": 4,
-      "y": 7,
-      "w": 4,
-      "h": 4,
+      "x": 12,
+      "y": 21,
+      "w": 12,
+      "h": 12,
       "spravanie": "okraj",
       "rezim": "ramik"
     }

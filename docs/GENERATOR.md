@@ -156,6 +156,7 @@ Body napojenia vyplývajú z geometrie (konce nôh, päty oblúka), netreba ich 
 - **Reťaz** sa skladá z tvarov napojených spojmi rovnakej hrúbky. Dĺžka reťaze je [min, max] tvarov (predvolene 5–20). Reťaz kratšia ako minimum sa zahodí, takže samostatné tvary nevznikajú.
 - **Samostatne** smie stáť len krúžok alebo bod, a aj to len pri reťazi: každá reťaz dostane [min, max] krúžkov a bodov (predvolene 1–10), s bežnou medzerou od niektorého svojho tvaru. Kvapka samostatne nestojí, len ukončuje reťaz.
 - **Pätky** (oblúk a štvrťoblúk s pätkou) reťaz nezačínajú, len sa napájajú. Ich polomer rastie s veľkosťou tvaru, pätka ostáva široká ako plná noha.
+- **Polooblúk** sa nenapája priamo na ďalší polooblúk (zoznam takých dvojíc je v `proporcie.json`, `zakazanePary`).
 - **Veľkosti** tvarov sú celé dieliky.
 
 ## Ako to funguje

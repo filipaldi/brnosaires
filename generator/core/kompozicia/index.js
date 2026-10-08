@@ -269,6 +269,7 @@ export function komponuj(input, { fontUrls } = {}) {
     dotyk: KOMP.rozmiestnenie.retazenie.dotyk,
     neuspechov: KOMP.rozmiestnenie.retazenie.neuspechov,
     spojky: KOMP.rozmiestnenie.retazenie.spojky,
+    zakazanePary: KOMP.rozmiestnenie.retazenie.zakazanePary,
     kvapka: KOMP.kvapka,
   });
   varovania.push(...varovaniaUmiestnenia);
