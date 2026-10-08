@@ -12,7 +12,9 @@ const plagat = JSON.parse(readFileSync(new URL('../priklady/plagat-a2.json', imp
 const nahlad = JSON.parse(readFileSync(new URL('../priklady/nahlad-akcie.json', import.meta.url), 'utf8'));
 
 // rect helpers — zone rects and placed bboxes share the {x, y, w, h} shape
-const prekryv = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+// touching edges are fine; 1e-9 absorbs floating-point noise
+const E = 1e-9;
+const prekryv = (a, b) => a.x < b.x + b.w - E && a.x + a.w > b.x + E && a.y < b.y + b.h - E && a.y + a.h > b.y + E;
 const vzdialenost = (a, b) => Math.max(
   b.x - (a.x + a.w), a.x - (b.x + b.w),
   b.y - (a.y + a.h), a.y - (b.y + b.h),
@@ -98,10 +100,9 @@ test('normalizujSpec doplní všetky predvolené polia', () => {
   const spec = normalizujSpec({});
   assert.equal(spec.format.sirka, 420);
   assert.equal(spec.grid.stlpce, 30);
-  assert.equal(spec.kompozicia.rozlozenie, 'rovnomerne');
   assert.equal(spec.variant, '1');
   assert.deepEqual(spec.zony, []);
-  assert.equal(typeof spec.kompozicia.typy[0], 'string');
+  assert.equal(typeof spec.kompozicia.pomery.noha, 'number');
 });
 
 test('rozmiestnenie dlazdice varuje a beží ako voľné', () => {
@@ -118,8 +119,8 @@ test('neplatný spec skončí na ValidationError so slovenskou správou', () => 
     [{ grid: { zvysok: 'hore' } }, /zvysok/],
     [{ kresba: { weight: 140 } }, /weight/],
     [{ kompozicia: { velkost: [6, 1] } }, /velkost/],
-    [{ kompozicia: { typy: ['acky'] } }, /Neznámy typ/],
-    [{ kompozicia: { typy: [] } }, /typy/],
+    [{ kompozicia: { pomery: { acky: 5 } } }, /Neznámy typ/],
+    [{ kompozicia: { pomery: { noha: 0 } } }, /pomery/],
     [{ variant: true }, /variant/],
     [{ inverzia: 'nie' }, /inverzia/],
     [{ zony: [{ typ: 'text', x: 1, y: 1, w: 99, h: 2 }] }, /presahuje šírku/],
@@ -144,7 +145,8 @@ test('tvary sa reťazia cez spoje rovnakej hrúbky', async () => {
   const spojene = tvary.filter((t) => t.spoje.length);
   assert.ok(spojene.length >= 2, 'aspoň jedna reťaz');
   const OPAK = { down: 'up', up: 'down', left: 'right', right: 'left' };
-  for (const t of spojene) {
+  // a teardrop hung along a leg (bok) sits on the leg's side, not on a joint
+  for (const t of spojene.filter((u) => !u.bok)) {
     for (const id of t.spoje) {
       const j = t.joints.find((q) => q.id === id);
       const partner = tvary.some((u) => u !== t && u.joints.some((q) => u.spoje.includes(q.id)

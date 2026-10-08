@@ -24,8 +24,8 @@ test('typy vypíše katalóg tvarov', async () => {
 test('tvar zapíše SVG a je deterministický', async () => {
   const dir = mkdtempSync(path.join(tmpdir(), 'brnos-gen-'));
   try {
-    const out = path.join(dir, 'oblouk.svg');
-    const first = await exec(NODE, [CLI, 'tvar', '--typ', 'oblouk', '--weight', '60',
+    const out = path.join(dir, 'polkruh.svg');
+    const first = await exec(NODE, [CLI, 'tvar', '--typ', 'polkruh', '--weight', '60',
       '--contrast', '80', '--out', out]);
     assert.match(first.stdout, /Zapísané/);
     const svg1 = readFileSync(out, 'utf8');
@@ -34,7 +34,7 @@ test('tvar zapíše SVG a je deterministický', async () => {
     assert.doesNotMatch(svg1, /NaN|Infinity/);
 
     const out2 = path.join(dir, 'oblouk2.svg');
-    await exec(NODE, [CLI, 'tvar', '--typ', 'oblouk', '--weight', '60',
+    await exec(NODE, [CLI, 'tvar', '--typ', 'polkruh', '--weight', '60',
       '--contrast', '80', '--out', out2]);
     assert.equal(readFileSync(out2, 'utf8'), svg1, 'rovnaké vstupy majú dať rovnaké bajty');
   } finally {

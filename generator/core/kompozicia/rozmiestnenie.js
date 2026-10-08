@@ -3,9 +3,9 @@
 // and grows by attaching the next shape's opposite-direction, same-thickness
 // joint onto one of the chain's open joints (exact coincidence). Joined ends
 // are recorded in `spoje` on both shapes so the rebuild keeps them square.
-// Accents without joints (kruh, bod) and a kvapka on its own are placed after
-// the chains, scattered with the normal gap. Filling stops at the area target
-// (`hustota` × free area) or after `maxPokusov` shape draws.
+// Every open end of a finished chain gets a teardrop. Accents (kruh, and
+// teardrops hung along a straight line) sit beside their chain. Filling stops
+// at the area target (`hustota` × free area) or after `maxPokusov` draws.
 
 import { rngInt, rngPick } from './rng.js';
 import { drawSize, paramsFor } from './velkost.js';
@@ -80,7 +80,7 @@ const ORIENTACIE = [0, 90, 180, 270].flatMap((rotate) => [false, true].map((mirr
 // Type and size drawn from the spec's distributions, before orientation.
 function potiahniRozmer(rng, typ, ctx, sPevne = null) {
   const s = sPevne ?? drawSize(rng, {
-    velkost: ctx.velkost, variacia: ctx.variacia, rozlozenie: ctx.rozlozenie, koeficienty: ctx.rozlozenieKoef,
+    velkost: ctx.velkosti[typ], variacia: ctx.variacia,
   });
   const params = paramsFor(typ, s, ctx.defaultsOf(typ), ctx.velkostTvaru);
   // every drop in the composition gets its own tail and height
@@ -89,16 +89,14 @@ function potiahniRozmer(rng, typ, ctx, sPevne = null) {
   if ('chvost' in params) params.chvost = Math.round(c0 + rng() * (c1 - c0));
   if ('kvapkaVyska' in params) params.kvapkaVyska = Math.round(v0 + rng() * (v1 - v0));
   if (typ === 'kvapka') params.vyska = Math.round(v0 + rng() * (v1 - v0));
+  // a leg is a hairline or a heavy stroke; arcs stay hairlines unless no
+  // pätka can carry a hairline into a heavy stroke (low contrast)
+  if (typ === 'noha' || (ctx.bezPatiek && 'hrubka' in params && typ !== 'kvapka')) {
+    params.hrubka = rng() < 0.5 ? 'vlas' : 'plna';
+  }
   if (typ === 'kvapka') {
     params.hrubka = rng() < 0.5 ? 'vlas' : 'plna';
-    // the drop's size follows its neck (scale = t / (10 + 30 · krk)), so a
-    // heavy neck would blow it up; instead a width is drawn and the neck
-    // master blend (krk) solved for it: width = (150 + 150 · chvost) · scale
-    const t = params.hrubka === 'plna' ? ctx.axes.heavy : ctx.axes.hair;
-    const [w0, w1] = ctx.kvapka.sirka;
-    const sirka = w0 + rng() * (w1 - w0);
-    const k = ((150 + 150 * params.chvost / 100) * t / sirka - 10) / 30;
-    params.krk = Math.round(Math.min(Math.max(k, 0), 1) * 100);
+    krkPreSirku(rng, params, params.hrubka === 'plna' ? ctx.axes.heavy : ctx.axes.hair, ctx);
   }
   return { typ, s, params };
 }
@@ -110,6 +108,44 @@ function orientuj(r, { rotate, mirror }, ctx) {
 // One shape drawn from the spec's distributions: type, size, orientation.
 function potiahni(rng, typ, ctx) {
   return orientuj(potiahniRozmer(rng, typ, ctx), rngPick(rng, ORIENTACIE), ctx);
+}
+
+// Pick a type by its weight (pomery), corrected by what is already on the
+// canvas: a type with a smaller share than its weight asks for is favoured,
+// one ahead of it held back, so the finished drawing keeps the ratios.
+function vyberTyp(rng, typy, ctx) {
+  const spolu = typy.reduce((a, t) => a + (ctx.pomery[t] ?? 0), 0);
+  if (!spolu) return rngPick(rng, typy);
+  const pocty = {};
+  let n = 0;
+  for (const p of ctx.placed) {
+    if (p.cap || !typy.includes(p.typ)) continue;
+    pocty[p.typ] = (pocty[p.typ] || 0) + 1;
+    n++;
+  }
+  const vahy = typy.map((t) => {
+    const ciel = (ctx.pomery[t] ?? 0) / spolu;
+    if (!ciel) return 0;
+    const ma = n ? (pocty[t] || 0) / n : ciel;
+    return ciel * Math.exp(ctx.model * (ciel - ma) / ciel);
+  });
+  let r = rng() * vahy.reduce((a, v) => a + v, 0);
+  for (let i = 0; i < typy.length; i++) {
+    r -= vahy[i];
+    if (r < 0) return typy[i];
+  }
+  return typy[typy.length - 1];
+}
+
+// Neck blend (krk) that gives a teardrop the drawn width for a neck of
+// thickness t: the drop's size follows its neck (scale = t / (10 + 30 · krk)),
+// so a heavy neck would otherwise blow it up.
+// width = (150 + 150 · chvost) · scale
+function krkPreSirku(rng, params, t, ctx) {
+  const [w0, w1] = ctx.kvapka.sirka;
+  const sirka = w0 + rng() * (w1 - w0);
+  const k = ((150 + 150 * params.chvost / 100) * t / sirka - 10) / 30;
+  params.krk = Math.round(Math.min(Math.max(k, 0), 1) * 100);
 }
 
 // Shuffled copy (Fisher-Yates with the composition's PRNG).
@@ -138,7 +174,7 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
   // a drawn type with no joint of the open end's thickness cannot attach at
   // all; such draws are skipped without spending an attempt
   for (let i = 0, tahov = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov && tahov < pokusy * 8; tahov++) {
-    const typ = rngPick(rng, typy);
+    const typ = vyberTyp(rng, typy, ctx);
     // some pairs never join directly (a half ring onto another half ring)
     if (ctx.zakazanePary.some(([a, b]) => (a === typ && b === otvoren.entry.typ)
       || (b === typ && a === otvoren.entry.typ))) continue;
@@ -154,7 +190,7 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
     // a chain winds through the space left between other figures: when the
     // drawn size does not fit, the same type is tried smaller, down to the
     // minimum size
-    const sMin = ctx.velkost[0];
+    const sMin = ctx.velkosti[typ][0];
     const rozmery = [r0, ...[0.6, 0.35].map((k) => r0.s * k).filter((s) => s > sMin)
       .map((s) => potiahniRozmer(rng, typ, ctx, Math.round(s))), potiahniRozmer(rng, typ, ctx, sMin)];
     for (const r of rozmery) {
@@ -192,36 +228,43 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
 // zones: [{ rect: {x, y, w, h}, spravanie, okraj }]
 export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
-  velkost: velkostCfg, variacia, rozlozenie, rozlozenieKoef,
+  velkosti, variacia,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], zakazanePary = [], kvapka,
+  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], spojkyMinKontrast = 0.8, spojkaPomer = 30, zakazanePary = [], model = 3, pomery = {}, kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
   // Ink-weighted coverage: a bare bbox area counts empty space, so sparse
-  // shapes (kvapka, oblouk) would hit the target while the canvas stays empty.
+  // shapes (kvapka, polkruh) would hit the target while the canvas stays empty.
   const pokrytie = (typ, box) => box.w * box.h * (vahyTvaru[typ] ?? 1);
   const target = hustota * freeArea;
 
-  // A kvapka can only ever terminate a chain (its neck is its single joint),
-  // so chains are started by the types that can grow; kruh and bod have no
-  // joints at all and stay scattered accents.
+  // Chains grow from the types with joints. A kvapka is never a chain link:
+  // every open end gets one when the chain closes, and its weight in pomery
+  // is for teardrops hung along straight lines. Kruh has no joints; it and
+  // those side teardrops are a chain's accents.
+  // a pätka turns a hairline into a heavy foot: with contrast it is switched
+  // on by itself as the connector between thin and heavy strokes; at low
+  // contrast there is no such transition and it is left out
+  const bezPatiek = axes.hair > spojkyMinKontrast * axes.heavy;
+  if (!bezPatiek) {
+    typy = [...typy, ...spojky.filter((t) => !typy.includes(t))];
+    pomery = { ...pomery, ...Object.fromEntries(spojky.map((t) => [t, spojkaPomer])) };
+  }
   const maSpoje = {};
   for (const typ of new Set(typy)) {
     maSpoje[typ] = build(typ, defaultsOf(typ), axes).joints.length > 0;
   }
-  const typyRetezi = typy.filter((t) => maSpoje[t]);
+  const typyRetezi = typy.filter((t) => maSpoje[t] && t !== 'kvapka');
   // connectors (spojky) only ever grow out of another shape's open joint
-  const typyZakladne = typyRetezi.filter((t) => t !== 'kvapka' && !spojky.includes(t));
-  // accents are the types with no joints (kruh, bod); a kvapka only ever
-  // ends a chain, it never floats alone
-  const typyAkcentov = typy.filter((t) => !maSpoje[t]);
+  const typyZakladne = typyRetezi.filter((t) => !spojky.includes(t));
+  const typyAkcentov = typy.filter((t) => !maSpoje[t] || t === 'kvapka');
   const typyKvapky = ['kvapka'];
 
   const ctx = {
-    build, axes, defaultsOf, velkostTvaru, velkost: velkostCfg, variacia, rozlozenie,
-    rozlozenieKoef, stlpce, bandY, bandH, zony, medzera, dotyk, pokusov: 0, maxPokusov,
-    typyRetezi, placed: null, kvapka, zakazanePary,
+    build, axes, defaultsOf, velkostTvaru, velkosti, variacia,
+    stlpce, bandY, bandH, zony, medzera, dotyk, pokusov: 0, maxPokusov,
+    typyRetezi, placed: null, kvapka, bezPatiek, zakazanePary, model, pomery,
   };
 
   const placed = [];
@@ -280,7 +323,7 @@ export function placeShapes(rng, {
   };
 
   const zacniRetaz = () => {
-    const k = potiahni(rng, rngPick(rng, typyZakladne), ctx);
+    const k = potiahni(rng, vyberTyp(rng, typyZakladne, ctx), ctx);
     const bb = k.shape.bbox;
     if (bb.w > stlpce + 1e-9 || bb.h > bandH + 1e-9) return;
     const box = nahodnaPozicia(rng, bb, { stlpce, bandY, bandH, zony, placed, medzera, skok });
@@ -337,35 +380,79 @@ export function placeShapes(rng, {
 
   for (const chain of chains) if (!chain.closed) uzavri(chain);
 
-  // Phase 2 — accents (kruh, bod) never stand alone: each finished chain gets
-  // between akcentyNaRetaz[0] and [1] of them, each placed beside one of its
-  // members with the normal gap.
+  // Phase 2 — accents never stand alone: each finished chain gets between
+  // akcentyNaRetaz[0] and [1] of them. A kruh sits beside one of the chain's
+  // shapes with the normal gap; a kvapka hangs along one of its straight
+  // legs, parallel to it, its neck sunk into the leg.
+  const bocnaKvapka = (chain) => {
+    const nohy = chain.members.filter((m) => m.typ === 'noha');
+    for (let pokus = 0; pokus < 20 && nohy.length; pokus++) {
+      const host = nohy[rngInt(rng, nohy.length)];
+      const hb = host.bbox;
+      const zvisla = hb.h > hb.w;
+      const t = zvisla ? hb.w : hb.h;
+      const r = potiahniRozmer(rng, 'kvapka', ctx);
+      r.params.hrubka = Math.abs(t - axes.heavy) < 1e-9 ? 'plna' : 'vlas';
+      krkPreSirku(rng, r.params, t, ctx);
+      for (const o of zamiesaj(rng, ORIENTACIE)) {
+        const k = orientuj(r, o, ctx);
+        const j = k.shape.joints[0];
+        if (zvisla !== (j.dir === 'up' || j.dir === 'down')) continue;
+        const bb = k.shape.bbox;
+        // the whole drop lies alongside the leg, the joint on its axis
+        const d0 = zvisla ? bb.y - j.y : bb.x - j.x;
+        const d1 = zvisla ? bb.y + bb.h - j.y : bb.x + bb.w - j.x;
+        const od = (zvisla ? hb.y : hb.x) - d0;
+        const po = (zvisla ? hb.y + hb.h : hb.x + hb.w) - d1;
+        if (po < od) continue;
+        const pos = od + rng() * (po - od);
+        const jx = zvisla ? hb.x + t / 2 : pos;
+        const jy = zvisla ? pos : hb.y + t / 2;
+        const box = { x: bb.x - j.x + jx, y: bb.y - j.y + jy, w: bb.w, h: bb.h };
+        if (!voFormate(box, ctx)) continue;
+        if (zony.some((z) => vZone(box, z))) continue;
+        if (placed.some((p) => p !== host && blizsieAko(box, p.bbox, medzera))) continue;
+        const entry = umiestni(k, box);
+        entry.spoje.push(j.id);
+        entry.bok = true;
+        placed.push(entry);
+        area += pokrytie('kvapka', box);
+        return true;
+      }
+    }
+    return false;
+  };
+  const kruzok = (chain) => {
+    for (let pokus = 0; pokus < 40; pokus++) {
+      const m = chain.members[rngInt(rng, chain.members.length)].bbox;
+      const k = potiahni(rng, 'kruh', ctx);
+      const bb = k.shape.bbox;
+      const strana = rngInt(rng, 4);
+      const box = { w: bb.w, h: bb.h };
+      if (strana < 2) {
+        box.x = m.x + rng() * m.w - bb.w / 2;
+        box.y = strana === 0 ? m.y - medzera - bb.h : m.y + m.h + medzera;
+      } else {
+        box.y = m.y + rng() * m.h - bb.h / 2;
+        box.x = strana === 2 ? m.x - medzera - bb.w : m.x + m.w + medzera;
+      }
+      if (!voFormate(box, ctx)) continue;
+      if (zony.some((z) => vZone(box, z))) continue;
+      if (placed.some((p) => blizsieAko(box, p.bbox, medzera))) continue;
+      placed.push(umiestni(k, box));
+      area += pokrytie('kruh', box);
+      return true;
+    }
+    return false;
+  };
   const [aMin, aMax] = akcentyNaRetaz;
   for (const chain of chains) {
     if (!chain.members.length || !typyAkcentov.length) continue;
     const pocet = aMin + rngInt(rng, aMax - aMin + 1);
     for (let n = 0; n < pocet; n++) {
-      for (let pokus = 0; pokus < 40; pokus++) {
-        const m = chain.members[rngInt(rng, chain.members.length)].bbox;
-        const k = potiahni(rng, rngPick(rng, typyAkcentov), ctx);
-        const bb = k.shape.bbox;
-        const strana = rngInt(rng, 4);
-        const g = medzera;
-        const box = { w: bb.w, h: bb.h };
-        if (strana < 2) {
-          box.x = m.x + rng() * m.w - bb.w / 2;
-          box.y = strana === 0 ? m.y - g - bb.h : m.y + m.h + g;
-        } else {
-          box.y = m.y + rng() * m.h - bb.h / 2;
-          box.x = strana === 2 ? m.x - g - bb.w : m.x + m.w + g;
-        }
-        if (!voFormate(box, ctx)) continue;
-        if (zony.some((z) => vZone(box, z))) continue;
-        if (placed.some((p) => blizsieAko(box, p.bbox, medzera))) continue;
-        placed.push(umiestni(k, box));
-        area += pokrytie(k.typ, box);
-        break;
-      }
+      const typ = vyberTyp(rng, typyAkcentov, ctx);
+      if (typ === 'kvapka') bocnaKvapka(chain);
+      else kruzok(chain);
     }
   }
 

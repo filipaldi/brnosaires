@@ -21,7 +21,7 @@ node generator/cli.js typy
 Jeden tvar do tesne orezaného SVG (1 dielik = 100 px, okraj 0,25 dielika):
 
 ```sh
-node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/oblouk.svg
+node generator/cli.js tvar --typ polkruh --weight 60 --contrast 80 --out /tmp/polkruh.svg
 ```
 
 Vzorkovník — mriežka typov × Weight, voliteľne so značením spojov

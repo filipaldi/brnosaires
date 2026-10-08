@@ -17,7 +17,7 @@ export function build(p, axes) {
   const spoj = (id) => (p.spoje || []).includes(id);
   return {
     subpaths: prstenec({
-      cx: R, cy: R, R, t, start: 180, sweep: 180, zaoblenie: axes.zaoblenie,
+      cx: R, cy: R, R, t, start: 180, sweep: 180, zaoblenie: 0,
       konce: [!spoj('vlavo'), !spoj('vpravo')],
     }),
     joints: [

@@ -3,7 +3,7 @@
 // running down until it leaves the foot's right edge x = H, where the foot
 // ends with a horizontal edge. With R = H the circle meets that edge
 // tangentially (the designer's drawing); a larger R gives a wider arc on the
-// same heavy foot. Used by obloukPata (under a quarter ring) and stvrtoblouk.
+// same heavy foot. Used by stvrtoblouk.
 
 import { moveTo, lineTo, closePath, appendArc } from '../geometry.js';
 import { filletArc } from '../primitives/fillet.js';

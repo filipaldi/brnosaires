@@ -18,7 +18,6 @@ const KOMP = loadProporcie().kompozicia;
 
 const JEDNOTKY = ['mm', 'px'];
 const ZVYSOK = ['okraje', 'natiahnutie', 'orez'];
-const ROZLOZENIE = ['rovnomerne', 'malePlusVelke', 'krajne'];
 const ROZMIESTNENIE = ['volne', 'dlazdice'];
 const SPRAVANIE = ['prazdna', 'okraj', 'presah'];
 const TYPY_ZONY = ['text', 'fotka', 'prazdna'];
@@ -94,16 +93,27 @@ function normalizujKresba(raw) {
 
 function normalizujKompozicia(raw) {
   const d = KOMP.predvolene.kompozicia;
+  // older specs list the types in `typy`: each listed type gets its default
+  // weight, the others 0
+  if (raw && Array.isArray(raw.typy) && !raw.pomery) {
+    const { typy, ...zvysok } = raw;
+    raw = {
+      ...zvysok,
+      pomery: Object.fromEntries(Object.entries(d.pomery).map(([t, v]) => [t, typy.includes(t) ? v : 0])),
+    };
+  }
+  // older specs give one size range for all types
+  if (raw && Array.isArray(raw.velkost) && !raw.velkosti) {
+    const { velkost, ...zvysok } = raw;
+    raw = { ...zvysok, velkosti: Object.fromEntries(Object.keys(d.velkosti).map((t) => [t, velkost.slice()])) };
+  }
+  if (raw && 'rozlozenie' in raw) {
+    // dropped setting: sizes are spread evenly over the range
+    const { rozlozenie, ...zvysok } = raw;
+    raw = zvysok;
+  }
   const komp = { ...d, ...raw };
   if (raw) polia(raw, Object.keys(d), 'kompozicia');
-  if (!Array.isArray(komp.velkost) || komp.velkost.length !== 2) {
-    throw new ValidationError('kompozicia.velkost musí byť pole [min, max] v dielikoch, napr. [1, 6].');
-  }
-  cislo(komp.velkost[0], 'kompozicia.velkost[0]', { min: 1, max: 40, cele: true });
-  cislo(komp.velkost[1], 'kompozicia.velkost[1]', { min: 1, max: 40, cele: true });
-  if (komp.velkost[0] > komp.velkost[1]) {
-    throw new ValidationError('kompozicia.velkost[0] musí byť menšia alebo rovná velkost[1].');
-  }
   cislo(komp.variacia, 'kompozicia.variacia', { min: 0, max: 100 });
   if (!Array.isArray(komp.retazenieDlzka) || komp.retazenieDlzka.length !== 2) {
     throw new ValidationError('kompozicia.retazenieDlzka musí byť pole [min, max] tvarov v reťazi, napr. [5, 20].');
@@ -121,17 +131,47 @@ function normalizujKompozicia(raw) {
   if (komp.retazenieDlzka[0] > komp.retazenieDlzka[1]) {
     throw new ValidationError('kompozicia.retazenieDlzka[0] musí byť menšia alebo rovná retazenieDlzka[1].');
   }
-  moznosti(komp.rozlozenie, 'kompozicia.rozlozenie', ROZLOZENIE);
-  if (!Array.isArray(komp.typy) || !komp.typy.length) {
-    throw new ValidationError('kompozicia.typy musí byť neprázdny zoznam typov tvarov.');
+  // pomery: one weight 0–100 per type; 0 leaves the type out. The share
+  // of each type on the canvas follows these weights.
+  const vsetky = TYPES.map((t) => t.id);
+  // connectors (spojky) are switched on by contrast, never weighted by hand;
+  // older specs that still weight them lose those keys
+  const spojky = KOMP.rozmiestnenie.retazenie.spojky;
+  const zname = vsetky.filter((t) => !spojky.includes(t));
+  if (komp.pomery && typeof komp.pomery === 'object') {
+    komp.pomery = Object.fromEntries(Object.entries(komp.pomery).filter(([t]) => !spojky.includes(t)));
   }
-  const zname = TYPES.map((t) => t.id);
-  for (const typ of komp.typy) {
+  if (!komp.pomery || typeof komp.pomery !== 'object' || Array.isArray(komp.pomery)) {
+    throw new ValidationError('kompozicia.pomery musí byť objekt { typ: 0–100 }, napr. { "noha": 50, "polkruh": 50 }.');
+  }
+  for (const [typ, v] of Object.entries(komp.pomery)) {
     if (!zname.includes(typ)) {
-      throw new ValidationError(`Neznámy typ tvaru „${typ}“ v kompozicia.typy. Platné typy: ${zname.join(', ')}.`);
+      throw new ValidationError(`Neznámy typ tvaru „${typ}“ v kompozicia.pomery. Platné typy: ${zname.join(', ')}.`);
     }
+    cislo(v, `kompozicia.pomery.${typ}`, { min: 0, max: 100, cele: true });
   }
-  komp.typy = [...new Set(komp.typy)];
+  komp.pomery = Object.fromEntries(zname.map((t) => [t, komp.pomery[t] ?? 0]));
+  komp.typy = zname.filter((t) => komp.pomery[t] > 0);
+  if (!komp.typy.length) {
+    throw new ValidationError('kompozicia.pomery: aspoň jeden typ musí mať pomer väčší ako 0.');
+  }
+  // velkosti: one size range [min, max] in dieliky per type
+  if (!komp.velkosti || typeof komp.velkosti !== 'object' || Array.isArray(komp.velkosti)) {
+    throw new ValidationError('kompozicia.velkosti musí byť objekt { typ: [min, max] }, napr. { "noha": [1, 6] }.');
+  }
+  for (const [typ, v] of Object.entries(komp.velkosti)) {
+    if (!vsetky.includes(typ)) {
+      throw new ValidationError(`Neznámy typ tvaru „${typ}“ v kompozicia.velkosti. Platné typy: ${vsetky.join(', ')}.`);
+    }
+    const kde = `kompozicia.velkosti.${typ}`;
+    if (!Array.isArray(v) || v.length !== 2) {
+      throw new ValidationError(`${kde} musí byť pole [min, max] v dielikoch, napr. [1, 6].`);
+    }
+    cislo(v[0], `${kde}[0]`, { min: 1, max: 40, cele: true });
+    cislo(v[1], `${kde}[1]`, { min: 1, max: 40, cele: true });
+    if (v[0] > v[1]) throw new ValidationError(`${kde}[0] musí byť menšia alebo rovná ${kde}[1].`);
+  }
+  komp.velkosti = Object.fromEntries(vsetky.map((t) => [t, komp.velkosti[t] ?? d.velkosti[t] ?? [1, 6]]));
   moznosti(komp.rozmiestnenie, 'kompozicia.rozmiestnenie', ROZMIESTNENIE);
   return komp;
 }
@@ -249,12 +289,11 @@ export function komponuj(input, { fontUrls } = {}) {
     axes,
     defaultsOf: defaultParams,
     typy: komp.typy,
+    pomery: komp.pomery,
     velkostTvaru: KOMP.velkostTvaru,
     vahyTvaru: KOMP.vahyTvaru,
-    velkost: komp.velkost,
+    velkosti: komp.velkosti,
     variacia: komp.variacia,
-    rozlozenie: komp.rozlozenie,
-    rozlozenieKoef: KOMP.rozlozenie,
     stlpce: grid.stlpce,
     bandY,
     bandH,
@@ -269,7 +308,10 @@ export function komponuj(input, { fontUrls } = {}) {
     dotyk: KOMP.rozmiestnenie.retazenie.dotyk,
     neuspechov: KOMP.rozmiestnenie.retazenie.neuspechov,
     spojky: KOMP.rozmiestnenie.retazenie.spojky,
+    spojkyMinKontrast: KOMP.rozmiestnenie.retazenie.spojkyMinKontrast,
+    spojkaPomer: KOMP.rozmiestnenie.retazenie.spojkaPomer,
     zakazanePary: KOMP.rozmiestnenie.retazenie.zakazanePary,
+    model: KOMP.rozmiestnenie.retazenie.model,
     kvapka: KOMP.kvapka,
   });
   varovania.push(...varovaniaUmiestnenia);

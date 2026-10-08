@@ -16,23 +16,33 @@
     "zaoblenie": 30
   },
   "kompozicia": {
-    "velkost": [
-      1,
-      5
-    ],
+    "velkosti": {
+      "noha": [
+        1,
+        5
+      ],
+      "stvrtoblouk": [
+        1,
+        5
+      ],
+      "polkruh": [
+        1,
+        5
+      ],
+      "stvrtkruh": [
+        1,
+        5
+      ],
+      "kvapka": [
+        1,
+        5
+      ],
+      "kruh": [
+        1,
+        1
+      ]
+    },
     "variacia": 70,
-    "rozlozenie": "malePlusVelke",
-    "typy": [
-      "noha",
-      "oblouk",
-      "obloukPata",
-      "stvrtoblouk",
-      "polkruh",
-      "stvrtkruh",
-      "kvapka",
-      "kruh",
-      "bod"
-    ],
     "rozmiestnenie": "volne"
   },
   "variant": "42",

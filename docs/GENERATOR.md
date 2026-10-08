@@ -48,16 +48,17 @@ V rozhraní pod `Parametre ▾`, spolu s farbami a kompozíciou.
 | Weight | 0–100 % | Hrúbka plnej hmoty v % dielika. 0 % = veľa bieleho, 100 % = biele sa takmer zatvorí. |
 | Contrast | 0–100 % | Vlasová linka v % plnej hmoty. 0 % = monolineárne, 100 % = najtenší vlas. |
 
-Polomery, veľkosť kvapky a šírka štrbiny sa odvodia z Weight a Contrast. Vzorce sú v `proporcie.json`, aby sa dali doladiť podľa písma.
+Polomery a veľkosť kvapky sa odvodia z Weight a Contrast. Vzorce sú v `proporcie.json`, aby sa dali doladiť podľa písma.
 
 ### Kompozícia
 
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
-| Veľkosť | min–max v dielikoch | Hlavný rozmer tvaru, napr. 1–6 |
+| Pomer typu | 0–100 pre každý typ | Podiel typu v kresbe, 0 = typ sa nepoužije. Generátor priebežne porovnáva, čo už je na plátne, a dorovnáva typy, ktoré zaostávajú. |
+| Veľkosť typu | min–max v dielikoch pre každý typ (posuvník s dvoma bežcami) | Hlavný rozmer tvaru, napr. 1–6. Kvapka ho nemá, jej šírka sa ťahá z `kvapka.sirka`. |
 | Variácia | 0–100 % | 0 % = všetky tvary rovnako veľké, 100 % = celý rozsah |
-| Rozloženie | rovnomerne / veľa malých a pár veľkých / len krajné hodnoty | Pomer malých a veľkých tvarov |
-| Typy | výber z 10 typov | Ktoré tvary sa smú použiť |
+| Dĺžka reťaze | min–max tvarov | Kratšie reťaze sa zahodia |
+| Krúžky a kvapky | min–max na reťaz | Krúžky vedľa reťaze a kvapky zapustené rovnobežne do nohy |
 | Rozmiestnenie | voľné / dlaždice | Voľné = kompozícia s výrezom, dlaždice = vzor v mriežke |
 
 ### Variant (seed)
@@ -129,21 +130,18 @@ Každý tvar je poskladaný z troch prvkov:
 2. **Prstenec** so stálou hrúbkou (štvrť, polkruh, celý kruh). Napája sa na obdĺžniky pozdĺž (polkruh spája dve rovnobežné nohy) alebo kolmo v rohu (plný blok priložený k jeho vonkajšej hrane, vnútorný kruh vyrezaný z bloku).
 3. **Krivka** od dizajnéra, zatiaľ kvapka. Má dva mastre (krk 10 a 40 jednotiek) a interpoluje sa tak, aby krk mal hrúbku vlasovej čiary.
 
-**Zaoblenie** je globálna os ako Weight a Contrast (0–100 %, podiel z polovice hrúbky ťahu). Zaobľuje sa každý viditeľný roh, vonkajší aj vnútorný. Ostré ostávajú len miesta, kde sa dva prvky napájajú, lebo tam roh nie je vidieť.
+**Zaoblenie** je globálna os ako Weight a Contrast (0–100 %, podiel z polovice hrúbky ťahu). Zaobľujú sa len nohy (obdĺžniky, aj plná pätka pod oblúkom). Oblúky zaoblenie nemajú, lebo nikdy netvoria roh. Ostré ostávajú aj miesta, kde sa dva prvky napájajú.
 
 | # | Typ | Parametre |
 |---|---|---|
 | 1 | Noha | dĺžka, vlas / plná |
-| 2 | Oblúk | šírka, výška, strana plnej nohy, hrubnutie (stála / plynulá) |
-| 3 | Oblúk s pätkou | polomer (auto = heavy); vlasový štvrťkruh prechádza do plnej pätky, napája sa zospodu |
-| 4 | Štvrťoblúk s pätkou | polomer (auto = heavy); vlas zhora prechádza štvrťkruhom do plnej pätky |
-| 5 | Polooblúk | polomer, vlas / plná; obyčajný polkruh konštantnej hrúbky |
-| 6 | Štvrťoblúk | polomer, vlas / plná; obyčajný štvrťkruh konštantnej hrúbky |
-| 7 | Kvapka | veľkosť |
-| 8 | Kruh | priemer, obrys vlas / plný |
-| 9 | Bod | priemer |
+| 2 | Štvrťoblúk s pätkou | polomer (auto = heavy); prechod z vlasového ťahu do plného. Nie je na výber: zapne sa sám, keď má kresba kontrast |
+| 3 | Polooblúk | polomer, vlas / plná; obyčajný polkruh konštantnej hrúbky |
+| 4 | Štvrťoblúk | polomer, vlas / plná; obyčajný štvrťkruh konštantnej hrúbky |
+| 5 | Kvapka | šírka z rozsahu `kvapka.sirka`, krk má hrúbku ťahu, na ktorý sa napája |
+| 6 | Kruh | priemer, obrys vlas / plný |
 
-Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Hmotu so štrbinou (tvar U) nahradili obyčajný polooblúk a štvrťoblúk. Koleno nie je samostatný typ: vzniká pri skladaní napojením hranola (nohy) na oblúk. Nota a háčik s kvapkou tiež vypadli: kvapky sa napájajú len na konce ťahov, nikdy zboku.
+Oblúky sú len tri segmenty: štvrťoblúk s pätkou (prechod medzi tenším a hrubším ťahom), na ktorý sa napája štvrťoblúk a polooblúk. Trojštvrťový oblúk (tvar n) a oblúk s pätkou vypadli, nahrádza ich polooblúk. Hmotu so štrbinou (tvar U) nahradili obyčajný polooblúk a štvrťoblúk. Vrchol (A) vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samostatný typ: vzniká napojením nohy na oblúk. Nota, háčik s kvapkou a bod tiež vypadli.
 
 ### Pravidlá skladania
 
@@ -155,8 +153,8 @@ Body napojenia vyplývajú z geometrie (konce nôh, päty oblúka), netreba ich 
 - **Každá čiara končí slzou:** každý voľný koniec reťaze dostane kvapku s hrdlom rovnakej hrúbky. Keď sa kvapka na koniec nezmestí, posledný tvar sa odoberie a kvapka sa skúsi o tvar skôr; reťaz, ktorú sa zakončiť nedá, sa zahodí.
 - **Reťaz** sa skladá z tvarov napojených spojmi rovnakej hrúbky. Dĺžka reťaze je [min, max] tvarov (predvolene 5–20). Reťaz kratšia ako minimum sa zahodí, takže samostatné tvary nevznikajú.
 - **Samostatne** smie stáť len krúžok alebo bod, a aj to len pri reťazi: každá reťaz dostane [min, max] krúžkov a bodov (predvolene 1–10), s bežnou medzerou od niektorého svojho tvaru. Kvapka samostatne nestojí, len ukončuje reťaz.
-- **Pätky** (oblúk a štvrťoblúk s pätkou) reťaz nezačínajú, len sa napájajú. Ich polomer rastie s veľkosťou tvaru, pätka ostáva široká ako plná noha.
-- **Polooblúk** sa nenapája priamo na ďalší polooblúk (zoznam takých dvojíc je v `proporcie.json`, `zakazanePary`).
+- **Štvrťoblúk s pätkou** reťaz nezačína, len sa napája. Jeho polomer rastie s veľkosťou tvaru, pätka ostáva široká ako plná noha.
+- **Polooblúk** nejde dva razy po sebe a pätka sa nenapája na pätku (zoznam takých dvojíc je v `proporcie.json`, `zakazanePary`). Pri nízkom kontraste sa pätka vynechá, lebo nemá z čoho prechádzať; nohy a oblúky vtedy dostanú náhodne vlasovú alebo plnú hrúbku.
 - **Veľkosti** tvarov sú celé dieliky.
 
 ## Ako to funguje

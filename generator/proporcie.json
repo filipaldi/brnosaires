@@ -13,15 +13,6 @@
       "dlzka": 3,
       "hrubka": "plna"
     },
-    "oblouk": {
-      "sirka": 2,
-      "vyska": 2,
-      "plnaStrana": "vpravo",
-      "hrubnutie": "stala"
-    },
-    "obloukPata": {
-      "polomer": null
-    },
     "stvrtoblouk": {
       "polomer": null
     },
@@ -42,20 +33,13 @@
     "kruh": {
       "priemer": 0.6,
       "hrubka": "vlas"
-    },
-    "bod": {
-      "priemer": null
     }
   },
   "proporcie": {
-    "_comment": "Geometrické pomery tvarov (násobky hair alebo heavy). Zaoblenie rohov je globálne, v osi.zaoblenie.",
-    "bod": {
-      "_comment": "Predvolený priemer bodu (× heavy).",
-      "priemer": 1.2
-    }
+    "_comment": "Geometrické pomery tvarov (násobky hair alebo heavy). Zaoblenie rohov je globálne, v osi.zaoblenie."
   },
   "kompozicia": {
-    "_comment": "Kompozícia (fáza 2). predvolene = chýbajúce polia celého specu. zona = chýbajúce polia zóny podľa typu. velkost = prevod nameranej veľkosti s (dieliky) na parametre tvaru: zVelkosti sú parametre rovné s, sirkaPomer/ramenoPomer/pocetPomer sú násobky s, ostatné čísla sú stále hodnoty parametra. Tvary sa nikdy neskalujú — hrúbky vždy zostávajú z osí Weight a Contrast.",
+    "_comment": "Kompozícia (fáza 2). predvolene = chýbajúce polia celého specu. zona = chýbajúce polia zóny podľa typu. velkosti = rozsah [min, max] v dielikoch pre každý typ zvlášť (kvapka ho nepoužíva, jej šírka je v kvapka.sirka). velkostTvaru = prevod nameranej veľkosti s (dieliky) na parametre tvaru: zVelkosti sú parametre rovné s, sirkaPomer/ramenoPomer/pocetPomer sú násobky s, ostatné čísla sú stále hodnoty parametra. Tvary sa nikdy neskalujú — hrúbky vždy zostávajú z osí Weight a Contrast.",
     "predvolene": {
       "format": {
         "sirka": 420,
@@ -74,23 +58,40 @@
         "zaoblenie": 30
       },
       "kompozicia": {
-        "velkost": [
-          1,
-          6
-        ],
+        "velkosti": {
+          "noha": [
+            1,
+            6
+          ],
+          "stvrtoblouk": [
+            1,
+            6
+          ],
+          "polkruh": [
+            1,
+            6
+          ],
+          "stvrtkruh": [
+            1,
+            6
+          ],
+          "kvapka": [
+            1,
+            6
+          ],
+          "kruh": [
+            1,
+            1
+          ]
+        },
         "variacia": 50,
-        "rozlozenie": "rovnomerne",
-        "typy": [
-          "noha",
-          "oblouk",
-          "obloukPata",
-          "stvrtoblouk",
-          "polkruh",
-          "stvrtkruh",
-          "kvapka",
-          "kruh",
-          "bod"
-        ],
+        "pomery": {
+          "noha": 50,
+          "polkruh": 40,
+          "stvrtkruh": 40,
+          "kvapka": 30,
+          "kruh": 50
+        },
         "rozmiestnenie": "volne",
         "retazenieDlzka": [
           5,
@@ -131,15 +132,6 @@
           "dlzka"
         ]
       },
-      "oblouk": {
-        "zVelkosti": [
-          "vyska"
-        ],
-        "sirkaPomer": 0.6
-      },
-      "obloukPata": {
-        "polomerPomer": 0.5
-      },
       "stvrtoblouk": {
         "polomerPomer": 0.5
       },
@@ -151,30 +143,17 @@
       },
       "kvapka": {},
       "kruh": {
-        "priemer": 0.8
-      },
-      "bod": {}
-    },
-    "rozlozenie": {
-      "_comment": "malePlusVelke: pMalych = podiel tvarov z dolnej polovice rozsahu. krajne: rozptyl = ako blízko minima/maxima (podiel rozsahu). Variácia rozsah vždy najprv zúži okolo stredu.",
-      "malePlusVelke": {
-        "pMalych": 0.75
-      },
-      "krajne": {
-        "rozptyl": 0.25
+        "priemerPomer": 0.8
       }
     },
     "vahyTvaru": {
-      "_comment": "Orientačný podiel plochy, ktorú tvar vyplní vo svojom bboxe. Používa sa len na výpočet hustoty (cieľ pokrytia), nie na kreslenie: noha je tenká tyčka, bod plný disk.",
+      "_comment": "Orientačný podiel plochy, ktorú tvar vyplní vo svojom bboxe. Používa sa len na výpočet hustoty (cieľ pokrytia), nie na kreslenie: noha je tenká tyčka.",
       "noha": 0.95,
-      "oblouk": 0.4,
-      "obloukPata": 0.6,
       "stvrtoblouk": 0.6,
       "polkruh": 0.3,
       "stvrtkruh": 0.3,
       "kvapka": 0.45,
-      "kruh": 0.3,
-      "bod": 1
+      "kruh": 0.3
     },
     "rozmiestnenie": {
       "_comment": "voľné rozmiestnenie: medzera medzi bboxmi tvarov (dieliky), hustota = cieľové pokrytie voľnej plochy (vážené podľa vahyTvaru), maxPokusov = strop potiahnutých tvarov, skok = mriežka kandidátových pozícií. retazenie: dlzka = [min, max] počet tvarov jednej reťaze, pokusy = koľko kandidátov sa skúsi na jeden otvorený spoj, neuspechov = po koľkých neúspechoch za sebou sa reťaze vzdajú a zvyšok miesta dostanú akcenty, dotyk = tolerancia prekryvu bboxov priamo spojenej dvojice (dieliky).",
@@ -187,16 +166,22 @@
         "dotyk": 0.002,
         "neuspechov": 60,
         "spojky": [
-          "obloukPata",
           "stvrtoblouk"
         ],
-        "_comment": "spojky: typy, ktoré reťaz nikdy nezačínajú, objavia sa len napojené na iný tvar. zakazanePary: dvojice typov, ktoré sa nesmú napojiť priamo na seba.",
+        "_comment": "spojky: prechod z vlasového ťahu do plného (štvrťoblúk s pätkou). Nie je na výber v pomeroch: zapne sa sám, keď má kresba kontrast, s váhou spojkaPomer, a nikdy reťaz nezačína. Pri nízkom kontraste (vlas hrubší ako spojkyMinKontrast · plný ťah) sa vynechá a nohy aj oblúky dostanú náhodne vlasovú alebo plnú hrúbku. zakazanePary: dvojice typov, ktoré sa nesmú napojiť priamo na seba.",
         "zakazanePary": [
           [
             "polkruh",
             "polkruh"
+          ],
+          [
+            "stvrtoblouk",
+            "stvrtoblouk"
           ]
-        ]
+        ],
+        "model": 3,
+        "spojkyMinKontrast": 0.8,
+        "spojkaPomer": 30
       }
     },
     "svg": {

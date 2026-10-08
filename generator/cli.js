@@ -2,7 +2,7 @@
 // CLI of the Brnos Aires shape generator (phase 1).
 //
 //   node generator/cli.js typy
-//   node generator/cli.js tvar --typ oblouk --weight 60 --contrast 80 --out /tmp/o.svg
+//   node generator/cli.js tvar --typ polkruh --weight 60 --contrast 80 --out /tmp/o.svg
 //   node generator/cli.js vzorkovnik --spoje --primitivy --out /tmp/v.svg --png
 //
 // Only node:util parseArgs, no CLI libraries. Exit codes: 0 ok, 1 bad input.
