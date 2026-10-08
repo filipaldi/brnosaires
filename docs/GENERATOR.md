@@ -162,6 +162,90 @@ Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
 - **Pozadia a dekorácie stránok.**
 - Build potrebuje Node v `.github/workflows/deploy.yml`.
 
+## Rozhranie
+
+Jedna stránka, tri záložky. Rozhranie je pre počítač, mobil sa nerieši.
+
+### Záložka Plagát
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│  BRNOS AIRES · GENERÁTOR      [ Plagát ]  Vzor   Tvary      Predvoľba: A2 ▾ ⇩   │
+├──────────────────┬───────────────────────────────────────────┬──────────────────┤
+│ FORMÁT           │  Seed [ 42 ]  ◀  ⟳  ▶   ▦ mriežka         │ ZÓNA: Text 1     │
+│ 420 × 594 mm     │  ☐ spadávka  ◐ inverzia                   │                  │
+│ DPI 300 · 3 mm   │ ┌───────────────────────────────────────┐ │ Poloha 1,1  6×2  │
+│                  │ │ · · · · · · · · · · · · · · · · · · · │ │ Správanie        │
+│ MRIEŽKA          │ │ ·┌──────────────────────┐ · · ◜◝ · · ·│ │ ● prázdna        │
+│ Stĺpce   [ 8 ]   │ │ ·│ MILONGA DE OTOÑO     │ · · ▌▐ · · ·│ │ ○ presah vlasom  │
+│ Zvyšok  okraje ▾ │ │ ·└──────────────────────┘ · · ▌▐ · · ·│ │ ○ okraj          │
+│                  │ │ ·  ◟▌ · · · · · · · · · · · ▌▐ · · ·  │ │                  │
+│ KRESBA           │ │ ·  ▌▌ · ┌───────────────┐ · · · · · · │ │ Text             │
+│ Weight   ──●──   │ │ ·  ▌▌ · │               │ · · ● · · · │ │ [MILONGA DE OTO] │
+│ Contrast ────●─  │ │ ·   ◝ · │     FOTKA     │ · · · · ◢ · │ │ Písmo Brnos A. ▾ │
+│                  │ │ · · · · │    (maska)    │ · · · ◢▌ ·  │ │ Veľkosť 1,5      │
+│ KOMPOZÍCIA       │ │ · · · · └───────────────┘ · · · · · · │ │ Zarovnanie ⫷ ≡ ⫸ │
+│ Veľkosť  1 – 6   │ │ · · ┌────────────────────────────┐ · ·│ │ Riadkovanie 1,1  │
+│ Variácia ───●─   │ │ · · │ 17. 10. · 20:00 · BRNO     │ · ·│ │                  │
+│ Rozloženie    ▾  │ │ · · └────────────────────────────┘ · ·│ │ [ Zmazať zónu ]  │
+│ Typy ▣▣▣▣▣▣▣▣▣▣  │ │ · · · · · · · · · · · · · · · · · · · │ │                  │
+│                  │ └───────────────────────────────────────┘ │                  │
+│ ZÓNY             │                                           │                  │
+│ [+ Text][+ Fotka]│  História seedov                          │                  │
+│ [⇪ Šablóna SVG]  │  ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐ ┌──┐            │                  │
+│                  │  │38│ │39│ │40│ │41│ │42│ │  │            │                  │
+│ EXPORT           │  └──┘ └──┘ └──┘ └──┘ └──┘ └──┘            │                  │
+│ SVG ▾ · krivky ▾ │                                           │                  │
+│ [ Exportovať ]   │                                           │                  │
+└──────────────────┴───────────────────────────────────────────┴──────────────────┘
+```
+
+- **Ľavý panel:** všetky parametre v poradí z tabuľky Parametre.
+- **Stred:** plátno s mriežkou. Zóny sa kreslia ťahaním a presúvajú myšou, prichytávajú sa na dieliky.
+- **Lišta nad plátnom:** seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší), prepínače mriežky, spadávky a inverzie.
+- **História seedov:** náhľady posledných variantov, kliknutím sa k variantu vrátiš.
+- **Pravý panel:** vlastnosti vybranej zóny. Bez výberu je prázdny.
+- **Predvoľba (vpravo hore):** načítanie a uloženie celého nastavenia okrem seedu.
+
+### Záložka Vzor
+
+Rovnaké rozloženie ako Plagát, bez zón a bez pravého panelu. Plátno ukazuje dlaždice.
+
+### Záložka Tvary
+
+Prehliadač jednotlivých typov (fáza 1). Slúži na ladenie tvarov a `proporcie.json`.
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│  BRNOS AIRES · GENERÁTOR        Plagát   Vzor  [ Tvary ]                         │
+├──────────────────┬───────────────────────────────────────────────────────────────┤
+│ TYP              │                                                               │
+│ ○ Noha           │      ┌───────────────────┐   ┌───────────────────┐            │
+│ ● Oblúk          │      │                   │   │                   │            │
+│ ○ Vrchol         │      │      ╭─────╮      │   │   (písmo pre      │            │
+│ ○ Koleno         │      │      │     ▐█     │   │    porovnanie)    │            │
+│ ○ Hmota so štrb. │      │      │     ▐█     │   │                   │            │
+│ ○ Háčik s kvap.  │      │      │     ▐█     │   │        n          │            │
+│ ○ Nota           │      │      ╵     ▐█     │   │                   │            │
+│ ○ Kvapka         │      └───────────────────┘   └───────────────────┘            │
+│ ○ Kruh           │        tvar z generátora       vzorka písma                   │
+│ ○ Bod            │                                                               │
+│                  │   ☐ prekryť písmom  ☐ body napojenia  ▦ mriežka               │
+│ KRESBA           │                                                               │
+│ Weight   ──●──   │   Všetky typy naraz:                                          │
+│ Contrast ────●─  │   ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐                    │
+│                  │   │▌ ││∩ ││Λ ││┌ ││U ││ʃ ││♪ ││● ││○ ││· │                    │
+│ PARAMETRE TYPU   │   └──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘                    │
+│ Šírka    2 diel. │                                                               │
+│ Výška    3 diel. │                                                               │
+│ Plná noha vpravo │                                                               │
+└──────────────────┴───────────────────────────────────────────────────────────────┘
+```
+
+- **Vľavo:** výber typu, Weight a Contrast, parametre vybraného typu.
+- **Stred:** tvar z generátora vedľa vzorky písma. Prepínač „prekryť písmom“ ich položí cez seba, aby bolo vidno rozdiel v krivkách.
+- **Dole:** všetky typy naraz pri aktuálnom Weight a Contrast.
+
 ## Fázy
 
 | # | Výsledok | Odhad |
