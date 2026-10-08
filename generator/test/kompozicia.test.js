@@ -156,9 +156,26 @@ test('tvary sa reťazia cez spoje rovnakej hrúbky', async () => {
 
 test('dĺžka reťaze [min, max] sa dá zadať a overuje sa', () => {
   const spec = JSON.parse(readFileSync(new URL('../priklady/plagat-a2.json', import.meta.url), 'utf8'));
+  // [1, 1]: one shape per chain, joined only to the teardrops ending it
   const jeden = komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenieDlzka: [1, 1] } });
-  assert.equal(jeden.tvary.filter((t) => t.spoje.length).length, 0);
+  for (const t of jeden.tvary.filter((u) => u.typ !== 'kvapka')) {
+    for (const id of t.spoje) {
+      const j = t.joints.find((q) => q.id === id);
+      const partner = jeden.tvary.find((u) => u !== t
+        && u.joints.some((q) => Math.hypot(q.x - j.x, q.y - j.y) < 1e-6));
+      assert.equal(partner?.typ, 'kvapka', `${t.typ}.${id} je napojený na ${partner?.typ}`);
+    }
+  }
   assert.throws(
     () => komponuj({ ...spec, kompozicia: { ...spec.kompozicia, retazenieDlzka: [5, 2] } }),
     /retazenieDlzka/);
+});
+
+test('každá čiara končí slzou: tvar reťaze má obsadené všetky spoje', () => {
+  const { tvary } = komponuj({ variant: '7' });
+  const reťaz = tvary.filter((t) => t.joints.length);
+  assert.ok(reťaz.length > 0);
+  for (const t of reťaz) {
+    assert.equal(t.spoje.length, t.joints.length, `${t.typ} má voľný koniec`);
+  }
 });

@@ -152,6 +152,7 @@ Vrchol (A) zo sady vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samost
 
 Body napojenia vyplývajú z geometrie (konce nôh, päty oblúka), netreba ich kresliť.
 
+- **Každá čiara končí slzou:** každý voľný koniec reťaze dostane kvapku s hrdlom rovnakej hrúbky. Keď sa kvapka na koniec nezmestí, posledný tvar sa odoberie a kvapka sa skúsi o tvar skôr; reťaz, ktorú sa zakončiť nedá, sa zahodí.
 - **Reťaz** sa skladá z tvarov napojených spojmi rovnakej hrúbky. Dĺžka reťaze je [min, max] tvarov (predvolene 5–20). Reťaz kratšia ako minimum sa zahodí, takže samostatné tvary nevznikajú.
 - **Samostatne** smie stáť len krúžok alebo bod, a aj to len pri reťazi: každá reťaz dostane [min, max] krúžkov a bodov (predvolene 1–10), s bežnou medzerou od niektorého svojho tvaru. Kvapka samostatne nestojí, len ukončuje reťaz.
 - **Pätky** (oblúk a štvrťoblúk s pätkou) reťaz nezačínajú, len sa napájajú. Ich polomer rastie s veľkosťou tvaru, pätka ostáva široká ako plná noha.

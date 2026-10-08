@@ -124,13 +124,13 @@ function umiestni(k, box) {
 
 // Try to attach one shape to an open joint of a chain. Returns the placed
 // entry (with the joint it used) or null when no candidate fits.
-function prirast(rng, chain, ctx, pokusy, minDlzka = 1) {
-  const otvoren = chain.open[rngInt(rng, chain.open.length)];
+function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = ctx.typyRetezi } = {}) {
+  const otvoren = koniec ?? chain.open[rngInt(rng, chain.open.length)];
   chain.posledny = otvoren;
   // a drawn type with no joint of the open end's thickness cannot attach at
   // all; such draws are skipped without spending an attempt
   for (let i = 0, tahov = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov && tahov < pokusy * 8; tahov++) {
-    const typ = rngPick(rng, ctx.typyRetezi);
+    const typ = rngPick(rng, typy);
     const r0 = potiahniRozmer(rng, typ, ctx);
     const spoje0 = orientuj(r0, ORIENTACIE[0], ctx).shape.joints;
     if (!spoje0.some((j) => Math.abs(j.t - otvoren.j.t) < 1e-9)) continue;
@@ -205,6 +205,7 @@ export function placeShapes(rng, {
   // accents are the types with no joints (kruh, bod); a kvapka only ever
   // ends a chain, it never floats alone
   const typyAkcentov = typy.filter((t) => !maSpoje[t]);
+  const typyKvapky = ['kvapka'];
 
   const ctx = {
     build, axes, defaultsOf, velkostTvaru, velkost: velkostCfg, variacia, rozlozenie,
@@ -216,19 +217,55 @@ export function placeShapes(rng, {
   ctx.placed = placed;
   const chains = [];
   let area = 0;
-  // A chain shorter than the minimum length is taken back off the canvas, so
-  // with min > 1 no lone shape is left over.
-  // and the minimum does not apply.
+  // A finished chain ends every line with a teardrop: each open end, also
+  // the ones growth found blocked, gets a kvapka with a neck of the same
+  // thickness. A chain shorter than the minimum length, or with an end no
+  // kvapka fits on, is taken back off the canvas, so no lone shape and no
+  // bare line end is left over.
   const minDlzka = retazenieDlzka[0];
-  const uzavri = (chain) => {
-    chain.closed = true;
-    if (chain.members.length >= minDlzka) return;
+  const odstran = (chain) => {
     for (const m of chain.members) {
       placed.splice(placed.indexOf(m), 1);
       area -= pokrytie(m.typ, m.bbox);
     }
     chain.members = [];
     chain.open = [];
+  };
+  const vyber = (chain, m) => {
+    placed.splice(placed.indexOf(m), 1);
+    area -= pokrytie(m.typ, m.bbox);
+    chain.members.splice(chain.members.indexOf(m), 1);
+  };
+  const uzavri = (chain) => {
+    chain.closed = true;
+    if (chain.members.length < minDlzka) return odstran(chain);
+    const konce = [...chain.open, ...chain.blokovane];
+    chain.open = [];
+    while (konce.length) {
+      const koniec = konce.pop();
+      const vysledok = typyKvapky.length
+        ? prirast(rng, chain, ctx, retazeniePokusy, 1, { koniec, typy: typyKvapky })
+        : null;
+      if (vysledok) {
+        Object.assign(vysledok.entry, { rodic: koniec, cap: true });
+        placed.push(vysledok.entry);
+        area += pokrytie(vysledok.entry.typ, vysledok.entry.bbox);
+        chain.members.push(vysledok.entry);
+        continue;
+      }
+      // no teardrop fits here: step back — take off the shape that owns this
+      // end (when nothing but teardrops hangs on it) and end the line one
+      // shape earlier
+      const e = koniec.entry;
+      const deti = chain.members.filter((m) => m.rodic?.entry === e);
+      if (!e.rodic || !deti.every((m) => m.cap)) return odstran(chain);
+      for (const m of [e, ...deti]) vyber(chain, m);
+      const rodic = e.rodic.entry;
+      rodic.spoje.splice(rodic.spoje.indexOf(e.rodic.j.id), 1);
+      for (let i = konce.length - 1; i >= 0; i--) if (konce[i].entry === e) konce.splice(i, 1);
+      konce.push(e.rodic);
+    }
+    if (chain.members.filter((m) => !m.cap).length < minDlzka) odstran(chain);
   };
 
   const zacniRetaz = () => {
@@ -244,6 +281,7 @@ export function placeShapes(rng, {
     chains.push({
       members: [entry],
       open: entry.joints.map((j) => ({ entry, j })),
+      blokovane: [],
       target: rngInt(rng, maxD - minD + 1) + minD,
       closed: false,
     });
@@ -269,11 +307,14 @@ export function placeShapes(rng, {
       }
       const vysledok = prirast(rng, chain, ctx, retazeniePokusy, minDlzka);
       if (!vysledok) {
-        // this end is blocked; the chain stops only when no open end is left
+        // this end is blocked (it still gets its teardrop when the chain
+        // closes); the chain stops growing only when no open end is left
         chain.open = chain.open.filter((o) => o !== chain.posledny);
+        chain.blokovane.push(chain.posledny);
         continue;
       }
       const { entry, spoj, otvoren } = vysledok;
+      entry.rodic = otvoren;
       placed.push(entry);
       area += pokrytie(entry.typ, entry.bbox);
       chain.members.push(entry);
