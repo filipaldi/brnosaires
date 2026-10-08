@@ -909,10 +909,10 @@ attachPopover($('#btn-parametre'), (pop) => {
 
   const typesGrid = document.createElement('div');
   typesGrid.className = 'types';
-  // each type shows as a small drawing in the current Weight / Contrast /
-  // Zaoblenie; the name stays as the tooltip
-  const kresba = spec.kresba;
-  const osi = computeAxes(kresba.weight, kresba.contrast, proporcie, kresba.zaoblenie);
+  // each type shows as a small drawing; the name stays as the tooltip. The
+  // icons use a heavier fixed Weight and Contrast so thin types stay legible
+  // at this size (only Zaoblenie follows the drawing)
+  const osi = computeAxes(70, 85, proporcie, spec.kresba.zaoblenie);
   const kresli = engine.renderShapeSvg || engine.renderShapeSvgFallback;
   for (const t of TYPES) {
     const l = document.createElement('label');
