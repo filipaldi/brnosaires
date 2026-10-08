@@ -58,10 +58,11 @@ Polomery, veľkosť kvapky a šírka štrbiny sa odvodia z Weight a Contrast. Vz
 
 ### Farby
 
-| Parameter | Hodnoty |
-|---|---|
-| Popredie | farba |
-| Pozadie | farba |
+Len čierna a biela.
+
+| Parameter | Hodnoty | Poznámka |
+|---|---|---|
+| Inverzia | nie / áno | Nie = čierne tvary na bielom, áno = biele na čiernom |
 
 ### Zóny
 
@@ -174,7 +175,6 @@ Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
 
 ## Otvorené otázky
 
-- Farby: len čierna a biela, alebo aj farby webu?
 - Na ktorých stránkach budú pozadia a dekorácie.
 - Adresa webového rozhrania (skrytá, `noindex`).
 - Overiť, ako Affinity načíta SVG masku, pred prvým ostrým plagátom.
