@@ -305,9 +305,6 @@ button, input, select { font: inherit; color: inherit; }
 #zone-bar {
   position: absolute;
   display: flex;
-}
-
-#zone-bar[hidden] { display: none; }
   align-items: center;
   gap: 6px;
   background: var(--paper);
@@ -318,6 +315,8 @@ button, input, select { font: inherit; color: inherit; }
   z-index: 10;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14);
 }
+
+#zone-bar[hidden] { display: none; }
 
 #zone-bar label { color: var(--dim); }
 
