@@ -10,7 +10,7 @@ event-organiser: Brnos Aires
 event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
-description: DJ Francesco
+description: DJ Francesco Cieschi
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-03.avif
 ---

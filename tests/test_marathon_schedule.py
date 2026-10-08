@@ -13,7 +13,7 @@ import unittest
 
 from tests import build_site
 
-DJS = ["DJ Veronika", "DJ Balazs", "DJ Francesco", "DJ Vincent", "DJ Mačka"]
+DJS = ["DJ Veronika Kim", "DJ Balázs Gyenis", "DJ Francesco Cieschi", "DJ Vincent van 't Laar", "DJ Mačka"]
 LINKED_CARD = re.compile(r'<a [^>]*class="event-card"')
 DESCRIPTION = re.compile(r'<p class="event-card__description">([^<]*)</p>')
 

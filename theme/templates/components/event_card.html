@@ -24,7 +24,7 @@
     {% if 'date' not in card_hide|default([]) %}<p class="event-card__date">{{ event_start.date() | format_event_datetime(page_lang | default('cs', true)) }}</p>{% endif %}
     {% set event_time_str = event_start.strftime('%H:%M') %}
     {% set event_end_time_str = event_end.strftime('%H:%M') if event_end else '' %}
-    {% if event_time_str %}<p class="event-card__time">{{ event_time_str }}{% if event_end and event_end_time_str %} — {{ event_end_time_str }}{% endif %}</p>{% endif %}
+    {% if event_time_str %}<p class="event-card__time">{{ event_time_str }}{% if event_end and event_end_time_str %}–{{ event_end_time_str }}{% endif %}</p>{% endif %}
   {% endif %}
   {% if event_organiser and 'organiser' not in card_hide|default([]) %}<p class="event-card__organiser">{{ event_organiser }}</p>{% endif %}
   {% if event_location and 'location' not in card_hide|default([]) %}<p class="event-card__location">{{ event_location }}</p>{% endif %}

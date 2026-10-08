@@ -10,7 +10,7 @@ event-organiser: Brnos Aires
 event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
-description: DJ Veronika
+description: DJ Veronika Kim
 author: Filip Paldia
 preview_image: /images/marathon-photos/details/dancers-01.avif
 ---
