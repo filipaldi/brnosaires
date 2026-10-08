@@ -15,7 +15,7 @@ Procedurálne generovať grafiku pre web a propagačné materiály z tých istý
 - **Seed:** rovnaké nastavenie a rovnaký seed dajú vždy rovnaký výsledok.
 - **Bez textúry „pseudo-písma“.**
 - **Animácia až v neskoršej fáze.**
-- **Na webe AVIF**, JPEG pre sociálne siete vyrobí existujúci `plugins/og_image.py`. Pre Affinity SVG, voliteľne PNG.
+- **Na webe AVIF**, JPEG pre sociálne siete vyrobí existujúci `plugins/og_image.py`. Pre tlač a ďalšiu úpravu SVG, voliteľne PNG.
 - **Používa zatiaľ len autor písma.** Cieľom je, aby si web pri builde generoval vlastné náhľady, pozadia a dekorácie.
 
 ## Parametre
@@ -92,8 +92,6 @@ Fotková zóna:
 | Režim | rámik / maska / prekrytie | Maska = fotka v plnej hmote veľkého tvaru |
 | Posun, zoom | čísla | Poloha fotky v ráme alebo maske |
 
-Zóny sa dajú aj načítať zo šablóny z Affinity: SVG s vrstvami `text` a `fotky`.
-
 ### Export
 
 | Parameter | Hodnoty | Poznámka |
@@ -148,7 +146,7 @@ proporcie.json + predvoľby ──► jadro ──┬─► webové rozhranie �
 ### Plagát
 
 1. Formát, mriežka, kresba, kompozícia.
-2. Zóny nakreslené myšou na plátne, alebo načítané zo šablóny z Affinity.
+2. Zóny nakreslené myšou na plátne.
 3. Generátor rozmiestni tvary okolo zón.
 4. Ďalší seed = ďalší variant. Predvoľba sa dá použiť pre celú sériu.
 
@@ -164,53 +162,57 @@ Tvary v mriežke, otáčané a zrkadlené, napojené podľa pravidiel skladania.
 
 ## Rozhranie
 
-Jedna stránka, tri záložky. Rozhranie je pre počítač, mobil sa nerieši.
+Jedna stránka pre počítač, mobil sa nerieši. Ovládanie je rozdelené podľa toho, ako často sa na vec siaha. Pri bežnej práci je na obrazovke len plátno a to, čo sa práve mení.
 
-### Záložka Plagát
+| Ako často | Čo | Kde |
+|---|---|---|
+| Raz na začiatku | režim (Plagát / Vzor / Tvary), predvoľba, formát, spadávka, DPI, mriežka, zvyšok výšky | Vľavo hore len súhrn, napr. „Plagát · A2 · 8 stĺpcov ▾“. Kliknutím sa otvorí nastavenie, potom sa zavrie. |
+| Občas | Kresba a kompozícia: Weight, Contrast, inverzia, veľkosť, variácia, rozloženie, typy | Rozbaľovací panel. Po doladení ostane zavretý, nastavenie sa uloží do predvoľby. |
+| Neustále | seed, zóny | Dole v strede seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší) a nástroje zón ([T] text, [▣] fotka). Nastavenie zóny priamo na plátne. Vždy viditeľné. |
+| Raz na konci | export | Vpravo hore |
+
+Zobrazenie (▦ mriežka, ☐ spadávka, zoom) výsledok nemení. Je drobne vpravo dole a na skratkách.
+
+### Plagát
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
-│  BRNOS AIRES · GENERÁTOR      [ Plagát ]  Vzor   Tvary     Predvoľba: A2 ▾ ⇩    │
-├──────────────────┬──────────────────────────────────────────────────────────────┤
-│ FORMÁT           │  Seed [ 42 ] ◀ ⟳ ▶   [T] [▣] [⇪]   ▦ mriežka ☐ spadávka ◐    │
-│ 420 × 594 mm     │  ┌────────────────────────────────────────────────────────┐  │
-│ DPI 300 · 3 mm   │  │ · · · · · · · · · · · · · · · · · · · · · · · · · · ·  │  │
-│                  │  │ · ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ · · · ◜◝ · · · · · · ·│  │
-│ MRIEŽKA          │  │ · ┃ MILONGA DE OTOÑO|          ┃ · · · ▌▐ · · · · · · ·│  │
-│ Stĺpce   [ 8 ]   │  │ · ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ · · · ▌▐ · · · · · · ·│  │
-│ Zvyšok  okraje ▾ │  │ · ╭─────────────────────────────────────────╮ · · · · ·│  │
-│                  │  │ · │ Brnos A. ▾  1,5 ▾  ⫷ ≡ ⫸  ● ○ ○  ✕        │ · · · ·│  │
-│ KRESBA           │  │ · ╰─────────────────────────────────────────╯ · · · · ·│  │
-│ Weight   ──●──   │  │ ·  ▌▌ · · · ┌───────────────┐ · · · · ● · · · · · · ·  │  │
-│ Contrast ────●─  │  │ ·   ◝ · · · │     FOTKA     │ · · · · · · ◢ · · · · ·  │  │
-│                  │  │ · · · · · · │    (maska)    │ · · · · · ◢▌ · · · · · · │  │
-│ KOMPOZÍCIA       │  │ · · · · · · └───────────────┘ · · · · · · · · · · · ·  │  │
-│ Veľkosť  1 – 6   │  │ · · ┌────────────────────────────────┐ · · · · · · · · │  │
-│ Variácia ───●─   │  │ · · │ 17. 10. · 20:00 · BRNO         │ · · · · · · · · │  │
-│ Rozloženie    ▾  │  │ · · └────────────────────────────────┘ · · · · · · · · │  │
-│ Typy ▣▣▣▣▣▣▣▣▣▣  │  │ · · · · · · · · · · · · · · · · · · · · · · · · · · ·  │  │
-│                  │  └────────────────────────────────────────────────────────┘  │
-│ EXPORT           │                                                              │
-│ SVG ▾ · krivky ▾ │                                                              │
-│ [ Exportovať ]   │                                                              │
-└──────────────────┴──────────────────────────────────────────────────────────────┘
+│  Plagát · A2 · 8 stĺpcov ▾                Kresba a kompozícia ▾    ⇩ Export     │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│          ┌────────────────────────────────────────────────────────────┐         │
+│          │ · ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ · · · ◜◝ · · · · · · · ·  │         │
+│          │ · ┃ MILONGA DE OTOÑO|          ┃ · · · ▌▐ · · · · · · · ·  │         │
+│          │ · ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ · · · ▌▐ · · · · · · · ·  │         │
+│          │ · ╭─────────────────────────────────────╮ · · · · · · ·    │         │
+│          │ · │ Brnos A. ▾ 1,5 ▾ ⫷ ≡ ⫸  ● ○ ○   ✕   │ · · · · · · ·    │         │
+│          │ · ╰─────────────────────────────────────╯ · · · · · · ·    │         │
+│          │ ·  ▌▌ · · · ┌───────────────┐ · · · ● · · · · · · · ·      │         │
+│          │ ·   ◝ · · · │ FOTKA (maska) │ · · · · · · ◢ · · · · ·      │         │
+│          │ · · · · · · └───────────────┘ · · · · · ◢▌ · · · · ·       │         │
+│          │ · · ┌────────────────────────────────┐ · · · · · · · ·     │         │
+│          │ · · │ 17. 10. · 20:00 · BRNO         │ · · · · · · · ·     │         │
+│          │ · · └────────────────────────────────┘ · · · · · · · ·     │         │
+│          └────────────────────────────────────────────────────────────┘         │
+│                                                                                 │
+│             [T] [▣]        ◀   ⟳  42  ▶              ▦  ☐  75 %                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Ľavý panel:** parametre celej kompozície v poradí z tabuľky Parametre. Je to jediný panel.
-- **Lišta nad plátnom:** seed (◀ predchádzajúci, ⟳ náhodný, ▶ ďalší), nástroje zón ([T] text, [▣] fotka, [⇪] šablóna z Affinity), prepínače mriežky, spadávky a inverzie (◐).
-- **Plátno:** všetko okolo zón sa robí priamo tu.
+- **Postup:** raz nastavíš formát, raz kresbu a kompozíciu (alebo vyberieš predvoľbu), potom už len točíš seed a hýbeš zónami.
+- **Zóny na plátne:**
   - Nová zóna: vyber nástroj a ťahaj na plátne. Prichytáva sa na dieliky.
   - Presun a zmena veľkosti: ťahaním zóny a jej rohov.
   - Text sa píše priamo do zóny.
   - Fotka sa pretiahne do fotkovej zóny. Dvojklik prepne na posun a zoom fotky.
-  - Vybraná zóna má pod sebou malú plávajúcu lištu so svojimi nastaveniami: pri texte písmo, veľkosť, zarovnanie a správanie (prázdna / presah / okraj), pri fotke režim (rámik / maska / prekrytie). ✕ zónu zmaže.
-- **Predvoľba (vpravo hore):** načítanie a uloženie celého nastavenia okrem seedu.
+  - Vybraná zóna má pod sebou malú plávajúcu lištu: pri texte písmo, veľkosť, zarovnanie a správanie (prázdna / presah / okraj), pri fotke režim (rámik / maska / prekrytie). ✕ zónu zmaže.
+- **Skratky:** ← → seed, `R` náhodný seed, `G` mriežka, `B` spadávka, `I` inverzia, `E` export, `Esc` zavrie lištu alebo panel.
 
-### Záložka Vzor
+### Vzor
 
-Rovnaké rozloženie ako Plagát, bez nástrojov zón. Plátno ukazuje dlaždice.
+Rovnaké rozhranie ako Plagát, bez nástrojov zón. Plátno ukazuje dlaždice.
 
-### Záložka Tvary
+### Tvary
 
 Prehliadač jednotlivých typov (fáza 1). Slúži na ladenie tvarov a `proporcie.json`.
 
@@ -251,7 +253,7 @@ Prehliadač jednotlivých typov (fáza 1). Slúži na ladenie tvarov a `proporci
 |---|---|---|
 | 1 | Všetkých 10 typov v kóde, prehliadač s posuvníkmi Weight, Contrast a parametrov typu, porovnanie s písmom | 1–2 sedenia |
 | 2 | Plagát: formát, mriežka, kompozícia, seed, export SVG/PNG, predvoľby | 1 sedenie |
-| 3 | Zóny: text so sadzbou, fotka (rámik + maska), šablóna z Affinity | 1–2 sedenia |
+| 3 | Zóny: text so sadzbou, fotka (rámik + maska) | 1–2 sedenia |
 | 4 | Vzor (dlaždice) | 1 sedenie |
 | 5 | CLI a build webu: náhľady akcií, pozadia | 1 sedenie |
 | 6 | Animácia a export videa | neskôr |
@@ -262,4 +264,3 @@ Nebránia začať, riešia sa až pri príslušnej fáze.
 
 - Na ktorých stránkach budú pozadia a dekorácie (fáza 5).
 - Adresa webového rozhrania (fáza 5).
-- Ako Affinity načíta SVG masku, doladí sa pri prvom ostrom plagáte.
