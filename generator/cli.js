@@ -24,7 +24,7 @@ function die(msg) {
 }
 
 function usage() {
-  console.log(`Generátor tvarov Brnos Aires — fáza 1
+  console.log(`Generátor tvarov Brnos Aires
 
 Použitie:
   ${SCRIPT} typy
@@ -33,6 +33,7 @@ Použitie:
             --out <súbor.svg> [--png]
   ${SCRIPT} vzorkovnik [--typ <id|all>] [--weight 20,40,60,80] [--contrast 70] [--zaoblenie <0-100>]
             [--spoje] [--primitivy] --out <súbor.svg> [--png]
+  ${SCRIPT} kompozicia --spec <súbor.json> [--variant <text>] --out <súbor.svg> [--png]
 
 Zoznam typov a ich parametrov: ${SCRIPT} typy`);
 }
@@ -238,9 +239,10 @@ try {
     case 'typy': cmdTypy(); break;
     case 'tvar': promise = cmdTvar(rest); break;
     case 'vzorkovnik': promise = cmdVzorkovnik(rest); break;
+    case 'kompozicia': promise = (await import('./cli-kompozicia.js')).cmdKompozicia(rest); break;
     default:
       usage();
-      die(`neznámy príkaz „${command}“. Platné príkazy: typy, tvar, vzorkovnik.`);
+      die(`neznámy príkaz „${command}“. Platné príkazy: typy, tvar, vzorkovnik, kompozicia.`);
   }
   if (promise) await promise;
 } catch (e) {

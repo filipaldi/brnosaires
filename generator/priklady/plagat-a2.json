@@ -1,0 +1,30 @@
+{
+  "format": { "sirka": 420, "vyska": 594, "jednotka": "mm", "dpi": 300, "spadavka": 3 },
+  "grid": { "stlpce": 8, "zvysok": "okraje" },
+  "kresba": { "weight": 60, "contrast": 70, "zaoblenie": 30 },
+  "kompozicia": {
+    "velkost": [1, 6],
+    "variacia": 60,
+    "rozlozenie": "rovnomerne",
+    "typy": ["noha", "oblouk", "koleno", "hmotaSoStrbinou", "hacikSKvapkou", "nota", "kvapka", "kruh", "bod"],
+    "rozmiestnenie": "volne"
+  },
+  "variant": "1",
+  "inverzia": false,
+  "zony": [
+    {
+      "typ": "text", "x": 1, "y": 1, "w": 6, "h": 4, "spravanie": "prazdna",
+      "text": "MILONGA\nDE OTOÑO", "pismo": "Brnos Aires", "velkost": 1.0,
+      "zarovnanie": "vlavo", "riadkovanie": 1.1
+    },
+    {
+      "typ": "text", "x": 1, "y": 5, "w": 5, "h": 1, "spravanie": "prazdna",
+      "text": "sobota 25. októbra 2026, 20:00", "pismo": "Nunito", "velkost": 0.3,
+      "zarovnanie": "vlavo", "riadkovanie": 1.2
+    },
+    {
+      "typ": "fotka", "x": 4, "y": 7, "w": 4, "h": 4, "spravanie": "okraj",
+      "rezim": "ramik"
+    }
+  ]
+}

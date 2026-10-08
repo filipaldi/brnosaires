@@ -57,3 +57,20 @@ cd generator && npm test
 ```
 
 Výstup je deterministický: rovnaké vstupy dávajú bajtovo rovnaké SVG.
+
+## Kompozícia (fáza 2)
+
+Rozmiestni tvary na formát okolo zón a zapíše SVG s vrstvami `pattern`,
+`fotky`, `text`, `spadavka`. Zadanie je jeden JSON súbor: formát, grid,
+kresba (Weight, Contrast, Zaoblenie), kompozícia, variant, inverzia, zóny.
+Príklady: [`priklady/plagat-a2.json`](priklady/plagat-a2.json),
+[`priklady/nahlad-akcie.json`](priklady/nahlad-akcie.json).
+
+```sh
+node generator/cli.js kompozicia --spec generator/priklady/plagat-a2.json --variant 7 --out /tmp/plagat.svg --png
+```
+
+`--variant` prepíše variant zo súboru. Rovnaký súbor a variant dajú vždy
+rovnaký obrázok. Hustotu, medzery a prevod veľkosti na parametre tvarov
+ladíš v `proporcie.json` v časti `kompozicia`. Webové rozhranie volá to isté
+jadro, viď [`ui/README.md`](ui/README.md).
