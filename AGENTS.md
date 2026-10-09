@@ -136,6 +136,7 @@ Two things not to reintroduce:
 ## Agent workflow
 
 - **No AI attribution.** Commits, PR descriptions and code carry no agent signature: no `Co-Authored-By`, no session links, no "Generated with …" lines.
+- **Enforced.** `.githooks/commit-msg`, `scripts/bez-ai-podpisu.sh` and the `bez-ai-podpisu` workflow reject violations in new commits. Enable the hook once per clone: `git config core.hooksPath .githooks`
 
 ## Project Structure
 

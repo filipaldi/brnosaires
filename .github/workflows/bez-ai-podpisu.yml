@@ -1,0 +1,45 @@
+name: Bez AI podpisu
+
+# A commit must be authored and signed by a human: no agent attribution in
+# messages, authors or committers. NEW commits only (push range, PR range) —
+# never the repository history. The rules live in scripts/bez-ai-podpisu.sh,
+# shared with the local .githooks/commit-msg hook.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  kontrola:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Kontrola nových commitov
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            scripts/bez-ai-podpisu.sh --range "$PR_BASE..$PR_HEAD"
+          else
+            case "$BEFORE" in
+              *[!0]*)
+                scripts/bez-ai-podpisu.sh --range "$BEFORE..$SHA" ;;
+              *)
+                # All zeros (or absent) = first push of a new branch: check
+                # commits the branch adds over the default branch, not history.
+                git fetch origin "$DEFAULT_BRANCH"
+                scripts/bez-ai-podpisu.sh --range "origin/$DEFAULT_BRANCH..HEAD" ;;
+            esac
+          fi

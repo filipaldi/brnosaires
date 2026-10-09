@@ -1,0 +1,4 @@
+#!/bin/sh
+# Rejects AI-attributed commits; all rules live in scripts/bez-ai-podpisu.sh.
+cd "$(git rev-parse --show-toplevel)" || exit 1
+exec scripts/bez-ai-podpisu.sh --msg "$1"
