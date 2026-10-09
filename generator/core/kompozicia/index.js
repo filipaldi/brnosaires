@@ -123,9 +123,13 @@ function normalizujKompozicia(raw) {
     const { rozlozenie, ...zvysok } = raw;
     raw = zvysok;
   }
+  if (raw && 'variacia' in raw) {
+    // dropped setting: every type has its own size range now
+    const { variacia, ...zvysok } = raw;
+    raw = zvysok;
+  }
   const komp = { ...d, ...raw };
   if (raw) polia(raw, Object.keys(d), 'kompozicia');
-  cislo(komp.variacia, 'kompozicia.variacia', { min: 0, max: 100 });
   if (!Array.isArray(komp.retazenieDlzka) || komp.retazenieDlzka.length !== 2) {
     throw new ValidationError('kompozicia.retazenieDlzka musí byť pole [min, max] tvarov v reťazi, napr. [5, 20].');
   }
@@ -296,7 +300,6 @@ export function komponuj(input, { fontUrls } = {}) {
     velkostTvaru: KOMP.velkostTvaru,
     vahyTvaru: KOMP.vahyTvaru,
     velkosti: komp.velkosti,
-    variacia: komp.variacia,
     stlpce: grid.stlpce,
     bandY,
     bandH,

@@ -56,7 +56,6 @@ Polomery a veľkosť kvapky sa odvodia z Weight a Contrast. Vzorce sú v `propor
 |---|---|---|
 | Podiel typu | 0–100 % pre každý typ, spolu 100 % | Podiel typu v jednej reťazi. Dĺžka reťaze sa rozdelí na kvóty: z reťaze 10 tvarov a nohy 30 % budú 3 nohy. Krúžky a kvapky sú tiež súčasťou reťaze (krúžok vedľa nej, kvapka zapustená rovnobežne do nohy). Kvapky na koncoch čiar sa do podielu nepočítajú. 0 = typ sa nepoužije. |
 | Veľkosť typu | min–max v dielikoch pre každý typ (posuvník s dvoma bežcami) | Hlavný rozmer tvaru, napr. 1–6. Kvapka ho nemá, jej šírka sa ťahá z `kvapka.sirka`. |
-| Variácia | 0–100 % | 0 % = všetky tvary rovnako veľké, 100 % = celý rozsah |
 | Dĺžka reťaze | min–max prvkov | Kratšie reťaze sa zahodia |
 | Rozmiestnenie | voľné / dlaždice | Voľné = kompozícia s výrezom, dlaždice = vzor v mriežke |
 
@@ -213,7 +212,7 @@ Zľava doprava v poradí, v akom sa pri práci používa:
 | Položka | Ako často | Obsah |
 |---|---|---|
 | `420 × 594 mm · Grid 8 ▾` | raz na začiatku | Po kliknutí: predvoľba (načítať / uložiť), rozmer a jednotka, DPI, spadávka, Grid, zvyšok výšky |
-| `Parametre ▾` | občas | Weight, Contrast, inverzia, veľkosť, variácia, rozloženie, typy, rozmiestnenie (voľné / dlaždice) |
+| `Parametre ▾` | občas | Weight, Contrast, inverzia, veľkosť, rozloženie, typy, rozmiestnenie (voľné / dlaždice) |
 | `◀ Variant 42 ▶ ⟳` | neustále | Predchádzajúci, číslo variantu (dá sa prepísať), ďalší, náhodný |
 | `75 %` | podľa potreby | Zoom plátna |
 | `Export` | raz na konci | SVG / PNG / AVIF, text upraviteľný alebo v krivkách |

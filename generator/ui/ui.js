@@ -726,6 +726,7 @@ function zahodZastarane(k) {
   delete k.retazenie;
   delete k.rozlozenie;
   delete k.akcentyNaRetaz;
+  delete k.variacia;
   const spojky = proporcie.kompozicia.rozmiestnenie.retazenie.spojky;
   const zname = (t) => TYPES.some((x) => x.id === t) && !spojky.includes(t);
   if (Array.isArray(k.typy)) k.typy = k.typy.filter(zname);
@@ -1031,7 +1032,6 @@ attachPopover($('#btn-parametre'), (pop) => {
     sliderRow('Zaoblenie', k.zaoblenie, (v) => { spec.kresba.zaoblenie = v; }),
     row('Farby', invLabel),
     mkH('Kompozícia'),
-    sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
     row('Dĺžka reťaze', chainWrap),
     row('Rozmiestnenie', selectInput(
       [['volne', 'voľné'], ['dlazdice', 'dlaždice']],

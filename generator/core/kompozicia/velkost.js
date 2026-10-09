@@ -1,24 +1,20 @@
-// Shape sizes: a size s in dieliks is drawn from the type's `velkosti` range shaped by
-// `variacia`, then mapped to the type's length parameters.
+// Shape sizes: a size s in dieliks is drawn from the type's `velkosti` range,
+// then mapped to the type's length parameters.
 // Shapes are never scaled afterwards — stroke thickness always comes from the
 // axes, so only parameter values change with s.
 
-import { clamp } from '../geometry.js';
-import { rngRange } from './rng.js';
+import { rngInt } from './rng.js';
 
 // Snap to half a dielik — the placement grid works in the same steps.
 export function snapHalf(v) {
   return Math.round(v * 2) / 2;
 }
 
-// One draw from the size range. `variacia` narrows the range around the
-// midpoint (0 = everything at the midpoint, 100 = full range); inside it the
-// size is spread evenly.
-export function drawSize(rng, { velkost, variacia }) {
+// One draw from the type's size range: an integer spread evenly over
+// [min, max], both ends equally likely.
+export function drawSize(rng, { velkost }) {
   const [min, max] = velkost;
-  const mid = (min + max) / 2;
-  const half = ((max - min) / 2) * (variacia / 100);
-  return clamp(Math.round(rngRange(rng, mid - half, mid + half)), min, max);
+  return min + rngInt(rng, max - min + 1);
 }
 
 // Size s → parameters for one type. Ratios live in proporcie.json

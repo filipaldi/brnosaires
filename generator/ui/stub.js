@@ -13,7 +13,7 @@ const DEFAULTS = {
   grid: { stlpce: 8, zvysok: 'okraje' },
   kresba: { weight: 60, contrast: 70, zaoblenie: 30 },
   kompozicia: {
-    velkost: [1, 6], variacia: 50, rozlozenie: 'rovnomerne',
+    velkost: [1, 6], rozlozenie: 'rovnomerne',
     typy: [...ALL_TYPES], rozmiestnenie: 'volne',
   },
   variant: '42',
@@ -101,7 +101,6 @@ export function normalizujSpec(input) {
   if (c.velkost[0] > c.velkost[1]) {
     throw new ValidationError('Veľkosť min musí byť menšia alebo rovná max.');
   }
-  num(c.variacia, 'Variácia', { min: 0, max: 100 });
   enumv(c.rozlozenie, 'Rozloženie', ['rovnomerne', 'malePlusVelke', 'krajne']);
   if (!Array.isArray(c.typy) || c.typy.length === 0) {
     throw new ValidationError('Typy: vyber aspoň jeden typ tvaru.');
@@ -189,21 +188,16 @@ function escAttr(s) {
 // ---------- placement ----------
 
 function pickSize(rng, c) {
-  const v = c.variacia / 100;
   const [mn, mx] = c.velkost;
-  const mid = (mn + mx) / 2;
-  if (c.rozlozenie === 'krajne') {
-    const extreme = rng() < 0.5 ? mn : mx;
-    return mid + (extreme - mid) * v;
-  }
+  if (c.rozlozenie === 'krajne') return rng() < 0.5 ? mn : mx;
   if (c.rozlozenie === 'malePlusVelke') {
     const small = rng() < 0.72;
+    const mid = (mn + mx) / 2;
     const base = small ? mn : mx;
-    return mid + (base - mid) * v * (0.35 + 0.65 * rng());
+    return mid + (base - mid) * (0.35 + 0.65 * rng());
   }
-  const lo = mid - (mid - mn) * v;
-  const hi = mid + (mx - mid) * v;
-  return lo + rng() * (hi - lo);
+  // uniform over the whole range
+  return mn + rng() * (mx - mn);
 }
 
 function rectsIntersect(a, b, pad = 0) {

@@ -79,9 +79,7 @@ const ORIENTACIE = [0, 90, 180, 270].flatMap((rotate) => [false, true].map((mirr
 
 // Type and size drawn from the spec's distributions, before orientation.
 function potiahniRozmer(rng, typ, ctx, sPevne = null) {
-  const s = sPevne ?? drawSize(rng, {
-    velkost: ctx.velkosti[typ], variacia: ctx.variacia,
-  });
+  const s = sPevne ?? drawSize(rng, { velkost: ctx.velkosti[typ] });
   const params = paramsFor(typ, s, ctx.defaultsOf(typ), ctx.velkostTvaru);
   // every drop in the composition gets its own tail and height
   const [c0, c1] = ctx.kvapka.chvost;
@@ -245,7 +243,7 @@ function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = 
 // zones: [{ rect: {x, y, w, h}, spravanie, okraj }]
 export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
-  velkosti, variacia,
+  velkosti,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
   retazenieDlzka, retazeniePokusy, dotyk, neuspechov, spojky = [], spojkyMinKontrast = 0.8, spojkaPomer = 30, zakazanePary = [], pomery = {}, kvapka,
 }) {
@@ -276,7 +274,7 @@ export function placeShapes(rng, {
   const typyKvapky = ['kvapka'];
 
   const ctx = {
-    build, axes, defaultsOf, velkostTvaru, velkosti, variacia,
+    build, axes, defaultsOf, velkostTvaru, velkosti,
     stlpce, bandY, bandH, zony, medzera, dotyk, pokusov: 0, maxPokusov,
     typyRetezi, placed: null, kvapka, bezPatiek, zakazanePary, spojky, spojkaPomer,
   };
