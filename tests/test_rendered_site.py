@@ -125,7 +125,7 @@ class Monolingual(_Built):
     duplicating an English-only sub-site.
     """
 
-    DJS = ("balasz", "francesco", "veronika-kim", "vincent")
+    DJS = ("balasz", "francesco", "veronika-kim", "vincent", "macka-siva")
 
     def test_a_marathon_dj_has_no_en_clone(self):
         for slug in self.DJS:

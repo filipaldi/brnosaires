@@ -531,7 +531,7 @@ class People(unittest.TestCase):
         # field — deleting the field must leave this line alone.
         with open(DJS_TEAM, encoding="utf-8") as handle:
             text = handle.read()
-        self.assertIn('slugs="balasz francesco veronika-kim vincent"', text,
+        self.assertIn('slugs="balasz francesco veronika-kim vincent macka-siva"', text,
                       "the Marathon DJs page's hardcoded grouping moved")
 
     def test_the_config_around_the_deletion_still_parses(self):
