@@ -1003,14 +1003,11 @@ attachPopover($('#btn-parametre'), (pop) => {
     pomerRow.className = 'subrow';
     pomerRow.append(cap('podiel'), range, num);
     l.append(nahlad, pomerRow);
-    // kvapka's size is not used, so it gets no slider of its own
-    if (t.id !== 'kvapka') {
-      if (!c.velkosti[t.id]) c.velkosti[t.id] = [1, 6];
-      const sizeRow = document.createElement('div');
-      sizeRow.className = 'subrow';
-      sizeRow.append(cap('veľkosť'), rangeSlider(c.velkosti[t.id], { min: 1, max: 40 }));
-      l.append(sizeRow);
-    }
+    if (!c.velkosti[t.id]) c.velkosti[t.id] = [1, 6];
+    const sizeRow = document.createElement('div');
+    sizeRow.className = 'subrow';
+    sizeRow.append(cap('veľkosť'), rangeSlider(c.velkosti[t.id], { min: 1, max: 40 }));
+    l.append(sizeRow);
     typesGrid.append(l);
   }
   obnov();

@@ -55,7 +55,7 @@ Polomery a veľkosť kvapky sa odvodia z Weight a Contrast. Vzorce sú v `propor
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
 | Podiel typu | 0–100 % pre každý typ, spolu 100 % | Podiel typu v jednej reťazi. Dĺžka reťaze sa rozdelí na kvóty: z reťaze 10 tvarov a nohy 30 % budú 3 nohy. Krúžky a kvapky sú tiež súčasťou reťaze (krúžok vedľa nej, kvapka zapustená rovnobežne do nohy). Kvapky na koncoch čiar sa do podielu nepočítajú. 0 = typ sa nepoužije. |
-| Veľkosť typu | min–max v dielikoch pre každý typ (posuvník s dvoma bežcami) | Hlavný rozmer tvaru, napr. 1–6. Kvapka ho nemá, jej šírka sa ťahá z `kvapka.sirka`. |
+| Veľkosť typu | min–max v dielikoch pre každý typ (posuvník s dvoma bežcami) | Hlavný rozmer tvaru, napr. 1–6. Pri kvapke je to jej šírka (predvolene 1–2). |
 | Dĺžka reťaze | min–max prvkov | Kratšie reťaze sa zahodia |
 | Rozmiestnenie | voľné / dlaždice | Voľné = kompozícia s výrezom, dlaždice = vzor v mriežke |
 
@@ -136,7 +136,7 @@ Každý tvar je poskladaný z troch prvkov:
 | 2 | Štvrťoblúk s pätkou | polomer (auto = heavy); prechod z vlasového ťahu do plného. Nie je na výber: zapne sa sám, keď má kresba kontrast |
 | 3 | Polooblúk | polomer, vlas / plná; obyčajný polkruh konštantnej hrúbky |
 | 4 | Štvrťoblúk | polomer, vlas / plná; obyčajný štvrťkruh konštantnej hrúbky |
-| 5 | Kvapka | šírka z rozsahu `kvapka.sirka`, krk má hrúbku ťahu, na ktorý sa napája |
+| 5 | Kvapka | šírka z rozsahu veľkosti kvapky, krk má hrúbku ťahu, na ktorý sa napája |
 | 6 | Kruh | priemer, obrys vlas / plný |
 
 Oblúky sú len tri segmenty: štvrťoblúk s pätkou (prechod medzi tenším a hrubším ťahom), na ktorý sa napája štvrťoblúk a polooblúk. Trojštvrťový oblúk (tvar n) a oblúk s pätkou vypadli, nahrádza ich polooblúk. Hmotu so štrbinou (tvar U) nahradili obyčajný polooblúk a štvrťoblúk. Vrchol (A) vypadol, z obdĺžnikov nevyzeral dobre. Koleno nie je samostatný typ: vzniká napojením nohy na oblúk. Nota, háčik s kvapkou a bod tiež vypadli.

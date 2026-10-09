@@ -151,13 +151,14 @@ function kvoty(rng, n, pomery) {
   return out;
 }
 
-// Neck blend (krk) that gives a teardrop the drawn width for a neck of
-// thickness t: the drop's size follows its neck (scale = t / (10 + 30 · krk)),
-// so a heavy neck would otherwise blow it up.
+// Neck blend (krk) that gives a teardrop the width s drawn from its size
+// range for a neck of thickness t: the drop's size follows its neck
+// (scale = t / (10 + 30 · krk)), so a heavy neck would otherwise blow it up.
 // width = (150 + 150 · chvost) · scale
+// krk is clamped to 0..1, so for a thin neck the drop cannot get wider than
+// the krk = 0 limit and its real width may stay smaller than s.
 function krkPreSirku(rng, params, t, ctx) {
-  const [w0, w1] = ctx.kvapka.sirka;
-  const sirka = w0 + rng() * (w1 - w0);
+  const sirka = drawSize(rng, { velkost: ctx.velkosti.kvapka });
   const k = ((150 + 150 * params.chvost / 100) * t / sirka - 10) / 30;
   params.krk = Math.round(Math.min(Math.max(k, 0), 1) * 100);
 }

@@ -39,7 +39,7 @@
     "_comment": "Geometrické pomery tvarov (násobky hair alebo heavy). Zaoblenie rohov je globálne, v osi.zaoblenie."
   },
   "kompozicia": {
-    "_comment": "Kompozícia (fáza 2). predvolene = chýbajúce polia celého specu. zona = chýbajúce polia zóny podľa typu. velkosti = rozsah [min, max] v dielikoch pre každý typ zvlášť (kvapka ho nepoužíva, jej šírka je v kvapka.sirka). velkostTvaru = prevod nameranej veľkosti s (dieliky) na parametre tvaru: zVelkosti sú parametre rovné s, sirkaPomer/ramenoPomer/pocetPomer sú násobky s, ostatné čísla sú stále hodnoty parametra. Tvary sa nikdy neskalujú — hrúbky vždy zostávajú z osí Weight a Contrast.",
+    "_comment": "Kompozícia (fáza 2). predvolene = chýbajúce polia celého specu. zona = chýbajúce polia zóny podľa typu. velkosti = rozsah [min, max] v dielikoch pre každý typ zvlášť (pri kvapke je to jej šírka). velkostTvaru = prevod nameranej veľkosti s (dieliky) na parametre tvaru: zVelkosti sú parametre rovné s, sirkaPomer/ramenoPomer/pocetPomer sú násobky s, ostatné čísla sú stále hodnoty parametra. Tvary sa nikdy neskalujú — hrúbky vždy zostávajú z osí Weight a Contrast.",
     "predvolene": {
       "format": {
         "sirka": 420,
@@ -77,7 +77,7 @@
           ],
           "kvapka": [
             1,
-            6
+            2
           ],
           "kruh": [
             1,
@@ -191,7 +191,7 @@
       "maxSirka": 2400
     },
     "kvapka": {
-      "_comment": "V kompozícii sa chvost a výška kvapky ťahajú náhodne z týchto rozsahov (%). sirka = rozsah šírky kvapky v dielikoch: hrúbka krku sa dopočíta tak, aby kvapka mala túto šírku pri hrdle hrúbky ťahu, na ktorý sa napája (pri nízkom kontraste sa inak plné hrdlá nafúkli do obrích kvapiek).",
+      "_comment": "V kompozícii sa chvost a výška kvapky ťahajú náhodne z týchto rozsahov (%). Šírka kvapky ide z jej rozsahu v kompozicia.velkosti: hrúbka krku sa dopočíta tak, aby kvapka mala túto šírku pri hrdle hrúbky ťahu, na ktorý sa napája (pri tenkom hrdle môže byť skutočná šírka menšia).",
       "chvost": [
         0,
         100
@@ -199,10 +199,6 @@
       "vyska": [
         0,
         100
-      ],
-      "sirka": [
-        0.6,
-        1.6
       ]
     }
   }

@@ -24,7 +24,7 @@ export function drawSize(rng, { velkost }) {
 //   stvrtoblouk            polomer = s · polomerPomer (foot stays heavy)
 //   polkruh, stvrtkruh     polomer = s · polomerPomer
 //   kruh                   priemer = s · priemerPomer
-//   kvapka                 width from kvapka.sirka, not from s
+//   kvapka                 width = s (the neck blend krk is solved for it, see rozmiestnenie.js)
 export function paramsFor(type, s, defaults, cfg) {
   const p = { ...defaults };
   const c = cfg[type] || {};
