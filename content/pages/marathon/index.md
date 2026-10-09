@@ -24,9 +24,9 @@ We're not just booking someone behind the decks. We're selecting DJs we've dance
 
 <widget-articles
     link="false" 
-    slugs="balasz francesco veronika-kim vincent" 
+    slugs="balasz francesco veronika-kim vincent macka-siva" 
     metadata="image title description" 
-    columns="4"
+    columns="3"
     frame="1x1"
     card_size="s">
 </widget-articles>
