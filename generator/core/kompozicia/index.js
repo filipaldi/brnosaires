@@ -166,10 +166,9 @@ function normalizujKompozicia(raw) {
   if (!komp.velkosti || typeof komp.velkosti !== 'object' || Array.isArray(komp.velkosti)) {
     throw new ValidationError('kompozicia.velkosti musí byť objekt { typ: [min, max] }, napr. { "noha": [1, 6] }.');
   }
+  // unknown ids are dropped, not rejected: saved state from older versions may still carry removed types
+  komp.velkosti = Object.fromEntries(Object.entries(komp.velkosti).filter(([typ]) => vsetky.includes(typ)));
   for (const [typ, v] of Object.entries(komp.velkosti)) {
-    if (!vsetky.includes(typ)) {
-      throw new ValidationError(`Neznámy typ tvaru „${typ}“ v kompozicia.velkosti. Platné typy: ${vsetky.join(', ')}.`);
-    }
     const kde = `kompozicia.velkosti.${typ}`;
     if (!Array.isArray(v) || v.length !== 2) {
       throw new ValidationError(`${kde} musí byť pole [min, max] v dielikoch, napr. [1, 6].`);

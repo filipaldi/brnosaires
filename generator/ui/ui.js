@@ -730,6 +730,10 @@ function zahodZastarane(k) {
   const spojky = proporcie.kompozicia.rozmiestnenie.retazenie.spojky;
   const zname = (t) => TYPES.some((x) => x.id === t) && !spojky.includes(t);
   if (Array.isArray(k.typy)) k.typy = k.typy.filter(zname);
+  // sizes may keep connectors, only ids missing from TYPES are dropped
+  if (k.velkosti && typeof k.velkosti === 'object' && !Array.isArray(k.velkosti)) {
+    k.velkosti = Object.fromEntries(Object.entries(k.velkosti).filter(([t]) => TYPES.some((x) => x.id === t)));
+  }
   if (k.pomery && typeof k.pomery === 'object') {
     k.pomery = Object.fromEntries(Object.entries(k.pomery).filter(([t]) => zname(t)));
     const spolu = Object.values(k.pomery).reduce((a, v) => a + v, 0);

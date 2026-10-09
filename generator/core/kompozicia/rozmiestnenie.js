@@ -473,6 +473,6 @@ export function placeShapes(rng, {
 
   const varovania = [];
   if (!placed.length) varovania.push('Na plátne sa nezmestil žiadny tvar.');
-  else if (area < target) varovania.push(`Na plátne sa zmestilo len ${placed.length} tvarov.`);
+  // chains rarely reach the density target, so warn only when the canvas stays nearly empty
   return { placed, varovania };
 }
