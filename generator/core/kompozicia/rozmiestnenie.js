@@ -110,31 +110,47 @@ function potiahni(rng, typ, ctx) {
   return orientuj(potiahniRozmer(rng, typ, ctx), rngPick(rng, ORIENTACIE), ctx);
 }
 
-// Pick a type by its weight (pomery), corrected by what is already on the
-// canvas: a type with a smaller share than its weight asks for is favoured,
-// one ahead of it held back, so the finished drawing keeps the ratios.
-function vyberTyp(rng, typy, ctx) {
-  const spolu = typy.reduce((a, t) => a + (ctx.pomery[t] ?? 0), 0);
-  if (!spolu) return rngPick(rng, typy);
-  const pocty = {};
-  let n = 0;
-  for (const p of ctx.placed) {
-    if (p.cap || !typy.includes(p.typ)) continue;
-    pocty[p.typ] = (pocty[p.typ] || 0) + 1;
-    n++;
-  }
-  const vahy = typy.map((t) => {
-    const ciel = (ctx.pomery[t] ?? 0) / spolu;
-    if (!ciel) return 0;
-    const ma = n ? (pocty[t] || 0) / n : ciel;
-    return ciel * Math.exp(ctx.model * (ciel - ma) / ciel);
-  });
-  let r = rng() * vahy.reduce((a, v) => a + v, 0);
+// Pick a type for a chain from what its quota still asks for: each type
+// weighted by how many of it the chain still needs. Connectors (spojky) have
+// no quota; they come in with a fixed share whenever a transition is needed.
+function vyberTyp(rng, typy, ctx, chain) {
+  const zostava = (t) => (ctx.spojky.includes(t) ? null : chain.kvoty[t] || 0);
+  const spolu = typy.reduce((a, t) => a + (zostava(t) ?? 0), 0);
+  const vahy = typy.map((t) => zostava(t) ?? ctx.spojkaPomer / 100 * Math.max(spolu, 1));
+  const suma = vahy.reduce((a, v) => a + v, 0);
+  if (!suma) return null;
+  let r = rng() * suma;
   for (let i = 0; i < typy.length; i++) {
     r -= vahy[i];
     if (r < 0) return typy[i];
   }
   return typy[typy.length - 1];
+}
+
+// How many of each type one chain of n elements holds: the whole part of
+// n · share, the rest handed out at random weighted by the fractions, so a
+// small share still shows up in some chains.
+function kvoty(rng, n, pomery) {
+  const typy = Object.keys(pomery).filter((t) => pomery[t] > 0);
+  const spolu = typy.reduce((a, t) => a + pomery[t], 0);
+  const out = {};
+  const zvysky = [];
+  let pocet = 0;
+  for (const t of typy) {
+    const x = n * pomery[t] / spolu;
+    out[t] = Math.floor(x);
+    pocet += out[t];
+    zvysky.push([t, x - out[t]]);
+  }
+  while (pocet < n && zvysky.length) {
+    let r = rng() * zvysky.reduce((a, [, z]) => a + z, 0);
+    let i = 0;
+    while (i < zvysky.length - 1 && (r -= zvysky[i][1]) >= 0) i++;
+    out[zvysky[i][0]]++;
+    pocet++;
+    zvysky.splice(i, 1);
+  }
+  return out;
 }
 
 // Neck blend (krk) that gives a teardrop the drawn width for a neck of
@@ -168,13 +184,14 @@ function umiestni(k, box) {
 
 // Try to attach one shape to an open joint of a chain. Returns the placed
 // entry (with the joint it used) or null when no candidate fits.
-function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = ctx.typyRetezi } = {}) {
+function prirast(rng, chain, ctx, pokusy, minDlzka = 1, { koniec = null, typy = ctx.typyRetezi, kvota = true } = {}) {
   const otvoren = koniec ?? chain.open[rngInt(rng, chain.open.length)];
   chain.posledny = otvoren;
   // a drawn type with no joint of the open end's thickness cannot attach at
   // all; such draws are skipped without spending an attempt
   for (let i = 0, tahov = 0; i < pokusy && ctx.pokusov < ctx.maxPokusov && tahov < pokusy * 8; tahov++) {
-    const typ = vyberTyp(rng, typy, ctx);
+    const typ = kvota ? vyberTyp(rng, typy, ctx, chain) : typy[rngInt(rng, typy.length)];
+    if (!typ) return null;
     // some pairs never join directly (a half ring onto another half ring)
     if (ctx.zakazanePary.some(([a, b]) => (a === typ && b === otvoren.entry.typ)
       || (b === typ && a === otvoren.entry.typ))) continue;
@@ -230,7 +247,7 @@ export function placeShapes(rng, {
   build, axes, defaultsOf, typy, velkostTvaru, vahyTvaru,
   velkosti, variacia,
   stlpce, bandY, bandH, zony, medzera, hustota, maxPokusov, skok,
-  retazenieDlzka, akcentyNaRetaz = [1, 10], retazeniePokusy, dotyk, neuspechov, spojky = [], spojkyMinKontrast = 0.8, spojkaPomer = 30, zakazanePary = [], model = 3, pomery = {}, kvapka,
+  retazenieDlzka, retazeniePokusy, dotyk, neuspechov, spojky = [], spojkyMinKontrast = 0.8, spojkaPomer = 30, zakazanePary = [], pomery = {}, kvapka,
 }) {
   const zoneArea = zony.reduce((a, z) => a + z.rect.w * z.rect.h, 0);
   const freeArea = Math.max(stlpce * bandH - zoneArea, 0);
@@ -239,18 +256,16 @@ export function placeShapes(rng, {
   const pokrytie = (typ, box) => box.w * box.h * (vahyTvaru[typ] ?? 1);
   const target = hustota * freeArea;
 
-  // Chains grow from the types with joints. A kvapka is never a chain link:
-  // every open end gets one when the chain closes, and its weight in pomery
-  // is for teardrops hung along straight lines. Kruh has no joints; it and
-  // those side teardrops are a chain's accents.
+  // Every element belongs to a chain. pomery give each type's share of one
+  // chain: the chain's drawn length is split into a quota per type. Types
+  // with joints are its links; a kvapka in the quota hangs along a straight
+  // leg and a kruh sits beside the chain. The teardrops that end every line
+  // come on top of the quota.
   // a pätka turns a hairline into a heavy foot: with contrast it is switched
   // on by itself as the connector between thin and heavy strokes; at low
   // contrast there is no such transition and it is left out
   const bezPatiek = axes.hair > spojkyMinKontrast * axes.heavy;
-  if (!bezPatiek) {
-    typy = [...typy, ...spojky.filter((t) => !typy.includes(t))];
-    pomery = { ...pomery, ...Object.fromEntries(spojky.map((t) => [t, spojkaPomer])) };
-  }
+  if (!bezPatiek) typy = [...typy, ...spojky.filter((t) => !typy.includes(t))];
   const maSpoje = {};
   for (const typ of new Set(typy)) {
     maSpoje[typ] = build(typ, defaultsOf(typ), axes).joints.length > 0;
@@ -258,13 +273,12 @@ export function placeShapes(rng, {
   const typyRetezi = typy.filter((t) => maSpoje[t] && t !== 'kvapka');
   // connectors (spojky) only ever grow out of another shape's open joint
   const typyZakladne = typyRetezi.filter((t) => !spojky.includes(t));
-  const typyAkcentov = typy.filter((t) => !maSpoje[t] || t === 'kvapka');
   const typyKvapky = ['kvapka'];
 
   const ctx = {
     build, axes, defaultsOf, velkostTvaru, velkosti, variacia,
     stlpce, bandY, bandH, zony, medzera, dotyk, pokusov: 0, maxPokusov,
-    typyRetezi, placed: null, kvapka, bezPatiek, zakazanePary, model, pomery,
+    typyRetezi, placed: null, kvapka, bezPatiek, zakazanePary, spojky, spojkaPomer,
   };
 
   const placed = [];
@@ -292,13 +306,15 @@ export function placeShapes(rng, {
   };
   const uzavri = (chain) => {
     chain.closed = true;
-    if (chain.members.length < minDlzka) return odstran(chain);
+    // the chain's length counts its links and the accents it will get
+    const dlzka = () => chain.members.filter((m) => !m.cap && !spojky.includes(m.typ)).length + chain.akcenty;
+    if (dlzka() < minDlzka) return odstran(chain);
     const konce = [...chain.open, ...chain.blokovane];
     chain.open = [];
     while (konce.length) {
       const koniec = konce.pop();
       const vysledok = typyKvapky.length
-        ? prirast(rng, chain, ctx, retazeniePokusy, 1, { koniec, typy: typyKvapky })
+        ? prirast(rng, chain, ctx, retazeniePokusy, 1, { koniec, typy: typyKvapky, kvota: false })
         : null;
       if (vysledok) {
         Object.assign(vysledok.entry, { rodic: koniec, cap: true });
@@ -319,26 +335,30 @@ export function placeShapes(rng, {
       for (let i = konce.length - 1; i >= 0; i--) if (konce[i].entry === e) konce.splice(i, 1);
       konce.push(e.rodic);
     }
-    if (chain.members.filter((m) => !m.cap).length < minDlzka) odstran(chain);
+    if (dlzka() < minDlzka) odstran(chain);
   };
 
   const zacniRetaz = () => {
-    const k = potiahni(rng, vyberTyp(rng, typyZakladne, ctx), ctx);
+    const [minD, maxD] = retazenieDlzka;
+    const n = rngInt(rng, maxD - minD + 1) + minD;
+    const chain = { kvoty: kvoty(rng, n, pomery), blokovane: [], closed: false };
+    // accents in the quota need something to sit by; a chain whose quota
+    // has no link at all cannot start
+    const typ = vyberTyp(rng, typyZakladne, ctx, chain);
+    if (!typ) return false;
+    const k = potiahni(rng, typ, ctx);
     const bb = k.shape.bbox;
-    if (bb.w > stlpce + 1e-9 || bb.h > bandH + 1e-9) return;
+    if (bb.w > stlpce + 1e-9 || bb.h > bandH + 1e-9) return false;
     const box = nahodnaPozicia(rng, bb, { stlpce, bandY, bandH, zony, placed, medzera, skok });
     if (!box) return false;
     const entry = umiestni(k, box);
     placed.push(entry);
     area += pokrytie(k.typ, box);
-    const [minD, maxD] = retazenieDlzka;
-    chains.push({
-      members: [entry],
-      open: entry.joints.map((j) => ({ entry, j })),
-      blokovane: [],
-      target: rngInt(rng, maxD - minD + 1) + minD,
-      closed: false,
-    });
+    chain.kvoty[typ]--;
+    chain.members = [entry];
+    chain.open = entry.joints.map((j) => ({ entry, j }));
+    chain.akcenty = (chain.kvoty.kruh || 0) + (chain.kvoty.kvapka || 0);
+    chains.push(chain);
     return true;
   };
 
@@ -355,7 +375,8 @@ export function placeShapes(rng, {
     }
     const chain = chains[chains.length - 1];
     while (!chain.closed && ctx.pokusov < maxPokusov) {
-      if (!chain.open.length || chain.members.length >= chain.target) {
+      const linky = typyRetezi.some((t) => !spojky.includes(t) && chain.kvoty[t] > 0);
+      if (!chain.open.length || !linky) {
         uzavri(chain);
         break;
       }
@@ -372,6 +393,7 @@ export function placeShapes(rng, {
       placed.push(entry);
       area += pokrytie(entry.typ, entry.bbox);
       chain.members.push(entry);
+      if (chain.kvoty[entry.typ]) chain.kvoty[entry.typ]--;
       chain.open = chain.open.filter((o) => o !== otvoren);
       chain.open.push(...entry.joints.filter((j) => j.id !== spoj.id).map((j) => ({ entry, j })));
     }
@@ -380,10 +402,9 @@ export function placeShapes(rng, {
 
   for (const chain of chains) if (!chain.closed) uzavri(chain);
 
-  // Phase 2 — accents never stand alone: each finished chain gets between
-  // akcentyNaRetaz[0] and [1] of them. A kruh sits beside one of the chain's
-  // shapes with the normal gap; a kvapka hangs along one of its straight
-  // legs, parallel to it, its neck sunk into the leg.
+  // Phase 2 — the accents in each finished chain's quota. A kruh sits beside
+  // one of the chain's shapes with the normal gap; a kvapka hangs along one
+  // of its straight legs, parallel to it, its neck sunk into the leg.
   const bocnaKvapka = (chain) => {
     const nohy = chain.members.filter((m) => m.typ === 'noha');
     for (let pokus = 0; pokus < 20 && nohy.length; pokus++) {
@@ -445,15 +466,10 @@ export function placeShapes(rng, {
     }
     return false;
   };
-  const [aMin, aMax] = akcentyNaRetaz;
   for (const chain of chains) {
-    if (!chain.members.length || !typyAkcentov.length) continue;
-    const pocet = aMin + rngInt(rng, aMax - aMin + 1);
-    for (let n = 0; n < pocet; n++) {
-      const typ = vyberTyp(rng, typyAkcentov, ctx);
-      if (typ === 'kvapka') bocnaKvapka(chain);
-      else kruzok(chain);
-    }
+    if (!chain.members.length) continue;
+    for (let n = 0; n < (chain.kvoty.kvapka || 0); n++) bocnaKvapka(chain);
+    for (let n = 0; n < (chain.kvoty.kruh || 0); n++) kruzok(chain);
   }
 
   const varovania = [];

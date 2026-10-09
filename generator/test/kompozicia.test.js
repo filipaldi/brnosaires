@@ -196,3 +196,11 @@ test('polooblúk sa nenapája priamo na ďalší polooblúk', () => {
     }
   }
 });
+
+test('pomery sú podiely v reťazi: typ s pomerom 0 sa neobjaví', () => {
+  const { tvary } = komponuj({ variant: '3', kompozicia: { pomery: { noha: 80, kvapka: 20 } } });
+  assert.ok(tvary.length > 0);
+  for (const t of tvary) {
+    assert.ok(['noha', 'kvapka', 'stvrtoblouk'].includes(t.typ), `nečakaný typ ${t.typ}`);
+  }
+});

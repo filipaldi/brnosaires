@@ -54,11 +54,10 @@ Polomery a veľkosť kvapky sa odvodia z Weight a Contrast. Vzorce sú v `propor
 
 | Parameter | Hodnoty | Poznámka |
 |---|---|---|
-| Pomer typu | 0–100 pre každý typ | Podiel typu v kresbe, 0 = typ sa nepoužije. Generátor priebežne porovnáva, čo už je na plátne, a dorovnáva typy, ktoré zaostávajú. |
+| Podiel typu | 0–100 % pre každý typ, spolu 100 % | Podiel typu v jednej reťazi. Dĺžka reťaze sa rozdelí na kvóty: z reťaze 10 tvarov a nohy 30 % budú 3 nohy. Krúžky a kvapky sú tiež súčasťou reťaze (krúžok vedľa nej, kvapka zapustená rovnobežne do nohy). Kvapky na koncoch čiar sa do podielu nepočítajú. 0 = typ sa nepoužije. |
 | Veľkosť typu | min–max v dielikoch pre každý typ (posuvník s dvoma bežcami) | Hlavný rozmer tvaru, napr. 1–6. Kvapka ho nemá, jej šírka sa ťahá z `kvapka.sirka`. |
 | Variácia | 0–100 % | 0 % = všetky tvary rovnako veľké, 100 % = celý rozsah |
-| Dĺžka reťaze | min–max tvarov | Kratšie reťaze sa zahodia |
-| Krúžky a kvapky | min–max na reťaz | Krúžky vedľa reťaze a kvapky zapustené rovnobežne do nohy |
+| Dĺžka reťaze | min–max prvkov | Kratšie reťaze sa zahodia |
 | Rozmiestnenie | voľné / dlaždice | Voľné = kompozícia s výrezom, dlaždice = vzor v mriežke |
 
 ### Variant (seed)

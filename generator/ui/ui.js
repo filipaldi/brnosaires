@@ -725,11 +725,36 @@ function selectInput(options, value, onInput) {
 function zahodZastarane(k) {
   delete k.retazenie;
   delete k.rozlozenie;
-  const zname = (t) => TYPES.some((x) => x.id === t);
+  delete k.akcentyNaRetaz;
+  const spojky = proporcie.kompozicia.rozmiestnenie.retazenie.spojky;
+  const zname = (t) => TYPES.some((x) => x.id === t) && !spojky.includes(t);
   if (Array.isArray(k.typy)) k.typy = k.typy.filter(zname);
   if (k.pomery && typeof k.pomery === 'object') {
     k.pomery = Object.fromEntries(Object.entries(k.pomery).filter(([t]) => zname(t)));
+    const spolu = Object.values(k.pomery).reduce((a, v) => a + v, 0);
+    if (spolu && spolu !== 100) k.pomery = naSto(k.pomery);
   }
+}
+
+// Integer percentages summing to exactly 100, proportional to the values
+// (all equal when every value is 0); the rounding remainder goes to the
+// largest fractions.
+function naSto(vahy, spolu = 100) {
+  const typy = Object.keys(vahy);
+  const suma = typy.reduce((a, t) => a + vahy[t], 0);
+  const presne = typy.map((t) => (suma ? vahy[t] / suma : 1 / typy.length) * spolu);
+  const out = Object.fromEntries(typy.map((t, i) => [t, Math.floor(presne[i])]));
+  let zvysok = spolu - Object.values(out).reduce((a, v) => a + v, 0);
+  const poradie = typy.map((t, i) => [t, presne[i] - out[t]]).sort((a, b) => b[1] - a[1]);
+  for (let i = 0; zvysok > 0; i = (i + 1) % poradie.length, zvysok--) out[poradie[i][0]]++;
+  return out;
+}
+
+// Sets one type's share and spreads the rest of 100 % over the other types
+// in proportion to their current shares.
+function rozdelPomery(pomery, id, v) {
+  const ostatne = Object.fromEntries(Object.entries(pomery).filter(([t]) => t !== id));
+  Object.assign(pomery, naSto(ostatne, 100 - v), { [id]: v });
 }
 
 function sliderRow(label, value, onInput) {
@@ -920,15 +945,9 @@ attachPopover($('#btn-parametre'), (pop) => {
   chainWrap.className = 'grow';
   chainWrap.append(
     rangeSlider(c.retazenieDlzka, { min: 1, max: 50 }),
-    Object.assign(document.createElement('span'), { textContent: 'tvarov' }),
+    Object.assign(document.createElement('span'), { textContent: 'prvkov' }),
   );
 
-  const accentWrap = document.createElement('div');
-  accentWrap.className = 'grow';
-  accentWrap.append(
-    rangeSlider(c.akcentyNaRetaz, { min: 0, max: 50 }),
-    Object.assign(document.createElement('span'), { textContent: 'na reťaz' }),
-  );
 
   const typesGrid = document.createElement('div');
   typesGrid.className = 'types';
@@ -940,10 +959,20 @@ attachPopover($('#btn-parametre'), (pop) => {
   const cap = (text) => Object.assign(document.createElement('span'), { className: 'cap', textContent: text });
   // connectors (the pätka quarter) switch on by themselves with contrast
   const spojky = proporcie.kompozicia.rozmiestnenie.retazenie.spojky;
-  for (const t of TYPES.filter((x) => !spojky.includes(x.id))) {
+  const viditelne = TYPES.filter((x) => !spojky.includes(x.id));
+  for (const t of viditelne) c.pomery[t.id] ??= 0;
+  const posuvniky = [];
+  const obnov = () => {
+    for (const { id, range, num, l } of posuvniky) {
+      range.value = String(c.pomery[id]);
+      num.textContent = `${c.pomery[id]}\u00a0%`;
+      l.classList.toggle('vypnuty', c.pomery[id] === 0);
+    }
+  };
+  for (const t of viditelne) {
     const l = document.createElement('label');
     l.title = t.name;
-    // the slider sets the type's share; 0 leaves it out
+    // the slider sets the type's share of a chain; all shares add up to 100 %
     const pomer = c.pomery[t.id] ?? 0;
     const range = document.createElement('input');
     range.type = 'range';
@@ -954,13 +983,10 @@ attachPopover($('#btn-parametre'), (pop) => {
     range.setAttribute('aria-label', t.name);
     const num = document.createElement('span');
     num.className = 'num';
-    num.textContent = String(pomer);
-    l.classList.toggle('vypnuty', pomer === 0);
+    posuvniky.push({ id: t.id, range, num, l });
     range.addEventListener('input', () => {
-      const v = Number(range.value);
-      c.pomery[t.id] = v;
-      num.textContent = String(v);
-      l.classList.toggle('vypnuty', v === 0);
+      rozdelPomery(c.pomery, t.id, Number(range.value));
+      obnov();
       scheduleRender();
     });
     const nahlad = document.createElement('span');
@@ -974,7 +1000,7 @@ attachPopover($('#btn-parametre'), (pop) => {
     }
     const pomerRow = document.createElement('div');
     pomerRow.className = 'subrow';
-    pomerRow.append(cap('pomer'), range, num);
+    pomerRow.append(cap('podiel'), range, num);
     l.append(nahlad, pomerRow);
     // kvapka's size is not used, so it gets no slider of its own
     if (t.id !== 'kvapka') {
@@ -986,6 +1012,7 @@ attachPopover($('#btn-parametre'), (pop) => {
     }
     typesGrid.append(l);
   }
+  obnov();
 
   const note = document.createElement('p');
   note.className = 'note';
@@ -1006,7 +1033,6 @@ attachPopover($('#btn-parametre'), (pop) => {
     mkH('Kompozícia'),
     sliderRow('Variácia', c.variacia, (v) => { spec.kompozicia.variacia = v; }),
     row('Dĺžka reťaze', chainWrap),
-    row('Krúžky a kvapky', accentWrap),
     row('Rozmiestnenie', selectInput(
       [['volne', 'voľné'], ['dlazdice', 'dlaždice']],
       c.rozmiestnenie, (v) => { spec.kompozicia.rozmiestnenie = v; })),

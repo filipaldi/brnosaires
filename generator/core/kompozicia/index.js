@@ -113,6 +113,11 @@ function normalizujKompozicia(raw) {
     const { typy, ...zvysok } = raw;
     raw = zvysok;
   }
+  // dropped: accents are now part of each chain's quota
+  if (raw && 'akcentyNaRetaz' in raw) {
+    const { akcentyNaRetaz, ...zvysok } = raw;
+    raw = zvysok;
+  }
   if (raw && 'rozlozenie' in raw) {
     // dropped setting: sizes are spread evenly over the range
     const { rozlozenie, ...zvysok } = raw;
@@ -126,19 +131,11 @@ function normalizujKompozicia(raw) {
   }
   cislo(komp.retazenieDlzka[0], 'kompozicia.retazenieDlzka[0]', { min: 1, max: 50, cele: true });
   cislo(komp.retazenieDlzka[1], 'kompozicia.retazenieDlzka[1]', { min: 1, max: 50, cele: true });
-  if (!Array.isArray(komp.akcentyNaRetaz) || komp.akcentyNaRetaz.length !== 2) {
-    throw new ValidationError('kompozicia.akcentyNaRetaz musí byť pole [min, max] krúžkov a bodov pri jednej reťazi, napr. [1, 10].');
-  }
-  cislo(komp.akcentyNaRetaz[0], 'kompozicia.akcentyNaRetaz[0]', { min: 0, max: 50, cele: true });
-  cislo(komp.akcentyNaRetaz[1], 'kompozicia.akcentyNaRetaz[1]', { min: 0, max: 50, cele: true });
-  if (komp.akcentyNaRetaz[0] > komp.akcentyNaRetaz[1]) {
-    throw new ValidationError('kompozicia.akcentyNaRetaz[0] musí byť menšia alebo rovná akcentyNaRetaz[1].');
-  }
   if (komp.retazenieDlzka[0] > komp.retazenieDlzka[1]) {
     throw new ValidationError('kompozicia.retazenieDlzka[0] musí byť menšia alebo rovná retazenieDlzka[1].');
   }
-  // pomery: one weight 0–100 per type; 0 leaves the type out. The share
-  // of each type on the canvas follows these weights.
+  // pomery: each type's percentage of one chain (0 leaves the type out).
+  // Values are read as shares of their sum, so they need not add up to 100.
   const vsetky = TYPES.map((t) => t.id);
   // connectors (spojky) are switched on by contrast, never weighted by hand;
   // older specs that still weight them lose those keys
@@ -309,7 +306,6 @@ export function komponuj(input, { fontUrls } = {}) {
     maxPokusov: KOMP.rozmiestnenie.maxPokusov,
     skok: KOMP.rozmiestnenie.skok,
     retazenieDlzka: komp.retazenieDlzka,
-    akcentyNaRetaz: komp.akcentyNaRetaz,
     retazeniePokusy: KOMP.rozmiestnenie.retazenie.pokusy,
     dotyk: KOMP.rozmiestnenie.retazenie.dotyk,
     neuspechov: KOMP.rozmiestnenie.retazenie.neuspechov,
@@ -317,7 +313,6 @@ export function komponuj(input, { fontUrls } = {}) {
     spojkyMinKontrast: KOMP.rozmiestnenie.retazenie.spojkyMinKontrast,
     spojkaPomer: KOMP.rozmiestnenie.retazenie.spojkaPomer,
     zakazanePary: KOMP.rozmiestnenie.retazenie.zakazanePary,
-    model: KOMP.rozmiestnenie.retazenie.model,
     kvapka: KOMP.kvapka,
   });
   varovania.push(...varovaniaUmiestnenia);

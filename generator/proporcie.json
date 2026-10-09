@@ -86,20 +86,16 @@
         },
         "variacia": 50,
         "pomery": {
-          "noha": 50,
-          "polkruh": 40,
-          "stvrtkruh": 40,
-          "kvapka": 30,
-          "kruh": 50
+          "noha": 30,
+          "polkruh": 20,
+          "stvrtkruh": 20,
+          "kvapka": 15,
+          "kruh": 15
         },
         "rozmiestnenie": "volne",
         "retazenieDlzka": [
           5,
           20
-        ],
-        "akcentyNaRetaz": [
-          1,
-          10
         ]
       },
       "variant": "1",
@@ -179,9 +175,8 @@
             "stvrtoblouk"
           ]
         ],
-        "model": 3,
         "spojkyMinKontrast": 0.8,
-        "spojkaPomer": 30
+        "spojkaPomer": 15
       }
     },
     "svg": {

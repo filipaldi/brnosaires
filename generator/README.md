@@ -62,5 +62,17 @@ node generator/cli.js kompozicia --spec generator/priklady/plagat-a2.json --vari
 
 `--variant` prepíše variant zo súboru. Rovnaký súbor a variant dajú vždy
 rovnaký obrázok. Hustotu, medzery a prevod veľkosti na parametre tvarov
-ladíš v `proporcie.json` v časti `kompozicia`. `kompozicia.retazenieDlzka` je [min, max] počet tvarov v jednej reťazi a `kompozicia.akcentyNaRetaz` [min, max] krúžkov a bodov pri nej. Webové rozhranie volá to isté
-jadro, viď [`ui/README.md`](ui/README.md).
+ladíš v `proporcie.json` v časti `kompozicia`. Každý prvok patrí do nejakej reťaze.
+`kompozicia.retazenieDlzka` je [min, max] počet prvkov v jednej nakreslenej reťazi.
+`kompozicia.pomery` je podiel každého typu v jednej reťazi v percentách (0 až 100,
+berie sa ako podiel zo súčtu): dĺžka reťaze sa rozdelí na kvóty po typoch, napr.
+reťaz s 10 prvkami a nohou na 30 % má 3 nohy. Kruh z kvóty leží vedľa reťaze, kvapka
+z kvóty visí pozdĺž rovnej nohy (rovnobežne, krk zapustený). Kvapky, ktorými končí
+každá čiara, sú navyše nad kvótou.
+`kompozicia.velkosti` je `{ typ: [min, max] }`, rozsah veľkosti po typoch. Kvapka ho
+nemá, jej šírka ide z `kvapka.sirka`. Starý globálny `velkost` už neexistuje (staré
+zadania sa prevedú).
+Typy sú noha, polkruh (Polooblúk), stvrtkruh (Štvrťoblúk), kvapka a kruh. Šiesty typ,
+stvrtoblouk (Štvrťoblúk s pätkou), sa nevolí: zapne sa sám, keď má kresba kontrast,
+ako prechod z tenkého do hrubého. Zaoblenie majú len nohy, oblúky nikdy. Webové
+rozhranie volá to isté jadro, viď [`ui/README.md`](ui/README.md).

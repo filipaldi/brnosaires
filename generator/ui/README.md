@@ -31,6 +31,10 @@ repozitára, takže jadro (`/generator/core/`) aj fonty
 - **Zóna:** potiahni po prázdnom mieste, prichytáva sa na dieliky. Dvojklik
   → textová zóna; pretiahni fotku → fotková zóna. Presun ťahaním,
   veľkosť za rohy. Vybraná zóna má pod sebou lištu s parametrami.
+- **Typy v Parametroch:** popover ukazuje typy ako jeden stĺpec dlaždíc (ikona,
+  posuvník „podiel“ v %, rozsah „veľkosť“). Podiely držia súčet presne 100 %:
+  pohyb jedného posuvníka rozloží zvyšok pomerne na ostatné typy. Kvapka
+  rozsah veľkosti nemá. Riadok „Krúžky a kvapky“ už neexistuje.
 - **Fotka:** dvojklik prepne posun a zoom (ťahaj, koliesko), ďalší dvojklik
   ukončí.
 - **Bez klávesových skratiek:** všetko sa ovláda klikom. Prehliadač tvarov
