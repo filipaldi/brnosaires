@@ -232,7 +232,7 @@ class WidgetArticleDescriptions(_Built):
 
 
 class WidgetArticlesColumns(_Built):
-    """`columns="4"` on <widget-articles> must reach the built HTML (issue #65):
+    """`columns="3"` on <widget-articles> must reach the built HTML (issue #65):
     the template used to wrap the cards in .el-cluster no matter what, so the
     attribute was ignored and the last card stretched across the whole row.
     With `columns` the cards sit in .el-grid-N; without it they keep the
@@ -242,8 +242,8 @@ class WidgetArticlesColumns(_Built):
     def test_a_columns_widget_builds_a_grid(self):
         html = dict(self.pages)["marathon-djs-team/index.html"]
         self.assertEqual(
-            html.count('class="el-grid-4"'), 1,
-            "columns=4 did not produce exactly one .el-grid-4 wrapper")
+            html.count('class="el-grid-3"'), 1,
+            "columns=3 did not produce exactly one .el-grid-3 wrapper")
 
     def test_a_widget_without_columns_stays_a_cluster(self):
         html = dict(self.pages)["tango-pikosky/index.html"]
