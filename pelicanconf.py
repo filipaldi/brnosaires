@@ -326,6 +326,9 @@ from gallery_widget import get_gallery_images
 # Not a plugin — a shared reading of the three place fields, used here
 # for the templates and directly by calendarium/ics.py.
 from event_place import place as event_place
+# A plugin (below, for the rendered bodies) whose core is also a Jinja
+# filter for titles. See plugins/czech_typography.py.
+from czech_typography import nbsp_prepositions
 from theme.i18n import cs as _i18n_cs, en as _i18n_en
 
 _WEEKDAY_KEY = ("monday", "tuesday", "wednesday", "thursday",
@@ -403,7 +406,7 @@ def t(key, lang="cs"):
 
 
 JINJA_GLOBALS = {"NOW": NOW, "STRINGS": STRINGS}
-JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "recurrence_line": recurrence_line, "recurrence_rule": recurrence_rule, "event_schedule": event_schedule, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
+JINJA_FILTERS = {"group_events": group_events, "calendarium": make_calendar_filter(NOW), "expand_recurring": expand_recurring, "date_add": date_add, "recurrence_line": recurrence_line, "recurrence_rule": recurrence_rule, "event_schedule": event_schedule, "parse_widget_attrs": parse_widget_attrs, "parse_article_attrs": parse_article_attrs, "article_filter": article_filter, "gallery_images": get_gallery_images, "format_event_datetime": format_event_datetime, "event_iso8601": event_iso8601, "event_place": event_place, "nbsp_prepositions": nbsp_prepositions, "faq_pairs": faq_pairs, "tango_year_for_month": tango_year_for_month, "month_name": month_name, "month_page_slug": month_page_slug, "month_page_url": month_page_url, "month_wrap": month_wrap, "t": t}
 
 PLUGIN_PATHS = ["plugins"]
 # i18n_fallback must come AFTER widget_processor — it clones the post-widget body
@@ -418,7 +421,10 @@ PLUGIN_PATHS = ["plugins"]
 # title_as_h1 comes after both, for the same reason and one more: a widget can
 # render a heading, so it has to see the body the reader will get. Before
 # llm_ally, whose mirror is built from that body.
-PLUGINS = ["colocated_images", "feed_one_language", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "people_links", "title_as_h1", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
+# czech_typography comes after title_as_h1 — the h1 it injects from `title:`
+# is body HTML too. Before llm_ally, whose mirrors read the source files and
+# keep plain spaces.
+PLUGINS = ["colocated_images", "feed_one_language", "calendarium", "recurring_events", "article_filter", "widget_processor", "i18n_fallback", "people_links", "title_as_h1", "czech_typography", "og_image", "nav_from_docs", "pelican.plugins.sitemap", "llm_ally"]
 
 SITEMAP = {
     "format": "xml",

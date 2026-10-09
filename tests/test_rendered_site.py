@@ -1,4 +1,5 @@
-"""Invariants of the rendered HTML: structure, accessibility, structured data.
+"""Invariants of the rendered HTML: structure, accessibility, structured
+data, Czech line-breaking.
 
 These are the things that only break in the output — no template diff shows
 them, and nobody notices until a screen reader user cannot navigate or Google
@@ -124,7 +125,7 @@ class Monolingual(_Built):
     duplicating an English-only sub-site.
     """
 
-    DJS = ("balasz", "francesco", "veronika-kim", "vincent")
+    DJS = ("balasz", "francesco", "veronika-kim", "vincent", "macka-siva")
 
     def test_a_marathon_dj_has_no_en_clone(self):
         for slug in self.DJS:
@@ -197,6 +198,156 @@ class MapLinks(_Built):
                 query = unescape(anchor)
                 self.assertNotIn("Brno%2C+Czechia", query,
                                  f"bare-city map link on {path}")
+
+
+class WidgetArticleDescriptions(_Built):
+    """Every `<widget-articles>` card truncates its description (issue #71):
+    an unbounded paragraph runs across the whole card grid. Truncation lives
+    in the template, so a regression is only visible in the built HTML.
+
+    The template asks for 250 characters. Jinja's truncate lets a string up
+    to five characters over that through untouched (its default leeway), so
+    the longest legitimate paragraph is 255 characters.
+    """
+
+    LIMIT = 255
+    DESCRIPTION = re.compile(
+        r'<p class="widget-articles__description">(.*?)</p>', re.DOTALL)
+
+    def descriptions(self):
+        for path, html in self.pages:
+            for match in self.DESCRIPTION.finditer(html):
+                yield path, unescape(match.group(1))
+
+    def test_descriptions_are_still_rendered(self):
+        # Guards against the regex (or the widget itself) rotting to a
+        # silent zero-match pass.
+        found = sum(1 for _ in self.descriptions())
+        self.assertGreater(found, 10, "widget article descriptions disappeared")
+
+    def test_no_description_exceeds_the_limit(self):
+        bad = [f"{path}: {len(text)} chars" for path, text in self.descriptions()
+               if len(text) > self.LIMIT]
+        self.assertEqual(bad, [], f"descriptions over {self.LIMIT} chars: {bad[:5]}")
+
+
+class WidgetArticlesColumns(_Built):
+    """`columns="3"` on <widget-articles> must reach the built HTML (issue #65):
+    the template used to wrap the cards in .el-cluster no matter what, so the
+    attribute was ignored and the last card stretched across the whole row.
+    With `columns` the cards sit in .el-grid-N; without it they keep the
+    organic cluster.
+    """
+
+    def test_a_columns_widget_builds_a_grid(self):
+        html = dict(self.pages)["marathon-djs-team/index.html"]
+        self.assertEqual(
+            html.count('class="el-grid-3"'), 1,
+            "columns=3 did not produce exactly one .el-grid-3 wrapper")
+
+    def test_a_widget_without_columns_stays_a_cluster(self):
+        html = dict(self.pages)["tango-pikosky/index.html"]
+        self.assertNotIn("el-grid-", html,
+                         "a widget without columns grew a grid wrapper")
+
+
+class CzechLineBreaks(_Built):
+    """A lone one-letter preposition never ends a line (issue #70).
+
+    The Czech one-letter words — a, i, k, o, s, u, v, z — mean nothing
+    alone, so plugins/czech_typography.py glues each to the word after it:
+    as a Jinja filter where a title is visible text, and as a pass over
+    every rendered body. What those two own is the page's content, so the
+    invariant walks <main>. The chrome around it (nav rail, top-chip menu,
+    footer, language switcher) renders labels from theme/i18n and
+    content/navigation, which no title filter reaches — six strings live
+    there today, and they are this issue's residue, not its regression.
+
+    <head>, scripts, styles, pre and code are not visible prose and are
+    skipped. Entities are decoded first, so a joined pair ("v&nbsp;Brně")
+    does not count as a breakable space; an apostrophe does not start a
+    word, so "it's" and "Brno's" on the English pages are not prepositions
+    however their last letter reads.
+    """
+
+    NOT_PROSE = re.compile(r"<(script|style|pre|code)\b.*?</\1>",
+                           re.DOTALL | re.IGNORECASE)
+    MAIN = re.compile(r"<main\b.*</main>", re.DOTALL | re.IGNORECASE)
+    TAG = re.compile(r"<[^>]+>")
+    LONE_PREPOSITION = re.compile(r"(?<![\w'’])([aikousvzAIKOUSVZ]) (?=\S)")
+    CARD_TITLE = re.compile(r'event-card__title">([^<]*)')
+    BARE_AMPERSAND = re.compile(r"&(?!#\d+;|#x[0-9a-fA-F]+;|[A-Za-z][A-Za-z0-9]*;)")
+
+    def test_no_visible_preposition_is_left_breakable(self):
+        bad = []
+        for path, html in self.pages:
+            main = self.MAIN.search(html)
+            if not main:
+                continue
+            prose = unescape(self.TAG.sub(
+                " ", self.NOT_PROSE.sub(" ", main.group(0))))
+            hit = self.LONE_PREPOSITION.search(prose)
+            if hit:
+                where = prose[max(0, hit.start() - 30):hit.end() + 30]
+                bad.append(f"{path}: …{where.replace(chr(10), ' ')}…")
+        self.assertEqual(
+            bad, [],
+            f"a lone preposition the browser may strand at a line end: {bad[:5]}")
+
+    def test_no_card_title_carries_a_bare_ampersand(self):
+        # The filter wraps its answer in Markup, which silences Jinja's own
+        # escaping — so it has to escape a plain title itself, or "Tango &
+        # Pizza" reaches the browser with a raw & and a "<" would inject
+        # HTML outright. Card titles are where a plain-text title meets the
+        # filter, so they are where the slip would show first.
+        found = 0
+        bad = []
+        for path, html in self.pages:
+            for match in self.CARD_TITLE.finditer(html):
+                found += 1
+                if self.BARE_AMPERSAND.search(match.group(1)):
+                    bad.append(f"{path}: {match.group(1)}")
+        self.assertGreater(found, 10, "event card titles disappeared")
+        self.assertEqual(bad, [], f"bare & in an event-card__title: {bad[:5]}")
+
+    def test_the_join_is_actually_in_the_build(self):
+        # An invariant that matches nothing passes trivially, so the fix has
+        # to show up too: the whole site is full of these, Czech being Czech.
+        joined = sum(html.count("&nbsp;") for _path, html in self.pages)
+        self.assertGreater(joined, 100, "the &nbsp; join vanished from the build")
+
+
+class HomepageMetaDescription(_Built):
+    """The homepage meta description is the snippet Google is supposed to
+    show — and the old one it refused to use (issue #84). "Přehledně a
+    aktuálně o argentinském tangu v Brně" said nothing about what the page
+    actually leads with, so Google stitched its own snippet out of the intro
+    paragraph and the first event card's price. The rewrite names it: milongas
+    this week, the nearest lessons and workshops.
+
+    What the build has to guarantee is that index.html carries the front
+    matter's `description:` verbatim, exactly once. The source of truth stays
+    content/pages/index.md, read here rather than restated, so the written
+    copy and the served tag cannot drift apart silently.
+    """
+
+    SOURCE = os.path.join(REPO_ROOT, "content", "pages", "index.md")
+    META = re.compile(r'<meta name="description" content="([^"]*)">')
+
+    def front_matter_description(self):
+        with open(self.SOURCE, encoding="utf-8") as handle:
+            line = next(l for l in handle if l.startswith("description:"))
+        return line[len("description:"):].strip()
+
+    def test_the_homepage_carries_exactly_one_meta_description(self):
+        found = self.META.findall(dict(self.pages)["index.html"])
+        self.assertEqual(
+            len(found), 1,
+            f"expected one meta description tag, found {len(found)}")
+
+    def test_it_is_the_front_matter_description_verbatim(self):
+        found = self.META.findall(dict(self.pages)["index.html"])
+        self.assertEqual(found, [self.front_matter_description()])
 
 
 class Feed(_Built):

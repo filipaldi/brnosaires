@@ -12,9 +12,9 @@ A milonga is only as good as its DJ. Buenos Aires doesn't trust the music to jus
 
 <widget-articles
     link="false" 
-    slugs="balasz francesco veronika-kim vincent" 
+    slugs="balasz francesco veronika-kim vincent macka-siva" 
     metadata="image title description" 
-    columns="4"
+    columns="3"
     frame="1x1"
     card_size="s">
 </widget-articles>

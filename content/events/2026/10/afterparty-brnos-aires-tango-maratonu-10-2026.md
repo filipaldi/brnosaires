@@ -1,7 +1,7 @@
 ---
 lang: cs
 title: Afterparty Brnos Aires tango maratonu
-description: DJ Mačka. Nedělní afterparty otevřená všem.
+description: DJ Mačka Sivá. Nedělní afterparty otevřená všem.
 preview_image: /images/marathon-photos/gallery-2025/marathon-2025-00084.avif
 event-type: milonga
 event-start: 2026-10-18 19:00:00
@@ -16,4 +16,4 @@ date: 2026-10-06 20:13:00
 author: Lenka Pláteníková
 ---
 
-Afterparty druhé edice Brnos Aires Tango Maratonu. Otevřená i pro ty, kteří se neúčastní maratonu. DJ Mačka z Bratislavy.
+Afterparty druhé edice Brnos Aires Tango Maratonu. Otevřená i pro ty, kteří se neúčastní maratonu. DJ Mačka Sivá z Bratislavy.

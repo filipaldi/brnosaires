@@ -10,6 +10,7 @@ built HTML, and that no other calendar lost its links on the way.
 import os
 import re
 import unittest
+from html import unescape
 
 from tests import build_site
 
@@ -35,7 +36,9 @@ class MarathonSchedule(unittest.TestCase):
     def test_each_card_names_its_dj(self):
         # The Sunday afterparty card carries more text after the name,
         # so this is a look inside the descriptions, not an equality.
-        described = " | ".join(DESCRIPTION.findall(self.schedule))
+        # Descriptions are escaped on the way out now ("van 't Laar" is
+        # "&#39;t Laar" in the source), so read what the browser will show.
+        described = " | ".join(unescape(d) for d in DESCRIPTION.findall(self.schedule))
         for dj in DJS:
             self.assertIn(dj, described, f"no card description says {dj}")
 

@@ -288,7 +288,7 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 - `slugs="slug1 slug2"` (volitelné) - Seznam slugů článků oddělený mezerou k zobrazení v daném pořadí. Přepisuje `sort` a `limit`.
 - `sort="newest|oldest|title"` (volitelné) - Řazení (výchozí: nejstarší první)
 - `limit="3"` (volitelné) - Omezí počet položek (`"3"`, `"all"`, `"last 3"`)
-- `columns="3"` (volitelné) - Počet sloupců gridu (používá `.el-grid-N`)
+- `columns="3"` (volitelné) - Počet sloupců gridu. S `columns` se karty zabalí do `.el-grid-N`; bez něj zůstávají v `.el-cluster` (flex, počet karet v řadě se řídí jejich šířkou).
 - `metadata="description location"` (volitelné) - Seznam dalších metadat k zobrazení, oddělený mezerou
 - `frame="1x1"` (volitelné) - Poměr stran rámečku náhledového obrázku. Hodnoty: `1x1`, `4x3`, `16x9`, `2x1`, `3x1`. Výchozí: `16x9`. Tolerován i zápis s dvojtečkou (`1:1`).
 
@@ -349,7 +349,7 @@ Sjednocený widget pro zobrazení článků filtrovaných podle kategorie. Nahra
 | `slugs` | string | Ne | `"slug1 slug2 slug3"` | Slugy oddělené mezerou, zobrazí se v daném pořadí (přepíše sort/limit) |
 | `sort` | string | Ne | `newest`, `oldest`, `title` | Řazení (výchozí: oldest) |
 | `limit` | string/integer | Ne | `"3"`, `"all"`, `"last 3"` | Omezení počtu položek |
-| `columns` | string/integer | Ne | `"3"` | Sloupce gridu |
+| `columns` | string/integer | Ne | `"3"` | Sloupce gridu: s `columns` se použije `.el-grid-N`, bez něj `.el-cluster` (flex, počet karet v řadě podle šířky) |
 | `metadata` | string | Ne | `"title description image location"` | Pole k zobrazení, oddělená mezerou (výchozí: `title description`) |
 | `card_size` | string | Ne | `s`, `m`, `l` | Velikost kartičky: malá, střední (výchozí), velká |
 | `link` | string | Ne | `true`, `false`, `yes`, `no`, `0` | Jestli každá kartička linkuje na článek; výchozí je linkování. `false`/`no`/`0` vyrenderují kartičky bez prokliku. |
