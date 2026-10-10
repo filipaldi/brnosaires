@@ -20,6 +20,8 @@ The dance floor spoke, social media answered, and your smiles told us everything
 
 We're not just booking someone behind the decks. We're selecting DJs we've danced to and danced with. People who understand the floor because they're on it, who feel the energy because they're part of it. They know when to build tension, when to let you breathe, when to drop that vals you didn't know you needed.
 
+[See when they play](/marathon-schedule/)
+
 <widget-articles
     link="false" 
     slugs="balasz francesco veronika-kim vincent macka-siva" 
@@ -28,8 +30,6 @@ We're not just booking someone behind the decks. We're selecting DJs we've dance
     frame="1x1"
     card_size="s">
 </widget-articles>
-
-[Meet the DJs](/marathon-djs-team/)
 
 ### Two hundred<br>square metres
 
