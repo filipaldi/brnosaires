@@ -82,6 +82,7 @@ def _join_html(html):
     Takes and returns a plain string of HTML; the input is trusted to be
     HTML already, so whoever has plain text escapes first (the filter does).
     """
+    html = str(html)  # a Markup slice would escape what is spliced in
     parts = []
     at = 0
     verbatim = []  # open _VERBATIM elements, innermost last
