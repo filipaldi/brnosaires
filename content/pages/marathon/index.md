@@ -20,7 +20,7 @@ The dance floor spoke, social media answered, and your smiles told us everything
 
 We're not just booking someone behind the decks. We're selecting DJs we've danced to and danced with. People who understand the floor because they're on it, who feel the energy because they're part of it. They know when to build tension, when to let you breathe, when to drop that vals you didn't know you needed.
 
-**Confirmed TDJs**
+[See when they play](/marathon-schedule/)
 
 <widget-articles
     link="false" 
@@ -66,14 +66,14 @@ Brno sits between Prague and Vienna, small enough to feel intimate, big enough t
 
 Come for the dancing, stay for the city that doesn't try too hard.
 
-Explore Brno – cafés, food, sights worth your time between tandas.
+[Explore Brno: cafés, food, sights worth your time between tandas](/marathon-stay-in-brno/)
 
 
 ### Getting Here
 
 Brno is easy to reach. Fly into Vienna, Prague, or Brno itself. Trains and buses connect you to the rest of Europe. Once you're here, trams will get you everywhere you need to go.
 
-Travel & transport details
+[Travel & transport details](/marathon-getting-to-brno/)
 
 
 ### Nourishment for Dancers
@@ -99,6 +99,8 @@ Full pass for couples (price for both)
 
 **€30 Student & Young Dancer**  
 Full pass for full-time students, PhD candidates, and dancers under 26. [Details](/marathon-students/)
+
+[Conditions & refunds](/marathon-conditions/)
 
 ### Organisers
 

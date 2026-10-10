@@ -9,6 +9,11 @@ preview_image: /images/marathon-photos/venue-floor/marathon-venue-10.avif
 
 # Two hundred<br>square metres
 
+**Address:**  
+Dělnický dům  
+[Jamborova 3323/65](https://www.google.com/maps/search/?api=1&query=D%C4%9Blnick%C3%BD+d%C5%AFm+Jamborova+3323%2F65+Brno)  
+Brno, Czech Republic
+
 In Brnos Aires, people dance in stylish, atmospheric venues with wooden floors.
 In Brnos Aires, you won’t be missing a thing. Our stylish hall, filled with a tango atmosphere, features a **200 m² wooden floor**.
 
@@ -25,8 +30,3 @@ The on-site restaurant serves delicious homemade specialities at prices that wil
 <widget-gallery folder="marathon-photos/venue-restaurant" columns="2" frame="4x3"></widget-gallery>
 
 [**See the restaurant menu in Czech**](https://delnickydumbrno.cz/restaurace.html)**.**
-
-**Adress:**
-Dělnický dům
-Jamborova 3323/65
-Brno, Czech Republic

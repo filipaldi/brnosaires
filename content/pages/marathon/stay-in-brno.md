@@ -57,7 +57,8 @@ Brno sits in South Moravia, one of Europe's most underrated wine regions. Rollin
 
 In Brno itself:
 
-- [**Kaple**](https://kaplebrno.cz/) – Focused on local small producers with authentic taste, impressive interior
+- [**Degustárna**](https://www.degustarnabrno.cz/?lang=en) – Over 200 wines from Velké Bílovice, by the glass or in a guided tasting. Closed Sundays
+- [**Jungle by justWINE**](https://www.justwine.cz/wine-bary/) – Natural wine bar with Moravian growers like Nestarec and Vajcner. Open late at weekends
 - [**Terapie**](https://www.wineterapie.cz/en/) – Wine bar & shop. Because everyone needs therapy sometimes. Great wine, quality spirits, beautiful environment
 
 Picturesque wine towns like Mikulov (historic chateau, vibrant wine scene) and Znojmo (medieval architecture, modern cellars) are easy day trips. The Moravian Wine Trails connect vineyards and cellars via cycling routes and walking paths. Wine festivals run throughout the year.
