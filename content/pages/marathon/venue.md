@@ -11,7 +11,7 @@ preview_image: /images/marathon-photos/venue-floor/marathon-venue-10.avif
 
 **Address:**  
 Dělnický dům  
-[Jamborova 3323/65](https://www.google.com/maps/search/?api=1&query=D%C4%9Blnick%C3%BD+d%C5%AFm+Jamborova+3323%2F65+Brno)  
+<a href="https://www.openstreetmap.org/search?query=D%C4%9Blnick%C3%BD%20d%C5%AFm%2C%20Jamborova%203323/65%2C%20Brno" target="_blank" rel="noopener" aria-label="Open in maps: Jamborova 3323/65">Jamborova 3323/65</a>  
 Brno, Czech Republic
 
 In Brnos Aires, people dance in stylish, atmospheric venues with wooden floors.

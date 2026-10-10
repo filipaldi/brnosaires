@@ -183,10 +183,12 @@ class MapLinks(_Built):
                 self.assertIn("aria-label=", rest, path)
         self.assertGreater(found, 100, "venue links disappeared")
 
-    def test_no_venue_link_points_at_google_maps(self):
+    def test_no_venue_lookup_points_at_google_maps(self):
         # Ruled out by the ticket: the map must not hand the visitor to Google.
+        # Driving directions (/maps/dir/) are allowed on purpose.
         for path, html in self.pages:
-            self.assertNotIn("google.com/maps", html, path)
+            self.assertNotIn("google.com/maps/search", html, path)
+            self.assertNotIn("maps.google.", html, path)
 
     def test_a_city_only_location_is_not_linked(self):
         # A value with no venue name and no street would drop the visitor on
