@@ -420,6 +420,11 @@
     .layout-with-aside > * > main {
       padding-inline-end: var(--size-m);
     }
+    /* Heading at the very top of main: push it below the fixed top chip
+       (main's own padding-top already covers --size-l of it). */
+    main article > :first-child > h1:first-child {
+      padding-block-start: calc(var(--size-s) + var(--size-2xs) * 2 + var(--border-width-s) * 2 + var(--size-xs));
+    }
     .layout-aside {
       display: none;
     }
