@@ -42,12 +42,12 @@ Central Europe's road network makes driving to Brno straightforward. GPS will ge
 
 **From nearby cities:**
 
-- Vienna: 2 hours
-- Prague: 2–2.5 hours
-- Bratislava: 1.5–2 hours
-- Budapest: 3.5 hours
-- Kraków: 3.5 hours
-- Berlin: 6 hours
+- [Vienna](https://www.google.com/maps/dir/?api=1&origin=Wien&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 1 hour 45 minutes (135 km)
+- [Prague](https://www.google.com/maps/dir/?api=1&origin=Praha&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 2 hours 15 minutes (205 km)
+- [Bratislava](https://www.google.com/maps/dir/?api=1&origin=Bratislava&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 1 hour 30 minutes (130 km)
+- [Budapest](https://www.google.com/maps/dir/?api=1&origin=Budapest&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 3 hours 15 minutes (335 km)
+- [Kraków](https://www.google.com/maps/dir/?api=1&origin=Krak%C3%B3w&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 3 hours 45 minutes (330 km)
+- [Berlin](https://www.google.com/maps/dir/?api=1&origin=Berlin&destination=D%C4%9Blnick%C3%BD+d%C5%AFm%2C+Jamborova+3323%2F65%2C+Brno&travelmode=driving): about 5 hours 15 minutes (535 km)
 
 Pro tip: Park near the **city centre** and take **tram 9** to Dělnický dům. Saves you the hassle of finding venue parking.
 
