@@ -16,4 +16,5 @@ date: 2026-10-06 20:13:00
 author: Lenka Pláteníková
 ---
 
+Jen pro páry a leadery! 
 Afterparty druhé edice Brnos Aires Tango Maratonu. Otevřená i pro ty, kteří se neúčastní maratonu. DJ Mačka Sivá z Bratislavy.
