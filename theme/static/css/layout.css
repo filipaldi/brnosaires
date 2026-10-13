@@ -310,6 +310,37 @@
     padding-inline-end: var(--size-4xl);
   }
 
+  /* Short desktop windows (≥ 813 px wide, ≤ 900 px tall): the rail's full
+     load — logo + nine chip-m menu chips + language chip at stack-l
+     spacing — stacks up taller than the viewport, so the rail grew its
+     own scrollbar and the last chips sat below the fold. Step the whole
+     rail one size down the token scale instead of hiding anything: chips
+     take the chip-s sizing from components.css, the logo drops text-xl →
+     text-l, and the stack gaps plus the rail's own padding tighten.
+     Taller windows never match this block and render exactly as before. */
+  @media screen and (min-width: 813px) and (max-height: 900px) {
+    /* (0,2,0) — must out-rank .padding-all-m from spacing.css, which
+       loads after this file. */
+    .layout-with-aside .layout-aside {
+      padding: var(--size-s);
+    }
+    .layout-aside .logo {
+      font-size: var(--text-l);
+      line-height: var(--size-m);
+    }
+    .layout-aside .aesthetic-chip {
+      font-size: var(--text-s);
+      line-height: var(--size-s);
+      padding: var(--size-2xs) var(--size-xs);
+    }
+    .layout-aside .stack-s > * + * {
+      margin-block-start: var(--size-xs);
+    }
+    .layout-aside .stack-l > * + * {
+      margin-block-start: var(--size-s);
+    }
+  }
+
   /* ============================================
      TOP CHIP (phone only — ≤ 812 px)
      ----------------------------------------
