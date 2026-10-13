@@ -21,7 +21,7 @@ Workshop pro středně pokročilé tanečníky.
 Téma: Playfull crosses (from front to back, from back to front, two - three in a playful row & musicality)
 (Hravé krosy neboli křížení zepředu dozadu, zezadu, dopředu, dva-tři v hravé řadě a variacích & vede přítomná muzikalita in Harmony with partner and music)
 
-**Lektoři:** Gottfried (Vienna: Studio Sol) + Šteky (Brno: TangoLab)
+**Lektoři:** Gottfried (Vienna: Studio Sol) + Štěky (Brno: TangoLab)
 
 ***CENY***
 Sobota:

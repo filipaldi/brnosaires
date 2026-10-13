@@ -10,19 +10,19 @@ preview_image: /images/milonga-hned-vedle.avif
 
 # Argentine Tango Schools and Teachers in Brno
 
-Pavla Lužna
+[Pavla Lužná](/pavla-luzna/)
 
-Šteky
+[Štěky](/steky-yaku/)
 
-Ondra
+[Ondra](/ondra-martinak/)
 
-Albert Mikó
+[Albert Mikó](/albert-miko/)
 
 Filip & Terka
 
-Jana Habalová
+[Jana Habalová](/en/jana-habalova/)
 
-Petr Truhlář
+[Petr Truhlář](/en/petr-truhlar/)
 
 A neat Gottfried initiative for younger dancers
 

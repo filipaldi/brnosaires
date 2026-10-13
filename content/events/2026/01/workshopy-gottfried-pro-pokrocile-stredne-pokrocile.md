@@ -68,7 +68,7 @@ We would like to accommodate our advanced dancers in Brno, but if intermediate d
 So advanced dancers, for whom there is currently a lack of lessons in Brno, will get their due and intermediate dancers will have the opportunity to join.
 WHO IS GOTTFRIED?
 Gottfried has been an external member of our TangoLab team for a few years now.
-He is a lecturer at the Vienna studio Ateliér Sol and you can watch instructional videos and recordings of lessons on their website. He will be partnered by our Šteky, who is currently loaded with technique and news from Buenos Aires.
+He is a lecturer at the Vienna studio Ateliér Sol and you can watch instructional videos and recordings of lessons on their website. He will be partnered by our Štěky, who is currently loaded with technique and news from Buenos Aires.
 Gottfried & Štěky (G&S) - is a couple that combines Austrian temperament, Brno passion, bold musicality and natural joy of movement with an emphasis on natural connection in the couple and individual work with workshop participants.
 ON FRIDAY 9.1.
 you can arrange PRIVATE LESSONS
