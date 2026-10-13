@@ -10,11 +10,10 @@ event-venue: Dělnický dům
 event-street: Jamborova 65
 event-locality: Brno
 event-organiser: Brnos Aires
-entry: 250 CZK/10 euro
+entry: 250 CZK/10 euro (free for participants)
 category: event
 date: 2026-10-06 20:13:00
 author: Lenka Pláteníková
 ---
 
-Only for couples and leaders!
 Afterparty for the second edition of the Brnos Aires Tango Marathon. Open to non-participants as well. DJ Mačka Sivá from Bratislava.
