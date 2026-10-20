@@ -1,4 +1,3 @@
-<img width="1536" height="996" alt="CleanShot 2026-10-20 at 15 03 14@2x" src="https://github.com/user-attachments/assets/e341a924-eed9-41dc-af53-98ac6b4a66da" />
 # Přístup do /admin/
 
 Formulář na [brnosaires.com/admin](https://brnosaires.com/admin/) zapisuje přímo do tohohle repozitáře — každé uložení je commit do větve `main`. Kdo tam smí, se proto neřídí žádným seznamem uživatelů v CMS, ale **právem zapisovat do repozitáře na GitHubu**. Odebrat někomu přístup znamená odebrat mu ho tam.
