@@ -12,6 +12,7 @@ WIDGET_TEMPLATES = {
     'calendar-link': 'components/widget_calendar_link.html',
     'articles': 'components/widget_articles.html',
     'gallery': 'components/widget_gallery.html',
+    'visitor-map': 'components/widget_visitor_map.html',
 }
 
 
