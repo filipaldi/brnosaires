@@ -2,15 +2,11 @@
 title: Milonga v Rockwine - únor
 slug: milonga-v-rockwine-2026-02-12
 date: 2026-02-12 19:00:00
-category: event
 event-type: milonga
 event-start: 2026-02-12 19:00:00
 event-end: 2026-02-12 22:00:00
-event-venue: Rockwine
-event-street: Vídeňská 18
-event-locality: Brno
-series: milonga-rockwine
-preview_image: /images/rockwine-kveten-2025-6.avif
+event-location: Rockwine
+preview_image: /images/Rockwine_kvten_2025_%286%29.avif
 description: Únorová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.
 author: Lenka Pláteníková
 ---

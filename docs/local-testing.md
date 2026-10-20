@@ -1,106 +1,46 @@
-# Lokální testování
+# Local Testing Guide
 
-## Obsah
+## Development Server
 
-- [Vývojový server](#vývojový-server)
-- [Build příkazy](#build-příkazy)
-- [Testování widgetů](#testování-widgetů)
-- [Testování metadat akce](#testování-metadat-akce)
-- [Testování změn šablon](#testování-změn-šablon)
-- [Debugování](#debugování)
-- [Testování v prohlížečích](#testování-v-prohlížečích)
-- [Testování výkonu](#testování-výkonu)
-- [Validace obsahu](#validace-obsahu)
-- [Automatizované testování](#automatizované-testování)
-- [Checklist před nasazením](#checklist-před-nasazením)
-- [Související dokumenty](#související-dokumenty)
-
-## Vývojový server
-
-### Pracovní postup: builduj ručně, servíruj staticky — žádný `--autoreload`
-
-**Nepoužíváme `--autoreload`.** Web si přebuilduješ sám pomocí `pelican content` pokaždé, když změníš obsah, šablonu nebo nastavení, a pak v prohlížeči uděláš hard-reload. Server je obyčejný statický file server (`pelican --listen`) — servíruje `output/` a sám nikdy nic nepřebudovává. Je to záměr: na tomhle stroji se `--autoreload` pere se Spotlightem / Time Machine, které do `output/` neustále šahají (vznikají rozbité, částečné buildy), a hlavně chceš mít sám pod kontrolou, kdy se `output/` regeneruje — ne aby se to dělo při každém stisku klávesy. Drž se **jednoho** serveru na **jednom** portu (41234) — nezakládej jednorázové servery na jiných portech.
+### Start Development Server
 
 ```bash
-# Aktivuj virtualenv
+# Activate virtual environment
 source venv/bin/activate  # macOS/Linux
-# nebo
+# or
 venv\Scripts\activate     # Windows
 
-# 1. Builduj web (spouštěj znovu po každé změně)
-pelican content -s pelicanconf.py
-
-# 2. V jiném shellu pusť server na output/ (nech ho běžet; NEpřebudovává)
-pelican --listen --port 41234
+# Start Pelican with auto-reload
+pelican content -s pelicanconf.py --autoreload --listen --port 41234
 ```
 
-Cyklus: uprav soubory → znovu spusť `pelican content -s pelicanconf.py` → hard-reload `http://localhost:41234/` (`Cmd+Shift+R`).
+**Options:**
+- `--autoreload`: Automatically rebuild on file changes
+- `--listen`: Start HTTP server
+- `--port 41234`: Bind on a fixed non-default port (see "Port choice" below)
 
-**Volby:**
-- `--listen`: spustí statický HTTP server (servíruje `output/`, nic nepřebudovává)
-- `--port 41234`: naváže na pevný, ne-defaultní port (viz „Volba portu" níže)
-- (`--autoreload` schválně vynecháváme. Pokud ho někdy chceš na rychlou jednorázovou seanci, dobrá — ale zdokumentovaný a opakovatelný postup je ruční rebuild výše.)
+### Port choice — `41234`
 
-### Volba portu — `41234`
+We deliberately avoid Pelican's default port 8000. It collides with Django, http-server, Python's `http.server`, and dozens of other dev tools the moment they're running. Picking a fixed port in the unregistered user-port range (30000–48000) means:
 
-Schválně se vyhýbáme defaultnímu portu Pelicanu 8000. Koliduje s Djangem, http-serverem, pythonovským `http.server` a desítkami dalších vývojářských nástrojů, jakmile něco z toho běží. Pevný port v neregistrovaném user-port rozsahu (30000–48000) znamená:
+- The port stays the same across sessions, so bookmarks, MCP browser tabs, and notes all keep working.
+- It's high enough to be above common dev defaults but below the OS ephemeral port floor (49152 on macOS), so the OS won't auto-grab it.
+- If `lsof -i :41234` ever shows it busy, **jump** to a different non-adjacent port (e.g. 38765, 43210) and update this file plus [.claude/CLAUDE.md](../.claude/CLAUDE.md) — don't pick the next sequential number.
 
-- Port zůstává napříč seancemi stejný, takže záložky, MCP browser taby a poznámky pořád fungují.
-- Je dost vysoko nad běžnými dev defaulty, ale pod hranicí ephemeral portů OS (49152 na macOS), takže si ho OS automaticky nezabere.
-- Pokud `lsof -i :41234` ukáže, že je obsazený, **přeskoč** na jiný nesousední port (např. 38765, 43210) a aktualizuj tenhle soubor plus [.claude/CLAUDE.md](../.claude/CLAUDE.md) — neber prostě další číslo v řadě.
+### Access Local Site
 
-### Otevření lokálního webu
+Open browser to: `http://localhost:41234`
 
-V prohlížeči otevři: `http://localhost:41234`
+### Stop Server
 
-### Náhled na telefonu / jiném zařízení (stejná Wi-Fi)
+Press `Ctrl+C` in terminal
 
-`localhost` funguje jen na samotném Macu. Abys web otevřel na iPhonu (nebo
-jakémkoli jiném zařízení ve stejné síti), nejdřív builduj a pak pusť statický
-server navázaný na **všechny** rozhraní:
+### Kill Port (if needed)
 
+**macOS/Linux:**
 ```bash
-source venv/bin/activate
-pelican content -s pelicanconf.py                       # build (spouštěj znovu po úpravách)
-pelican --listen --bind 0.0.0.0 --port 41234            # servíruj output/ na všech rozhraních (žádný autoreload)
+lsof -ti:41234 | xargs kill -9
 ```
-
-Pak zjisti LAN IP Macu a otevři ji z telefonu:
-
-```bash
-ipconfig getifaddr en0   # např. 192.168.0.73  (en1 na starších Macech / Ethernetu)
-```
-
-Na telefonu (Safari): `http://<ta-ip>:41234/` — např. `http://192.168.0.73:41234/`
-
-Poznámky:
-- `pelicanconf.py` má `RELATIVE_URLS = True`, takže interní odkazy se vůči
-  IP adrese vyřeší bez problému — není potřeba sahat na `SITEURL`. Na testování
-  ze zařízení nepoužívej `publishconf.py` (jeho absolutní `https://brnosaires.com`
-  URL by skákaly mimo web).
-- Když poprvé bindneš na `0.0.0.0`, macOS může vyhodit jednorázový firewall
-  dialog „povolit příchozí spojení pro Python" — povol to. (System Settings → Network → Firewall.)
-- LAN IP se může změnit, když se znovu připojíš k Wi-Fi / přepneš síť — pokud
-  telefon přestane načítat, spusť znovu `ipconfig getifaddr en0`.
-- **Safari Web Inspector**: připoj iPhone k Macu přes USB → Safari → menu
-  Develop → [tvůj iPhone] → inspektuj živou stránku (DOM/console/network).
-- Pokud síť blokuje provoz mezi zařízeními (některé firemní/guest Wi-Fi),
-  použij místo toho tunel: `cloudflared tunnel --url http://localhost:41234`
-  (veřejná HTTPS URL, bez registrace) nebo `ngrok http 41234`.
-
-### Zastavení serveru
-
-V terminálu stiskni `Ctrl+C`
-
-### Uvolnění portu (když je potřeba)
-
-**macOS/Linux** — najdi, kdo ho drží, a pak ho zabij (běžným `kill`, ne `kill -9`; agent harness `kill -9` blokuje):
-```bash
-lsof -nP -iTCP:41234 -sTCP:LISTEN     # kdo poslouchá (PID + příkaz)
-lsof -ti:41234 | xargs kill           # zabij podle portu
-lsof -ti:41234 || echo "41234 free"   # ověř
-```
-Statický server je taky `pelican` proces, takže `pkill -f 'venv/bin/pelican'` funguje rovněž (ale `pkill` je v agent harnessu blokovaný — pouští ho člověk).
 
 **Windows:**
 ```bash
@@ -108,48 +48,49 @@ netstat -ano | findstr :41234
 taskkill /PID <PID> /F
 ```
 
-## Build příkazy
+## Build Commands
 
-### Vývojový build
+### Development Build
 
 ```bash
 pelican content -s pelicanconf.py
 ```
 
-- Používá konfiguraci `pelicanconf.py`
-- Generuje web do adresáře `output/`
-- Relativní URL pro lokální testování
+- Uses `pelicanconf.py` configuration
+- Generates site in `output/` directory
+- Relative URLs for local testing
 
-### Produkční build
+### Production Build
 
 ```bash
 pelican content -s publishconf.py
 ```
 
-- Používá konfiguraci `publishconf.py`
-- Absolutní URL pro produkci
-- Stejný výstupní adresář
+- Uses `publishconf.py` configuration
+- Absolute URLs for production
+- Same output directory
 
-### Clean build
+### Clean Build
 
 ```bash
-# Nejdřív smaž výstupní adresář, pak builduj
-rm -rf output/   # macOS/Linux  (rmdir /s output na Windows)
+# Delete output directory first
+rm -rf output/  # macOS/Linux
+rmdir /s output  # Windows
+
+# Then build
 pelican content -s pelicanconf.py
 ```
 
-Nebo použij vestavěný clean od Pelicanu:
+Or use Pelican's built-in clean:
 ```bash
 pelican content -s pelicanconf.py --delete-output-directory
 ```
 
-> **Pozor (agent harness):** `rm -rf`, `rmdir` a `--delete-output-directory` (slovo „delete") jsou blokované dangerous-command hookem — spouští je člověk. A taky: pokud se `output/` znovu objevuje hned po smazání, něco pořád běží a buildí — skoro vždycky to bývá zaběhnutý `pelican --autoreload` (přesně proto ho nepoužíváme) nebo náhledový server editoru. Najdi ho přes `ps aux | grep pelican | grep -v grep` a `lsof -ti:41234`.
+## Testing Widgets
 
-## Testování widgetů
+### 1. Create Test Page
 
-### 1. Vytvoř testovací stránku
-
-Vytvoř `content/pages/test-widgets.md`:
+Create `content/pages/test-widgets.md`:
 
 ```markdown
 ---
@@ -159,24 +100,24 @@ slug: test-widgets
 
 ## Calendar (events)
 
-<widget-calendar filter_by_type="milonga" days="14"></widget-calendar>
+<div data-widget="calendar" data-filter="milonga"></div>
 
 ```
 
-### 2. Otevři testovací stránku
+### 2. View Test Page
 
-Přejdi na: `http://localhost:41234/test-widgets.html`
+Navigate to: `http://localhost:41234/test-widgets.html`
 
-### 3. Ověř widgety
+### 3. Verify Widgets
 
-- Zkontroluj, že filtrované akce se zobrazují
-- Otestuj různé atributy widgetů
+- Check filtered events appear
+- Test different widget attributes
 
-## Testování metadat akce
+## Testing Event Metadata
 
-### 1. Vytvoř testovací akci
+### 1. Create Test Event
 
-Vytvoř `content/events/test-event.md`:
+Create `content/events/test-event.md`:
 
 ```markdown
 ---
@@ -190,14 +131,14 @@ slug: test-event
 This is a test event.
 ```
 
-### 2. Ověř zobrazení akce
+### 2. Verify Event Display
 
-- Zkontroluj, že se akce zobrazuje ve filtrovaných seznamech
-- Ověř, že se data zobrazují správně
+- Check event appears in filtered lists
+- Verify dates display correctly
 
-### 3. Otestuj přístup k metadatům
+### 3. Test Metadata Access
 
-Dočasně přidej do šablon debug výstup:
+Add debug output to templates temporarily:
 
 ```jinja2
 {{ event.metadata }}
@@ -205,40 +146,40 @@ Dočasně přidej do šablon debug výstup:
 {{ event.metadata.get('event-start') }}
 ```
 
-## Testování změn šablon
+## Testing Template Changes
 
-### 1. Uprav šablonu
+### 1. Edit Template
 
-Změň šablonu v [`theme/templates/`](../theme/templates/)
+Modify template in `theme/templates/`
 
-### 2. Builduj
+### 2. Auto-Reload
 
-Znovu spusť `pelican content -s pelicanconf.py` (nepoužíváme `--autoreload` — viz [poznámku k pracovnímu postupu](#pracovni-postup-builduj-rucne-serviruj-staticky--zadny---autoreload) nahoře). Sleduj výstup tohoto příkazu kvůli chybám v šablonách.
+With `--autoreload` flag, changes rebuild automatically
 
-### 3. Refresh prohlížeče
+### 3. Refresh Browser
 
-Hard refresh: `Cmd+Shift+R` (macOS) nebo `Ctrl+Shift+R` (Windows)
+Hard refresh: `Cmd+Shift+R` (macOS) or `Ctrl+Shift+R` (Windows)
 
-### 4. Kontrola chyb
+### 4. Check for Errors
 
-Ve výstupu `pelican content` sleduj:
-- Syntaktické chyby v šablonách
-- Chybějící proměnné
-- Import chyby
+Watch terminal output for:
+- Template syntax errors
+- Missing variables
+- Import errors
 
-## Debugování
+## Debugging
 
-### Zapnutí debug výstupu
+### Enable Debug Output
 
-Přidej do [`pelicanconf.py`](../pelicanconf.py):
+Add to `pelicanconf.py`:
 
 ```python
 DEBUG = True
 ```
 
-### Kontrola kontextu šablon
+### Check Template Context
 
-Přidej do šablony debug blok:
+Add debug block to template:
 
 ```jinja2
 {% if DEBUG %}
@@ -247,102 +188,102 @@ Přidej do šablony debug blok:
 {% endif %}
 ```
 
-### Prohlížení vygenerovaného HTML
+### View Generated HTML
 
-1. Builduj web: `pelican content -s pelicanconf.py`
-2. Otevři adresář `output/`
-3. Prohlédni si vygenerované HTML soubory
-4. Zkontroluj developer tools v prohlížeči
+1. Build site: `pelican content -s pelicanconf.py`
+2. Open `output/` directory
+3. View generated HTML files
+4. Check browser developer tools
 
-### Časté problémy
+### Common Issues
 
-**Widgety se nerenderují:**
-- Zkontroluj, že se `process_widgets()` volá v `page.html`
-- Ověř, že syntaxe widgetu odpovídá [Widget systém](WIDGETS.md)
-- Sleduj terminál kvůli chybám v šablonách
+**Widgets not rendering:**
+- Check `process_widgets()` is called in `page.html`
+- Verify widget syntax matches README.md
+- Check terminal for template errors
 
-**Akce se nezobrazují:**
-- Ověř, že akce jsou v [`content/events/`](../content/events/)
-- Zkontroluj formát metadat `event-start`
-- Ověř, že `ARTICLE_PATHS` obsahuje `"events"`
+**Events not appearing:**
+- Verify events in `content/events/`
+- Check `event-start` metadata format
+- Verify `ARTICLE_PATHS` includes `"events"`
 
-**Problémy se zobrazením dat:**
-- Zkontroluj formát metadat: `YYYY-MM-DD HH:MM:SS`
-- Ověř přístup k datetime objektu
-- Otestuj přes `{{ event.metadata.get('event-start') }}`
+**Date display issues:**
+- Check metadata format: `YYYY-MM-DD HH:MM:SS`
+- Verify datetime object access
+- Test with `{{ event.metadata.get('event-start') }}`
 
-## Testování v prohlížečích
+## Browser Testing
 
-### Otestuj ve více prohlížečích
+### Test in Multiple Browsers
 
 - Chrome/Edge
 - Firefox
 - Safari
-- Mobilní prohlížeče (responzivní design)
+- Mobile browsers (responsive design)
 
-### Kontrola console
+### Check Console
 
-Otevři developer tools v prohlížeči:
-- Sleduj JavaScriptové chyby
-- Ověř načítání CSS
-- Zkontroluj síťové requesty
+Open browser developer tools:
+- Check for JavaScript errors
+- Verify CSS loading
+- Check network requests
 
-### Responzivní testování
+### Responsive Testing
 
-- Otestuj různé velikosti obrazovky
-- Použij device emulation v dev tools prohlížeče
-- Otestuj na skutečných mobilních zařízeních — viz [Náhled na telefonu / jiném zařízení](#nahled-na-telefonu--jinem-zarizeni-stejna-wi-fi) výše, recept s `--bind 0.0.0.0`
+- Test different screen sizes
+- Use browser dev tools device emulation
+- Test on actual mobile devices
 
-## Testování výkonu
+## Performance Testing
 
-### Doba buildu
+### Build Time
 
-Změř dobu buildu:
+Measure build time:
 ```bash
 time pelican content -s pelicanconf.py
 ```
 
-### Velikosti souborů
+### File Sizes
 
-Zkontroluj velikost výstupního adresáře:
+Check output directory size:
 ```bash
 du -sh output/
 ```
 
-### Načítání stránek
+### Page Load
 
-Použij dev tools prohlížeče:
-- Záložka Network pro časy načítání
-- Záložka Performance pro renderování
-- Lighthouse pro audit
+Use browser dev tools:
+- Network tab for load times
+- Performance tab for rendering
+- Lighthouse for audit
 
-## Validace obsahu
+## Content Validation
 
-### Validace Markdownu
+### Validate Markdown
 
-Zkontroluj syntaxi markdownu:
-- Formát frontmatteru
-- Syntaxi odkazů
-- Cesty k obrázkům
+Check markdown syntax:
+- Frontmatter format
+- Link syntax
+- Image paths
 
-### Validace metadat
+### Validate Metadata
 
-Ověř metadata akcí:
-- Povinná pole jsou vyplněná
-- Formát data je správný
-- Slug má platný tvar
+Verify event metadata:
+- Required fields present
+- Date format correct
+- Slug format valid
 
-### Kontrola odkazů
+### Check Links
 
-- Interní odkazy fungují
-- Externí odkazy jsou platné
-- Obrázky se načítají správně
+- Internal links work
+- External links valid
+- Images load correctly
 
-## Automatizované testování
+## Automated Testing
 
-### Build skript
+### Build Script
 
-Vytvoř `test-build.sh`:
+Create `test-build.sh`:
 
 ```bash
 #!/bin/bash
@@ -360,63 +301,27 @@ else
 fi
 ```
 
-### Spuštění testů
+### Run Tests
 
 ```bash
 chmod +x test-build.sh
 ./test-build.sh
 ```
 
-### Hodiny buildu — `BRNOSAIRES_NOW`
+## Pre-Deployment Checklist
 
-Build má jediný zdroj „teď": `NOW` v `pelicanconf.py`. Z něj čerpají pluginy
-(`settings["NOW"]`) i šablony (`JINJA_GLOBALS`, filtr `calendarium`). Určuje,
-která akce je nadcházející, a tím i co se objeví na profilu lektora, v kalendáři
-a v `.ics` feedech.
+Before publishing, verify:
 
-Proměnná `BRNOSAIRES_NOW` ten čas zafixuje:
+- [ ] Site builds without errors
+- [ ] All widgets render correctly
+- [ ] Events display with correct dates
+- [ ] Images load properly
+- [ ] Links work (internal and external)
+- [ ] Responsive design works
+- [ ] No console errors
+- [ ] Production build works (`publishconf.py`)
 
-```bash
-# Postav web, jako by bylo 1. srpna 2026
-BRNOSAIRES_NOW="2026-08-01 12:00:00" pelican content -s pelicanconf.py
+## Next Steps
 
-# Stačí i samotné datum
-BRNOSAIRES_NOW="2026-08-01" pelican content -s pelicanconf.py
-```
-
-Bere `YYYY-MM-DD` i `YYYY-MM-DD HH:MM:SS`. Nesmyslná hodnota build shodí
-schválně — tiché spadnutí zpět na systémový čas by vrátilo přesně tu
-nespolehlivost, kvůli které proměnná vznikla.
-
-**Testy si čas fixují vždy.** `tests/__init__.py` staví web s konstantou
-`BUILD_CLOCK`, takže výsledek závisí jen na obsahu repa, ne na dnešním datu.
-Bez toho testy hnijí: sada spadla 21. 8. 2026, protože lektorovi z fixture den
-předtím proběhl poslední termín. Na webu přitom nebylo nic rozbité.
-
-Když posouváš `BUILD_CLOCK`, měníš i to, které akce jsou nadcházející —
-očekávané počty v `tests/test_people_links.py` jsou psané proti té hodnotě.
-Produkce proměnnou nenastavuje a běží na skutečném čase.
-
-## Checklist před nasazením
-
-Před publikací ověř:
-
-- [ ] Web se builduje bez chyb
-- [ ] Všechny widgety se renderují správně
-- [ ] Akce se zobrazují se správnými daty
-- [ ] Obrázky se načítají
-- [ ] Odkazy fungují (interní i externí)
-- [ ] Responzivní design funguje
-- [ ] Žádné chyby v console
-- [ ] Produkční build funguje (`publishconf.py`)
-
-## Související dokumenty
-
-- [EDITING.md](EDITING.md) — průvodce metadaty pro editory
-- [LLMS.md](LLMS.md) — LLM endpointy a optimalizace
-- [SEO.md](SEO.md) — architektura SEO a multilingual mirror
-- [WIDGETS.md](WIDGETS.md) — syntaxe a chování `<widget-*>` tagů
-- [publishing.md](publishing.md) — nasazení
-- [setup.md](setup.md) — příprava prostředí
-- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) - plán dalších kroků
-- [../README.md](../README.md) — hlavní README repozitáře
+- See `setup.md` for environment setup and deployment process
+- See `WIDGETS.md` for widget details

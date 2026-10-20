@@ -2,13 +2,10 @@
 title: Energy, flow, resistance & transformation - KONTAKTANGO WORKSHOP s JAVIEREM CUROU (ARG)
 slug: energy-flow-resistance-transformation-kontaktango-workshop-s-javierem-curou-arg
 date: 2026-02-27 01:00:00
-category: event
 event-type: workshop
 event-start: 2026-02-27 01:00:00
 event-end: 2026-03-01 01:00:00
-event-venue: Škola Danza
-event-street: Okružní 1
-event-locality: Brno
+event-location: Škola Danza, Okružní 1, Brno
 event-organiser: Movement & Dance Dialogue
 preview_image: /images/Javier_2024-19.avif
 description: Kontaktango workshop s Javierem Curou z Argentiny. Energie, flow, odpor a transformace. Únor–březen 2026, Brno.

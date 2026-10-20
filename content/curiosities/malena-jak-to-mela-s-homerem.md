@@ -3,9 +3,8 @@ title: Malena – Jak to měla s Homérem?
 date: 2024-12-16 15:27:00
 category: curiosity
 description: Malena, Homero Manzi a píseň o chladných emocích. Když zjistila, že je o ní, přestala navždy zpívat.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 preview_image: /images/Malena.avif
-llm_mirror: false
 ---
 
 # Malena – Jak to měla s Homérem?

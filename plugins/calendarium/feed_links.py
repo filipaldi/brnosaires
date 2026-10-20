@@ -81,14 +81,7 @@ def discover_calendar_link_feeds(generator):
 def get_feed_id_for_tag_content(tag_content, feed_map):
     parsed_attrs = attrs.parse_calendar_link_attrs(tag_content)
     fp = _feed_fingerprint(parsed_attrs)
-    # Falling back to the literal "all" produced a subscribe link to
-    # /calendars/all.ics, a file nothing ever writes. It happened whenever the
-    # widget sat in content that `discover_calendar_link_feeds` does not scan —
-    # it walks generator.pages and generator.articles, and content/llm/ is
-    # neither, so llms-full.txt told every LLM and calendar app to subscribe to
-    # a 404. Deriving the id the same way the writer names the file keeps the
-    # link pointing at the feed the widget actually asked for.
-    feed_id = feed_map.get(fp) or _derive_feed_id(parsed_attrs, fp)
+    feed_id = feed_map.get(fp, "all")
     label = parsed_attrs.get("label")
     return feed_id, label
 
@@ -100,20 +93,17 @@ def get_feed_url_https(feed_id, siteurl, output_dir="calendars"):
     return str(siteurl).rstrip("/") + calendar_path
 
 
-def _to_webcal(url):
-    if url.startswith("https://"):
-        return "webcal://" + url[8:]
-    if url.startswith("http://"):
-        return "webcal://" + url[7:]
-    return url
-
-
 def get_google_calendar_add_url(feed_url):
-    # Google Calendar's add-by-URL (?cid=) is unreliable with a plain https:// .ics
-    # link, but consistently subscribes when the cid uses the webcal:// scheme.
-    return "https://calendar.google.com/calendar/r?cid=" + quote(_to_webcal(feed_url), safe="")
+    return "https://www.google.com/calendar/render?cid=" + quote(feed_url, safe="")
 
 
 def get_calendar_subscribe_url(feed_id, siteurl, output_dir="calendars"):
-    full_url = get_feed_url_https(feed_id, siteurl, output_dir)
-    return _to_webcal(full_url)
+    calendar_path = f"/{output_dir}/{feed_id}.ics"
+    if not siteurl or not str(siteurl).strip():
+        return calendar_path
+    full_url = str(siteurl).rstrip("/") + calendar_path
+    if full_url.startswith("https://"):
+        return "webcal://" + full_url[8:]
+    if full_url.startswith("http://"):
+        return "webcal://" + full_url[7:]
+    return full_url

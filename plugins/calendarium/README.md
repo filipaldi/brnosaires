@@ -18,9 +18,7 @@ Renders a filtered, sorted list of event cards on a page.
     days="14"
     group_by="week day"
     headers="day"
-    card_mode="solid"
-    card_width="s"
-    text_size="s">
+    card_size="s">
 </widget-calendar>
 ```
 
@@ -35,9 +33,7 @@ Renders a filtered, sorted list of event cards on a page.
 | `group_by` | string | Group events: `"day"`, `"week"`, `"month"`, `"week day"` (nested grid). |
 | `headers` | string | Show group headers: `"week"`, `"day"`, `"week day"`. Default: hidden. |
 | `hide_empty_days` | boolean | Hide empty day columns in week-day grid. Default: `false`. |
-| `card_mode` | string | Width regime: `"solid"` (default — fixed token width, consistent across the site) or `"scaling"` (container-fraction width, peek affordance). |
-| `card_width` | string | Card width within the mode. Solid: `"xs"`, `"s"` (default), `"m"`, `"l"` (token scale). Scaling: `"s"`, `"m"` (default), `"l"` (50/70/90 cqi). |
-| `text_size` | string | Typography density inside the card: `"xs"`, `"s"` (default), `"m"`. Orthogonal to width. |
+| `card_size` | string | Card size: `"xs"`, `"s"` (default), `"m"`, `"l"`. |
 
 `days` and `start`/`end` are mutually exclusive. `sort` is ignored when `group_by` is set (always chronological within groups).
 

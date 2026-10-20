@@ -3,7 +3,7 @@ title: Tango přehled a pikošky ti přináší Brnos Aires
 date: 2025-02-17 01:00:00
 category: announcement
 description: Kalendář, pikošky a La cumparsita na jednom místě. Měj přehled a všech pět pohromadě.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Tango přehled a pikošky ti přináší Brnos Aires

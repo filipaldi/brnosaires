@@ -49,12 +49,6 @@ def _parse_date_str(s):
 class Occurrence:
     def __init__(self, article, start_dt, end_dt):
         self.slug = getattr(article, "slug", None)
-        # Carry the source article's URL (e.g. "en/<slug>/" for an English
-        # event, "<slug>/" for a Czech one) so event_card.html can link to the
-        # right page — "{slug}/" alone resolves against the site root and would
-        # send an /en/ card to the Czech event.
-        self.url = getattr(article, "url", None)
-        self.lang = getattr(article, "lang", None)
         self.title = getattr(article, "title", None)
         self.preview_image = getattr(article, "preview_image", None)
         self.metadata = copy(article.metadata) if getattr(article, "metadata", None) else {}
@@ -67,195 +61,26 @@ class Occurrence:
         return self._start
 
 
-def _split_bounds(parts):
-    """Peel `from` / `until` / `count` off the end of a recurrence value.
-
-    Returns (base_parts, from_date, until_date, count). A malformed modifier is
-    dropped with a warning rather than killing the whole series — a class that
-    silently collapses to a single date is a worse outcome than one that runs
-    past its intended end, and the warning is visible in the build log.
-    """
-    base = []
-    from_date = until_date = count = None
-    index = 0
-    while index < len(parts):
-        token = parts[index]
-        argument = parts[index + 1] if index + 1 < len(parts) else None
-        if token in ("from", "until", "count") and argument is None:
-            # `weekly monday until` with nothing after it. Left in `base` this
-            # made the pattern unrecognisable, so the whole rule was dropped and
-            # a 52-week class silently became a single date — on a green build,
-            # with no warning at all.
-            logger.warning("recurring_events: '%s' has no value — ignoring it", token)
-            index += 1
-            continue
-        if token in ("from", "until") and argument is not None:
-            parsed = _parse_date_str(argument)
-            if parsed is None:
-                logger.warning("recurring_events: ignoring '%s %s' — not a YYYY-MM-DD date",
-                               token, argument)
-            elif token == "from":
-                from_date = parsed
-            else:
-                until_date = parsed
-            index += 2
-            continue
-        if token == "count" and argument is not None:
-            try:
-                parsed_count = int(argument)
-            except (ValueError, TypeError):
-                parsed_count = 0
-            if parsed_count < 1:
-                logger.warning("recurring_events: ignoring 'count %s' — not a positive integer",
-                               argument)
-            else:
-                count = parsed_count
-            index += 2
-            continue
-        base.append(token)
-        index += 1
-    return base, from_date, until_date, count
-
-
-def _ordinal_in_month(dt):
-    return (dt.day - 1) // 7 + 1
-
-
-def _fill_in_from_start(parts, meta):
-    """`weekly` / `monthly` alone: the day is the one `event-start` falls on."""
-    if len(parts) != 1 or parts[0] not in ("weekly", "monthly"):
-        return parts
-    start = _parse_event_datetime(meta, "event-start") or _parse_event_datetime(meta, "Event-start")
-    if start is None:
-        return parts
-    day = list(WEEKDAY_TO_BYDAY)[start.weekday()]
-    if parts[0] == "weekly":
-        return ["weekly", day]
-    return ["monthly", str(_ordinal_in_month(start)), day]
-
-
-def _until_field(meta, from_the_rule):
-    """`recurrence-until:`, which beats the same word written inside the rule."""
-    raw = (meta or {}).get("recurrence-until") or (meta or {}).get("Recurrence-until")
-    if raw is None or not str(raw).strip():
-        return from_the_rule
-    parsed = _parse_date_str(str(raw).strip())
-    if parsed is None:
-        logger.warning("recurring_events: ignoring 'recurrence-until: %s' — "
-                       "not a YYYY-MM-DD date", raw)
-        return from_the_rule
-    if from_the_rule is not None and from_the_rule != parsed:
-        logger.warning("recurring_events: 'recurrence-until: %s' and 'until %s' "
-                       "in the rule disagree — using the field",
-                       parsed.strftime("%Y-%m-%d"), from_the_rule.strftime("%Y-%m-%d"))
-    return parsed
-
-
 def _recurrence_to_rrule(meta):
-    """Turn a `recurrence:` value into (RRULE string, series start date).
-
-    Grammar:
-        weekly <day>            [from D] [until D] [count N]
-        monthly <ordinal> <day> [from D] [until D] [count N]
-
-    `from` moves the first occurrence without touching `event-start`, whose
-    time-of-day still applies to every occurrence. `until` is inclusive of the
-    named day. RFC 5545 forbids UNTIL and COUNT together, so UNTIL wins.
-
-    Returns (None, None) when nothing recognisable is there.
-    """
     raw = (meta.get("recurrence") or meta.get("Recurrence") or "").strip()
     if not raw:
-        return None, None
-    parts, from_date, until_date, count = _split_bounds(raw.lower().split())
-    parts = _fill_in_from_start(parts, meta)
-    until_date = _until_field(meta, until_date)
-
-    rule = None
+        return None
+    parts = raw.lower().split()
     if len(parts) == 2 and parts[0] == "weekly":
         day = WEEKDAY_TO_BYDAY.get(parts[1])
         if day:
-            rule = f"FREQ=WEEKLY;BYDAY={day}"
-    elif len(parts) == 3 and parts[0] == "monthly":
+            return f"FREQ=WEEKLY;BYDAY={day}"
+    if len(parts) == 3 and parts[0] == "monthly":
         try:
             ord_val = int(parts[1])
         except (ValueError, TypeError):
-            ord_val = 0
+            return None
+        if ord_val < -1 or ord_val == 0 or ord_val > 4:
+            return None
         day = WEEKDAY_TO_BYDAY.get(parts[2])
-        if day and ord_val != 0 and -1 <= ord_val <= 4:
-            rule = f"FREQ=MONTHLY;BYDAY={ord_val}{day}"
-    if rule is None:
-        # Reached by a typo'd keyword ("untill 2027-06-28"), which leaves a
-        # token in `base` that no pattern matches. Silence here is what turned
-        # a weekly class into one occurrence with nothing in the log.
-        logger.warning("recurring_events: recurrence %r is not a pattern I know — "
-                       "expected 'weekly <day>' or 'monthly <n> <day>', with "
-                       "optional 'from'/'until'/'count'. The event keeps its "
-                       "single date.", raw)
-        return None, None
-
-    if until_date is not None:
-        # Inclusive of the named day, so run to the last second of it.
-        rule += ";UNTIL=" + until_date.replace(
-            hour=23, minute=59, second=59).strftime("%Y%m%dT%H%M%S")
-        if count is not None:
-            logger.warning("recurring_events: 'until' and 'count' are mutually "
-                           "exclusive in %r — using 'until'", raw)
-    elif count is not None:
-        rule += f";COUNT={count}"
-    return rule, from_date
-
-
-WEEKDAY_TO_INDEX = {
-    "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
-    "friday": 4, "saturday": 5, "sunday": 6,
-}
-
-
-def recurrence_parts(metadata):
-    """The recurrence rule as pieces, or None if there is no rule I know."""
-    raw = ((metadata or {}).get("recurrence")
-           or (metadata or {}).get("Recurrence") or "")
-    raw = str(raw).strip()
-    if not raw:
-        return None
-    parts, from_date, until_date, count = _split_bounds(raw.lower().split())
-    parts = _fill_in_from_start(parts, metadata)
-    until_date = _until_field(metadata, until_date)
-    if len(parts) == 2 and parts[0] == "weekly" and parts[1] in WEEKDAY_TO_INDEX:
-        result = {"freq": "weekly", "weekday": WEEKDAY_TO_INDEX[parts[1]]}
-    elif len(parts) == 3 and parts[0] == "monthly" and parts[2] in WEEKDAY_TO_INDEX:
-        try:
-            ordinal = int(parts[1])
-        except (ValueError, TypeError):
-            return None
-        if not (-1 <= ordinal <= 4) or ordinal == 0:
-            return None
-        result = {"freq": "monthly", "weekday": WEEKDAY_TO_INDEX[parts[2]],
-                  "ordinal": ordinal}
-    else:
-        return None
-    result.update(start=from_date, until=until_date, count=count)
-    return result
-
-
-def recurrence_rule(metadata):
-    """The rule with the day spelled out, or "" if the event does not repeat."""
-    parts = recurrence_parts(metadata)
-    if parts is None:
-        return ""
-    day = list(WEEKDAY_TO_BYDAY)[parts["weekday"]]
-    if parts["freq"] == "weekly":
-        rule = f"weekly {day}"
-    else:
-        rule = f"monthly {parts['ordinal']} {day}"
-    if parts.get("start"):
-        rule += " from " + parts["start"].strftime("%Y-%m-%d")
-    if parts.get("until"):
-        rule += " until " + parts["until"].strftime("%Y-%m-%d")
-    elif parts.get("count"):
-        rule += f" count {parts['count']}"
-    return rule
+        if day:
+            return f"FREQ=MONTHLY;BYDAY={ord_val}{day}"
+    return None
 
 
 def _naive(dt):
@@ -278,13 +103,7 @@ def _expand_event(event, window_start_dt, window_end_dt):
         end_dt = start_dt
     end_dt = _naive(end_dt)
     duration = end_dt - start_dt
-    rrule_str, from_date = _recurrence_to_rrule(meta)
-    if from_date is not None:
-        # `from` moves the first occurrence; the time of day still comes from
-        # event-start, so a series can be re-anchored without editing two
-        # fields that have to agree.
-        start_dt = start_dt.replace(year=from_date.year, month=from_date.month,
-                                    day=from_date.day)
+    rrule_str = _recurrence_to_rrule(meta)
     if rrule_str is None:
         rrule_str = (meta.get("event-rrule") or "").strip()
     if not rrule_str:

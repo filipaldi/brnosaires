@@ -1,47 +1,20 @@
-{# --- language signal: define before <html> so line 1 can use it ---------- #}
-{# Some content is monolingual — no translation, and never will have one (e.g.
-   the marathon sub-site, English-first with no Czech mirror). Such content
-   declares `translate: false` in its front-matter (the marathon folders get it
-   in bulk via EXTRA_PATH_METADATA in pelicanconf.py). On those pages page_lang
-   is 'en' and the language switcher is suppressed — the i18n_fallback plugin
-   also synthesizes no /en/ clone for them, so `_trans` is empty and the
-   hreflang block below doesn't fire (correct: single-language content).
-   Everything else follows Lang: (default 'cs') and gets the switcher + an /en/
-   counterpart.
-   `_is_marathon` (below) is a separate, purely *layout* signal — which nav and
-   <body data-section> to use. Don't conflate it with the language test. #}
-{% set _obj = article if article is defined else page if page is defined else none %}
-{% set _no_translate = (_obj is not none and _obj.metadata is defined and _obj.metadata.get('translate') is sameas false) %}
-{% set _is_marathon = (page is defined and (page.section == 'marathon' or 'marathon' in page.url)) or (article is defined and 'marathon' in article.url) %}
-{% set page_lang = 'en' if _no_translate else (_obj.lang if _obj else DEFAULT_LANG) %}
-{% set _og_locale = {'cs': 'cs_CZ', 'en': 'en_GB'}.get(page_lang, 'cs_CZ') %}
-{% set _site_desc = {'cs': SITEDESCRIPTION, 'en': SITEDESCRIPTION_EN}.get(page_lang, SITEDESCRIPTION) %}
 <!DOCTYPE html>
-<html lang="{{ page_lang }}">
+<html lang="{{ DEFAULT_LANG }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ SITENAME }} - {{ SITEDESCRIPTION|default('Přehledně a aktuálně o argentinském tangu v Brně') }}">
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   {% if SITEURL %}<base href="{{ SITEURL }}/">{% endif %}
 
   {% set _page_url = article.url if article is defined else page.url if page is defined else '' %}
   {% set _title = article.title if article is defined else page.title if page is defined else SITENAME %}
-  {# Per-page meta description — the search-snippet field. Must be the page's own
-     `description:` (→ article `summary` → site default), NOT a hardcoded sitewide string. #}
   {% set _desc = (article.description if article is defined and article.description
                   else article.summary if article is defined
                   else page.description if page is defined and page.description
-                  else _site_desc) | striptags | truncate(200) %}
-  <meta name="description" content="{{ _desc }}">{# previously hardcoded sitewide — now per-page #}
-  {# og:image / twitter:image read `og_image`, NOT `preview_image`. Link
-     scrapers do not decode AVIF, so plugins/og_image.py derives a JPEG twin of
-     every non-raster preview and points this at it.
-     No fallback to preview_image on purpose: the plugin sets og_image for
-     every preview_image that resolves, passthrough formats included, so a
-     missing og_image means the source file is not there — and no og:image
-     beats one that 404s. #}
-  {% set _img = article.og_image if article is defined and article.og_image
-                else page.og_image if page is defined and page.og_image
+                  else SITEDESCRIPTION) | striptags | truncate(200) %}
+  {% set _img = article.preview_image if article is defined and article.preview_image
+                else page.preview_image if page is defined and page.preview_image
                 else '' %}
   {% set _type = 'article' if article is defined else 'website' %}
   {% set _abs_img = (SITEURL ~ '/' ~ _img.lstrip('/')) if _img and SITEURL else '' %}
@@ -55,19 +28,8 @@
 
   {% if SITEURL %}<link rel="canonical" href="{{ SITEURL }}/{{ _canonical_url }}">{% endif %}
 
-  {# hreflang alternates: the current page + each of its translations.
-     With the i18n_fallback plugin every cs page has an `en` variant and
-     vice-versa, so this fires on (almost) every page. Marathon pages have no
-     translation -> no block, which is correct (single-language sub-site). #}
-  {% set _trans = (article.translations if article is defined else page.translations if page is defined else []) %}
-  {% if SITEURL and _trans %}
-  <link rel="alternate" hreflang="{{ page_lang }}" href="{{ SITEURL }}/{{ _canonical_url }}">
-  {% for tr in _trans %}<link rel="alternate" hreflang="{{ tr.lang }}" href="{{ SITEURL }}/{{ tr.url }}">
-  {% endfor %}<link rel="alternate" hreflang="x-default" href="{{ SITEURL }}/{{ _canonical_url if page_lang == DEFAULT_LANG else _trans[0].url }}">
-  {% endif %}
-
   <meta property="og:site_name" content="{{ SITENAME }}">
-  <meta property="og:locale" content="{{ _og_locale }}">
+  <meta property="og:locale" content="cs_CZ">
   <meta property="og:title" content="{{ _title }}">
   <meta property="og:description" content="{{ _desc }}">
   <meta property="og:type" content="{{ _type }}">
@@ -79,16 +41,13 @@
   <meta name="twitter:description" content="{{ _desc }}">
   {% if _abs_img %}<meta name="twitter:image" content="{{ _abs_img }}">{% endif %}
 
-  {% if SITEURL and FEED_ALL_ATOM %}
-  <link rel="alternate" type="application/atom+xml" title="{{ SITENAME }}" href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}">
-  {% endif %}
   {% if SITEURL %}
   <link rel="alternate" type="text/plain" title="llms.txt" href="{{ SITEURL }}/llms.txt">
   <link rel="alternate" type="text/plain" title="llms-full.txt" href="{{ SITEURL }}/llms-full.txt">
   {% endif %}
 
   <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/brnos-aires.woff2" as="font" type="font/woff2">
-  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.ttf" as="font" type="font/ttf">
+  <link rel="preload" href="{{ THEME_STATIC_DIR }}/fonts/nunito-variable.woff2" as="font" type="font/woff2">
 
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/variables.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/typography.css">
@@ -98,84 +57,30 @@
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/components.css">
   <link rel="stylesheet" href="{{ THEME_STATIC_DIR }}/css/pages.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
 
   {% block head %}{% endblock %}
 </head>
-<body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if _is_marathon %}marathon{% endif %}">
-  {# Resolve the right nav slot once so the rail, the phone top-chip menu,
-     and the phone quick-link stack all pull from the same source.
-     nav_items['marathon'] is a flat list; nav_items['main'] is
-     {cs: [...], en: [...]}. #}
-  {% if _is_marathon %}
-    {% set nav_slot = 'Marathon' %}
-    {% set nav_aria = 'marathon_navigation' | t(page_lang) %}
-    {% set _raw_nav = nav_items.get('marathon', []) %}
-  {% else %}
-    {% set nav_slot = 'Main' %}
-    {% set nav_aria = 'main_navigation' | t(page_lang) %}
-    {% set _raw_nav = nav_items.get('main', {}) %}
-  {% endif %}
-  {% set nav_list = _raw_nav.get(page_lang, _raw_nav.get('cs', [])) if _raw_nav is mapping else _raw_nav %}
-
-  {# First thing in the tab order: a keyboard user should not have to walk the
-     whole nav rail on every page to reach the content. Hidden until focused.
-
-     The href repeats this page's own URL on purpose. A bare "#main" resolves
-     against the DOCUMENT BASE, and this theme emits
-     <base href="https://brnosaires.com/">, so on every page but the homepage
-     the skip link navigated away to the homepage — the exact opposite of what
-     it is for. It is the only fragment link on the site, which is why the
-     trap had never been sprung before.
-     Built from `output_file`, not from `_page_url`: that one is only defined
-     for articles and pages, so category and paginated templates would still
-     have pointed at the homepage. Pelican sets `output_file` on every
-     template it renders. #}
-  {% set _self_url = (output_file | replace('index.html', '')) if output_file is defined else _page_url %}
-  <a class="skip-link" href="{{ SITEURL }}/{{ _self_url }}#main">{{ 'skip_to_content' | t(page_lang) }}</a>
-
+<body data-slug="{{ page.slug if page is defined else article.slug if article is defined else '' }}" data-section="{% if (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}marathon{% endif %}">
   <div class="layout-with-aside">
     <div class="el-stack stack-l">
-      {# tabindex="-1" so the skip link actually moves focus. Safari will not
-         focus a non-focusable fragment target: it scrolls, focus stays on the
-         link, and the next Tab drops the visitor back into the nav rail. #}
-      <main id="main" tabindex="-1" role="main" class="padding-all-m padding-top-l">
+      <main role="main" class="padding-all-m padding-top-l">
         {% block content %}{% endblock %}
       </main>
       {% include 'components/footer.html' %}
     </div>
-    {# Desktop / tablet rail (≥ 813 px). CSS hides it on phone (≤ 812 px),
-       where the phone top-chip + quick-links below take over. #}
-    <aside class="layout-aside padding-all-m el-stack stack-l align-end" role="complementary">
-      {% if _is_marathon %}
-        {% include 'components/navigation.html' %}
+    <aside class="layout-aside padding-all-m el-stack stack-l align-end el-imposter-aside" role="complementary">
+      {% if (page is defined and page.section == 'marathon') or (page is defined and 'marathon' in page.url) or (article is defined and 'marathon' in article.url) %}
+      {% set nav_slot = 'Marathon' %}
+      {% set nav_aria = 'Marathon navigation' %}
+      {% include 'components/navigation.html' %}
       {% else %}
-        <a href="" class="logo text-xl">{{ SITENAME }}</a>
-        {% include 'components/navigation.html' %}
-        {% if not _no_translate %}{% include 'components/lang_switcher.html' %}{% endif %}
+      <a href="" class="logo text-xl">{{ SITENAME }}</a>
+      {% set nav_slot = 'Main' %}
+      {% set nav_aria = 'Main navigation' %}
+      {% include 'components/navigation.html' %}
       {% endif %}
     </aside>
   </div>
-
-  {# Phone-only top-right "double chip": wordmark + ••• menu toggle.
-     CSS hides it on tablet/desktop where the rail is visible. #}
-  <header class="top-chip" role="banner">
-    <a href="" class="top-chip__brand">{{ SITENAME }}</a>
-    <details class="top-chip__menu" id="top-chip-menu">
-      <summary class="top-chip__more" aria-label="{{ 'open_menu' | t(page_lang) }}">•••</summary>
-      <div class="top-chip__panel" role="dialog" aria-modal="false" aria-label="{{ nav_aria }}">
-        {% include 'components/navigation.html' %}
-        {% if not _is_marathon and not _no_translate %}
-          {% include 'components/lang_switcher.html' %}
-        {% endif %}
-      </div>
-    </details>
-  </header>
-
-  {# Phone-only quick-link stack (fixed bottom-right).
-     CSS hides it on tablet/desktop. Renders chips for items where
-     primary=true, using the icon column from content/navigation/*. #}
-  {% include 'components/quick_links.html' %}
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js"></script>
   <script>
@@ -183,60 +88,6 @@
       if (document.querySelector('.glightbox')) {
         GLightbox({ selector: '.glightbox' });
       }
-
-      // Close the top-chip <details> menu when the user clicks outside it,
-      // or when they pick a link inside it. <details> handles toggle-on-summary
-      // and Esc natively; this just covers click-elsewhere-to-dismiss.
-      var menu = document.getElementById('top-chip-menu');
-      if (menu) {
-        document.addEventListener('click', function (event) {
-          if (!menu.open) return;
-          if (!menu.contains(event.target)) menu.open = false;
-        });
-        menu.querySelectorAll('a').forEach(function (a) {
-          a.addEventListener('click', function () { menu.open = false; });
-        });
-      }
-
-      document.querySelectorAll('a[data-copy-url]').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-          var url = link.dataset.copyUrl;
-          if (!navigator.clipboard || !url) return;
-          event.preventDefault();
-          navigator.clipboard.writeText(url).then(function () {
-            var original = link.textContent;
-            link.textContent = '{{ "copied_prefix" | t(page_lang) }}' + original;
-            // The visible label change is invisible to a screen reader: it is
-            // not in a live region and focus has not moved. Announce it.
-            var block = link.closest('.el-stack');
-            var status = block && block.querySelector('[data-copy-status]');
-            if (status) {
-              status.textContent = '{{ "copied_status" | t(page_lang) }}';
-              setTimeout(function () { status.textContent = ''; }, 1800);
-            }
-            setTimeout(function () { link.textContent = original; }, 1800);
-          }).catch(function () {
-            window.location.href = url;
-          });
-        });
-      });
-
-      // Language switcher: remember the choice, and on the root path redirect
-      // to /en/ if the visitor previously picked English. Progressive
-      // enhancement only — the switcher links work without JS.
-      try {
-        var path = window.location.pathname;
-        var stored = window.localStorage.getItem('lang');
-        // record the language of the page we're on
-        document.querySelectorAll('a[data-set-lang]').forEach(function (a) {
-          a.addEventListener('click', function () {
-            try { window.localStorage.setItem('lang', a.getAttribute('data-set-lang')); } catch (e) {}
-          });
-        });
-        if (stored === 'en' && (path === '/' || path === '/index.html')) {
-          window.location.replace('/en/');
-        }
-      } catch (e) {}
     });
   </script>
   {% block scripts %}{% endblock %}

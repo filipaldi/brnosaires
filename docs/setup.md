@@ -1,42 +1,27 @@
-# Nastavení vývojového prostředí
+# Development Environment Setup
 
-## Obsah
+## Prerequisites
 
-- [Předpoklady](#předpoklady)
-- [Počáteční nastavení](#počáteční-nastavení)
-- [Struktura projektu](#struktura-projektu)
-- [Konfigurační soubory](#konfigurační-soubory)
-- [Cesty k obsahu](#cesty-k-obsahu)
-- [Stránkování](#stránkování)
-- [Konfigurace theme](#konfigurace-theme)
-- [Proměnné prostředí](#proměnné-prostředí)
-- [Ověření](#ověření)
-- [Nastavení IDE](#nastavení-ide)
-- [Řešení problémů](#řešení-problémů)
-- [Související dokumenty](#související-dokumenty)
-
-## Předpoklady
-
-- Python 3.8 nebo vyšší
-- pip (správce balíčků Pythonu)
+- Python 3.8 or higher
+- pip (Python package manager)
 - Git
 
-## Počáteční nastavení
+## Initial Setup
 
-### 1. Naklonování repozitáře
+### 1. Clone Repository
 
 ```bash
 git clone <repository-url>
 cd brnos-aires-web
 ```
 
-### 2. Vytvoření virtualenvu
+### 2. Create Virtual Environment
 
 ```bash
 python3 -m venv venv
 ```
 
-### 3. Aktivace virtualenvu
+### 3. Activate Virtual Environment
 
 **macOS/Linux:**
 ```bash
@@ -48,195 +33,226 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-### 4. Instalace závislostí
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Závislosti:**
-- `pelican[markdown]` – generátor statického webu
-- `notion-client` – klient Notion API (pro migrace)
-- `python-dotenv` – správa proměnných prostředí
-- `requests` – HTTP knihovna
-- `pytz` – podpora časových zón
-- `unidecode` – práce s Unicode textem
+**Dependencies:**
+- `pelican[markdown]` - Static site generator
+- `notion-client` - Notion API client (for migrations)
+- `python-dotenv` - Environment variable management
+- `requests` - HTTP library
+- `pytz` - Timezone support
+- `unidecode` - Unicode text handling
 
-## Struktura projektu
+## Project Structure
 
 ```
 brnos-aires-web/
-├── content/
-│   │   └── YYYY/MM/        # akce podle měsíce konání; pravidelná lekce
-│   │                       # patří k měsíci PRVNÍHO termínu
-│   ├── pages/              # statické stránky včetně rozcestníků sérií a měsíčních stránek
-│   ├── announcements/      # oznámení
-│   ├── curiosities/        # kuriozity
-│   ├── people/             # lidé
-│   ├── images/             # obrázky
-│   ├── llm/                # zdroj pro /llms.txt a /llms-full.txt
-│   └── navigation/         # navigační menu (main.md, footer.md, marathon.md + .en.md sourozenci)
-├── theme/                  # Pelican theme
-│   ├── templates/          # Jinja2 šablony
-│   └── static/             # CSS, JS, fonty
-├── migration-scripts/      # nástroje pro migraci z Notionu
-├── output/                 # vygenerovaný web (gitignored)
-├── pelicanconf.py          # vývojová konfigurace
-├── publishconf.py          # produkční konfigurace
-└── requirements.txt        # Python závislosti
+├── content/              # Content files
+│   ├── events/          # Event markdown files
+│   ├── pages/           # Page markdown files
+│   ├── announcements/    # Announcement files
+│   ├── classes/         # Class information
+│   └── images/          # Image assets
+├── theme/               # Pelican theme
+│   ├── templates/       # Jinja2 templates
+│   └── static/          # CSS, JS, fonts
+├── migration-scripts/    # Notion migration tools
+├── output/              # Generated site (gitignored)
+├── pelicanconf.py       # Development configuration
+├── publishconf.py       # Production configuration
+└── requirements.txt     # Python dependencies
 ```
 
-## Konfigurační soubory
+## Configuration Files
 
 ### pelicanconf.py
 
-Vývojová konfigurace:
-- `SITEURL = ""` – prázdné pro lokální vývoj
-- `RELATIVE_URLS = True` – relativní URL pro lokální testování
-- `OUTPUT_PATH = "output"` – výstupní adresář buildu
-- `DELETE_OUTPUT_DIRECTORY = True` – čistý build při každém spuštění
+Development configuration:
+- `SITEURL = ""` - Empty for local development
+- `RELATIVE_URLS = True` - Relative URLs for local testing
+- `OUTPUT_PATH = "output"` - Build output directory
+- `DELETE_OUTPUT_DIRECTORY = True` - Clean build on each run
 
 ### publishconf.py
 
-Produkční konfigurace:
-- `SITEURL = "https://brnosaires.com"` – produkční URL
-- `RELATIVE_URLS = False` – absolutní URL pro produkci
-- Dědí všechna nastavení z [pelicanconf.py](../pelicanconf.py)
+Production configuration:
+- `SITEURL = "https://brnosaires.com"` - Production URL
+- `RELATIVE_URLS = False` - Absolute URLs for production
+- Inherits all settings from `pelicanconf.py`
 
-## Cesty k obsahu
+## Content Paths
 
-Konfigurováno v [pelicanconf.py](../pelicanconf.py):
+Configured in `pelicanconf.py`:
 
-- `PAGE_PATHS = ["pages"]` – statické stránky
-- `ARTICLE_PATHS = ["announcements", "events", "curiosities", "people"]` – článkový obsah
-- `STATIC_PATHS = [...]` – statické soubory (obrázky atd.)
+- `PAGE_PATHS = ["pages"]` - Static pages
+- `ARTICLE_PATHS = ["announcements", "events", "classes"]` - Article content
+- `STATIC_PATHS = ["images"]` - Static assets
 
-## Stránkování
+## Pagination
 
-Pelican automaticky stránkuje kategorie, když je v nich víc článků, než kolik povoluje limit.
+Pelican automatically paginates category pages when there are more articles than the pagination limit.
 
-### Aktuální konfigurace
+### Current Configuration
 
-- `DEFAULT_PAGINATION = 10` – zobrazuje 10 článků na stránku
+- `DEFAULT_PAGINATION = 10` - Shows 10 articles per page
 
-### Jak to funguje
+### How It Works
 
-Když má kategorie víc než 10 článků, Pelican vytvoří víc stránek:
+When a category has more than 10 articles, Pelican creates multiple paginated pages:
 
-- kategorie **announcement** (72 článků): vytvoří `announcement.html`, `announcement2.html`, … `announcement8.html`
-- kategorie **events** (29 článků): vytvoří `events.html`, `events2.html`, `events3.html`
-- kategorie **class** (14 článků): vytvoří `class.html`, `class2.html`
+- **announcement** category (72 articles): Creates `announcement.html`, `announcement2.html`, ... `announcement8.html`
+- **events** category (29 articles): Creates `events.html`, `events2.html`, `events3.html`
+- **class** category (14 articles): Creates `class.html`, `class2.html`
 
-Každá stránka má odkazy na předchozí/další a indikuje aktuální číslo stránky (např. „Page 1 / 3").
+Each page shows navigation links to previous/next pages and indicates the current page number (e.g., "Page 1 / 3").
 
-### Úprava stránkování
+### Customising Pagination
 
-Pro změnu počtu článků na stránku uprav `DEFAULT_PAGINATION` v [pelicanconf.py](../pelicanconf.py):
+To change the number of articles per page, modify `DEFAULT_PAGINATION` in `pelicanconf.py`:
 
 ```python
 DEFAULT_PAGINATION = 20  # Show 20 articles per page
 ```
 
-Pro úplné vypnutí stránkování kategorií:
+To disable pagination for categories entirely:
 
 ```python
 CATEGORY_PAGINATION = False
 ```
 
-Pozn.: Vypnutí stránkování vytvoří jednu stránku se všemi články, což může být u velkých kategorií pomalé.
+Note: Disabling pagination will create a single page with all articles, which may be slow to load for large categories.
 
-### Výstupní soubory
+### Output Files
 
-Stránkované kategorie se generují do `output/category/`:
-- `category/announcement.html` – první stránka oznámení
-- `category/announcement2.html` – druhá stránka oznámení
-- `category/events.html` – první stránka událostí
-- atd.
+Paginated category pages are generated in `output/category/`:
+- `category/announcement.html` - First page of announcements
+- `category/announcement2.html` - Second page of announcements
+- `category/events.html` - First page of events
+- etc.
 
-Nejde o duplikáty, ale o sekvenční stránky stejné kategorie.
+These are not duplicate files, but sequential pages of the same category listing.
 
-## Konfigurace theme
+## Theme Configuration
 
-- `THEME = "theme"` – adresář s [theme](../theme/)
-- `THEME_STATIC_PATHS = ["static"]` – statické soubory theme
+- `THEME = "theme"` - Theme directory
+- `THEME_STATIC_PATHS = ["static"]` - Theme static files
 
-## Proměnné prostředí
+## Environment Variables
 
-Pokud používáš migration scripts, vytvoř soubor `.env`:
+If using migration scripts, create `.env` file:
 
 ```bash
 NOTION_API_KEY=your_api_key_here
 ```
 
-## Ověření
+## Verification
 
-### Test instalace
+### Test Installation
 
 ```bash
 pelican --version
 ```
 
-Měl by vypsat číslo verze Pelicanu.
+Should output Pelican version number.
 
-### Testovací build
+### Build Test
 
 ```bash
 pelican content -s pelicanconf.py
 ```
 
-Měl by vygenerovat web do adresáře `output/` bez chyb.
+Should generate site in `output/` directory without errors.
 
-## Nastavení IDE
+## IDE Setup
 
-### Doporučená rozšíření
+### Recommended Extensions
 
-- **Markdown**: pro editaci obsahových souborů
-- **Jinja2**: pro zvýrazňování syntaxe šablon
-- **Python**: pro Python skripty
-- **YAML**: pro syntaxi frontmatteru
+- **Markdown**: For editing content files
+- **Jinja2**: For template syntax highlighting
+- **Python**: For Python scripts
+- **YAML**: For frontmatter syntax
 
-### Konfigurace editoru
+### Editor Configuration
 
 **VS Code:**
-- Nainstaluj rozšíření „Pelican" (pokud je dostupné)
-- Nastav asociace markdown souborů
-- Nastav Python interpreter na `venv`
+- Install "Pelican" extension (if available)
+- Set markdown file associations
+- Configure Python interpreter to use `venv`
 
-## Řešení problémů
+## Troubleshooting
 
-### Problémy s virtualenvem
+### Virtual Environment Issues
 
-**Problém:** příkaz `python3` nenalezen
-**Řešení:** použij `python` místo toho, nebo nainstaluj Python 3
+**Problem:** `python3` command not found
+**Solution:** Use `python` instead, or install Python 3
 
-**Problém:** příkaz `pip` nenalezen
-**Řešení:** nainstaluj pip: `python -m ensurepip --upgrade`
+**Problem:** `pip` command not found
+**Solution:** Install pip: `python -m ensurepip --upgrade`
 
-### Problémy s instalací závislostí
+### Dependency Installation Issues
 
-**Problém:** instalace `pelican` selhává
-**Řešení:**
-- Aktualizuj pip: `pip install --upgrade pip`
-- Nainstaluj s: `pip install pelican[markdown]`
+**Problem:** `pelican` installation fails
+**Solution:** 
+- Upgrade pip: `pip install --upgrade pip`
+- Install with: `pip install pelican[markdown]`
 
-**Problém:** chyby s oprávněními
-**Řešení:** používej virtualenv (nepoužívej `sudo`)
+**Problem:** Permission errors
+**Solution:** Use virtual environment (don't use `sudo`)
 
-### Konfigurační problémy
+### Configuration Issues
 
-**Problém:** build selhává s chybami cest
-**Řešení:**
-- Ověř, že existuje adresář [content/](../content/)
-- Zkontroluj, že cesty v [pelicanconf.py](../pelicanconf.py) jsou správné
-- Ujisti se, že existuje adresář s [theme](../theme/)
+**Problem:** Build fails with path errors
+**Solution:** 
+- Verify `content/` directory exists
+- Check `pelicanconf.py` paths are correct
+- Ensure theme directory exists
 
-## Související dokumenty
+## Deployment
 
-- [Úprava obsahu](EDITING.md) – jak editovat obsah
-- [Discoverability pro LLM](LLMS.md) – LLM endpointy a mirrory
-- [SEO + sociální kartičky](SEO.md) – SEO a architektura
-- [Widget systém](WIDGETS.md) – systém widgetů
-- [Lokální testování](local-testing.md) – běh vývojového serveru
-- [Nasazení](publishing.md) – proces nasazení
-- [GitHub Issues](https://github.com/filipaldi/brnosaires/issues) – plán a nápady
-- [Brnos Aires — web](../README.md) – hlavní README projektu
+Production deployment is fully automated via GitHub Actions — see `.github/workflows/deploy.yml`.
+
+### Automatic builds
+
+The workflow runs twice daily (06:00 and 18:00 UTC) via cron, and on demand via the **Run workflow** button on the Actions tab (the `workflow_dispatch` trigger). Use the manual trigger when a content change needs to go live immediately instead of waiting for the next scheduled build.
+
+Each run:
+1. Builds with `PYTHONPATH=. pelican content -s publishconf.py` (the `PYTHONPATH=.` is required so Pelican can import local plugins from `plugins/`).
+2. Writes a `CNAME` file for the `brnosaires.com` custom domain.
+3. Publishes `output/` as a GitHub Pages artifact.
+
+### Producing a production build locally
+
+To reproduce what CI publishes — useful when debugging a production-only issue:
+
+```bash
+source venv/bin/activate
+PYTHONPATH=. pelican content -s publishconf.py
+```
+
+Pass `--debug` for verbose output when a build fails unexpectedly:
+
+```bash
+PYTHONPATH=. pelican content -s publishconf.py --debug
+```
+
+### Post-deployment smoke test
+
+After a deploy, spot-check <https://brnosaires.com>:
+
+- Homepage loads, images display, navigation works, no console errors
+- Widget-driven pages render events: `/tango-milongy-brno.html`, `/tango-kalendar-brno.html`
+- A recent event page shows correct `event-start` / `event-end`
+- No 404s on internal links from the homepage
+
+### Rolling back
+
+Because deploys are git-driven, the rollback is `git revert <bad-commit> && git push`. The next scheduled run — or a manual `workflow_dispatch` — will republish the prior state.
+
+## Next Steps
+
+- See `local-testing.md` for running the development server
+- See `WIDGETS.md` for widget system documentation

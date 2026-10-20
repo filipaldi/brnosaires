@@ -2,14 +2,10 @@
 title: Milonga v Adrinele - únor
 slug: milonga-v-adrinele-2026-02-19
 date: 2026-02-07 18:00:00
-category: event
 event-type: milonga
 event-start: 2026-02-19 20:30:00
 event-end: 2026-02-19 23:15:00
-event-venue: Adrinela Cafe
-event-street: Životského 14
-event-locality: Brno-Židenice
-series: milonga-adrinela
+event-location: Café Adrinela
 preview_image: /images/adrinela_people.avif
 description: Únorová milonga v Café Adrinela. Dortíky, paní Lada, rybičky a tango.
 author: Lenka Pláteníková

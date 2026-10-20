@@ -2,9 +2,9 @@
 title: Tvůj tangový rejstřík
 date: 2025-04-10 02:00:00
 category: announcement
-preview_image: /images/unnamed/488969756_10235698832630882_5330678575040131931_n.avif
+preview_image: /images/488969756_10235698832630882_5330678575040131931_n.avif
 description: Tvůj tangový rejstřík. Kalendář milong a akcí v Brně. Ať ti neujede vlak.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Tvůj tangový rejstřík

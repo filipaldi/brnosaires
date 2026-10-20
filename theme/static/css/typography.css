@@ -18,7 +18,7 @@
 
 @font-face {
   font-family: "Nunito";
-  src: url("../fonts/nunito-variable.ttf") format("truetype-variations");
+  src: url("../fonts/nunito-variable.woff2") format("woff2-variations");
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;
@@ -141,16 +141,17 @@ label {
   color: var(--color-neutral-3);
 }
 
+footer p {
+  font-size: var(--text-xs);
+  line-height: var(--size-m);
+}
+
 /* ============================================
    LOGO
    ============================================ */
 
 .logo {
   font-family: var(--font-display);
-}
-
-.logo:hover {
-  text-decoration: none;
 }
 
 /* ============================================

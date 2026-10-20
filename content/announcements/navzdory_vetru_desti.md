@@ -2,9 +2,9 @@
 title: navzdory_vetru_desti
 date: 2025-06-27 01:00:00
 category: announcement
-preview_image: /images/announcements/letni_tango_menu_2025.avif
+preview_image: /images/announcements/letni_tango_menu_2025.jpg
 description: Navzdory bource Richard hraje. Filip ma napad a Monca informuje. Tango menu pro vsechny.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 # navzdory_vetru_desti
 Čtvrteční milonga u Stehlíka, co se organicky změnila na milongu na Stolárně v sále č. 3 byla boží 🫶 

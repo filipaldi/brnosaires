@@ -1,107 +1,15 @@
-{# Site footer — brand + 4 grouped sections + Organization JSON-LD.
-   Brand sits in the el-sidebar's first child; the 4 groups (Events / Read /
-   Learn / Calendar) live in the second child and lay out as a responsive grid
-   via .site-footer__groups. Group link slugs are hardcoded below — change
-   them here to retitle or reorder. URLs are lang-aware via the _u macro. #}
-{% set _flang = page_lang | default(DEFAULT_LANG, true) %}
-{% set _home = '/en/' if _flang == 'en' else '/' %}
-{% set _en_prefix = '/en/' if _flang == 'en' else '/' %}
-{# Monolingual slugs have no /en/ mirror (the marathon sub-site is English-only,
-   translate:false — i18n_fallback synthesizes no /en/ clone) so they live ONLY
-   at the root. Never prefix them with /en/, or the link 404s on English pages —
-   and marathon pages force page_lang=en, so it would 404 even inside marathon.
-   Every other slug here is translatable and keeps the /en/ prefix as before. #}
-{% set _monolingual = ['marathon'] %}
-{% macro _u(slug) %}{{ '/' if slug in _monolingual else _en_prefix }}{{ slug }}/{% endmacro %}
-{% set _events = [
-  ('jarni-tango-vikend-v-brne', 'Tango víkend' if _flang != 'en' else 'Tango weekend'),
-  ('tango-leto-v-brne-aneb-letni-tango-menu', 'Tango léto' if _flang != 'en' else 'Tango summer'),
-  ('marathon', 'Tango Marathon'),
-] %}
-{% set _read = [
-  ('tango-pikosky', 'Pikošky' if _flang != 'en' else 'Curiosities'),
-  ('lenka-pise-oznamy', 'Oznámení' if _flang != 'en' else 'Announcements'),
-  ('o-nas', 'O nás' if _flang != 'en' else 'About us'),
-] %}
-{% set _learn = [
-  ('tango-lekce-brno', 'Lekce' if _flang != 'en' else 'Classes'),
-  ('skoly-a-lektorstvi', 'Školy a lektorství' if _flang != 'en' else 'Schools and teachers'),
-  ('tango-pro-zacatecniky-brno', 'Začínáš?' if _flang != 'en' else 'New here?'),
-] %}
-<footer class="site-footer padding-all-m margin-top-xl">
-  <div class="site-footer__groups">
-    <section class="el-stack stack-s">
-      <h2 class="visually-hidden">{{ SITENAME }}</h2>
-      <a href="{{ _home }}" class="logo text-l">{{ SITENAME }}</a>
-      <p class="text-s">{{ 'footer_tagline' | t(_flang) }}</p>
-    </section>
-
-    <nav>
-      <h2>{{ 'footer_h_events' | t(_flang) }}</h2>
-      <ul class="el-stack stack-s text-s">
-        {% for slug, label in _events %}
-        <li><a href="{{ _u(slug) }}">{{ label }}</a></li>
-        {% endfor %}
-      </ul>
+<footer class="padding-all-m margin-top-xl" role="contentinfo">
+  <div class="cluster justify-between gap-m">
+    <a href="" class="logo text-l">{{ SITENAME }}</a>
+    <nav class="nav cluster gap-s">
+      <a href="tango-kalendar-brno/" class="nav__item text-s">Kalendář</a>
+      <a href="tango-lekce-brno/" class="nav__item text-s">Lekce</a>
+      <a href="tango-milongy-brno/" class="nav__item text-s">Milongy</a>
+      <a href="lenka-pise-oznamy/" class="nav__item text-s">Oznámení</a>
+      <a href="tango-pikosky/" class="nav__item text-s">Pikošky</a>
+      <a href="o-nas/" class="nav__item text-s">O nás</a>
+      <a href="marathon/" class="nav__item text-s">Tango Marathon</a>
+      <a href="tango-milongy-tenhle-tyden/" class="nav__item text-s">Tanči tenhle týden</a>
     </nav>
-
-    <nav>
-      <h2>{{ 'footer_h_read' | t(_flang) }}</h2>
-      <ul class="el-stack stack-s text-s">
-        {% for slug, label in _read %}
-        <li><a href="{{ _u(slug) }}">{{ label }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
-
-    <nav>
-      <h2>{{ 'footer_h_learn' | t(_flang) }}</h2>
-      <ul class="el-stack stack-s text-s">
-        {% for slug, label in _learn %}
-        <li><a href="{{ _u(slug) }}">{{ label }}</a></li>
-        {% endfor %}
-      </ul>
-    </nav>
-
-    <section>
-      <h2>{{ 'footer_subscribe_label' | t(_flang) }}</h2>
-      <ul class="el-stack stack-s text-s">
-        <li><a href="/calendars/milongas.ics">{{ 'footer_ics_milongas' | t(_flang) }}</a></li>
-        <li><a href="/calendars/classes.ics">{{ 'footer_ics_classes' | t(_flang) }}</a></li>
-        <li><a href="/calendars/events.ics">{{ 'footer_ics_all' | t(_flang) }}</a></li>
-        {# The feed is otherwise only in <head>, and no browser has surfaced
-           autodiscovery since Chrome and Firefox dropped the RSS button, so
-           without this line a visitor cannot reach it by clicking at all.
-           Points at the RSS file, not the Atom one <head> advertises: this is
-           the link a person clicks, "RSS" is the word they know, and pointing
-           a link labelled RSS at an .atom file is a small lie for no gain.
-           Both files carry the same 32 entries. #}
-        {% if FEED_ALL_RSS %}
-        <li><a href="/{{ FEED_ALL_RSS }}">{{ 'footer_feed' | t(_flang) }}</a></li>
-        {% endif %}
-      </ul>
-    </section>
-
-    <section>
-      <h2>{{ 'footer_months_label' | t(_flang) }}</h2>
-      <ul class="el-cluster site-footer__months gap-xs text-s">
-        {% for m in range(1, 13) %}
-        <li><a href="{{ m | month_page_url(_flang) }}">{{ m | month_name(_flang) }}</a></li>
-        {% endfor %}
-      </ul>
-    </section>
   </div>
 </footer>
-
-{# Sitewide entity signal — emitted once per page (the footer is on every page). #}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  {% if SITEURL %}"@id": "{{ SITEURL }}/#organization",
-  "url": "{{ SITEURL }}/",
-  {% endif %}"name": {{ SITENAME | tojson }},
-  "description": {{ (SITEDESCRIPTION_EN if _flang == 'en' else SITEDESCRIPTION) | tojson }},
-  "areaServed": {"@type": "City", "name": "Brno"}
-}
-</script>

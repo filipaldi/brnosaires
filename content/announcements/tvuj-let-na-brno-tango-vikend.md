@@ -4,7 +4,7 @@ date: 2025-04-14 02:00:00
 category: announcement
 preview_image: /images/ELE814be5_P202002100432901.avif
 description: Tvůj let na Brno tango víkend. Workshopy, milongy, hvězdy. Přehled a registrace.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Tvůj let na Brno tango víkend
@@ -21,5 +21,5 @@ Ty, kdo máš jiné než brněnské kořeny, už víš, kam poletíš na jarní 
 👉 Sobota i neděle - workshopy s lektory z Vídně (Gottfried Gehberger a Jorge Talquenca)
 👉 Sobota 26. 4. - Milonga u brněnského draka 🐉
 👉 Neděle 27. 4. - Monastery milonga na Josefské
-Podrobnosti a časy čti na [brnosaires.com/jarni-tango-vikend-v-brne](/jarni-tango-vikend-v-brne/)
+Podrobnosti a časy čti na [https://brnosaires.com/brno-tango-vikend](https://brnosaires.com/brno-tango-vikend)
 

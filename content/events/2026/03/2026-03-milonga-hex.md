@@ -2,16 +2,12 @@
 title: Milonga v HEX Gallery
 slug: milonga-hex-gallery
 date: 2026-03-20 19:00:00
-category: event
 event-type: milonga
 event-start: 2026-03-26 19:00:00
 event-end: 2026-03-26 22:30:00
-preview_image: /images/events/2026/2026-03-milonga-hex-gallery.avif
+preview_image: /images/events/2026/2026-03-milonga-hex-gallery.jpeg
 description: Milonga v Galerii Hex.Ukázková lekce už od 18h.
 author: Filip Paldia
-event-venue: HEX Gallery
-event-street: Lidická 63a
-event-locality: Brno
 ---
 
 # Milonga v HEX Gallery

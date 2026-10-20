@@ -37,20 +37,6 @@
   --card-inner-margin: var(--size-xs);
 }
 
-/* Desktop card-width cap that scales between 12" laptop and 27" monitor.
-     Below ~1280px viewport: capped at 36rem (576px)
-     Between 1280 and 1920px: scales linearly with viewport
-     Above ~1920px viewport:  capped at 56rem (896px)
-   The middle term `calc(50vw - 4rem)` is the linear interpolation that
-   hits 36rem at 1280px and 56rem at 1920px. clamp() handles the bounds.
-   Mobile (<40rem) uses the 70vw snap-card layout from the @container
-   block lower in this file. Tune the three rem values in DevTools. */
-@container (min-width: 40rem) {
-  [class*="card-"] {
-    max-inline-size: clamp(36rem, calc(50vw - 4rem), 56rem);
-  }
-}
-
 [class*="card-"] > *:not(:first-child) {
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
@@ -63,23 +49,11 @@
 
 [class*="card-"] > * > h3,
 [class*="card-"] > * > p {
-  font-family: var(--font-base);
+  font-family: var(--font-body);
   font-size: var(--card-font-size);
   line-height: var(--card-line-height);
   font-weight: var(--font-weight-regular);
   margin-bottom: var(--card-inner-margin);
-  /* Wrap long titles / metadata so they never overflow the card.
-     min-inline-size: 0 cancels the global "h1, h2, h3, p { min-width:
-     20rem }" rule from pages.css that pins prose to a 320px minimum
-     measure (which is too wide for cards). max-inline-size: 100%
-     keeps text inside its parent. overflow-wrap: anywhere breaks any
-     unsplittable token (URLs, long names); hyphens: auto adds Czech
-     hyphenation when <html lang="cs"> is set (DEFAULT_LANG in
-     pelicanconf.py). */
-  min-inline-size: 0;
-  max-inline-size: 100%;
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 [class*="card-"] > * > h3 {
@@ -87,8 +61,6 @@
 }
 
 .card-xs {
-  --card-heading-size: var(--text-m);
-
   --card-font-size: var(--text-xs);
   --card-line-height: var(--size-s);
   --card-margin: var(--size-xs);
@@ -97,8 +69,6 @@
 }
 
 .card-s {
-  --card-heading-size: var(--text-l);
-
   --card-font-size: var(--text-s);
   --card-line-height: var(--size-s);
   --card-margin: var(--size-s);
@@ -107,8 +77,6 @@
 }
 
 .card-m {
-  --card-heading-size: var(--text-2xl);
-
   --card-font-size: var(--text-m);
   --card-line-height: var(--size-m);
   --card-margin: var(--size-m);
@@ -117,28 +85,11 @@
 }
 
 .card-l {
-  --card-heading-size: var(--text-2xl);
-
   --card-font-size: var(--text-l);
   --card-line-height: var(--size-l);
   --card-margin: var(--size-l);
   --card-inner-margin: var(--size-s);
   --card-min-width: var(--size-6xl);
-}
-
-/* A card heading is a label on a card, not a heading on a page. The markup is
-   a bare <h2>, so it took --font-display and --text-3xl from typography.css —
-   the display face at section-title size — at every card size. "Lenka
-   Pláteníková" then ran out of its card on /o-nas/ and every DJ name did the
-   same on /marathon/ at card-s. Set like the calendar's .event-card__title:
-   the reading face in bold, sized off the card. Brnos-Aires ships a single
-   400 weight, so bold has to come from Nunito's variable axis — asking the
-   display face for bold would only get a synthesised one. */
-.aesthetic-card h2 {
-  font-family: var(--font-base);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--card-heading-size, var(--text-2xl));
-  line-height: var(--card-line-height);
 }
 
 /* Cards in Cluster: flexible, grow and shrink */
@@ -147,269 +98,126 @@
   min-width: 0;
 }
 
-
+/* Cards in Reel day columns: fill the column width */
+.week.el-reel .day [class*="card-"] {
+  width: 100%;
+  flex: none;
+}
 
 /* ============================================
-   CALENDAR (v2 — self-contained component, mobile-first)
-   See plan: /Users/flp/.claude/plans/calendar-component-refactor.md
+   WIDGET CALENDAR (grouped)
    ============================================ */
 
 .calendar {
   display: block;
   container-type: inline-size;
-  margin-inline-start: calc(-1 * var(--size-m));
-  margin-inline-end: calc(-1 * var(--size-4xl));
 }
 
-@media screen and (max-width: 812px) {
-  .calendar {
-    margin-inline-end: calc(-1 * var(--size-m));
-  }
-}
-
-.calendar > .week + .week,
-.calendar > .month + .month {
-  margin-block-start: var(--size-l);
-}
-
-.calendar .week-name {
-  font-size: var(--text-m);
-  line-height: var(--size-m);
-  font-weight: var(--font-weight-medium);
-  margin-block-end: var(--size-xs);
-  padding-inline-start: var(--size-m);
-}
-
-.calendar .week-name.row-headline:has(+ .week .day-name) {
-  font-size: var(--text-l);
-  line-height: var(--size-l);
-}
-
-.calendar .weekday-name {
-  font-size: var(--text-m);
-  line-height: var(--size-m);
-  font-weight: var(--font-weight-medium);
-  margin-block-end: var(--size-xs);
-  padding-inline-start: var(--size-m);
-}
-
-.calendar .month-name {
+.week-name {
   font-size: var(--text-m);
   line-height: var(--size-m);
   font-weight: var(--font-weight-regular);
-  margin-block-end: var(--size-s);
-  padding-inline-start: var(--size-m);
 }
 
-.calendar .day-name {
+.month {
+  display: block;
+}
+
+.month-name {
+  display: block;
   font-size: var(--text-m);
   line-height: var(--size-m);
-  font-weight: var(--font-weight-medium);
-  white-space: nowrap;
-  margin-block-end: var(--size-xs);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--size-s);
 }
 
-.calendar .row-headline {
-  padding-inline-start: var(--size-m);
-  margin-block-end: var(--size-xs);
+.calendar[data-card-size="xs"] .week.el-reel .day {
+  inline-size: var(--size-3xl);
 }
 
-.calendar .week + .row-headline {
-  margin-block-start: var(--size-l);
+.calendar[data-card-size="s"] .week.el-reel .day {
+  inline-size: var(--size-4xl);
 }
 
-.calendar .row-headline + .week {
-  padding-block-start: 0;
+.calendar[data-card-size="m"] .week.el-reel .day {
+  inline-size: var(--size-5xl);
 }
 
-.calendar .week {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: var(--size-s);
-  padding-block-start: var(--size-l);
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-snap-stop: always;
-  scroll-padding-inline: var(--size-m);
-  scrollbar-width: none;
-  touch-action: pan-x;
-  -webkit-overflow-scrolling: touch;
+.calendar[data-card-size="l"] .week.el-reel .day {
+  inline-size: var(--size-6xl);
 }
 
-.calendar .week::-webkit-scrollbar { display: none; }
-
-.calendar .week::before {
-  content: "";
-  flex: 0 0 calc(var(--size-m) - var(--size-s));
-  align-self: stretch;
-  scroll-snap-align: none;
-  pointer-events: none;
+.day {
+  min-width: 0;
+  flex-shrink: 0;
 }
 
-.calendar .day {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-2xs);
-  flex: 0 0 auto;
-  align-items: stretch;
-  inline-size: auto;
-}
-
-.calendar .day:not(:has(.event-card)) { display: none; }
-
-.calendar .event-card {
+.day-name {
   display: block;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  border: var(--border-style-s);
-  border-radius: var(--border-radius-xs);
-  background-color: var(--color-gray-light-1);
-  color: var(--color-neutral-5);
-  overflow: hidden;
-  text-decoration: none;
-  padding-block-end: var(--size-s);
-}
-
-/* Solid mode (default) — token-based widths. */
-.calendar[data-card-mode="solid"] .event-card,
-.calendar:not([data-card-mode]) .event-card {
-  inline-size: var(--card-target-width, var(--size-4xl));
-  flex: none;
-}
-.calendar .week::after {
-  content: "";
-  flex: 0 0 calc(var(--aside-width, var(--size-3xl)) + var(--size-l));
-  align-self: stretch;
-  scroll-snap-align: none;
-  pointer-events: none;
-}
-
-.calendar .week > .day:last-child .event-card:last-child,
-.calendar .week > .event-card:last-child {
-  scroll-snap-align: end;
-}
-
-/* Scaling mode — container-fraction widths, floored at the matching solid token. */
-.calendar[data-card-mode="scaling"] .event-card {
-  inline-size: max(var(--card-target-width, var(--size-4xl)), var(--card-scale-fraction, 33cqi));
-  flex: 0 0 max(var(--card-target-width, var(--size-4xl)), var(--card-scale-fraction, 33cqi));
-}
-
-/* Solid widths per data-card-width (also used as scaling floor). */
-.calendar[data-card-width="xs"] { --card-target-width: var(--size-3xl); }
-.calendar[data-card-width="s"]  { --card-target-width: var(--size-4xl); }
-.calendar[data-card-width="m"]  { --card-target-width: var(--size-5xl); }
-.calendar[data-card-width="l"]  { --card-target-width: var(--size-6xl); }
-
-/* Scaling fractions per data-card-width. */
-.calendar[data-card-mode="scaling"][data-card-width="s"] { --card-scale-fraction: 22cqi; }
-.calendar[data-card-mode="scaling"][data-card-width="m"] { --card-scale-fraction: 33cqi; }
-.calendar[data-card-mode="scaling"][data-card-width="l"] { --card-scale-fraction: 45cqi; }
-
-.calendar .event-card__image {
-  background-color: var(--color-gray-light-2);
-}
-
-.calendar .event-card__title {
-  font-family: var(--font-base);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-l);
-  line-height: var(--size-m);
-  margin: var(--size-s) var(--size-s) var(--size-2xs);
-  min-inline-size: 0;
-  max-inline-size: 100%;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-.calendar .event-card__date,
-.calendar .event-card__time,
-.calendar .event-card__organiser,
-.calendar .event-card__location,
-.calendar .event-card__entry,
-.calendar .event-card__description {
-  font-family: var(--font-base);
   font-size: var(--text-s);
   line-height: var(--size-s);
-  margin: 0 var(--size-s) var(--size-2xs);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--size-xs);
 }
 
-.calendar .event-card__entry {
-  color: var(--color-neutral-3);
+.event {
+  display: block;
 }
 
-/* Text size: scales typography inside the card without touching layout. */
-.calendar[data-text-size="xs"] .event-card__title {
-  font-size: var(--text-m);
-  line-height: var(--size-s);
-}
-.calendar[data-text-size="xs"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry, .event-card__description) {
-  font-size: var(--text-xs);
-}
-.calendar[data-text-size="m"] .event-card__title {
-  font-size: var(--text-xl);
-  line-height: var(--size-l);
-}
-.calendar[data-text-size="m"] .event-card :is(.event-card__date, .event-card__time, .event-card__organiser, .event-card__location, .event-card__entry, .event-card__description) {
-  font-size: var(--text-m);
+/* Hide empty days on mobile, show on desktop (Reel layout only) */
+.week.el-reel .day:not(:has(.event)) {
+  display: none;
 }
 
-/* Series-hub clusters live outside .calendar — apply same mobile pattern,
-   including the break-out from <main>'s gutter (it can't ride on .calendar's
-   negative margin, so it gets its own). */
-@media (max-width: 40rem) {
-  .el-cluster:has(.event):not(.calendar *) {
-    margin-inline: calc(-1 * var(--size-m));
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    gap: var(--size-s);
-    scroll-snap-type: x mandatory;
-    scroll-snap-stop: always;
-    scroll-padding-inline: var(--size-m);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+@container (min-width: 40rem) {
+  .week.el-reel .day:not(:has(.event)) {
+    display: flex;
   }
-  .el-cluster:has(.event):not(.calendar *)::before {
-    content: "";
-    flex: 0 0 var(--size-m);
-    align-self: stretch;
-    scroll-snap-align: none;
-    pointer-events: none;
-  }
-  .el-cluster:has(.event):not(.calendar *)::-webkit-scrollbar {
-    display: none;
-  }
-  .el-cluster:has(.event):not(.calendar *) > .event,
-  .el-cluster:has(.event):not(.calendar *) > [class*="card-"] {
-    flex: 0 0 70vw;
-    inline-size: 70vw;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
-  .el-cluster:has(.event):not(.calendar *) > .event:last-child,
-  .el-cluster:has(.event):not(.calendar *) > [class*="card-"]:last-child {
-    margin-inline-end: 30vw;
-  }
-  .el-cluster:has(.event):not(.calendar *) .el-frame-16x9 {
-    --n: 1;
-    --d: 1;
-    aspect-ratio: 1 / 1;
-  }
-  .el-cluster:has(.event):not(.calendar *) .event h3 {
-    font-size: var(--text-l);
-    line-height: var(--size-m);
-  }
-  .el-cluster:has(.event):not(.calendar *) .event p {
-    font-size: var(--text-s);
-    line-height: var(--size-s);
-  }
+}
+
+/* Single-level groupings with Cluster */
+.day.el-cluster,
+.week.el-cluster,
+.month.el-cluster,
+.calendar > .el-cluster {
+  align-items: stretch;
+}
+
+.day.el-cluster .day-name,
+.week.el-cluster .week-name,
+.month.el-cluster .month-name {
+  flex-basis: 100%;
+  margin-bottom: var(--size-xs);
+}
+
+/* Reel-specific styles (scoped to avoid affecting Cluster) */
+.week.el-reel {
+  position: relative;
+  padding-top: 2.5rem;
+  display: flex;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  gap: var(--size-xs);
+  scrollbar-color: var(--color-light, #fff) var(--color-dark, #000);
+}
+
+.week.el-reel::-webkit-scrollbar {
+  block-size: 1rem;
+}
+
+.week.el-reel::-webkit-scrollbar-track {
+  background-color: var(--color-dark, #000);
+}
+
+.week.el-reel::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark, #000);
+  background-image: linear-gradient(var(--color-dark, #000) 0, var(--color-dark, #000) 0.25rem, var(--color-light, #fff) 0.25rem, var(--color-light, #fff) 0.75rem, var(--color-dark, #000) 0.75rem);
+}
+
+.week.el-reel .week-name {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* ============================================
@@ -499,48 +307,4 @@ input[type="checkbox"]:checked + span {
   line-height: var(--size-m);
   margin-top: var(--size-2xs);
 }
-
-/* ============================================
-   SITE FOOTER
-   ============================================ */
-
-.site-footer {
-  border-top: var(--border-style-s);
-  color: var(--color-neutral-3);
-  /* Reserve space for the fixed right nav rail (see layout.css L293).
-     Mirrors the rule that protects <main> from sliding under the rail. */
-  padding-inline-end: var(--size-4xl);
-}
-
-.site-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.site-footer h2 {
-  font-size: var(--text-m);
-  line-height: var(--size-l);
-  color: var(--color-neutral-4);
-  margin-bottom: var(--size-xs);
-}
-
-/* Six-cell footer grid: brand + 3 nav groups + subscribe + months.
-   auto-fit + minmax lets it lay out as 6 columns when room permits and
-   collapses gracefully to 5/4/3/2/1 on narrower viewports. The minmax
-   anchor (~120px) is the smallest width that keeps the longest single
-   label ("Školy a lektorství") on one line. No media queries authored. */
-.site-footer__groups {
-  display: grid;
-  gap: var(--size-l);
-  grid-template-columns: repeat(auto-fit, minmax(var(--size-2xl), 1fr));
-}
-
-/* Months sit in a narrow auto-fit column, so the cluster's flex-wrap breaks
-   the Czech names at odd spots. Two equal columns keep each name whole. */
-.site-footer__months {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
 

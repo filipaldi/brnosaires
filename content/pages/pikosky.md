@@ -3,7 +3,7 @@ title: Pikošky z prostředí argentinského tanga - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-pikosky
 description: Kuriózní perličky z tanga. Krátké příběhy a zajímavosti, které postupně sbíráme a doplňujeme.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 preview_image: /images/curiosities/smutne-obdobi-drogovych-dealeru.avif
 ---
 
@@ -19,7 +19,7 @@ Tango pikošky jsou krátké a kuriózní informace z prostředí argentinského
 
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika neolonga"
+    filter_by_type="milonga practica neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 

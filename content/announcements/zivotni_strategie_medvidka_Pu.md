@@ -2,9 +2,9 @@
 title: Životní strategie Medvídka Pů
 date: 2025-12-16 02:00:00
 category: announcement
-preview_image: /images/announcements/zivotni_strategie_medvidka_Pu.avif
+preview_image: /images/announcements/zivotni_strategie_medvidka_Pu.jpg
 description: Inspirující životní strategie Medvídka Pů. Zásobárna tangového objetí. Vánoční milongy všude možně.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Životní strategie Medvídka Pů  

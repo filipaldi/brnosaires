@@ -4,7 +4,7 @@ date: 2024-09-17 02:00:00
 category: announcement
 preview_image: /images/balanc.avif
 description: Udržuj balanc a zachovej poměr. Praktiky, milongy a tango v Brně. Rovnováha se našla.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Udržuj balanc a zachovej poměr

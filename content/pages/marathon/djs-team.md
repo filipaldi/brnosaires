@@ -1,24 +1,24 @@
 ---
-title: Our DJs
+title: DJs Team
 date: 2025-10-14T12:24:00+00:00
 slug: marathon-djs-team
 description: Marathon DJs. Handpicked friends who read the room and keep your feet moving. They know when you need that vals.
 author: Filip Paldia
 ---
 
-# Our DJs
+# DJs Team
 
-A milonga is only as good as its DJ. Buenos Aires doesn't trust the music to just anyone. Neither do we.
+Music is the heartbeat of the milonga. In Buenos Aires, they don't trust that heart to just anyone. Neither do we.
 
 <widget-articles
     link="false" 
-    slugs="balasz francesco veronika-kim vincent macka-siva" 
-    metadata="image title description" 
-    columns="3"
-    frame="1x1"
+    category="marathon-djs" 
+    metadata="image title 
+    description" 
+    columns="3" 
     card_size="s">
 </widget-articles>
 
-We chose them the way you choose a partner: taste, timing, good company. Friends first, DJs second.
+We handpicked these DJs. Not just for their technical skill, though they've got plenty, but because they're friends. People we trust, admire, and genuinely want to share a dance floor with.
 
-[See when they play](/marathon-schedule/)
+They know how to read a room, when to build tension, and when to give you that vals you didn't know you needed. Here's who will keep your feet moving:

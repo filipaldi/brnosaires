@@ -3,19 +3,15 @@
       VIEWPORT-BASED SCALING SYSTEM
       ============================================ */
 
-   /* Fluid legibility curve. The middle term (0.08rem ≈ 1.28px at default
-      root font-size) is the steady-state base unit across the mid viewport
-      band; below ~640px the 0.2vw lower-bound expression takes over and
-      shrinks --size with the viewport; above ~2133px the 0.06vw expression
-      takes over and lets it grow again. Replaces the previous five-band
-      @media --const swap. Anchors the curve to rem (not px) so OS-level
-      font-size preference still scales the whole system. */
-   --size: clamp(0.058vw, 0.072rem, 0.18vw);
+   --unit: 1vw;
+   --const: 0.2; 
+   --size: calc(var(--unit) * var(--const));
 
    /* ============================================
       SIZE SCALE
       ============================================ */
-   --size-2xs: calc(var(--size) * 5);
+
+   --size-2xs: calc(var(--size) * 5);  
    --size-xs: calc(var(--size) * 10);
    --size-s: calc(var(--size) * 20);
    --size-m: calc(var(--size) * 30);
@@ -30,6 +26,7 @@
    /* ============================================
       TYPOGRAPHY SCALE
       ============================================ */
+
    --text-2xs: calc(var(--size) * 12);
    --text-xs: calc(var(--size) * 14);
    --text-s: calc(var(--size) * 16);
@@ -37,13 +34,14 @@
    --text-l: calc(var(--size) * 21.5);
    --text-xl: calc(var(--size) * 23);
    --text-2xl: calc(var(--size) * 25);
-   --text-3xl: calc(var(--size) * 52);
+   --text-3xl: calc(var(--size) * 56);
    --text-4xl: calc(var(--size) * 71);
    --text-5xl: calc(var(--size) * 184);
 
    /* ============================================
       COLOR SCALES - NEUTRAL (PRIMARY)
       ============================================ */
+
    --color-neutral-1: #BDBABA;
    --color-neutral-2: #9B9898;
    --color-neutral-3: #6F6D6D;
@@ -53,6 +51,7 @@
    /* ============================================
       COLOR SCALES - LIGHT GRAY (BACKGROUNDS)
       ============================================ */
+
    --color-gray-light-1: #FFFFFF;
    --color-gray-light-2: #F1F1F1;
    --color-gray-light-3: #E3E3E3;
@@ -62,6 +61,7 @@
    /* ============================================
       COLOR SCALES - ACCENT (LINKS)
       ============================================ */
+
    --color-accent-1: #6F6D6D;
    --color-accent-2: #4A4949;
    --color-accent-3: #212121;
@@ -69,6 +69,7 @@
    /* ============================================
       FONT VARIABLES
       ============================================ */
+
    --font-base: "Nunito", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
    --font-display: "Brnos-Aires", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
    --font-weight-regular: 400;
@@ -81,12 +82,16 @@
    /* ============================================
       BORDERS
       ============================================ */
-   --border-width-s: calc(var(--size) * 1.5);
+
+   --border-width-s: calc(var(--size) * 1.5); 
    --border-width-m: calc(var(--size) * 3);
    --border-width-l: calc(var(--size) * 5);
+
    --border-style-s: var(--border-width-s) solid var(--color-neutral-5);
    --border-style-m: var(--border-width-m) solid var(--color-neutral-5);
    --border-style-l: var(--border-width-l) solid var(--color-neutral-5);
+
+
    --border-radius-none: 0;
    --border-radius-xs: var(--size-xs);
    --border-radius-s: var(--size-s);
@@ -101,6 +106,7 @@
    /* ============================================
       Z-INDEX
       ============================================ */
+
    --z-index-inferior: -1;
    --z-index-low: 1;
    --z-index-mid: 100;
@@ -110,5 +116,54 @@
    /* ============================================
       BUTTONS
       ============================================ */
+
    --button-padding: 0 calc(var(--size) * 8);
+}
+
+/* ============================================
+   RESPONSIVE --const VALUES
+   ============================================ */
+
+/* Mobile */
+@media screen and (orientation: portrait) and (min-width: 481px) and (max-width: 812px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (max-width: 812px) and (max-height: 812px),
+       screen and (orientation: landscape) and (max-width: 812px) {
+  :root {
+    --const: 0.15;
+  }
+}
+
+/* Tablet */
+@media screen and (orientation: portrait) and (min-width: 769px) and (max-width: 1400px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 813px) and (max-width: 1024px),
+       screen and (orientation: landscape) and (min-width: 813px) and (max-width: 1024px) {
+  :root {
+    --const: 0.12;
+  }
+}
+
+/* Desktop */
+@media screen and (orientation: portrait) and (min-width: 1401px) and (max-width: 1800px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1025px) and (max-width: 1400px),
+       screen and (orientation: landscape) and (min-width: 1025px) and (max-width: 1400px) {
+  :root {
+    --const: 0.09;
+  }
+}
+
+/* Large Desktop */
+@media screen and (orientation: portrait) and (min-width: 1801px),
+       screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1401px) and (max-width: 1800px),
+       screen and (orientation: landscape) and (min-width: 1401px) and (max-width: 1800px) {
+  :root {
+    --const: 0.075;
+  }
+}
+
+/* Extra Large Desktop */
+@media screen and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 4/3) and (min-width: 1801px),
+       screen and (orientation: landscape) and (min-width: 1801px) {
+  :root {
+    --const: 0.06;
+  }
 }

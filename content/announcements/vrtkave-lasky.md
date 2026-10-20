@@ -2,9 +2,9 @@
 title: Vrtkavé lásky
 date: 2025-05-13 02:00:00
 category: announcement
-preview_image: /images/announcements/vrtkave_lasky.avif
+preview_image: /images/announcements/vrtkave_lasky.jpg
 description: Májové lásky vrtkavé, KáPéZetka tě zachrání. Milongy u draka a u mamuta v Anthroposu. Přeběhni od draka k mamutovi.
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 
 # Vrtkavé lásky

@@ -3,7 +3,7 @@ title: Brnos Aires
 date: 2026-01-17 18:00:00
 url: 
 save_as: index.html
-description: Kde se v Brně tančí milonga? Kalendář milong na tento týden, nejbližší lekce a workshopy argentinského tanga. Vše na jednom místě, vždy aktuální.
+description: Přehledně a aktuálně o argentinském tangu v Brně. Kalendář milong, lekcí a workshopů.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
@@ -16,19 +16,8 @@ Dostat ho chtějí i k tobě, co nejblíž. Zblízka totiž vypadá ještě líp
 
 Pod jednou střechou Brnos Aires spojují všechny brněnské komunity, školy, učitele a tanečníky.
 
-Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar-brno/) nebo rovnou na [milongy tento týden](/tango-milongy-tenhle-tyden/). Začínáš úplně od nuly? [Tudy](/tango-pro-zacatecniky-brno/).
-
-## Milongy v Brně tento týden
-
-<widget-calendar
-    start="this-week"
-    filter_by_type="milonga praktika neolonga"
-    days="7">
-</widget-calendar>
-
 <widget-calendar-link 
     cal_file_name="events" 
-    filter_by_type="milonga praktika workshop neolonga"
     filter_by_path="events" 
     label="📆 Odebírej akce do svého kalendáře" 
     label_webcal="Apple" 
@@ -45,16 +34,27 @@ Hledáš, kde se v Brně tančí milonga? Mrkni do [kalendáře](/tango-kalendar
 </widget-articles>
 
 
+## Kde tančit tango tento týden
+
+<widget-calendar 
+    start="this-week" 
+    filter_by_type="milonga neolonga pocoloco praktika"
+    days="7"
+    card_size="s">
+</widget-calendar>
+
 ## Nejbližší lekce
-<widget-calendar
-    start="today"
-    filter_by_type="class"
+<widget-calendar 
+    start="today" 
+    filter_by_type="class" 
+    card_size="s"
     days="2">
 </widget-calendar>
 
 ## Nejbližší workshopy
-<widget-calendar
-    filter_by_type="workshop"
+<widget-calendar 
+    filter_by_type="workshop" 
+    card_size="s" 
     days="60">
 </widget-calendar>
 

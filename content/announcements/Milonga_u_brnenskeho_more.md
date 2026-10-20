@@ -2,9 +2,9 @@
 title: Letní finále u brněnského moře
 date: 2025-08-25 01:00:00
 category: announcement
-preview_image: /images/announcements/milonga_u_brnenskeho_more.avif
+preview_image: /images/announcements/milonga_u_brnenskeho_more.jpg
 description: Léto končí milongou u brněnského moře. Brnos Aires je nejlepší. Zintenzivni objetí. Coby kamenem dohodil. 
-author: Lenka Pláteníková
+author: Lenka Platenikova
 ---
 # Letní finále u brněnského moře
 

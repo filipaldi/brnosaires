@@ -1,21 +1,15 @@
 ---
-lang: cs
 title: Únorová neolonga
-description: Další edice neolongy. Objevíš, co s tebou ladí. Prozkoumáš hranice svojí muzikality. DJ David
-preview_image: /images/events/2026/neolonga.avif
-event-type: neolonga
+slug: neolonga-na-stolarne-2026-02-28
+date: 2026-02-24 18:00:00
+event-type: milonga
 event-start: 2026-02-28 19:00:00
 event-end: 2026-02-28 23:30:00
-event-venue: Taneční studio Stolárna
-event-street: Olomoucká 14
-event-locality: Brno
-series: neolonga-na-stolarne
-date: 2026-02-24 18:00:00
-category: event
+event-location: Taneční studio Stolárna
+preview_image: /images/events/2026/neolonga.jpg
+description: Další edice neolongy. Objevíš, co s tebou ladí. Prozkoumáš hranice svojí muzikality. DJ David
 author: Lenka Pláteníková
-slug: neolonga-na-stolarne-2026-02-28
 ---
-
 # Únorová neolonga na Stolárně
 
 Přijď prozkoumat hranice své (tango) muzikality 🎶.
@@ -24,4 +18,4 @@ Tangu může slušet jakákoli hudba, objev si, co s tebou zrovna ladí.
 Střídáme klasicky tandy po 3 písničkách. Užívej si radost z tance, hudby a objetí. 🫶
 
 DJ: David
-Vstupné: 150Kč
+Vstupné: 150Kč 

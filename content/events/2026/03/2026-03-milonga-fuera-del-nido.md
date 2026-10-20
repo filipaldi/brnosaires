@@ -2,16 +2,12 @@
 title: Milonga Fuera del Nido
 slug: milonga-fuera-del-nido-03-2026
 date: 2026-03-21 20:00:00
-category: event
 event-type: milonga
 event-start: 2026-03-28 19:00:00
 event-end: 2026-03-26 23:30:00
-preview_image: /images/events/2026/2026-03-milonga-fuera-del-nido.avif
+preview_image: /images/events/2026/2026-03-milonga-fuera-del-nido.jpg
 description: Slavnostní milonga v Domini parku. Součást víkendových workshopů Andrea Giurizzato & Rafael Luna. DJ Daniel.
 author: Lenka Pláteníková
-event-venue: Sesamo Bakery
-event-street: Purkyňova 97c
-event-locality: Brno-Královo Pole
 ---
 
 # Milonga Sesamo

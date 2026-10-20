@@ -2,17 +2,13 @@
 title: Milonga v Rockwine - březen
 slug: 2026-03-milonga-v-rockwine
 date: 2026-02-25 18:00:00
-category: event
 event-type: milonga
 event-start: 2026-03-12 19:00:00
 event-end: 2026-03-12 22:00:00
-event-venue: Rockwine
-event-street: Vídeňská 18
-event-locality: Brno
+event-location: Rockwine, Vídeňská 18, Brno
 event-organiser: Brnos Aires
-series: milonga-rockwine
 description: Březnová milonga v Rockwine. Tajemství rotundových základů, víno, sýry, olivy a kruhový parket.
-preview_image: /images/announcements/milonga_rockwine_2.avif
+preview_image: /images/announcements/milonga_rockwine_2.JPEG
 author: Lenka Pláteníková
 ---
 

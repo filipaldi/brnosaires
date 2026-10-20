@@ -2,16 +2,13 @@
 title: Andrea Giurizzato & Rafael Luna in Brno 
 slug: Andrea-and-Rafael-in-Brno
 date: 2026-02-28 13:00:00
-category: event
 event-type: workshop
 event-start: 2026-03-28 13:00:00
 event-end: 2026-03-29 17:30:00
-event-venue: Domini Park
-event-street: Husova 14
-event-locality: Brno
-preview_image: /images/events/2026/Andrea-and-Rafael.avif
+event-location: Pd Domini park, Panská 2, Brno
+preview_image: /images/events/2026/Andrea-and-Rafael.jpg
 description: Andrea Giurizzato & Rafael Luna v Brně. 
-author: Lenka Pláteníková
+author: Lenka Plateniková
 ---
 
 # Andrea Giurizzato & Rafael Luna in Brno

@@ -1,8 +1,8 @@
 ---
-title: Brnos Aires | Tango Marathon 16 – 18 Oct 2026
+title: Brnos Aires
 date: 2026-06-09T10:59:00+00:00
 slug: marathon
-description: Brnos Aires | Healthy and Cosy Tango Marathon of South Moravia (CZ) 16 – 18 Oct 2026 
+description: První tango maraton v Brně. 31. 10.–2. 11. 2025. Zdravý a útulný, 200 m² dřevěné podlahy. Nekupuj letenky do Buenos Aires.
 author: Filip Paldia
 ---
 
@@ -20,14 +20,14 @@ The dance floor spoke, social media answered, and your smiles told us everything
 
 We're not just booking someone behind the decks. We're selecting DJs we've danced to and danced with. People who understand the floor because they're on it, who feel the energy because they're part of it. They know when to build tension, when to let you breathe, when to drop that vals you didn't know you needed.
 
-[See when they play](/marathon-schedule/)
+**Confirmed TDJs**
 
 <widget-articles
     link="false" 
-    slugs="balasz francesco veronika-kim vincent macka-siva" 
-    metadata="image title description" 
-    columns="3"
-    frame="1x1"
+    category="marathon-djs" 
+    metadata="image title 
+    description" 
+    columns="3" 
     card_size="s">
 </widget-articles>
 
@@ -42,7 +42,7 @@ The floor got rave reviews. Exceptional quality wood, the kind that makes every 
 There's also a balcony with seating and tables if you want to watch the floor from above. Sometimes the best view is from a distance.
 
 
-[More about the venue](/marathon-venue/)
+[More about the venue](/venue/)
 
 ### Cosy
 
@@ -66,14 +66,14 @@ Brno sits between Prague and Vienna, small enough to feel intimate, big enough t
 
 Come for the dancing, stay for the city that doesn't try too hard.
 
-[Explore Brno: cafés, food, sights worth your time between tandas](/marathon-stay-in-brno/)
+Explore Brno – cafés, food, sights worth your time between tandas.
 
 
 ### Getting Here
 
 Brno is easy to reach. Fly into Vienna, Prague, or Brno itself. Trains and buses connect you to the rest of Europe. Once you're here, trams will get you everywhere you need to go.
 
-[Travel & transport details](/marathon-getting-to-brno/)
+Travel & transport details
 
 
 ### Nourishment for Dancers
@@ -97,10 +97,8 @@ Full pass for individuals
 **€230 Couple**  
 Full pass for couples (price for both)
 
-**€30 Student & Young Dancer**  
-Full pass for full-time students, PhD candidates, and dancers under 26. [Details](/marathon-students/)
-
-[Conditions & refunds](/marathon-conditions/)
+**€30 Youth**  
+Full pass for dancers up to 26 years old
 
 ### Organisers
 
@@ -113,6 +111,7 @@ We're looking forward to your embrace.
 
 <widget-articles
     link="false" 
+    category="people" 
     slugs="pavla-luzna lenka-platenikova filip-paldia" 
     metadata="image title" 
     columns="3" 

@@ -1,19 +1,21 @@
 ---
-title: Milongy v Brně: termíny tančíren 2026 - Tango Brno
+title: Milongy a praktiká v Brně - Tango Brno
 date: 2026-01-17 18:00:00
 slug: tango-milongy-brno
-description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny argentinského tanga, termíny a místa na jednom místě.
+description: Milongy v Brně na nejbližší období. Pravidelné i jednorázové tančírny, naplánuj si kalendář.
 author: Filip Paldia
 preview_image: /images/milonga-hned-vedle.avif
 ---
 
-# Milongy v Brně — nejbližší termíny
+# Milongy v Brně na nejbližší období
 
-Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj si kalendář na nejbližší týdny: většina milong začíná večer a partnera s sebou nepotřebuješ.
+Naplánuj si svůj taneční kalendář na nejbližší období.
+
+Tangové tančírny neboli **milongy v Brně **- pravidelné i nepravidelné.
 
 
 <widget-calendar-link 
-    filter_by_type="milonga praktika neolonga"
+    filter_by_type="milonga practica neolonga"
     cal_file_name="milongas" 
     filter_by_path="events" 
     label="📆 Odebírej milongy do svého kalendáře" 
@@ -23,13 +25,5 @@ Tančírny argentinského tanga v Brně, pravidelné i jednorázové. Naplánuj 
 </widget-calendar-link>
 
 
-<widget-calendar
-    start="this-week"
-    group_by="week day"
-    headers="week day"
-    days="40"
-    filter_by_type="milonga praktika neolonga"
-    hide_empty_days="true">
-</widget-calendar>
+<widget-calendar start="this-week" group_by="week day" headers="week day" days="40" filter_by_type="milonga neolonga pocoloco praktika" hide_empty_days="true"></widget-calendar>
 
-**Milongy po měsících:** [leden](/milongy-brno-leden/) · [únor](/milongy-brno-unor/) · [březen](/milongy-brno-brezen/) · [duben](/milongy-brno-duben/) · [květen](/milongy-brno-kveten/) · [červen](/milongy-brno-cerven/) · [červenec](/milongy-brno-cervenec/) · [srpen](/milongy-brno-srpen/) · [září](/milongy-brno-zari/) · [říjen](/milongy-brno-rijen/) · [listopad](/milongy-brno-listopad/) · [prosinec](/milongy-brno-prosinec/)
