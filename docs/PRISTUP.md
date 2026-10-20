@@ -1,6 +1,6 @@
 # Přístup do /admin/
 
-Formulář na [brnosaires.com/admin](https://brnosaires.com/admin/) zapisuje přímo do tohohle repozitáře — každé uložení je commit do větve `main`. Kdo tam smí, se proto neřídí žádným seznamem uživatelů v CMS, ale **právem zapisovat do repozitáře na GitHubu**. Odebrat někomu přístup znamená odebrat mu ho tam.
+Formulář na [brnosaires.com/admin](https://brnosaires.com/admin/) zapisuje do tohohle repozitáře. Díky `publish_mode: editorial_workflow` každé uložení založí větev a pull request; na web se dostane až po schválení správcem. Kdo tam smí, se proto neřídí žádným seznamem uživatelů v CMS, ale **právem zapisovat do repozitáře na GitHubu**. Odebrat někomu přístup znamená odebrat mu ho tam.
 
 ## Chci editovat: registrace za pět minut
 
@@ -23,6 +23,17 @@ Potřebuješ účet na GitHubu a pozvánku do repozitáře. O pozvánku požáde
 Token si prohlížeč zapamatuje, takže tohle děláš jednou (a pak znovu, až vyprší). Když se přihlašuješ z jiného počítače nebo z telefonu, vygeneruj si další — tokenů může být víc a jde je kdykoli zrušit v [nastavení GitHubu](https://github.com/settings/tokens).
 
 **Token je heslo.** Neposílej ho mailem ani do chatu. Když ti unikne, zruš ho na tomtéž místě a udělej si nový.
+
+## Schvalování obsahu
+
+Editor uloží koncept a CMS otevře pull request (záložky Draft → In review → Ready). Správce ho zkontroluje na GitHubu a sloučí; teprve tím se spustí build.
+
+Jednorázové nastavení na GitHubu, bez kterého je workflow jen doporučení:
+
+1. **Settings → Branches → Add branch ruleset** pro `main`.
+2. Zapnout **Require a pull request before merging** s **1 approval** a **Require review from Code Owners**.
+3. Přidat `.github/CODEOWNERS` s řádkem `* @filipaldi`, ať schvaluje vždy správce.
+4. Správce (Bypass list) si nechá možnost mergovat bez cizího schválení.
 
 ## Chci přidat editora
 
