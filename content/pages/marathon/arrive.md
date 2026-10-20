@@ -10,6 +10,12 @@ author: Filip Paldia
 
 Brno sits in the sweet spot between Prague and Vienna. Getting here? Easier than a good ocho.
 
+## 25 countries, 5 continents
+
+Dancers came to the 2026 marathon from all over Europe, and from as far as Japan, Australia and Argentina.
+
+<widget-visitor-map>
+
 ## By Plane
 
 **Direct to Brno:**
