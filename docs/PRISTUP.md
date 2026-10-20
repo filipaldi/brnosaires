@@ -1,3 +1,4 @@
+<img width="1536" height="996" alt="CleanShot 2026-10-20 at 15 03 14@2x" src="https://github.com/user-attachments/assets/e341a924-eed9-41dc-af53-98ac6b4a66da" />
 # Přístup do /admin/
 
 Formulář na [brnosaires.com/admin](https://brnosaires.com/admin/) zapisuje přímo do tohohle repozitáře — každé uložení je commit do větve `main`. Kdo tam smí, se proto neřídí žádným seznamem uživatelů v CMS, ale **právem zapisovat do repozitáře na GitHubu**. Odebrat někomu přístup znamená odebrat mu ho tam.
@@ -16,6 +17,9 @@ Potřebuješ účet na GitHubu a pozvánku do repozitáře. O pozvánku požáde
    - **Note** → cokoli, ať poznáš, k čemu je (např. „Brnos Aires /admin/").
    - **Expiration** → jak dlouho má token platit (po vypršení se prostě přihlásíš znovu).
    - **Scopes** → zaškrtni **`public_repo`**. Repozitář je veřejný, takže víc není potřeba; celé `repo` funguje taky, jen dává přístup i k soukromým repozitářům, které s tímhle webem nesouvisí.
+
+<img width="1536" height="996" alt="token-settings" src="https://github.com/user-attachments/assets/862f83f8-0dd7-43f4-8032-bc2f2ca2ed3c" />
+
 
    Pak **Generate token** a token zkopíruj — GitHub ho ukáže jen jednou.
 5. **Vlož token** zpátky do dialogu v /admin/ a jsi uvnitř.
