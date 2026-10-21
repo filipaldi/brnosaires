@@ -9,19 +9,19 @@ preview_image: /images/milonga-hned-vedle.avif
 
 # Školy a lektorství Argentinského tango v Brně
 
-Pavla Lužna
+[Pavla Lužná](/pavla-luzna/)
 
-Šteky
+[Štěky](/steky-yaku/)
 
-Ondra
+[Ondra](/ondra-martinak/)
 
-Albert Mikó
+[Albert Mikó](/albert-miko/)
 
 Filip a Terka
 
-Jana Habalová
+[Jana Habalová](/jana-habalova/)
 
-Petr Truhlář
+[Petr Truhlář](/petr-truhlar/)
 
 Zaujímavá Gottfriedová iniciatíva pre mladých
 
