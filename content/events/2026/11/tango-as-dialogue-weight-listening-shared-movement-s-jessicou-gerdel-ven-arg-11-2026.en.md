@@ -1,6 +1,6 @@
 ---
 lang: en
-title: 'Tango as Dialogue: Weight, Listening & Shared Movement s Jessicou Gerdel (VEN/ARG)'
+title: 'Tango as Dialogue: Weight, Listening & Shared Movement with Jessica Gerdel (VEN/ARG)'
 description: A workshop for Contact Improvisation and Contact Tango dancers, as well as anyone who would like to explore Argentine tango through listening, weight sharing and movement together.
 preview_image: /images/events/14.11. Jessica.jpg
 event-type: workshop
