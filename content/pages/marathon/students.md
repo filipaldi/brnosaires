@@ -1,8 +1,8 @@
 ---
-title: Brnos Aires | Students & Young Dancers | 16 – 18 Oct 2026
+title: Brnos Aires | Students & Young Dancers | 15 – 17 Oct 2027
 date: 2026-06-09T10:59:00+00:00
 slug: marathon-students
-description: €30 full pass for full-time students, PhD candidates, and dancers under 26. Brnos Aires Tango Marathon, Brno, 16 – 18 Oct 2026.
+description: €30 full pass for full-time students, PhD candidates, and dancers under 26. Brnos Aires Tango Marathon, Brno, 15 – 17 Oct 2027.
 author: Filip Paldia
 ---
 

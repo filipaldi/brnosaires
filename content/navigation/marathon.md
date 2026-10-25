@@ -6,4 +6,4 @@ Schedule, marathon-schedule
 Travel, marathon-getting-to-brno
 City, marathon-stay-in-brno
 Students, marathon-students
-Registration, https://form.jotform.com/260266376011047, primary, cta
+Registration, https://form.jotform.com/262975230194360, primary, cta
