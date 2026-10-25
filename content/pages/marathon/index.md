@@ -1,14 +1,14 @@
 ---
-title: Brnos Aires | Tango Marathon 16 – 18 Oct 2026
+title: Brnos Aires | Tango Marathon 15 – 17 Oct 2027
 date: 2026-06-09T10:59:00+00:00
 slug: marathon
-description: Brnos Aires | Healthy and Cosy Tango Marathon of South Moravia (CZ) 16 – 18 Oct 2026 
+description: Brnos Aires | Healthy and Cosy Tango Marathon of South Moravia (CZ) 15 – 17 Oct 2027 
 author: Filip Paldia
 ---
 
 # Brnos<br>Aires
 
-## Tango&nbsp;Marathon <br>16 – 18 Oct 2026 <br>Brno,&nbsp;Czechia <br>Healthy&nbsp;&&nbsp;Cosy
+## Tango&nbsp;Marathon <br>15 – 17 Oct 2027 <br>Brno,&nbsp;Czechia <br>Healthy&nbsp;&&nbsp;Cosy
 
 The word is out. 
 
