@@ -12,7 +12,6 @@ event-organiser: Dialogy v pohybu
 event-url: https://dialogyvpohybu.cz/beyond-tango-argentino-vocabulary.html
 category: event
 date: 2026-10-25 12:49:00
-slug: dialogyvpohybu.cz
 ---
 
 How often do you get the chance to question habitual movement patterns and discover new possibilities within your tango?

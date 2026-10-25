@@ -259,6 +259,11 @@ collections:
         widget: string
         required: false
         i18n: duplicate
+        # Jen znaky, které starší ručně psané slugy už mají (velká písmena,
+        # podtržítka), aby šly dál uložit. Tečka ani lomítko projít nesmí:
+        # do pole se vepsala webová adresa pořadatele, dvě akce dostaly
+        # stejnou adresu a build spadl na FileOverwriteFailedError.
+        pattern: ['^[A-Za-z0-9_-]*$', 'Jen písmena bez diakritiky, číslice a pomlčky. Žádná tečka ani webová adresa — odkaz na pořadatele patří do pole Externí odkaz.']
         hint: >-
           Nech prázdné — adresa se vyrobí z názvu sama. Vyplň jen když
           potřebuješ jinou: bez diakritiky, malými písmeny s pomlčkami.

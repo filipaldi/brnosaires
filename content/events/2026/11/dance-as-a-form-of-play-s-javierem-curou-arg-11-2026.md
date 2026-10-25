@@ -14,7 +14,6 @@ entry: 3400 - 4100 Kč
 event-url: https://dialogyvpohybu.cz/dance-as-a-form-of-play.html
 category: event
 date: 2026-10-25 13:33:00
-slug: www.dialogyvpohybu.cz
 ---
 
 Hra je zásadní pro naši kreativitu. Pomáhá nám zůstávat otevření neustálým změnám života, učit se, hledat nová řešení a prožívat radost skrze tělo.
