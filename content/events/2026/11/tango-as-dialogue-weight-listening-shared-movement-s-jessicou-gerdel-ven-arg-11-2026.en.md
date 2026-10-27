@@ -14,7 +14,6 @@ entry: 750 Kč
 event-url: https://dialogyvpohybu.cz/tango-as-dialogue.html
 category: event
 date: 2026-10-25 13:10:00
-slug: www.dialogyvpohybu.cz
 ---
 
 What happens when we bring the principles of Contact Improvisation into Tango Argentino and look at tango through a body that already knows how to listen, respond and share weight?

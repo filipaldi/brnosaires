@@ -14,7 +14,6 @@ entry: 3400 - 4100 CZK
 event-url: https://dialogyvpohybu.cz/dance-as-a-form-of-play.html
 category: event
 date: 2026-10-25 13:33:00
-slug: www.dialogyvpohybu.cz
 ---
 
 Play is essential for our creativity: it allows us to remain adaptable to life’s continuous changes, finding new solutions.

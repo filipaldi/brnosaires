@@ -14,7 +14,6 @@ entry: 750 Kč
 event-url: https://dialogyvpohybu.cz/tango-as-dialogue.html
 category: event
 date: 2026-10-25 13:10:00
-slug: www.dialogyvpohybu.cz
 ---
 
 Co se stane, když do argentinského tanga přineseme principy kontaktní improvizace a podíváme se na tango prostřednictvím těla, které už umí naslouchat, reagovat a sdílet váhu?

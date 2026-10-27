@@ -13,7 +13,6 @@ entry: 750 Kč
 event-url: https://dialogyvpohybu.cz/beyond-tango-argentino-vocabulary.html
 category: event
 date: 2026-10-25 12:49:00
-slug: dialogyvpohybu.cz
 ---
 
 Jak často máme příležitost zpochybnit své navyklé pohybové vzorce a objevit v tangu nové možnosti? Co se stane, když se samotné vyjednávání prostoru stane pohybem? Jak se může známý krok proměnit, když k němu přistoupíme jinak? A co když rozšíření našeho repertoáru nemusí znamenat naučit se další figuru?

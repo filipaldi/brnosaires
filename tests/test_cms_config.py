@@ -183,6 +183,16 @@ class Slug(unittest.TestCase):
                if not any(re.match(r"^\s*required:\s*false\s*$", line) for line in block)]
         self.assertEqual(bad, [], f"slug is a required field: {bad}")
 
+    def test_the_slug_cannot_be_a_web_address(self):
+        # An editor typed the organiser's site, `www.dialogyvpohybu.cz`, into
+        # it for two events. Both got the same URL and the build stopped at
+        # FileOverwriteFailedError. The pattern still has to take capitals and
+        # underscores, or the older hand-written slugs could not be saved.
+        bad = [f"config.yml:{number}" for number, block in field_blocks("slug")
+               if not any(re.match(r"^\s*pattern:\s*\['\^\[A-Za-z0-9_-\]\*\$'", line)
+                          for line in block)]
+        self.assertEqual(bad, [], f"slug fields without the address pattern: {bad}")
+
     def test_the_slug_stands_last_so_it_can_be_ignored(self):
         # Under the body, out of the path an editor takes through the form.
         collection = None

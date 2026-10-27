@@ -266,6 +266,45 @@ class Language(unittest.TestCase):
         self.assertEqual(bad, [], f"Czech files declaring lang: en: {bad[:5]}")
 
 
+class Slug(unittest.TestCase):
+    """A hand-written `slug:` is the page's URL, and two pages cannot share one.
+
+    The CMS wrote the organiser's web address, `www.dialogyvpohybu.cz`, as the
+    slug of two different events. Pelican gave both `en/www.dialogyvpohybu.cz/`
+    and stopped at FileOverwriteFailedError, taking 24 tests down with it,
+    without naming either file. These name them.
+    """
+
+    SLUG = re.compile(r"^[A-Za-z0-9_-]+$")
+
+    def slugs(self):
+        """(path, lang, slug) for every entry that sets its slug by hand."""
+        for path, lines in entries():
+            meta = {}
+            for line in front_matter(lines) or []:
+                match = KEY_LINE.match(line)
+                if match:
+                    meta[match.group(1)] = match.group(2).strip()
+            if meta.get("slug"):
+                lang = meta.get("lang") or ("en" if path.endswith(".en.md") else "cs")
+                yield path, lang, meta["slug"]
+
+    def test_every_slug_is_a_path_segment(self):
+        bad = [f"{path}: {slug!r}" for path, _lang, slug in self.slugs()
+               if not self.SLUG.match(slug)]
+        self.assertEqual(bad, [], f"slugs that are not a plain URL segment: {bad[:5]}")
+
+    def test_no_two_entries_share_a_slug(self):
+        seen = {}
+        bad = []
+        for path, lang, slug in self.slugs():
+            if (lang, slug) in seen:
+                bad.append(f"{path} and {seen[lang, slug]}: {lang} {slug!r}")
+            else:
+                seen[lang, slug] = path
+        self.assertEqual(bad, [], f"entries sharing a slug: {bad[:5]}")
+
+
 if __name__ == "__main__":
     unittest.main()
 
