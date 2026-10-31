@@ -1,7 +1,7 @@
 ---
 lang: cs
 title: Brunch milonga v Sesamo
-description: Brunch milonga u Rosaria. Výborné občerstvení - italská kvalita a Rosariova pohostinnost. Náhrada sobotní Skleněnky, která nebude.
+description: Brunch milonga u Rosaria. Výborné občerstvení - italská kvalita a Rosariova pohostinnost. Náhrada sobotní Skleněnky, která nebude. DJ Žofi.
 preview_image: /images/events/2026/brunch milonga.avif
 event-type: milonga
 event-start: 2026-11-08 11:00:00
@@ -20,3 +20,4 @@ author: Lenka Pláteníková
 
 Milonga v době, kdy mají lidi zpravidla nejvíc energie. S kvalitním občerstvením, které nabízí Rosario ve své echt italské pizzerii - croissanty, italský chleba, pizza, foccacia, káva a dezerty až oči přechází a sliny se sbíhají. Nejlepší kombinace s tangem.
 Náhrada sobotní milongy na Skleněnce, která v listopadu nebude.
+DJ Zsofia neboli Žofka.

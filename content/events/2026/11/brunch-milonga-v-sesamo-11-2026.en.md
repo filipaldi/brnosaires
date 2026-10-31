@@ -1,7 +1,7 @@
 ---
 lang: en
 title: Brunch milonga at Sesamo
-description: A brunch milonga at Rosario's. Excellent food, Italian quality and Rosario's hospitality.
+description: A brunch milonga at Rosario's. Excellent food, Italian quality and Rosario's hospitality. DJ Zsofia.
 preview_image: /images/events/2026/brunch milonga.avif
 event-type: milonga
 event-start: 2026-11-08 11:00:00
@@ -19,3 +19,4 @@ author: Lenka Pláteníková
 # Brunch Milonga at Sesamo
 
 A milonga at the hour when people usually have the most energy, with the fine spread Rosario lays on in his properly Italian pizzeria: croissants, Italian bread, pizza, focaccia, coffee and desserts that make your eyes wander and your mouth water. The best possible match for tango.
+DJ Zsofia.
