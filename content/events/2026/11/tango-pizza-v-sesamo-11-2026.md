@@ -4,15 +4,15 @@ title: Tango & Pizza v Sesamo
 description: Neformální milonga každý druhý čtvrtek v Sesamo Bakery s pravým italským občerstvením v ceně. Na taneční úrovni nezáleží.
 preview_image: /images/events/Sesamo tango a pizza.jpg
 event-type: milonga
-event-start: 2026-11-12 19:00:00
-event-end: 2026-11-12 23:00:00
+event-start: 2026-11-26 19:00:00
+event-end: 2026-11-26 23:00:00
 event-venue: Sesamo Bakery
 event-street: Purkyňova 97c
 event-locality: Brno
 event-organiser: Rosario Colletti
 entry: 100 Kč
 category: event
-date: 2026-11-01 14:38:00
+date: 2026-11-01 14:41:00
 author: Lenka Pláteníková
 ---
 
