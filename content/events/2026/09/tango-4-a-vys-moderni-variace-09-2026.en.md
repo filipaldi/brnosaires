@@ -1,13 +1,13 @@
 ---
 lang: en
 title: TS Stolárna - Tango course 4 and up (modern variations)
-description: Course for graduates of Tango 3 and above.
+description: Course for graduates of Tango 3 and above. The theme is musicality.
 preview_image: /images/events/2026/Ondra-Pavla.avif
 event-type: class
 event-start: 2026-09-17 19:15:00
 event-end: 2026-09-17 20:30:00
 recurrence: weekly
-recurrence-until: 2026-11-05
+recurrence-until: 2027-01-17
 event-venue: Taneční studio Stolárna
 event-street: Olomoucká 14
 event-locality: Brno
@@ -22,7 +22,7 @@ date: 2026-08-30 18:41:00
 author: Lenka Pláteníková
 ---
 
-The Modern Variations course will cover specific topics in depth. It will focus on technical details and practice.
+The Modern Variations course will cover specific topics in depth. It will focus on technical details and practice. This time, the theme is MUSICALITY.
 It is for anyone who has completed Tango level 3 and above.
 You can also pay for individual lessons.
 You don't have to come as a couple if you register in advance.
