@@ -16,6 +16,7 @@ event-organiser: TangoLab Štěky
 entry: 80 CZK
 event-url: https://tangolabsteky.webnode.cz/
 recurrence: weekly
+recurrence-until: 2026-11-03
 slug: praktika_tangolab_utery
 ---
 
