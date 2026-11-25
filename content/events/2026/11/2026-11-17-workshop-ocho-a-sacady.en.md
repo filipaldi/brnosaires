@@ -2,7 +2,7 @@
 lang: en
 title: Workshop - Ochos and sacadas
 description: Three-hour November workshop by TangoLab Štěky at HEX Gallery. The ocho as you know it and do not, its connection to sacadas, combinations straight onto the dance floor. In place of the open class and practica.
-preview_image: /images/events/2026/Tangolab-HEX-milonga.avif
+preview_image: /images/events/2026/Tangolab-pokrocili-02.avif
 event-type: workshop
 event-start: 2026-11-17 18:00:00
 event-end: 2026-11-17 21:00:00

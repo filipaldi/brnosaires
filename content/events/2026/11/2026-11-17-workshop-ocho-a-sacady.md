@@ -2,7 +2,7 @@
 lang: cs
 title: Workshop - Ocho a sacady
 description: Tříhodinový listopadový workshop TangoLab Štěky v HEX Gallery. Osmička, jak ji znáte i neznáte, její propojení se sacadami a kombinace rovnou na parket. Místo open class a praktiky.
-preview_image: /images/events/2026/Tangolab-HEX-milonga.avif
+preview_image: /images/events/2026/Tangolab-pokrocili-02.avif
 event-type: workshop
 event-start: 2026-11-17 18:00:00
 event-end: 2026-11-17 21:00:00
