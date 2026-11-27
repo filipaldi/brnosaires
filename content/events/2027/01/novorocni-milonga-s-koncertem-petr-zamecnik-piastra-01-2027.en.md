@@ -35,7 +35,7 @@ Line-up:
 - **Šimon Jakubíček** - double bass
 - **Lukáš Krejčí** - percussion
 
-DJ for recorded music: to be confirmed
+DJ for recorded music: Mačka (Bratislava, SK)
 
 More: https://www.tangozamecnik.cz/piastra/
 

@@ -35,7 +35,7 @@ Obsazení:
 - **Šimon Jakubíček** – kontrabas
 - **Lukáš Krejčí** – perkuse
 
-DJ reprodukované hudby: bude doplněn
+DJ reprodukované hudby: Mačka (Bratislava, SK) 
 
 Více: https://www.tangozamecnik.cz/piastra/
 
