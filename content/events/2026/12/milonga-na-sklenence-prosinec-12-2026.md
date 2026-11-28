@@ -1,7 +1,7 @@
 ---
 lang: cs
 title: Milonga na Skleněnce - prosinec
-description: Skleněnka se vrací - předvánoční edice pro všechny tango fajnšmekry.
+description: Skleněnka se vrací - předvánoční edice pro všechny tango fajnšmekry. DJ Terka.
 preview_image: /images/events/Sklenenka zari 26.jpg
 event-type: milonga
 event-start: 2026-12-05 18:00:00
@@ -22,3 +22,5 @@ Skleněnka se po pauze vrací. Naposledy v tomto roce si dej předvánoční na 
 Skleněnka patří k brněnskému tango koloritu už 17 let! Čili je to adolescentní milonga, kterou všichni milují, přestože se v jednom kuse omluvně usmívají na ty tanečníky, 
 kteří jsou na tom malém parketu blíž než čekali. Aspoň k sobě nemáme daleko.
 Tango vřelé a blízké.
+
+DJ Terka.
